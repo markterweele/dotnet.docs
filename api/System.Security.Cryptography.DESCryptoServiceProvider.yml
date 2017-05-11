@@ -5,7 +5,9 @@ items:
   id: DESCryptoServiceProvider
   children:
   - System.Security.Cryptography.DESCryptoServiceProvider.#ctor
+  - System.Security.Cryptography.DESCryptoServiceProvider.CreateDecryptor
   - System.Security.Cryptography.DESCryptoServiceProvider.CreateDecryptor(System.Byte[],System.Byte[])
+  - System.Security.Cryptography.DESCryptoServiceProvider.CreateEncryptor
   - System.Security.Cryptography.DESCryptoServiceProvider.CreateEncryptor(System.Byte[],System.Byte[])
   - System.Security.Cryptography.DESCryptoServiceProvider.GenerateIV
   - System.Security.Cryptography.DESCryptoServiceProvider.GenerateKey
@@ -18,11 +20,12 @@ items:
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Defines a wrapper object to access the cryptographic service provider (CSP) version of the Data Encryption Standard (<xref href="System.Security.Cryptography.DES"></xref>) algorithm. This class cannot be inherited.
   remarks: This algorithm supports a key length of 64 bits.
   example:
-  - "The following code example uses <xref:System.Security.Cryptography.DESCryptoServiceProvider> (an implementation of <xref:System.Security.Cryptography.DES>) with the specified key (<xref:System.Security.Cryptography.SymmetricAlgorithm.Key%2A>) and initialization vector (<xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A>) to encrypt a file specified by `inName`. It then outputs the encrypted result to the file specified by `outName`.  \n  \n [!code-cpp[Classic DES Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_Classic/classic DES Example/CPP/source.cpp#1)]\n [!code-csharp[Classic DES Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_Classic/classic DES Example/CS/source.cs#1)]\n [!code-vb[Classic DES Example#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_Classic/classic DES Example/VB/source.vb#1)]  \n  \n Decryption can be handled in the same way; use [CreateDecryptor(Byte\\[\\], Byte\\<xref:System.Security.Cryptography.DESCryptoServiceProvider.CreateDecryptor%2A> instead of [CreateEncryptor(Byte\\[\\], Byte\\<xref:System.Security.Cryptography.DESCryptoServiceProvider.CreateEncryptor%2A>. The same key (<xref:System.Security.Cryptography.SymmetricAlgorithm.Key%2A>) and initialization vector (<xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A>) used to encrypt the file must be used to decrypt it."
+  - "The following code example uses <xref:System.Security.Cryptography.DESCryptoServiceProvider> (an implementation of <xref:System.Security.Cryptography.DES>) with the specified key (<xref:System.Security.Cryptography.SymmetricAlgorithm.Key%2A>) and initialization vector (<xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A>) to encrypt a file specified by `inName`. It then outputs the encrypted result to the file specified by `outName`.  \n  \n [!code-cpp[Classic DES Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_Classic/classic DES Example/CPP/source.cpp#1)]\n [!code-csharp[Classic DES Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_Classic/classic DES Example/CS/source.cs#1)]\n [!code-vb[Classic DES Example#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_Classic/classic DES Example/VB/source.vb#1)]  \n  \n Decryption can be handled in the same way; use <xref:System.Security.Cryptography.DESCryptoServiceProvider.CreateDecryptor%2A> instead of <xref:System.Security.Cryptography.DESCryptoServiceProvider.CreateEncryptor%2A>. The same key (<xref:System.Security.Cryptography.SymmetricAlgorithm.Key%2A>) and initialization vector (<xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A>) used to encrypt the file must be used to decrypt it."
   syntax:
     content: >-
       [System.Runtime.InteropServices.ComVisible(true)]
@@ -49,8 +52,6 @@ items:
   - System.Security.Cryptography.SymmetricAlgorithm.BlockSize
   - System.Security.Cryptography.SymmetricAlgorithm.BlockSizeValue
   - System.Security.Cryptography.SymmetricAlgorithm.Clear
-  - System.Security.Cryptography.SymmetricAlgorithm.CreateDecryptor
-  - System.Security.Cryptography.SymmetricAlgorithm.CreateEncryptor
   - System.Security.Cryptography.SymmetricAlgorithm.Dispose
   - System.Security.Cryptography.SymmetricAlgorithm.Dispose(System.Boolean)
   - System.Security.Cryptography.SymmetricAlgorithm.FeedbackSize
@@ -72,6 +73,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -84,6 +86,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -96,9 +99,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DESCryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DESCryptoServiceProvider.#ctor
   commentId: M:System.Security.Cryptography.DESCryptoServiceProvider.#ctor
   id: '#ctor'
@@ -107,11 +107,12 @@ items:
   - csharp
   name: DESCryptoServiceProvider()
   nameWithType: DESCryptoServiceProvider.DESCryptoServiceProvider()
-  fullName: System.Security.Cryptography.DESCryptoServiceProvider.DESCryptoServiceProvider()
+  fullName: DESCryptoServiceProvider.DESCryptoServiceProvider()
   type: Constructor
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Initializes a new instance of the <xref href="System.Security.Cryptography.DESCryptoServiceProvider"></xref> class.
   remarks: ''
@@ -127,6 +128,7 @@ items:
     description: The Data Encryption Standard (<xref href="System.Security.Cryptography.DES"></xref>) cryptographic service provider is not available.
   attributes: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -139,6 +141,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -151,9 +154,32 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DESCryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
+- uid: System.Security.Cryptography.DESCryptoServiceProvider.CreateDecryptor
+  commentId: M:System.Security.Cryptography.DESCryptoServiceProvider.CreateDecryptor
+  id: CreateDecryptor
+  parent: System.Security.Cryptography.DESCryptoServiceProvider
+  langs:
+  - csharp
+  name: CreateDecryptor()
+  nameWithType: DESCryptoServiceProvider.CreateDecryptor()
+  fullName: DESCryptoServiceProvider.CreateDecryptor()
+  type: Method
+  assemblies:
+  - System.Security.Cryptography.Csp
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override System.Security.Cryptography.ICryptoTransform CreateDecryptor ();
+    parameters: []
+    return:
+      type: System.Security.Cryptography.ICryptoTransform
+      description: To be added.
+  overload: System.Security.Cryptography.DESCryptoServiceProvider.CreateDecryptor*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DESCryptoServiceProvider.xml
 - uid: System.Security.Cryptography.DESCryptoServiceProvider.CreateDecryptor(System.Byte[],System.Byte[])
   commentId: M:System.Security.Cryptography.DESCryptoServiceProvider.CreateDecryptor(System.Byte[],System.Byte[])
   id: CreateDecryptor(System.Byte[],System.Byte[])
@@ -162,11 +188,12 @@ items:
   - csharp
   name: CreateDecryptor(Byte[], Byte[])
   nameWithType: DESCryptoServiceProvider.CreateDecryptor(Byte[], Byte[])
-  fullName: System.Security.Cryptography.DESCryptoServiceProvider.CreateDecryptor(Byte[], Byte[])
+  fullName: DESCryptoServiceProvider.CreateDecryptor(Byte[], Byte[])
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Creates a symmetric Data Encryption Standard (<xref href="System.Security.Cryptography.DES"></xref>) decryptor object with the specified key (<xref href="System.Security.Cryptography.SymmetricAlgorithm.Key"></xref>) and initialization vector (<xref href="System.Security.Cryptography.SymmetricAlgorithm.IV"></xref>).
   remarks: This method decrypts an encrypted message that was created using the <xref:System.Security.Cryptography.DESCryptoServiceProvider.CreateEncryptor%2A> overload with the same parameters.
@@ -189,6 +216,7 @@ items:
     description: "The value of the <xref href=\"System.Security.Cryptography.SymmetricAlgorithm.Mode\"></xref> property is <xref href=\"System.Security.Cryptography.CipherMode.OFB\"></xref>.  \n  \n -or-  \n  \n The value of the <xref href=\"System.Security.Cryptography.SymmetricAlgorithm.Mode\"></xref> property is <xref href=\"System.Security.Cryptography.CipherMode.CFB\"></xref> and the value of the <xref href=\"System.Security.Cryptography.SymmetricAlgorithm.FeedbackSize\"></xref> property is not 8.  \n  \n -or-  \n  \n An invalid key size was used.  \n  \n -or-  \n  \n The algorithm key size was not available."
   attributes: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -201,6 +229,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -213,9 +242,32 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DESCryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
+- uid: System.Security.Cryptography.DESCryptoServiceProvider.CreateEncryptor
+  commentId: M:System.Security.Cryptography.DESCryptoServiceProvider.CreateEncryptor
+  id: CreateEncryptor
+  parent: System.Security.Cryptography.DESCryptoServiceProvider
+  langs:
+  - csharp
+  name: CreateEncryptor()
+  nameWithType: DESCryptoServiceProvider.CreateEncryptor()
+  fullName: DESCryptoServiceProvider.CreateEncryptor()
+  type: Method
+  assemblies:
+  - System.Security.Cryptography.Csp
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override System.Security.Cryptography.ICryptoTransform CreateEncryptor ();
+    parameters: []
+    return:
+      type: System.Security.Cryptography.ICryptoTransform
+      description: To be added.
+  overload: System.Security.Cryptography.DESCryptoServiceProvider.CreateEncryptor*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DESCryptoServiceProvider.xml
 - uid: System.Security.Cryptography.DESCryptoServiceProvider.CreateEncryptor(System.Byte[],System.Byte[])
   commentId: M:System.Security.Cryptography.DESCryptoServiceProvider.CreateEncryptor(System.Byte[],System.Byte[])
   id: CreateEncryptor(System.Byte[],System.Byte[])
@@ -224,11 +276,12 @@ items:
   - csharp
   name: CreateEncryptor(Byte[], Byte[])
   nameWithType: DESCryptoServiceProvider.CreateEncryptor(Byte[], Byte[])
-  fullName: System.Security.Cryptography.DESCryptoServiceProvider.CreateEncryptor(Byte[], Byte[])
+  fullName: DESCryptoServiceProvider.CreateEncryptor(Byte[], Byte[])
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Creates a symmetric Data Encryption Standard (<xref href="System.Security.Cryptography.DES"></xref>) encryptor object with the specified key (<xref href="System.Security.Cryptography.SymmetricAlgorithm.Key"></xref>) and initialization vector (<xref href="System.Security.Cryptography.SymmetricAlgorithm.IV"></xref>).
   remarks: Use the <xref:System.Security.Cryptography.DESCryptoServiceProvider.CreateDecryptor%2A> overload with the same parameters to decrypt the result of this method.
@@ -253,6 +306,7 @@ items:
     description: "The value of the <xref href=\"System.Security.Cryptography.SymmetricAlgorithm.Mode\"></xref> property is <xref href=\"System.Security.Cryptography.CipherMode.OFB\"></xref>.  \n  \n -or-  \n  \n The value of the <xref href=\"System.Security.Cryptography.SymmetricAlgorithm.Mode\"></xref> property is <xref href=\"System.Security.Cryptography.CipherMode.CFB\"></xref> and the value of the <xref href=\"System.Security.Cryptography.SymmetricAlgorithm.FeedbackSize\"></xref> property is not 8.  \n  \n -or-  \n  \n An invalid key size was used.  \n  \n -or-  \n  \n The algorithm key size was not available."
   attributes: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -265,6 +319,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -277,9 +332,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DESCryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DESCryptoServiceProvider.GenerateIV
   commentId: M:System.Security.Cryptography.DESCryptoServiceProvider.GenerateIV
   id: GenerateIV
@@ -288,11 +340,12 @@ items:
   - csharp
   name: GenerateIV()
   nameWithType: DESCryptoServiceProvider.GenerateIV()
-  fullName: System.Security.Cryptography.DESCryptoServiceProvider.GenerateIV()
+  fullName: DESCryptoServiceProvider.GenerateIV()
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Generates a random initialization vector (<xref href="System.Security.Cryptography.SymmetricAlgorithm.IV"></xref>) to use for the algorithm.
   remarks: Use this method to generate a random <xref:System.Security.Cryptography.SymmetricAlgorithm.IV%2A> when none is specified.
@@ -302,6 +355,7 @@ items:
   overload: System.Security.Cryptography.DESCryptoServiceProvider.GenerateIV*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -314,6 +368,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -326,9 +381,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DESCryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DESCryptoServiceProvider.GenerateKey
   commentId: M:System.Security.Cryptography.DESCryptoServiceProvider.GenerateKey
   id: GenerateKey
@@ -337,11 +389,12 @@ items:
   - csharp
   name: GenerateKey()
   nameWithType: DESCryptoServiceProvider.GenerateKey()
-  fullName: System.Security.Cryptography.DESCryptoServiceProvider.GenerateKey()
+  fullName: DESCryptoServiceProvider.GenerateKey()
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Generates a random key (<xref href="System.Security.Cryptography.SymmetricAlgorithm.Key"></xref>) to be used for the algorithm.
   remarks: "Use this method to generate a random key when none is specified. This method will never return a weak key (see <xref:System.Security.Cryptography.DES.IsWeakKey%2A>) or a semi-weak key (see <xref:System.Security.Cryptography.DES.IsSemiWeakKey%2A>).  \n  \n This algorithm supports a key length of 64 bits."
@@ -351,6 +404,7 @@ items:
   overload: System.Security.Cryptography.DESCryptoServiceProvider.GenerateKey*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -363,6 +417,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -375,9 +430,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DESCryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Security.Cryptography.DES
   parent: System.Security.Cryptography
@@ -396,19 +448,25 @@ references:
   isExternal: false
   name: DESCryptoServiceProvider()
   nameWithType: DESCryptoServiceProvider.DESCryptoServiceProvider()
-  fullName: System.Security.Cryptography.DESCryptoServiceProvider.DESCryptoServiceProvider()
-- uid: System.Security.Cryptography.DESCryptoServiceProvider.CreateDecryptor(System.Byte[],System.Byte[])
+  fullName: DESCryptoServiceProvider.DESCryptoServiceProvider()
+- uid: System.Security.Cryptography.DESCryptoServiceProvider.CreateDecryptor
   parent: System.Security.Cryptography.DESCryptoServiceProvider
   isExternal: false
-  name: CreateDecryptor(Byte[], Byte[])
-  nameWithType: DESCryptoServiceProvider.CreateDecryptor(Byte[], Byte[])
-  fullName: System.Security.Cryptography.DESCryptoServiceProvider.CreateDecryptor(Byte[], Byte[])
+  name: CreateDecryptor()
+  nameWithType: DESCryptoServiceProvider.CreateDecryptor()
+  fullName: DESCryptoServiceProvider.CreateDecryptor()
 - uid: System.Security.Cryptography.ICryptoTransform
   parent: System.Security.Cryptography
   isExternal: false
   name: ICryptoTransform
   nameWithType: ICryptoTransform
   fullName: System.Security.Cryptography.ICryptoTransform
+- uid: System.Security.Cryptography.DESCryptoServiceProvider.CreateDecryptor(System.Byte[],System.Byte[])
+  parent: System.Security.Cryptography.DESCryptoServiceProvider
+  isExternal: false
+  name: CreateDecryptor(Byte[], Byte[])
+  nameWithType: DESCryptoServiceProvider.CreateDecryptor(Byte[], Byte[])
+  fullName: DESCryptoServiceProvider.CreateDecryptor(Byte[], Byte[])
 - uid: System.Byte
   name: Byte
   nameWithType: Byte
@@ -427,31 +485,38 @@ references:
   - name: '[]'
     nameWithType: '[]'
     fullName: '[]'
+- uid: System.Security.Cryptography.DESCryptoServiceProvider.CreateEncryptor
+  parent: System.Security.Cryptography.DESCryptoServiceProvider
+  isExternal: false
+  name: CreateEncryptor()
+  nameWithType: DESCryptoServiceProvider.CreateEncryptor()
+  fullName: DESCryptoServiceProvider.CreateEncryptor()
 - uid: System.Security.Cryptography.DESCryptoServiceProvider.CreateEncryptor(System.Byte[],System.Byte[])
   parent: System.Security.Cryptography.DESCryptoServiceProvider
   isExternal: false
   name: CreateEncryptor(Byte[], Byte[])
   nameWithType: DESCryptoServiceProvider.CreateEncryptor(Byte[], Byte[])
-  fullName: System.Security.Cryptography.DESCryptoServiceProvider.CreateEncryptor(Byte[], Byte[])
+  fullName: DESCryptoServiceProvider.CreateEncryptor(Byte[], Byte[])
 - uid: System.Security.Cryptography.DESCryptoServiceProvider.GenerateIV
   parent: System.Security.Cryptography.DESCryptoServiceProvider
   isExternal: false
   name: GenerateIV()
   nameWithType: DESCryptoServiceProvider.GenerateIV()
-  fullName: System.Security.Cryptography.DESCryptoServiceProvider.GenerateIV()
+  fullName: DESCryptoServiceProvider.GenerateIV()
 - uid: System.Security.Cryptography.DESCryptoServiceProvider.GenerateKey
   parent: System.Security.Cryptography.DESCryptoServiceProvider
   isExternal: false
   name: GenerateKey()
   nameWithType: DESCryptoServiceProvider.GenerateKey()
-  fullName: System.Security.Cryptography.DESCryptoServiceProvider.GenerateKey()
+  fullName: DESCryptoServiceProvider.GenerateKey()
 - uid: System.Security.Cryptography.DESCryptoServiceProvider.#ctor*
   parent: System.Security.Cryptography.DESCryptoServiceProvider
   isExternal: false
   name: DESCryptoServiceProvider
   nameWithType: DESCryptoServiceProvider.DESCryptoServiceProvider
-  fullName: System.Security.Cryptography.DESCryptoServiceProvider.DESCryptoServiceProvider
+  fullName: DESCryptoServiceProvider.DESCryptoServiceProvider
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -469,8 +534,9 @@ references:
   isExternal: false
   name: CreateDecryptor
   nameWithType: DESCryptoServiceProvider.CreateDecryptor
-  fullName: System.Security.Cryptography.DESCryptoServiceProvider.CreateDecryptor
+  fullName: DESCryptoServiceProvider.CreateDecryptor
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -488,8 +554,9 @@ references:
   isExternal: false
   name: CreateEncryptor
   nameWithType: DESCryptoServiceProvider.CreateEncryptor
-  fullName: System.Security.Cryptography.DESCryptoServiceProvider.CreateEncryptor
+  fullName: DESCryptoServiceProvider.CreateEncryptor
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -507,8 +574,9 @@ references:
   isExternal: false
   name: GenerateIV
   nameWithType: DESCryptoServiceProvider.GenerateIV
-  fullName: System.Security.Cryptography.DESCryptoServiceProvider.GenerateIV
+  fullName: DESCryptoServiceProvider.GenerateIV
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -526,8 +594,9 @@ references:
   isExternal: false
   name: GenerateKey
   nameWithType: DESCryptoServiceProvider.GenerateKey
-  fullName: System.Security.Cryptography.DESCryptoServiceProvider.GenerateKey
+  fullName: DESCryptoServiceProvider.GenerateKey
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

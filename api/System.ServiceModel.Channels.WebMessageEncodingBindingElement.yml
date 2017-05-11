@@ -30,7 +30,7 @@ items:
   assemblies:
   - System.ServiceModel.Web
   namespace: System.ServiceModel.Channels
-  summary: Enables plain-text XML, JavaScript Object Notation (JSON) message encodings and "raw" binary content to be read and written when used in a [!INCLUDE[indigo1](~/includes/indigo1-md.md)] binding.
+  summary: Enables plain-text XML, JavaScript Object Notation (JSON) message encodings and "raw" binary content to be read and written when used in a Windows Communication Foundation (WCF) binding.
   remarks: "Encoding is the process of transforming a message into a sequence of bytes. Decoding is the reverse process. These processes require the specification of a character encoding. The <xref:System.ServiceModel.Channels.WebMessageEncodingBindingElement> works by delegating to a series of inner encoders to handle the plain-text XML and JSON encodings, and \"raw\" binary data. This delegation is done by a composite message encoder.  \n  \n This binding element and its composite encoder are used to control the encoding in scenarios that do not use SOAP messaging used by the <xref:System.ServiceModel.WebHttpBinding>. These scenarios include \"Plain Old XML\" (POX), Representational State Transfer (REST), Really Simple Syndication (RSS) and Atom syndication, and Asynchronous JavaScript and XML (AJAX). The composite message encoder does not support SOAP or WS-Addressing, and so <xref:System.ServiceModel.Channels.WebMessageEncodingBindingElement.MessageVersion%2A> always returns <xref:System.ServiceModel.Channels.MessageVersion.None%2A>.  \n  \n The binding element can be configured with a write character encoding at construction time using the <xref:System.ServiceModel.Channels.WebMessageEncodingBindingElement.%23ctor%28System.Text.Encoding%29> constructor. The <xref:System.Text.Encoding> value specifies the behavior on write for the JSON and Textual XML cases. On read, any valid message encoding and text encoding is understood.  \n  \n This constructor sets default values on the maximum number of readers and writers that are allocated to pools and that are respectively available to process incoming and outgoing messages without allocating new readers or writers. The properties <xref:System.ServiceModel.Channels.WebMessageEncodingBindingElement.MaxReadPoolSize%2A> and <xref:System.ServiceModel.Channels.WebMessageEncodingBindingElement.MaxWritePoolSize%2A> can also be used to set the maximum number of readers and writers to be allocated respectively. By default 64 readers and 16 writers are allocated.  \n  \n Default complexity constraints are also set by this constructor on the <xref:System.Xml.XmlDictionaryReaderQuotas> associated with this encoding by the <xref:System.ServiceModel.Channels.WebMessageEncodingBindingElement.ReaderQuotas%2A> property to protect against a class of denial of service (DOS) attacks that attempt to use message complexity to tie up endpoint processing resources.  \n  \n The <xref:System.ServiceModel.Channels.WebMessageEncodingBindingElement> has a <xref:System.ServiceModel.Channels.WebMessageEncodingBindingElement.CreateMessageEncoderFactory%2A> method that creates a message encoder factory that produces JSON, XML or Raw message decoders and encoders as appropriate depending on the content type specified.  \n  \n The <xref:System.ServiceModel.Channels.WebMessageEncodingBindingElement> also provides the methods to build the factories and listeners for the channels through which the HTTP requests flow.  \n  \n The composite encoder and its associated classes and configuration components are usable in partial trust and this use does not require any special permissions."
   syntax:
     content: 'public sealed class WebMessageEncodingBindingElement : System.ServiceModel.Channels.MessageEncodingBindingElement, System.ServiceModel.Description.IWsdlExportExtension'
@@ -72,9 +72,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/WebMessageEncodingBindingElement.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Channels.WebMessageEncodingBindingElement.#ctor
   commentId: M:System.ServiceModel.Channels.WebMessageEncodingBindingElement.#ctor
   id: '#ctor'
@@ -83,7 +80,7 @@ items:
   - csharp
   name: WebMessageEncodingBindingElement()
   nameWithType: WebMessageEncodingBindingElement.WebMessageEncodingBindingElement()
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.WebMessageEncodingBindingElement()
+  fullName: WebMessageEncodingBindingElement.WebMessageEncodingBindingElement()
   type: Constructor
   assemblies:
   - System.ServiceModel.Web
@@ -118,9 +115,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/WebMessageEncodingBindingElement.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Channels.WebMessageEncodingBindingElement.#ctor(System.Text.Encoding)
   commentId: M:System.ServiceModel.Channels.WebMessageEncodingBindingElement.#ctor(System.Text.Encoding)
   id: '#ctor(System.Text.Encoding)'
@@ -129,7 +123,7 @@ items:
   - csharp
   name: WebMessageEncodingBindingElement(Encoding)
   nameWithType: WebMessageEncodingBindingElement.WebMessageEncodingBindingElement(Encoding)
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.WebMessageEncodingBindingElement(Encoding)
+  fullName: WebMessageEncodingBindingElement.WebMessageEncodingBindingElement(Encoding)
   type: Constructor
   assemblies:
   - System.ServiceModel.Web
@@ -173,9 +167,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/WebMessageEncodingBindingElement.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Channels.WebMessageEncodingBindingElement.BuildChannelFactory``1(System.ServiceModel.Channels.BindingContext)
   commentId: M:System.ServiceModel.Channels.WebMessageEncodingBindingElement.BuildChannelFactory``1(System.ServiceModel.Channels.BindingContext)
   id: BuildChannelFactory``1(System.ServiceModel.Channels.BindingContext)
@@ -184,7 +175,7 @@ items:
   - csharp
   name: BuildChannelFactory<TChannel>(BindingContext)
   nameWithType: WebMessageEncodingBindingElement.BuildChannelFactory<TChannel>(BindingContext)
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.BuildChannelFactory<TChannel>(BindingContext)
+  fullName: WebMessageEncodingBindingElement.BuildChannelFactory<TChannel>(BindingContext)
   type: Method
   assemblies:
   - System.ServiceModel.Web
@@ -196,6 +187,9 @@ items:
     - id: context
       type: System.ServiceModel.Channels.BindingContext
       description: The <xref href="System.ServiceModel.Channels.BindingContext"></xref> for the channel.
+    typeParameters:
+    - id: TChannel
+      description: The type of channel the channel factory produces.
     return:
       type: System.ServiceModel.Channels.IChannelFactory`1
       description: An <xref href="System.ServiceModel.Channels.IChannelFactory`1"></xref> of type <code>TChannel</code> for the specified context.
@@ -227,9 +221,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/WebMessageEncodingBindingElement.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Channels.WebMessageEncodingBindingElement.BuildChannelListener``1(System.ServiceModel.Channels.BindingContext)
   commentId: M:System.ServiceModel.Channels.WebMessageEncodingBindingElement.BuildChannelListener``1(System.ServiceModel.Channels.BindingContext)
   id: BuildChannelListener``1(System.ServiceModel.Channels.BindingContext)
@@ -238,7 +229,7 @@ items:
   - csharp
   name: BuildChannelListener<TChannel>(BindingContext)
   nameWithType: WebMessageEncodingBindingElement.BuildChannelListener<TChannel>(BindingContext)
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.BuildChannelListener<TChannel>(BindingContext)
+  fullName: WebMessageEncodingBindingElement.BuildChannelListener<TChannel>(BindingContext)
   type: Method
   assemblies:
   - System.ServiceModel.Web
@@ -250,6 +241,9 @@ items:
     - id: context
       type: System.ServiceModel.Channels.BindingContext
       description: The <xref href="System.ServiceModel.Channels.BindingContext"></xref> for the listener.
+    typeParameters:
+    - id: TChannel
+      description: The type of channel the channel listener accepts.
     return:
       type: System.ServiceModel.Channels.IChannelListener`1
       description: An <xref href="System.ServiceModel.Channels.IChannelListener`1"></xref> of type <code>TChannel</code> for the specified context.
@@ -277,9 +271,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/WebMessageEncodingBindingElement.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Channels.WebMessageEncodingBindingElement.CanBuildChannelListener``1(System.ServiceModel.Channels.BindingContext)
   commentId: M:System.ServiceModel.Channels.WebMessageEncodingBindingElement.CanBuildChannelListener``1(System.ServiceModel.Channels.BindingContext)
   id: CanBuildChannelListener``1(System.ServiceModel.Channels.BindingContext)
@@ -288,7 +279,7 @@ items:
   - csharp
   name: CanBuildChannelListener<TChannel>(BindingContext)
   nameWithType: WebMessageEncodingBindingElement.CanBuildChannelListener<TChannel>(BindingContext)
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.CanBuildChannelListener<TChannel>(BindingContext)
+  fullName: WebMessageEncodingBindingElement.CanBuildChannelListener<TChannel>(BindingContext)
   type: Method
   assemblies:
   - System.ServiceModel.Web
@@ -300,6 +291,9 @@ items:
     - id: context
       type: System.ServiceModel.Channels.BindingContext
       description: The <xref href="System.ServiceModel.Channels.BindingContext"></xref> for the listener.
+    typeParameters:
+    - id: TChannel
+      description: The type of channel the channel listener accepts.
     return:
       type: System.Boolean
       description: '`true` if the specified channel listener stack can be built on the service; otherwise, `false`.'
@@ -324,9 +318,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/WebMessageEncodingBindingElement.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Channels.WebMessageEncodingBindingElement.Clone
   commentId: M:System.ServiceModel.Channels.WebMessageEncodingBindingElement.Clone
   id: Clone
@@ -335,7 +326,7 @@ items:
   - csharp
   name: Clone()
   nameWithType: WebMessageEncodingBindingElement.Clone()
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.Clone()
+  fullName: WebMessageEncodingBindingElement.Clone()
   type: Method
   assemblies:
   - System.ServiceModel.Web
@@ -373,9 +364,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/WebMessageEncodingBindingElement.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Channels.WebMessageEncodingBindingElement.ContentTypeMapper
   commentId: P:System.ServiceModel.Channels.WebMessageEncodingBindingElement.ContentTypeMapper
   id: ContentTypeMapper
@@ -384,7 +372,7 @@ items:
   - csharp
   name: ContentTypeMapper
   nameWithType: WebMessageEncodingBindingElement.ContentTypeMapper
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.ContentTypeMapper
+  fullName: WebMessageEncodingBindingElement.ContentTypeMapper
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -420,9 +408,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/WebMessageEncodingBindingElement.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Channels.WebMessageEncodingBindingElement.CreateMessageEncoderFactory
   commentId: M:System.ServiceModel.Channels.WebMessageEncodingBindingElement.CreateMessageEncoderFactory
   id: CreateMessageEncoderFactory
@@ -431,7 +416,7 @@ items:
   - csharp
   name: CreateMessageEncoderFactory()
   nameWithType: WebMessageEncodingBindingElement.CreateMessageEncoderFactory()
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.CreateMessageEncoderFactory()
+  fullName: WebMessageEncodingBindingElement.CreateMessageEncoderFactory()
   type: Method
   assemblies:
   - System.ServiceModel.Web
@@ -469,9 +454,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/WebMessageEncodingBindingElement.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Channels.WebMessageEncodingBindingElement.CrossDomainScriptAccessEnabled
   commentId: P:System.ServiceModel.Channels.WebMessageEncodingBindingElement.CrossDomainScriptAccessEnabled
   id: CrossDomainScriptAccessEnabled
@@ -480,7 +462,7 @@ items:
   - csharp
   name: CrossDomainScriptAccessEnabled
   nameWithType: WebMessageEncodingBindingElement.CrossDomainScriptAccessEnabled
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.CrossDomainScriptAccessEnabled
+  fullName: WebMessageEncodingBindingElement.CrossDomainScriptAccessEnabled
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -510,9 +492,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/WebMessageEncodingBindingElement.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Channels.WebMessageEncodingBindingElement.GetProperty``1(System.ServiceModel.Channels.BindingContext)
   commentId: M:System.ServiceModel.Channels.WebMessageEncodingBindingElement.GetProperty``1(System.ServiceModel.Channels.BindingContext)
   id: GetProperty``1(System.ServiceModel.Channels.BindingContext)
@@ -521,7 +500,7 @@ items:
   - csharp
   name: GetProperty<T>(BindingContext)
   nameWithType: WebMessageEncodingBindingElement.GetProperty<T>(BindingContext)
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.GetProperty<T>(BindingContext)
+  fullName: WebMessageEncodingBindingElement.GetProperty<T>(BindingContext)
   type: Method
   assemblies:
   - System.ServiceModel.Web
@@ -534,6 +513,9 @@ items:
     - id: context
       type: System.ServiceModel.Channels.BindingContext
       description: The <xref href="System.ServiceModel.Channels.BindingContext"></xref> for the current binding element.
+    typeParameters:
+    - id: T
+      description: The typed object for which the method is querying.
     return:
       type: T
       description: The typed object <code>T</code> requested if it is present or `null` if it is not.
@@ -565,9 +547,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/WebMessageEncodingBindingElement.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Channels.WebMessageEncodingBindingElement.MaxReadPoolSize
   commentId: P:System.ServiceModel.Channels.WebMessageEncodingBindingElement.MaxReadPoolSize
   id: MaxReadPoolSize
@@ -576,7 +555,7 @@ items:
   - csharp
   name: MaxReadPoolSize
   nameWithType: WebMessageEncodingBindingElement.MaxReadPoolSize
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.MaxReadPoolSize
+  fullName: WebMessageEncodingBindingElement.MaxReadPoolSize
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -616,9 +595,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/WebMessageEncodingBindingElement.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Channels.WebMessageEncodingBindingElement.MaxWritePoolSize
   commentId: P:System.ServiceModel.Channels.WebMessageEncodingBindingElement.MaxWritePoolSize
   id: MaxWritePoolSize
@@ -627,7 +603,7 @@ items:
   - csharp
   name: MaxWritePoolSize
   nameWithType: WebMessageEncodingBindingElement.MaxWritePoolSize
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.MaxWritePoolSize
+  fullName: WebMessageEncodingBindingElement.MaxWritePoolSize
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -667,9 +643,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/WebMessageEncodingBindingElement.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Channels.WebMessageEncodingBindingElement.MessageVersion
   commentId: P:System.ServiceModel.Channels.WebMessageEncodingBindingElement.MessageVersion
   id: MessageVersion
@@ -678,7 +651,7 @@ items:
   - csharp
   name: MessageVersion
   nameWithType: WebMessageEncodingBindingElement.MessageVersion
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.MessageVersion
+  fullName: WebMessageEncodingBindingElement.MessageVersion
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -721,9 +694,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/WebMessageEncodingBindingElement.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Channels.WebMessageEncodingBindingElement.ReaderQuotas
   commentId: P:System.ServiceModel.Channels.WebMessageEncodingBindingElement.ReaderQuotas
   id: ReaderQuotas
@@ -732,7 +702,7 @@ items:
   - csharp
   name: ReaderQuotas
   nameWithType: WebMessageEncodingBindingElement.ReaderQuotas
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.ReaderQuotas
+  fullName: WebMessageEncodingBindingElement.ReaderQuotas
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -772,9 +742,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/WebMessageEncodingBindingElement.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Channels.WebMessageEncodingBindingElement.WriteEncoding
   commentId: P:System.ServiceModel.Channels.WebMessageEncodingBindingElement.WriteEncoding
   id: WriteEncoding
@@ -783,7 +750,7 @@ items:
   - csharp
   name: WriteEncoding
   nameWithType: WebMessageEncodingBindingElement.WriteEncoding
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.WriteEncoding
+  fullName: WebMessageEncodingBindingElement.WriteEncoding
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -822,9 +789,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/WebMessageEncodingBindingElement.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Channels.WebMessageEncodingBindingElement.System#ServiceModel#Description#IWsdlExportExtension#ExportContract(System.ServiceModel.Description.WsdlExporter,System.ServiceModel.Description.WsdlContractConversionContext)
   commentId: M:System.ServiceModel.Channels.WebMessageEncodingBindingElement.System#ServiceModel#Description#IWsdlExportExtension#ExportContract(System.ServiceModel.Description.WsdlExporter,System.ServiceModel.Description.WsdlContractConversionContext)
   id: System#ServiceModel#Description#IWsdlExportExtension#ExportContract(System.ServiceModel.Description.WsdlExporter,System.ServiceModel.Description.WsdlContractConversionContext)
@@ -834,7 +798,7 @@ items:
   - csharp
   name: IWsdlExportExtension.ExportContract(WsdlExporter, WsdlContractConversionContext)
   nameWithType: WebMessageEncodingBindingElement.IWsdlExportExtension.ExportContract(WsdlExporter, WsdlContractConversionContext)
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.IWsdlExportExtension.ExportContract(WsdlExporter, WsdlContractConversionContext)
+  fullName: WebMessageEncodingBindingElement.IWsdlExportExtension.ExportContract(WsdlExporter, WsdlContractConversionContext)
   type: Method
   assemblies:
   - System.ServiceModel.Web
@@ -869,9 +833,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/WebMessageEncodingBindingElement.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Channels.WebMessageEncodingBindingElement.System#ServiceModel#Description#IWsdlExportExtension#ExportEndpoint(System.ServiceModel.Description.WsdlExporter,System.ServiceModel.Description.WsdlEndpointConversionContext)
   commentId: M:System.ServiceModel.Channels.WebMessageEncodingBindingElement.System#ServiceModel#Description#IWsdlExportExtension#ExportEndpoint(System.ServiceModel.Description.WsdlExporter,System.ServiceModel.Description.WsdlEndpointConversionContext)
   id: System#ServiceModel#Description#IWsdlExportExtension#ExportEndpoint(System.ServiceModel.Description.WsdlExporter,System.ServiceModel.Description.WsdlEndpointConversionContext)
@@ -881,7 +842,7 @@ items:
   - csharp
   name: IWsdlExportExtension.ExportEndpoint(WsdlExporter, WsdlEndpointConversionContext)
   nameWithType: WebMessageEncodingBindingElement.IWsdlExportExtension.ExportEndpoint(WsdlExporter, WsdlEndpointConversionContext)
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.IWsdlExportExtension.ExportEndpoint(WsdlExporter, WsdlEndpointConversionContext)
+  fullName: WebMessageEncodingBindingElement.IWsdlExportExtension.ExportEndpoint(WsdlExporter, WsdlEndpointConversionContext)
   type: Method
   assemblies:
   - System.ServiceModel.Web
@@ -919,9 +880,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/WebMessageEncodingBindingElement.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 references:
 - uid: System.ServiceModel.Channels.MessageEncodingBindingElement
   parent: System.ServiceModel.Channels
@@ -952,13 +910,13 @@ references:
   isExternal: false
   name: WebMessageEncodingBindingElement()
   nameWithType: WebMessageEncodingBindingElement.WebMessageEncodingBindingElement()
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.WebMessageEncodingBindingElement()
+  fullName: WebMessageEncodingBindingElement.WebMessageEncodingBindingElement()
 - uid: System.ServiceModel.Channels.WebMessageEncodingBindingElement.#ctor(System.Text.Encoding)
   parent: System.ServiceModel.Channels.WebMessageEncodingBindingElement
   isExternal: false
   name: WebMessageEncodingBindingElement(Encoding)
   nameWithType: WebMessageEncodingBindingElement.WebMessageEncodingBindingElement(Encoding)
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.WebMessageEncodingBindingElement(Encoding)
+  fullName: WebMessageEncodingBindingElement.WebMessageEncodingBindingElement(Encoding)
 - uid: System.Text.Encoding
   parent: System.Text
   isExternal: false
@@ -970,7 +928,7 @@ references:
   isExternal: false
   name: BuildChannelFactory<TChannel>(BindingContext)
   nameWithType: WebMessageEncodingBindingElement.BuildChannelFactory<TChannel>(BindingContext)
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.BuildChannelFactory<TChannel>(BindingContext)
+  fullName: WebMessageEncodingBindingElement.BuildChannelFactory<TChannel>(BindingContext)
 - uid: System.ServiceModel.Channels.IChannelFactory`1
   parent: System.ServiceModel.Channels
   isExternal: false
@@ -988,7 +946,7 @@ references:
   isExternal: false
   name: BuildChannelListener<TChannel>(BindingContext)
   nameWithType: WebMessageEncodingBindingElement.BuildChannelListener<TChannel>(BindingContext)
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.BuildChannelListener<TChannel>(BindingContext)
+  fullName: WebMessageEncodingBindingElement.BuildChannelListener<TChannel>(BindingContext)
 - uid: System.ServiceModel.Channels.IChannelListener`1
   parent: System.ServiceModel.Channels
   isExternal: false
@@ -1000,7 +958,7 @@ references:
   isExternal: false
   name: CanBuildChannelListener<TChannel>(BindingContext)
   nameWithType: WebMessageEncodingBindingElement.CanBuildChannelListener<TChannel>(BindingContext)
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.CanBuildChannelListener<TChannel>(BindingContext)
+  fullName: WebMessageEncodingBindingElement.CanBuildChannelListener<TChannel>(BindingContext)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -1012,7 +970,7 @@ references:
   isExternal: false
   name: Clone()
   nameWithType: WebMessageEncodingBindingElement.Clone()
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.Clone()
+  fullName: WebMessageEncodingBindingElement.Clone()
 - uid: System.ServiceModel.Channels.BindingElement
   parent: System.ServiceModel.Channels
   isExternal: false
@@ -1024,7 +982,7 @@ references:
   isExternal: false
   name: ContentTypeMapper
   nameWithType: WebMessageEncodingBindingElement.ContentTypeMapper
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.ContentTypeMapper
+  fullName: WebMessageEncodingBindingElement.ContentTypeMapper
 - uid: System.ServiceModel.Channels.WebContentTypeMapper
   parent: System.ServiceModel.Channels
   isExternal: false
@@ -1036,7 +994,7 @@ references:
   isExternal: false
   name: CreateMessageEncoderFactory()
   nameWithType: WebMessageEncodingBindingElement.CreateMessageEncoderFactory()
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.CreateMessageEncoderFactory()
+  fullName: WebMessageEncodingBindingElement.CreateMessageEncoderFactory()
 - uid: System.ServiceModel.Channels.MessageEncoderFactory
   parent: System.ServiceModel.Channels
   isExternal: false
@@ -1048,13 +1006,13 @@ references:
   isExternal: false
   name: CrossDomainScriptAccessEnabled
   nameWithType: WebMessageEncodingBindingElement.CrossDomainScriptAccessEnabled
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.CrossDomainScriptAccessEnabled
+  fullName: WebMessageEncodingBindingElement.CrossDomainScriptAccessEnabled
 - uid: System.ServiceModel.Channels.WebMessageEncodingBindingElement.GetProperty``1(System.ServiceModel.Channels.BindingContext)
   parent: System.ServiceModel.Channels.WebMessageEncodingBindingElement
   isExternal: false
   name: GetProperty<T>(BindingContext)
   nameWithType: WebMessageEncodingBindingElement.GetProperty<T>(BindingContext)
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.GetProperty<T>(BindingContext)
+  fullName: WebMessageEncodingBindingElement.GetProperty<T>(BindingContext)
 - uid: T
   isExternal: true
   name: T
@@ -1065,7 +1023,7 @@ references:
   isExternal: false
   name: MaxReadPoolSize
   nameWithType: WebMessageEncodingBindingElement.MaxReadPoolSize
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.MaxReadPoolSize
+  fullName: WebMessageEncodingBindingElement.MaxReadPoolSize
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -1077,13 +1035,13 @@ references:
   isExternal: false
   name: MaxWritePoolSize
   nameWithType: WebMessageEncodingBindingElement.MaxWritePoolSize
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.MaxWritePoolSize
+  fullName: WebMessageEncodingBindingElement.MaxWritePoolSize
 - uid: System.ServiceModel.Channels.WebMessageEncodingBindingElement.MessageVersion
   parent: System.ServiceModel.Channels.WebMessageEncodingBindingElement
   isExternal: false
   name: MessageVersion
   nameWithType: WebMessageEncodingBindingElement.MessageVersion
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.MessageVersion
+  fullName: WebMessageEncodingBindingElement.MessageVersion
 - uid: System.ServiceModel.Channels.MessageVersion
   parent: System.ServiceModel.Channels
   isExternal: false
@@ -1095,7 +1053,7 @@ references:
   isExternal: false
   name: ReaderQuotas
   nameWithType: WebMessageEncodingBindingElement.ReaderQuotas
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.ReaderQuotas
+  fullName: WebMessageEncodingBindingElement.ReaderQuotas
 - uid: System.Xml.XmlDictionaryReaderQuotas
   parent: System.Xml
   isExternal: false
@@ -1107,13 +1065,13 @@ references:
   isExternal: false
   name: WriteEncoding
   nameWithType: WebMessageEncodingBindingElement.WriteEncoding
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.WriteEncoding
+  fullName: WebMessageEncodingBindingElement.WriteEncoding
 - uid: System.ServiceModel.Channels.WebMessageEncodingBindingElement.System#ServiceModel#Description#IWsdlExportExtension#ExportContract(System.ServiceModel.Description.WsdlExporter,System.ServiceModel.Description.WsdlContractConversionContext)
   parent: System.ServiceModel.Channels.WebMessageEncodingBindingElement
   isExternal: false
   name: IWsdlExportExtension.ExportContract(WsdlExporter, WsdlContractConversionContext)
   nameWithType: WebMessageEncodingBindingElement.IWsdlExportExtension.ExportContract(WsdlExporter, WsdlContractConversionContext)
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.IWsdlExportExtension.ExportContract(WsdlExporter, WsdlContractConversionContext)
+  fullName: WebMessageEncodingBindingElement.IWsdlExportExtension.ExportContract(WsdlExporter, WsdlContractConversionContext)
 - uid: System.ServiceModel.Description.WsdlExporter
   parent: System.ServiceModel.Description
   isExternal: false
@@ -1131,7 +1089,7 @@ references:
   isExternal: false
   name: IWsdlExportExtension.ExportEndpoint(WsdlExporter, WsdlEndpointConversionContext)
   nameWithType: WebMessageEncodingBindingElement.IWsdlExportExtension.ExportEndpoint(WsdlExporter, WsdlEndpointConversionContext)
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.IWsdlExportExtension.ExportEndpoint(WsdlExporter, WsdlEndpointConversionContext)
+  fullName: WebMessageEncodingBindingElement.IWsdlExportExtension.ExportEndpoint(WsdlExporter, WsdlEndpointConversionContext)
 - uid: System.ServiceModel.Description.WsdlEndpointConversionContext
   parent: System.ServiceModel.Description
   isExternal: false
@@ -1143,7 +1101,7 @@ references:
   isExternal: false
   name: WebMessageEncodingBindingElement
   nameWithType: WebMessageEncodingBindingElement.WebMessageEncodingBindingElement
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.WebMessageEncodingBindingElement
+  fullName: WebMessageEncodingBindingElement.WebMessageEncodingBindingElement
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1161,7 +1119,7 @@ references:
   isExternal: false
   name: BuildChannelFactory<TChannel>
   nameWithType: WebMessageEncodingBindingElement.BuildChannelFactory<TChannel>
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.BuildChannelFactory<TChannel>
+  fullName: WebMessageEncodingBindingElement.BuildChannelFactory<TChannel>
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1179,7 +1137,7 @@ references:
   isExternal: false
   name: BuildChannelListener<TChannel>
   nameWithType: WebMessageEncodingBindingElement.BuildChannelListener<TChannel>
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.BuildChannelListener<TChannel>
+  fullName: WebMessageEncodingBindingElement.BuildChannelListener<TChannel>
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1195,7 +1153,7 @@ references:
   isExternal: false
   name: CanBuildChannelListener<TChannel>
   nameWithType: WebMessageEncodingBindingElement.CanBuildChannelListener<TChannel>
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.CanBuildChannelListener<TChannel>
+  fullName: WebMessageEncodingBindingElement.CanBuildChannelListener<TChannel>
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1211,7 +1169,7 @@ references:
   isExternal: false
   name: Clone
   nameWithType: WebMessageEncodingBindingElement.Clone
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.Clone
+  fullName: WebMessageEncodingBindingElement.Clone
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1229,7 +1187,7 @@ references:
   isExternal: false
   name: ContentTypeMapper
   nameWithType: WebMessageEncodingBindingElement.ContentTypeMapper
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.ContentTypeMapper
+  fullName: WebMessageEncodingBindingElement.ContentTypeMapper
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1247,7 +1205,7 @@ references:
   isExternal: false
   name: CreateMessageEncoderFactory
   nameWithType: WebMessageEncodingBindingElement.CreateMessageEncoderFactory
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.CreateMessageEncoderFactory
+  fullName: WebMessageEncodingBindingElement.CreateMessageEncoderFactory
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1265,7 +1223,7 @@ references:
   isExternal: false
   name: CrossDomainScriptAccessEnabled
   nameWithType: WebMessageEncodingBindingElement.CrossDomainScriptAccessEnabled
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.CrossDomainScriptAccessEnabled
+  fullName: WebMessageEncodingBindingElement.CrossDomainScriptAccessEnabled
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1280,7 +1238,7 @@ references:
   isExternal: false
   name: GetProperty<T>
   nameWithType: WebMessageEncodingBindingElement.GetProperty<T>
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.GetProperty<T>
+  fullName: WebMessageEncodingBindingElement.GetProperty<T>
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1298,7 +1256,7 @@ references:
   isExternal: false
   name: MaxReadPoolSize
   nameWithType: WebMessageEncodingBindingElement.MaxReadPoolSize
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.MaxReadPoolSize
+  fullName: WebMessageEncodingBindingElement.MaxReadPoolSize
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1316,7 +1274,7 @@ references:
   isExternal: false
   name: MaxWritePoolSize
   nameWithType: WebMessageEncodingBindingElement.MaxWritePoolSize
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.MaxWritePoolSize
+  fullName: WebMessageEncodingBindingElement.MaxWritePoolSize
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1334,7 +1292,7 @@ references:
   isExternal: false
   name: MessageVersion
   nameWithType: WebMessageEncodingBindingElement.MessageVersion
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.MessageVersion
+  fullName: WebMessageEncodingBindingElement.MessageVersion
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1352,7 +1310,7 @@ references:
   isExternal: false
   name: ReaderQuotas
   nameWithType: WebMessageEncodingBindingElement.ReaderQuotas
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.ReaderQuotas
+  fullName: WebMessageEncodingBindingElement.ReaderQuotas
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1370,7 +1328,7 @@ references:
   isExternal: false
   name: WriteEncoding
   nameWithType: WebMessageEncodingBindingElement.WriteEncoding
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.WriteEncoding
+  fullName: WebMessageEncodingBindingElement.WriteEncoding
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1388,7 +1346,7 @@ references:
   isExternal: false
   name: System.ServiceModel.Description.IWsdlExportExtension.ExportContract
   nameWithType: WebMessageEncodingBindingElement.System.ServiceModel.Description.IWsdlExportExtension.ExportContract
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.System.ServiceModel.Description.IWsdlExportExtension.ExportContract
+  fullName: WebMessageEncodingBindingElement.System.ServiceModel.Description.IWsdlExportExtension.ExportContract
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1403,7 +1361,7 @@ references:
   isExternal: false
   name: System.ServiceModel.Description.IWsdlExportExtension.ExportEndpoint
   nameWithType: WebMessageEncodingBindingElement.System.ServiceModel.Description.IWsdlExportExtension.ExportEndpoint
-  fullName: System.ServiceModel.Channels.WebMessageEncodingBindingElement.System.ServiceModel.Description.IWsdlExportExtension.ExportEndpoint
+  fullName: WebMessageEncodingBindingElement.System.ServiceModel.Description.IWsdlExportExtension.ExportEndpoint
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1413,3 +1371,9 @@ references:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/WebMessageEncodingBindingElement.xml
+- uid: System.ServiceModel.Description.IWsdlExportExtension
+  parent: System.ServiceModel.Description
+  isExternal: false
+  name: IWsdlExportExtension
+  nameWithType: IWsdlExportExtension
+  fullName: System.ServiceModel.Description.IWsdlExportExtension

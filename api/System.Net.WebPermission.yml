@@ -27,9 +27,10 @@ items:
   type: Class
   assemblies:
   - System
+  - System.Security.Permissions
   namespace: System.Net
   summary: Controls rights to access HTTP Internet resources.
-  remarks: "<xref:System.Net.WebPermission> provides a set of methods and properties to control access to Internet resources. You can use a <xref:System.Net.WebPermission> to provide either restricted or unrestricted access to your resource, based on the <xref:System.Security.Permissions.PermissionState> that is set when the <xref:System.Net.WebPermission> is created.  \n  \n Create a <xref:System.Net.WebPermission> instance by calling its constructor using one of the following sets of parameters:  \n  \n-   No parameters. The default <xref:System.Security.Permissions.PermissionState> is <xref:System.Security.Permissions.PermissionState>.  \n  \n-   A <xref:System.Security.Permissions.PermissionState>. Specify either <xref:System.Security.Permissions.PermissionState> to allow any URI to be used in the target class, or <xref:System.Security.Permissions.PermissionState> to allow access only to URIs that you specify through the use of the <xref:System.Net.WebPermission.AddPermission%2A> method.  \n  \n-   A <xref:System.Net.NetworkAccess> value and a URI string. The specified URI has permissions granted by the <xref:System.Net.NetworkAccess> value.  \n  \n-   A <xref:System.Net.NetworkAccess> specifier and URI regular expression.  \n  \n The <xref:System.Net.WebPermission.ConnectList%2A> and <xref:System.Net.WebPermission.AcceptList%2A> hold the URIs to which you have granted access permission. To add a URI to either of these lists, use <xref:System.Net.WebPermission.AddPermission%2A>. If you pass <xref:System.Net.NetworkAccess> as the <xref:System.Net.NetworkAccess> parameter, the URI will be added to the <xref:System.Net.WebPermission.AcceptList%2A>. <xref:System.Net.WebPermission> will allow connections to your target class with URIs matching the <xref:System.Net.WebPermission.AcceptList%2A>.  \n  \n> [!CAUTION]\n>  To deny access to an Internet resource, you must deny access to all the possible paths to that resource. This requires calling <xref:System.Net.WebPermission.%23ctor%2A?displayProperty=fullName> with state parameter set to <xref:System.Security.CodeAccessPermission.Deny%2A>. A better approach is to allow access to the specific resource only. For more information about this subject, refer to the [NIB: Using the Deny Method](http://msdn.microsoft.com/en-us/6b4d2e01-c504-4ac3-b50e-d6f5e7f5df25) topic.  \n  \n> [!NOTE]\n>  You need to deny access using only the resource canonical path. There is no need to use all the path's syntactical variations.  \n  \n> [!NOTE]\n>  User name and default port information is stripped from the <xref:System.Uri> before the comparison with the regular expression argument that is supplied to the <xref:System.Net.WebPermission.%23ctor%28System.Net.NetworkAccess%2CSystem.Text.RegularExpressions.Regex%29> constructor. If the regular expression contains user information or the default port number, then all incoming <xref:System.Uri>s will fail to match the regular expression."
+  remarks: "<xref:System.Net.WebPermission> provides a set of methods and properties to control access to Internet resources. You can use a <xref:System.Net.WebPermission> to provide either restricted or unrestricted access to your resource, based on the <xref:System.Security.Permissions.PermissionState> that is set when the <xref:System.Net.WebPermission> is created.  \n  \n Create a <xref:System.Net.WebPermission> instance by calling its constructor using one of the following sets of parameters:  \n  \n-   No parameters. The default <xref:System.Security.Permissions.PermissionState> is <xref:System.Security.Permissions.PermissionState.None>.  \n  \n-   A <xref:System.Security.Permissions.PermissionState>. Specify either <xref:System.Security.Permissions.PermissionState.Unrestricted> to allow any URI to be used in the target class, or <xref:System.Security.Permissions.PermissionState.None> to allow access only to URIs that you specify through the use of the <xref:System.Net.WebPermission.AddPermission%2A> method.  \n  \n-   A <xref:System.Net.NetworkAccess> value and a URI string. The specified URI has permissions granted by the <xref:System.Net.NetworkAccess> value.  \n  \n-   A <xref:System.Net.NetworkAccess> specifier and URI regular expression.  \n  \n The <xref:System.Net.WebPermission.ConnectList%2A> and <xref:System.Net.WebPermission.AcceptList%2A> hold the URIs to which you have granted access permission. To add a URI to either of these lists, use <xref:System.Net.WebPermission.AddPermission%2A>. If you pass <xref:System.Net.NetworkAccess.Accept> as the <xref:System.Net.NetworkAccess> parameter, the URI will be added to the <xref:System.Net.WebPermission.AcceptList%2A>. <xref:System.Net.WebPermission> will allow connections to your target class with URIs matching the <xref:System.Net.WebPermission.AcceptList%2A>.  \n  \n> [!CAUTION]\n>  To deny access to an Internet resource, you must deny access to all the possible paths to that resource. This requires calling <xref:System.Net.WebPermission.%23ctor%2A?displayProperty=fullName> with state parameter set to <xref:System.Security.CodeAccessPermission.Deny%2A>. A better approach is to allow access to the specific resource only. For more information about this subject, refer to the [NIB: Using the Deny Method](http://msdn.microsoft.com/en-us/6b4d2e01-c504-4ac3-b50e-d6f5e7f5df25) topic.  \n  \n> [!NOTE]\n>  You need to deny access using only the resource canonical path. There is no need to use all the path's syntactical variations.  \n  \n> [!NOTE]\n>  User name and default port information is stripped from the <xref:System.Uri> before the comparison with the regular expression argument that is supplied to the <xref:System.Net.WebPermission.%23ctor%28System.Net.NetworkAccess%2CSystem.Text.RegularExpressions.Regex%29> constructor. If the regular expression contains user information or the default port number, then all incoming <xref:System.Uri>s will fail to match the regular expression."
   example:
   - "The following example demonstrates how to create a new instance of <xref:System.Net.WebPermission> using a <xref:System.Text.RegularExpressions.Regex>. Additional hosts are added to the connect and accept list of <xref:System.Net.WebPermission>. Finally, the connect and accept list are displayed to the console.  \n  \n [!code-cpp[WebPermission_Regex#1](~/samples/snippets/cpp/VS_Snippets_Remoting/WebPermission_Regex/CPP/regex.cpp#1)]\n [!code-csharp[WebPermission_Regex#1](~/samples/snippets/csharp/VS_Snippets_Remoting/WebPermission_Regex/CS/regex.cs#1)]\n [!code-vb[WebPermission_Regex#1](~/samples/snippets/visualbasic/VS_Snippets_Remoting/WebPermission_Regex/VB/regex.vb#1)]"
   syntax:
@@ -61,6 +62,7 @@ items:
   - System.Security.CodeAccessPermission.System#Security#IStackWalk#PermitOnly
   - System.Security.CodeAccessPermission.ToString
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -72,6 +74,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -83,8 +86,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/WebPermission.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.WebPermission.#ctor
   commentId: M:System.Net.WebPermission.#ctor
   id: '#ctor'
@@ -93,10 +94,11 @@ items:
   - csharp
   name: WebPermission()
   nameWithType: WebPermission.WebPermission()
-  fullName: System.Net.WebPermission.WebPermission()
+  fullName: WebPermission.WebPermission()
   type: Constructor
   assemblies:
   - System
+  - System.Security.Permissions
   namespace: System.Net
   summary: Creates a new instance of the <xref href="System.Net.WebPermission"></xref> class.
   remarks: Creates a new instance of the <xref:System.Net.WebPermission> class. This constructor creates an empty permission that does not grant any rights.
@@ -106,6 +108,7 @@ items:
   overload: System.Net.WebPermission.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -117,6 +120,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -128,8 +132,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/WebPermission.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.WebPermission.#ctor(System.Security.Permissions.PermissionState)
   commentId: M:System.Net.WebPermission.#ctor(System.Security.Permissions.PermissionState)
   id: '#ctor(System.Security.Permissions.PermissionState)'
@@ -138,10 +140,11 @@ items:
   - csharp
   name: WebPermission(PermissionState)
   nameWithType: WebPermission.WebPermission(PermissionState)
-  fullName: System.Net.WebPermission.WebPermission(PermissionState)
+  fullName: WebPermission.WebPermission(PermissionState)
   type: Constructor
   assemblies:
   - System
+  - System.Security.Permissions
   namespace: System.Net
   summary: Creates a new instance of the <xref href="System.Net.WebPermission"></xref> class that passes all demands or fails all demands.
   remarks: The value of the `state` parameter is either <xref:System.Security.Permissions.PermissionState?displayProperty=fullName> or <xref:System.Security.Permissions.PermissionState?displayProperty=fullName>, respectively yielding fully restricted or fully unrestricted access to all security variables. If you specify <xref:System.Security.Permissions.PermissionState?displayProperty=fullName>, then you can give access to individual URIs using <xref:System.Net.WebPermission.AddPermission%2A>.
@@ -156,6 +159,7 @@ items:
   overload: System.Net.WebPermission.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -167,6 +171,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -178,8 +183,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/WebPermission.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.WebPermission.#ctor(System.Net.NetworkAccess,System.String)
   commentId: M:System.Net.WebPermission.#ctor(System.Net.NetworkAccess,System.String)
   id: '#ctor(System.Net.NetworkAccess,System.String)'
@@ -188,10 +191,11 @@ items:
   - csharp
   name: WebPermission(NetworkAccess, String)
   nameWithType: WebPermission.WebPermission(NetworkAccess, String)
-  fullName: System.Net.WebPermission.WebPermission(NetworkAccess, String)
+  fullName: WebPermission.WebPermission(NetworkAccess, String)
   type: Constructor
   assemblies:
   - System
+  - System.Security.Permissions
   namespace: System.Net
   summary: Initializes a new instance of the <xref href="System.Net.WebPermission"></xref> class with the specified access rights for the specified URI.
   remarks: This constructor initializes a <xref:System.Net.WebPermission> and grants its target permission to either make a remote host connection or accept a remote host connection using the URI described by the `uriString` parameter.
@@ -212,6 +216,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: <code>uriString</code> is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -223,6 +228,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -234,8 +240,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/WebPermission.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.WebPermission.#ctor(System.Net.NetworkAccess,System.Text.RegularExpressions.Regex)
   commentId: M:System.Net.WebPermission.#ctor(System.Net.NetworkAccess,System.Text.RegularExpressions.Regex)
   id: '#ctor(System.Net.NetworkAccess,System.Text.RegularExpressions.Regex)'
@@ -244,13 +248,14 @@ items:
   - csharp
   name: WebPermission(NetworkAccess, Regex)
   nameWithType: WebPermission.WebPermission(NetworkAccess, Regex)
-  fullName: System.Net.WebPermission.WebPermission(NetworkAccess, Regex)
+  fullName: WebPermission.WebPermission(NetworkAccess, Regex)
   type: Constructor
   assemblies:
   - System
+  - System.Security.Permissions
   namespace: System.Net
   summary: Initializes a new instance of the <xref href="System.Net.WebPermission"></xref> class with the specified access rights for the specified URI regular expression.
-  remarks: "This constructor initializes a <xref:System.Net.WebPermission> and grants its target permission to either make a remote host connection or accept a remote host connection using the URI described by the `uriRegex`parameter.  \n  \n> [!NOTE]\n>  It is recommended that you create `uriRegex` using the <xref:System.Text.RegularExpressions.RegexOptions?displayProperty=fullName>, <xref:System.Text.RegularExpressions.RegexOptions?displayProperty=fullName>, and <xref:System.Text.RegularExpressions.RegexOptions?displayProperty=fullName> flags.  \n  \n> [!NOTE]\n>  A candidate URI string is checked against the list of relevant regular expressions (<xref:System.Net.WebPermission.AcceptList%2A> or <xref:System.Net.WebPermission.ConnectList%2A>) in two ways. First, the candidate URI string is checked against the appropriate list; then, if there is no match, the candidate URI string is converted into a <xref:System.Uri> and checked against the appropriate list."
+  remarks: "This constructor initializes a <xref:System.Net.WebPermission> and grants its target permission to either make a remote host connection or accept a remote host connection using the URI described by the `uriRegex` parameter.  \n  \n> [!NOTE]\n>  It is recommended that you create `uriRegex` using the <xref:System.Text.RegularExpressions.RegexOptions?displayProperty=fullName>, <xref:System.Text.RegularExpressions.RegexOptions?displayProperty=fullName>, and <xref:System.Text.RegularExpressions.RegexOptions?displayProperty=fullName> flags.  \n  \n> [!NOTE]\n>  A candidate URI string is checked against the list of relevant regular expressions (<xref:System.Net.WebPermission.AcceptList%2A> or <xref:System.Net.WebPermission.ConnectList%2A>) in two ways. First, the candidate URI string is checked against the appropriate list; then, if there is no match, the candidate URI string is converted into a <xref:System.Uri> and checked against the appropriate list."
   example:
   - "The following example creates a new instance of <xref:System.Net.WebPermission> with connect rights for the specified <xref:System.Text.RegularExpressions.Regex?displayProperty=fullName>.  \n  \n [!code-cpp[WebPermission_Constructor4#1](~/samples/snippets/cpp/VS_Snippets_Remoting/WebPermission_Constructor4/CPP/webpermission_constructor4.cpp#1)]\n [!code-csharp[WebPermission_Constructor4#1](~/samples/snippets/csharp/VS_Snippets_Remoting/WebPermission_Constructor4/CS/webpermission_constructor4.cs#1)]\n [!code-vb[WebPermission_Constructor4#1](~/samples/snippets/visualbasic/VS_Snippets_Remoting/WebPermission_Constructor4/VB/webpermission_constructor4.vb#1)]"
   syntax:
@@ -265,6 +270,7 @@ items:
   overload: System.Net.WebPermission.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -276,6 +282,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -287,8 +294,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/WebPermission.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.WebPermission.AcceptList
   commentId: P:System.Net.WebPermission.AcceptList
   id: AcceptList
@@ -297,10 +302,11 @@ items:
   - csharp
   name: AcceptList
   nameWithType: WebPermission.AcceptList
-  fullName: System.Net.WebPermission.AcceptList
+  fullName: WebPermission.AcceptList
   type: Property
   assemblies:
   - System
+  - System.Security.Permissions
   namespace: System.Net
   summary: This property returns an enumeration of a single accept permissions held by this <xref href="System.Net.WebPermission"></xref>. The possible objects types contained in the returned enumeration are <xref href="System.String"></xref> and <xref href="System.Text.RegularExpressions.Regex"></xref>.
   remarks: "This property gets a list of local resources permitted by this <xref:System.Net.WebPermission>. The class to which you have applied <xref:System.Net.WebPermission> only has permission to receive an incoming connection to local resources found in this list.  \n  \n> [!NOTE]\n>  You can add URIs to this list using <xref:System.Net.WebPermission.AddPermission%2A>.  \n  \n> [!NOTE]\n>  A candidate URI string is checked against the list of relevant regular expressions (<xref:System.Net.WebPermission.AcceptList%2A> or <xref:System.Net.WebPermission.ConnectList%2A>) in two ways. First, the candidate URI string is checked against the appropriate list; then, if there is no match, the candidate URI string is converted into a <xref:System.Uri> and checked against the appropriate list."
@@ -314,6 +320,7 @@ items:
   overload: System.Net.WebPermission.AcceptList*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -325,6 +332,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -336,8 +344,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/WebPermission.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.WebPermission.AddPermission(System.Net.NetworkAccess,System.String)
   commentId: M:System.Net.WebPermission.AddPermission(System.Net.NetworkAccess,System.String)
   id: AddPermission(System.Net.NetworkAccess,System.String)
@@ -346,13 +352,14 @@ items:
   - csharp
   name: AddPermission(NetworkAccess, String)
   nameWithType: WebPermission.AddPermission(NetworkAccess, String)
-  fullName: System.Net.WebPermission.AddPermission(NetworkAccess, String)
+  fullName: WebPermission.AddPermission(NetworkAccess, String)
   type: Method
   assemblies:
   - System
+  - System.Security.Permissions
   namespace: System.Net
   summary: Adds the specified URI string with the specified access rights to the current <xref href="System.Net.WebPermission"></xref>.
-  remarks: "If you have specified <xref:System.Security.Permissions.PermissionState> as the <xref:System.Security.Permissions.PermissionState>, use <xref:System.Net.WebPermission.AddPermission%2A> to permit the use of `uriString` in the target class. The way that `uriString` can be used by the target class is specified by `access`. Specify <xref:System.Net.NetworkAccess> as the access parameter to add the URI specified by the `uriString` parameter to the list of URI accept strings, or specify <xref:System.Net.NetworkAccess> as the access parameter to add the URI to the list of URI connect strings.  \n  \n> [!NOTE]\n>  Calling <xref:System.Net.WebPermission.AddPermission%2A> on <xref:System.Security.Permissions.PermissionState><xref:System.Net.WebPermission> will have no effect, because permission is granted to all URIs.  \n  \n> [!NOTE]\n>  A candidate URI string is checked against the list of relevant regular expressions (<xref:System.Net.WebPermission.AcceptList%2A> or <xref:System.Net.WebPermission.ConnectList%2A>) in two ways. First, the candidate URI string is checked against the appropriate list; then, if there is no match, the candidate URI string is converted into a <xref:System.Uri> and checked against the appropriate list."
+  remarks: "If you have specified <xref:System.Security.Permissions.PermissionState.None> as the <xref:System.Security.Permissions.PermissionState>, use <xref:System.Net.WebPermission.AddPermission%2A> to permit the use of `uriString` in the target class. The way that `uriString` can be used by the target class is specified by `access`. Specify <xref:System.Net.NetworkAccess.Accept> as the access parameter to add the URI specified by the `uriString` parameter to the list of URI accept strings, or specify <xref:System.Net.NetworkAccess.Connect> as the access parameter to add the URI to the list of URI connect strings.  \n  \n> [!NOTE]\n>  Calling <xref:System.Net.WebPermission.AddPermission%2A> on <xref:System.Security.Permissions.PermissionState.Unrestricted><xref:System.Net.WebPermission> will have no effect, because permission is granted to all URIs.  \n  \n> [!NOTE]\n>  A candidate URI string is checked against the list of relevant regular expressions (<xref:System.Net.WebPermission.AcceptList%2A> or <xref:System.Net.WebPermission.ConnectList%2A>) in two ways. First, the candidate URI string is checked against the appropriate list; then, if there is no match, the candidate URI string is converted into a <xref:System.Uri> and checked against the appropriate list."
   example:
   - "The following example demonstrates how to add access rights to particular URL strings.  \n  \n [!code-cpp[WebPermission_Intersect#2](~/samples/snippets/cpp/VS_Snippets_Remoting/WebPermission_Intersect/CPP/webpermission_intersect.cpp#2)]\n [!code-csharp[WebPermission_Intersect#2](~/samples/snippets/csharp/VS_Snippets_Remoting/WebPermission_Intersect/CS/webpermission_intersect.cs#2)]\n [!code-vb[WebPermission_Intersect#2](~/samples/snippets/visualbasic/VS_Snippets_Remoting/WebPermission_Intersect/VB/webpermission_intersect.vb#2)]"
   syntax:
@@ -370,6 +377,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: <code>uriString</code> is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -381,6 +389,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -392,8 +401,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/WebPermission.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.WebPermission.AddPermission(System.Net.NetworkAccess,System.Text.RegularExpressions.Regex)
   commentId: M:System.Net.WebPermission.AddPermission(System.Net.NetworkAccess,System.Text.RegularExpressions.Regex)
   id: AddPermission(System.Net.NetworkAccess,System.Text.RegularExpressions.Regex)
@@ -402,13 +409,14 @@ items:
   - csharp
   name: AddPermission(NetworkAccess, Regex)
   nameWithType: WebPermission.AddPermission(NetworkAccess, Regex)
-  fullName: System.Net.WebPermission.AddPermission(NetworkAccess, Regex)
+  fullName: WebPermission.AddPermission(NetworkAccess, Regex)
   type: Method
   assemblies:
   - System
+  - System.Security.Permissions
   namespace: System.Net
   summary: Adds the specified URI with the specified access rights to the current <xref href="System.Net.WebPermission"></xref>.
-  remarks: "If you have specified <xref:System.Security.Permissions.PermissionState> as the <xref:System.Security.Permissions.PermissionState>, use <xref:System.Net.WebPermission.AddPermission%2A> to allow the use of `uriRegex` in the target class. Specify <xref:System.Net.NetworkAccess> as the `access` parameter to add the URI specified by the `uriRegex` parameter to the list of URI accept strings, or specify <xref:System.Net.NetworkAccess> as the access parameter to add the URI to the list of URI connect strings.  \n  \n> [!NOTE]\n>  Calling <xref:System.Net.WebPermission.AddPermission%2A> on an <xref:System.Security.Permissions.PermissionState><xref:System.Net.WebPermission> instance will have no effect as permission is granted to all URIs.  \n  \n> [!NOTE]\n>  It is recommended that you create `uriRegex` using the <xref:System.Text.RegularExpressions.RegexOptions?displayProperty=fullName>, <xref:System.Text.RegularExpressions.RegexOptions?displayProperty=fullName>, and <xref:System.Text.RegularExpressions.RegexOptions?displayProperty=fullName> flags.  \n  \n> [!NOTE]\n>  A candidate URI string is checked against the list of relevant regular expressions (<xref:System.Net.WebPermission.AcceptList%2A> or <xref:System.Net.WebPermission.ConnectList%2A>) in two ways. First, the candidate URI string is checked against the appropriate list; then, if there is no match, the candidate URI string is converted into a <xref:System.Uri> and checked against the appropriate list."
+  remarks: "If you have specified <xref:System.Security.Permissions.PermissionState.None> as the <xref:System.Security.Permissions.PermissionState>, use <xref:System.Net.WebPermission.AddPermission%2A> to allow the use of `uriRegex` in the target class. Specify <xref:System.Net.NetworkAccess.Accept> as the `access` parameter to add the URI specified by the `uriRegex` parameter to the list of URI accept strings, or specify <xref:System.Net.NetworkAccess.Connect> as the access parameter to add the URI to the list of URI connect strings.  \n  \n> [!NOTE]\n>  Calling <xref:System.Net.WebPermission.AddPermission%2A> on an <xref:System.Security.Permissions.PermissionState.Unrestricted><xref:System.Net.WebPermission> instance will have no effect as permission is granted to all URIs.  \n  \n> [!NOTE]\n>  It is recommended that you create `uriRegex` using the <xref:System.Text.RegularExpressions.RegexOptions?displayProperty=fullName>, <xref:System.Text.RegularExpressions.RegexOptions?displayProperty=fullName>, and <xref:System.Text.RegularExpressions.RegexOptions?displayProperty=fullName> flags.  \n  \n> [!NOTE]\n>  A candidate URI string is checked against the list of relevant regular expressions (<xref:System.Net.WebPermission.AcceptList%2A> or <xref:System.Net.WebPermission.ConnectList%2A>) in two ways. First, the candidate URI string is checked against the appropriate list; then, if there is no match, the candidate URI string is converted into a <xref:System.Uri> and checked against the appropriate list."
   example:
   - "The following example uses <xref:System.Net.WebPermission.AddPermission%2A> to give access rights for the specified URI.  \n  \n [!code-cpp[WebPermission_IsSubset#1](~/samples/snippets/cpp/VS_Snippets_Remoting/WebPermission_IsSubset/CPP/webpermission_issubset.cpp#1)]\n [!code-csharp[WebPermission_IsSubset#1](~/samples/snippets/csharp/VS_Snippets_Remoting/WebPermission_IsSubset/CS/webpermission_issubset.cs#1)]\n [!code-vb[WebPermission_IsSubset#1](~/samples/snippets/visualbasic/VS_Snippets_Remoting/WebPermission_IsSubset/VB/webpermission_issubset.vb#1)]"
   syntax:
@@ -426,6 +434,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: The <code>uriRegex</code> parameter is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -437,6 +446,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -448,8 +458,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/WebPermission.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.WebPermission.ConnectList
   commentId: P:System.Net.WebPermission.ConnectList
   id: ConnectList
@@ -458,10 +466,11 @@ items:
   - csharp
   name: ConnectList
   nameWithType: WebPermission.ConnectList
-  fullName: System.Net.WebPermission.ConnectList
+  fullName: WebPermission.ConnectList
   type: Property
   assemblies:
   - System
+  - System.Security.Permissions
   namespace: System.Net
   summary: This property returns an enumeration of a single connect permissions held by this <xref href="System.Net.WebPermission"></xref>. The possible objects types contained in the returned enumeration are <xref href="System.String"></xref> and <xref href="System.Text.RegularExpressions.Regex"></xref>.
   remarks: "This property gets a list of remote resources that are permitted by this <xref:System.Net.WebPermission>. The class to which you have applied <xref:System.Net.WebPermission> only has permission to connect with resources found in this list.  \n  \n> [!NOTE]\n>  You can add URIs to this list using <xref:System.Net.WebPermission.AddPermission%2A>.  \n  \n> [!NOTE]\n>  A candidate URI string is checked against the list of relevant regular expressions (<xref:System.Net.WebPermission.AcceptList%2A> or <xref:System.Net.WebPermission.ConnectList%2A>) in two ways. First, the candidate URI string is checked against the appropriate list; then, if there is no match, the candidate URI string is converted into a <xref:System.Uri> and checked against the appropriate list."
@@ -475,6 +484,7 @@ items:
   overload: System.Net.WebPermission.ConnectList*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -486,6 +496,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -497,8 +508,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/WebPermission.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.WebPermission.Copy
   commentId: M:System.Net.WebPermission.Copy
   id: Copy
@@ -507,10 +516,11 @@ items:
   - csharp
   name: Copy()
   nameWithType: WebPermission.Copy()
-  fullName: System.Net.WebPermission.Copy()
+  fullName: WebPermission.Copy()
   type: Method
   assemblies:
   - System
+  - System.Security.Permissions
   namespace: System.Net
   summary: Creates a copy of a <xref href="System.Net.WebPermission"></xref>.
   remarks: The <xref:System.Security.IPermission> returned by this method represents the same access to resources as the original <xref:System.Net.WebPermission>. This method overrides <xref:System.Security.CodeAccessPermission.Copy%2A> and is implemented to support the <xref:System.Security.IPermission> interface.
@@ -525,6 +535,7 @@ items:
   overload: System.Net.WebPermission.Copy*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -536,6 +547,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -547,8 +559,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/WebPermission.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.WebPermission.FromXml(System.Security.SecurityElement)
   commentId: M:System.Net.WebPermission.FromXml(System.Security.SecurityElement)
   id: FromXml(System.Security.SecurityElement)
@@ -557,10 +567,11 @@ items:
   - csharp
   name: FromXml(SecurityElement)
   nameWithType: WebPermission.FromXml(SecurityElement)
-  fullName: System.Net.WebPermission.FromXml(SecurityElement)
+  fullName: WebPermission.FromXml(SecurityElement)
   type: Method
   assemblies:
   - System
+  - System.Security.Permissions
   namespace: System.Net
   summary: Reconstructs a <xref href="System.Net.WebPermission"></xref> from an XML encoding.
   remarks: "The <xref:System.Net.WebPermission.FromXml%2A> method reconstructs a <xref:System.Net.WebPermission> from an XML encoding that is defined by the <xref:System.Security.SecurityElement> class.  \n  \n Use the <xref:System.Net.WebPermission.ToXml%2A> method to XML-encode the <xref:System.Net.WebPermission>, including state information."
@@ -581,6 +592,7 @@ items:
     commentId: T:System.ArgumentException
     description: <code>securityElement</code> is not a permission element for this type.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -592,6 +604,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -603,8 +616,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/WebPermission.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.WebPermission.Intersect(System.Security.IPermission)
   commentId: M:System.Net.WebPermission.Intersect(System.Security.IPermission)
   id: Intersect(System.Security.IPermission)
@@ -613,10 +624,11 @@ items:
   - csharp
   name: Intersect(IPermission)
   nameWithType: WebPermission.Intersect(IPermission)
-  fullName: System.Net.WebPermission.Intersect(IPermission)
+  fullName: WebPermission.Intersect(IPermission)
   type: Method
   assemblies:
   - System
+  - System.Security.Permissions
   namespace: System.Net
   summary: Returns the logical intersection of two <xref href="System.Net.WebPermission"></xref> instances.
   remarks: "<xref:System.Net.WebPermission.Intersect%2A> returns a <xref:System.Net.WebPermission> that contains those permissions that are common in both `target` and the current instance.  \n  \n This method overrides <xref:System.Security.CodeAccessPermission.Intersect%2A> and is implemented to support the <xref:System.Security.IPermission> interface."
@@ -637,6 +649,7 @@ items:
     commentId: T:System.ArgumentException
     description: <code>target</code> is not `null` or of type <xref href="System.Net.WebPermission"></xref>
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -648,6 +661,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -659,8 +673,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/WebPermission.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.WebPermission.IsSubsetOf(System.Security.IPermission)
   commentId: M:System.Net.WebPermission.IsSubsetOf(System.Security.IPermission)
   id: IsSubsetOf(System.Security.IPermission)
@@ -669,10 +681,11 @@ items:
   - csharp
   name: IsSubsetOf(IPermission)
   nameWithType: WebPermission.IsSubsetOf(IPermission)
-  fullName: System.Net.WebPermission.IsSubsetOf(IPermission)
+  fullName: WebPermission.IsSubsetOf(IPermission)
   type: Method
   assemblies:
   - System
+  - System.Security.Permissions
   namespace: System.Net
   summary: Determines whether the current <xref href="System.Net.WebPermission"></xref> is a subset of the specified object.
   remarks: If the current <xref:System.Net.WebPermission> specifies a set of associated resources that is wholly contained by the `target` parameter, then the current <xref:System.Net.WebPermission> is a subset of `target`. This method overrides <xref:System.Net.WebPermission.IsSubsetOf%2A> and is implemented to support the <xref:System.Security.IPermission> interface.
@@ -696,6 +709,7 @@ items:
     commentId: T:System.NotSupportedException
     description: The current instance contains a Regex-encoded right and there is not exactly the same right found in the target instance.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -707,6 +721,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -718,8 +733,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/WebPermission.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.WebPermission.IsUnrestricted
   commentId: M:System.Net.WebPermission.IsUnrestricted
   id: IsUnrestricted
@@ -728,13 +741,14 @@ items:
   - csharp
   name: IsUnrestricted()
   nameWithType: WebPermission.IsUnrestricted()
-  fullName: System.Net.WebPermission.IsUnrestricted()
+  fullName: WebPermission.IsUnrestricted()
   type: Method
   assemblies:
   - System
+  - System.Security.Permissions
   namespace: System.Net
   summary: Checks the overall permission state of the <xref href="System.Net.WebPermission"></xref>.
-  remarks: "If <xref:System.Net.WebPermission> is <xref:System.Security.Permissions.PermissionState>, then the target class can use all URIs. Otherwise, specific permission must be given for any URI you want to use with the target class.  \n  \n> [!NOTE]\n>  Use <xref:System.Net.WebPermission.AddPermission%2A> to add a URI and specify its permissions."
+  remarks: "If <xref:System.Net.WebPermission> is <xref:System.Security.Permissions.PermissionState.Unrestricted>, then the target class can use all URIs. Otherwise, specific permission must be given for any URI you want to use with the target class.  \n  \n> [!NOTE]\n>  Use <xref:System.Net.WebPermission.AddPermission%2A> to add a URI and specify its permissions."
   syntax:
     content: public bool IsUnrestricted ();
     parameters: []
@@ -744,6 +758,7 @@ items:
   overload: System.Net.WebPermission.IsUnrestricted*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -755,6 +770,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -766,8 +782,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/WebPermission.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.WebPermission.ToXml
   commentId: M:System.Net.WebPermission.ToXml
   id: ToXml
@@ -776,10 +790,11 @@ items:
   - csharp
   name: ToXml()
   nameWithType: WebPermission.ToXml()
-  fullName: System.Net.WebPermission.ToXml()
+  fullName: WebPermission.ToXml()
   type: Method
   assemblies:
   - System
+  - System.Security.Permissions
   namespace: System.Net
   summary: Creates an XML encoding of a <xref href="System.Net.WebPermission"></xref> and its current state.
   remarks: Use the <xref:System.Net.WebPermission.FromXml%2A> method to restore the state information from a <xref:System.Security.SecurityElement>.
@@ -794,6 +809,7 @@ items:
   overload: System.Net.WebPermission.ToXml*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -805,6 +821,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -816,8 +833,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/WebPermission.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.WebPermission.Union(System.Security.IPermission)
   commentId: M:System.Net.WebPermission.Union(System.Security.IPermission)
   id: Union(System.Security.IPermission)
@@ -826,10 +841,11 @@ items:
   - csharp
   name: Union(IPermission)
   nameWithType: WebPermission.Union(IPermission)
-  fullName: System.Net.WebPermission.Union(IPermission)
+  fullName: WebPermission.Union(IPermission)
   type: Method
   assemblies:
   - System
+  - System.Security.Permissions
   namespace: System.Net
   summary: Returns the logical union between two instances of the <xref href="System.Net.WebPermission"></xref> class.
   remarks: <xref:System.Net.WebPermission.Union%2A> returns a <xref:System.Net.WebPermission> that contains all the permissions in both `target` and the current instance.
@@ -850,6 +866,7 @@ items:
     commentId: T:System.ArgumentException
     description: target is not `null` or of type <xref href="System.Net.WebPermission"></xref>.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -861,6 +878,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -872,8 +890,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/WebPermission.xml
-  ms.author: bobdel
-  manager: markl
 references:
 - uid: System.Security.CodeAccessPermission
   parent: System.Security
@@ -904,13 +920,13 @@ references:
   isExternal: false
   name: WebPermission()
   nameWithType: WebPermission.WebPermission()
-  fullName: System.Net.WebPermission.WebPermission()
+  fullName: WebPermission.WebPermission()
 - uid: System.Net.WebPermission.#ctor(System.Security.Permissions.PermissionState)
   parent: System.Net.WebPermission
   isExternal: false
   name: WebPermission(PermissionState)
   nameWithType: WebPermission.WebPermission(PermissionState)
-  fullName: System.Net.WebPermission.WebPermission(PermissionState)
+  fullName: WebPermission.WebPermission(PermissionState)
 - uid: System.Security.Permissions.PermissionState
   parent: System.Security.Permissions
   isExternal: false
@@ -922,7 +938,7 @@ references:
   isExternal: false
   name: WebPermission(NetworkAccess, String)
   nameWithType: WebPermission.WebPermission(NetworkAccess, String)
-  fullName: System.Net.WebPermission.WebPermission(NetworkAccess, String)
+  fullName: WebPermission.WebPermission(NetworkAccess, String)
 - uid: System.Net.NetworkAccess
   parent: System.Net
   isExternal: false
@@ -940,7 +956,7 @@ references:
   isExternal: false
   name: WebPermission(NetworkAccess, Regex)
   nameWithType: WebPermission.WebPermission(NetworkAccess, Regex)
-  fullName: System.Net.WebPermission.WebPermission(NetworkAccess, Regex)
+  fullName: WebPermission.WebPermission(NetworkAccess, Regex)
 - uid: System.Text.RegularExpressions.Regex
   parent: System.Text.RegularExpressions
   isExternal: false
@@ -952,7 +968,7 @@ references:
   isExternal: false
   name: AcceptList
   nameWithType: WebPermission.AcceptList
-  fullName: System.Net.WebPermission.AcceptList
+  fullName: WebPermission.AcceptList
 - uid: System.Collections.IEnumerator
   parent: System.Collections
   isExternal: false
@@ -964,25 +980,25 @@ references:
   isExternal: false
   name: AddPermission(NetworkAccess, String)
   nameWithType: WebPermission.AddPermission(NetworkAccess, String)
-  fullName: System.Net.WebPermission.AddPermission(NetworkAccess, String)
+  fullName: WebPermission.AddPermission(NetworkAccess, String)
 - uid: System.Net.WebPermission.AddPermission(System.Net.NetworkAccess,System.Text.RegularExpressions.Regex)
   parent: System.Net.WebPermission
   isExternal: false
   name: AddPermission(NetworkAccess, Regex)
   nameWithType: WebPermission.AddPermission(NetworkAccess, Regex)
-  fullName: System.Net.WebPermission.AddPermission(NetworkAccess, Regex)
+  fullName: WebPermission.AddPermission(NetworkAccess, Regex)
 - uid: System.Net.WebPermission.ConnectList
   parent: System.Net.WebPermission
   isExternal: false
   name: ConnectList
   nameWithType: WebPermission.ConnectList
-  fullName: System.Net.WebPermission.ConnectList
+  fullName: WebPermission.ConnectList
 - uid: System.Net.WebPermission.Copy
   parent: System.Net.WebPermission
   isExternal: false
   name: Copy()
   nameWithType: WebPermission.Copy()
-  fullName: System.Net.WebPermission.Copy()
+  fullName: WebPermission.Copy()
 - uid: System.Security.IPermission
   parent: System.Security
   isExternal: false
@@ -994,7 +1010,7 @@ references:
   isExternal: false
   name: FromXml(SecurityElement)
   nameWithType: WebPermission.FromXml(SecurityElement)
-  fullName: System.Net.WebPermission.FromXml(SecurityElement)
+  fullName: WebPermission.FromXml(SecurityElement)
 - uid: System.Security.SecurityElement
   parent: System.Security
   isExternal: false
@@ -1006,13 +1022,13 @@ references:
   isExternal: false
   name: Intersect(IPermission)
   nameWithType: WebPermission.Intersect(IPermission)
-  fullName: System.Net.WebPermission.Intersect(IPermission)
+  fullName: WebPermission.Intersect(IPermission)
 - uid: System.Net.WebPermission.IsSubsetOf(System.Security.IPermission)
   parent: System.Net.WebPermission
   isExternal: false
   name: IsSubsetOf(IPermission)
   nameWithType: WebPermission.IsSubsetOf(IPermission)
-  fullName: System.Net.WebPermission.IsSubsetOf(IPermission)
+  fullName: WebPermission.IsSubsetOf(IPermission)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -1024,26 +1040,27 @@ references:
   isExternal: false
   name: IsUnrestricted()
   nameWithType: WebPermission.IsUnrestricted()
-  fullName: System.Net.WebPermission.IsUnrestricted()
+  fullName: WebPermission.IsUnrestricted()
 - uid: System.Net.WebPermission.ToXml
   parent: System.Net.WebPermission
   isExternal: false
   name: ToXml()
   nameWithType: WebPermission.ToXml()
-  fullName: System.Net.WebPermission.ToXml()
+  fullName: WebPermission.ToXml()
 - uid: System.Net.WebPermission.Union(System.Security.IPermission)
   parent: System.Net.WebPermission
   isExternal: false
   name: Union(IPermission)
   nameWithType: WebPermission.Union(IPermission)
-  fullName: System.Net.WebPermission.Union(IPermission)
+  fullName: WebPermission.Union(IPermission)
 - uid: System.Net.WebPermission.#ctor*
   parent: System.Net.WebPermission
   isExternal: false
   name: WebPermission
   nameWithType: WebPermission.WebPermission
-  fullName: System.Net.WebPermission.WebPermission
+  fullName: WebPermission.WebPermission
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1060,8 +1077,9 @@ references:
   isExternal: false
   name: AcceptList
   nameWithType: WebPermission.AcceptList
-  fullName: System.Net.WebPermission.AcceptList
+  fullName: WebPermission.AcceptList
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1078,8 +1096,9 @@ references:
   isExternal: false
   name: AddPermission
   nameWithType: WebPermission.AddPermission
-  fullName: System.Net.WebPermission.AddPermission
+  fullName: WebPermission.AddPermission
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1096,8 +1115,9 @@ references:
   isExternal: false
   name: ConnectList
   nameWithType: WebPermission.ConnectList
-  fullName: System.Net.WebPermission.ConnectList
+  fullName: WebPermission.ConnectList
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1114,8 +1134,9 @@ references:
   isExternal: false
   name: Copy
   nameWithType: WebPermission.Copy
-  fullName: System.Net.WebPermission.Copy
+  fullName: WebPermission.Copy
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1132,8 +1153,9 @@ references:
   isExternal: false
   name: FromXml
   nameWithType: WebPermission.FromXml
-  fullName: System.Net.WebPermission.FromXml
+  fullName: WebPermission.FromXml
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1150,8 +1172,9 @@ references:
   isExternal: false
   name: Intersect
   nameWithType: WebPermission.Intersect
-  fullName: System.Net.WebPermission.Intersect
+  fullName: WebPermission.Intersect
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1168,8 +1191,9 @@ references:
   isExternal: false
   name: IsSubsetOf
   nameWithType: WebPermission.IsSubsetOf
-  fullName: System.Net.WebPermission.IsSubsetOf
+  fullName: WebPermission.IsSubsetOf
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1186,8 +1210,9 @@ references:
   isExternal: false
   name: IsUnrestricted
   nameWithType: WebPermission.IsUnrestricted
-  fullName: System.Net.WebPermission.IsUnrestricted
+  fullName: WebPermission.IsUnrestricted
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1204,8 +1229,9 @@ references:
   isExternal: false
   name: ToXml
   nameWithType: WebPermission.ToXml
-  fullName: System.Net.WebPermission.ToXml
+  fullName: WebPermission.ToXml
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1222,8 +1248,9 @@ references:
   isExternal: false
   name: Union
   nameWithType: WebPermission.Union
-  fullName: System.Net.WebPermission.Union
+  fullName: WebPermission.Union
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1235,3 +1262,9 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/WebPermission.xml
+- uid: System.Security.Permissions.IUnrestrictedPermission
+  parent: System.Security.Permissions
+  isExternal: false
+  name: IUnrestrictedPermission
+  nameWithType: IUnrestrictedPermission
+  fullName: System.Security.Permissions.IUnrestrictedPermission

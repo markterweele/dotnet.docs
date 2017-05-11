@@ -15,13 +15,18 @@ items:
   type: Interface
   assemblies:
   - System
+  - System.Configuration.ConfigurationManager
   namespace: System.Configuration
   summary: Defines extended capabilities for client-based application settings providers.
   remarks: "The application settings architecture enables you to provide a custom storage mechanism for application settings by creating a custom settings provider, which is a class derived from <xref:System.Configuration.SettingsProvider>. Such a class contains the basic functionality for storing and retrieving properties. However, you can add additional standardized functionality by implementing the <xref:System.Configuration.IApplicationSettingsProvider> interface in the custom settings provider. This interface contains three methods that primarily enable the settings provider to more intelligently handle application version changes. Typically, the settings provider will store application settings for different versions of an application separately to anticipate the following circumstances:  \n  \n-   Side-by-side execution of different versions of an application.  \n  \n-   Retaining application settings when upgrading an application.  \n  \n-   Resetting the application settings to their default values for the currently used version.  \n  \n The <xref:System.Configuration.LocalFileSettingsProvider> class implements the <xref:System.Configuration.IApplicationSettingsProvider> interface. The same set of methods contained by <xref:System.Configuration.IApplicationSettingsProvider> is also found in the <xref:System.Configuration.ApplicationSettingsBase> class, enabling the establishment of a predefined communication channel between an application settings wrapper and its settings provider.  \n  \n> [!NOTE]\n>  This interface is optional. If a provider does not implement this interface, the settings infrastructure will fail without notification if it attempts to access any of the methods defined by this interface."
   syntax:
     content: public interface IApplicationSettingsProvider
+  derivedClasses:
+  - System.Configuration.LocalFileSettingsProvider
+  - System.Web.ClientServices.Providers.ClientSettingsProvider
   implements: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -31,6 +36,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -40,9 +46,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Configuration/IApplicationSettingsProvider.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Configuration.IApplicationSettingsProvider.GetPreviousVersion(System.Configuration.SettingsContext,System.Configuration.SettingsProperty)
   commentId: M:System.Configuration.IApplicationSettingsProvider.GetPreviousVersion(System.Configuration.SettingsContext,System.Configuration.SettingsProperty)
   id: GetPreviousVersion(System.Configuration.SettingsContext,System.Configuration.SettingsProperty)
@@ -51,10 +54,11 @@ items:
   - csharp
   name: GetPreviousVersion(SettingsContext, SettingsProperty)
   nameWithType: IApplicationSettingsProvider.GetPreviousVersion(SettingsContext, SettingsProperty)
-  fullName: System.Configuration.IApplicationSettingsProvider.GetPreviousVersion(SettingsContext, SettingsProperty)
+  fullName: IApplicationSettingsProvider.GetPreviousVersion(SettingsContext, SettingsProperty)
   type: Method
   assemblies:
   - System
+  - System.Configuration.ConfigurationManager
   namespace: System.Configuration
   summary: Returns the value of the specified settings property for the previous version of the same application.
   remarks: You can use the <xref:System.Configuration.IApplicationSettingsProvider.GetPreviousVersion%2A> method in conjunction with the <xref:System.Configuration.IApplicationSettingsProvider.Upgrade%2A> method to migrate application settings during or after the installation of a new version of an application.
@@ -73,6 +77,7 @@ items:
   overload: System.Configuration.IApplicationSettingsProvider.GetPreviousVersion*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -82,6 +87,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -91,9 +97,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Configuration/IApplicationSettingsProvider.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Configuration.IApplicationSettingsProvider.Reset(System.Configuration.SettingsContext)
   commentId: M:System.Configuration.IApplicationSettingsProvider.Reset(System.Configuration.SettingsContext)
   id: Reset(System.Configuration.SettingsContext)
@@ -102,10 +105,11 @@ items:
   - csharp
   name: Reset(SettingsContext)
   nameWithType: IApplicationSettingsProvider.Reset(SettingsContext)
-  fullName: System.Configuration.IApplicationSettingsProvider.Reset(SettingsContext)
+  fullName: IApplicationSettingsProvider.Reset(SettingsContext)
   type: Method
   assemblies:
   - System
+  - System.Configuration.ConfigurationManager
   namespace: System.Configuration
   summary: Resets the application settings associated with the specified application to their default values.
   remarks: "The <xref:System.Configuration.IApplicationSettingsProvider.Reset%2A> method reinitializes the stored values of the specified application settings group. In contrast, <xref:System.Configuration.DefaultSettingValueAttribute> supplies a default value for a single settings property during property initialization, if it has no stored value.  \n  \n The settings provider determines what reasonable defaults are for the specified group of application settings. For example, the implementation in <xref:System.Configuration.LocalFileSettingsProvider> resets user-scoped settings to their shared values in the `application.exe.config` file; in contrast, it leaves the application-scoped settings unchanged."
@@ -118,6 +122,7 @@ items:
   overload: System.Configuration.IApplicationSettingsProvider.Reset*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -127,6 +132,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -136,9 +142,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Configuration/IApplicationSettingsProvider.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Configuration.IApplicationSettingsProvider.Upgrade(System.Configuration.SettingsContext,System.Configuration.SettingsPropertyCollection)
   commentId: M:System.Configuration.IApplicationSettingsProvider.Upgrade(System.Configuration.SettingsContext,System.Configuration.SettingsPropertyCollection)
   id: Upgrade(System.Configuration.SettingsContext,System.Configuration.SettingsPropertyCollection)
@@ -147,10 +150,11 @@ items:
   - csharp
   name: Upgrade(SettingsContext, SettingsPropertyCollection)
   nameWithType: IApplicationSettingsProvider.Upgrade(SettingsContext, SettingsPropertyCollection)
-  fullName: System.Configuration.IApplicationSettingsProvider.Upgrade(SettingsContext, SettingsPropertyCollection)
+  fullName: IApplicationSettingsProvider.Upgrade(SettingsContext, SettingsPropertyCollection)
   type: Method
   assemblies:
   - System
+  - System.Configuration.ConfigurationManager
   namespace: System.Configuration
   summary: Indicates to the provider that the application has been upgraded. This offers the provider an opportunity to upgrade its stored settings as appropriate.
   remarks: "The .NET Framework enables side-by-side installation and execution of different versions of the same application. The application settings provider stores the application settings for each version of an application separately to ensure isolation. However, you may want to migrate settings from the previous version of an application to the current one. To provide this migration functionality, use the <xref:System.Configuration.IApplicationSettingsProvider.Upgrade%2A> method, implemented in a class derived from <xref:System.Configuration.SettingsProvider>.  \n  \n You can use the <xref:System.Configuration.IApplicationSettingsProvider.Upgrade%2A> method in conjunction with the <xref:System.Configuration.IApplicationSettingsProvider.GetPreviousVersion%2A> method to migrate application settings during or after the installation of a new version of an application.  \n  \n This method should be suppressed for every application setting that has the <xref:System.Configuration.NoSettingsVersionUpgradeAttribute> is applied to it, or to the entire settings wrapper class, derived from <xref:System.Configuration.ApplicationSettingsBase>."
@@ -166,6 +170,7 @@ items:
   overload: System.Configuration.IApplicationSettingsProvider.Upgrade*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -175,6 +180,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -184,16 +190,13 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Configuration/IApplicationSettingsProvider.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 references:
 - uid: System.Configuration.IApplicationSettingsProvider.GetPreviousVersion(System.Configuration.SettingsContext,System.Configuration.SettingsProperty)
   parent: System.Configuration.IApplicationSettingsProvider
   isExternal: false
   name: GetPreviousVersion(SettingsContext, SettingsProperty)
   nameWithType: IApplicationSettingsProvider.GetPreviousVersion(SettingsContext, SettingsProperty)
-  fullName: System.Configuration.IApplicationSettingsProvider.GetPreviousVersion(SettingsContext, SettingsProperty)
+  fullName: IApplicationSettingsProvider.GetPreviousVersion(SettingsContext, SettingsProperty)
 - uid: System.Configuration.SettingsPropertyValue
   parent: System.Configuration
   isExternal: false
@@ -217,13 +220,13 @@ references:
   isExternal: false
   name: Reset(SettingsContext)
   nameWithType: IApplicationSettingsProvider.Reset(SettingsContext)
-  fullName: System.Configuration.IApplicationSettingsProvider.Reset(SettingsContext)
+  fullName: IApplicationSettingsProvider.Reset(SettingsContext)
 - uid: System.Configuration.IApplicationSettingsProvider.Upgrade(System.Configuration.SettingsContext,System.Configuration.SettingsPropertyCollection)
   parent: System.Configuration.IApplicationSettingsProvider
   isExternal: false
   name: Upgrade(SettingsContext, SettingsPropertyCollection)
   nameWithType: IApplicationSettingsProvider.Upgrade(SettingsContext, SettingsPropertyCollection)
-  fullName: System.Configuration.IApplicationSettingsProvider.Upgrade(SettingsContext, SettingsPropertyCollection)
+  fullName: IApplicationSettingsProvider.Upgrade(SettingsContext, SettingsPropertyCollection)
 - uid: System.Configuration.SettingsPropertyCollection
   parent: System.Configuration
   isExternal: false
@@ -235,8 +238,9 @@ references:
   isExternal: false
   name: GetPreviousVersion
   nameWithType: IApplicationSettingsProvider.GetPreviousVersion
-  fullName: System.Configuration.IApplicationSettingsProvider.GetPreviousVersion
+  fullName: IApplicationSettingsProvider.GetPreviousVersion
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -251,8 +255,9 @@ references:
   isExternal: false
   name: Reset
   nameWithType: IApplicationSettingsProvider.Reset
-  fullName: System.Configuration.IApplicationSettingsProvider.Reset
+  fullName: IApplicationSettingsProvider.Reset
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -267,8 +272,9 @@ references:
   isExternal: false
   name: Upgrade
   nameWithType: IApplicationSettingsProvider.Upgrade
-  fullName: System.Configuration.IApplicationSettingsProvider.Upgrade
+  fullName: IApplicationSettingsProvider.Upgrade
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

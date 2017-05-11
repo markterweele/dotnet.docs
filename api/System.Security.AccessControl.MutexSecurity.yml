@@ -35,7 +35,7 @@ items:
   summary: Represents the Windows access control security for a named mutex. This class cannot be inherited.
   remarks: "A <xref:System.Security.AccessControl.MutexSecurity> object specifies access rights for a named system mutex, and also specifies how access attempts are audited. Access rights to the mutex are expressed as rules, with each access rule represented by a <xref:System.Security.AccessControl.MutexAccessRule> object. Each auditing rule is represented by a <xref:System.Security.AccessControl.MutexAuditRule> object.  \n  \n This mirrors the underlying Windows security system, in which each securable object has at most one discretionary access control list (DACL) that controls access to the secured object, and at most one system access control list (SACL) that specifies which access attempts are audited. The DACL and SACL are ordered lists of access control entries (ACE) that specify access and auditing for users and groups. A <xref:System.Security.AccessControl.MutexAccessRule> or <xref:System.Security.AccessControl.MutexAuditRule> object might represent more than one ACE.  \n  \n> [!NOTE]\n>  A <xref:System.Threading.Mutex> object can represent a local mutex or a named system mutex. Windows access control security is meaningful only for named system mutexes.  \n  \n The <xref:System.Security.AccessControl.MutexSecurity>, <xref:System.Security.AccessControl.MutexAccessRule>, and <xref:System.Security.AccessControl.MutexAuditRule> classes hide the implementation details of ACLs and ACEs. They allow you to ignore the seventeen different ACE types and the complexity of correctly maintaining inheritance and propagation of access rights. These objects are also designed to prevent the following common access control errors:  \n  \n-   Creating a security descriptor with a null DACL. A null reference to a DACL allows any user to add access rules to an object, potentially creating a denial-of-service attack. A new <xref:System.Security.AccessControl.MutexSecurity> object always starts with an empty DACL, which denies all access for all users.  \n  \n-   Violating the canonical ordering of ACEs. If the ACE list in the DACL is not kept in the canonical order, users might inadvertently be given access to the secured object. For example, denied access rights must always appear before allowed access rights. <xref:System.Security.AccessControl.MutexSecurity> objects maintain the correct order internally.  \n  \n-   Manipulating security descriptor flags, which should be under resource manager control only.  \n  \n-   Creating invalid combinations of ACE flags.  \n  \n-   Manipulating inherited ACEs. Inheritance and propagation are handled by the resource manager, in response to changes you make to access and audit rules.  \n  \n-   Inserting meaningless ACEs into ACLs.  \n  \n The only capabilities not supported by the .NET security objects are dangerous activities that should be avoided by the majority of application developers, such as the following:  \n  \n-   Low-level tasks that are normally performed by the resource manager.  \n  \n-   Adding or removing access control entries in ways that do not maintain the canonical ordering.  \n  \n To modify Windows access control security for a named mutex, use the <xref:System.Threading.Mutex.GetAccessControl%2A?displayProperty=fullName> method to get the <xref:System.Security.AccessControl.MutexSecurity> object. Modify the security object by adding and removing rules, and then use the <xref:System.Threading.Mutex.SetAccessControl%2A?displayProperty=fullName> method to reattach it.  \n  \n> [!IMPORTANT]\n>  Changes you make to a <xref:System.Security.AccessControl.MutexSecurity> object do not affect the access levels of the named mutex until you call the <xref:System.Threading.Mutex.SetAccessControl%2A?displayProperty=fullName> method to assign the altered security object to the named mutex.  \n  \n To copy access control security from one mutex to another, use the <xref:System.Threading.Mutex.GetAccessControl%2A?displayProperty=fullName> method to get a <xref:System.Security.AccessControl.MutexSecurity> object representing the access and audit rules for the first mutex, and then use the <xref:System.Threading.Mutex.SetAccessControl%2A?displayProperty=fullName> method, or a constructor that accepts a <xref:System.Security.AccessControl.MutexSecurity> object, to assign those rules to the second mutex.  \n  \n Users with an investment in the security descriptor definition language (SDDL) can use the <xref:System.Security.AccessControl.ObjectSecurity.SetSecurityDescriptorSddlForm%2A> method to set access rules for a named mutex, and the <xref:System.Security.AccessControl.ObjectSecurity.GetSecurityDescriptorSddlForm%2A> method to obtain a string that represents the access rules in SDDL format. This is not recommended for new development.  \n  \n> [!NOTE]\n>  Security on synchronization objects is not supported for Windows 98 or Windows Millennium Edition."
   example:
-  - "The following code example demonstrates the separation between <xref:System.Security.AccessControl.AccessControlType> rules and <xref:System.Security.AccessControl.AccessControlType> rules, and shows the combination of rights in compatible rules. The example creates a <xref:System.Security.AccessControl.MutexSecurity> object, adds rules that allow and deny various rights for the current user, and displays the resulting pair of rules. The example then allows new rights for the current user and displays the result, showing that the new rights are merged with the existing <xref:System.Security.AccessControl.AccessControlType> rule.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Mutex> object. Examples that attach security objects can be found in <xref:System.Threading.Mutex.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.Mutex.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.MutexSecurity.AddAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.AddAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.MutexSecurity.AddAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.AddAccessRule/VB/source.vb#1)]"
+  - "The following code example demonstrates the separation between <xref:System.Security.AccessControl.AccessControlType.Allow> rules and <xref:System.Security.AccessControl.AccessControlType.Deny> rules, and shows the combination of rights in compatible rules. The example creates a <xref:System.Security.AccessControl.MutexSecurity> object, adds rules that allow and deny various rights for the current user, and displays the resulting pair of rules. The example then allows new rights for the current user and displays the result, showing that the new rights are merged with the existing <xref:System.Security.AccessControl.AccessControlType.Allow> rule.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Mutex> object. Examples that attach security objects can be found in <xref:System.Threading.Mutex.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.Mutex.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.MutexSecurity.AddAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.AddAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.MutexSecurity.AddAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.AddAccessRule/VB/source.vb#1)]"
   syntax:
     content: 'public sealed class MutexSecurity : System.Security.AccessControl.NativeObjectSecurity'
   inheritance:
@@ -105,7 +105,8 @@ items:
   - System.Security.AccessControl.ObjectSecurity.WriteUnlock
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -118,7 +119,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -130,9 +132,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/MutexSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.MutexSecurity.#ctor
   commentId: M:System.Security.AccessControl.MutexSecurity.#ctor
   id: '#ctor'
@@ -141,7 +140,7 @@ items:
   - csharp
   name: MutexSecurity()
   nameWithType: MutexSecurity.MutexSecurity()
-  fullName: System.Security.AccessControl.MutexSecurity.MutexSecurity()
+  fullName: MutexSecurity.MutexSecurity()
   type: Constructor
   assemblies:
   - System.Threading.AccessControl
@@ -159,7 +158,8 @@ items:
     description: This class is not supported on Windows 98 or Windows Millennium Edition.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -172,7 +172,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -184,9 +185,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/MutexSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.MutexSecurity.#ctor(System.String,System.Security.AccessControl.AccessControlSections)
   commentId: M:System.Security.AccessControl.MutexSecurity.#ctor(System.String,System.Security.AccessControl.AccessControlSections)
   id: '#ctor(System.String,System.Security.AccessControl.AccessControlSections)'
@@ -195,7 +193,7 @@ items:
   - csharp
   name: MutexSecurity(String, AccessControlSections)
   nameWithType: MutexSecurity.MutexSecurity(String, AccessControlSections)
-  fullName: System.Security.AccessControl.MutexSecurity.MutexSecurity(String, AccessControlSections)
+  fullName: MutexSecurity.MutexSecurity(String, AccessControlSections)
   type: Constructor
   assemblies:
   - System.Threading.AccessControl
@@ -222,7 +220,8 @@ items:
     description: This class is not supported on Windows 98 or Windows Millennium Edition.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -235,7 +234,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -247,9 +247,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/MutexSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.MutexSecurity.AccessRightType
   commentId: P:System.Security.AccessControl.MutexSecurity.AccessRightType
   id: AccessRightType
@@ -258,7 +255,7 @@ items:
   - csharp
   name: AccessRightType
   nameWithType: MutexSecurity.AccessRightType
-  fullName: System.Security.AccessControl.MutexSecurity.AccessRightType
+  fullName: MutexSecurity.AccessRightType
   type: Property
   assemblies:
   - System.Threading.AccessControl
@@ -275,7 +272,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -288,7 +286,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -300,9 +299,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/MutexSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.MutexSecurity.AccessRuleFactory(System.Security.Principal.IdentityReference,System.Int32,System.Boolean,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AccessControlType)
   commentId: M:System.Security.AccessControl.MutexSecurity.AccessRuleFactory(System.Security.Principal.IdentityReference,System.Int32,System.Boolean,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AccessControlType)
   id: AccessRuleFactory(System.Security.Principal.IdentityReference,System.Int32,System.Boolean,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AccessControlType)
@@ -311,7 +307,7 @@ items:
   - csharp
   name: AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
   nameWithType: MutexSecurity.AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
-  fullName: System.Security.AccessControl.MutexSecurity.AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
+  fullName: MutexSecurity.AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -356,7 +352,8 @@ items:
     description: <code>identityReference</code> is neither of type <xref href="System.Security.Principal.SecurityIdentifier"></xref>, nor of a type such as <xref href="System.Security.Principal.NTAccount"></xref> that can be converted to type <xref href="System.Security.Principal.SecurityIdentifier"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -369,7 +366,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -381,9 +379,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/MutexSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.MutexSecurity.AccessRuleType
   commentId: P:System.Security.AccessControl.MutexSecurity.AccessRuleType
   id: AccessRuleType
@@ -392,7 +387,7 @@ items:
   - csharp
   name: AccessRuleType
   nameWithType: MutexSecurity.AccessRuleType
-  fullName: System.Security.AccessControl.MutexSecurity.AccessRuleType
+  fullName: MutexSecurity.AccessRuleType
   type: Property
   assemblies:
   - System.Threading.AccessControl
@@ -409,7 +404,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -422,7 +418,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -434,9 +431,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/MutexSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.MutexSecurity.AddAccessRule(System.Security.AccessControl.MutexAccessRule)
   commentId: M:System.Security.AccessControl.MutexSecurity.AddAccessRule(System.Security.AccessControl.MutexAccessRule)
   id: AddAccessRule(System.Security.AccessControl.MutexAccessRule)
@@ -445,7 +439,7 @@ items:
   - csharp
   name: AddAccessRule(MutexAccessRule)
   nameWithType: MutexSecurity.AddAccessRule(MutexAccessRule)
-  fullName: System.Security.AccessControl.MutexSecurity.AddAccessRule(MutexAccessRule)
+  fullName: MutexSecurity.AddAccessRule(MutexAccessRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -454,7 +448,7 @@ items:
   summary: Searches for a matching access control rule with which the new rule can be merged. If none are found, adds the new rule.
   remarks: The <xref:System.Security.AccessControl.MutexSecurity.AddAccessRule%2A> method searches for rules with the same user or group and the same <xref:System.Security.AccessControl.AccessControlType> as `rule`. If none are found, `rule` is added. If a matching rule is found, the rights in `rule` are merged with the existing rule.
   example:
-  - "The following code example demonstrates the separation between <xref:System.Security.AccessControl.AccessControlType> rules and <xref:System.Security.AccessControl.AccessControlType> rules, and shows the combination of rights in compatible rules. The example creates a <xref:System.Security.AccessControl.MutexSecurity> object, adds rules that allow and deny various rights for the current user, and displays the resulting pair of rules. The example then allows new rights for the current user and displays the result, showing that the new rights are merged with the existing <xref:System.Security.AccessControl.AccessControlType> rule.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Mutex> object. Examples that attach security objects can be found in <xref:System.Threading.Mutex.GetAccessControl%2A?displayProperty=fullName><xref:System.Threading.Mutex.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.MutexSecurity.AddAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.AddAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.MutexSecurity.AddAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.AddAccessRule/VB/source.vb#1)]"
+  - "The following code example demonstrates the separation between <xref:System.Security.AccessControl.AccessControlType.Allow> rules and <xref:System.Security.AccessControl.AccessControlType.Deny> rules, and shows the combination of rights in compatible rules. The example creates a <xref:System.Security.AccessControl.MutexSecurity> object, adds rules that allow and deny various rights for the current user, and displays the resulting pair of rules. The example then allows new rights for the current user and displays the result, showing that the new rights are merged with the existing <xref:System.Security.AccessControl.AccessControlType.Allow> rule.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Mutex> object. Examples that attach security objects can be found in <xref:System.Threading.Mutex.GetAccessControl%2A?displayProperty=fullName><xref:System.Threading.Mutex.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.MutexSecurity.AddAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.AddAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.MutexSecurity.AddAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.AddAccessRule/VB/source.vb#1)]"
   syntax:
     content: public void AddAccessRule (System.Security.AccessControl.MutexAccessRule rule);
     parameters:
@@ -471,7 +465,8 @@ items:
     description: <code>rule </code>cannot be mapped to a known identity.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -484,7 +479,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -496,9 +492,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/MutexSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.MutexSecurity.AddAuditRule(System.Security.AccessControl.MutexAuditRule)
   commentId: M:System.Security.AccessControl.MutexSecurity.AddAuditRule(System.Security.AccessControl.MutexAuditRule)
   id: AddAuditRule(System.Security.AccessControl.MutexAuditRule)
@@ -507,7 +500,7 @@ items:
   - csharp
   name: AddAuditRule(MutexAuditRule)
   nameWithType: MutexSecurity.AddAuditRule(MutexAuditRule)
-  fullName: System.Security.AccessControl.MutexSecurity.AddAuditRule(MutexAuditRule)
+  fullName: MutexSecurity.AddAuditRule(MutexAuditRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -525,7 +518,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -538,7 +532,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -550,9 +545,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/MutexSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.MutexSecurity.AuditRuleFactory(System.Security.Principal.IdentityReference,System.Int32,System.Boolean,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AuditFlags)
   commentId: M:System.Security.AccessControl.MutexSecurity.AuditRuleFactory(System.Security.Principal.IdentityReference,System.Int32,System.Boolean,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AuditFlags)
   id: AuditRuleFactory(System.Security.Principal.IdentityReference,System.Int32,System.Boolean,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AuditFlags)
@@ -561,7 +553,7 @@ items:
   - csharp
   name: AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
   nameWithType: MutexSecurity.AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
-  fullName: System.Security.AccessControl.MutexSecurity.AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
+  fullName: MutexSecurity.AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -606,7 +598,8 @@ items:
     description: <code>identityReference</code> is neither of type <xref href="System.Security.Principal.SecurityIdentifier"></xref>, nor of a type such as <xref href="System.Security.Principal.NTAccount"></xref> that can be converted to type <xref href="System.Security.Principal.SecurityIdentifier"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -619,7 +612,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -631,9 +625,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/MutexSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.MutexSecurity.AuditRuleType
   commentId: P:System.Security.AccessControl.MutexSecurity.AuditRuleType
   id: AuditRuleType
@@ -642,7 +633,7 @@ items:
   - csharp
   name: AuditRuleType
   nameWithType: MutexSecurity.AuditRuleType
-  fullName: System.Security.AccessControl.MutexSecurity.AuditRuleType
+  fullName: MutexSecurity.AuditRuleType
   type: Property
   assemblies:
   - System.Threading.AccessControl
@@ -659,7 +650,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -672,7 +664,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -684,9 +677,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/MutexSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.MutexSecurity.RemoveAccessRule(System.Security.AccessControl.MutexAccessRule)
   commentId: M:System.Security.AccessControl.MutexSecurity.RemoveAccessRule(System.Security.AccessControl.MutexAccessRule)
   id: RemoveAccessRule(System.Security.AccessControl.MutexAccessRule)
@@ -695,7 +685,7 @@ items:
   - csharp
   name: RemoveAccessRule(MutexAccessRule)
   nameWithType: MutexSecurity.RemoveAccessRule(MutexAccessRule)
-  fullName: System.Security.AccessControl.MutexSecurity.RemoveAccessRule(MutexAccessRule)
+  fullName: MutexSecurity.RemoveAccessRule(MutexAccessRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -704,7 +694,7 @@ items:
   summary: Searches for an access control rule with the same user and <xref href="System.Security.AccessControl.AccessControlType"></xref> (allow or deny) as the specified rule, and with compatible inheritance and propagation flags; if such a rule is found, the rights contained in the specified access rule are removed from it.
   remarks: "The current <xref:System.Security.AccessControl.MutexSecurity> is searched for a rule that has the same user and the same <xref:System.Security.AccessControl.AccessControlType> value as `rule`. If no such rule is found, no action is taken, and the method returns `false`. If matching rules are found, their inheritance and compatibility flags are checked for compatibility with the flags specified in `rule`. If no compatible rule is found, no action is taken, and the method returns `false`. If a rule with compatible flags is found, the rights specified in `rule` are removed from the compatible rule, and the method returns `true`. If `rule` specifies rights not contained in the compatible rule, no action is taken with respect to those rights. If all rights are removed from the compatible rule, the entire rule is removed from the current <xref:System.Security.AccessControl.MutexSecurity> object.  \n  \n> [!IMPORTANT]\n>  Although you can specify inheritance and propagation flags for mutex access rules, by creating them with the <xref:System.Security.AccessControl.MutexSecurity.AccessRuleFactory%2A> method, this is not recommended. Inheritance and propagation have no meaning for named mutexes, and they make the maintenance of access rules more complicated."
   example:
-  - "The following code example demonstrates the use of the <xref:System.Security.AccessControl.MutexSecurity.RemoveAccessRule%2A> method to remove rights from an <xref:System.Security.AccessControl.AccessControlType> rule in a <xref:System.Security.AccessControl.MutexSecurity> object. It also shows that other rights in `rule` are ignored.  \n  \n The example creates a <xref:System.Security.AccessControl.MutexSecurity> object and adds rules that allow and deny various rights for the current user. The rights allowed include <xref:System.Security.AccessControl.MutexRights>, <xref:System.Security.AccessControl.MutexRights>, and <xref:System.Security.AccessControl.MutexRights>. The example then creates a new rule for the current user, including <xref:System.Security.AccessControl.MutexRights> and <xref:System.Security.AccessControl.MutexRights> rights, and uses that rule with the <xref:System.Security.AccessControl.MutexSecurity.RemoveAccessRule%2A> method to remove <xref:System.Security.AccessControl.MutexRights> from the <xref:System.Security.AccessControl.AccessControlType> rule in the <xref:System.Security.AccessControl.MutexSecurity> object. The extraneous <xref:System.Security.AccessControl.MutexRights> right in `rule` is ignored.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Mutex> object. Examples that attach security objects can be found in <xref:System.Threading.Mutex.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.Mutex.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.MutexSecurity.RemoveAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.RemoveAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.MutexSecurity.RemoveAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.RemoveAccessRule/VB/source.vb#1)]"
+  - "The following code example demonstrates the use of the <xref:System.Security.AccessControl.MutexSecurity.RemoveAccessRule%2A> method to remove rights from an <xref:System.Security.AccessControl.AccessControlType.Allow> rule in a <xref:System.Security.AccessControl.MutexSecurity> object. It also shows that other rights in `rule` are ignored.  \n  \n The example creates a <xref:System.Security.AccessControl.MutexSecurity> object and adds rules that allow and deny various rights for the current user. The rights allowed include <xref:System.Security.AccessControl.MutexRights.Modify>, <xref:System.Security.AccessControl.MutexRights.ReadPermissions>, and <xref:System.Security.AccessControl.MutexRights.Synchronize>. The example then creates a new rule for the current user, including <xref:System.Security.AccessControl.MutexRights.ReadPermissions> and <xref:System.Security.AccessControl.MutexRights.TakeOwnership> rights, and uses that rule with the <xref:System.Security.AccessControl.MutexSecurity.RemoveAccessRule%2A> method to remove <xref:System.Security.AccessControl.MutexRights.ReadPermissions> from the <xref:System.Security.AccessControl.AccessControlType.Allow> rule in the <xref:System.Security.AccessControl.MutexSecurity> object. The extraneous <xref:System.Security.AccessControl.MutexRights.TakeOwnership> right in `rule` is ignored.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Mutex> object. Examples that attach security objects can be found in <xref:System.Threading.Mutex.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.Mutex.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.MutexSecurity.RemoveAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.RemoveAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.MutexSecurity.RemoveAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.RemoveAccessRule/VB/source.vb#1)]"
   syntax:
     content: public bool RemoveAccessRule (System.Security.AccessControl.MutexAccessRule rule);
     parameters:
@@ -721,7 +711,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -734,7 +725,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -746,9 +738,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/MutexSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.MutexSecurity.RemoveAccessRuleAll(System.Security.AccessControl.MutexAccessRule)
   commentId: M:System.Security.AccessControl.MutexSecurity.RemoveAccessRuleAll(System.Security.AccessControl.MutexAccessRule)
   id: RemoveAccessRuleAll(System.Security.AccessControl.MutexAccessRule)
@@ -757,7 +746,7 @@ items:
   - csharp
   name: RemoveAccessRuleAll(MutexAccessRule)
   nameWithType: MutexSecurity.RemoveAccessRuleAll(MutexAccessRule)
-  fullName: System.Security.AccessControl.MutexSecurity.RemoveAccessRuleAll(MutexAccessRule)
+  fullName: MutexSecurity.RemoveAccessRuleAll(MutexAccessRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -766,7 +755,7 @@ items:
   summary: Searches for all access control rules with the same user and <xref href="System.Security.AccessControl.AccessControlType"></xref> (allow or deny) as the specified rule and, if found, removes them.
   remarks: The current <xref:System.Security.AccessControl.MutexSecurity> object is searched for rules that have the same user and the same <xref:System.Security.AccessControl.AccessControlType> value as `rule`. Any rights specified by `rule` are ignored when performing this search. If no matching rules are found, no action is taken.
   example:
-  - "The following code example shows that the <xref:System.Security.AccessControl.MutexSecurity.RemoveAccessRuleAll%2A> method removes all rules that match user and <xref:System.Security.AccessControl.AccessControlType>, ignoring rights.  \n  \n The example creates a <xref:System.Security.AccessControl.MutexSecurity> object, adds rules that allow and deny various rights for the current user, and then merges additional rights into the <xref:System.Security.AccessControl.AccessControlType> rule. The example then creates a new rule that allows the current user to take ownership, and uses that rule to remove the <xref:System.Security.AccessControl.AccessControlType> rule from the <xref:System.Security.AccessControl.MutexSecurity> object.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Mutex> object. Examples that attach security objects can be found in <xref:System.Threading.Mutex.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.Mutex.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.MutexSecurity.RemoveAccessRuleAll#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.RemoveAccessRuleAll/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.MutexSecurity.RemoveAccessRuleAll#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.RemoveAccessRuleAll/VB/source.vb#1)]"
+  - "The following code example shows that the <xref:System.Security.AccessControl.MutexSecurity.RemoveAccessRuleAll%2A> method removes all rules that match user and <xref:System.Security.AccessControl.AccessControlType>, ignoring rights.  \n  \n The example creates a <xref:System.Security.AccessControl.MutexSecurity> object, adds rules that allow and deny various rights for the current user, and then merges additional rights into the <xref:System.Security.AccessControl.AccessControlType.Allow> rule. The example then creates a new rule that allows the current user to take ownership, and uses that rule to remove the <xref:System.Security.AccessControl.AccessControlType.Allow> rule from the <xref:System.Security.AccessControl.MutexSecurity> object.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Mutex> object. Examples that attach security objects can be found in <xref:System.Threading.Mutex.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.Mutex.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.MutexSecurity.RemoveAccessRuleAll#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.RemoveAccessRuleAll/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.MutexSecurity.RemoveAccessRuleAll#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.RemoveAccessRuleAll/VB/source.vb#1)]"
   syntax:
     content: public void RemoveAccessRuleAll (System.Security.AccessControl.MutexAccessRule rule);
     parameters:
@@ -780,7 +769,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -793,7 +783,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -805,9 +796,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/MutexSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific(System.Security.AccessControl.MutexAccessRule)
   commentId: M:System.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific(System.Security.AccessControl.MutexAccessRule)
   id: RemoveAccessRuleSpecific(System.Security.AccessControl.MutexAccessRule)
@@ -816,7 +804,7 @@ items:
   - csharp
   name: RemoveAccessRuleSpecific(MutexAccessRule)
   nameWithType: MutexSecurity.RemoveAccessRuleSpecific(MutexAccessRule)
-  fullName: System.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific(MutexAccessRule)
+  fullName: MutexSecurity.RemoveAccessRuleSpecific(MutexAccessRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -825,7 +813,7 @@ items:
   summary: Searches for an access control rule that exactly matches the specified rule and, if found, removes it.
   remarks: "The rule is removed only if it exactly matches `rule` in all details, including flags. Other rules with the same user and <xref:System.Security.AccessControl.AccessControlType> are not affected.  \n  \n> [!IMPORTANT]\n>  A rule represents one or more underlying access control entries (ACE), and these entries are split or combined as necessary when you modify the access security rules for a user. Thus, a rule might no longer exist in the specific form it had when it was added, and in that case the <xref:System.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific%2A> method cannot remove it."
   example:
-  - "The following code example shows that the <xref:System.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific%2A> method requires an exact match in order to remove a rule, and that rules to allow and deny rights are independent of each other.  \n  \n The example creates a <xref:System.Security.AccessControl.MutexSecurity> object, adds rules that allow and deny various rights for the current user, and then merges additional rights into the <xref:System.Security.AccessControl.AccessControlType> access rule. The example then passes the original <xref:System.Security.AccessControl.AccessControlType> rule to the <xref:System.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific%2A> method, and displays the results, showing that nothing is deleted. The example then constructs a rule that matches the <xref:System.Security.AccessControl.AccessControlType> rule in the <xref:System.Security.AccessControl.MutexSecurity> object, and successfully uses the <xref:System.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific%2A> method to remove the rule.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Mutex> object. Examples that attach security objects can be found in <xref:System.Threading.Mutex.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.Mutex.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific/VB/source.vb#1)]"
+  - "The following code example shows that the <xref:System.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific%2A> method requires an exact match in order to remove a rule, and that rules to allow and deny rights are independent of each other.  \n  \n The example creates a <xref:System.Security.AccessControl.MutexSecurity> object, adds rules that allow and deny various rights for the current user, and then merges additional rights into the <xref:System.Security.AccessControl.AccessControlType.Allow> access rule. The example then passes the original <xref:System.Security.AccessControl.AccessControlType.Allow> rule to the <xref:System.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific%2A> method, and displays the results, showing that nothing is deleted. The example then constructs a rule that matches the <xref:System.Security.AccessControl.AccessControlType.Allow> rule in the <xref:System.Security.AccessControl.MutexSecurity> object, and successfully uses the <xref:System.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific%2A> method to remove the rule.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Mutex> object. Examples that attach security objects can be found in <xref:System.Threading.Mutex.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.Mutex.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific/VB/source.vb#1)]"
   syntax:
     content: public void RemoveAccessRuleSpecific (System.Security.AccessControl.MutexAccessRule rule);
     parameters:
@@ -839,7 +827,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -852,7 +841,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -864,9 +854,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/MutexSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.MutexSecurity.RemoveAuditRule(System.Security.AccessControl.MutexAuditRule)
   commentId: M:System.Security.AccessControl.MutexSecurity.RemoveAuditRule(System.Security.AccessControl.MutexAuditRule)
   id: RemoveAuditRule(System.Security.AccessControl.MutexAuditRule)
@@ -875,7 +862,7 @@ items:
   - csharp
   name: RemoveAuditRule(MutexAuditRule)
   nameWithType: MutexSecurity.RemoveAuditRule(MutexAuditRule)
-  fullName: System.Security.AccessControl.MutexSecurity.RemoveAuditRule(MutexAuditRule)
+  fullName: MutexSecurity.RemoveAuditRule(MutexAuditRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -899,7 +886,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -912,7 +900,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -924,9 +913,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/MutexSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.MutexSecurity.RemoveAuditRuleAll(System.Security.AccessControl.MutexAuditRule)
   commentId: M:System.Security.AccessControl.MutexSecurity.RemoveAuditRuleAll(System.Security.AccessControl.MutexAuditRule)
   id: RemoveAuditRuleAll(System.Security.AccessControl.MutexAuditRule)
@@ -935,7 +921,7 @@ items:
   - csharp
   name: RemoveAuditRuleAll(MutexAuditRule)
   nameWithType: MutexSecurity.RemoveAuditRuleAll(MutexAuditRule)
-  fullName: System.Security.AccessControl.MutexSecurity.RemoveAuditRuleAll(MutexAuditRule)
+  fullName: MutexSecurity.RemoveAuditRuleAll(MutexAuditRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -956,7 +942,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -969,7 +956,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -981,9 +969,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/MutexSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.MutexSecurity.RemoveAuditRuleSpecific(System.Security.AccessControl.MutexAuditRule)
   commentId: M:System.Security.AccessControl.MutexSecurity.RemoveAuditRuleSpecific(System.Security.AccessControl.MutexAuditRule)
   id: RemoveAuditRuleSpecific(System.Security.AccessControl.MutexAuditRule)
@@ -992,7 +977,7 @@ items:
   - csharp
   name: RemoveAuditRuleSpecific(MutexAuditRule)
   nameWithType: MutexSecurity.RemoveAuditRuleSpecific(MutexAuditRule)
-  fullName: System.Security.AccessControl.MutexSecurity.RemoveAuditRuleSpecific(MutexAuditRule)
+  fullName: MutexSecurity.RemoveAuditRuleSpecific(MutexAuditRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -1013,7 +998,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1026,7 +1012,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1038,9 +1025,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/MutexSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.MutexSecurity.ResetAccessRule(System.Security.AccessControl.MutexAccessRule)
   commentId: M:System.Security.AccessControl.MutexSecurity.ResetAccessRule(System.Security.AccessControl.MutexAccessRule)
   id: ResetAccessRule(System.Security.AccessControl.MutexAccessRule)
@@ -1049,7 +1033,7 @@ items:
   - csharp
   name: ResetAccessRule(MutexAccessRule)
   nameWithType: MutexSecurity.ResetAccessRule(MutexAccessRule)
-  fullName: System.Security.AccessControl.MutexSecurity.ResetAccessRule(MutexAccessRule)
+  fullName: MutexSecurity.ResetAccessRule(MutexAccessRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -1072,7 +1056,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1085,7 +1070,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1097,9 +1083,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/MutexSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.MutexSecurity.SetAccessRule(System.Security.AccessControl.MutexAccessRule)
   commentId: M:System.Security.AccessControl.MutexSecurity.SetAccessRule(System.Security.AccessControl.MutexAccessRule)
   id: SetAccessRule(System.Security.AccessControl.MutexAccessRule)
@@ -1108,14 +1091,14 @@ items:
   - csharp
   name: SetAccessRule(MutexAccessRule)
   nameWithType: MutexSecurity.SetAccessRule(MutexAccessRule)
-  fullName: System.Security.AccessControl.MutexSecurity.SetAccessRule(MutexAccessRule)
+  fullName: MutexSecurity.SetAccessRule(MutexAccessRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
   - mscorlib
   namespace: System.Security.AccessControl
   summary: Removes all access control rules with the same user and <xref href="System.Security.AccessControl.AccessControlType"></xref> (allow or deny) as the specified rule, and then adds the specified rule.
-  remarks: "If the specified rule has <xref:System.Security.AccessControl.AccessControlType>, the effect of this method is to remove all <xref:System.Security.AccessControl.AccessControlType> rules for the specified user, replacing them with the specified rule. If the specified rule has <xref:System.Security.AccessControl.AccessControlType>, all <xref:System.Security.AccessControl.AccessControlType> rules for the specified user are replaced with the specified rule.  \n  \n If there are no rules whose user and <xref:System.Security.AccessControl.AccessControlType> match the specified rule, `rule` is added."
+  remarks: "If the specified rule has <xref:System.Security.AccessControl.AccessControlType.Allow>, the effect of this method is to remove all <xref:System.Security.AccessControl.AccessControlType.Allow> rules for the specified user, replacing them with the specified rule. If the specified rule has <xref:System.Security.AccessControl.AccessControlType.Deny>, all <xref:System.Security.AccessControl.AccessControlType.Deny> rules for the specified user are replaced with the specified rule.  \n  \n If there are no rules whose user and <xref:System.Security.AccessControl.AccessControlType> match the specified rule, `rule` is added."
   example:
   - "The following code example shows how the <xref:System.Security.AccessControl.MutexSecurity.SetAccessRule%2A> method removes all rules that match both the user and the <xref:System.Security.AccessControl.AccessControlType> of `rule`, replacing them with `rule`.  \n  \n The example creates a <xref:System.Security.AccessControl.MutexSecurity> object and adds rules that allow and deny various rights for the current user. The example then creates a new rule that allows the current user full control, and uses the <xref:System.Security.AccessControl.MutexSecurity.SetAccessRule%2A> method to replace the existing Allow rule with the new rule. The rule that denies access is not affected.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Mutex> object. Examples that attach security objects can be found in <xref:System.Threading.Mutex.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.Mutex.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.MutexSecurity.SetAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.SetAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.MutexSecurity.SetAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.SetAccessRule/VB/source.vb#1)]"
   syntax:
@@ -1131,7 +1114,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1144,7 +1128,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1156,9 +1141,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/MutexSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.MutexSecurity.SetAuditRule(System.Security.AccessControl.MutexAuditRule)
   commentId: M:System.Security.AccessControl.MutexSecurity.SetAuditRule(System.Security.AccessControl.MutexAuditRule)
   id: SetAuditRule(System.Security.AccessControl.MutexAuditRule)
@@ -1167,7 +1149,7 @@ items:
   - csharp
   name: SetAuditRule(MutexAuditRule)
   nameWithType: MutexSecurity.SetAuditRule(MutexAuditRule)
-  fullName: System.Security.AccessControl.MutexSecurity.SetAuditRule(MutexAuditRule)
+  fullName: MutexSecurity.SetAuditRule(MutexAuditRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -1188,7 +1170,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1201,7 +1184,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1213,9 +1197,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/MutexSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Security.AccessControl.NativeObjectSecurity
   parent: System.Security.AccessControl
@@ -1264,13 +1245,13 @@ references:
   isExternal: false
   name: MutexSecurity()
   nameWithType: MutexSecurity.MutexSecurity()
-  fullName: System.Security.AccessControl.MutexSecurity.MutexSecurity()
+  fullName: MutexSecurity.MutexSecurity()
 - uid: System.Security.AccessControl.MutexSecurity.#ctor(System.String,System.Security.AccessControl.AccessControlSections)
   parent: System.Security.AccessControl.MutexSecurity
   isExternal: false
   name: MutexSecurity(String, AccessControlSections)
   nameWithType: MutexSecurity.MutexSecurity(String, AccessControlSections)
-  fullName: System.Security.AccessControl.MutexSecurity.MutexSecurity(String, AccessControlSections)
+  fullName: MutexSecurity.MutexSecurity(String, AccessControlSections)
 - uid: System.String
   parent: System
   isExternal: false
@@ -1288,7 +1269,7 @@ references:
   isExternal: false
   name: AccessRightType
   nameWithType: MutexSecurity.AccessRightType
-  fullName: System.Security.AccessControl.MutexSecurity.AccessRightType
+  fullName: MutexSecurity.AccessRightType
 - uid: System.Type
   parent: System
   isExternal: false
@@ -1300,7 +1281,7 @@ references:
   isExternal: false
   name: AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
   nameWithType: MutexSecurity.AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
-  fullName: System.Security.AccessControl.MutexSecurity.AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
+  fullName: MutexSecurity.AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
 - uid: System.Security.AccessControl.AccessRule
   parent: System.Security.AccessControl
   isExternal: false
@@ -1348,13 +1329,13 @@ references:
   isExternal: false
   name: AccessRuleType
   nameWithType: MutexSecurity.AccessRuleType
-  fullName: System.Security.AccessControl.MutexSecurity.AccessRuleType
+  fullName: MutexSecurity.AccessRuleType
 - uid: System.Security.AccessControl.MutexSecurity.AddAccessRule(System.Security.AccessControl.MutexAccessRule)
   parent: System.Security.AccessControl.MutexSecurity
   isExternal: false
   name: AddAccessRule(MutexAccessRule)
   nameWithType: MutexSecurity.AddAccessRule(MutexAccessRule)
-  fullName: System.Security.AccessControl.MutexSecurity.AddAccessRule(MutexAccessRule)
+  fullName: MutexSecurity.AddAccessRule(MutexAccessRule)
 - uid: System.Security.AccessControl.MutexAccessRule
   parent: System.Security.AccessControl
   isExternal: false
@@ -1366,7 +1347,7 @@ references:
   isExternal: false
   name: AddAuditRule(MutexAuditRule)
   nameWithType: MutexSecurity.AddAuditRule(MutexAuditRule)
-  fullName: System.Security.AccessControl.MutexSecurity.AddAuditRule(MutexAuditRule)
+  fullName: MutexSecurity.AddAuditRule(MutexAuditRule)
 - uid: System.Security.AccessControl.MutexAuditRule
   parent: System.Security.AccessControl
   isExternal: false
@@ -1378,7 +1359,7 @@ references:
   isExternal: false
   name: AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
   nameWithType: MutexSecurity.AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
-  fullName: System.Security.AccessControl.MutexSecurity.AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
+  fullName: MutexSecurity.AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
 - uid: System.Security.AccessControl.AuditRule
   parent: System.Security.AccessControl
   isExternal: false
@@ -1396,70 +1377,71 @@ references:
   isExternal: false
   name: AuditRuleType
   nameWithType: MutexSecurity.AuditRuleType
-  fullName: System.Security.AccessControl.MutexSecurity.AuditRuleType
+  fullName: MutexSecurity.AuditRuleType
 - uid: System.Security.AccessControl.MutexSecurity.RemoveAccessRule(System.Security.AccessControl.MutexAccessRule)
   parent: System.Security.AccessControl.MutexSecurity
   isExternal: false
   name: RemoveAccessRule(MutexAccessRule)
   nameWithType: MutexSecurity.RemoveAccessRule(MutexAccessRule)
-  fullName: System.Security.AccessControl.MutexSecurity.RemoveAccessRule(MutexAccessRule)
+  fullName: MutexSecurity.RemoveAccessRule(MutexAccessRule)
 - uid: System.Security.AccessControl.MutexSecurity.RemoveAccessRuleAll(System.Security.AccessControl.MutexAccessRule)
   parent: System.Security.AccessControl.MutexSecurity
   isExternal: false
   name: RemoveAccessRuleAll(MutexAccessRule)
   nameWithType: MutexSecurity.RemoveAccessRuleAll(MutexAccessRule)
-  fullName: System.Security.AccessControl.MutexSecurity.RemoveAccessRuleAll(MutexAccessRule)
+  fullName: MutexSecurity.RemoveAccessRuleAll(MutexAccessRule)
 - uid: System.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific(System.Security.AccessControl.MutexAccessRule)
   parent: System.Security.AccessControl.MutexSecurity
   isExternal: false
   name: RemoveAccessRuleSpecific(MutexAccessRule)
   nameWithType: MutexSecurity.RemoveAccessRuleSpecific(MutexAccessRule)
-  fullName: System.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific(MutexAccessRule)
+  fullName: MutexSecurity.RemoveAccessRuleSpecific(MutexAccessRule)
 - uid: System.Security.AccessControl.MutexSecurity.RemoveAuditRule(System.Security.AccessControl.MutexAuditRule)
   parent: System.Security.AccessControl.MutexSecurity
   isExternal: false
   name: RemoveAuditRule(MutexAuditRule)
   nameWithType: MutexSecurity.RemoveAuditRule(MutexAuditRule)
-  fullName: System.Security.AccessControl.MutexSecurity.RemoveAuditRule(MutexAuditRule)
+  fullName: MutexSecurity.RemoveAuditRule(MutexAuditRule)
 - uid: System.Security.AccessControl.MutexSecurity.RemoveAuditRuleAll(System.Security.AccessControl.MutexAuditRule)
   parent: System.Security.AccessControl.MutexSecurity
   isExternal: false
   name: RemoveAuditRuleAll(MutexAuditRule)
   nameWithType: MutexSecurity.RemoveAuditRuleAll(MutexAuditRule)
-  fullName: System.Security.AccessControl.MutexSecurity.RemoveAuditRuleAll(MutexAuditRule)
+  fullName: MutexSecurity.RemoveAuditRuleAll(MutexAuditRule)
 - uid: System.Security.AccessControl.MutexSecurity.RemoveAuditRuleSpecific(System.Security.AccessControl.MutexAuditRule)
   parent: System.Security.AccessControl.MutexSecurity
   isExternal: false
   name: RemoveAuditRuleSpecific(MutexAuditRule)
   nameWithType: MutexSecurity.RemoveAuditRuleSpecific(MutexAuditRule)
-  fullName: System.Security.AccessControl.MutexSecurity.RemoveAuditRuleSpecific(MutexAuditRule)
+  fullName: MutexSecurity.RemoveAuditRuleSpecific(MutexAuditRule)
 - uid: System.Security.AccessControl.MutexSecurity.ResetAccessRule(System.Security.AccessControl.MutexAccessRule)
   parent: System.Security.AccessControl.MutexSecurity
   isExternal: false
   name: ResetAccessRule(MutexAccessRule)
   nameWithType: MutexSecurity.ResetAccessRule(MutexAccessRule)
-  fullName: System.Security.AccessControl.MutexSecurity.ResetAccessRule(MutexAccessRule)
+  fullName: MutexSecurity.ResetAccessRule(MutexAccessRule)
 - uid: System.Security.AccessControl.MutexSecurity.SetAccessRule(System.Security.AccessControl.MutexAccessRule)
   parent: System.Security.AccessControl.MutexSecurity
   isExternal: false
   name: SetAccessRule(MutexAccessRule)
   nameWithType: MutexSecurity.SetAccessRule(MutexAccessRule)
-  fullName: System.Security.AccessControl.MutexSecurity.SetAccessRule(MutexAccessRule)
+  fullName: MutexSecurity.SetAccessRule(MutexAccessRule)
 - uid: System.Security.AccessControl.MutexSecurity.SetAuditRule(System.Security.AccessControl.MutexAuditRule)
   parent: System.Security.AccessControl.MutexSecurity
   isExternal: false
   name: SetAuditRule(MutexAuditRule)
   nameWithType: MutexSecurity.SetAuditRule(MutexAuditRule)
-  fullName: System.Security.AccessControl.MutexSecurity.SetAuditRule(MutexAuditRule)
+  fullName: MutexSecurity.SetAuditRule(MutexAuditRule)
 - uid: System.Security.AccessControl.MutexSecurity.#ctor*
   parent: System.Security.AccessControl.MutexSecurity
   isExternal: false
   name: MutexSecurity
   nameWithType: MutexSecurity.MutexSecurity
-  fullName: System.Security.AccessControl.MutexSecurity.MutexSecurity
+  fullName: MutexSecurity.MutexSecurity
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1476,10 +1458,11 @@ references:
   isExternal: false
   name: AccessRightType
   nameWithType: MutexSecurity.AccessRightType
-  fullName: System.Security.AccessControl.MutexSecurity.AccessRightType
+  fullName: MutexSecurity.AccessRightType
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1496,10 +1479,11 @@ references:
   isExternal: false
   name: AccessRuleFactory
   nameWithType: MutexSecurity.AccessRuleFactory
-  fullName: System.Security.AccessControl.MutexSecurity.AccessRuleFactory
+  fullName: MutexSecurity.AccessRuleFactory
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1516,10 +1500,11 @@ references:
   isExternal: false
   name: AccessRuleType
   nameWithType: MutexSecurity.AccessRuleType
-  fullName: System.Security.AccessControl.MutexSecurity.AccessRuleType
+  fullName: MutexSecurity.AccessRuleType
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1536,10 +1521,11 @@ references:
   isExternal: false
   name: AddAccessRule
   nameWithType: MutexSecurity.AddAccessRule
-  fullName: System.Security.AccessControl.MutexSecurity.AddAccessRule
+  fullName: MutexSecurity.AddAccessRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1556,10 +1542,11 @@ references:
   isExternal: false
   name: AddAuditRule
   nameWithType: MutexSecurity.AddAuditRule
-  fullName: System.Security.AccessControl.MutexSecurity.AddAuditRule
+  fullName: MutexSecurity.AddAuditRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1576,10 +1563,11 @@ references:
   isExternal: false
   name: AuditRuleFactory
   nameWithType: MutexSecurity.AuditRuleFactory
-  fullName: System.Security.AccessControl.MutexSecurity.AuditRuleFactory
+  fullName: MutexSecurity.AuditRuleFactory
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1596,10 +1584,11 @@ references:
   isExternal: false
   name: AuditRuleType
   nameWithType: MutexSecurity.AuditRuleType
-  fullName: System.Security.AccessControl.MutexSecurity.AuditRuleType
+  fullName: MutexSecurity.AuditRuleType
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1616,10 +1605,11 @@ references:
   isExternal: false
   name: RemoveAccessRule
   nameWithType: MutexSecurity.RemoveAccessRule
-  fullName: System.Security.AccessControl.MutexSecurity.RemoveAccessRule
+  fullName: MutexSecurity.RemoveAccessRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1636,10 +1626,11 @@ references:
   isExternal: false
   name: RemoveAccessRuleAll
   nameWithType: MutexSecurity.RemoveAccessRuleAll
-  fullName: System.Security.AccessControl.MutexSecurity.RemoveAccessRuleAll
+  fullName: MutexSecurity.RemoveAccessRuleAll
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1656,10 +1647,11 @@ references:
   isExternal: false
   name: RemoveAccessRuleSpecific
   nameWithType: MutexSecurity.RemoveAccessRuleSpecific
-  fullName: System.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific
+  fullName: MutexSecurity.RemoveAccessRuleSpecific
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1676,10 +1668,11 @@ references:
   isExternal: false
   name: RemoveAuditRule
   nameWithType: MutexSecurity.RemoveAuditRule
-  fullName: System.Security.AccessControl.MutexSecurity.RemoveAuditRule
+  fullName: MutexSecurity.RemoveAuditRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1696,10 +1689,11 @@ references:
   isExternal: false
   name: RemoveAuditRuleAll
   nameWithType: MutexSecurity.RemoveAuditRuleAll
-  fullName: System.Security.AccessControl.MutexSecurity.RemoveAuditRuleAll
+  fullName: MutexSecurity.RemoveAuditRuleAll
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1716,10 +1710,11 @@ references:
   isExternal: false
   name: RemoveAuditRuleSpecific
   nameWithType: MutexSecurity.RemoveAuditRuleSpecific
-  fullName: System.Security.AccessControl.MutexSecurity.RemoveAuditRuleSpecific
+  fullName: MutexSecurity.RemoveAuditRuleSpecific
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1736,10 +1731,11 @@ references:
   isExternal: false
   name: ResetAccessRule
   nameWithType: MutexSecurity.ResetAccessRule
-  fullName: System.Security.AccessControl.MutexSecurity.ResetAccessRule
+  fullName: MutexSecurity.ResetAccessRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1756,10 +1752,11 @@ references:
   isExternal: false
   name: SetAccessRule
   nameWithType: MutexSecurity.SetAccessRule
-  fullName: System.Security.AccessControl.MutexSecurity.SetAccessRule
+  fullName: MutexSecurity.SetAccessRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1776,10 +1773,11 @@ references:
   isExternal: false
   name: SetAuditRule
   nameWithType: MutexSecurity.SetAuditRule
-  fullName: System.Security.AccessControl.MutexSecurity.SetAuditRule
+  fullName: MutexSecurity.SetAuditRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

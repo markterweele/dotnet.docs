@@ -15,6 +15,7 @@ items:
   type: Class
   assemblies:
   - mscorlib
+  - System.Runtime.InteropServices
   namespace: System.Runtime.InteropServices
   summary: Provides support for user customization of interop stubs in managed-to-COM interop scenarios.
   remarks: "This attribute enables interop developers who have knowledge about marshaling and the inner workings of interop calls to do the following:  \n  \n-   Take advantage of customized interop stubs at build time instead of run time.  \n  \n-   Debug customized interop stubs.  \n  \n-   Provide marshaling capabilities within a stub that the runtime does not provide.  \n  \n-   Provide user-specific method dispatch capabilities.  \n  \n You apply the attribute on a method in an interface to specify a corresponding stub method for managed-to-native COM interop.  \n  \n If this attribute is encountered during run time, the common language runtime does not dynamically generate an interop stub. Instead, it invokes the custom stub that was created at build time.  \n  \n The <xref:System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute> attribute has the following characteristics:  \n  \n-   The attribute can be used only on methods from interfaces that are marked `[ComImport]`. If the attribute is applied to non-interface types, it is ignored by the runtime.  \n  \n-   The attribute can be used only once on the same method in an interface. If it is used more than once, the compiler generates a duplicated attribute error.  \n  \n-   The attribute is not inheritable from a base interface. Derived interfaces must explicitly assign the attribute.  \n  \n-   The assembly that contains the attributed method must also contain the customized stub.  \n  \n Overloaded stub methods are valid. Although you specify only the type and the name of the stub method, the runtime will discover the corresponding stub. It does this by examining all the arguments on the interface method, and then performing full signature matching by using an explicit `this` pointer.  \n  \n It is also possible for multiple methods in an interface to share the same stub method; however, you should be careful when you use shared stubs.  \n  \n> [!NOTE]\n>  Stub methods must be static.  \n  \n You could inform the runtime to use a customized interop stub at build time instead of run time with the following C# code:  \n  \n```  \n[ComImport]  \ninterface IMyInterface  \n{  \n    [ManagedToNativeComInteropStubAttribute(typeof(TestStubClass),  \n              \"ForwardTestStub\")]  \n    void GetString (string arg);  \n}  \n```  \n  \n You could then use the following code to declare the corresponding stub method:  \n  \n```  \nclass TestStubClass  \n{  \n    internal static void ForwardTestStub(IMyInterface thisObject,  \n             string arg) {…}  \n}  \n```"
@@ -80,6 +81,7 @@ items:
   - type: System.AttributeUsageAttribute
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -91,6 +93,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -102,9 +105,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/ManagedToNativeComInteropStubAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute.#ctor(System.Type,System.String)
   commentId: M:System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute.#ctor(System.Type,System.String)
   id: '#ctor(System.Type,System.String)'
@@ -113,10 +113,11 @@ items:
   - csharp
   name: ManagedToNativeComInteropStubAttribute(Type, String)
   nameWithType: ManagedToNativeComInteropStubAttribute.ManagedToNativeComInteropStubAttribute(Type, String)
-  fullName: System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute.ManagedToNativeComInteropStubAttribute(Type, String)
+  fullName: ManagedToNativeComInteropStubAttribute.ManagedToNativeComInteropStubAttribute(Type, String)
   type: Constructor
   assemblies:
   - mscorlib
+  - System.Runtime.InteropServices
   namespace: System.Runtime.InteropServices
   summary: Initializes a new instance of the <xref href="System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute"></xref> class with the specified class type and method name.
   syntax:
@@ -137,6 +138,7 @@ items:
     commentId: T:System.MethodAccessException
     description: The interface that contains the managed interop method has no access to the stub method, because the stub method has private or protected accessibility, or because of a security issue.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -148,6 +150,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -159,9 +162,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/ManagedToNativeComInteropStubAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute.ClassType
   commentId: P:System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute.ClassType
   id: ClassType
@@ -170,10 +170,11 @@ items:
   - csharp
   name: ClassType
   nameWithType: ManagedToNativeComInteropStubAttribute.ClassType
-  fullName: System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute.ClassType
+  fullName: ManagedToNativeComInteropStubAttribute.ClassType
   type: Property
   assemblies:
   - mscorlib
+  - System.Runtime.InteropServices
   namespace: System.Runtime.InteropServices
   summary: Gets the class that contains the required stub method.
   syntax:
@@ -184,6 +185,7 @@ items:
   overload: System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute.ClassType*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -195,6 +197,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -206,9 +209,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/ManagedToNativeComInteropStubAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute.MethodName
   commentId: P:System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute.MethodName
   id: MethodName
@@ -217,10 +217,11 @@ items:
   - csharp
   name: MethodName
   nameWithType: ManagedToNativeComInteropStubAttribute.MethodName
-  fullName: System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute.MethodName
+  fullName: ManagedToNativeComInteropStubAttribute.MethodName
   type: Property
   assemblies:
   - mscorlib
+  - System.Runtime.InteropServices
   namespace: System.Runtime.InteropServices
   summary: Gets the name of the stub method.
   syntax:
@@ -231,6 +232,7 @@ items:
   overload: System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute.MethodName*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -242,6 +244,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -253,9 +256,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/ManagedToNativeComInteropStubAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.Attribute
   parent: System
@@ -280,7 +280,7 @@ references:
   isExternal: false
   name: ManagedToNativeComInteropStubAttribute(Type, String)
   nameWithType: ManagedToNativeComInteropStubAttribute.ManagedToNativeComInteropStubAttribute(Type, String)
-  fullName: System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute.ManagedToNativeComInteropStubAttribute(Type, String)
+  fullName: ManagedToNativeComInteropStubAttribute.ManagedToNativeComInteropStubAttribute(Type, String)
 - uid: System.Type
   parent: System
   isExternal: false
@@ -298,20 +298,21 @@ references:
   isExternal: false
   name: ClassType
   nameWithType: ManagedToNativeComInteropStubAttribute.ClassType
-  fullName: System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute.ClassType
+  fullName: ManagedToNativeComInteropStubAttribute.ClassType
 - uid: System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute.MethodName
   parent: System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute
   isExternal: false
   name: MethodName
   nameWithType: ManagedToNativeComInteropStubAttribute.MethodName
-  fullName: System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute.MethodName
+  fullName: ManagedToNativeComInteropStubAttribute.MethodName
 - uid: System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute.#ctor*
   parent: System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute
   isExternal: false
   name: ManagedToNativeComInteropStubAttribute
   nameWithType: ManagedToNativeComInteropStubAttribute.ManagedToNativeComInteropStubAttribute
-  fullName: System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute.ManagedToNativeComInteropStubAttribute
+  fullName: ManagedToNativeComInteropStubAttribute.ManagedToNativeComInteropStubAttribute
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -328,8 +329,9 @@ references:
   isExternal: false
   name: ClassType
   nameWithType: ManagedToNativeComInteropStubAttribute.ClassType
-  fullName: System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute.ClassType
+  fullName: ManagedToNativeComInteropStubAttribute.ClassType
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -346,8 +348,9 @@ references:
   isExternal: false
   name: MethodName
   nameWithType: ManagedToNativeComInteropStubAttribute.MethodName
-  fullName: System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute.MethodName
+  fullName: ManagedToNativeComInteropStubAttribute.MethodName
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

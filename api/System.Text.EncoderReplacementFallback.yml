@@ -21,6 +21,7 @@ items:
   - System.Text.Encoding
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Text
   summary: Provides a failure handling mechanism, called a fallback, for an input character that cannot be converted to an output byte sequence. The fallback uses a user-specified replacement string instead of the original input character. This class cannot be inherited.
   remarks: "A common reason for an encoding or decoding operation to fail is if the underlying encoding class does not provide a mapping between a character and an equivalent byte sequence. For example, an <xref:System.Text.ASCIIEncoding> object cannot encode a character having a Unicode code point value that is outside the range U+0000 to U+007F. If the input character cannot be converted to an output byte sequence, a <xref:System.Text.EncoderReplacementFallback> object substitutes a specified replacement string for the original input character. The conversion process encodes the replacement string and then continues to process the remainder of the original input.  \n  \n The replacement string used by an <xref:System.Text.EncoderReplacementFallback> object is determined by the call to its class constructor. Two options are available:  \n  \n-   Replacement with the default character. If you call the <xref:System.Text.EncoderReplacementFallback.%23ctor> constructor, the replacement character is \"?\" (U+003F).  \n  \n-   Replacement with a string of your choice. If you call the <xref:System.Text.EncoderReplacementFallback.%23ctor%28System.String%29> constructor, you provide the replacement string.  \n  \n If you choose a fallback string to use with this class, make sure that the string is composed entirely of characters that can be encoded in the target encoding. Otherwise, a recursive fallback results, causing an <xref:System.ArgumentException>.  \n  \n This class is one of two .NET Framework classes that implement different fallback strategies for handling encoding conversion failures. The other class is the <xref:System.Text.EncoderExceptionFallback> class, which throws an <xref:System.Text.EncoderFallbackException> when an invalid character is encountered."
@@ -42,7 +43,8 @@ items:
   - System.Text.EncoderFallback.ReplacementFallback
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -59,7 +61,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -75,9 +78,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text/EncoderReplacementFallback.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Text.EncoderReplacementFallback.#ctor
   commentId: M:System.Text.EncoderReplacementFallback.#ctor
   id: '#ctor'
@@ -86,12 +86,13 @@ items:
   - csharp
   name: EncoderReplacementFallback()
   nameWithType: EncoderReplacementFallback.EncoderReplacementFallback()
-  fullName: System.Text.EncoderReplacementFallback.EncoderReplacementFallback()
+  fullName: EncoderReplacementFallback.EncoderReplacementFallback()
   type: Constructor
   assemblies:
   - System.Text.Encoding
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Text
   summary: Initializes a new instance of the <xref href="System.Text.EncoderReplacementFallback"></xref> class.
   remarks: By default, the replacement string that is the value of this <xref:System.Text.EncoderReplacementFallback> object is "?".
@@ -102,7 +103,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -119,7 +121,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -135,9 +138,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text/EncoderReplacementFallback.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Text.EncoderReplacementFallback.#ctor(System.String)
   commentId: M:System.Text.EncoderReplacementFallback.#ctor(System.String)
   id: '#ctor(System.String)'
@@ -146,12 +146,13 @@ items:
   - csharp
   name: EncoderReplacementFallback(String)
   nameWithType: EncoderReplacementFallback.EncoderReplacementFallback(String)
-  fullName: System.Text.EncoderReplacementFallback.EncoderReplacementFallback(String)
+  fullName: EncoderReplacementFallback.EncoderReplacementFallback(String)
   type: Constructor
   assemblies:
   - System.Text.Encoding
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Text
   summary: Initializes a new instance of the <xref href="System.Text.EncoderReplacementFallback"></xref> class using a specified replacement string.
   remarks: "The `replacement` parameter initializes the replacement string that is the value of this <xref:System.Text.EncoderReplacementFallback> object. You application must provide a `replacement` value that contains only characters that can be encoded in the target encoding. Otherwise, a recursive fallback results, causing an <xref:System.ArgumentException>. For example, the fallback provided for an <xref:System.Text.ASCIIEncoding> object cannot include the character \"¿\" (U+00BF) because that character is itself not a valid ASCII character.  \n  \n As a result of this, U+FFFD, which is a good choice for a fallback string for <xref:System.Text.DecoderExceptionFallback>, is not generally a good choice for this class. Also, the null character (U+0000) cannot be used in the fallback string."
@@ -171,7 +172,8 @@ items:
     description: <code>replacement</code> contains an invalid surrogate pair. In other words, the surrogate does not consist of one high surrogate component followed by one low surrogate component.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -188,7 +190,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -204,9 +207,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text/EncoderReplacementFallback.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Text.EncoderReplacementFallback.CreateFallbackBuffer
   commentId: M:System.Text.EncoderReplacementFallback.CreateFallbackBuffer
   id: CreateFallbackBuffer
@@ -215,12 +215,13 @@ items:
   - csharp
   name: CreateFallbackBuffer()
   nameWithType: EncoderReplacementFallback.CreateFallbackBuffer()
-  fullName: System.Text.EncoderReplacementFallback.CreateFallbackBuffer()
+  fullName: EncoderReplacementFallback.CreateFallbackBuffer()
   type: Method
   assemblies:
   - System.Text.Encoding
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Text
   summary: Creates a <xref href="System.Text.EncoderFallbackBuffer"></xref> object that is initialized with the replacement string of this <xref href="System.Text.EncoderReplacementFallback"></xref> object.
   syntax:
@@ -233,7 +234,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -250,7 +252,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -266,9 +269,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text/EncoderReplacementFallback.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Text.EncoderReplacementFallback.DefaultString
   commentId: P:System.Text.EncoderReplacementFallback.DefaultString
   id: DefaultString
@@ -277,12 +277,13 @@ items:
   - csharp
   name: DefaultString
   nameWithType: EncoderReplacementFallback.DefaultString
-  fullName: System.Text.EncoderReplacementFallback.DefaultString
+  fullName: EncoderReplacementFallback.DefaultString
   type: Property
   assemblies:
   - System.Text.Encoding
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Text
   summary: Gets the replacement string that is the value of the <xref href="System.Text.EncoderReplacementFallback"></xref> object.
   syntax:
@@ -294,7 +295,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -311,7 +313,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -327,9 +330,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text/EncoderReplacementFallback.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Text.EncoderReplacementFallback.Equals(System.Object)
   commentId: M:System.Text.EncoderReplacementFallback.Equals(System.Object)
   id: Equals(System.Object)
@@ -338,12 +338,13 @@ items:
   - csharp
   name: Equals(Object)
   nameWithType: EncoderReplacementFallback.Equals(Object)
-  fullName: System.Text.EncoderReplacementFallback.Equals(Object)
+  fullName: EncoderReplacementFallback.Equals(Object)
   type: Method
   assemblies:
   - System.Text.Encoding
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Text
   summary: Indicates whether the value of a specified object is equal to the <xref href="System.Text.EncoderReplacementFallback"></xref> object.
   remarks: The value of a <xref:System.Text.EncoderReplacementFallback> object is the value of its <xref:System.Text.EncoderReplacementFallback.DefaultString%2A> property.
@@ -360,7 +361,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -377,7 +379,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -393,9 +396,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text/EncoderReplacementFallback.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Text.EncoderReplacementFallback.GetHashCode
   commentId: M:System.Text.EncoderReplacementFallback.GetHashCode
   id: GetHashCode
@@ -404,12 +404,13 @@ items:
   - csharp
   name: GetHashCode()
   nameWithType: EncoderReplacementFallback.GetHashCode()
-  fullName: System.Text.EncoderReplacementFallback.GetHashCode()
+  fullName: EncoderReplacementFallback.GetHashCode()
   type: Method
   assemblies:
   - System.Text.Encoding
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Text
   summary: Retrieves the hash code for the value of the <xref href="System.Text.EncoderReplacementFallback"></xref> object.
   remarks: The value of a <xref:System.Text.EncoderReplacementFallback> object is the value of its <xref:System.Text.EncoderReplacementFallback.DefaultString%2A> property.
@@ -423,7 +424,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -440,7 +442,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -456,9 +459,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text/EncoderReplacementFallback.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Text.EncoderReplacementFallback.MaxCharCount
   commentId: P:System.Text.EncoderReplacementFallback.MaxCharCount
   id: MaxCharCount
@@ -467,12 +467,13 @@ items:
   - csharp
   name: MaxCharCount
   nameWithType: EncoderReplacementFallback.MaxCharCount
-  fullName: System.Text.EncoderReplacementFallback.MaxCharCount
+  fullName: EncoderReplacementFallback.MaxCharCount
   type: Property
   assemblies:
   - System.Text.Encoding
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Text
   summary: Gets the number of characters in the replacement string for the <xref href="System.Text.EncoderReplacementFallback"></xref> object.
   syntax:
@@ -484,7 +485,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -501,7 +503,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -517,9 +520,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text/EncoderReplacementFallback.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.Text.EncoderFallback
   parent: System.Text
@@ -544,13 +544,13 @@ references:
   isExternal: false
   name: EncoderReplacementFallback()
   nameWithType: EncoderReplacementFallback.EncoderReplacementFallback()
-  fullName: System.Text.EncoderReplacementFallback.EncoderReplacementFallback()
+  fullName: EncoderReplacementFallback.EncoderReplacementFallback()
 - uid: System.Text.EncoderReplacementFallback.#ctor(System.String)
   parent: System.Text.EncoderReplacementFallback
   isExternal: false
   name: EncoderReplacementFallback(String)
   nameWithType: EncoderReplacementFallback.EncoderReplacementFallback(String)
-  fullName: System.Text.EncoderReplacementFallback.EncoderReplacementFallback(String)
+  fullName: EncoderReplacementFallback.EncoderReplacementFallback(String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -562,7 +562,7 @@ references:
   isExternal: false
   name: CreateFallbackBuffer()
   nameWithType: EncoderReplacementFallback.CreateFallbackBuffer()
-  fullName: System.Text.EncoderReplacementFallback.CreateFallbackBuffer()
+  fullName: EncoderReplacementFallback.CreateFallbackBuffer()
 - uid: System.Text.EncoderFallbackBuffer
   parent: System.Text
   isExternal: false
@@ -574,13 +574,13 @@ references:
   isExternal: false
   name: DefaultString
   nameWithType: EncoderReplacementFallback.DefaultString
-  fullName: System.Text.EncoderReplacementFallback.DefaultString
+  fullName: EncoderReplacementFallback.DefaultString
 - uid: System.Text.EncoderReplacementFallback.Equals(System.Object)
   parent: System.Text.EncoderReplacementFallback
   isExternal: false
   name: Equals(Object)
   nameWithType: EncoderReplacementFallback.Equals(Object)
-  fullName: System.Text.EncoderReplacementFallback.Equals(Object)
+  fullName: EncoderReplacementFallback.Equals(Object)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -598,7 +598,7 @@ references:
   isExternal: false
   name: GetHashCode()
   nameWithType: EncoderReplacementFallback.GetHashCode()
-  fullName: System.Text.EncoderReplacementFallback.GetHashCode()
+  fullName: EncoderReplacementFallback.GetHashCode()
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -610,16 +610,17 @@ references:
   isExternal: false
   name: MaxCharCount
   nameWithType: EncoderReplacementFallback.MaxCharCount
-  fullName: System.Text.EncoderReplacementFallback.MaxCharCount
+  fullName: EncoderReplacementFallback.MaxCharCount
 - uid: System.Text.EncoderReplacementFallback.#ctor*
   parent: System.Text.EncoderReplacementFallback
   isExternal: false
   name: EncoderReplacementFallback
   nameWithType: EncoderReplacementFallback.EncoderReplacementFallback
-  fullName: System.Text.EncoderReplacementFallback.EncoderReplacementFallback
+  fullName: EncoderReplacementFallback.EncoderReplacementFallback
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -640,10 +641,11 @@ references:
   isExternal: false
   name: CreateFallbackBuffer
   nameWithType: EncoderReplacementFallback.CreateFallbackBuffer
-  fullName: System.Text.EncoderReplacementFallback.CreateFallbackBuffer
+  fullName: EncoderReplacementFallback.CreateFallbackBuffer
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -664,10 +666,11 @@ references:
   isExternal: false
   name: DefaultString
   nameWithType: EncoderReplacementFallback.DefaultString
-  fullName: System.Text.EncoderReplacementFallback.DefaultString
+  fullName: EncoderReplacementFallback.DefaultString
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -688,10 +691,11 @@ references:
   isExternal: false
   name: Equals
   nameWithType: EncoderReplacementFallback.Equals
-  fullName: System.Text.EncoderReplacementFallback.Equals
+  fullName: EncoderReplacementFallback.Equals
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -712,10 +716,11 @@ references:
   isExternal: false
   name: GetHashCode
   nameWithType: EncoderReplacementFallback.GetHashCode
-  fullName: System.Text.EncoderReplacementFallback.GetHashCode
+  fullName: EncoderReplacementFallback.GetHashCode
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -736,10 +741,11 @@ references:
   isExternal: false
   name: MaxCharCount
   nameWithType: EncoderReplacementFallback.MaxCharCount
-  fullName: System.Text.EncoderReplacementFallback.MaxCharCount
+  fullName: EncoderReplacementFallback.MaxCharCount
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

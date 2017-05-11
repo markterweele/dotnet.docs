@@ -16,7 +16,7 @@ items:
   - System.Runtime.InteropServices.WindowsRuntime
   - mscorlib
   namespace: System.Runtime.InteropServices.WindowsRuntime
-  summary: Specifies the name of the return value of a method in a [!INCLUDE[wrt](~/includes/wrt-md.md)] component.
+  summary: Specifies the name of the return value of a method in a Windows Runtime component.
   remarks: "In a [!INCLUDE[wrt](~/includes/wrt-md.md)] component, all the parameters of a method and the return value must have names. By default, [Winmdexp.exe (Windows Runtime Metadata Export Tool)](~/docs/framework/tools/winmdexp-exe-windows-runtime-metadata-export-tool.md) gives the return value the name \"value\". When you use a component in a [!INCLUDE[win8_appname_long](~/includes/win8-appname-long-md.md)] app written in JavaScript, you can use this name to retrieve the return value. For example, suppose a component defines a method that has a return value and two `out` parameters (`ByRef` parameters with the <xref:System.Runtime.InteropServices.OutAttribute> attribute in Visual Basic):  \n  \n```csharp  \npublic static int ComputeAverage([ReadOnlyArray()] int[] input,  \n    out int minValue, out int maxValue)  \n{  \n    …  \n}  \n```  \n  \n```vb  \nPublic Shared Function ComputeAverage( _  \n        <ReadOnlyArray()> ByVal input As Integer, _  \n        <Out()> ByRef minValue As Integer, _  \n        <Out()> ByRef maxValue As Integer) As Integer  \n    …  \nEnd Function  \n  \n```  \n  \n When you call the function from JavaScript, you can access the return value by its default name (`value`):  \n  \n```javascript  \nvar data = [5, 13, 23, 37];  \nvar results = SampleComponent.TestStuff.computeAverage(data);  \nvar formattedResults = \"Min=\" + results.minValue + \", Avg=\" +   \n    results.value + \", Max=\" + results.maxValue;  \n  \n```  \n  \n You must give the return value a different name if you already have a parameter named \"value\". Or you might simply want to use a more meaningful name (such as \"average\" in this example). Apply the <xref:System.Runtime.InteropServices.WindowsRuntime.ReturnValueNameAttribute> attribute to your method and specify a new name.  \n  \n```csharp  \n[return: ReturnValueName(\"average\")]  \npublic static int ComputeAverage([ReadOnlyArray()] int[] input,  \n    out int minValue, out int maxValue)  \n{  \n    …  \n}  \n  \n```  \n  \n```vb  \nPublic Shared Function ComputeAverage( _  \n        <ReadOnlyArray()> ByVal input As Integer, _  \n        <Out()> ByRef minValue As Integer, _  \n        <Out()> ByRef maxValue As Integer) _  \n            As <ReturnValueName(\"average\")> Integer  \n    …  \nEnd Function  \n  \n```"
   syntax:
     content: >-
@@ -78,7 +78,8 @@ items:
   - type: System.AttributeUsageAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -91,7 +92,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -103,9 +105,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices.WindowsRuntime/ReturnValueNameAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.WindowsRuntime.ReturnValueNameAttribute.#ctor(System.String)
   commentId: M:System.Runtime.InteropServices.WindowsRuntime.ReturnValueNameAttribute.#ctor(System.String)
   id: '#ctor(System.String)'
@@ -114,7 +113,7 @@ items:
   - csharp
   name: ReturnValueNameAttribute(String)
   nameWithType: ReturnValueNameAttribute.ReturnValueNameAttribute(String)
-  fullName: System.Runtime.InteropServices.WindowsRuntime.ReturnValueNameAttribute.ReturnValueNameAttribute(String)
+  fullName: ReturnValueNameAttribute.ReturnValueNameAttribute(String)
   type: Constructor
   assemblies:
   - System.Runtime.InteropServices.WindowsRuntime
@@ -131,7 +130,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -144,7 +144,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -156,9 +157,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices.WindowsRuntime/ReturnValueNameAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.WindowsRuntime.ReturnValueNameAttribute.Name
   commentId: P:System.Runtime.InteropServices.WindowsRuntime.ReturnValueNameAttribute.Name
   id: Name
@@ -167,7 +165,7 @@ items:
   - csharp
   name: Name
   nameWithType: ReturnValueNameAttribute.Name
-  fullName: System.Runtime.InteropServices.WindowsRuntime.ReturnValueNameAttribute.Name
+  fullName: ReturnValueNameAttribute.Name
   type: Property
   assemblies:
   - System.Runtime.InteropServices.WindowsRuntime
@@ -183,7 +181,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -196,7 +195,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -208,9 +208,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices.WindowsRuntime/ReturnValueNameAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.Attribute
   parent: System
@@ -223,7 +220,7 @@ references:
   isExternal: false
   name: ReturnValueNameAttribute(String)
   nameWithType: ReturnValueNameAttribute.ReturnValueNameAttribute(String)
-  fullName: System.Runtime.InteropServices.WindowsRuntime.ReturnValueNameAttribute.ReturnValueNameAttribute(String)
+  fullName: ReturnValueNameAttribute.ReturnValueNameAttribute(String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -235,16 +232,17 @@ references:
   isExternal: false
   name: Name
   nameWithType: ReturnValueNameAttribute.Name
-  fullName: System.Runtime.InteropServices.WindowsRuntime.ReturnValueNameAttribute.Name
+  fullName: ReturnValueNameAttribute.Name
 - uid: System.Runtime.InteropServices.WindowsRuntime.ReturnValueNameAttribute.#ctor*
   parent: System.Runtime.InteropServices.WindowsRuntime.ReturnValueNameAttribute
   isExternal: false
   name: ReturnValueNameAttribute
   nameWithType: ReturnValueNameAttribute.ReturnValueNameAttribute
-  fullName: System.Runtime.InteropServices.WindowsRuntime.ReturnValueNameAttribute.ReturnValueNameAttribute
+  fullName: ReturnValueNameAttribute.ReturnValueNameAttribute
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -261,10 +259,11 @@ references:
   isExternal: false
   name: Name
   nameWithType: ReturnValueNameAttribute.Name
-  fullName: System.Runtime.InteropServices.WindowsRuntime.ReturnValueNameAttribute.Name
+  fullName: ReturnValueNameAttribute.Name
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

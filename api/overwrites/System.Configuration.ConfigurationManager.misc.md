@@ -13,7 +13,7 @@ additional_notes.overrides: *content
   
  If your application needs read-only access to its own configuration, we recommend that you use the <xref href="System.Configuration.ConfigurationManager.GetSection(System.String)"></xref> method. This method provides access to the cached configuration values for the current application, which has better performance than the <xref href="System.Configuration.Configuration"></xref> class.  
   
- To write to the configuration files, use one of the <xref href="erload:System.Configuration.Configuration.Save"></xref> methods. The user or process that writes must have the following permissions:  
+ To write to the configuration files, use one of the <xref href="System.Configuration.Configuration.Save*"></xref> methods. The user or process that writes must have the following permissions:  
   
 -   Write permission on the configuration file and directory at the current configuration hierarchy level.  
   

@@ -35,7 +35,7 @@ items:
   summary: Represents the Windows access control security for a named semaphore. This class cannot be inherited.
   remarks: "A <xref:System.Security.AccessControl.SemaphoreSecurity> object specifies access rights for a named system semaphore, and also specifies how access attempts are audited. Access rights to the semaphore are expressed as rules, with each access rule represented by a <xref:System.Security.AccessControl.SemaphoreAccessRule> object. Each auditing rule is represented by a <xref:System.Security.AccessControl.SemaphoreAuditRule> object.  \n  \n This mirrors the underlying Windows security system, in which each securable object has at most one discretionary access control list (DACL) that controls access to the secured object, and at most one system access control list (SACL) that specifies which access attempts are audited. The DACL and SACL are ordered lists of access control entries (ACE) that specify access and auditing for users and groups. A <xref:System.Security.AccessControl.SemaphoreAccessRule> or <xref:System.Security.AccessControl.SemaphoreAuditRule> object might represent more than one ACE.  \n  \n> [!NOTE]\n>  A <xref:System.Threading.Semaphore> object can represent a local semaphore or a named system semaphore. Windows access control security is meaningful only for named system semaphores.  \n  \n The <xref:System.Security.AccessControl.SemaphoreSecurity>, <xref:System.Security.AccessControl.SemaphoreAccessRule>, and <xref:System.Security.AccessControl.SemaphoreAuditRule> classes hide the implementation details of ACLs and ACEs. They allow you to ignore the seventeen different ACE types and the complexity of correctly maintaining inheritance and propagation of access rights. These objects are also designed to prevent the following common access control errors:  \n  \n-   Creating a security descriptor with a null DACL. A null reference to a DACL allows any user to add access rules to an object, potentially creating a denial-of-service attack. A new <xref:System.Security.AccessControl.SemaphoreSecurity> object always starts with an empty DACL, which denies all access for all users.  \n  \n-   Violating the canonical ordering of ACEs. If the ACE list in the DACL is not kept in the canonical order, users might inadvertently be given access to the secured object. For example, denied access rights must always appear before allowed access rights. <xref:System.Security.AccessControl.SemaphoreSecurity> objects maintain the correct order internally.  \n  \n-   Manipulating security descriptor flags, which should be under resource manager control only.  \n  \n-   Creating invalid combinations of ACE flags.  \n  \n-   Manipulating inherited ACEs. Inheritance and propagation are handled by the resource manager, in response to changes you make to access and audit rules.  \n  \n-   Inserting meaningless ACEs into ACLs.  \n  \n The only capabilities not supported by the .NET security objects are dangerous activities that should be avoided by the majority of application developers, such as the following:  \n  \n-   Low-level tasks that are normally performed by the resource manager.  \n  \n-   Adding or removing access control entries in ways that do not maintain the canonical ordering.  \n  \n To modify Windows access control security for a named semaphore, use the <xref:System.Threading.Semaphore.GetAccessControl%2A?displayProperty=fullName> method to get the <xref:System.Security.AccessControl.SemaphoreSecurity> object. Modify the security object by adding and removing rules, and then use the <xref:System.Threading.Semaphore.SetAccessControl%2A?displayProperty=fullName> method to reattach it.  \n  \n> [!IMPORTANT]\n>  Changes you make to a <xref:System.Security.AccessControl.SemaphoreSecurity> object do not affect the access levels of the named semaphore until you call the <xref:System.Threading.Semaphore.SetAccessControl%2A?displayProperty=fullName> method to assign the altered security object to the named semaphore.  \n  \n To copy access control security from one semaphore to another, use the <xref:System.Threading.Semaphore.GetAccessControl%2A?displayProperty=fullName> method to get a <xref:System.Security.AccessControl.SemaphoreSecurity> object representing the access and audit rules for the first semaphore, then use the <xref:System.Threading.Semaphore.SetAccessControl%2A?displayProperty=fullName> method, or a constructor that accepts a <xref:System.Security.AccessControl.SemaphoreSecurity> object, to assign those rules to the second semaphore.  \n  \n Users with an investment in the security descriptor definition language (SDDL) can use the <xref:System.Security.AccessControl.ObjectSecurity.SetSecurityDescriptorSddlForm%2A> method to set access rules for a named semaphore, and the <xref:System.Security.AccessControl.ObjectSecurity.GetSecurityDescriptorSddlForm%2A> method to obtain a string that represents the access rules in SDDL format. This is not recommended for new development.  \n  \n> [!NOTE]\n>  Security on synchronization objects is not supported for Windows 98 or Windows Millennium Edition."
   example:
-  - "The following code example demonstrates the separation between <xref:System.Security.AccessControl.AccessControlType> rules and <xref:System.Security.AccessControl.AccessControlType> rules, and shows the combination of rights in compatible rules. The example creates a <xref:System.Security.AccessControl.SemaphoreSecurity> object, adds rules that allow and deny various rights for the current user, and displays the resulting pair of rules. The example then allows new rights for the current user and displays the result, showing that the new rights are merged with the existing <xref:System.Security.AccessControl.AccessControlType> rule.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Semaphore> object. Examples that attach security objects can be found in <xref:System.Threading.Semaphore.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.Semaphore.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.SemaphoreSecurity.AddAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.AddAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.SemaphoreSecurity.AddAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.AddAccessRule/VB/source.vb#1)]"
+  - "The following code example demonstrates the separation between <xref:System.Security.AccessControl.AccessControlType.Allow> rules and <xref:System.Security.AccessControl.AccessControlType.Deny> rules, and shows the combination of rights in compatible rules. The example creates a <xref:System.Security.AccessControl.SemaphoreSecurity> object, adds rules that allow and deny various rights for the current user, and displays the resulting pair of rules. The example then allows new rights for the current user and displays the result, showing that the new rights are merged with the existing <xref:System.Security.AccessControl.AccessControlType.Allow> rule.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Semaphore> object. Examples that attach security objects can be found in <xref:System.Threading.Semaphore.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.Semaphore.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.SemaphoreSecurity.AddAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.AddAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.SemaphoreSecurity.AddAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.AddAccessRule/VB/source.vb#1)]"
   syntax:
     content: >-
       [System.Runtime.InteropServices.ComVisible(false)]
@@ -110,7 +110,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -123,7 +124,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -135,9 +137,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/SemaphoreSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.SemaphoreSecurity.#ctor
   commentId: M:System.Security.AccessControl.SemaphoreSecurity.#ctor
   id: '#ctor'
@@ -146,7 +145,7 @@ items:
   - csharp
   name: SemaphoreSecurity()
   nameWithType: SemaphoreSecurity.SemaphoreSecurity()
-  fullName: System.Security.AccessControl.SemaphoreSecurity.SemaphoreSecurity()
+  fullName: SemaphoreSecurity.SemaphoreSecurity()
   type: Constructor
   assemblies:
   - System.Threading.AccessControl
@@ -164,7 +163,8 @@ items:
     description: This class is not supported on Windows 98 or Windows Millennium Edition.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -177,7 +177,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -189,9 +190,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/SemaphoreSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.SemaphoreSecurity.#ctor(System.String,System.Security.AccessControl.AccessControlSections)
   commentId: M:System.Security.AccessControl.SemaphoreSecurity.#ctor(System.String,System.Security.AccessControl.AccessControlSections)
   id: '#ctor(System.String,System.Security.AccessControl.AccessControlSections)'
@@ -200,7 +198,7 @@ items:
   - csharp
   name: SemaphoreSecurity(String, AccessControlSections)
   nameWithType: SemaphoreSecurity.SemaphoreSecurity(String, AccessControlSections)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.SemaphoreSecurity(String, AccessControlSections)
+  fullName: SemaphoreSecurity.SemaphoreSecurity(String, AccessControlSections)
   type: Constructor
   assemblies:
   - System.Threading.AccessControl
@@ -224,7 +222,8 @@ items:
     description: This class is not supported on Windows 98 or Windows Millennium Edition.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -237,7 +236,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -249,9 +249,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/SemaphoreSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.SemaphoreSecurity.AccessRightType
   commentId: P:System.Security.AccessControl.SemaphoreSecurity.AccessRightType
   id: AccessRightType
@@ -260,7 +257,7 @@ items:
   - csharp
   name: AccessRightType
   nameWithType: SemaphoreSecurity.AccessRightType
-  fullName: System.Security.AccessControl.SemaphoreSecurity.AccessRightType
+  fullName: SemaphoreSecurity.AccessRightType
   type: Property
   assemblies:
   - System.Threading.AccessControl
@@ -277,7 +274,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -290,7 +288,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -302,9 +301,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/SemaphoreSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.SemaphoreSecurity.AccessRuleFactory(System.Security.Principal.IdentityReference,System.Int32,System.Boolean,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AccessControlType)
   commentId: M:System.Security.AccessControl.SemaphoreSecurity.AccessRuleFactory(System.Security.Principal.IdentityReference,System.Int32,System.Boolean,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AccessControlType)
   id: AccessRuleFactory(System.Security.Principal.IdentityReference,System.Int32,System.Boolean,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AccessControlType)
@@ -313,7 +309,7 @@ items:
   - csharp
   name: AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
   nameWithType: SemaphoreSecurity.AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
+  fullName: SemaphoreSecurity.AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -358,7 +354,8 @@ items:
     description: <code>identityReference</code> is neither of type <xref href="System.Security.Principal.SecurityIdentifier"></xref>, nor of a type such as <xref href="System.Security.Principal.NTAccount"></xref> that can be converted to type <xref href="System.Security.Principal.SecurityIdentifier"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -371,7 +368,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -383,9 +381,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/SemaphoreSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.SemaphoreSecurity.AccessRuleType
   commentId: P:System.Security.AccessControl.SemaphoreSecurity.AccessRuleType
   id: AccessRuleType
@@ -394,7 +389,7 @@ items:
   - csharp
   name: AccessRuleType
   nameWithType: SemaphoreSecurity.AccessRuleType
-  fullName: System.Security.AccessControl.SemaphoreSecurity.AccessRuleType
+  fullName: SemaphoreSecurity.AccessRuleType
   type: Property
   assemblies:
   - System.Threading.AccessControl
@@ -411,7 +406,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -424,7 +420,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -436,9 +433,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/SemaphoreSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.SemaphoreSecurity.AddAccessRule(System.Security.AccessControl.SemaphoreAccessRule)
   commentId: M:System.Security.AccessControl.SemaphoreSecurity.AddAccessRule(System.Security.AccessControl.SemaphoreAccessRule)
   id: AddAccessRule(System.Security.AccessControl.SemaphoreAccessRule)
@@ -447,7 +441,7 @@ items:
   - csharp
   name: AddAccessRule(SemaphoreAccessRule)
   nameWithType: SemaphoreSecurity.AddAccessRule(SemaphoreAccessRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.AddAccessRule(SemaphoreAccessRule)
+  fullName: SemaphoreSecurity.AddAccessRule(SemaphoreAccessRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -456,7 +450,7 @@ items:
   summary: Searches for a matching rule with which the new rule can be merged. If none are found, adds the new rule.
   remarks: The <xref:System.Security.AccessControl.SemaphoreSecurity.AddAccessRule%2A> method searches for rules with the same user or group and the same <xref:System.Security.AccessControl.AccessControlType> as `rule`. If none are found, `rule` is added. If a matching rule is found, the rights in `rule` are merged with the existing rule.
   example:
-  - "The following code example demonstrates the separation between <xref:System.Security.AccessControl.AccessControlType> rules and <xref:System.Security.AccessControl.AccessControlType> rules, and shows the combination of rights in compatible rules. The example creates a <xref:System.Security.AccessControl.SemaphoreSecurity> object, adds rules that allow and deny various rights for the current user, and displays the resulting pair of rules. The example then allows new rights for the current user and displays the result, showing that the new rights are merged with the existing <xref:System.Security.AccessControl.AccessControlType> rule.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Semaphore> object. Examples that attach security objects can be found in <xref:System.Threading.Semaphore.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.Semaphore.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.SemaphoreSecurity.AddAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.AddAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.SemaphoreSecurity.AddAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.AddAccessRule/VB/source.vb#1)]"
+  - "The following code example demonstrates the separation between <xref:System.Security.AccessControl.AccessControlType.Allow> rules and <xref:System.Security.AccessControl.AccessControlType.Deny> rules, and shows the combination of rights in compatible rules. The example creates a <xref:System.Security.AccessControl.SemaphoreSecurity> object, adds rules that allow and deny various rights for the current user, and displays the resulting pair of rules. The example then allows new rights for the current user and displays the result, showing that the new rights are merged with the existing <xref:System.Security.AccessControl.AccessControlType.Allow> rule.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Semaphore> object. Examples that attach security objects can be found in <xref:System.Threading.Semaphore.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.Semaphore.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.SemaphoreSecurity.AddAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.AddAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.SemaphoreSecurity.AddAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.AddAccessRule/VB/source.vb#1)]"
   syntax:
     content: public void AddAccessRule (System.Security.AccessControl.SemaphoreAccessRule rule);
     parameters:
@@ -470,7 +464,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -483,7 +478,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -495,9 +491,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/SemaphoreSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.SemaphoreSecurity.AddAuditRule(System.Security.AccessControl.SemaphoreAuditRule)
   commentId: M:System.Security.AccessControl.SemaphoreSecurity.AddAuditRule(System.Security.AccessControl.SemaphoreAuditRule)
   id: AddAuditRule(System.Security.AccessControl.SemaphoreAuditRule)
@@ -506,7 +499,7 @@ items:
   - csharp
   name: AddAuditRule(SemaphoreAuditRule)
   nameWithType: SemaphoreSecurity.AddAuditRule(SemaphoreAuditRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.AddAuditRule(SemaphoreAuditRule)
+  fullName: SemaphoreSecurity.AddAuditRule(SemaphoreAuditRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -524,7 +517,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -537,7 +531,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -549,9 +544,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/SemaphoreSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.SemaphoreSecurity.AuditRuleFactory(System.Security.Principal.IdentityReference,System.Int32,System.Boolean,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AuditFlags)
   commentId: M:System.Security.AccessControl.SemaphoreSecurity.AuditRuleFactory(System.Security.Principal.IdentityReference,System.Int32,System.Boolean,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AuditFlags)
   id: AuditRuleFactory(System.Security.Principal.IdentityReference,System.Int32,System.Boolean,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AuditFlags)
@@ -560,7 +552,7 @@ items:
   - csharp
   name: AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
   nameWithType: SemaphoreSecurity.AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
+  fullName: SemaphoreSecurity.AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -605,7 +597,8 @@ items:
     description: <code>identityReference</code> is neither of type <xref href="System.Security.Principal.SecurityIdentifier"></xref>, nor of a type such as <xref href="System.Security.Principal.NTAccount"></xref> that can be converted to type <xref href="System.Security.Principal.SecurityIdentifier"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -618,7 +611,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -630,9 +624,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/SemaphoreSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.SemaphoreSecurity.AuditRuleType
   commentId: P:System.Security.AccessControl.SemaphoreSecurity.AuditRuleType
   id: AuditRuleType
@@ -641,7 +632,7 @@ items:
   - csharp
   name: AuditRuleType
   nameWithType: SemaphoreSecurity.AuditRuleType
-  fullName: System.Security.AccessControl.SemaphoreSecurity.AuditRuleType
+  fullName: SemaphoreSecurity.AuditRuleType
   type: Property
   assemblies:
   - System.Threading.AccessControl
@@ -658,7 +649,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -671,7 +663,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -683,9 +676,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/SemaphoreSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRule(System.Security.AccessControl.SemaphoreAccessRule)
   commentId: M:System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRule(System.Security.AccessControl.SemaphoreAccessRule)
   id: RemoveAccessRule(System.Security.AccessControl.SemaphoreAccessRule)
@@ -694,7 +684,7 @@ items:
   - csharp
   name: RemoveAccessRule(SemaphoreAccessRule)
   nameWithType: SemaphoreSecurity.RemoveAccessRule(SemaphoreAccessRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRule(SemaphoreAccessRule)
+  fullName: SemaphoreSecurity.RemoveAccessRule(SemaphoreAccessRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -703,7 +693,7 @@ items:
   summary: Searches for an access control rule with the same user and <xref href="System.Security.AccessControl.AccessControlType"></xref> (allow or deny) as the specified rule, and with compatible inheritance and propagation flags; if such a rule is found, the rights contained in the specified access rule are removed from it.
   remarks: "The current <xref:System.Security.AccessControl.SemaphoreSecurity> is searched for a rule that has the same user and the same <xref:System.Security.AccessControl.AccessControlType> value as `rule`. If no such rule is found, no action is taken, and the method returns `false`. If matching rules are found, their inheritance and compatibility flags are checked for compatibility with the flags specified in `rule`. If no compatible rule is found, no action is taken, and the method returns `false`. If a rule with compatible flags is found, the rights specified in `rule` are removed from the compatible rule, and the method returns `true`. If `rule` specifies rights not contained in the compatible rule, no action is taken with respect to those rights. If all rights are removed from the compatible rule, the entire rule is removed from the current <xref:System.Security.AccessControl.SemaphoreSecurity> object.  \n  \n> [!IMPORTANT]\n>  Although you can specify inheritance and propagation flags for semaphore access rules, by creating them with the <xref:System.Security.AccessControl.SemaphoreSecurity.AccessRuleFactory%2A> method, this is not recommended. Inheritance and propagation have no meaning for named semaphores, and they make the maintenance of access rules more complicated."
   example:
-  - "The following code example demonstrates the use of the <xref:System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRule%2A> method to remove rights from an <xref:System.Security.AccessControl.AccessControlType> rule in a <xref:System.Security.AccessControl.SemaphoreSecurity> object. It also shows that other rights in `rule` are ignored.  \n  \n The example creates a <xref:System.Security.AccessControl.SemaphoreSecurity> object and adds rules that allow and deny various rights for the current user. The rights allowed include <xref:System.Security.AccessControl.SemaphoreRights>, <xref:System.Security.AccessControl.SemaphoreRights>, and <xref:System.Security.AccessControl.SemaphoreRights>. The example then creates a new rule for the current user, including <xref:System.Security.AccessControl.SemaphoreRights> and <xref:System.Security.AccessControl.SemaphoreRights> rights, and uses that rule with the <xref:System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRule%2A> method to remove <xref:System.Security.AccessControl.SemaphoreRights> from the <xref:System.Security.AccessControl.AccessControlType> rule in the <xref:System.Security.AccessControl.SemaphoreSecurity> object. The extraneous <xref:System.Security.AccessControl.SemaphoreRights> right in `rule` is ignored.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Semaphore> object. Examples that attach security objects can be found in <xref:System.Threading.Semaphore.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.Semaphore.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.RemoveAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.RemoveAccessRule/VB/source.vb#1)]"
+  - "The following code example demonstrates the use of the <xref:System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRule%2A> method to remove rights from an <xref:System.Security.AccessControl.AccessControlType.Allow> rule in a <xref:System.Security.AccessControl.SemaphoreSecurity> object. It also shows that other rights in `rule` are ignored.  \n  \n The example creates a <xref:System.Security.AccessControl.SemaphoreSecurity> object and adds rules that allow and deny various rights for the current user. The rights allowed include <xref:System.Security.AccessControl.SemaphoreRights.Modify>, <xref:System.Security.AccessControl.SemaphoreRights.ReadPermissions>, and <xref:System.Security.AccessControl.SemaphoreRights.Synchronize>. The example then creates a new rule for the current user, including <xref:System.Security.AccessControl.SemaphoreRights.ReadPermissions> and <xref:System.Security.AccessControl.SemaphoreRights.TakeOwnership> rights, and uses that rule with the <xref:System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRule%2A> method to remove <xref:System.Security.AccessControl.SemaphoreRights.ReadPermissions> from the <xref:System.Security.AccessControl.AccessControlType.Allow> rule in the <xref:System.Security.AccessControl.SemaphoreSecurity> object. The extraneous <xref:System.Security.AccessControl.SemaphoreRights.TakeOwnership> right in `rule` is ignored.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Semaphore> object. Examples that attach security objects can be found in <xref:System.Threading.Semaphore.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.Semaphore.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.RemoveAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.RemoveAccessRule/VB/source.vb#1)]"
   syntax:
     content: public bool RemoveAccessRule (System.Security.AccessControl.SemaphoreAccessRule rule);
     parameters:
@@ -720,7 +710,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -733,7 +724,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -745,9 +737,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/SemaphoreSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleAll(System.Security.AccessControl.SemaphoreAccessRule)
   commentId: M:System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleAll(System.Security.AccessControl.SemaphoreAccessRule)
   id: RemoveAccessRuleAll(System.Security.AccessControl.SemaphoreAccessRule)
@@ -756,7 +745,7 @@ items:
   - csharp
   name: RemoveAccessRuleAll(SemaphoreAccessRule)
   nameWithType: SemaphoreSecurity.RemoveAccessRuleAll(SemaphoreAccessRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleAll(SemaphoreAccessRule)
+  fullName: SemaphoreSecurity.RemoveAccessRuleAll(SemaphoreAccessRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -765,7 +754,7 @@ items:
   summary: Searches for all access control rules with the same user and <xref href="System.Security.AccessControl.AccessControlType"></xref> (allow or deny) as the specified rule and, if found, removes them.
   remarks: The current <xref:System.Security.AccessControl.SemaphoreSecurity> object is searched for rules that have the same user and the same <xref:System.Security.AccessControl.AccessControlType> value as `rule`. Any rights specified by `rule` are ignored when performing this search. If no matching rules are found, no action is taken.
   example:
-  - "The following code example shows that the <xref:System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleAll%2A> method removes all rules that match user and <xref:System.Security.AccessControl.AccessControlType>, ignoring rights.  \n  \n The example creates a <xref:System.Security.AccessControl.SemaphoreSecurity> object, adds rules that allow and deny various rights for the current user, and then merges additional rights into the <xref:System.Security.AccessControl.AccessControlType> rule. The example then creates a new rule that allows the current user to take ownership, and uses that rule to remove the <xref:System.Security.AccessControl.AccessControlType> rule from the <xref:System.Security.AccessControl.SemaphoreSecurity> object.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Semaphore> object. Examples that attach security objects can be found in <xref:System.Threading.Semaphore.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.Semaphore.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleAll#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleAll/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleAll#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleAll/VB/source.vb#1)]"
+  - "The following code example shows that the <xref:System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleAll%2A> method removes all rules that match user and <xref:System.Security.AccessControl.AccessControlType>, ignoring rights.  \n  \n The example creates a <xref:System.Security.AccessControl.SemaphoreSecurity> object, adds rules that allow and deny various rights for the current user, and then merges additional rights into the <xref:System.Security.AccessControl.AccessControlType.Allow> rule. The example then creates a new rule that allows the current user to take ownership, and uses that rule to remove the <xref:System.Security.AccessControl.AccessControlType.Allow> rule from the <xref:System.Security.AccessControl.SemaphoreSecurity> object.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Semaphore> object. Examples that attach security objects can be found in <xref:System.Threading.Semaphore.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.Semaphore.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleAll#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleAll/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleAll#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleAll/VB/source.vb#1)]"
   syntax:
     content: public void RemoveAccessRuleAll (System.Security.AccessControl.SemaphoreAccessRule rule);
     parameters:
@@ -779,7 +768,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -792,7 +782,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -804,9 +795,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/SemaphoreSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleSpecific(System.Security.AccessControl.SemaphoreAccessRule)
   commentId: M:System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleSpecific(System.Security.AccessControl.SemaphoreAccessRule)
   id: RemoveAccessRuleSpecific(System.Security.AccessControl.SemaphoreAccessRule)
@@ -815,7 +803,7 @@ items:
   - csharp
   name: RemoveAccessRuleSpecific(SemaphoreAccessRule)
   nameWithType: SemaphoreSecurity.RemoveAccessRuleSpecific(SemaphoreAccessRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleSpecific(SemaphoreAccessRule)
+  fullName: SemaphoreSecurity.RemoveAccessRuleSpecific(SemaphoreAccessRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -824,7 +812,7 @@ items:
   summary: Searches for an access control rule that exactly matches the specified rule and, if found, removes it.
   remarks: "The rule is removed only if it exactly matches `rule` in all details, including flags. Other rules with the same user and <xref:System.Security.AccessControl.AccessControlType> are not affected.  \n  \n> [!IMPORTANT]\n>  A rule represents one or more underlying access control entries (ACE), and these entries are split or combined as necessary when you modify the access security rules for a user. Thus, a rule might no longer exist in the specific form it had when it was added, and in that case the <xref:System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleSpecific%2A> method cannot remove it."
   example:
-  - "The following code example shows that the <xref:System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleSpecific%2A> method requires an exact match in order to remove a rule, and that rules to allow and deny rights are independent of each other.  \n  \n The example creates a <xref:System.Security.AccessControl.SemaphoreSecurity> object, adds rules that allow and deny various rights for the current user, and then merges additional rights into the <xref:System.Security.AccessControl.AccessControlType> access rule. The example then passes the original <xref:System.Security.AccessControl.AccessControlType> rule to the <xref:System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleSpecific%2A> method, and displays the results, showing that nothing is deleted. The example then constructs a rule that matches the <xref:System.Security.AccessControl.AccessControlType> rule in the <xref:System.Security.AccessControl.SemaphoreSecurity> object, and successfully uses the <xref:System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleSpecific%2A> method to remove the rule.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Semaphore> object. Examples that attach security objects can be found in <xref:System.Threading.Semaphore.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.Semaphore.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleSpecific#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleSpecific/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleSpecific#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleSpecific/VB/source.vb#1)]"
+  - "The following code example shows that the <xref:System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleSpecific%2A> method requires an exact match in order to remove a rule, and that rules to allow and deny rights are independent of each other.  \n  \n The example creates a <xref:System.Security.AccessControl.SemaphoreSecurity> object, adds rules that allow and deny various rights for the current user, and then merges additional rights into the <xref:System.Security.AccessControl.AccessControlType.Allow> access rule. The example then passes the original <xref:System.Security.AccessControl.AccessControlType.Allow> rule to the <xref:System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleSpecific%2A> method, and displays the results, showing that nothing is deleted. The example then constructs a rule that matches the <xref:System.Security.AccessControl.AccessControlType.Allow> rule in the <xref:System.Security.AccessControl.SemaphoreSecurity> object, and successfully uses the <xref:System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleSpecific%2A> method to remove the rule.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Semaphore> object. Examples that attach security objects can be found in <xref:System.Threading.Semaphore.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.Semaphore.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleSpecific#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleSpecific/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleSpecific#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleSpecific/VB/source.vb#1)]"
   syntax:
     content: public void RemoveAccessRuleSpecific (System.Security.AccessControl.SemaphoreAccessRule rule);
     parameters:
@@ -838,7 +826,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -851,7 +840,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -863,9 +853,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/SemaphoreSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.SemaphoreSecurity.RemoveAuditRule(System.Security.AccessControl.SemaphoreAuditRule)
   commentId: M:System.Security.AccessControl.SemaphoreSecurity.RemoveAuditRule(System.Security.AccessControl.SemaphoreAuditRule)
   id: RemoveAuditRule(System.Security.AccessControl.SemaphoreAuditRule)
@@ -874,7 +861,7 @@ items:
   - csharp
   name: RemoveAuditRule(SemaphoreAuditRule)
   nameWithType: SemaphoreSecurity.RemoveAuditRule(SemaphoreAuditRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.RemoveAuditRule(SemaphoreAuditRule)
+  fullName: SemaphoreSecurity.RemoveAuditRule(SemaphoreAuditRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -898,7 +885,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -911,7 +899,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -923,9 +912,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/SemaphoreSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.SemaphoreSecurity.RemoveAuditRuleAll(System.Security.AccessControl.SemaphoreAuditRule)
   commentId: M:System.Security.AccessControl.SemaphoreSecurity.RemoveAuditRuleAll(System.Security.AccessControl.SemaphoreAuditRule)
   id: RemoveAuditRuleAll(System.Security.AccessControl.SemaphoreAuditRule)
@@ -934,7 +920,7 @@ items:
   - csharp
   name: RemoveAuditRuleAll(SemaphoreAuditRule)
   nameWithType: SemaphoreSecurity.RemoveAuditRuleAll(SemaphoreAuditRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.RemoveAuditRuleAll(SemaphoreAuditRule)
+  fullName: SemaphoreSecurity.RemoveAuditRuleAll(SemaphoreAuditRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -955,7 +941,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -968,7 +955,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -980,9 +968,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/SemaphoreSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.SemaphoreSecurity.RemoveAuditRuleSpecific(System.Security.AccessControl.SemaphoreAuditRule)
   commentId: M:System.Security.AccessControl.SemaphoreSecurity.RemoveAuditRuleSpecific(System.Security.AccessControl.SemaphoreAuditRule)
   id: RemoveAuditRuleSpecific(System.Security.AccessControl.SemaphoreAuditRule)
@@ -991,7 +976,7 @@ items:
   - csharp
   name: RemoveAuditRuleSpecific(SemaphoreAuditRule)
   nameWithType: SemaphoreSecurity.RemoveAuditRuleSpecific(SemaphoreAuditRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.RemoveAuditRuleSpecific(SemaphoreAuditRule)
+  fullName: SemaphoreSecurity.RemoveAuditRuleSpecific(SemaphoreAuditRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -1012,7 +997,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1025,7 +1011,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1037,9 +1024,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/SemaphoreSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.SemaphoreSecurity.ResetAccessRule(System.Security.AccessControl.SemaphoreAccessRule)
   commentId: M:System.Security.AccessControl.SemaphoreSecurity.ResetAccessRule(System.Security.AccessControl.SemaphoreAccessRule)
   id: ResetAccessRule(System.Security.AccessControl.SemaphoreAccessRule)
@@ -1048,7 +1032,7 @@ items:
   - csharp
   name: ResetAccessRule(SemaphoreAccessRule)
   nameWithType: SemaphoreSecurity.ResetAccessRule(SemaphoreAccessRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.ResetAccessRule(SemaphoreAccessRule)
+  fullName: SemaphoreSecurity.ResetAccessRule(SemaphoreAccessRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -1071,7 +1055,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1084,7 +1069,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1096,9 +1082,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/SemaphoreSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.SemaphoreSecurity.SetAccessRule(System.Security.AccessControl.SemaphoreAccessRule)
   commentId: M:System.Security.AccessControl.SemaphoreSecurity.SetAccessRule(System.Security.AccessControl.SemaphoreAccessRule)
   id: SetAccessRule(System.Security.AccessControl.SemaphoreAccessRule)
@@ -1107,14 +1090,14 @@ items:
   - csharp
   name: SetAccessRule(SemaphoreAccessRule)
   nameWithType: SemaphoreSecurity.SetAccessRule(SemaphoreAccessRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.SetAccessRule(SemaphoreAccessRule)
+  fullName: SemaphoreSecurity.SetAccessRule(SemaphoreAccessRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
   - System
   namespace: System.Security.AccessControl
   summary: Removes all access control rules with the same user and <xref href="System.Security.AccessControl.AccessControlType"></xref> (allow or deny) as the specified rule, and then adds the specified rule.
-  remarks: "If the specified rule has <xref:System.Security.AccessControl.AccessControlType>, the effect of this method is to remove all <xref:System.Security.AccessControl.AccessControlType> rules for the specified user, replacing them with the specified rule. If the specified rule has <xref:System.Security.AccessControl.AccessControlType>, all <xref:System.Security.AccessControl.AccessControlType> rules for the specified user are replaced with the specified rule.  \n  \n If there are no rules whose user and <xref:System.Security.AccessControl.AccessControlType> match the specified rule, `rule` is added."
+  remarks: "If the specified rule has <xref:System.Security.AccessControl.AccessControlType.Allow>, the effect of this method is to remove all <xref:System.Security.AccessControl.AccessControlType.Allow> rules for the specified user, replacing them with the specified rule. If the specified rule has <xref:System.Security.AccessControl.AccessControlType.Deny>, all <xref:System.Security.AccessControl.AccessControlType.Deny> rules for the specified user are replaced with the specified rule.  \n  \n If there are no rules whose user and <xref:System.Security.AccessControl.AccessControlType> match the specified rule, `rule` is added."
   example:
   - "The following code example shows how the <xref:System.Security.AccessControl.SemaphoreSecurity.SetAccessRule%2A> method removes all rules that match both the user and the <xref:System.Security.AccessControl.AccessControlType> of `rule`, replacing them with `rule`.  \n  \n The example creates a <xref:System.Security.AccessControl.SemaphoreSecurity> object and adds rules that allow and deny various rights for the current user. The example then creates a new rule that allows the current user full control, and uses the <xref:System.Security.AccessControl.SemaphoreSecurity.SetAccessRule%2A> method to replace the existing Allow rule with the new rule. The rule that denies access is not affected.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.Semaphore> object. Examples that attach security objects can be found in <xref:System.Threading.Semaphore.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.Semaphore.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.SemaphoreSecurity.SetAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.SetAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.SemaphoreSecurity.SetAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.SemaphoreSecurity.SetAccessRule/VB/source.vb#1)]"
   syntax:
@@ -1130,7 +1113,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1143,7 +1127,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1155,9 +1140,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/SemaphoreSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.SemaphoreSecurity.SetAuditRule(System.Security.AccessControl.SemaphoreAuditRule)
   commentId: M:System.Security.AccessControl.SemaphoreSecurity.SetAuditRule(System.Security.AccessControl.SemaphoreAuditRule)
   id: SetAuditRule(System.Security.AccessControl.SemaphoreAuditRule)
@@ -1166,7 +1148,7 @@ items:
   - csharp
   name: SetAuditRule(SemaphoreAuditRule)
   nameWithType: SemaphoreSecurity.SetAuditRule(SemaphoreAuditRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.SetAuditRule(SemaphoreAuditRule)
+  fullName: SemaphoreSecurity.SetAuditRule(SemaphoreAuditRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -1187,7 +1169,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1200,7 +1183,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1212,9 +1196,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/SemaphoreSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Security.AccessControl.NativeObjectSecurity
   parent: System.Security.AccessControl
@@ -1251,13 +1232,13 @@ references:
   isExternal: false
   name: SemaphoreSecurity()
   nameWithType: SemaphoreSecurity.SemaphoreSecurity()
-  fullName: System.Security.AccessControl.SemaphoreSecurity.SemaphoreSecurity()
+  fullName: SemaphoreSecurity.SemaphoreSecurity()
 - uid: System.Security.AccessControl.SemaphoreSecurity.#ctor(System.String,System.Security.AccessControl.AccessControlSections)
   parent: System.Security.AccessControl.SemaphoreSecurity
   isExternal: false
   name: SemaphoreSecurity(String, AccessControlSections)
   nameWithType: SemaphoreSecurity.SemaphoreSecurity(String, AccessControlSections)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.SemaphoreSecurity(String, AccessControlSections)
+  fullName: SemaphoreSecurity.SemaphoreSecurity(String, AccessControlSections)
 - uid: System.String
   parent: System
   isExternal: false
@@ -1275,7 +1256,7 @@ references:
   isExternal: false
   name: AccessRightType
   nameWithType: SemaphoreSecurity.AccessRightType
-  fullName: System.Security.AccessControl.SemaphoreSecurity.AccessRightType
+  fullName: SemaphoreSecurity.AccessRightType
 - uid: System.Type
   parent: System
   isExternal: false
@@ -1287,7 +1268,7 @@ references:
   isExternal: false
   name: AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
   nameWithType: SemaphoreSecurity.AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
+  fullName: SemaphoreSecurity.AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
 - uid: System.Security.AccessControl.AccessRule
   parent: System.Security.AccessControl
   isExternal: false
@@ -1335,13 +1316,13 @@ references:
   isExternal: false
   name: AccessRuleType
   nameWithType: SemaphoreSecurity.AccessRuleType
-  fullName: System.Security.AccessControl.SemaphoreSecurity.AccessRuleType
+  fullName: SemaphoreSecurity.AccessRuleType
 - uid: System.Security.AccessControl.SemaphoreSecurity.AddAccessRule(System.Security.AccessControl.SemaphoreAccessRule)
   parent: System.Security.AccessControl.SemaphoreSecurity
   isExternal: false
   name: AddAccessRule(SemaphoreAccessRule)
   nameWithType: SemaphoreSecurity.AddAccessRule(SemaphoreAccessRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.AddAccessRule(SemaphoreAccessRule)
+  fullName: SemaphoreSecurity.AddAccessRule(SemaphoreAccessRule)
 - uid: System.Security.AccessControl.SemaphoreAccessRule
   parent: System.Security.AccessControl
   isExternal: false
@@ -1353,7 +1334,7 @@ references:
   isExternal: false
   name: AddAuditRule(SemaphoreAuditRule)
   nameWithType: SemaphoreSecurity.AddAuditRule(SemaphoreAuditRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.AddAuditRule(SemaphoreAuditRule)
+  fullName: SemaphoreSecurity.AddAuditRule(SemaphoreAuditRule)
 - uid: System.Security.AccessControl.SemaphoreAuditRule
   parent: System.Security.AccessControl
   isExternal: false
@@ -1365,7 +1346,7 @@ references:
   isExternal: false
   name: AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
   nameWithType: SemaphoreSecurity.AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
+  fullName: SemaphoreSecurity.AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
 - uid: System.Security.AccessControl.AuditRule
   parent: System.Security.AccessControl
   isExternal: false
@@ -1383,70 +1364,71 @@ references:
   isExternal: false
   name: AuditRuleType
   nameWithType: SemaphoreSecurity.AuditRuleType
-  fullName: System.Security.AccessControl.SemaphoreSecurity.AuditRuleType
+  fullName: SemaphoreSecurity.AuditRuleType
 - uid: System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRule(System.Security.AccessControl.SemaphoreAccessRule)
   parent: System.Security.AccessControl.SemaphoreSecurity
   isExternal: false
   name: RemoveAccessRule(SemaphoreAccessRule)
   nameWithType: SemaphoreSecurity.RemoveAccessRule(SemaphoreAccessRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRule(SemaphoreAccessRule)
+  fullName: SemaphoreSecurity.RemoveAccessRule(SemaphoreAccessRule)
 - uid: System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleAll(System.Security.AccessControl.SemaphoreAccessRule)
   parent: System.Security.AccessControl.SemaphoreSecurity
   isExternal: false
   name: RemoveAccessRuleAll(SemaphoreAccessRule)
   nameWithType: SemaphoreSecurity.RemoveAccessRuleAll(SemaphoreAccessRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleAll(SemaphoreAccessRule)
+  fullName: SemaphoreSecurity.RemoveAccessRuleAll(SemaphoreAccessRule)
 - uid: System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleSpecific(System.Security.AccessControl.SemaphoreAccessRule)
   parent: System.Security.AccessControl.SemaphoreSecurity
   isExternal: false
   name: RemoveAccessRuleSpecific(SemaphoreAccessRule)
   nameWithType: SemaphoreSecurity.RemoveAccessRuleSpecific(SemaphoreAccessRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleSpecific(SemaphoreAccessRule)
+  fullName: SemaphoreSecurity.RemoveAccessRuleSpecific(SemaphoreAccessRule)
 - uid: System.Security.AccessControl.SemaphoreSecurity.RemoveAuditRule(System.Security.AccessControl.SemaphoreAuditRule)
   parent: System.Security.AccessControl.SemaphoreSecurity
   isExternal: false
   name: RemoveAuditRule(SemaphoreAuditRule)
   nameWithType: SemaphoreSecurity.RemoveAuditRule(SemaphoreAuditRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.RemoveAuditRule(SemaphoreAuditRule)
+  fullName: SemaphoreSecurity.RemoveAuditRule(SemaphoreAuditRule)
 - uid: System.Security.AccessControl.SemaphoreSecurity.RemoveAuditRuleAll(System.Security.AccessControl.SemaphoreAuditRule)
   parent: System.Security.AccessControl.SemaphoreSecurity
   isExternal: false
   name: RemoveAuditRuleAll(SemaphoreAuditRule)
   nameWithType: SemaphoreSecurity.RemoveAuditRuleAll(SemaphoreAuditRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.RemoveAuditRuleAll(SemaphoreAuditRule)
+  fullName: SemaphoreSecurity.RemoveAuditRuleAll(SemaphoreAuditRule)
 - uid: System.Security.AccessControl.SemaphoreSecurity.RemoveAuditRuleSpecific(System.Security.AccessControl.SemaphoreAuditRule)
   parent: System.Security.AccessControl.SemaphoreSecurity
   isExternal: false
   name: RemoveAuditRuleSpecific(SemaphoreAuditRule)
   nameWithType: SemaphoreSecurity.RemoveAuditRuleSpecific(SemaphoreAuditRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.RemoveAuditRuleSpecific(SemaphoreAuditRule)
+  fullName: SemaphoreSecurity.RemoveAuditRuleSpecific(SemaphoreAuditRule)
 - uid: System.Security.AccessControl.SemaphoreSecurity.ResetAccessRule(System.Security.AccessControl.SemaphoreAccessRule)
   parent: System.Security.AccessControl.SemaphoreSecurity
   isExternal: false
   name: ResetAccessRule(SemaphoreAccessRule)
   nameWithType: SemaphoreSecurity.ResetAccessRule(SemaphoreAccessRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.ResetAccessRule(SemaphoreAccessRule)
+  fullName: SemaphoreSecurity.ResetAccessRule(SemaphoreAccessRule)
 - uid: System.Security.AccessControl.SemaphoreSecurity.SetAccessRule(System.Security.AccessControl.SemaphoreAccessRule)
   parent: System.Security.AccessControl.SemaphoreSecurity
   isExternal: false
   name: SetAccessRule(SemaphoreAccessRule)
   nameWithType: SemaphoreSecurity.SetAccessRule(SemaphoreAccessRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.SetAccessRule(SemaphoreAccessRule)
+  fullName: SemaphoreSecurity.SetAccessRule(SemaphoreAccessRule)
 - uid: System.Security.AccessControl.SemaphoreSecurity.SetAuditRule(System.Security.AccessControl.SemaphoreAuditRule)
   parent: System.Security.AccessControl.SemaphoreSecurity
   isExternal: false
   name: SetAuditRule(SemaphoreAuditRule)
   nameWithType: SemaphoreSecurity.SetAuditRule(SemaphoreAuditRule)
-  fullName: System.Security.AccessControl.SemaphoreSecurity.SetAuditRule(SemaphoreAuditRule)
+  fullName: SemaphoreSecurity.SetAuditRule(SemaphoreAuditRule)
 - uid: System.Security.AccessControl.SemaphoreSecurity.#ctor*
   parent: System.Security.AccessControl.SemaphoreSecurity
   isExternal: false
   name: SemaphoreSecurity
   nameWithType: SemaphoreSecurity.SemaphoreSecurity
-  fullName: System.Security.AccessControl.SemaphoreSecurity.SemaphoreSecurity
+  fullName: SemaphoreSecurity.SemaphoreSecurity
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1463,10 +1445,11 @@ references:
   isExternal: false
   name: AccessRightType
   nameWithType: SemaphoreSecurity.AccessRightType
-  fullName: System.Security.AccessControl.SemaphoreSecurity.AccessRightType
+  fullName: SemaphoreSecurity.AccessRightType
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1483,10 +1466,11 @@ references:
   isExternal: false
   name: AccessRuleFactory
   nameWithType: SemaphoreSecurity.AccessRuleFactory
-  fullName: System.Security.AccessControl.SemaphoreSecurity.AccessRuleFactory
+  fullName: SemaphoreSecurity.AccessRuleFactory
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1503,10 +1487,11 @@ references:
   isExternal: false
   name: AccessRuleType
   nameWithType: SemaphoreSecurity.AccessRuleType
-  fullName: System.Security.AccessControl.SemaphoreSecurity.AccessRuleType
+  fullName: SemaphoreSecurity.AccessRuleType
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1523,10 +1508,11 @@ references:
   isExternal: false
   name: AddAccessRule
   nameWithType: SemaphoreSecurity.AddAccessRule
-  fullName: System.Security.AccessControl.SemaphoreSecurity.AddAccessRule
+  fullName: SemaphoreSecurity.AddAccessRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1543,10 +1529,11 @@ references:
   isExternal: false
   name: AddAuditRule
   nameWithType: SemaphoreSecurity.AddAuditRule
-  fullName: System.Security.AccessControl.SemaphoreSecurity.AddAuditRule
+  fullName: SemaphoreSecurity.AddAuditRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1563,10 +1550,11 @@ references:
   isExternal: false
   name: AuditRuleFactory
   nameWithType: SemaphoreSecurity.AuditRuleFactory
-  fullName: System.Security.AccessControl.SemaphoreSecurity.AuditRuleFactory
+  fullName: SemaphoreSecurity.AuditRuleFactory
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1583,10 +1571,11 @@ references:
   isExternal: false
   name: AuditRuleType
   nameWithType: SemaphoreSecurity.AuditRuleType
-  fullName: System.Security.AccessControl.SemaphoreSecurity.AuditRuleType
+  fullName: SemaphoreSecurity.AuditRuleType
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1603,10 +1592,11 @@ references:
   isExternal: false
   name: RemoveAccessRule
   nameWithType: SemaphoreSecurity.RemoveAccessRule
-  fullName: System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRule
+  fullName: SemaphoreSecurity.RemoveAccessRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1623,10 +1613,11 @@ references:
   isExternal: false
   name: RemoveAccessRuleAll
   nameWithType: SemaphoreSecurity.RemoveAccessRuleAll
-  fullName: System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleAll
+  fullName: SemaphoreSecurity.RemoveAccessRuleAll
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1643,10 +1634,11 @@ references:
   isExternal: false
   name: RemoveAccessRuleSpecific
   nameWithType: SemaphoreSecurity.RemoveAccessRuleSpecific
-  fullName: System.Security.AccessControl.SemaphoreSecurity.RemoveAccessRuleSpecific
+  fullName: SemaphoreSecurity.RemoveAccessRuleSpecific
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1663,10 +1655,11 @@ references:
   isExternal: false
   name: RemoveAuditRule
   nameWithType: SemaphoreSecurity.RemoveAuditRule
-  fullName: System.Security.AccessControl.SemaphoreSecurity.RemoveAuditRule
+  fullName: SemaphoreSecurity.RemoveAuditRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1683,10 +1676,11 @@ references:
   isExternal: false
   name: RemoveAuditRuleAll
   nameWithType: SemaphoreSecurity.RemoveAuditRuleAll
-  fullName: System.Security.AccessControl.SemaphoreSecurity.RemoveAuditRuleAll
+  fullName: SemaphoreSecurity.RemoveAuditRuleAll
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1703,10 +1697,11 @@ references:
   isExternal: false
   name: RemoveAuditRuleSpecific
   nameWithType: SemaphoreSecurity.RemoveAuditRuleSpecific
-  fullName: System.Security.AccessControl.SemaphoreSecurity.RemoveAuditRuleSpecific
+  fullName: SemaphoreSecurity.RemoveAuditRuleSpecific
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1723,10 +1718,11 @@ references:
   isExternal: false
   name: ResetAccessRule
   nameWithType: SemaphoreSecurity.ResetAccessRule
-  fullName: System.Security.AccessControl.SemaphoreSecurity.ResetAccessRule
+  fullName: SemaphoreSecurity.ResetAccessRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1743,10 +1739,11 @@ references:
   isExternal: false
   name: SetAccessRule
   nameWithType: SemaphoreSecurity.SetAccessRule
-  fullName: System.Security.AccessControl.SemaphoreSecurity.SetAccessRule
+  fullName: SemaphoreSecurity.SetAccessRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1763,10 +1760,11 @@ references:
   isExternal: false
   name: SetAuditRule
   nameWithType: SemaphoreSecurity.SetAuditRule
-  fullName: System.Security.AccessControl.SemaphoreSecurity.SetAuditRule
+  fullName: SemaphoreSecurity.SetAuditRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

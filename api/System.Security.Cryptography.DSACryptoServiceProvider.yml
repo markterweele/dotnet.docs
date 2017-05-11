@@ -20,6 +20,7 @@ items:
   - System.Security.Cryptography.DSACryptoServiceProvider.ImportParameters(System.Security.Cryptography.DSAParameters)
   - System.Security.Cryptography.DSACryptoServiceProvider.KeyExchangeAlgorithm
   - System.Security.Cryptography.DSACryptoServiceProvider.KeySize
+  - System.Security.Cryptography.DSACryptoServiceProvider.LegalKeySizes
   - System.Security.Cryptography.DSACryptoServiceProvider.PersistKeyInCsp
   - System.Security.Cryptography.DSACryptoServiceProvider.PublicOnly
   - System.Security.Cryptography.DSACryptoServiceProvider.SignatureAlgorithm
@@ -40,6 +41,7 @@ items:
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Defines a wrapper object to access the cryptographic service provider (CSP) implementation of the <xref href="System.Security.Cryptography.DSA"></xref> algorithm. This class cannot be inherited.
   remarks: "You can use the <xref:System.Security.Cryptography.DSACryptoServiceProvider> class to create digital signatures and protect the integrity of your data.  \n  \n To use a public-key system to digitally sign a message, the sender first applies a hash function to the message to create a message digest. The sender then encrypts the message digest with the sender's private key to create the sender's personal signature. Upon receiving the message and signature, the receiver decrypts the signature using the sender's public key to recover the message digest and hashes the message using the same hash algorithm that the sender used. If the message digest that the receiver computes exactly matches the message digest received from the sender, the receiver can be sure that the message was not altered while in transit. Note that a signature can be verified by anyone, because the sender's public key is common knowledge.  \n  \n> [!NOTE]\n>  Newer asymmetric algorithms are available. Consider using the <xref:System.Security.Cryptography.RSACryptoServiceProvider> class instead of the <xref:System.Security.Cryptography.DSACryptoServiceProvider> class. Use <xref:System.Security.Cryptography.DSACryptoServiceProvider> only for compatibility with legacy applications and data.  \n  \n This algorithm supports key lengths from 512 bits to 1024 bits in increments of 64 bits."
@@ -65,9 +67,10 @@ items:
   - System.Security.Cryptography.AsymmetricAlgorithm.Clear
   - System.Security.Cryptography.AsymmetricAlgorithm.Dispose
   - System.Security.Cryptography.AsymmetricAlgorithm.KeySizeValue
-  - System.Security.Cryptography.AsymmetricAlgorithm.LegalKeySizes
   - System.Security.Cryptography.AsymmetricAlgorithm.LegalKeySizesValue
   - System.Security.Cryptography.DSA.Create
+  - System.Security.Cryptography.DSA.Create(System.Int32)
+  - System.Security.Cryptography.DSA.Create(System.Security.Cryptography.DSAParameters)
   - System.Security.Cryptography.DSA.Create(System.String)
   - System.Security.Cryptography.DSA.FromXmlString(System.String)
   - System.Security.Cryptography.DSA.SignData(System.Byte[],System.Int32,System.Int32,System.Security.Cryptography.HashAlgorithmName)
@@ -80,6 +83,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -92,6 +96,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -104,9 +109,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.#ctor
   commentId: M:System.Security.Cryptography.DSACryptoServiceProvider.#ctor
   id: '#ctor'
@@ -115,11 +117,12 @@ items:
   - csharp
   name: DSACryptoServiceProvider()
   nameWithType: DSACryptoServiceProvider.DSACryptoServiceProvider()
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.DSACryptoServiceProvider()
+  fullName: DSACryptoServiceProvider.DSACryptoServiceProvider()
   type: Constructor
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Initializes a new instance of the <xref href="System.Security.Cryptography.DSACryptoServiceProvider"></xref> class.
   syntax:
@@ -128,6 +131,7 @@ items:
   overload: System.Security.Cryptography.DSACryptoServiceProvider.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -140,6 +144,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -152,9 +157,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.#ctor(System.Int32)
   commentId: M:System.Security.Cryptography.DSACryptoServiceProvider.#ctor(System.Int32)
   id: '#ctor(System.Int32)'
@@ -163,11 +165,12 @@ items:
   - csharp
   name: DSACryptoServiceProvider(Int32)
   nameWithType: DSACryptoServiceProvider.DSACryptoServiceProvider(Int32)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.DSACryptoServiceProvider(Int32)
+  fullName: DSACryptoServiceProvider.DSACryptoServiceProvider(Int32)
   type: Constructor
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Initializes a new instance of the <xref href="System.Security.Cryptography.DSACryptoServiceProvider"></xref> class with the specified key size.
   syntax:
@@ -179,6 +182,7 @@ items:
   overload: System.Security.Cryptography.DSACryptoServiceProvider.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -191,6 +195,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -203,9 +208,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.#ctor(System.Security.Cryptography.CspParameters)
   commentId: M:System.Security.Cryptography.DSACryptoServiceProvider.#ctor(System.Security.Cryptography.CspParameters)
   id: '#ctor(System.Security.Cryptography.CspParameters)'
@@ -214,11 +216,12 @@ items:
   - csharp
   name: DSACryptoServiceProvider(CspParameters)
   nameWithType: DSACryptoServiceProvider.DSACryptoServiceProvider(CspParameters)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.DSACryptoServiceProvider(CspParameters)
+  fullName: DSACryptoServiceProvider.DSACryptoServiceProvider(CspParameters)
   type: Constructor
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Initializes a new instance of the <xref href="System.Security.Cryptography.DSACryptoServiceProvider"></xref> class with the specified parameters for the cryptographic service provider (CSP).
   syntax:
@@ -230,6 +233,7 @@ items:
   overload: System.Security.Cryptography.DSACryptoServiceProvider.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -242,6 +246,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -254,9 +259,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.#ctor(System.Int32,System.Security.Cryptography.CspParameters)
   commentId: M:System.Security.Cryptography.DSACryptoServiceProvider.#ctor(System.Int32,System.Security.Cryptography.CspParameters)
   id: '#ctor(System.Int32,System.Security.Cryptography.CspParameters)'
@@ -265,11 +267,12 @@ items:
   - csharp
   name: DSACryptoServiceProvider(Int32, CspParameters)
   nameWithType: DSACryptoServiceProvider.DSACryptoServiceProvider(Int32, CspParameters)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.DSACryptoServiceProvider(Int32, CspParameters)
+  fullName: DSACryptoServiceProvider.DSACryptoServiceProvider(Int32, CspParameters)
   type: Constructor
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Initializes a new instance of the <xref href="System.Security.Cryptography.DSACryptoServiceProvider"></xref> class with the specified key size and parameters for the cryptographic service provider (CSP).
   syntax:
@@ -290,6 +293,7 @@ items:
     commentId: T:System.ArgumentOutOfRangeException
     description: <code>dwKeySize</code> is out of range.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -302,6 +306,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -314,9 +319,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.CreateSignature(System.Byte[])
   commentId: M:System.Security.Cryptography.DSACryptoServiceProvider.CreateSignature(System.Byte[])
   id: CreateSignature(System.Byte[])
@@ -325,11 +327,12 @@ items:
   - csharp
   name: CreateSignature(Byte[])
   nameWithType: DSACryptoServiceProvider.CreateSignature(Byte[])
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.CreateSignature(Byte[])
+  fullName: DSACryptoServiceProvider.CreateSignature(Byte[])
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Creates the <xref href="System.Security.Cryptography.DSA"></xref> signature for the specified data.
   syntax:
@@ -344,6 +347,7 @@ items:
   overload: System.Security.Cryptography.DSACryptoServiceProvider.CreateSignature*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -356,6 +360,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -368,9 +373,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.CspKeyContainerInfo
   commentId: P:System.Security.Cryptography.DSACryptoServiceProvider.CspKeyContainerInfo
   id: CspKeyContainerInfo
@@ -379,11 +381,12 @@ items:
   - csharp
   name: CspKeyContainerInfo
   nameWithType: DSACryptoServiceProvider.CspKeyContainerInfo
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.CspKeyContainerInfo
+  fullName: DSACryptoServiceProvider.CspKeyContainerInfo
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Gets a <xref href="System.Security.Cryptography.CspKeyContainerInfo"></xref> object that describes additional information about a cryptographic key pair.
   remarks: "Use the <xref:System.Security.Cryptography.DSACryptoServiceProvider.CspKeyContainerInfo%2A> property to retrieve additional information about a cryptographic key pair.  The returned <xref:System.Security.Cryptography.CspKeyContainerInfo> object describes whether the key is exportable, and specifies the key container name, information about the provider, and other information.  \n  \n In cases where a random key is generated, a key container will not be created until you call a method that uses the key.  Some properties of the <xref:System.Security.Cryptography.CspKeyContainerInfo> object returned by the <xref:System.Security.Cryptography.DSACryptoServiceProvider.CspKeyContainerInfo%2A> property will throw a <xref:System.Security.Cryptography.CryptographicException> if a key container has not been created.  To make sure that a key container has been created, call a method such as <xref:System.Security.Cryptography.DSACryptoServiceProvider.SignData%2A>, <xref:System.Security.Cryptography.DSACryptoServiceProvider.SignHash%2A>, <xref:System.Security.Cryptography.DSACryptoServiceProvider.VerifyData%2A>, <xref:System.Security.Cryptography.DSACryptoServiceProvider.VerifyHash%2A>, and so on, before you call the <xref:System.Security.Cryptography.DSACryptoServiceProvider.CspKeyContainerInfo%2A> property."
@@ -400,6 +403,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -412,6 +416,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -424,9 +429,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.Dispose(System.Boolean)
   commentId: M:System.Security.Cryptography.DSACryptoServiceProvider.Dispose(System.Boolean)
   id: Dispose(System.Boolean)
@@ -435,11 +437,12 @@ items:
   - csharp
   name: Dispose(Boolean)
   nameWithType: DSACryptoServiceProvider.Dispose(Boolean)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.Dispose(Boolean)
+  fullName: DSACryptoServiceProvider.Dispose(Boolean)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   syntax:
     content: protected override void Dispose (bool disposing);
@@ -450,6 +453,7 @@ items:
   overload: System.Security.Cryptography.DSACryptoServiceProvider.Dispose*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -462,6 +466,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -482,11 +487,12 @@ items:
   - csharp
   name: ExportCspBlob(Boolean)
   nameWithType: DSACryptoServiceProvider.ExportCspBlob(Boolean)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.ExportCspBlob(Boolean)
+  fullName: DSACryptoServiceProvider.ExportCspBlob(Boolean)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Exports a blob containing the key information associated with a <xref href="System.Security.Cryptography.DSACryptoServiceProvider"></xref> object.
   remarks: The <xref:System.Security.Cryptography.DSACryptoServiceProvider.ExportCspBlob%2A> method returns a blob containing key information that is compatible with the unmanaged Microsoft Cryptographic API (CAPI).
@@ -507,6 +513,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -519,6 +526,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -531,9 +539,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.ExportParameters(System.Boolean)
   commentId: M:System.Security.Cryptography.DSACryptoServiceProvider.ExportParameters(System.Boolean)
   id: ExportParameters(System.Boolean)
@@ -542,11 +547,12 @@ items:
   - csharp
   name: ExportParameters(Boolean)
   nameWithType: DSACryptoServiceProvider.ExportParameters(Boolean)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.ExportParameters(Boolean)
+  fullName: DSACryptoServiceProvider.ExportParameters(Boolean)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Exports the <xref href="System.Security.Cryptography.DSAParameters"></xref>.
   syntax:
@@ -564,6 +570,7 @@ items:
     commentId: T:System.Security.Cryptography.CryptographicException
     description: The key cannot be exported.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -576,6 +583,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -588,9 +596,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.Finalize
   commentId: M:System.Security.Cryptography.DSACryptoServiceProvider.Finalize
   id: Finalize
@@ -599,7 +604,7 @@ items:
   - csharp
   name: Finalize()
   nameWithType: DSACryptoServiceProvider.Finalize()
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.Finalize()
+  fullName: DSACryptoServiceProvider.Finalize()
   type: Method
   assemblies:
   - mscorlib
@@ -626,10 +631,11 @@ items:
   - csharp
   name: HashData(Stream, HashAlgorithmName)
   nameWithType: DSACryptoServiceProvider.HashData(Stream, HashAlgorithmName)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.HashData(Stream, HashAlgorithmName)
+  fullName: DSACryptoServiceProvider.HashData(Stream, HashAlgorithmName)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   syntax:
     content: protected override byte[] HashData (System.IO.Stream data, System.Security.Cryptography.HashAlgorithmName hashAlgorithm);
@@ -646,9 +652,11 @@ items:
   overload: System.Security.Cryptography.DSACryptoServiceProvider.HashData*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.6.2
   - netframework-4.7
   monikers:
+  - netcore-2.0
   - netframework-4.6.2
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
@@ -660,10 +668,11 @@ items:
   - csharp
   name: HashData(Byte[], Int32, Int32, HashAlgorithmName)
   nameWithType: DSACryptoServiceProvider.HashData(Byte[], Int32, Int32, HashAlgorithmName)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.HashData(Byte[], Int32, Int32, HashAlgorithmName)
+  fullName: DSACryptoServiceProvider.HashData(Byte[], Int32, Int32, HashAlgorithmName)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   syntax:
     content: protected override byte[] HashData (byte[] data, int offset, int count, System.Security.Cryptography.HashAlgorithmName hashAlgorithm);
@@ -686,9 +695,11 @@ items:
   overload: System.Security.Cryptography.DSACryptoServiceProvider.HashData*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.6.2
   - netframework-4.7
   monikers:
+  - netcore-2.0
   - netframework-4.6.2
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
@@ -700,11 +711,12 @@ items:
   - csharp
   name: ImportCspBlob(Byte[])
   nameWithType: DSACryptoServiceProvider.ImportCspBlob(Byte[])
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.ImportCspBlob(Byte[])
+  fullName: DSACryptoServiceProvider.ImportCspBlob(Byte[])
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Imports a blob that represents DSA key information.
   remarks: The <xref:System.Security.Cryptography.DSACryptoServiceProvider.ImportCspBlob%2A> method initializes the key data of a <xref:System.Security.Cryptography.DSACryptoServiceProvider> object using a blob that is compatible with the unmanaged Microsoft Cryptographic API (CAPI).
@@ -722,6 +734,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -734,6 +747,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -746,9 +760,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.ImportParameters(System.Security.Cryptography.DSAParameters)
   commentId: M:System.Security.Cryptography.DSACryptoServiceProvider.ImportParameters(System.Security.Cryptography.DSAParameters)
   id: ImportParameters(System.Security.Cryptography.DSAParameters)
@@ -757,11 +768,12 @@ items:
   - csharp
   name: ImportParameters(DSAParameters)
   nameWithType: DSACryptoServiceProvider.ImportParameters(DSAParameters)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.ImportParameters(DSAParameters)
+  fullName: DSACryptoServiceProvider.ImportParameters(DSAParameters)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Imports the specified <xref href="System.Security.Cryptography.DSAParameters"></xref>.
   syntax:
@@ -776,6 +788,7 @@ items:
     commentId: T:System.Security.Cryptography.CryptographicException
     description: "The cryptographic service provider (CSP) cannot be acquired.  \n  \n -or-  \n  \n The <code>parameters</code> parameter has missing fields."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -788,6 +801,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -800,9 +814,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.KeyExchangeAlgorithm
   commentId: P:System.Security.Cryptography.DSACryptoServiceProvider.KeyExchangeAlgorithm
   id: KeyExchangeAlgorithm
@@ -811,11 +822,12 @@ items:
   - csharp
   name: KeyExchangeAlgorithm
   nameWithType: DSACryptoServiceProvider.KeyExchangeAlgorithm
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.KeyExchangeAlgorithm
+  fullName: DSACryptoServiceProvider.KeyExchangeAlgorithm
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Gets the name of the key exchange algorithm.
   syntax:
@@ -826,6 +838,7 @@ items:
   overload: System.Security.Cryptography.DSACryptoServiceProvider.KeyExchangeAlgorithm*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -838,6 +851,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -850,9 +864,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.KeySize
   commentId: P:System.Security.Cryptography.DSACryptoServiceProvider.KeySize
   id: KeySize
@@ -861,11 +872,12 @@ items:
   - csharp
   name: KeySize
   nameWithType: DSACryptoServiceProvider.KeySize
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.KeySize
+  fullName: DSACryptoServiceProvider.KeySize
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Gets the size of the key used by the asymmetric algorithm in bits.
   remarks: "This algorithm supports key lengths from 512 bits to 1024 bits in increments of 64 bits.  \n  \n The <xref:System.Security.Cryptography.DSACryptoServiceProvider> class does not allow you to change key sizes using the <xref:System.Security.Cryptography.DSACryptoServiceProvider.KeySize%2A> property.  Any value written to this property will fail to update the property without error.  To change the key size, use one of the constructor overloads."
@@ -877,6 +889,7 @@ items:
   overload: System.Security.Cryptography.DSACryptoServiceProvider.KeySize*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -889,6 +902,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -901,9 +915,31 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
+- uid: System.Security.Cryptography.DSACryptoServiceProvider.LegalKeySizes
+  commentId: P:System.Security.Cryptography.DSACryptoServiceProvider.LegalKeySizes
+  id: LegalKeySizes
+  parent: System.Security.Cryptography.DSACryptoServiceProvider
+  langs:
+  - csharp
+  name: LegalKeySizes
+  nameWithType: DSACryptoServiceProvider.LegalKeySizes
+  fullName: DSACryptoServiceProvider.LegalKeySizes
+  type: Property
+  assemblies:
+  - System.Security.Cryptography.Csp
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override System.Security.Cryptography.KeySizes[] LegalKeySizes { get; }
+    return:
+      type: System.Security.Cryptography.KeySizes[]
+      description: To be added.
+  overload: System.Security.Cryptography.DSACryptoServiceProvider.LegalKeySizes*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.PersistKeyInCsp
   commentId: P:System.Security.Cryptography.DSACryptoServiceProvider.PersistKeyInCsp
   id: PersistKeyInCsp
@@ -912,11 +948,12 @@ items:
   - csharp
   name: PersistKeyInCsp
   nameWithType: DSACryptoServiceProvider.PersistKeyInCsp
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.PersistKeyInCsp
+  fullName: DSACryptoServiceProvider.PersistKeyInCsp
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Gets or sets a value indicating whether the key should be persisted in the cryptographic service provider (CSP).
   remarks: Use this property when you want to persist a key in a key container.
@@ -928,6 +965,7 @@ items:
   overload: System.Security.Cryptography.DSACryptoServiceProvider.PersistKeyInCsp*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -940,6 +978,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -952,9 +991,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.PublicOnly
   commentId: P:System.Security.Cryptography.DSACryptoServiceProvider.PublicOnly
   id: PublicOnly
@@ -963,11 +999,12 @@ items:
   - csharp
   name: PublicOnly
   nameWithType: DSACryptoServiceProvider.PublicOnly
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.PublicOnly
+  fullName: DSACryptoServiceProvider.PublicOnly
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Gets a value that indicates whether the <xref href="System.Security.Cryptography.DSACryptoServiceProvider"></xref> object contains only a public key.
   remarks: The <xref:System.Security.Cryptography.DSACryptoServiceProvider> class can be initialized either with a public key only or with both a public and private key.  Use the <xref:System.Security.Cryptography.DSACryptoServiceProvider.PublicOnly%2A> property to determine whether the current instance contains only a public key or both a public and private key.
@@ -984,6 +1021,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -996,6 +1034,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1008,9 +1047,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.SignatureAlgorithm
   commentId: P:System.Security.Cryptography.DSACryptoServiceProvider.SignatureAlgorithm
   id: SignatureAlgorithm
@@ -1019,11 +1055,12 @@ items:
   - csharp
   name: SignatureAlgorithm
   nameWithType: DSACryptoServiceProvider.SignatureAlgorithm
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.SignatureAlgorithm
+  fullName: DSACryptoServiceProvider.SignatureAlgorithm
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Gets the name of the signature algorithm.
   syntax:
@@ -1034,6 +1071,7 @@ items:
   overload: System.Security.Cryptography.DSACryptoServiceProvider.SignatureAlgorithm*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1046,6 +1084,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1058,9 +1097,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.SignData(System.Byte[])
   commentId: M:System.Security.Cryptography.DSACryptoServiceProvider.SignData(System.Byte[])
   id: SignData(System.Byte[])
@@ -1069,11 +1105,12 @@ items:
   - csharp
   name: SignData(Byte[])
   nameWithType: DSACryptoServiceProvider.SignData(Byte[])
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.SignData(Byte[])
+  fullName: DSACryptoServiceProvider.SignData(Byte[])
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Computes the hash value of the specified byte array and signs the resulting hash value.
   remarks: "This method creates a digital signature that is verified using the <xref:System.Security.Cryptography.DSACryptoServiceProvider.VerifyData%2A> method.  \n  \n <xref:System.Security.Cryptography.DSA> uses the <xref:System.Security.Cryptography.SHA1> hash algorithm."
@@ -1089,6 +1126,7 @@ items:
   overload: System.Security.Cryptography.DSACryptoServiceProvider.SignData*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1101,6 +1139,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1113,9 +1152,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.SignData(System.IO.Stream)
   commentId: M:System.Security.Cryptography.DSACryptoServiceProvider.SignData(System.IO.Stream)
   id: SignData(System.IO.Stream)
@@ -1124,11 +1160,12 @@ items:
   - csharp
   name: SignData(Stream)
   nameWithType: DSACryptoServiceProvider.SignData(Stream)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.SignData(Stream)
+  fullName: DSACryptoServiceProvider.SignData(Stream)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Computes the hash value of the specified input stream and signs the resulting hash value.
   remarks: <xref:System.Security.Cryptography.DSA> uses the <xref:System.Security.Cryptography.SHA1> hash algorithm.
@@ -1144,6 +1181,7 @@ items:
   overload: System.Security.Cryptography.DSACryptoServiceProvider.SignData*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1156,6 +1194,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1168,9 +1207,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.SignData(System.Byte[],System.Int32,System.Int32)
   commentId: M:System.Security.Cryptography.DSACryptoServiceProvider.SignData(System.Byte[],System.Int32,System.Int32)
   id: SignData(System.Byte[],System.Int32,System.Int32)
@@ -1179,11 +1215,12 @@ items:
   - csharp
   name: SignData(Byte[], Int32, Int32)
   nameWithType: DSACryptoServiceProvider.SignData(Byte[], Int32, Int32)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.SignData(Byte[], Int32, Int32)
+  fullName: DSACryptoServiceProvider.SignData(Byte[], Int32, Int32)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Signs a byte array from the specified start point to the specified end point.
   remarks: "This method creates a digital signature that is verified using the <xref:System.Security.Cryptography.DSACryptoServiceProvider.VerifyData%2A> method.  \n  \n <xref:System.Security.Cryptography.DSA> uses the <xref:System.Security.Cryptography.SHA1> hash algorithm."
@@ -1205,6 +1242,7 @@ items:
   overload: System.Security.Cryptography.DSACryptoServiceProvider.SignData*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1217,6 +1255,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1229,9 +1268,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.SignHash(System.Byte[],System.String)
   commentId: M:System.Security.Cryptography.DSACryptoServiceProvider.SignHash(System.Byte[],System.String)
   id: SignHash(System.Byte[],System.String)
@@ -1240,11 +1276,12 @@ items:
   - csharp
   name: SignHash(Byte[], String)
   nameWithType: DSACryptoServiceProvider.SignHash(Byte[], String)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.SignHash(Byte[], String)
+  fullName: DSACryptoServiceProvider.SignHash(Byte[], String)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Computes the signature for the specified hash value by encrypting it with the private key.
   remarks: "This method creates a digital signature that is verified using the <xref:System.Security.Cryptography.DSACryptoServiceProvider.VerifyHash%2A> method.  \n  \n <xref:System.Security.Cryptography.DSA> uses the <xref:System.Security.Cryptography.SHA1> hash algorithm."
@@ -1269,6 +1306,7 @@ items:
     commentId: T:System.Security.Cryptography.CryptographicException
     description: "The cryptographic service provider (CSP) cannot be acquired.  \n  \n -or-  \n  \n There is no private key."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1281,6 +1319,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1293,9 +1332,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.UseMachineKeyStore
   commentId: P:System.Security.Cryptography.DSACryptoServiceProvider.UseMachineKeyStore
   id: UseMachineKeyStore
@@ -1304,11 +1340,12 @@ items:
   - csharp
   name: UseMachineKeyStore
   nameWithType: DSACryptoServiceProvider.UseMachineKeyStore
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.UseMachineKeyStore
+  fullName: DSACryptoServiceProvider.UseMachineKeyStore
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Gets or sets a value indicating whether the key should be persisted in the computer's key store instead of the user profile store.
   remarks: Setting this property to true is equivalent to passing the <xref:System.Security.Cryptography.DSACryptoServiceProvider.UseMachineKeyStore%2A> flag to a <xref:System.Security.Cryptography.CspParameters> object. The <xref:System.Security.Cryptography.DSACryptoServiceProvider.UseMachineKeyStore%2A> property applies to all code in the current application domain, while the <xref:System.Security.Cryptography.CspParameters> object applies only to classes that explicitly reference it. These settings are useful when impersonating or running under an account whose user profile is not loaded.
@@ -1320,6 +1357,7 @@ items:
   overload: System.Security.Cryptography.DSACryptoServiceProvider.UseMachineKeyStore*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1332,6 +1370,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1344,9 +1383,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.VerifyData(System.Byte[],System.Byte[])
   commentId: M:System.Security.Cryptography.DSACryptoServiceProvider.VerifyData(System.Byte[],System.Byte[])
   id: VerifyData(System.Byte[],System.Byte[])
@@ -1355,11 +1391,12 @@ items:
   - csharp
   name: VerifyData(Byte[], Byte[])
   nameWithType: DSACryptoServiceProvider.VerifyData(Byte[], Byte[])
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.VerifyData(Byte[], Byte[])
+  fullName: DSACryptoServiceProvider.VerifyData(Byte[], Byte[])
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Verifies the specified signature data by comparing it to the signature computed for the specified data.
   remarks: "This method verifies the <xref:System.Security.Cryptography.DSA> digital signature produced by <xref:System.Security.Cryptography.DSACryptoServiceProvider.SignData%2A>.  \n  \n <xref:System.Security.Cryptography.DSA> uses the <xref:System.Security.Cryptography.SHA1> hash algorithm."
@@ -1378,6 +1415,7 @@ items:
   overload: System.Security.Cryptography.DSACryptoServiceProvider.VerifyData*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1390,6 +1428,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1402,9 +1441,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.VerifyHash(System.Byte[],System.String,System.Byte[])
   commentId: M:System.Security.Cryptography.DSACryptoServiceProvider.VerifyHash(System.Byte[],System.String,System.Byte[])
   id: VerifyHash(System.Byte[],System.String,System.Byte[])
@@ -1413,11 +1449,12 @@ items:
   - csharp
   name: VerifyHash(Byte[], String, Byte[])
   nameWithType: DSACryptoServiceProvider.VerifyHash(Byte[], String, Byte[])
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.VerifyHash(Byte[], String, Byte[])
+  fullName: DSACryptoServiceProvider.VerifyHash(Byte[], String, Byte[])
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Verifies the specified signature data by comparing it to the signature computed for the specified hash value.
   remarks: "This method verifies the <xref:System.Security.Cryptography.DSA> digital signature produced by <xref:System.Security.Cryptography.DSACryptoServiceProvider.SignHash%2A>.  \n  \n If the `str` parameter is `null`, the default hash algorithm (SHA1) is used. The valid hash algorithms is <xref:System.Security.Cryptography.SHA1>."
@@ -1445,6 +1482,7 @@ items:
     commentId: T:System.Security.Cryptography.CryptographicException
     description: "The cryptographic service provider (CSP) cannot be acquired.  \n  \n -or-  \n  \n The signature cannot be verified."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1457,6 +1495,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1469,9 +1508,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.VerifySignature(System.Byte[],System.Byte[])
   commentId: M:System.Security.Cryptography.DSACryptoServiceProvider.VerifySignature(System.Byte[],System.Byte[])
   id: VerifySignature(System.Byte[],System.Byte[])
@@ -1480,11 +1516,12 @@ items:
   - csharp
   name: VerifySignature(Byte[], Byte[])
   nameWithType: DSACryptoServiceProvider.VerifySignature(Byte[], Byte[])
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.VerifySignature(Byte[], Byte[])
+  fullName: DSACryptoServiceProvider.VerifySignature(Byte[], Byte[])
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Verifies the <xref href="System.Security.Cryptography.DSA"></xref> signature for the specified data.
   syntax:
@@ -1502,6 +1539,7 @@ items:
   overload: System.Security.Cryptography.DSACryptoServiceProvider.VerifySignature*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1514,6 +1552,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1526,9 +1565,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Security.Cryptography.DSA
   parent: System.Security.Cryptography
@@ -1559,13 +1595,13 @@ references:
   isExternal: false
   name: DSACryptoServiceProvider()
   nameWithType: DSACryptoServiceProvider.DSACryptoServiceProvider()
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.DSACryptoServiceProvider()
+  fullName: DSACryptoServiceProvider.DSACryptoServiceProvider()
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.#ctor(System.Int32)
   parent: System.Security.Cryptography.DSACryptoServiceProvider
   isExternal: false
   name: DSACryptoServiceProvider(Int32)
   nameWithType: DSACryptoServiceProvider.DSACryptoServiceProvider(Int32)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.DSACryptoServiceProvider(Int32)
+  fullName: DSACryptoServiceProvider.DSACryptoServiceProvider(Int32)
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -1577,7 +1613,7 @@ references:
   isExternal: false
   name: DSACryptoServiceProvider(CspParameters)
   nameWithType: DSACryptoServiceProvider.DSACryptoServiceProvider(CspParameters)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.DSACryptoServiceProvider(CspParameters)
+  fullName: DSACryptoServiceProvider.DSACryptoServiceProvider(CspParameters)
 - uid: System.Security.Cryptography.CspParameters
   parent: System.Security.Cryptography
   isExternal: false
@@ -1589,13 +1625,13 @@ references:
   isExternal: false
   name: DSACryptoServiceProvider(Int32, CspParameters)
   nameWithType: DSACryptoServiceProvider.DSACryptoServiceProvider(Int32, CspParameters)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.DSACryptoServiceProvider(Int32, CspParameters)
+  fullName: DSACryptoServiceProvider.DSACryptoServiceProvider(Int32, CspParameters)
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.CreateSignature(System.Byte[])
   parent: System.Security.Cryptography.DSACryptoServiceProvider
   isExternal: false
   name: CreateSignature(Byte[])
   nameWithType: DSACryptoServiceProvider.CreateSignature(Byte[])
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.CreateSignature(Byte[])
+  fullName: DSACryptoServiceProvider.CreateSignature(Byte[])
 - uid: System.Byte
   name: Byte
   nameWithType: Byte
@@ -1619,7 +1655,7 @@ references:
   isExternal: false
   name: CspKeyContainerInfo
   nameWithType: DSACryptoServiceProvider.CspKeyContainerInfo
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.CspKeyContainerInfo
+  fullName: DSACryptoServiceProvider.CspKeyContainerInfo
 - uid: System.Security.Cryptography.CspKeyContainerInfo
   parent: System.Security.Cryptography
   isExternal: false
@@ -1631,7 +1667,7 @@ references:
   isExternal: false
   name: Dispose(Boolean)
   nameWithType: DSACryptoServiceProvider.Dispose(Boolean)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.Dispose(Boolean)
+  fullName: DSACryptoServiceProvider.Dispose(Boolean)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -1643,13 +1679,13 @@ references:
   isExternal: false
   name: ExportCspBlob(Boolean)
   nameWithType: DSACryptoServiceProvider.ExportCspBlob(Boolean)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.ExportCspBlob(Boolean)
+  fullName: DSACryptoServiceProvider.ExportCspBlob(Boolean)
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.ExportParameters(System.Boolean)
   parent: System.Security.Cryptography.DSACryptoServiceProvider
   isExternal: false
   name: ExportParameters(Boolean)
   nameWithType: DSACryptoServiceProvider.ExportParameters(Boolean)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.ExportParameters(Boolean)
+  fullName: DSACryptoServiceProvider.ExportParameters(Boolean)
 - uid: System.Security.Cryptography.DSAParameters
   parent: System.Security.Cryptography
   isExternal: false
@@ -1661,13 +1697,13 @@ references:
   isExternal: false
   name: Finalize()
   nameWithType: DSACryptoServiceProvider.Finalize()
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.Finalize()
+  fullName: DSACryptoServiceProvider.Finalize()
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.HashData(System.IO.Stream,System.Security.Cryptography.HashAlgorithmName)
   parent: System.Security.Cryptography.DSACryptoServiceProvider
   isExternal: false
   name: HashData(Stream, HashAlgorithmName)
   nameWithType: DSACryptoServiceProvider.HashData(Stream, HashAlgorithmName)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.HashData(Stream, HashAlgorithmName)
+  fullName: DSACryptoServiceProvider.HashData(Stream, HashAlgorithmName)
 - uid: System.IO.Stream
   parent: System.IO
   isExternal: false
@@ -1685,25 +1721,25 @@ references:
   isExternal: false
   name: HashData(Byte[], Int32, Int32, HashAlgorithmName)
   nameWithType: DSACryptoServiceProvider.HashData(Byte[], Int32, Int32, HashAlgorithmName)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.HashData(Byte[], Int32, Int32, HashAlgorithmName)
+  fullName: DSACryptoServiceProvider.HashData(Byte[], Int32, Int32, HashAlgorithmName)
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.ImportCspBlob(System.Byte[])
   parent: System.Security.Cryptography.DSACryptoServiceProvider
   isExternal: false
   name: ImportCspBlob(Byte[])
   nameWithType: DSACryptoServiceProvider.ImportCspBlob(Byte[])
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.ImportCspBlob(Byte[])
+  fullName: DSACryptoServiceProvider.ImportCspBlob(Byte[])
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.ImportParameters(System.Security.Cryptography.DSAParameters)
   parent: System.Security.Cryptography.DSACryptoServiceProvider
   isExternal: false
   name: ImportParameters(DSAParameters)
   nameWithType: DSACryptoServiceProvider.ImportParameters(DSAParameters)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.ImportParameters(DSAParameters)
+  fullName: DSACryptoServiceProvider.ImportParameters(DSAParameters)
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.KeyExchangeAlgorithm
   parent: System.Security.Cryptography.DSACryptoServiceProvider
   isExternal: false
   name: KeyExchangeAlgorithm
   nameWithType: DSACryptoServiceProvider.KeyExchangeAlgorithm
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.KeyExchangeAlgorithm
+  fullName: DSACryptoServiceProvider.KeyExchangeAlgorithm
 - uid: System.String
   parent: System
   isExternal: false
@@ -1715,80 +1751,105 @@ references:
   isExternal: false
   name: KeySize
   nameWithType: DSACryptoServiceProvider.KeySize
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.KeySize
+  fullName: DSACryptoServiceProvider.KeySize
+- uid: System.Security.Cryptography.DSACryptoServiceProvider.LegalKeySizes
+  parent: System.Security.Cryptography.DSACryptoServiceProvider
+  isExternal: false
+  name: LegalKeySizes
+  nameWithType: DSACryptoServiceProvider.LegalKeySizes
+  fullName: DSACryptoServiceProvider.LegalKeySizes
+- uid: System.Security.Cryptography.KeySizes
+  name: KeySizes
+  nameWithType: KeySizes
+  fullName: System.Security.Cryptography.KeySizes
+- uid: System.Security.Cryptography.KeySizes[]
+  parent: System.Security.Cryptography
+  isExternal: false
+  name: KeySizes[]
+  nameWithType: KeySizes[]
+  fullName: System.Security.Cryptography.KeySizes[]
+  spec.csharp:
+  - uid: System.Security.Cryptography.KeySizes
+    name: KeySizes
+    nameWithType: KeySizes
+    fullName: System.Security.Cryptography.KeySizes
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.PersistKeyInCsp
   parent: System.Security.Cryptography.DSACryptoServiceProvider
   isExternal: false
   name: PersistKeyInCsp
   nameWithType: DSACryptoServiceProvider.PersistKeyInCsp
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.PersistKeyInCsp
+  fullName: DSACryptoServiceProvider.PersistKeyInCsp
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.PublicOnly
   parent: System.Security.Cryptography.DSACryptoServiceProvider
   isExternal: false
   name: PublicOnly
   nameWithType: DSACryptoServiceProvider.PublicOnly
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.PublicOnly
+  fullName: DSACryptoServiceProvider.PublicOnly
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.SignatureAlgorithm
   parent: System.Security.Cryptography.DSACryptoServiceProvider
   isExternal: false
   name: SignatureAlgorithm
   nameWithType: DSACryptoServiceProvider.SignatureAlgorithm
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.SignatureAlgorithm
+  fullName: DSACryptoServiceProvider.SignatureAlgorithm
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.SignData(System.Byte[])
   parent: System.Security.Cryptography.DSACryptoServiceProvider
   isExternal: false
   name: SignData(Byte[])
   nameWithType: DSACryptoServiceProvider.SignData(Byte[])
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.SignData(Byte[])
+  fullName: DSACryptoServiceProvider.SignData(Byte[])
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.SignData(System.IO.Stream)
   parent: System.Security.Cryptography.DSACryptoServiceProvider
   isExternal: false
   name: SignData(Stream)
   nameWithType: DSACryptoServiceProvider.SignData(Stream)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.SignData(Stream)
+  fullName: DSACryptoServiceProvider.SignData(Stream)
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.SignData(System.Byte[],System.Int32,System.Int32)
   parent: System.Security.Cryptography.DSACryptoServiceProvider
   isExternal: false
   name: SignData(Byte[], Int32, Int32)
   nameWithType: DSACryptoServiceProvider.SignData(Byte[], Int32, Int32)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.SignData(Byte[], Int32, Int32)
+  fullName: DSACryptoServiceProvider.SignData(Byte[], Int32, Int32)
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.SignHash(System.Byte[],System.String)
   parent: System.Security.Cryptography.DSACryptoServiceProvider
   isExternal: false
   name: SignHash(Byte[], String)
   nameWithType: DSACryptoServiceProvider.SignHash(Byte[], String)
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.SignHash(Byte[], String)
+  fullName: DSACryptoServiceProvider.SignHash(Byte[], String)
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.UseMachineKeyStore
   parent: System.Security.Cryptography.DSACryptoServiceProvider
   isExternal: false
   name: UseMachineKeyStore
   nameWithType: DSACryptoServiceProvider.UseMachineKeyStore
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.UseMachineKeyStore
+  fullName: DSACryptoServiceProvider.UseMachineKeyStore
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.VerifyData(System.Byte[],System.Byte[])
   parent: System.Security.Cryptography.DSACryptoServiceProvider
   isExternal: false
   name: VerifyData(Byte[], Byte[])
   nameWithType: DSACryptoServiceProvider.VerifyData(Byte[], Byte[])
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.VerifyData(Byte[], Byte[])
+  fullName: DSACryptoServiceProvider.VerifyData(Byte[], Byte[])
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.VerifyHash(System.Byte[],System.String,System.Byte[])
   parent: System.Security.Cryptography.DSACryptoServiceProvider
   isExternal: false
   name: VerifyHash(Byte[], String, Byte[])
   nameWithType: DSACryptoServiceProvider.VerifyHash(Byte[], String, Byte[])
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.VerifyHash(Byte[], String, Byte[])
+  fullName: DSACryptoServiceProvider.VerifyHash(Byte[], String, Byte[])
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.VerifySignature(System.Byte[],System.Byte[])
   parent: System.Security.Cryptography.DSACryptoServiceProvider
   isExternal: false
   name: VerifySignature(Byte[], Byte[])
   nameWithType: DSACryptoServiceProvider.VerifySignature(Byte[], Byte[])
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.VerifySignature(Byte[], Byte[])
+  fullName: DSACryptoServiceProvider.VerifySignature(Byte[], Byte[])
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.#ctor*
   parent: System.Security.Cryptography.DSACryptoServiceProvider
   isExternal: false
   name: DSACryptoServiceProvider
   nameWithType: DSACryptoServiceProvider.DSACryptoServiceProvider
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.DSACryptoServiceProvider
+  fullName: DSACryptoServiceProvider.DSACryptoServiceProvider
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1806,8 +1867,9 @@ references:
   isExternal: false
   name: CreateSignature
   nameWithType: DSACryptoServiceProvider.CreateSignature
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.CreateSignature
+  fullName: DSACryptoServiceProvider.CreateSignature
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1825,8 +1887,9 @@ references:
   isExternal: false
   name: CspKeyContainerInfo
   nameWithType: DSACryptoServiceProvider.CspKeyContainerInfo
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.CspKeyContainerInfo
+  fullName: DSACryptoServiceProvider.CspKeyContainerInfo
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1844,8 +1907,9 @@ references:
   isExternal: false
   name: Dispose
   nameWithType: DSACryptoServiceProvider.Dispose
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.Dispose
+  fullName: DSACryptoServiceProvider.Dispose
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1863,8 +1927,9 @@ references:
   isExternal: false
   name: ExportCspBlob
   nameWithType: DSACryptoServiceProvider.ExportCspBlob
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.ExportCspBlob
+  fullName: DSACryptoServiceProvider.ExportCspBlob
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1882,8 +1947,9 @@ references:
   isExternal: false
   name: ExportParameters
   nameWithType: DSACryptoServiceProvider.ExportParameters
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.ExportParameters
+  fullName: DSACryptoServiceProvider.ExportParameters
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1901,7 +1967,7 @@ references:
   isExternal: false
   name: Finalize
   nameWithType: DSACryptoServiceProvider.Finalize
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.Finalize
+  fullName: DSACryptoServiceProvider.Finalize
   monikers:
   - xamarinandroid-7.1
   - xamarinios-10.8
@@ -1912,8 +1978,9 @@ references:
   isExternal: false
   name: HashData
   nameWithType: DSACryptoServiceProvider.HashData
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.HashData
+  fullName: DSACryptoServiceProvider.HashData
   monikers:
+  - netcore-2.0
   - netframework-4.6.2
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
@@ -1922,8 +1989,9 @@ references:
   isExternal: false
   name: ImportCspBlob
   nameWithType: DSACryptoServiceProvider.ImportCspBlob
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.ImportCspBlob
+  fullName: DSACryptoServiceProvider.ImportCspBlob
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1941,8 +2009,9 @@ references:
   isExternal: false
   name: ImportParameters
   nameWithType: DSACryptoServiceProvider.ImportParameters
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.ImportParameters
+  fullName: DSACryptoServiceProvider.ImportParameters
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1960,8 +2029,9 @@ references:
   isExternal: false
   name: KeyExchangeAlgorithm
   nameWithType: DSACryptoServiceProvider.KeyExchangeAlgorithm
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.KeyExchangeAlgorithm
+  fullName: DSACryptoServiceProvider.KeyExchangeAlgorithm
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1979,8 +2049,9 @@ references:
   isExternal: false
   name: KeySize
   nameWithType: DSACryptoServiceProvider.KeySize
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.KeySize
+  fullName: DSACryptoServiceProvider.KeySize
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1993,13 +2064,23 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
+- uid: System.Security.Cryptography.DSACryptoServiceProvider.LegalKeySizes*
+  parent: System.Security.Cryptography.DSACryptoServiceProvider
+  isExternal: false
+  name: LegalKeySizes
+  nameWithType: DSACryptoServiceProvider.LegalKeySizes
+  fullName: DSACryptoServiceProvider.LegalKeySizes
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
 - uid: System.Security.Cryptography.DSACryptoServiceProvider.PersistKeyInCsp*
   parent: System.Security.Cryptography.DSACryptoServiceProvider
   isExternal: false
   name: PersistKeyInCsp
   nameWithType: DSACryptoServiceProvider.PersistKeyInCsp
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.PersistKeyInCsp
+  fullName: DSACryptoServiceProvider.PersistKeyInCsp
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2017,8 +2098,9 @@ references:
   isExternal: false
   name: PublicOnly
   nameWithType: DSACryptoServiceProvider.PublicOnly
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.PublicOnly
+  fullName: DSACryptoServiceProvider.PublicOnly
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2036,8 +2118,9 @@ references:
   isExternal: false
   name: SignatureAlgorithm
   nameWithType: DSACryptoServiceProvider.SignatureAlgorithm
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.SignatureAlgorithm
+  fullName: DSACryptoServiceProvider.SignatureAlgorithm
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2055,8 +2138,9 @@ references:
   isExternal: false
   name: SignData
   nameWithType: DSACryptoServiceProvider.SignData
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.SignData
+  fullName: DSACryptoServiceProvider.SignData
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2074,8 +2158,9 @@ references:
   isExternal: false
   name: SignHash
   nameWithType: DSACryptoServiceProvider.SignHash
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.SignHash
+  fullName: DSACryptoServiceProvider.SignHash
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2093,8 +2178,9 @@ references:
   isExternal: false
   name: UseMachineKeyStore
   nameWithType: DSACryptoServiceProvider.UseMachineKeyStore
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.UseMachineKeyStore
+  fullName: DSACryptoServiceProvider.UseMachineKeyStore
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2112,8 +2198,9 @@ references:
   isExternal: false
   name: VerifyData
   nameWithType: DSACryptoServiceProvider.VerifyData
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.VerifyData
+  fullName: DSACryptoServiceProvider.VerifyData
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2131,8 +2218,9 @@ references:
   isExternal: false
   name: VerifyHash
   nameWithType: DSACryptoServiceProvider.VerifyHash
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.VerifyHash
+  fullName: DSACryptoServiceProvider.VerifyHash
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2150,8 +2238,9 @@ references:
   isExternal: false
   name: VerifySignature
   nameWithType: DSACryptoServiceProvider.VerifySignature
-  fullName: System.Security.Cryptography.DSACryptoServiceProvider.VerifySignature
+  fullName: DSACryptoServiceProvider.VerifySignature
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2164,3 +2253,9 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DSACryptoServiceProvider.xml
+- uid: System.Security.Cryptography.ICspAsymmetricAlgorithm
+  parent: System.Security.Cryptography
+  isExternal: false
+  name: ICspAsymmetricAlgorithm
+  nameWithType: ICspAsymmetricAlgorithm
+  fullName: System.Security.Cryptography.ICspAsymmetricAlgorithm

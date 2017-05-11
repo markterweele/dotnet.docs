@@ -26,9 +26,10 @@ items:
   type: Class
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Allows checks against the active principal (see <xref href="System.Security.Principal.IPrincipal"></xref>) using the language constructs defined for both declarative and imperative security actions. This class cannot be inherited.
-  remarks: "By passing identity information (user name and role) to the constructor, <xref:System.Security.Permissions.PrincipalPermission> can be used to demand that the identity of the active principal matches this information.  \n  \n To match the active <xref:System.Security.Principal.IPrincipal> and associated <xref:System.Security.Principal.IIdentity>, both the specified identity and role must match. If `null` identity string is used, it is interpreted as a request to match any identity. Use of `null` role string will match any role. By implication, passing `null` parameter for `name` or `role` to <xref:System.Security.Permissions.PrincipalPermission> will match the identity and roles in any <xref:System.Security.Principal.IPrincipal>. It is also possible to construct a <xref:System.Security.Permissions.PrincipalPermission> that only determines whether the <xref:System.Security.Principal.IIdentity> represents an authenticated or unauthenticated entity. In this case, `name` and `role` are ignored.  \n  \n Unlike most other permissions, <xref:System.Security.Permissions.PrincipalPermission> does not extend <xref:System.Security.CodeAccessPermission>. It does, however, implement the <xref:System.Security.IPermission> interface. This is because <xref:System.Security.Permissions.PrincipalPermission> is not a code access permission; that is, it is not granted based on the identity of the executing assembly. Instead, it allows code to perform actions (<xref:System.Security.Permissions.PrincipalPermission.Demand%2A>, <xref:System.Security.Permissions.PrincipalPermission.Union%2A>, <xref:System.Security.Permissions.PrincipalPermission.Intersect%2A>, and so on) against the current user identity in a manner consistent with the way those actions are performed for code access and code identity permissions.  \n  \n> [!IMPORTANT]\n>  Prior to a demand for principal permission it is necessary to set the current application domain's principal policy to the enumeration value <xref:System.Security.Principal.PrincipalPolicy>. By default, the principal policy is set to <xref:System.Security.Principal.PrincipalPolicy>. If you do not set the principal policy to <xref:System.Security.Principal.PrincipalPolicy>, a demand for principal permission will fail. The following code should be executed before the principal permission is demanded:  \n>   \n>  `AppDomain.CurrentDomain.SetPrincipalPolicy(PrincipalPolicy.WindowsPrincipal).`"
+  remarks: "By passing identity information (user name and role) to the constructor, <xref:System.Security.Permissions.PrincipalPermission> can be used to demand that the identity of the active principal matches this information.  \n  \n To match the active <xref:System.Security.Principal.IPrincipal> and associated <xref:System.Security.Principal.IIdentity>, both the specified identity and role must match. If `null` identity string is used, it is interpreted as a request to match any identity. Use of `null` role string will match any role. By implication, passing `null` parameter for `name` or `role` to <xref:System.Security.Permissions.PrincipalPermission> will match the identity and roles in any <xref:System.Security.Principal.IPrincipal>. It is also possible to construct a <xref:System.Security.Permissions.PrincipalPermission> that only determines whether the <xref:System.Security.Principal.IIdentity> represents an authenticated or unauthenticated entity. In this case, `name` and `role` are ignored.  \n  \n Unlike most other permissions, <xref:System.Security.Permissions.PrincipalPermission> does not extend <xref:System.Security.CodeAccessPermission>. It does, however, implement the <xref:System.Security.IPermission> interface. This is because <xref:System.Security.Permissions.PrincipalPermission> is not a code access permission; that is, it is not granted based on the identity of the executing assembly. Instead, it allows code to perform actions (<xref:System.Security.Permissions.PrincipalPermission.Demand%2A>, <xref:System.Security.Permissions.PrincipalPermission.Union%2A>, <xref:System.Security.Permissions.PrincipalPermission.Intersect%2A>, and so on) against the current user identity in a manner consistent with the way those actions are performed for code access and code identity permissions.  \n  \n> [!IMPORTANT]\n>  Prior to a demand for principal permission it is necessary to set the current application domain's principal policy to the enumeration value <xref:System.Security.Principal.PrincipalPolicy.WindowsPrincipal>. By default, the principal policy is set to <xref:System.Security.Principal.PrincipalPolicy.UnauthenticatedPrincipal>. If you do not set the principal policy to <xref:System.Security.Principal.PrincipalPolicy.WindowsPrincipal>, a demand for principal permission will fail. The following code should be executed before the principal permission is demanded:  \n>   \n>  `AppDomain.CurrentDomain.SetPrincipalPolicy(PrincipalPolicy.WindowsPrincipal).`"
   example:
   - "The following example requires the active principal to be an administrator. The `name` parameter is `null`, which enables any user who is an administrator to pass the demand.  \n  \n> [!NOTE]\n>  In Windows Vista, User Account Control (UAC) determines the privileges of a user. If you are a member of the Built-in Administrators group, you are assigned two run-time access tokens: a standard user access token and an administrator access token. By default, you are in the standard user role. To execute the code that requires you to be an administrator, you must first elevate your privileges from standard user to administrator. You can do this when you start an application by right-clicking the application icon and indicating that you want to run as an administrator.  \n  \n [!code-cpp[Classic PrincipalPermission Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_Classic/classic PrincipalPermission Example/CPP/source.cpp#1)]\n [!code-csharp[Classic PrincipalPermission Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_Classic/classic PrincipalPermission Example/CS/source.cs#1)]\n [!code-vb[Classic PrincipalPermission Example#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_Classic/classic PrincipalPermission Example/VB/source.vb#1)]"
   syntax:
@@ -49,6 +50,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -60,6 +62,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -71,9 +74,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PrincipalPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PrincipalPermission.#ctor(System.Security.Permissions.PermissionState)
   commentId: M:System.Security.Permissions.PrincipalPermission.#ctor(System.Security.Permissions.PermissionState)
   id: '#ctor(System.Security.Permissions.PermissionState)'
@@ -82,10 +82,11 @@ items:
   - csharp
   name: PrincipalPermission(PermissionState)
   nameWithType: PrincipalPermission.PrincipalPermission(PermissionState)
-  fullName: System.Security.Permissions.PrincipalPermission.PrincipalPermission(PermissionState)
+  fullName: PrincipalPermission.PrincipalPermission(PermissionState)
   type: Constructor
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Initializes a new instance of the <xref href="System.Security.Permissions.PrincipalPermission"></xref> class with the specified <xref href="System.Security.Permissions.PermissionState"></xref>.
   remarks: "`None` matches only the unauthenticated principal (<xref:System.Security.Permissions.PrincipalPermissionAttribute.Name%2A> is the empty string (\"\"), no <xref:System.Security.Permissions.PrincipalPermissionAttribute.Role%2A>, <xref:System.Security.Permissions.PrincipalPermissionAttribute.Authenticated%2A> is `false`). `Unrestricted` matches all principals (<xref:System.Security.Permissions.PrincipalPermissionAttribute.Name%2A> is `null`, <xref:System.Security.Permissions.PrincipalPermissionAttribute.Role%2A> is `null`).  \n  \n> [!NOTE]\n>  This constructor is included for consistency with the design of other permissions, but is not useful in practice."
@@ -101,6 +102,7 @@ items:
     commentId: T:System.ArgumentException
     description: The <code>state</code> parameter is not a valid <xref href="System.Security.Permissions.PermissionState"></xref>.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -112,6 +114,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -123,9 +126,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PrincipalPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PrincipalPermission.#ctor(System.String,System.String)
   commentId: M:System.Security.Permissions.PrincipalPermission.#ctor(System.String,System.String)
   id: '#ctor(System.String,System.String)'
@@ -134,10 +134,11 @@ items:
   - csharp
   name: PrincipalPermission(String, String)
   nameWithType: PrincipalPermission.PrincipalPermission(String, String)
-  fullName: System.Security.Permissions.PrincipalPermission.PrincipalPermission(String, String)
+  fullName: PrincipalPermission.PrincipalPermission(String, String)
   type: Constructor
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Initializes a new instance of the <xref href="System.Security.Permissions.PrincipalPermission"></xref> class for the specified <code>name</code> and <code>role</code>.
   remarks: Both the `name` parameter and the `role` parameter must match for this permission to match the active <xref:System.Security.Principal.IPrincipal> and associated <xref:System.Security.Principal.IIdentity>. Set `name` to `null` to check for any user in a role.
@@ -155,6 +156,7 @@ items:
   overload: System.Security.Permissions.PrincipalPermission.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -166,6 +168,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -177,9 +180,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PrincipalPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PrincipalPermission.#ctor(System.String,System.String,System.Boolean)
   commentId: M:System.Security.Permissions.PrincipalPermission.#ctor(System.String,System.String,System.Boolean)
   id: '#ctor(System.String,System.String,System.Boolean)'
@@ -188,10 +188,11 @@ items:
   - csharp
   name: PrincipalPermission(String, String, Boolean)
   nameWithType: PrincipalPermission.PrincipalPermission(String, String, Boolean)
-  fullName: System.Security.Permissions.PrincipalPermission.PrincipalPermission(String, String, Boolean)
+  fullName: PrincipalPermission.PrincipalPermission(String, String, Boolean)
   type: Constructor
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Initializes a new instance of the <xref href="System.Security.Permissions.PrincipalPermission"></xref> class for the specified <code>name</code>, <code>role</code>, and authentication status.
   remarks: Both the `name` parameter and the `role` parameter must match for this permission to match the active <xref:System.Security.Principal.IPrincipal> and associated <xref:System.Security.Principal.IIdentity>.
@@ -210,6 +211,7 @@ items:
   overload: System.Security.Permissions.PrincipalPermission.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -221,6 +223,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -232,9 +235,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PrincipalPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PrincipalPermission.Copy
   commentId: M:System.Security.Permissions.PrincipalPermission.Copy
   id: Copy
@@ -243,10 +243,11 @@ items:
   - csharp
   name: Copy()
   nameWithType: PrincipalPermission.Copy()
-  fullName: System.Security.Permissions.PrincipalPermission.Copy()
+  fullName: PrincipalPermission.Copy()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Creates and returns an identical copy of the current permission.
   remarks: A copy of the permission represents the same principal and identity as the original permission.
@@ -259,6 +260,7 @@ items:
   overload: System.Security.Permissions.PrincipalPermission.Copy*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -270,6 +272,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -281,9 +284,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PrincipalPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PrincipalPermission.Demand
   commentId: M:System.Security.Permissions.PrincipalPermission.Demand
   id: Demand
@@ -292,13 +292,14 @@ items:
   - csharp
   name: Demand()
   nameWithType: PrincipalPermission.Demand()
-  fullName: System.Security.Permissions.PrincipalPermission.Demand()
+  fullName: PrincipalPermission.Demand()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Determines at run time whether the current principal matches the principal specified by the current permission.
-  remarks: "If no <xref:System.Security.SecurityException> is raised, <xref:System.Security.Permissions.PrincipalPermission.Demand%2A> succeeds.  \n  \n This method acts against the principal attached to the calling thread.  \n  \n> [!IMPORTANT]\n>  Prior to calling the <xref:System.Security.Permissions.PrincipalPermission.Demand%2A> method, it is necessary to set the current application domain's principal policy to the enumeration value <xref:System.Security.Principal.PrincipalPolicy>. By default the principal policy is set to <xref:System.Security.Principal.PrincipalPolicy>. If you do not set the principal policy to <xref:System.Security.Principal.PrincipalPolicy>, a demand for principal permission will fail. The following code should be executed before the demand for principal permission occurs:  \n>   \n>  `AppDomain.CurrentDomain.SetPrincipalPolicy(PrincipalPolicy.WindowsPrincipal).`"
+  remarks: "If no <xref:System.Security.SecurityException> is raised, <xref:System.Security.Permissions.PrincipalPermission.Demand%2A> succeeds.  \n  \n This method acts against the principal attached to the calling thread.  \n  \n> [!IMPORTANT]\n>  Prior to calling the <xref:System.Security.Permissions.PrincipalPermission.Demand%2A> method, it is necessary to set the current application domain's principal policy to the enumeration value <xref:System.Security.Principal.PrincipalPolicy.WindowsPrincipal>. By default the principal policy is set to <xref:System.Security.Principal.PrincipalPolicy.UnauthenticatedPrincipal>. If you do not set the principal policy to <xref:System.Security.Principal.PrincipalPolicy.WindowsPrincipal>, a demand for principal permission will fail. The following code should be executed before the demand for principal permission occurs:  \n>   \n>  `AppDomain.CurrentDomain.SetPrincipalPolicy(PrincipalPolicy.WindowsPrincipal).`"
   syntax:
     content: public void Demand ();
     parameters: []
@@ -308,6 +309,7 @@ items:
     commentId: T:System.Security.SecurityException
     description: "The current principal does not pass the security check for the principal specified by the current permission.  \n  \n -or-  \n  \n The current <xref href=\"System.Security.Principal.IPrincipal\"></xref> is `null`."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -319,6 +321,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -330,9 +333,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PrincipalPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PrincipalPermission.Equals(System.Object)
   commentId: M:System.Security.Permissions.PrincipalPermission.Equals(System.Object)
   id: Equals(System.Object)
@@ -341,10 +341,11 @@ items:
   - csharp
   name: Equals(Object)
   nameWithType: PrincipalPermission.Equals(Object)
-  fullName: System.Security.Permissions.PrincipalPermission.Equals(Object)
+  fullName: PrincipalPermission.Equals(Object)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Determines whether the specified <xref href="System.Security.Permissions.PrincipalPermission"></xref> object is equal to the current <xref href="System.Security.Permissions.PrincipalPermission"></xref>.
   remarks: For more information, see <xref:System.Object.Equals%2A>.
@@ -365,6 +366,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -376,6 +378,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -387,9 +390,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PrincipalPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PrincipalPermission.FromXml(System.Security.SecurityElement)
   commentId: M:System.Security.Permissions.PrincipalPermission.FromXml(System.Security.SecurityElement)
   id: FromXml(System.Security.SecurityElement)
@@ -398,10 +398,11 @@ items:
   - csharp
   name: FromXml(SecurityElement)
   nameWithType: PrincipalPermission.FromXml(SecurityElement)
-  fullName: System.Security.Permissions.PrincipalPermission.FromXml(SecurityElement)
+  fullName: PrincipalPermission.FromXml(SecurityElement)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Reconstructs a permission with a specified state from an XML encoding.
   syntax:
@@ -419,6 +420,7 @@ items:
     commentId: T:System.ArgumentException
     description: "The <code>elem</code> parameter is not a valid permission element.  \n  \n -or-  \n  \n The <code>elem</code> parameter's version number is not valid."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -430,6 +432,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -441,9 +444,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PrincipalPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PrincipalPermission.GetHashCode
   commentId: M:System.Security.Permissions.PrincipalPermission.GetHashCode
   id: GetHashCode
@@ -452,10 +452,11 @@ items:
   - csharp
   name: GetHashCode()
   nameWithType: PrincipalPermission.GetHashCode()
-  fullName: System.Security.Permissions.PrincipalPermission.GetHashCode()
+  fullName: PrincipalPermission.GetHashCode()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Gets a hash code for the <xref href="System.Security.Permissions.PrincipalPermission"></xref> object that is suitable for use in hashing algorithms and data structures such as a hash table.
   remarks: The hash code for two instances of the same permission might be different, hence a hash code should not be used to compare two <xref:System.Security.Permissions.PrincipalPermission> objects.
@@ -473,6 +474,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -484,6 +486,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -495,9 +498,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PrincipalPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PrincipalPermission.Intersect(System.Security.IPermission)
   commentId: M:System.Security.Permissions.PrincipalPermission.Intersect(System.Security.IPermission)
   id: Intersect(System.Security.IPermission)
@@ -506,10 +506,11 @@ items:
   - csharp
   name: Intersect(IPermission)
   nameWithType: PrincipalPermission.Intersect(IPermission)
-  fullName: System.Security.Permissions.PrincipalPermission.Intersect(IPermission)
+  fullName: PrincipalPermission.Intersect(IPermission)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Creates and returns a permission that is the intersection of the current permission and the specified permission.
   remarks: "Because two users never intersect, this method is not useful for <xref:System.Security.Permissions.PrincipalPermission>. For example,  \n  \n [!code-cpp[System.Security.Permissions.PrincipalPermission#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.security.permissions.principalpermission/cpp/remarks.cpp#1)]\n [!code-csharp[System.Security.Permissions.PrincipalPermission#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.security.permissions.principalpermission/cs/remarks.cs#1)]\n [!code-vb[System.Security.Permissions.PrincipalPermission#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.security.permissions.principalpermission/vb/remarks.vb#1)]  \n  \n is equivalent to  \n  \n [!code-cpp[System.Security.Permissions.PrincipalPermission#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.security.permissions.principalpermission/cpp/remarks.cpp#2)]\n [!code-csharp[System.Security.Permissions.PrincipalPermission#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.security.permissions.principalpermission/cs/remarks.cs#2)]\n [!code-vb[System.Security.Permissions.PrincipalPermission#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.security.permissions.principalpermission/vb/remarks.vb#2)]  \n  \n because no identity can simultaneously represent both Bob and Louise. In effect, `pp1.Demand()` only succeeds if an unauthenticated principal (with name equal to the empty string (\"\")) is allowed to act in the Administrator role."
@@ -528,6 +529,7 @@ items:
     commentId: T:System.ArgumentException
     description: The <code>target</code> parameter is not `null` and is not an instance of the same class as the current permission.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -539,6 +541,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -550,9 +553,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PrincipalPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PrincipalPermission.IsSubsetOf(System.Security.IPermission)
   commentId: M:System.Security.Permissions.PrincipalPermission.IsSubsetOf(System.Security.IPermission)
   id: IsSubsetOf(System.Security.IPermission)
@@ -561,10 +561,11 @@ items:
   - csharp
   name: IsSubsetOf(IPermission)
   nameWithType: PrincipalPermission.IsSubsetOf(IPermission)
-  fullName: System.Security.Permissions.PrincipalPermission.IsSubsetOf(IPermission)
+  fullName: PrincipalPermission.IsSubsetOf(IPermission)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Determines whether the current permission is a subset of the specified permission.
   remarks: The current permission is a subset of the specified permission if all demands that succeed for the current permission also succeed for the specified permission.
@@ -585,6 +586,7 @@ items:
     commentId: T:System.ArgumentException
     description: The <code>target</code> parameter is an object that is not of the same type as the current permission.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -596,6 +598,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -607,9 +610,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PrincipalPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PrincipalPermission.IsUnrestricted
   commentId: M:System.Security.Permissions.PrincipalPermission.IsUnrestricted
   id: IsUnrestricted
@@ -618,10 +618,11 @@ items:
   - csharp
   name: IsUnrestricted()
   nameWithType: PrincipalPermission.IsUnrestricted()
-  fullName: System.Security.Permissions.PrincipalPermission.IsUnrestricted()
+  fullName: PrincipalPermission.IsUnrestricted()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Returns a value indicating whether the current permission is unrestricted.
   remarks: An unrestricted <xref:System.Security.Permissions.PrincipalPermission> matches any principal.
@@ -634,6 +635,7 @@ items:
   overload: System.Security.Permissions.PrincipalPermission.IsUnrestricted*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -645,6 +647,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -656,9 +659,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PrincipalPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PrincipalPermission.ToString
   commentId: M:System.Security.Permissions.PrincipalPermission.ToString
   id: ToString
@@ -667,10 +667,11 @@ items:
   - csharp
   name: ToString()
   nameWithType: PrincipalPermission.ToString()
-  fullName: System.Security.Permissions.PrincipalPermission.ToString()
+  fullName: PrincipalPermission.ToString()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Creates and returns a string representing the current permission.
   syntax:
@@ -682,6 +683,7 @@ items:
   overload: System.Security.Permissions.PrincipalPermission.ToString*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -693,6 +695,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -704,9 +707,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PrincipalPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PrincipalPermission.ToXml
   commentId: M:System.Security.Permissions.PrincipalPermission.ToXml
   id: ToXml
@@ -715,10 +715,11 @@ items:
   - csharp
   name: ToXml()
   nameWithType: PrincipalPermission.ToXml()
-  fullName: System.Security.Permissions.PrincipalPermission.ToXml()
+  fullName: PrincipalPermission.ToXml()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Creates an XML encoding of the permission and its current state.
   syntax:
@@ -730,6 +731,7 @@ items:
   overload: System.Security.Permissions.PrincipalPermission.ToXml*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -741,6 +743,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -752,9 +755,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PrincipalPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PrincipalPermission.Union(System.Security.IPermission)
   commentId: M:System.Security.Permissions.PrincipalPermission.Union(System.Security.IPermission)
   id: Union(System.Security.IPermission)
@@ -763,10 +763,11 @@ items:
   - csharp
   name: Union(IPermission)
   nameWithType: PrincipalPermission.Union(IPermission)
-  fullName: System.Security.Permissions.PrincipalPermission.Union(IPermission)
+  fullName: PrincipalPermission.Union(IPermission)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Creates a permission that is the union of the current permission and the specified permission.
   remarks: "<xref:System.Security.Permissions.PrincipalPermission.Union%2A> creates a permission representing the criteria of a given set of individual <xref:System.Security.Permissions.PrincipalPermission> objects. It is useful for compactly representing a set of conditions to test. For example, with the declarations  \n  \n [!code-cpp[System.Security.Permissions.PrincipalPermission#3](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.security.permissions.principalpermission/cpp/remarks.cpp#3)]\n [!code-csharp[System.Security.Permissions.PrincipalPermission#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.security.permissions.principalpermission/cs/remarks.cs#3)]\n [!code-vb[System.Security.Permissions.PrincipalPermission#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.security.permissions.principalpermission/vb/remarks.vb#3)]  \n  \n `(ppBob.Union(ppLouise)).Demand()` will succeed if the current principal represents Bob in the role of Administrator or Louise in the role of Administrator."
@@ -785,6 +786,7 @@ items:
     commentId: T:System.ArgumentException
     description: The <code>other</code> parameter is an object that is not of the same type as the current permission.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -796,6 +798,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -807,9 +810,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PrincipalPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -840,7 +840,7 @@ references:
   isExternal: false
   name: PrincipalPermission(PermissionState)
   nameWithType: PrincipalPermission.PrincipalPermission(PermissionState)
-  fullName: System.Security.Permissions.PrincipalPermission.PrincipalPermission(PermissionState)
+  fullName: PrincipalPermission.PrincipalPermission(PermissionState)
 - uid: System.Security.Permissions.PermissionState
   parent: System.Security.Permissions
   isExternal: false
@@ -852,7 +852,7 @@ references:
   isExternal: false
   name: PrincipalPermission(String, String)
   nameWithType: PrincipalPermission.PrincipalPermission(String, String)
-  fullName: System.Security.Permissions.PrincipalPermission.PrincipalPermission(String, String)
+  fullName: PrincipalPermission.PrincipalPermission(String, String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -864,7 +864,7 @@ references:
   isExternal: false
   name: PrincipalPermission(String, String, Boolean)
   nameWithType: PrincipalPermission.PrincipalPermission(String, String, Boolean)
-  fullName: System.Security.Permissions.PrincipalPermission.PrincipalPermission(String, String, Boolean)
+  fullName: PrincipalPermission.PrincipalPermission(String, String, Boolean)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -876,7 +876,7 @@ references:
   isExternal: false
   name: Copy()
   nameWithType: PrincipalPermission.Copy()
-  fullName: System.Security.Permissions.PrincipalPermission.Copy()
+  fullName: PrincipalPermission.Copy()
 - uid: System.Security.IPermission
   parent: System.Security
   isExternal: false
@@ -888,19 +888,19 @@ references:
   isExternal: false
   name: Demand()
   nameWithType: PrincipalPermission.Demand()
-  fullName: System.Security.Permissions.PrincipalPermission.Demand()
+  fullName: PrincipalPermission.Demand()
 - uid: System.Security.Permissions.PrincipalPermission.Equals(System.Object)
   parent: System.Security.Permissions.PrincipalPermission
   isExternal: false
   name: Equals(Object)
   nameWithType: PrincipalPermission.Equals(Object)
-  fullName: System.Security.Permissions.PrincipalPermission.Equals(Object)
+  fullName: PrincipalPermission.Equals(Object)
 - uid: System.Security.Permissions.PrincipalPermission.FromXml(System.Security.SecurityElement)
   parent: System.Security.Permissions.PrincipalPermission
   isExternal: false
   name: FromXml(SecurityElement)
   nameWithType: PrincipalPermission.FromXml(SecurityElement)
-  fullName: System.Security.Permissions.PrincipalPermission.FromXml(SecurityElement)
+  fullName: PrincipalPermission.FromXml(SecurityElement)
 - uid: System.Security.SecurityElement
   parent: System.Security
   isExternal: false
@@ -912,7 +912,7 @@ references:
   isExternal: false
   name: GetHashCode()
   nameWithType: PrincipalPermission.GetHashCode()
-  fullName: System.Security.Permissions.PrincipalPermission.GetHashCode()
+  fullName: PrincipalPermission.GetHashCode()
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -924,44 +924,45 @@ references:
   isExternal: false
   name: Intersect(IPermission)
   nameWithType: PrincipalPermission.Intersect(IPermission)
-  fullName: System.Security.Permissions.PrincipalPermission.Intersect(IPermission)
+  fullName: PrincipalPermission.Intersect(IPermission)
 - uid: System.Security.Permissions.PrincipalPermission.IsSubsetOf(System.Security.IPermission)
   parent: System.Security.Permissions.PrincipalPermission
   isExternal: false
   name: IsSubsetOf(IPermission)
   nameWithType: PrincipalPermission.IsSubsetOf(IPermission)
-  fullName: System.Security.Permissions.PrincipalPermission.IsSubsetOf(IPermission)
+  fullName: PrincipalPermission.IsSubsetOf(IPermission)
 - uid: System.Security.Permissions.PrincipalPermission.IsUnrestricted
   parent: System.Security.Permissions.PrincipalPermission
   isExternal: false
   name: IsUnrestricted()
   nameWithType: PrincipalPermission.IsUnrestricted()
-  fullName: System.Security.Permissions.PrincipalPermission.IsUnrestricted()
+  fullName: PrincipalPermission.IsUnrestricted()
 - uid: System.Security.Permissions.PrincipalPermission.ToString
   parent: System.Security.Permissions.PrincipalPermission
   isExternal: false
   name: ToString()
   nameWithType: PrincipalPermission.ToString()
-  fullName: System.Security.Permissions.PrincipalPermission.ToString()
+  fullName: PrincipalPermission.ToString()
 - uid: System.Security.Permissions.PrincipalPermission.ToXml
   parent: System.Security.Permissions.PrincipalPermission
   isExternal: false
   name: ToXml()
   nameWithType: PrincipalPermission.ToXml()
-  fullName: System.Security.Permissions.PrincipalPermission.ToXml()
+  fullName: PrincipalPermission.ToXml()
 - uid: System.Security.Permissions.PrincipalPermission.Union(System.Security.IPermission)
   parent: System.Security.Permissions.PrincipalPermission
   isExternal: false
   name: Union(IPermission)
   nameWithType: PrincipalPermission.Union(IPermission)
-  fullName: System.Security.Permissions.PrincipalPermission.Union(IPermission)
+  fullName: PrincipalPermission.Union(IPermission)
 - uid: System.Security.Permissions.PrincipalPermission.#ctor*
   parent: System.Security.Permissions.PrincipalPermission
   isExternal: false
   name: PrincipalPermission
   nameWithType: PrincipalPermission.PrincipalPermission
-  fullName: System.Security.Permissions.PrincipalPermission.PrincipalPermission
+  fullName: PrincipalPermission.PrincipalPermission
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -978,8 +979,9 @@ references:
   isExternal: false
   name: Copy
   nameWithType: PrincipalPermission.Copy
-  fullName: System.Security.Permissions.PrincipalPermission.Copy
+  fullName: PrincipalPermission.Copy
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -996,8 +998,9 @@ references:
   isExternal: false
   name: Demand
   nameWithType: PrincipalPermission.Demand
-  fullName: System.Security.Permissions.PrincipalPermission.Demand
+  fullName: PrincipalPermission.Demand
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1014,8 +1017,9 @@ references:
   isExternal: false
   name: Equals
   nameWithType: PrincipalPermission.Equals
-  fullName: System.Security.Permissions.PrincipalPermission.Equals
+  fullName: PrincipalPermission.Equals
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1032,8 +1036,9 @@ references:
   isExternal: false
   name: FromXml
   nameWithType: PrincipalPermission.FromXml
-  fullName: System.Security.Permissions.PrincipalPermission.FromXml
+  fullName: PrincipalPermission.FromXml
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1050,8 +1055,9 @@ references:
   isExternal: false
   name: GetHashCode
   nameWithType: PrincipalPermission.GetHashCode
-  fullName: System.Security.Permissions.PrincipalPermission.GetHashCode
+  fullName: PrincipalPermission.GetHashCode
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1068,8 +1074,9 @@ references:
   isExternal: false
   name: Intersect
   nameWithType: PrincipalPermission.Intersect
-  fullName: System.Security.Permissions.PrincipalPermission.Intersect
+  fullName: PrincipalPermission.Intersect
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1086,8 +1093,9 @@ references:
   isExternal: false
   name: IsSubsetOf
   nameWithType: PrincipalPermission.IsSubsetOf
-  fullName: System.Security.Permissions.PrincipalPermission.IsSubsetOf
+  fullName: PrincipalPermission.IsSubsetOf
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1104,8 +1112,9 @@ references:
   isExternal: false
   name: IsUnrestricted
   nameWithType: PrincipalPermission.IsUnrestricted
-  fullName: System.Security.Permissions.PrincipalPermission.IsUnrestricted
+  fullName: PrincipalPermission.IsUnrestricted
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1122,8 +1131,9 @@ references:
   isExternal: false
   name: ToString
   nameWithType: PrincipalPermission.ToString
-  fullName: System.Security.Permissions.PrincipalPermission.ToString
+  fullName: PrincipalPermission.ToString
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1140,8 +1150,9 @@ references:
   isExternal: false
   name: ToXml
   nameWithType: PrincipalPermission.ToXml
-  fullName: System.Security.Permissions.PrincipalPermission.ToXml
+  fullName: PrincipalPermission.ToXml
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1158,8 +1169,9 @@ references:
   isExternal: false
   name: Union
   nameWithType: PrincipalPermission.Union
-  fullName: System.Security.Permissions.PrincipalPermission.Union
+  fullName: PrincipalPermission.Union
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1171,3 +1183,9 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PrincipalPermission.xml
+- uid: System.Security.Permissions.IUnrestrictedPermission
+  parent: System.Security.Permissions
+  isExternal: false
+  name: IUnrestrictedPermission
+  nameWithType: IUnrestrictedPermission
+  fullName: System.Security.Permissions.IUnrestrictedPermission

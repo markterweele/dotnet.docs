@@ -21,6 +21,8 @@ items:
   - "The following code example demonstrates how to create a static connection between two controls using the <xref:System.Web.UI.WebControls.WebParts.IWebPartField> interface. The code example has three parts:  \n  \n-   Source code for two custom <xref:System.Web.UI.WebControls.WebParts.WebPart> controls that can form a connection using the <xref:System.Web.UI.WebControls.WebParts.IWebPartField> interface, with one control acting as the provider, the other acting as the consumer.  \n  \n-   A Web page that hosts the controls and declares the static connection in persistence format.  \n  \n-   A description of what happens when the example code runs.  \n  \n The first part of the code example is the source code for the two custom controls. First is the code for the provider, which implements the <xref:System.Web.UI.WebControls.WebParts.IWebPartField> interface. For simplicity in the example, the provider creates a table with some data rather than connecting to a database. The `GetConnectionInterface` method serves as the provider's connection point, the callback method that returns the interface instance to the consumer. As for the consumer, it retrieves the interface instance from the provider in its method named `SetConnectionInterface`, which is marked with a `ConnectionConsumer` attribute. After retrieving the instance of the interface, the consumer, in its `OnPreRender` method, calls the implementation of the <xref:System.Web.UI.WebControls.WebParts.IWebPartField.GetFieldValue%2A> method in the provider, to retrieve the actual data.  \n  \n For the code example to run, you must compile this source code. You can compile it explicitly and put the resulting assembly in your Web site's Bin folder or the global assembly cache. Alternatively, you can put the source code in your site's App_Code folder, where it will be dynamically compiled at run time. This code example uses dynamic compilation. For a walkthrough that demonstrates how to compile, see [Walkthrough: Developing and Using a Custom Web Server Control](http://msdn.microsoft.com/library/6d90782a-a1a4-45a6-b2d4-cf6362b83b08).  \n  \n [!code-csharp[WebParts_IWebPartField_Overview#2](~/samples/snippets/csharp/VS_Snippets_WebNet/WebParts_IWebPartField_Overview/CS/IFieldSample.cs#2)]\n [!code-vb[WebParts_IWebPartField_Overview#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/WebParts_IWebPartField_Overview/VB/IFieldSample.vb#2)]  \n  \n The second part of the code example is the Web page that declares the static connection and hosts the controls. Near the top of the page is a `Register` directive that declares the namespace of the source code contained in the App_Code directory. The connection is declared using an `<asp:webpartconnection>` element. The custom consumer and provider controls are declared in a `<zonetemplate>` element within an `<asp:webpartzone>` element, which is required for them to be able to connect (they must reside within a zone that inherits from the <xref:System.Web.UI.WebControls.WebParts.WebPartZoneBase> class).  \n  \n <!-- TODO: review snippet reference [!code-csharp[WebParts_IWebPartField_Overview#1](~/samples/snippets/csharp/VS_Snippets_WebNet/WebParts_IWebPartField_Overview/CS/defaultcs.aspx#1)]  -->\n <!-- TODO: review snippet reference [!code-vb[WebParts_IWebPartField_Overview#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/WebParts_IWebPartField_Overview/VB/Defaultvb.aspx#1)]  -->  \n  \n Load the page in a browser. The consumer control displays the data provided from the specified field, which the provider makes available through an instance of the <xref:System.Web.UI.WebControls.WebParts.IWebPartField> interface."
   syntax:
     content: public interface IWebPartField
+  derivedClasses:
+  - System.Web.UI.WebControls.WebParts.RowToFieldTransformer
   implements: []
   version:
   - netframework-4.5.1
@@ -39,9 +41,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.WebControls.WebParts/IWebPartField.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.UI.WebControls.WebParts.IWebPartField.GetFieldValue(System.Web.UI.WebControls.WebParts.FieldCallback)
   commentId: M:System.Web.UI.WebControls.WebParts.IWebPartField.GetFieldValue(System.Web.UI.WebControls.WebParts.FieldCallback)
   id: GetFieldValue(System.Web.UI.WebControls.WebParts.FieldCallback)
@@ -50,7 +49,7 @@ items:
   - csharp
   name: GetFieldValue(FieldCallback)
   nameWithType: IWebPartField.GetFieldValue(FieldCallback)
-  fullName: System.Web.UI.WebControls.WebParts.IWebPartField.GetFieldValue(FieldCallback)
+  fullName: IWebPartField.GetFieldValue(FieldCallback)
   type: Method
   assemblies:
   - System.Web
@@ -84,9 +83,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.WebControls.WebParts/IWebPartField.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.UI.WebControls.WebParts.IWebPartField.Schema
   commentId: P:System.Web.UI.WebControls.WebParts.IWebPartField.Schema
   id: Schema
@@ -95,7 +91,7 @@ items:
   - csharp
   name: Schema
   nameWithType: IWebPartField.Schema
-  fullName: System.Web.UI.WebControls.WebParts.IWebPartField.Schema
+  fullName: IWebPartField.Schema
   type: Property
   assemblies:
   - System.Web
@@ -128,16 +124,13 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.WebControls.WebParts/IWebPartField.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 references:
 - uid: System.Web.UI.WebControls.WebParts.IWebPartField.GetFieldValue(System.Web.UI.WebControls.WebParts.FieldCallback)
   parent: System.Web.UI.WebControls.WebParts.IWebPartField
   isExternal: false
   name: GetFieldValue(FieldCallback)
   nameWithType: IWebPartField.GetFieldValue(FieldCallback)
-  fullName: System.Web.UI.WebControls.WebParts.IWebPartField.GetFieldValue(FieldCallback)
+  fullName: IWebPartField.GetFieldValue(FieldCallback)
 - uid: System.Web.UI.WebControls.WebParts.FieldCallback
   parent: System.Web.UI.WebControls.WebParts
   isExternal: false
@@ -149,7 +142,7 @@ references:
   isExternal: false
   name: Schema
   nameWithType: IWebPartField.Schema
-  fullName: System.Web.UI.WebControls.WebParts.IWebPartField.Schema
+  fullName: IWebPartField.Schema
 - uid: System.ComponentModel.PropertyDescriptor
   parent: System.ComponentModel
   isExternal: false
@@ -161,7 +154,7 @@ references:
   isExternal: false
   name: GetFieldValue
   nameWithType: IWebPartField.GetFieldValue
-  fullName: System.Web.UI.WebControls.WebParts.IWebPartField.GetFieldValue
+  fullName: IWebPartField.GetFieldValue
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -176,7 +169,7 @@ references:
   isExternal: false
   name: Schema
   nameWithType: IWebPartField.Schema
-  fullName: System.Web.UI.WebControls.WebParts.IWebPartField.Schema
+  fullName: IWebPartField.Schema
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

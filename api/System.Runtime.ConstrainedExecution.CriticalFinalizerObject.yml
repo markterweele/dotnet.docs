@@ -15,6 +15,7 @@ items:
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Runtime.ConstrainedExecution
   summary: Ensures that all finalization code in derived classes is marked as critical.
   remarks: "Classes deriving from the <xref:System.Runtime.ConstrainedExecution.CriticalFinalizerObject> class are implicitly treated as a constrained execution region (CER).  This requires code in the finalizer to only call code with a strong reliability contract. For more information about CERs, see the <xref:System.Runtime.ConstrainedExecution> namespace.  \n  \n In classes derived from the <xref:System.Runtime.ConstrainedExecution.CriticalFinalizerObject> class, the common language runtime (CLR) guarantees that all critical finalization code will be given the opportunity to execute, provided the finalizer follows the rules for a CER, even in situations where the CLR forcibly unloads an application domain or aborts a thread. If a finalizer violates the rules for a CER, it might not successfully execute. In addition, the CLR establishes a weak ordering among normal and critical finalizers: for objects reclaimed by garbage collection at the same time, all the noncritical finalizers are called before any of the critical finalizers. For example, a class such as <xref:System.IO.FileStream>, which holds data in the <xref:System.Runtime.InteropServices.SafeHandle> class that is derived from <xref:System.Runtime.ConstrainedExecution.CriticalFinalizerObject>, can run a standard finalizer to flush out existing buffered data.  \n  \n In most cases, you do not need to write classes that derive from the <xref:System.Runtime.ConstrainedExecution.CriticalFinalizerObject> class. The .NET Framework class library provides two classes, <xref:System.Runtime.InteropServices.SafeHandle> and <xref:System.Runtime.InteropServices.CriticalHandle>, that provide critical finalization functionality for handle resources. Furthermore, the .NET Framework provides a set of prewritten classes derived from the <xref:System.Runtime.InteropServices.SafeHandle> class, and this set is located in the <xref:Microsoft.Win32.SafeHandles> namespace. These classes are designed to provide common functionality for supporting file and operating system handles."
@@ -42,6 +43,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -54,6 +56,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -66,9 +69,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.ConstrainedExecution/CriticalFinalizerObject.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.ConstrainedExecution.CriticalFinalizerObject.#ctor
   commentId: M:System.Runtime.ConstrainedExecution.CriticalFinalizerObject.#ctor
   id: '#ctor'
@@ -77,11 +77,12 @@ items:
   - csharp
   name: CriticalFinalizerObject()
   nameWithType: CriticalFinalizerObject.CriticalFinalizerObject()
-  fullName: System.Runtime.ConstrainedExecution.CriticalFinalizerObject.CriticalFinalizerObject()
+  fullName: CriticalFinalizerObject.CriticalFinalizerObject()
   type: Constructor
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Runtime.ConstrainedExecution
   summary: Initializes a new instance of the <xref href="System.Runtime.ConstrainedExecution.CriticalFinalizerObject"></xref> class.
   syntax:
@@ -91,6 +92,7 @@ items:
   exceptions: []
   attributes: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -103,6 +105,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -115,9 +118,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.ConstrainedExecution/CriticalFinalizerObject.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.ConstrainedExecution.CriticalFinalizerObject.Finalize
   commentId: M:System.Runtime.ConstrainedExecution.CriticalFinalizerObject.Finalize
   id: Finalize
@@ -126,11 +126,12 @@ items:
   - csharp
   name: Finalize()
   nameWithType: CriticalFinalizerObject.Finalize()
-  fullName: System.Runtime.ConstrainedExecution.CriticalFinalizerObject.Finalize()
+  fullName: CriticalFinalizerObject.Finalize()
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Runtime.ConstrainedExecution
   summary: Releases all the resources used by the <xref href="System.Runtime.ConstrainedExecution.CriticalFinalizerObject"></xref> class.
   remarks: The finalizer for any types deriving from <xref:System.Runtime.ConstrainedExecution.CriticalFinalizerObject> is given the opportunity to execute and will not be aborted, assuming the finalizer correctly follows the rules for a constrained execution region (CER).
@@ -141,6 +142,7 @@ items:
   exceptions: []
   attributes: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -153,6 +155,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -165,9 +168,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.ConstrainedExecution/CriticalFinalizerObject.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -180,20 +180,21 @@ references:
   isExternal: false
   name: CriticalFinalizerObject()
   nameWithType: CriticalFinalizerObject.CriticalFinalizerObject()
-  fullName: System.Runtime.ConstrainedExecution.CriticalFinalizerObject.CriticalFinalizerObject()
+  fullName: CriticalFinalizerObject.CriticalFinalizerObject()
 - uid: System.Runtime.ConstrainedExecution.CriticalFinalizerObject.Finalize
   parent: System.Runtime.ConstrainedExecution.CriticalFinalizerObject
   isExternal: false
   name: Finalize()
   nameWithType: CriticalFinalizerObject.Finalize()
-  fullName: System.Runtime.ConstrainedExecution.CriticalFinalizerObject.Finalize()
+  fullName: CriticalFinalizerObject.Finalize()
 - uid: System.Runtime.ConstrainedExecution.CriticalFinalizerObject.#ctor*
   parent: System.Runtime.ConstrainedExecution.CriticalFinalizerObject
   isExternal: false
   name: CriticalFinalizerObject
   nameWithType: CriticalFinalizerObject.CriticalFinalizerObject
-  fullName: System.Runtime.ConstrainedExecution.CriticalFinalizerObject.CriticalFinalizerObject
+  fullName: CriticalFinalizerObject.CriticalFinalizerObject
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -211,8 +212,9 @@ references:
   isExternal: false
   name: Finalize
   nameWithType: CriticalFinalizerObject.Finalize
-  fullName: System.Runtime.ConstrainedExecution.CriticalFinalizerObject.Finalize
+  fullName: CriticalFinalizerObject.Finalize
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

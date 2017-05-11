@@ -15,7 +15,7 @@ items:
   assemblies:
   - System.Web
   namespace: System.Web.UI.WebControls.WebParts
-  summary: Used to create a placeholder object whenever the <xref href="System.Web.UI.WebControls.WebParts.WebPartManager"></xref> control's <xref href="erload:System.Web.UI.WebControls.WebParts.WebPartManager.IsAuthorized"></xref> method returns `false` for a <xref href="System.Web.UI.WebControls.WebParts.WebPart"></xref> control. This class cannot be inherited.
+  summary: Used to create a placeholder object whenever the <xref href="System.Web.UI.WebControls.WebParts.WebPartManager"></xref> control's <xref href="System.Web.UI.WebControls.WebParts.WebPartManager.IsAuthorized*"></xref> method returns `false` for a <xref href="System.Web.UI.WebControls.WebParts.WebPart"></xref> control. This class cannot be inherited.
   remarks: "The Web Parts control set provides an authorization mechanism for determining whether individual <xref:System.Web.UI.WebControls.WebParts.WebPart> controls can be added to a page. Developers can optionally assign an arbitrary string to the <xref:System.Web.UI.WebControls.WebParts.WebPart.AuthorizationFilter%2A> property on a <xref:System.Web.UI.WebControls.WebParts.WebPart> control. When the <xref:System.Web.UI.WebControls.WebParts.WebPartManager> control is adding controls to a page, it checks this filter value against criteria set by the developer, by using the <xref:System.Web.UI.WebControls.WebParts.WebPartManager.IsAuthorized%2A> method, and returns `false` if a control is not authorized.  \n  \n> [!NOTE]\n>  This mechanism also works with server controls and user controls that are placed in <xref:System.Web.UI.WebControls.WebParts.WebPartZoneBase> zones, because these controls are wrapped with a <xref:System.Web.UI.WebControls.WebParts.GenericWebPart> object at run time, and this object inherits the <xref:System.Web.UI.WebControls.WebParts.WebPart.AuthorizationFilter%2A> property.  \n  \n When a <xref:System.Web.UI.WebControls.WebParts.WebPart> control is not authorized, the <xref:System.Web.UI.WebControls.WebParts.WebPartManager> control inserts an <xref:System.Web.UI.WebControls.WebParts.UnauthorizedWebPart> control into the control tree of the page in place of the unauthorized control. An <xref:System.Web.UI.WebControls.WebParts.UnauthorizedWebPart> control in the control tree reserves the position of the unauthorized control in the page, and prevents any personalization data that a user might have previously applied to the <xref:System.Web.UI.WebControls.WebParts.WebPart> control from being lost.  \n  \n The <xref:System.Web.UI.WebControls.WebParts.UnauthorizedWebPart> control is never displayed on a page in which it is inserted, nor does it appear in the source code for the rendered page. Developers can verify its presence in the page control tree by checking the <xref:System.Web.UI.WebControls.WebParts.WebPartManager.WebParts%2A> property of the <xref:System.Web.UI.WebControls.WebParts.WebPartManager> control."
   example:
   - "The following code example demonstrates the use of the <xref:System.Web.UI.WebControls.WebParts.UnauthorizedWebPart> control.  \n  \n The first part of the code example is a custom <xref:System.Web.UI.WebControls.WebParts.WebPartManager> control that overrides the <xref:System.Web.UI.WebControls.WebParts.WebPartManager.IsAuthorized%28System.Web.UI.WebControls.WebParts.WebPart%29> method to create custom authorization criteria. Any <xref:System.Web.UI.WebControls.WebParts.WebPart> control that has its <xref:System.Web.UI.WebControls.WebParts.WebPart.AuthorizationFilter%2A> property set to a specific value, or any control that has no value assigned to the property, will be authorized, and controls not meeting these criteria will not be authorized.  \n  \n [!code-csharp[WebParts_UnauthorizedWebPart_Overview#2](~/samples/snippets/csharp/VS_Snippets_WebNet/WebParts_UnauthorizedWebPart_Overview/CS/MyManagerAuthorize.cs#2)]\n [!code-vb[WebParts_UnauthorizedWebPart_Overview#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/WebParts_UnauthorizedWebPart_Overview/VB/MyManagerAuthorize.vb#2)]  \n  \n The second part of the code example is the Web page that hosts the custom <xref:System.Web.UI.WebControls.WebParts.WebPartManager> control. There are three static server controls declared within the `<asp:webpartzone>` element. Although these controls are not actually <xref:System.Web.UI.WebControls.WebParts.WebPart> controls, they will be wrapped with a <xref:System.Web.UI.WebControls.WebParts.GenericWebPart> object at run time, so you can treat them as <xref:System.Web.UI.WebControls.WebParts.WebPart> controls and thus assign values to their <xref:System.Web.UI.WebControls.WebParts.WebPart.AuthorizationFilter%2A> properties. Notice that the <xref:System.Web.UI.WebControls.BulletedList> control has its filter set to the value that should enable it to be authorized, according to the criteria in the custom <xref:System.Web.UI.WebControls.WebParts.WebPartManager> control. The <xref:System.Web.UI.WebControls.Label> control has a filter value that should cause it not to be authorized. The <xref:System.Web.UI.WebControls.Calendar> control does not assign a value to the property, so by default it should be authorized.  \n  \n <!-- TODO: review snippet reference [!code-csharp[WebParts_UnauthorizedWebPart_Overview#1](~/samples/snippets/csharp/VS_Snippets_WebNet/WebParts_UnauthorizedWebPart_Overview/CS/IsAuthorizedCS.aspx#1)]  -->\n <!-- TODO: review snippet reference [!code-vb[WebParts_UnauthorizedWebPart_Overview#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/WebParts_UnauthorizedWebPart_Overview/VB/IsAuthorizedVB.aspx#1)]  -->  \n  \n The third part of the code example is a setting you must add in the Web.config file to enable exporting Web Parts description files. Ensure that you have a Web.config file in the same directory as the Web page for this code example. Within the `<system.web>` section, make sure there is a `<webParts>` element with an `enableExport` attribute set to `true`, as in the following markup.  \n  \n `<webParts enableExport=\"true\">`  \n  \n `...`  \n  \n `</webParts>`  \n  \n Load the page in a browser, and notice that the <xref:System.Web.UI.WebControls.BulletedList> and <xref:System.Web.UI.WebControls.Calendar> controls are rendered as expected, but the <xref:System.Web.UI.WebControls.Label> control is not rendered because it was not authorized. Clicking the **List WebPart Controls** button causes the <xref:System.Web.UI.WebControls.WebParts.WebPartManager> control to list the IDs of all controls in its <xref:System.Web.UI.WebControls.WebParts.WebPartManager.WebParts%2A> collection. Note that the ID for the <xref:System.Web.UI.WebControls.Label> control is listed, proving that an <xref:System.Web.UI.WebControls.WebParts.UnauthorizedWebPart> control was added to the page control tree to hold its place, even though the label is not rendered in the page."
@@ -263,9 +263,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.WebControls.WebParts/UnauthorizedWebPart.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.UI.WebControls.WebParts.UnauthorizedWebPart.#ctor(System.Web.UI.WebControls.WebParts.WebPart)
   commentId: M:System.Web.UI.WebControls.WebParts.UnauthorizedWebPart.#ctor(System.Web.UI.WebControls.WebParts.WebPart)
   id: '#ctor(System.Web.UI.WebControls.WebParts.WebPart)'
@@ -274,7 +271,7 @@ items:
   - csharp
   name: UnauthorizedWebPart(WebPart)
   nameWithType: UnauthorizedWebPart.UnauthorizedWebPart(WebPart)
-  fullName: System.Web.UI.WebControls.WebParts.UnauthorizedWebPart.UnauthorizedWebPart(WebPart)
+  fullName: UnauthorizedWebPart.UnauthorizedWebPart(WebPart)
   type: Constructor
   assemblies:
   - System.Web
@@ -306,9 +303,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.WebControls.WebParts/UnauthorizedWebPart.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.UI.WebControls.WebParts.UnauthorizedWebPart.#ctor(System.String,System.String,System.String,System.String)
   commentId: M:System.Web.UI.WebControls.WebParts.UnauthorizedWebPart.#ctor(System.String,System.String,System.String,System.String)
   id: '#ctor(System.String,System.String,System.String,System.String)'
@@ -317,7 +311,7 @@ items:
   - csharp
   name: UnauthorizedWebPart(String, String, String, String)
   nameWithType: UnauthorizedWebPart.UnauthorizedWebPart(String, String, String, String)
-  fullName: System.Web.UI.WebControls.WebParts.UnauthorizedWebPart.UnauthorizedWebPart(String, String, String, String)
+  fullName: UnauthorizedWebPart.UnauthorizedWebPart(String, String, String, String)
   type: Constructor
   assemblies:
   - System.Web
@@ -358,9 +352,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.WebControls.WebParts/UnauthorizedWebPart.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 references:
 - uid: System.Web.UI.WebControls.WebParts.ProxyWebPart
   parent: System.Web.UI.WebControls.WebParts
@@ -373,7 +364,7 @@ references:
   isExternal: false
   name: UnauthorizedWebPart(WebPart)
   nameWithType: UnauthorizedWebPart.UnauthorizedWebPart(WebPart)
-  fullName: System.Web.UI.WebControls.WebParts.UnauthorizedWebPart.UnauthorizedWebPart(WebPart)
+  fullName: UnauthorizedWebPart.UnauthorizedWebPart(WebPart)
 - uid: System.Web.UI.WebControls.WebParts.WebPart
   parent: System.Web.UI.WebControls.WebParts
   isExternal: false
@@ -385,7 +376,7 @@ references:
   isExternal: false
   name: UnauthorizedWebPart(String, String, String, String)
   nameWithType: UnauthorizedWebPart.UnauthorizedWebPart(String, String, String, String)
-  fullName: System.Web.UI.WebControls.WebParts.UnauthorizedWebPart.UnauthorizedWebPart(String, String, String, String)
+  fullName: UnauthorizedWebPart.UnauthorizedWebPart(String, String, String, String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -397,7 +388,7 @@ references:
   isExternal: false
   name: UnauthorizedWebPart
   nameWithType: UnauthorizedWebPart.UnauthorizedWebPart
-  fullName: System.Web.UI.WebControls.WebParts.UnauthorizedWebPart.UnauthorizedWebPart
+  fullName: UnauthorizedWebPart.UnauthorizedWebPart
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -412,70 +403,70 @@ references:
   isExternal: false
   name: FindDataSourceControl(Control)
   nameWithType: DynamicDataExtensions.FindDataSourceControl(Control)
-  fullName: System.Web.DynamicData.DynamicDataExtensions.FindDataSourceControl(Control)
+  fullName: DynamicDataExtensions.FindDataSourceControl(Control)
 - uid: System.Web.DynamicData.DynamicDataExtensions.FindFieldTemplate(System.Web.UI.Control,System.String)
   parent: System.Web.DynamicData.DynamicDataExtensions
   isExternal: false
   name: FindFieldTemplate(Control, String)
   nameWithType: DynamicDataExtensions.FindFieldTemplate(Control, String)
-  fullName: System.Web.DynamicData.DynamicDataExtensions.FindFieldTemplate(Control, String)
+  fullName: DynamicDataExtensions.FindFieldTemplate(Control, String)
 - uid: System.Web.DynamicData.DynamicDataExtensions.FindMetaTable(System.Web.UI.Control)
   parent: System.Web.DynamicData.DynamicDataExtensions
   isExternal: false
   name: FindMetaTable(Control)
   nameWithType: DynamicDataExtensions.FindMetaTable(Control)
-  fullName: System.Web.DynamicData.DynamicDataExtensions.FindMetaTable(Control)
+  fullName: DynamicDataExtensions.FindMetaTable(Control)
 - uid: System.Web.DynamicData.DynamicDataExtensions.GetDefaultValues(System.Web.UI.INamingContainer)
   parent: System.Web.DynamicData.DynamicDataExtensions
   isExternal: false
   name: GetDefaultValues(INamingContainer)
   nameWithType: DynamicDataExtensions.GetDefaultValues(INamingContainer)
-  fullName: System.Web.DynamicData.DynamicDataExtensions.GetDefaultValues(INamingContainer)
+  fullName: DynamicDataExtensions.GetDefaultValues(INamingContainer)
 - uid: System.Web.DynamicData.DynamicDataExtensions.GetMetaTable(System.Web.UI.INamingContainer)
   parent: System.Web.DynamicData.DynamicDataExtensions
   isExternal: false
   name: GetMetaTable(INamingContainer)
   nameWithType: DynamicDataExtensions.GetMetaTable(INamingContainer)
-  fullName: System.Web.DynamicData.DynamicDataExtensions.GetMetaTable(INamingContainer)
+  fullName: DynamicDataExtensions.GetMetaTable(INamingContainer)
 - uid: System.Web.DynamicData.DynamicDataExtensions.SetMetaTable(System.Web.UI.INamingContainer,System.Web.DynamicData.MetaTable)
   parent: System.Web.DynamicData.DynamicDataExtensions
   isExternal: false
   name: SetMetaTable(INamingContainer, MetaTable)
   nameWithType: DynamicDataExtensions.SetMetaTable(INamingContainer, MetaTable)
-  fullName: System.Web.DynamicData.DynamicDataExtensions.SetMetaTable(INamingContainer, MetaTable)
+  fullName: DynamicDataExtensions.SetMetaTable(INamingContainer, MetaTable)
 - uid: System.Web.DynamicData.DynamicDataExtensions.SetMetaTable(System.Web.UI.INamingContainer,System.Web.DynamicData.MetaTable,System.Collections.Generic.IDictionary{System.String,System.Object})
   parent: System.Web.DynamicData.DynamicDataExtensions
   isExternal: false
   name: SetMetaTable(INamingContainer, MetaTable, IDictionary<String,Object>)
   nameWithType: DynamicDataExtensions.SetMetaTable(INamingContainer, MetaTable, IDictionary<String,Object>)
-  fullName: System.Web.DynamicData.DynamicDataExtensions.SetMetaTable(INamingContainer, MetaTable, IDictionary<String,Object>)
+  fullName: DynamicDataExtensions.SetMetaTable(INamingContainer, MetaTable, IDictionary<String,Object>)
 - uid: System.Web.DynamicData.DynamicDataExtensions.SetMetaTable(System.Web.UI.INamingContainer,System.Web.DynamicData.MetaTable,System.Object)
   parent: System.Web.DynamicData.DynamicDataExtensions
   isExternal: false
   name: SetMetaTable(INamingContainer, MetaTable, Object)
   nameWithType: DynamicDataExtensions.SetMetaTable(INamingContainer, MetaTable, Object)
-  fullName: System.Web.DynamicData.DynamicDataExtensions.SetMetaTable(INamingContainer, MetaTable, Object)
+  fullName: DynamicDataExtensions.SetMetaTable(INamingContainer, MetaTable, Object)
 - uid: System.Web.DynamicData.DynamicDataExtensions.TryGetMetaTable(System.Web.UI.INamingContainer,System.Web.DynamicData.MetaTable@)
   parent: System.Web.DynamicData.DynamicDataExtensions
   isExternal: false
   name: TryGetMetaTable(INamingContainer, MetaTable)
   nameWithType: DynamicDataExtensions.TryGetMetaTable(INamingContainer, MetaTable)
-  fullName: System.Web.DynamicData.DynamicDataExtensions.TryGetMetaTable(INamingContainer, MetaTable)
+  fullName: DynamicDataExtensions.TryGetMetaTable(INamingContainer, MetaTable)
 - uid: System.Web.UI.DataControlExtensions.EnableDynamicData(System.Web.UI.INamingContainer,System.Type)
   parent: System.Web.UI.DataControlExtensions
   isExternal: false
   name: EnableDynamicData(INamingContainer, Type)
   nameWithType: DataControlExtensions.EnableDynamicData(INamingContainer, Type)
-  fullName: System.Web.UI.DataControlExtensions.EnableDynamicData(INamingContainer, Type)
+  fullName: DataControlExtensions.EnableDynamicData(INamingContainer, Type)
 - uid: System.Web.UI.DataControlExtensions.EnableDynamicData(System.Web.UI.INamingContainer,System.Type,System.Collections.Generic.IDictionary{System.String,System.Object})
   parent: System.Web.UI.DataControlExtensions
   isExternal: false
   name: EnableDynamicData(INamingContainer, Type, IDictionary<String,Object>)
   nameWithType: DataControlExtensions.EnableDynamicData(INamingContainer, Type, IDictionary<String,Object>)
-  fullName: System.Web.UI.DataControlExtensions.EnableDynamicData(INamingContainer, Type, IDictionary<String,Object>)
+  fullName: DataControlExtensions.EnableDynamicData(INamingContainer, Type, IDictionary<String,Object>)
 - uid: System.Web.UI.DataControlExtensions.EnableDynamicData(System.Web.UI.INamingContainer,System.Type,System.Object)
   parent: System.Web.UI.DataControlExtensions
   isExternal: false
   name: EnableDynamicData(INamingContainer, Type, Object)
   nameWithType: DataControlExtensions.EnableDynamicData(INamingContainer, Type, Object)
-  fullName: System.Web.UI.DataControlExtensions.EnableDynamicData(INamingContainer, Type, Object)
+  fullName: DataControlExtensions.EnableDynamicData(INamingContainer, Type, Object)

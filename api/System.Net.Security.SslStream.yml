@@ -42,6 +42,7 @@ items:
   - System.Net.Security.SslStream.EndRead(System.IAsyncResult)
   - System.Net.Security.SslStream.EndWrite(System.IAsyncResult)
   - System.Net.Security.SslStream.Flush
+  - System.Net.Security.SslStream.FlushAsync(System.Threading.CancellationToken)
   - System.Net.Security.SslStream.HashAlgorithm
   - System.Net.Security.SslStream.HashStrength
   - System.Net.Security.SslStream.IsAuthenticated
@@ -77,7 +78,7 @@ items:
   - netstandard
   namespace: System.Net.Security
   summary: Provides a stream used for client-server communication that uses the Secure Socket Layer (SSL) security protocol to authenticate the server and optionally the client.
-  remarks: "SSL protocols help to provide confidentiality and integrity checking for messages transmitted using an <xref:System.Net.Security.SslStream>. An SSL connection, such as that provided by <xref:System.Net.Security.SslStream>, should be used when communicating sensitive information between a client and a server. Using an <xref:System.Net.Security.SslStream> helps to prevent anyone from reading and tampering with information while it is in transit on the network.  \n  \n An <xref:System.Net.Security.SslStream> instance transmits data using a stream that you supply when creating the <xref:System.Net.Security.SslStream>. When you supply this underlying stream, you have the option to specify whether closing the <xref:System.Net.Security.SslStream> also closes the underlying stream. Typically, the <xref:System.Net.Security.SslStream> class is used with the <xref:System.Net.Sockets.TcpClient> and <xref:System.Net.Sockets.TcpListener> classes. The <xref:System.Net.Sockets.TcpClient.GetStream%2A> method provides a <xref:System.Net.Sockets.NetworkStream> suitable for use with the <xref:System.Net.Security.SslStream> class.  \n  \n After creating an <xref:System.Net.Security.SslStream>, the server and optionally, the client must be authenticated. The server must provide an X509 certificate that establishes proof of its identity and can request that the client also do so. Authentication must be performed before transmitting information using an <xref:System.Net.Security.SslStream>. Clients initiate authentication using the synchronous <xref:System.Net.Security.SslStream.AuthenticateAsClient%2A> methods, which block until the authentication completes, or the asynchronous <xref:System.Net.Security.SslStream.BeginAuthenticateAsClient%2A> methods, which do not block waiting for the authentication to complete. Servers initiate authentication using the synchronous <xref:System.Net.Security.SslStream.AuthenticateAsServer%2A> or asynchronous <xref:System.Net.Security.SslStream.BeginAuthenticateAsServer%2A> methods. Both client and server must initiate the authentication.  \n  \n The authentication is handled by the Security Support Provider (SSPI) channel provider. The client is given an opportunity to control validation of the server's certificate by specifying a <xref:System.Net.Security.RemoteCertificateValidationCallback> delegate when creating an <xref:System.Net.Security.SslStream>. The server can also control validation by supplying a <xref:System.Net.Security.RemoteCertificateValidationCallback> delegate. The method referenced by the delegate includes the remote party's certificate and any errors SSPI encountered while validating the certificate. Note that if the server specifies a delegate, the delegate's method is invoked regardless of whether the server requested client authentication. If the server did not request client authentication, the server's delegate method receives a null certificate and an empty array of certificate errors.  \n  \n If the server requires client authentication, the client must specify one or more certificates for authentication. If the client has more than one certificate, the client can provide a <xref:System.Net.Security.LocalCertificateSelectionCallback> delegate to select the correct certificate for the server. The client's certificates must be located in the current user's \"My\" certificate store. Client authentication via certificates is not supported for the <xref:System.Security.Authentication.SslProtocols> (SSL version 2) protocol.  \n  \n If the authentication fails, you receive a <xref:System.Security.Authentication.AuthenticationException>, and the <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector.  \n  \n When the authentication process, also known as the SSL handshake, succeeds, the identity of the server (and optionally, the client) is established and the <xref:System.Net.Security.SslStream> can be used by the client and server to exchange messages. Before sending or receiving information, the client and server should check the security services and levels provided by the <xref:System.Net.Security.SslStream> to determine whether the protocol, algorithms, and strengths selected meet their requirements for integrity and confidentiality. If the current settings are not sufficient, the stream should be closed. You can check the security services provided by the <xref:System.Net.Security.SslStream> using the <xref:System.Net.Security.SslStream.IsEncrypted%2A> and <xref:System.Net.Security.SslStream.IsSigned%2A> properties. The following table shows the elements that report the cryptographic settings used for authentication, encryption and data signing.  \n  \n|Element|Members|  \n|-------------|-------------|  \n|The security protocol used to authenticate the server and, optionally, the client.|The <xref:System.Net.Security.SslStream.SslProtocol%2A> property and the associated <xref:System.Security.Authentication.SslProtocols> enumeration.|  \n|The key exchange algorithm.|The <xref:System.Net.Security.SslStream.KeyExchangeAlgorithm%2A> property and the associated <xref:System.Security.Authentication.ExchangeAlgorithmType> enumeration.|  \n|The message integrity algorithm.|The <xref:System.Net.Security.SslStream.HashAlgorithm%2A> property and the associated <xref:System.Security.Authentication.HashAlgorithmType> enumeration.|  \n|The message confidentiality algorithm.|The <xref:System.Net.Security.SslStream.CipherAlgorithm%2A> property and the associated <xref:System.Security.Authentication.CipherAlgorithmType> enumeration.|  \n|The strengths of the selected algorithms.|The <xref:System.Net.Security.SslStream.KeyExchangeStrength%2A>, <xref:System.Net.Security.SslStream.HashStrength%2A>, and <xref:System.Net.Security.SslStream.CipherStrength%2A> properties.|  \n  \n After a successful authentication, you can send data using the synchronous <xref:System.Net.Security.SslStream.Write%2A> or asynchronous <xref:System.Net.Security.SslStream.BeginWrite%2A> methods. You can receive data using the synchronous <xref:System.Net.Security.SslStream.Read%2A> or asynchronous <xref:System.Net.Security.SslStream.BeginRead%2A> methods.  \n  \n If you specified to the <xref:System.Net.Security.SslStream.%23ctor%2A> that the underlying stream should be left open, you are responsible for closing that stream when you are done using it.  \n  \n> [!NOTE]\n>  If the application that creates the <xref:System.Net.Security.SslStream> object runs with the credentials of a Normal user, the application will not be able to access certificates installed in the local machine store unless permission has been explicitly given to the user to do so.  \n  \n <xref:System.Net.Security.SslStream> assumes that a timeout along with any other <xref:System.IO.IOException> when one is thrown from the inner stream will be treated as fatal by its caller. Reusing a <xref:System.Net.Security.SslStream> instance after a timeout will return garbage. An application should <xref:System.IO.Stream.Close%2A> the <xref:System.Net.Security.SslStream> and throw an exception in these cases.  \n  \n The .NET Framework 4.6 includes a new security feature that blocks insecure cipher and hashing algorithms for connections. Applications using TLS/SSL through APIs such as HttpClient, HttpWebRequest, FTPClient, SmtpClient, SslStream, etc. and targeting .NET Framework 4.6 get the more-secure behavior by default.  \n  \n Developers may want to opt out of this behavior in order to maintain interoperability with their existing SSL3 services OR TLS w/ RC4 services. [This article](https://support.microsoft.com/kb/3069494) explains how to modify your code so that the new behavior is disabled.  \n  \n The .NET Framework 4.7 adds new overloads for the methods that authenticate SslStreams that do not specify a TLS version, but instead use the TLS version defined as the system default in [SCHANNEL](https://msdn.microsoft.com/library/windows/desktop/aa380123.aspx). Use these methods in your app as a way to be able to later modify the defaults as TLS version best practice changes over time, without the need to rebuild and redeploy your app."
+  remarks: "SSL protocols help to provide confidentiality and integrity checking for messages transmitted using an <xref:System.Net.Security.SslStream>. An SSL connection, such as that provided by <xref:System.Net.Security.SslStream>, should be used when communicating sensitive information between a client and a server. Using an <xref:System.Net.Security.SslStream> helps to prevent anyone from reading and tampering with information while it is in transit on the network.  \n  \n An <xref:System.Net.Security.SslStream> instance transmits data using a stream that you supply when creating the <xref:System.Net.Security.SslStream>. When you supply this underlying stream, you have the option to specify whether closing the <xref:System.Net.Security.SslStream> also closes the underlying stream. Typically, the <xref:System.Net.Security.SslStream> class is used with the <xref:System.Net.Sockets.TcpClient> and <xref:System.Net.Sockets.TcpListener> classes. The <xref:System.Net.Sockets.TcpClient.GetStream%2A> method provides a <xref:System.Net.Sockets.NetworkStream> suitable for use with the <xref:System.Net.Security.SslStream> class.  \n  \n After creating an <xref:System.Net.Security.SslStream>, the server and optionally, the client must be authenticated. The server must provide an X509 certificate that establishes proof of its identity and can request that the client also do so. Authentication must be performed before transmitting information using an <xref:System.Net.Security.SslStream>. Clients initiate authentication using the synchronous <xref:System.Net.Security.SslStream.AuthenticateAsClient%2A> methods, which block until the authentication completes, or the asynchronous <xref:System.Net.Security.SslStream.BeginAuthenticateAsClient%2A> methods, which do not block waiting for the authentication to complete. Servers initiate authentication using the synchronous <xref:System.Net.Security.SslStream.AuthenticateAsServer%2A> or asynchronous <xref:System.Net.Security.SslStream.BeginAuthenticateAsServer%2A> methods. Both client and server must initiate the authentication.  \n  \n The authentication is handled by the Security Support Provider (SSPI) channel provider. The client is given an opportunity to control validation of the server's certificate by specifying a <xref:System.Net.Security.RemoteCertificateValidationCallback> delegate when creating an <xref:System.Net.Security.SslStream>. The server can also control validation by supplying a <xref:System.Net.Security.RemoteCertificateValidationCallback> delegate. The method referenced by the delegate includes the remote party's certificate and any errors SSPI encountered while validating the certificate. Note that if the server specifies a delegate, the delegate's method is invoked regardless of whether the server requested client authentication. If the server did not request client authentication, the server's delegate method receives a null certificate and an empty array of certificate errors.  \n  \n If the server requires client authentication, the client must specify one or more certificates for authentication. If the client has more than one certificate, the client can provide a <xref:System.Net.Security.LocalCertificateSelectionCallback> delegate to select the correct certificate for the server. The client's certificates must be located in the current user's \"My\" certificate store. Client authentication via certificates is not supported for the <xref:System.Security.Authentication.SslProtocols.Ssl2> (SSL version 2) protocol.  \n  \n If the authentication fails, you receive a <xref:System.Security.Authentication.AuthenticationException>, and the <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector.  \n  \n When the authentication process, also known as the SSL handshake, succeeds, the identity of the server (and optionally, the client) is established and the <xref:System.Net.Security.SslStream> can be used by the client and server to exchange messages. Before sending or receiving information, the client and server should check the security services and levels provided by the <xref:System.Net.Security.SslStream> to determine whether the protocol, algorithms, and strengths selected meet their requirements for integrity and confidentiality. If the current settings are not sufficient, the stream should be closed. You can check the security services provided by the <xref:System.Net.Security.SslStream> using the <xref:System.Net.Security.SslStream.IsEncrypted%2A> and <xref:System.Net.Security.SslStream.IsSigned%2A> properties. The following table shows the elements that report the cryptographic settings used for authentication, encryption and data signing.  \n  \n|Element|Members|  \n|-------------|-------------|  \n|The security protocol used to authenticate the server and, optionally, the client.|The <xref:System.Net.Security.SslStream.SslProtocol%2A> property and the associated <xref:System.Security.Authentication.SslProtocols> enumeration.|  \n|The key exchange algorithm.|The <xref:System.Net.Security.SslStream.KeyExchangeAlgorithm%2A> property and the associated <xref:System.Security.Authentication.ExchangeAlgorithmType> enumeration.|  \n|The message integrity algorithm.|The <xref:System.Net.Security.SslStream.HashAlgorithm%2A> property and the associated <xref:System.Security.Authentication.HashAlgorithmType> enumeration.|  \n|The message confidentiality algorithm.|The <xref:System.Net.Security.SslStream.CipherAlgorithm%2A> property and the associated <xref:System.Security.Authentication.CipherAlgorithmType> enumeration.|  \n|The strengths of the selected algorithms.|The <xref:System.Net.Security.SslStream.KeyExchangeStrength%2A>, <xref:System.Net.Security.SslStream.HashStrength%2A>, and <xref:System.Net.Security.SslStream.CipherStrength%2A> properties.|  \n  \n After a successful authentication, you can send data using the synchronous <xref:System.Net.Security.SslStream.Write%2A> or asynchronous <xref:System.Net.Security.SslStream.BeginWrite%2A> methods. You can receive data using the synchronous <xref:System.Net.Security.SslStream.Read%2A> or asynchronous <xref:System.Net.Security.SslStream.BeginRead%2A> methods.  \n  \n If you specified to the <xref:System.Net.Security.SslStream.%23ctor%2A> that the underlying stream should be left open, you are responsible for closing that stream when you are done using it.  \n  \n> [!NOTE]\n>  If the application that creates the <xref:System.Net.Security.SslStream> object runs with the credentials of a Normal user, the application will not be able to access certificates installed in the local machine store unless permission has been explicitly given to the user to do so.  \n  \n <xref:System.Net.Security.SslStream> assumes that a timeout along with any other <xref:System.IO.IOException> when one is thrown from the inner stream will be treated as fatal by its caller. Reusing a <xref:System.Net.Security.SslStream> instance after a timeout will return garbage. An application should <xref:System.IO.Stream.Close%2A> the <xref:System.Net.Security.SslStream> and throw an exception in these cases.  \n  \n The .NET Framework 4.6 includes a new security feature that blocks insecure cipher and hashing algorithms for connections. Applications using TLS/SSL through APIs such as HttpClient, HttpWebRequest, FTPClient, SmtpClient, SslStream, etc. and targeting .NET Framework 4.6 get the more-secure behavior by default.  \n  \n Developers may want to opt out of this behavior in order to maintain interoperability with their existing SSL3 services OR TLS w/ RC4 services. [This article](https://support.microsoft.com/kb/3069494) explains how to modify your code so that the new behavior is disabled.  \n  \n The .NET Framework 4.7 adds new overloads for the methods that authenticate SslStreams that do not specify a TLS version, but instead use the TLS version defined as the system default in [SCHANNEL](https://msdn.microsoft.com/library/windows/desktop/aa380123.aspx). Use these methods in your app as a way to be able to later modify the defaults as TLS version best practice changes over time, without the need to rebuild and redeploy your app."
   example:
   - "The following code example demonstrates creating an <xref:System.Net.Sockets.TcpListener> that uses the <xref:System.Net.Security.SslStream> class to communicate with clients.  \n  \n [!code-cpp[NclSslServerSync#0](~/samples/snippets/cpp/VS_Snippets_Remoting/NclSslServerSync/CPP/NclSslServerSync.cpp#0)]\n [!code-csharp[NclSslServerSync#0](~/samples/snippets/csharp/VS_Snippets_Remoting/NclSslServerSync/CS/serversync.cs#0)]  \n  \n The following code example demonstrates creating a <xref:System.Net.Sockets.TcpClient> that uses the <xref:System.Net.Security.SslStream> class to communicate with a server.  \n  \n [!code-cpp[NclSslClientSync#0](~/samples/snippets/cpp/VS_Snippets_Remoting/NclSslClientSync/CPP/clientsync.cpp#0)]\n [!code-csharp[NclSslClientSync#0](~/samples/snippets/csharp/VS_Snippets_Remoting/NclSslClientSync/CS/clientsync.cs#0)]"
   syntax:
@@ -97,7 +98,6 @@ items:
   - System.IO.Stream.CreateWaitHandle
   - System.IO.Stream.Dispose
   - System.IO.Stream.FlushAsync
-  - System.IO.Stream.FlushAsync(System.Threading.CancellationToken)
   - System.IO.Stream.Null
   - System.IO.Stream.ObjectInvariant
   - System.IO.Stream.ReadAsync(System.Byte[],System.Int32,System.Int32)
@@ -118,7 +118,8 @@ items:
   - System.Object.ToString
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -132,7 +133,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -145,8 +147,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.#ctor(System.IO.Stream)
   commentId: M:System.Net.Security.SslStream.#ctor(System.IO.Stream)
   id: '#ctor(System.IO.Stream)'
@@ -155,7 +155,7 @@ items:
   - csharp
   name: SslStream(Stream)
   nameWithType: SslStream.SslStream(Stream)
-  fullName: System.Net.Security.SslStream.SslStream(Stream)
+  fullName: SslStream.SslStream(Stream)
   type: Constructor
   assemblies:
   - System.Net.Security
@@ -180,7 +180,8 @@ items:
     description: "<code>innerStream</code> is `null`.  \n  \n -or-  \n  \n <code>innerStream</code> is equal to <xref href=\"System.IO.Stream.Null\"></xref>."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -194,7 +195,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -207,8 +209,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.#ctor(System.IO.Stream,System.Boolean)
   commentId: M:System.Net.Security.SslStream.#ctor(System.IO.Stream,System.Boolean)
   id: '#ctor(System.IO.Stream,System.Boolean)'
@@ -217,7 +217,7 @@ items:
   - csharp
   name: SslStream(Stream, Boolean)
   nameWithType: SslStream.SslStream(Stream, Boolean)
-  fullName: System.Net.Security.SslStream.SslStream(Stream, Boolean)
+  fullName: SslStream.SslStream(Stream, Boolean)
   type: Constructor
   assemblies:
   - System.Net.Security
@@ -247,7 +247,8 @@ items:
     description: "<code>innerStream</code> is `null`.  \n  \n -or-  \n  \n <code>innerStream</code> is equal to <xref href=\"System.IO.Stream.Null\"></xref>."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -261,7 +262,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -274,8 +276,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.#ctor(System.IO.Stream,System.Boolean,System.Net.Security.RemoteCertificateValidationCallback)
   commentId: M:System.Net.Security.SslStream.#ctor(System.IO.Stream,System.Boolean,System.Net.Security.RemoteCertificateValidationCallback)
   id: '#ctor(System.IO.Stream,System.Boolean,System.Net.Security.RemoteCertificateValidationCallback)'
@@ -284,7 +284,7 @@ items:
   - csharp
   name: SslStream(Stream, Boolean, RemoteCertificateValidationCallback)
   nameWithType: SslStream.SslStream(Stream, Boolean, RemoteCertificateValidationCallback)
-  fullName: System.Net.Security.SslStream.SslStream(Stream, Boolean, RemoteCertificateValidationCallback)
+  fullName: SslStream.SslStream(Stream, Boolean, RemoteCertificateValidationCallback)
   type: Constructor
   assemblies:
   - System.Net.Security
@@ -317,7 +317,8 @@ items:
     description: "<code>innerStream</code> is `null`.  \n  \n -or-  \n  \n <code>innerStream</code> is equal to <xref href=\"System.IO.Stream.Null\"></xref>."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -331,7 +332,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -344,8 +346,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.#ctor(System.IO.Stream,System.Boolean,System.Net.Security.RemoteCertificateValidationCallback,System.Net.Security.LocalCertificateSelectionCallback)
   commentId: M:System.Net.Security.SslStream.#ctor(System.IO.Stream,System.Boolean,System.Net.Security.RemoteCertificateValidationCallback,System.Net.Security.LocalCertificateSelectionCallback)
   id: '#ctor(System.IO.Stream,System.Boolean,System.Net.Security.RemoteCertificateValidationCallback,System.Net.Security.LocalCertificateSelectionCallback)'
@@ -354,7 +354,7 @@ items:
   - csharp
   name: SslStream(Stream, Boolean, RemoteCertificateValidationCallback, LocalCertificateSelectionCallback)
   nameWithType: SslStream.SslStream(Stream, Boolean, RemoteCertificateValidationCallback, LocalCertificateSelectionCallback)
-  fullName: System.Net.Security.SslStream.SslStream(Stream, Boolean, RemoteCertificateValidationCallback, LocalCertificateSelectionCallback)
+  fullName: SslStream.SslStream(Stream, Boolean, RemoteCertificateValidationCallback, LocalCertificateSelectionCallback)
   type: Constructor
   assemblies:
   - System.Net.Security
@@ -390,7 +390,8 @@ items:
     description: "<code>innerStream</code> is `null`.  \n  \n -or-  \n  \n <code>innerStream</code> is equal to <xref href=\"System.IO.Stream.Null\"></xref>."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -404,7 +405,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -417,8 +419,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.#ctor(System.IO.Stream,System.Boolean,System.Net.Security.RemoteCertificateValidationCallback,System.Net.Security.LocalCertificateSelectionCallback,System.Net.Security.EncryptionPolicy)
   commentId: M:System.Net.Security.SslStream.#ctor(System.IO.Stream,System.Boolean,System.Net.Security.RemoteCertificateValidationCallback,System.Net.Security.LocalCertificateSelectionCallback,System.Net.Security.EncryptionPolicy)
   id: '#ctor(System.IO.Stream,System.Boolean,System.Net.Security.RemoteCertificateValidationCallback,System.Net.Security.LocalCertificateSelectionCallback,System.Net.Security.EncryptionPolicy)'
@@ -427,7 +427,7 @@ items:
   - csharp
   name: SslStream(Stream, Boolean, RemoteCertificateValidationCallback, LocalCertificateSelectionCallback, EncryptionPolicy)
   nameWithType: SslStream.SslStream(Stream, Boolean, RemoteCertificateValidationCallback, LocalCertificateSelectionCallback, EncryptionPolicy)
-  fullName: System.Net.Security.SslStream.SslStream(Stream, Boolean, RemoteCertificateValidationCallback, LocalCertificateSelectionCallback, EncryptionPolicy)
+  fullName: SslStream.SslStream(Stream, Boolean, RemoteCertificateValidationCallback, LocalCertificateSelectionCallback, EncryptionPolicy)
   type: Constructor
   assemblies:
   - System.Net.Security
@@ -469,7 +469,8 @@ items:
   - type: System.MonoLimitation
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -483,7 +484,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -496,8 +498,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.AuthenticateAsClient(System.String)
   commentId: M:System.Net.Security.SslStream.AuthenticateAsClient(System.String)
   id: AuthenticateAsClient(System.String)
@@ -506,14 +506,15 @@ items:
   - csharp
   name: AuthenticateAsClient(String)
   nameWithType: SslStream.AuthenticateAsClient(String)
-  fullName: System.Net.Security.SslStream.AuthenticateAsClient(String)
+  fullName: SslStream.AuthenticateAsClient(String)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Security
   namespace: System.Net.Security
   summary: Called by clients to authenticate the server and optionally the client in a client-server connection.
-  remarks: "This method authenticates using <xref:System.Security.Authentication.SslProtocols>. No client certificates are used in the authentication. The certificate revocation list is not checked during authentication. The value specified for `targetHost` must match the name on the server's certificate.  \n  \n When authentication succeeds, you must check the <xref:System.Net.Security.SslStream.IsEncrypted%2A> and <xref:System.Net.Security.SslStream.IsSigned%2A> properties to determine what security services are used by the <xref:System.Net.Security.SslStream>. Check the <xref:System.Net.Security.SslStream.IsMutuallyAuthenticated%2A> property to determine whether mutual authentication occurred.  \n  \n If the authentication fails, you receive a <xref:System.Security.Authentication.AuthenticationException>, and this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector."
+  remarks: "This method authenticates using <xref:System.Security.Authentication.SslProtocols.Default>. No client certificates are used in the authentication. The certificate revocation list is not checked during authentication. The value specified for `targetHost` must match the name on the server's certificate.  \n  \n When authentication succeeds, you must check the <xref:System.Net.Security.SslStream.IsEncrypted%2A> and <xref:System.Net.Security.SslStream.IsSigned%2A> properties to determine what security services are used by the <xref:System.Net.Security.SslStream>. Check the <xref:System.Net.Security.SslStream.IsMutuallyAuthenticated%2A> property to determine whether mutual authentication occurred.  \n  \n If the authentication fails, you receive a <xref:System.Security.Authentication.AuthenticationException>, and this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector."
   syntax:
     content: public virtual void AuthenticateAsClient (string targetHost);
     parameters:
@@ -535,6 +536,7 @@ items:
     commentId: T:System.ObjectDisposedException
     description: This object has been closed.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -547,6 +549,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -559,8 +562,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.AuthenticateAsClient(System.String,System.Security.Cryptography.X509Certificates.X509CertificateCollection,System.Boolean)
   commentId: M:System.Net.Security.SslStream.AuthenticateAsClient(System.String,System.Security.Cryptography.X509Certificates.X509CertificateCollection,System.Boolean)
   id: AuthenticateAsClient(System.String,System.Security.Cryptography.X509Certificates.X509CertificateCollection,System.Boolean)
@@ -569,10 +570,11 @@ items:
   - csharp
   name: AuthenticateAsClient(String, X509CertificateCollection, Boolean)
   nameWithType: SslStream.AuthenticateAsClient(String, X509CertificateCollection, Boolean)
-  fullName: System.Net.Security.SslStream.AuthenticateAsClient(String, X509CertificateCollection, Boolean)
+  fullName: SslStream.AuthenticateAsClient(String, X509CertificateCollection, Boolean)
   type: Method
   assemblies:
   - System
+  - System.Net.Security
   namespace: System.Net.Security
   summary: Called by clients to authenticate the server and optionally the client in a client-server connection. The authentication process uses the specified certificate collection, and the system default SSL protocol.
   remarks: "When authentication succeeds, you must check the <xref:System.Net.Security.SslStream.IsEncrypted%2A> and <xref:System.Net.Security.SslStream.IsSigned%2A> properties to determine what security services are used by the <xref:System.Net.Security.SslStream>. Check the <xref:System.Net.Security.SslStream.IsMutuallyAuthenticated%2A> property to determine whether mutual authentication occurred.  \n  \n If the authentication fails, you receive a <xref:System.Security.Authentication.AuthenticationException>, and this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector.  \n  \n> [!NOTE]\n>  Client certificates are not supported in the SSL version 2 protocol."
@@ -591,12 +593,12 @@ items:
   overload: System.Net.Security.SslStream.AuthenticateAsClient*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.7
   monikers:
+  - netcore-2.0
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.AuthenticateAsClient(System.String,System.Security.Cryptography.X509Certificates.X509CertificateCollection,System.Security.Authentication.SslProtocols,System.Boolean)
   commentId: M:System.Net.Security.SslStream.AuthenticateAsClient(System.String,System.Security.Cryptography.X509Certificates.X509CertificateCollection,System.Security.Authentication.SslProtocols,System.Boolean)
   id: AuthenticateAsClient(System.String,System.Security.Cryptography.X509Certificates.X509CertificateCollection,System.Security.Authentication.SslProtocols,System.Boolean)
@@ -605,11 +607,12 @@ items:
   - csharp
   name: AuthenticateAsClient(String, X509CertificateCollection, SslProtocols, Boolean)
   nameWithType: SslStream.AuthenticateAsClient(String, X509CertificateCollection, SslProtocols, Boolean)
-  fullName: System.Net.Security.SslStream.AuthenticateAsClient(String, X509CertificateCollection, SslProtocols, Boolean)
+  fullName: SslStream.AuthenticateAsClient(String, X509CertificateCollection, SslProtocols, Boolean)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Security
   namespace: System.Net.Security
   summary: Called by clients to authenticate the server and optionally the client in a client-server connection. The authentication process uses the specified certificate collection and SSL protocol.
   remarks: "When authentication succeeds, you must check the <xref:System.Net.Security.SslStream.IsEncrypted%2A> and <xref:System.Net.Security.SslStream.IsSigned%2A> properties to determine what security services are used by the <xref:System.Net.Security.SslStream>. Check the <xref:System.Net.Security.SslStream.IsMutuallyAuthenticated%2A> property to determine whether mutual authentication occurred.  \n  \n If the authentication fails, you receive a <xref:System.Security.Authentication.AuthenticationException>, and this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector.  \n  \n> [!NOTE]\n>  Client certificates are not supported in the SSL version 2 protocol."
@@ -631,6 +634,7 @@ items:
   overload: System.Net.Security.SslStream.AuthenticateAsClient*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -643,6 +647,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -655,8 +660,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.AuthenticateAsClientAsync(System.String)
   commentId: M:System.Net.Security.SslStream.AuthenticateAsClientAsync(System.String)
   id: AuthenticateAsClientAsync(System.String)
@@ -665,7 +668,7 @@ items:
   - csharp
   name: AuthenticateAsClientAsync(String)
   nameWithType: SslStream.AuthenticateAsClientAsync(String)
-  fullName: System.Net.Security.SslStream.AuthenticateAsClientAsync(String)
+  fullName: SslStream.AuthenticateAsClientAsync(String)
   type: Method
   assemblies:
   - System.Net.Security
@@ -673,7 +676,7 @@ items:
   - netstandard
   namespace: System.Net.Security
   summary: Called by clients to authenticate the server and optionally the client in a client-server connection as an asynchronous operation.
-  remarks: "This method authenticates using <xref:System.Security.Authentication.SslProtocols>. No client certificates are used in the authentication. The certificate revocation list is not checked during authentication. The value specified for `targetHost` must match the name on the server's certificate.  \n  \n When authentication succeeds, you must check the <xref:System.Net.Security.SslStream.IsEncrypted%2A> and <xref:System.Net.Security.SslStream.IsSigned%2A> properties to determine what security services are used by the <xref:System.Net.Security.SslStream>. Check the <xref:System.Net.Security.SslStream.IsMutuallyAuthenticated%2A> property to determine whether mutual authentication occurred.  \n  \n If the authentication fails, you receive a <xref:System.Security.Authentication.AuthenticationException>, and this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector."
+  remarks: "This method authenticates using <xref:System.Security.Authentication.SslProtocols.Default>. No client certificates are used in the authentication. The certificate revocation list is not checked during authentication. The value specified for `targetHost` must match the name on the server's certificate.  \n  \n When authentication succeeds, you must check the <xref:System.Net.Security.SslStream.IsEncrypted%2A> and <xref:System.Net.Security.SslStream.IsSigned%2A> properties to determine what security services are used by the <xref:System.Net.Security.SslStream>. Check the <xref:System.Net.Security.SslStream.IsMutuallyAuthenticated%2A> property to determine whether mutual authentication occurred.  \n  \n If the authentication fails, you receive a <xref:System.Security.Authentication.AuthenticationException>, and this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector."
   syntax:
     content: public virtual System.Threading.Tasks.Task AuthenticateAsClientAsync (string targetHost);
     parameters:
@@ -699,7 +702,8 @@ items:
     description: This object has been closed.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -713,7 +717,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -726,8 +731,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.AuthenticateAsClientAsync(System.String,System.Security.Cryptography.X509Certificates.X509CertificateCollection,System.Boolean)
   commentId: M:System.Net.Security.SslStream.AuthenticateAsClientAsync(System.String,System.Security.Cryptography.X509Certificates.X509CertificateCollection,System.Boolean)
   id: AuthenticateAsClientAsync(System.String,System.Security.Cryptography.X509Certificates.X509CertificateCollection,System.Boolean)
@@ -736,10 +739,11 @@ items:
   - csharp
   name: AuthenticateAsClientAsync(String, X509CertificateCollection, Boolean)
   nameWithType: SslStream.AuthenticateAsClientAsync(String, X509CertificateCollection, Boolean)
-  fullName: System.Net.Security.SslStream.AuthenticateAsClientAsync(String, X509CertificateCollection, Boolean)
+  fullName: SslStream.AuthenticateAsClientAsync(String, X509CertificateCollection, Boolean)
   type: Method
   assemblies:
   - System
+  - System.Net.Security
   namespace: System.Net.Security
   summary: Called by clients to authenticate the server and optionally the client in a client-server connection as an asynchronous operation. The authentication process uses the specified certificate collection and the system default SSL protocol.
   remarks: "When authentication succeeds, you must check the <xref:System.Net.Security.SslStream.IsEncrypted%2A> and <xref:System.Net.Security.SslStream.IsSigned%2A> properties to determine what security services are used by the <xref:System.Net.Security.SslStream>. Check the <xref:System.Net.Security.SslStream.IsMutuallyAuthenticated%2A> property to determine whether mutual authentication occurred.  \n  \n If the authentication fails, you receive a <xref:System.Security.Authentication.AuthenticationException>, and this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector.  \n  \n> [!NOTE]\n>  Client certificates are not supported in the SSL version 2 protocol."
@@ -761,12 +765,12 @@ items:
   overload: System.Net.Security.SslStream.AuthenticateAsClientAsync*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.7
   monikers:
+  - netcore-2.0
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.AuthenticateAsClientAsync(System.String,System.Security.Cryptography.X509Certificates.X509CertificateCollection,System.Security.Authentication.SslProtocols,System.Boolean)
   commentId: M:System.Net.Security.SslStream.AuthenticateAsClientAsync(System.String,System.Security.Cryptography.X509Certificates.X509CertificateCollection,System.Security.Authentication.SslProtocols,System.Boolean)
   id: AuthenticateAsClientAsync(System.String,System.Security.Cryptography.X509Certificates.X509CertificateCollection,System.Security.Authentication.SslProtocols,System.Boolean)
@@ -775,7 +779,7 @@ items:
   - csharp
   name: AuthenticateAsClientAsync(String, X509CertificateCollection, SslProtocols, Boolean)
   nameWithType: SslStream.AuthenticateAsClientAsync(String, X509CertificateCollection, SslProtocols, Boolean)
-  fullName: System.Net.Security.SslStream.AuthenticateAsClientAsync(String, X509CertificateCollection, SslProtocols, Boolean)
+  fullName: SslStream.AuthenticateAsClientAsync(String, X509CertificateCollection, SslProtocols, Boolean)
   type: Method
   assemblies:
   - System.Net.Security
@@ -806,7 +810,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -820,7 +825,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -833,8 +839,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.AuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate)
   commentId: M:System.Net.Security.SslStream.AuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate)
   id: AuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate)
@@ -843,14 +847,15 @@ items:
   - csharp
   name: AuthenticateAsServer(X509Certificate)
   nameWithType: SslStream.AuthenticateAsServer(X509Certificate)
-  fullName: System.Net.Security.SslStream.AuthenticateAsServer(X509Certificate)
+  fullName: SslStream.AuthenticateAsServer(X509Certificate)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Security
   namespace: System.Net.Security
   summary: Called by servers to authenticate the server and optionally the client in a client-server connection using the specified certificate.
-  remarks: "This method authenticates using <xref:System.Security.Authentication.SslProtocols>. The certificate revocation list is not checked during authentication. The client is not required to provide a certificate for authentication.  \n  \n This method blocks until the operation completes. To prevent blocking until the operation completes, use one of the <xref:System.Net.Security.SslStream.BeginAuthenticateAsServer%2A> method overloads.  \n  \n If the authentication fails, you receive a <xref:System.Security.Authentication.AuthenticationException>, and this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector."
+  remarks: "This method authenticates using <xref:System.Security.Authentication.SslProtocols.Default>. The certificate revocation list is not checked during authentication. The client is not required to provide a certificate for authentication.  \n  \n This method blocks until the operation completes. To prevent blocking until the operation completes, use one of the <xref:System.Net.Security.SslStream.BeginAuthenticateAsServer%2A> method overloads.  \n  \n If the authentication fails, you receive a <xref:System.Security.Authentication.AuthenticationException>, and this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector."
   syntax:
     content: public virtual void AuthenticateAsServer (System.Security.Cryptography.X509Certificates.X509Certificate serverCertificate);
     parameters:
@@ -873,8 +878,9 @@ items:
     description: This object has been closed.
   - type: System.PlatformNotSupportedException
     commentId: T:System.PlatformNotSupportedException
-    description: The <xref href="erload:System.Net.Security.SslStream.AuthenticateAsServer"></xref> method is not supported on Windows 95, Windows 98, or Windows Millennium.
+    description: The <xref href="System.Net.Security.SslStream.AuthenticateAsServer*"></xref> method is not supported on Windows 95, Windows 98, or Windows Millennium.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -887,6 +893,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -899,8 +906,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.AuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Boolean)
   commentId: M:System.Net.Security.SslStream.AuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Boolean)
   id: AuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Boolean)
@@ -909,10 +914,11 @@ items:
   - csharp
   name: AuthenticateAsServer(X509Certificate, Boolean, Boolean)
   nameWithType: SslStream.AuthenticateAsServer(X509Certificate, Boolean, Boolean)
-  fullName: System.Net.Security.SslStream.AuthenticateAsServer(X509Certificate, Boolean, Boolean)
+  fullName: SslStream.AuthenticateAsServer(X509Certificate, Boolean, Boolean)
   type: Method
   assemblies:
   - System
+  - System.Net.Security
   namespace: System.Net.Security
   summary: Called by servers to authenticate the server and optionally the client in a client-server connection using the specified certificates and requirements, and using the sytem default security protocol.
   remarks: "This method blocks until the operation completes. To prevent blocking until the operation completes, use one of the <xref:System.Net.Security.SslStream.BeginAuthenticateAsServer%2A> method overloads.  \n  \n If the authentication fails, you receive a <xref:System.Security.Authentication.AuthenticationException>, and this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector."
@@ -944,14 +950,14 @@ items:
     description: This object has been closed.
   - type: System.PlatformNotSupportedException
     commentId: T:System.PlatformNotSupportedException
-    description: The <xref href="erload:System.Net.Security.SslStream.AuthenticateAsServer"></xref> method is not supported on Windows 95, Windows 98, or Windows Millennium.
+    description: The <xref href="System.Net.Security.SslStream.AuthenticateAsServer*"></xref> method is not supported on Windows 95, Windows 98, or Windows Millennium.
   version:
+  - netcore-2.0
   - netframework-4.7
   monikers:
+  - netcore-2.0
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.AuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Security.Authentication.SslProtocols,System.Boolean)
   commentId: M:System.Net.Security.SslStream.AuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Security.Authentication.SslProtocols,System.Boolean)
   id: AuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Security.Authentication.SslProtocols,System.Boolean)
@@ -960,11 +966,12 @@ items:
   - csharp
   name: AuthenticateAsServer(X509Certificate, Boolean, SslProtocols, Boolean)
   nameWithType: SslStream.AuthenticateAsServer(X509Certificate, Boolean, SslProtocols, Boolean)
-  fullName: System.Net.Security.SslStream.AuthenticateAsServer(X509Certificate, Boolean, SslProtocols, Boolean)
+  fullName: SslStream.AuthenticateAsServer(X509Certificate, Boolean, SslProtocols, Boolean)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Security
   namespace: System.Net.Security
   summary: Called by servers to authenticate the server and optionally the client in a client-server connection using the specified certificates, requirements and security protocol.
   remarks: "This method blocks until the operation completes. To prevent blocking until the operation completes, use one of the <xref:System.Net.Security.SslStream.BeginAuthenticateAsServer%2A> method overloads.  \n  \n If the authentication fails, you receive a <xref:System.Security.Authentication.AuthenticationException>, and this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector."
@@ -1002,8 +1009,9 @@ items:
     description: This object has been closed.
   - type: System.PlatformNotSupportedException
     commentId: T:System.PlatformNotSupportedException
-    description: The <xref href="erload:System.Net.Security.SslStream.AuthenticateAsServer"></xref> method is not supported on Windows 95, Windows 98, or Windows Millennium.
+    description: The <xref href="System.Net.Security.SslStream.AuthenticateAsServer*"></xref> method is not supported on Windows 95, Windows 98, or Windows Millennium.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1016,6 +1024,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1028,8 +1037,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.AuthenticateAsServerAsync(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Security.Authentication.SslProtocols,System.Boolean)
   commentId: M:System.Net.Security.SslStream.AuthenticateAsServerAsync(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Security.Authentication.SslProtocols,System.Boolean)
   id: AuthenticateAsServerAsync(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Security.Authentication.SslProtocols,System.Boolean)
@@ -1038,7 +1045,7 @@ items:
   - csharp
   name: AuthenticateAsServerAsync(X509Certificate, Boolean, SslProtocols, Boolean)
   nameWithType: SslStream.AuthenticateAsServerAsync(X509Certificate, Boolean, SslProtocols, Boolean)
-  fullName: System.Net.Security.SslStream.AuthenticateAsServerAsync(X509Certificate, Boolean, SslProtocols, Boolean)
+  fullName: SslStream.AuthenticateAsServerAsync(X509Certificate, Boolean, SslProtocols, Boolean)
   type: Method
   assemblies:
   - System.Net.Security
@@ -1069,7 +1076,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1083,7 +1091,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1096,8 +1105,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.AuthenticateAsServerAsync(System.Security.Cryptography.X509Certificates.X509Certificate)
   commentId: M:System.Net.Security.SslStream.AuthenticateAsServerAsync(System.Security.Cryptography.X509Certificates.X509Certificate)
   id: AuthenticateAsServerAsync(System.Security.Cryptography.X509Certificates.X509Certificate)
@@ -1106,7 +1113,7 @@ items:
   - csharp
   name: AuthenticateAsServerAsync(X509Certificate)
   nameWithType: SslStream.AuthenticateAsServerAsync(X509Certificate)
-  fullName: System.Net.Security.SslStream.AuthenticateAsServerAsync(X509Certificate)
+  fullName: SslStream.AuthenticateAsServerAsync(X509Certificate)
   type: Method
   assemblies:
   - System.Net.Security
@@ -1114,7 +1121,7 @@ items:
   - netstandard
   namespace: System.Net.Security
   summary: Called by servers to authenticate the server and optionally the client in a client-server connection using the specified certificate as an asynchronous operation.
-  remarks: "This method authenticates using <xref:System.Security.Authentication.SslProtocols>. The certificate revocation list is not checked during authentication. The client is not required to provide a certificate for authentication.  \n  \n If the authentication fails, you receive a <xref:System.Security.Authentication.AuthenticationException>, and this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector."
+  remarks: "This method authenticates using <xref:System.Security.Authentication.SslProtocols.Default>. The certificate revocation list is not checked during authentication. The client is not required to provide a certificate for authentication.  \n  \n If the authentication fails, you receive a <xref:System.Security.Authentication.AuthenticationException>, and this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector."
   syntax:
     content: public virtual System.Threading.Tasks.Task AuthenticateAsServerAsync (System.Security.Cryptography.X509Certificates.X509Certificate serverCertificate);
     parameters:
@@ -1140,10 +1147,11 @@ items:
     description: This object has been closed.
   - type: System.PlatformNotSupportedException
     commentId: T:System.PlatformNotSupportedException
-    description: The <xref href="erload:System.Net.Security.SslStream.AuthenticateAsServerAsync"></xref> method is not supported on Windows 95, Windows 98, or Windows Millennium.
+    description: The <xref href="System.Net.Security.SslStream.AuthenticateAsServerAsync*"></xref> method is not supported on Windows 95, Windows 98, or Windows Millennium.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1157,7 +1165,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1170,8 +1179,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.AuthenticateAsServerAsync(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Boolean)
   commentId: M:System.Net.Security.SslStream.AuthenticateAsServerAsync(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Boolean)
   id: AuthenticateAsServerAsync(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Boolean)
@@ -1180,10 +1187,11 @@ items:
   - csharp
   name: AuthenticateAsServerAsync(X509Certificate, Boolean, Boolean)
   nameWithType: SslStream.AuthenticateAsServerAsync(X509Certificate, Boolean, Boolean)
-  fullName: System.Net.Security.SslStream.AuthenticateAsServerAsync(X509Certificate, Boolean, Boolean)
+  fullName: SslStream.AuthenticateAsServerAsync(X509Certificate, Boolean, Boolean)
   type: Method
   assemblies:
   - System
+  - System.Net.Security
   namespace: System.Net.Security
   summary: Called by servers to authenticate the server and optionally the client in a client-server connection using the specified certificates, requirements and security protocol as an asynchronous operation.
   remarks: If the authentication fails, you receive a <xref:System.Security.Authentication.AuthenticationException>, and this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector.
@@ -1205,12 +1213,12 @@ items:
   overload: System.Net.Security.SslStream.AuthenticateAsServerAsync*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.7
   monikers:
+  - netcore-2.0
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.BeginAuthenticateAsClient(System.String,System.AsyncCallback,System.Object)
   commentId: M:System.Net.Security.SslStream.BeginAuthenticateAsClient(System.String,System.AsyncCallback,System.Object)
   id: BeginAuthenticateAsClient(System.String,System.AsyncCallback,System.Object)
@@ -1219,14 +1227,15 @@ items:
   - csharp
   name: BeginAuthenticateAsClient(String, AsyncCallback, Object)
   nameWithType: SslStream.BeginAuthenticateAsClient(String, AsyncCallback, Object)
-  fullName: System.Net.Security.SslStream.BeginAuthenticateAsClient(String, AsyncCallback, Object)
+  fullName: SslStream.BeginAuthenticateAsClient(String, AsyncCallback, Object)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Security
   namespace: System.Net.Security
   summary: Called by clients to begin an asynchronous operation to authenticate the server and optionally the client.
-  remarks: "This method authenticates using <xref:System.Security.Authentication.SslProtocols>. No client certificates are used in the authentication. The certificate revocation list is not checked during authentication.  \n  \n The value specified for `targetHost` must match the name on the server's certificate.  \n  \n The asynchronous authentication operation must be completed by calling the <xref:System.Net.Security.SslStream.EndAuthenticateAsClient%2A> method. Typically, the method is invoked by the `asyncCallback` delegate.  \n  \n This method does not block while the operation completes. To block until the operation completes, use one of the <xref:System.Net.Security.SslStream.AuthenticateAsClient%2A> method overloads.  \n  \n For detailed information about using the asynchronous programming model, see [Calling Synchronous Methods Asynchronously](~/docs/standard/asynchronous-programming-patterns/calling-synchronous-methods-asynchronously.md)  \n  \n If you receive a <xref:System.Security.Authentication.AuthenticationException>, this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector."
+  remarks: "This method authenticates using <xref:System.Security.Authentication.SslProtocols.Default>. No client certificates are used in the authentication. The certificate revocation list is not checked during authentication.  \n  \n The value specified for `targetHost` must match the name on the server's certificate.  \n  \n The asynchronous authentication operation must be completed by calling the <xref:System.Net.Security.SslStream.EndAuthenticateAsClient%2A> method. Typically, the method is invoked by the `asyncCallback` delegate.  \n  \n This method does not block while the operation completes. To block until the operation completes, use one of the <xref:System.Net.Security.SslStream.AuthenticateAsClient%2A> method overloads.  \n  \n For detailed information about using the asynchronous programming model, see [Calling Synchronous Methods Asynchronously](~/docs/standard/asynchronous-programming-patterns/calling-synchronous-methods-asynchronously.md)  \n  \n If you receive a <xref:System.Security.Authentication.AuthenticationException>, this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector."
   syntax:
     content: public virtual IAsyncResult BeginAuthenticateAsClient (string targetHost, AsyncCallback asyncCallback, object asyncState);
     parameters:
@@ -1257,6 +1266,7 @@ items:
     commentId: T:System.ObjectDisposedException
     description: This object has been closed.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1269,6 +1279,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1281,8 +1292,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.BeginAuthenticateAsClient(System.String,System.Security.Cryptography.X509Certificates.X509CertificateCollection,System.Boolean,System.AsyncCallback,System.Object)
   commentId: M:System.Net.Security.SslStream.BeginAuthenticateAsClient(System.String,System.Security.Cryptography.X509Certificates.X509CertificateCollection,System.Boolean,System.AsyncCallback,System.Object)
   id: BeginAuthenticateAsClient(System.String,System.Security.Cryptography.X509Certificates.X509CertificateCollection,System.Boolean,System.AsyncCallback,System.Object)
@@ -1291,10 +1300,11 @@ items:
   - csharp
   name: BeginAuthenticateAsClient(String, X509CertificateCollection, Boolean, AsyncCallback, Object)
   nameWithType: SslStream.BeginAuthenticateAsClient(String, X509CertificateCollection, Boolean, AsyncCallback, Object)
-  fullName: System.Net.Security.SslStream.BeginAuthenticateAsClient(String, X509CertificateCollection, Boolean, AsyncCallback, Object)
+  fullName: SslStream.BeginAuthenticateAsClient(String, X509CertificateCollection, Boolean, AsyncCallback, Object)
   type: Method
   assemblies:
   - System
+  - System.Net.Security
   namespace: System.Net.Security
   summary: Called by clients to begin an asynchronous operation to authenticate the server and optionally the client using the specified certificates and the system default security protocol.
   remarks: "The value specified for `targetHost` must match the name on the server's certificate.  \n  \n The asynchronous authentication operation must be completed by calling the <xref:System.Net.Security.SslStream.EndAuthenticateAsClient%2A> method. Typically, the method is invoked by the `asyncCallback` delegate.  \n  \n This method does not block while the operation completes. To block until the operation completes, use one of the <xref:System.Net.Security.SslStream.AuthenticateAsClient%2A> method overloads.  \n  \n For detailed information about using the asynchronous programming model, see [Calling Synchronous Methods Asynchronously](~/docs/standard/asynchronous-programming-patterns/calling-synchronous-methods-asynchronously.md)  \n  \n If you receive a <xref:System.Security.Authentication.AuthenticationException>, this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector.  \n  \n> [!NOTE]\n>  Client certificates are not supported in the SSL version 2 protocol."
@@ -1334,12 +1344,12 @@ items:
     commentId: T:System.ObjectDisposedException
     description: This object has been closed.
   version:
+  - netcore-2.0
   - netframework-4.7
   monikers:
+  - netcore-2.0
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.BeginAuthenticateAsClient(System.String,System.Security.Cryptography.X509Certificates.X509CertificateCollection,System.Security.Authentication.SslProtocols,System.Boolean,System.AsyncCallback,System.Object)
   commentId: M:System.Net.Security.SslStream.BeginAuthenticateAsClient(System.String,System.Security.Cryptography.X509Certificates.X509CertificateCollection,System.Security.Authentication.SslProtocols,System.Boolean,System.AsyncCallback,System.Object)
   id: BeginAuthenticateAsClient(System.String,System.Security.Cryptography.X509Certificates.X509CertificateCollection,System.Security.Authentication.SslProtocols,System.Boolean,System.AsyncCallback,System.Object)
@@ -1348,11 +1358,12 @@ items:
   - csharp
   name: BeginAuthenticateAsClient(String, X509CertificateCollection, SslProtocols, Boolean, AsyncCallback, Object)
   nameWithType: SslStream.BeginAuthenticateAsClient(String, X509CertificateCollection, SslProtocols, Boolean, AsyncCallback, Object)
-  fullName: System.Net.Security.SslStream.BeginAuthenticateAsClient(String, X509CertificateCollection, SslProtocols, Boolean, AsyncCallback, Object)
+  fullName: SslStream.BeginAuthenticateAsClient(String, X509CertificateCollection, SslProtocols, Boolean, AsyncCallback, Object)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Security
   namespace: System.Net.Security
   summary: Called by clients to begin an asynchronous operation to authenticate the server and optionally the client using the specified certificates and security protocol.
   remarks: "The value specified for `targetHost` must match the name on the server's certificate.  \n  \n The asynchronous authentication operation must be completed by calling the <xref:System.Net.Security.SslStream.EndAuthenticateAsClient%2A> method. Typically, the method is invoked by the `asyncCallback` delegate.  \n  \n This method does not block while the operation completes. To block until the operation completes, use one of the <xref:System.Net.Security.SslStream.AuthenticateAsClient%2A> method overloads.  \n  \n For detailed information about using the asynchronous programming model, see [Calling Synchronous Methods Asynchronously](~/docs/standard/asynchronous-programming-patterns/calling-synchronous-methods-asynchronously.md)  \n  \n If you receive a <xref:System.Security.Authentication.AuthenticationException>, this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector.  \n  \n> [!NOTE]\n>  Client certificates are not supported in the SSL version 2 protocol."
@@ -1398,6 +1409,7 @@ items:
     commentId: T:System.ObjectDisposedException
     description: This object has been closed.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1410,6 +1422,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1422,8 +1435,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.BeginAuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate,System.AsyncCallback,System.Object)
   commentId: M:System.Net.Security.SslStream.BeginAuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate,System.AsyncCallback,System.Object)
   id: BeginAuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate,System.AsyncCallback,System.Object)
@@ -1432,14 +1443,15 @@ items:
   - csharp
   name: BeginAuthenticateAsServer(X509Certificate, AsyncCallback, Object)
   nameWithType: SslStream.BeginAuthenticateAsServer(X509Certificate, AsyncCallback, Object)
-  fullName: System.Net.Security.SslStream.BeginAuthenticateAsServer(X509Certificate, AsyncCallback, Object)
+  fullName: SslStream.BeginAuthenticateAsServer(X509Certificate, AsyncCallback, Object)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Security
   namespace: System.Net.Security
   summary: Called by servers to begin an asynchronous operation to authenticate the client and optionally the server in a client-server connection.
-  remarks: "This method authenticates using <xref:System.Security.Authentication.SslProtocols>. The certificate revocation list is not checked during authentication. The client is not required to provide a certificate for authentication.  \n  \n The asynchronous authentication operation must be completed by calling the <xref:System.Net.Security.SslStream.EndAuthenticateAsClient%2A> method. Typically, the method is invoked by the `asyncCallback` delegate.  \n  \n This method does not block while the operation completes. To block until the operation completes, use one of the <xref:System.Net.Security.SslStream.AuthenticateAsClient%2A> method overloads.  \n  \n For detailed information about using the asynchronous programming model, see [Calling Synchronous Methods Asynchronously](~/docs/standard/asynchronous-programming-patterns/calling-synchronous-methods-asynchronously.md)  \n  \n If you receive a <xref:System.Security.Authentication.AuthenticationException>, this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector."
+  remarks: "This method authenticates using <xref:System.Security.Authentication.SslProtocols.Default>. The certificate revocation list is not checked during authentication. The client is not required to provide a certificate for authentication.  \n  \n The asynchronous authentication operation must be completed by calling the <xref:System.Net.Security.SslStream.EndAuthenticateAsClient%2A> method. Typically, the method is invoked by the `asyncCallback` delegate.  \n  \n This method does not block while the operation completes. To block until the operation completes, use one of the <xref:System.Net.Security.SslStream.AuthenticateAsClient%2A> method overloads.  \n  \n For detailed information about using the asynchronous programming model, see [Calling Synchronous Methods Asynchronously](~/docs/standard/asynchronous-programming-patterns/calling-synchronous-methods-asynchronously.md)  \n  \n If you receive a <xref:System.Security.Authentication.AuthenticationException>, this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector."
   syntax:
     content: public virtual IAsyncResult BeginAuthenticateAsServer (System.Security.Cryptography.X509Certificates.X509Certificate serverCertificate, AsyncCallback asyncCallback, object asyncState);
     parameters:
@@ -1471,8 +1483,9 @@ items:
     description: This object has been closed.
   - type: System.PlatformNotSupportedException
     commentId: T:System.PlatformNotSupportedException
-    description: The <xref href="erload:System.Net.Security.SslStream.BeginAuthenticateAsServer"></xref> method is not supported on Windows 95, Windows 98, or Windows Millennium.
+    description: The <xref href="System.Net.Security.SslStream.BeginAuthenticateAsServer*"></xref> method is not supported on Windows 95, Windows 98, or Windows Millennium.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1485,6 +1498,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1497,8 +1511,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.BeginAuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Boolean,System.AsyncCallback,System.Object)
   commentId: M:System.Net.Security.SslStream.BeginAuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Boolean,System.AsyncCallback,System.Object)
   id: BeginAuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Boolean,System.AsyncCallback,System.Object)
@@ -1507,10 +1519,11 @@ items:
   - csharp
   name: BeginAuthenticateAsServer(X509Certificate, Boolean, Boolean, AsyncCallback, Object)
   nameWithType: SslStream.BeginAuthenticateAsServer(X509Certificate, Boolean, Boolean, AsyncCallback, Object)
-  fullName: System.Net.Security.SslStream.BeginAuthenticateAsServer(X509Certificate, Boolean, Boolean, AsyncCallback, Object)
+  fullName: SslStream.BeginAuthenticateAsServer(X509Certificate, Boolean, Boolean, AsyncCallback, Object)
   type: Method
   assemblies:
   - System
+  - System.Net.Security
   namespace: System.Net.Security
   summary: Called by servers to begin an asynchronous operation to authenticate the server and optionally the client using the specified certificates and requirements, and the system default security protocol.
   remarks: "The asynchronous authentication operation must be completed by calling the <xref:System.Net.Security.SslStream.EndAuthenticateAsServer%2A> method. Typically, the method is invoked by the `asyncCallback` delegate.  \n  \n This method does not block while the operation completes. To block until the operation completes, use one of the <xref:System.Net.Security.SslStream.AuthenticateAsServer%2A> method overloads.  \n  \n For detailed information about using the asynchronous programming model, see [Calling Synchronous Methods Asynchronously](~/docs/standard/asynchronous-programming-patterns/calling-synchronous-methods-asynchronously.md)  \n  \n If you receive a <xref:System.Security.Authentication.AuthenticationException>, this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector."
@@ -1551,14 +1564,14 @@ items:
     description: This object has been closed.
   - type: System.PlatformNotSupportedException
     commentId: T:System.PlatformNotSupportedException
-    description: The <xref href="erload:System.Net.Security.SslStream.BeginAuthenticateAsServer"></xref> method is not supported on Windows 95, Windows 98, or Windows Millennium.
+    description: The <xref href="System.Net.Security.SslStream.BeginAuthenticateAsServer*"></xref> method is not supported on Windows 95, Windows 98, or Windows Millennium.
   version:
+  - netcore-2.0
   - netframework-4.7
   monikers:
+  - netcore-2.0
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.BeginAuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Security.Authentication.SslProtocols,System.Boolean,System.AsyncCallback,System.Object)
   commentId: M:System.Net.Security.SslStream.BeginAuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Security.Authentication.SslProtocols,System.Boolean,System.AsyncCallback,System.Object)
   id: BeginAuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Security.Authentication.SslProtocols,System.Boolean,System.AsyncCallback,System.Object)
@@ -1567,11 +1580,12 @@ items:
   - csharp
   name: BeginAuthenticateAsServer(X509Certificate, Boolean, SslProtocols, Boolean, AsyncCallback, Object)
   nameWithType: SslStream.BeginAuthenticateAsServer(X509Certificate, Boolean, SslProtocols, Boolean, AsyncCallback, Object)
-  fullName: System.Net.Security.SslStream.BeginAuthenticateAsServer(X509Certificate, Boolean, SslProtocols, Boolean, AsyncCallback, Object)
+  fullName: SslStream.BeginAuthenticateAsServer(X509Certificate, Boolean, SslProtocols, Boolean, AsyncCallback, Object)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Security
   namespace: System.Net.Security
   summary: Called by servers to begin an asynchronous operation to authenticate the server and optionally the client using the specified certificates, requirements and security protocol.
   remarks: "The asynchronous authentication operation must be completed by calling the <xref:System.Net.Security.SslStream.EndAuthenticateAsServer%2A> method. Typically, the method is invoked by the `asyncCallback` delegate.  \n  \n This method does not block while the operation completes. To block until the operation completes, use one of the <xref:System.Net.Security.SslStream.AuthenticateAsServer%2A> method overloads.  \n  \n For detailed information about using the asynchronous programming model, see [Calling Synchronous Methods Asynchronously](~/docs/standard/asynchronous-programming-patterns/calling-synchronous-methods-asynchronously.md)  \n  \n If you receive a <xref:System.Security.Authentication.AuthenticationException>, this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector."
@@ -1618,8 +1632,9 @@ items:
     description: This object has been closed.
   - type: System.PlatformNotSupportedException
     commentId: T:System.PlatformNotSupportedException
-    description: The <xref href="erload:System.Net.Security.SslStream.BeginAuthenticateAsServer"></xref> method is not supported on Windows 95, Windows 98, or Windows Millennium.
+    description: The <xref href="System.Net.Security.SslStream.BeginAuthenticateAsServer*"></xref> method is not supported on Windows 95, Windows 98, or Windows Millennium.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1632,6 +1647,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1644,8 +1660,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.BeginRead(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)
   commentId: M:System.Net.Security.SslStream.BeginRead(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)
   id: BeginRead(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)
@@ -1654,11 +1668,12 @@ items:
   - csharp
   name: BeginRead(Byte[], Int32, Int32, AsyncCallback, Object)
   nameWithType: SslStream.BeginRead(Byte[], Int32, Int32, AsyncCallback, Object)
-  fullName: System.Net.Security.SslStream.BeginRead(Byte[], Int32, Int32, AsyncCallback, Object)
+  fullName: SslStream.BeginRead(Byte[], Int32, Int32, AsyncCallback, Object)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Security
   namespace: System.Net.Security
   summary: Begins an asynchronous read operation that reads data from the stream and stores it in the specified array.
   remarks: "If encryption and or signing are enabled, the read operation reads the data from the underlying stream, checks the integrity of the data, and/or decrypts it. The asynchronous read operation must be completed by calling the <xref:System.Net.Security.SslStream.EndRead%2A> method. Typically, the method is invoked by the `asyncCallback` delegate.  \n  \n This method does not block while the operation completes. To block until the operation completes, use the <xref:System.Net.Security.SslStream.Read%2A> method.  \n  \n For detailed information about using the asynchronous programming model, see [Calling Synchronous Methods Asynchronously](~/docs/standard/asynchronous-programming-patterns/calling-synchronous-methods-asynchronously.md)  \n  \n The <xref:System.Net.Security.SslStream> class does not support multiple simultaneous read operations.  \n  \n You cannot call this method until you have successfully authenticated. To authenticate call one of the <xref:System.Net.Security.SslStream.AuthenticateAsClient%2A>, or <xref:System.Net.Security.SslStream.BeginAuthenticateAsClient%2A>, <xref:System.Net.Security.SslStream.AuthenticateAsServer%2A>, <xref:System.Net.Security.SslStream.BeginAuthenticateAsServer%2A> methods."
@@ -1706,6 +1721,7 @@ items:
     commentId: T:System.InvalidOperationException
     description: Authentication has not occurred.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1718,6 +1734,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1730,8 +1747,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.BeginWrite(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)
   commentId: M:System.Net.Security.SslStream.BeginWrite(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)
   id: BeginWrite(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)
@@ -1740,11 +1755,12 @@ items:
   - csharp
   name: BeginWrite(Byte[], Int32, Int32, AsyncCallback, Object)
   nameWithType: SslStream.BeginWrite(Byte[], Int32, Int32, AsyncCallback, Object)
-  fullName: System.Net.Security.SslStream.BeginWrite(Byte[], Int32, Int32, AsyncCallback, Object)
+  fullName: SslStream.BeginWrite(Byte[], Int32, Int32, AsyncCallback, Object)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Security
   namespace: System.Net.Security
   summary: Begins an asynchronous write operation that writes <xref href="System.Byte"></xref>s from the specified buffer to the stream.
   remarks: ''
@@ -1792,6 +1808,7 @@ items:
     commentId: T:System.InvalidOperationException
     description: Authentication has not occurred.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1804,6 +1821,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1816,8 +1834,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.CanRead
   commentId: P:System.Net.Security.SslStream.CanRead
   id: CanRead
@@ -1826,7 +1842,7 @@ items:
   - csharp
   name: CanRead
   nameWithType: SslStream.CanRead
-  fullName: System.Net.Security.SslStream.CanRead
+  fullName: SslStream.CanRead
   type: Property
   assemblies:
   - System.Net.Security
@@ -1846,7 +1862,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1860,7 +1877,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1873,8 +1891,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.CanSeek
   commentId: P:System.Net.Security.SslStream.CanSeek
   id: CanSeek
@@ -1883,7 +1899,7 @@ items:
   - csharp
   name: CanSeek
   nameWithType: SslStream.CanSeek
-  fullName: System.Net.Security.SslStream.CanSeek
+  fullName: SslStream.CanSeek
   type: Property
   assemblies:
   - System.Net.Security
@@ -1901,7 +1917,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1915,7 +1932,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1928,8 +1946,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.CanTimeout
   commentId: P:System.Net.Security.SslStream.CanTimeout
   id: CanTimeout
@@ -1938,7 +1954,7 @@ items:
   - csharp
   name: CanTimeout
   nameWithType: SslStream.CanTimeout
-  fullName: System.Net.Security.SslStream.CanTimeout
+  fullName: SslStream.CanTimeout
   type: Property
   assemblies:
   - System.Net.Security
@@ -1958,7 +1974,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1972,7 +1989,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1985,8 +2003,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.CanWrite
   commentId: P:System.Net.Security.SslStream.CanWrite
   id: CanWrite
@@ -1995,7 +2011,7 @@ items:
   - csharp
   name: CanWrite
   nameWithType: SslStream.CanWrite
-  fullName: System.Net.Security.SslStream.CanWrite
+  fullName: SslStream.CanWrite
   type: Property
   assemblies:
   - System.Net.Security
@@ -2015,7 +2031,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2029,7 +2046,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2042,8 +2060,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.CheckCertRevocationStatus
   commentId: P:System.Net.Security.SslStream.CheckCertRevocationStatus
   id: CheckCertRevocationStatus
@@ -2052,7 +2068,7 @@ items:
   - csharp
   name: CheckCertRevocationStatus
   nameWithType: SslStream.CheckCertRevocationStatus
-  fullName: System.Net.Security.SslStream.CheckCertRevocationStatus
+  fullName: SslStream.CheckCertRevocationStatus
   type: Property
   assemblies:
   - System.Net.Security
@@ -2072,7 +2088,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2086,7 +2103,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2099,8 +2117,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.CipherAlgorithm
   commentId: P:System.Net.Security.SslStream.CipherAlgorithm
   id: CipherAlgorithm
@@ -2109,7 +2125,7 @@ items:
   - csharp
   name: CipherAlgorithm
   nameWithType: SslStream.CipherAlgorithm
-  fullName: System.Net.Security.SslStream.CipherAlgorithm
+  fullName: SslStream.CipherAlgorithm
   type: Property
   assemblies:
   - System.Net.Security
@@ -2117,7 +2133,7 @@ items:
   - netstandard
   namespace: System.Net.Security
   summary: Gets a value that identifies the bulk encryption algorithm used by this <xref href="System.Net.Security.SslStream"></xref>.
-  remarks: "A value of <xref:System.Security.Authentication.CipherAlgorithmType> is required for the <xref:System.Net.Security.SslStream.CipherAlgorithm%2A> property when the <xref:System.Net.Security.EncryptionPolicy> enumeration value is used to construct a <xref:System.Net.Security.SslStream> instance.  \n  \n [!INCLUDE[winxpsvr](~/includes/winxpsvr-md.md)] and [!INCLUDE[winxp](~/includes/winxp-md.md)] do not support the <xref:System.Security.Authentication.CipherAlgorithmType> value. So even if the <xref:System.Security.Authentication.CipherAlgorithmType> value is used to construct the <xref:System.Net.Security.SslStream> instance, the <xref:System.Net.Security.EncryptionPolicy> property will be <xref:System.Security.Authentication.CipherAlgorithmType>. The <xref:System.Security.Authentication.CipherAlgorithmType> value is only returned on Windows Vista and later."
+  remarks: "A value of <xref:System.Security.Authentication.CipherAlgorithmType.Null> is required for the <xref:System.Net.Security.SslStream.CipherAlgorithm%2A> property when the <xref:System.Net.Security.EncryptionPolicy.NoEncryption> enumeration value is used to construct a <xref:System.Net.Security.SslStream> instance.  \n  \n [!INCLUDE[winxpsvr](~/includes/winxpsvr-md.md)] and [!INCLUDE[winxp](~/includes/winxp-md.md)] do not support the <xref:System.Security.Authentication.CipherAlgorithmType.Null> value. So even if the <xref:System.Security.Authentication.CipherAlgorithmType.Null> value is used to construct the <xref:System.Net.Security.SslStream> instance, the <xref:System.Net.Security.EncryptionPolicy> property will be <xref:System.Security.Authentication.CipherAlgorithmType.None>. The <xref:System.Security.Authentication.CipherAlgorithmType.Null> value is only returned on Windows Vista and later."
   example:
   - "The following code example displays the cryptography settings for the specified stream.  \n  \n [!code-cpp[NclSslServerSync#3](~/samples/snippets/cpp/VS_Snippets_Remoting/NclSslServerSync/CPP/NclSslServerSync.cpp#3)]\n [!code-csharp[NclSslServerSync#3](~/samples/snippets/csharp/VS_Snippets_Remoting/NclSslServerSync/CS/serversync.cs#3)]"
   syntax:
@@ -2132,7 +2148,8 @@ items:
     description: The <xref href="System.Net.Security.SslStream.CipherAlgorithm"></xref> property was accessed before the completion of the authentication process or the authentication process failed.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2146,7 +2163,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2159,8 +2177,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.CipherStrength
   commentId: P:System.Net.Security.SslStream.CipherStrength
   id: CipherStrength
@@ -2169,7 +2185,7 @@ items:
   - csharp
   name: CipherStrength
   nameWithType: SslStream.CipherStrength
-  fullName: System.Net.Security.SslStream.CipherStrength
+  fullName: SslStream.CipherStrength
   type: Property
   assemblies:
   - System.Net.Security
@@ -2189,7 +2205,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2203,7 +2220,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2216,8 +2234,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.Dispose(System.Boolean)
   commentId: M:System.Net.Security.SslStream.Dispose(System.Boolean)
   id: Dispose(System.Boolean)
@@ -2226,14 +2242,15 @@ items:
   - csharp
   name: Dispose(Boolean)
   nameWithType: SslStream.Dispose(Boolean)
-  fullName: System.Net.Security.SslStream.Dispose(Boolean)
+  fullName: SslStream.Dispose(Boolean)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Security
   namespace: System.Net.Security
   summary: Releases the unmanaged resources used by the <xref href="System.Net.Security.SslStream"></xref> and optionally releases the managed resources.
-  remarks: "This method is called by the public `Dispose()`method and the <xref:System.Object.Finalize%2A> method. `Dispose()` invokes the protected `Dispose(Boolean)` method with the `disposing` parameter set to `true`. <xref:System.Object.Finalize%2A> invokes `Dispose` with `disposing` set to `false`.  \n  \n When the `disposing` parameter is true, this method releases all resources held by any managed objects that this <xref:System.Net.Security.SslStream> references. This method invokes the `Dispose()` method of each referenced object."
+  remarks: "This method is called by the public `Dispose()` method and the <xref:System.Object.Finalize%2A> method. `Dispose()` invokes the protected `Dispose(Boolean)` method with the `disposing` parameter set to `true`. <xref:System.Object.Finalize%2A> invokes `Dispose` with `disposing` set to `false`.  \n  \n When the `disposing` parameter is true, this method releases all resources held by any managed objects that this <xref:System.Net.Security.SslStream> references. This method invokes the `Dispose()` method of each referenced object."
   syntax:
     content: protected override void Dispose (bool disposing);
     parameters:
@@ -2243,6 +2260,7 @@ items:
   overload: System.Net.Security.SslStream.Dispose*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2255,6 +2273,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2267,8 +2286,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.EndAuthenticateAsClient(System.IAsyncResult)
   commentId: M:System.Net.Security.SslStream.EndAuthenticateAsClient(System.IAsyncResult)
   id: EndAuthenticateAsClient(System.IAsyncResult)
@@ -2277,20 +2294,21 @@ items:
   - csharp
   name: EndAuthenticateAsClient(IAsyncResult)
   nameWithType: SslStream.EndAuthenticateAsClient(IAsyncResult)
-  fullName: System.Net.Security.SslStream.EndAuthenticateAsClient(IAsyncResult)
+  fullName: SslStream.EndAuthenticateAsClient(IAsyncResult)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Security
   namespace: System.Net.Security
-  summary: Ends a pending asynchronous server authentication operation started with a previous call to <xref href="erload:System.Net.Security.SslStream.BeginAuthenticateAsServer"></xref>.
+  summary: Ends a pending asynchronous server authentication operation started with a previous call to <xref href="System.Net.Security.SslStream.BeginAuthenticateAsServer*"></xref>.
   remarks: "If the operation has not completed, this method blocks until it does. When the authentication succeeds, you must check the <xref:System.Net.Security.SslStream.IsEncrypted%2A> and <xref:System.Net.Security.SslStream.IsSigned%2A> properties to determine what security services are used by the <xref:System.Net.Security.SslStream>. Check the <xref:System.Net.Security.SslStream.IsMutuallyAuthenticated%2A> property to determine whether mutual authentication occurred.  \n  \n If the authentication fails, you receive a <xref:System.Security.Authentication.AuthenticationException>, and this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector.  \n  \n To perform this operation synchronously, use one of the <xref:System.Net.Security.SslStream.AuthenticateAsServer%2A> methods."
   syntax:
     content: public virtual void EndAuthenticateAsClient (IAsyncResult asyncResult);
     parameters:
     - id: asyncResult
       type: System.IAsyncResult
-      description: An <xref href="System.IAsyncResult"></xref> instance returned by a call to <xref href="erload:System.Net.Security.SslStream.BeginAuthenticateAsServer"></xref>.
+      description: An <xref href="System.IAsyncResult"></xref> instance returned by a call to <xref href="System.Net.Security.SslStream.BeginAuthenticateAsServer*"></xref>.
   overload: System.Net.Security.SslStream.EndAuthenticateAsClient*
   exceptions:
   - type: System.ArgumentNullException
@@ -2298,7 +2316,7 @@ items:
     description: <code>asyncResult</code> is `null`.
   - type: System.ArgumentException
     commentId: T:System.ArgumentException
-    description: <code>asyncResult</code> was not created by a call to <xref href="erload:System.Net.Security.SslStream.BeginAuthenticateAsServer"></xref>.
+    description: <code>asyncResult</code> was not created by a call to <xref href="System.Net.Security.SslStream.BeginAuthenticateAsServer*"></xref>.
   - type: System.Security.Authentication.AuthenticationException
     commentId: T:System.Security.Authentication.AuthenticationException
     description: The authentication failed and left this object in an unusable state.
@@ -2306,6 +2324,7 @@ items:
     commentId: T:System.InvalidOperationException
     description: There is no pending server authentication to complete.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2318,6 +2337,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2330,8 +2350,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.EndAuthenticateAsServer(System.IAsyncResult)
   commentId: M:System.Net.Security.SslStream.EndAuthenticateAsServer(System.IAsyncResult)
   id: EndAuthenticateAsServer(System.IAsyncResult)
@@ -2340,20 +2358,21 @@ items:
   - csharp
   name: EndAuthenticateAsServer(IAsyncResult)
   nameWithType: SslStream.EndAuthenticateAsServer(IAsyncResult)
-  fullName: System.Net.Security.SslStream.EndAuthenticateAsServer(IAsyncResult)
+  fullName: SslStream.EndAuthenticateAsServer(IAsyncResult)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Security
   namespace: System.Net.Security
-  summary: Ends a pending asynchronous client authentication operation started with a previous call to <xref href="erload:System.Net.Security.SslStream.BeginAuthenticateAsClient"></xref>.
+  summary: Ends a pending asynchronous client authentication operation started with a previous call to <xref href="System.Net.Security.SslStream.BeginAuthenticateAsClient*"></xref>.
   remarks: "If the operation has not completed, this method blocks until it does. When the authentication succeeds, you must check the <xref:System.Net.Security.SslStream.IsEncrypted%2A> and <xref:System.Net.Security.SslStream.IsSigned%2A> properties to determine what security services are used by the <xref:System.Net.Security.SslStream>. Check the <xref:System.Net.Security.SslStream.IsMutuallyAuthenticated%2A> property to determine whether mutual authentication occurred.  \n  \n If the authentication fails, you receive a <xref:System.Security.Authentication.AuthenticationException>, and this <xref:System.Net.Security.SslStream> is no longer useable. You should close this object and remove all references to it so that it can be collected by the garbage collector.  \n  \n To perform this operation synchronously, use one of the <xref:System.Net.Security.SslStream.AuthenticateAsClient%2A> method."
   syntax:
     content: public virtual void EndAuthenticateAsServer (IAsyncResult asyncResult);
     parameters:
     - id: asyncResult
       type: System.IAsyncResult
-      description: An <xref href="System.IAsyncResult"></xref> instance returned by a call to <xref href="erload:System.Net.Security.SslStream.BeginAuthenticateAsClient"></xref>.
+      description: An <xref href="System.IAsyncResult"></xref> instance returned by a call to <xref href="System.Net.Security.SslStream.BeginAuthenticateAsClient*"></xref>.
   overload: System.Net.Security.SslStream.EndAuthenticateAsServer*
   exceptions:
   - type: System.ArgumentNullException
@@ -2361,7 +2380,7 @@ items:
     description: <code>asyncResult</code> is `null`.
   - type: System.ArgumentException
     commentId: T:System.ArgumentException
-    description: <code>asyncResult</code> was not created by a call to <xref href="erload:System.Net.Security.SslStream.BeginAuthenticateAsClient"></xref>.
+    description: <code>asyncResult</code> was not created by a call to <xref href="System.Net.Security.SslStream.BeginAuthenticateAsClient*"></xref>.
   - type: System.Security.Authentication.AuthenticationException
     commentId: T:System.Security.Authentication.AuthenticationException
     description: The authentication failed and left this object in an unusable state.
@@ -2369,6 +2388,7 @@ items:
     commentId: T:System.InvalidOperationException
     description: There is no pending client authentication to complete.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2381,6 +2401,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2393,8 +2414,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.EndRead(System.IAsyncResult)
   commentId: M:System.Net.Security.SslStream.EndRead(System.IAsyncResult)
   id: EndRead(System.IAsyncResult)
@@ -2403,11 +2422,12 @@ items:
   - csharp
   name: EndRead(IAsyncResult)
   nameWithType: SslStream.EndRead(IAsyncResult)
-  fullName: System.Net.Security.SslStream.EndRead(IAsyncResult)
+  fullName: SslStream.EndRead(IAsyncResult)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Security
   namespace: System.Net.Security
   summary: Ends an asynchronous read operation started with a previous call to <xref href="System.Net.Security.SslStream.BeginRead(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)"></xref>.
   remarks: "If the operation has not completed, this method blocks until it does.  \n  \n To perform this operation synchronously, use the <xref:System.Net.Security.SslStream.Read%2A> method.  \n  \n You cannot call this method until you have successfully authenticated. To authenticate call one of the <xref:System.Net.Security.SslStream.AuthenticateAsClient%2A>, or <xref:System.Net.Security.SslStream.BeginAuthenticateAsClient%2A>, <xref:System.Net.Security.SslStream.AuthenticateAsServer%2A>, <xref:System.Net.Security.SslStream.BeginAuthenticateAsServer%2A> methods."
@@ -2437,6 +2457,7 @@ items:
     commentId: T:System.IO.IOException
     description: The read operation failed.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2449,6 +2470,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2461,8 +2483,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.EndWrite(System.IAsyncResult)
   commentId: M:System.Net.Security.SslStream.EndWrite(System.IAsyncResult)
   id: EndWrite(System.IAsyncResult)
@@ -2471,11 +2491,12 @@ items:
   - csharp
   name: EndWrite(IAsyncResult)
   nameWithType: SslStream.EndWrite(IAsyncResult)
-  fullName: System.Net.Security.SslStream.EndWrite(IAsyncResult)
+  fullName: SslStream.EndWrite(IAsyncResult)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Security
   namespace: System.Net.Security
   summary: Ends an asynchronous write operation started with a previous call to <xref href="System.Net.Security.SslStream.BeginWrite(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)"></xref>.
   remarks: "If the operation has not completed, this method blocks until it does.  \n  \n An application cannot call this method until you have successfully authenticated. To authenticate, call one of the <xref:System.Net.Security.SslStream.AuthenticateAsClient%2A>, or <xref:System.Net.Security.SslStream.BeginAuthenticateAsClient%2A>, <xref:System.Net.Security.SslStream.AuthenticateAsServer%2A>, <xref:System.Net.Security.SslStream.BeginAuthenticateAsServer%2A> methods.  \n  \n To perform this operation synchronously, use the <xref:System.Net.Security.SslStream.Write%2A> method."
@@ -2502,6 +2523,7 @@ items:
     commentId: T:System.IO.IOException
     description: The write operation failed.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2514,6 +2536,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2526,8 +2549,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.Flush
   commentId: M:System.Net.Security.SslStream.Flush
   id: Flush
@@ -2536,7 +2557,7 @@ items:
   - csharp
   name: Flush()
   nameWithType: SslStream.Flush()
-  fullName: System.Net.Security.SslStream.Flush()
+  fullName: SslStream.Flush()
   type: Method
   assemblies:
   - System.Net.Security
@@ -2554,7 +2575,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2568,7 +2590,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2581,8 +2604,35 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
+- uid: System.Net.Security.SslStream.FlushAsync(System.Threading.CancellationToken)
+  commentId: M:System.Net.Security.SslStream.FlushAsync(System.Threading.CancellationToken)
+  id: FlushAsync(System.Threading.CancellationToken)
+  parent: System.Net.Security.SslStream
+  langs:
+  - csharp
+  name: FlushAsync(CancellationToken)
+  nameWithType: SslStream.FlushAsync(CancellationToken)
+  fullName: SslStream.FlushAsync(CancellationToken)
+  type: Method
+  assemblies:
+  - System.Net.Security
+  namespace: System.Net.Security
+  syntax:
+    content: public override System.Threading.Tasks.Task FlushAsync (System.Threading.CancellationToken cancellationToken);
+    parameters:
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: To be added.
+    return:
+      type: System.Threading.Tasks.Task
+      description: To be added.
+  overload: System.Net.Security.SslStream.FlushAsync*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
 - uid: System.Net.Security.SslStream.HashAlgorithm
   commentId: P:System.Net.Security.SslStream.HashAlgorithm
   id: HashAlgorithm
@@ -2591,7 +2641,7 @@ items:
   - csharp
   name: HashAlgorithm
   nameWithType: SslStream.HashAlgorithm
-  fullName: System.Net.Security.SslStream.HashAlgorithm
+  fullName: SslStream.HashAlgorithm
   type: Property
   assemblies:
   - System.Net.Security
@@ -2614,7 +2664,8 @@ items:
     description: The <xref href="System.Net.Security.SslStream.HashAlgorithm"></xref> property was accessed before the completion of the authentication process or the authentication process failed.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2628,7 +2679,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2641,8 +2693,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.HashStrength
   commentId: P:System.Net.Security.SslStream.HashStrength
   id: HashStrength
@@ -2651,7 +2701,7 @@ items:
   - csharp
   name: HashStrength
   nameWithType: SslStream.HashStrength
-  fullName: System.Net.Security.SslStream.HashStrength
+  fullName: SslStream.HashStrength
   type: Property
   assemblies:
   - System.Net.Security
@@ -2671,7 +2721,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2685,7 +2736,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2698,8 +2750,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.IsAuthenticated
   commentId: P:System.Net.Security.SslStream.IsAuthenticated
   id: IsAuthenticated
@@ -2708,7 +2758,7 @@ items:
   - csharp
   name: IsAuthenticated
   nameWithType: SslStream.IsAuthenticated
-  fullName: System.Net.Security.SslStream.IsAuthenticated
+  fullName: SslStream.IsAuthenticated
   type: Property
   assemblies:
   - System.Net.Security
@@ -2728,7 +2778,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2742,7 +2793,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2755,8 +2807,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.IsEncrypted
   commentId: P:System.Net.Security.SslStream.IsEncrypted
   id: IsEncrypted
@@ -2765,7 +2815,7 @@ items:
   - csharp
   name: IsEncrypted
   nameWithType: SslStream.IsEncrypted
-  fullName: System.Net.Security.SslStream.IsEncrypted
+  fullName: SslStream.IsEncrypted
   type: Property
   assemblies:
   - System.Net.Security
@@ -2785,7 +2835,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2799,7 +2850,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2812,8 +2864,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.IsMutuallyAuthenticated
   commentId: P:System.Net.Security.SslStream.IsMutuallyAuthenticated
   id: IsMutuallyAuthenticated
@@ -2822,7 +2872,7 @@ items:
   - csharp
   name: IsMutuallyAuthenticated
   nameWithType: SslStream.IsMutuallyAuthenticated
-  fullName: System.Net.Security.SslStream.IsMutuallyAuthenticated
+  fullName: SslStream.IsMutuallyAuthenticated
   type: Property
   assemblies:
   - System.Net.Security
@@ -2842,7 +2892,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2856,7 +2907,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2869,8 +2921,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.IsServer
   commentId: P:System.Net.Security.SslStream.IsServer
   id: IsServer
@@ -2879,7 +2929,7 @@ items:
   - csharp
   name: IsServer
   nameWithType: SslStream.IsServer
-  fullName: System.Net.Security.SslStream.IsServer
+  fullName: SslStream.IsServer
   type: Property
   assemblies:
   - System.Net.Security
@@ -2899,7 +2949,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2913,7 +2964,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2926,8 +2978,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.IsSigned
   commentId: P:System.Net.Security.SslStream.IsSigned
   id: IsSigned
@@ -2936,7 +2986,7 @@ items:
   - csharp
   name: IsSigned
   nameWithType: SslStream.IsSigned
-  fullName: System.Net.Security.SslStream.IsSigned
+  fullName: SslStream.IsSigned
   type: Property
   assemblies:
   - System.Net.Security
@@ -2956,7 +3006,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2970,7 +3021,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2983,8 +3035,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.KeyExchangeAlgorithm
   commentId: P:System.Net.Security.SslStream.KeyExchangeAlgorithm
   id: KeyExchangeAlgorithm
@@ -2993,7 +3043,7 @@ items:
   - csharp
   name: KeyExchangeAlgorithm
   nameWithType: SslStream.KeyExchangeAlgorithm
-  fullName: System.Net.Security.SslStream.KeyExchangeAlgorithm
+  fullName: SslStream.KeyExchangeAlgorithm
   type: Property
   assemblies:
   - System.Net.Security
@@ -3001,7 +3051,7 @@ items:
   - netstandard
   namespace: System.Net.Security
   summary: Gets the key exchange algorithm used by this <xref href="System.Net.Security.SslStream"></xref>.
-  remarks: "The value of this property is <xref:System.Security.Authentication.ExchangeAlgorithmType> until the authentication occurs.  \n  \n The key exchange algorithm protects information used to generate shared keys."
+  remarks: "The value of this property is <xref:System.Security.Authentication.ExchangeAlgorithmType.None> until the authentication occurs.  \n  \n The key exchange algorithm protects information used to generate shared keys."
   example:
   - "The following code example displays the cryptography settings for the specified stream.  \n  \n [!code-cpp[NclSslServerSync#3](~/samples/snippets/cpp/VS_Snippets_Remoting/NclSslServerSync/CPP/NclSslServerSync.cpp#3)]\n [!code-csharp[NclSslServerSync#3](~/samples/snippets/csharp/VS_Snippets_Remoting/NclSslServerSync/CS/serversync.cs#3)]"
   syntax:
@@ -3013,7 +3063,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3027,7 +3078,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3040,8 +3092,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.KeyExchangeStrength
   commentId: P:System.Net.Security.SslStream.KeyExchangeStrength
   id: KeyExchangeStrength
@@ -3050,7 +3100,7 @@ items:
   - csharp
   name: KeyExchangeStrength
   nameWithType: SslStream.KeyExchangeStrength
-  fullName: System.Net.Security.SslStream.KeyExchangeStrength
+  fullName: SslStream.KeyExchangeStrength
   type: Property
   assemblies:
   - System.Net.Security
@@ -3070,7 +3120,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3084,7 +3135,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3097,8 +3149,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.Length
   commentId: P:System.Net.Security.SslStream.Length
   id: Length
@@ -3107,7 +3157,7 @@ items:
   - csharp
   name: Length
   nameWithType: SslStream.Length
-  fullName: System.Net.Security.SslStream.Length
+  fullName: SslStream.Length
   type: Property
   assemblies:
   - System.Net.Security
@@ -3128,7 +3178,8 @@ items:
     description: Getting the value of this property is not supported when the underlying stream is a <xref href="System.Net.Sockets.NetworkStream"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3142,7 +3193,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3155,8 +3207,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.LocalCertificate
   commentId: P:System.Net.Security.SslStream.LocalCertificate
   id: LocalCertificate
@@ -3165,7 +3215,7 @@ items:
   - csharp
   name: LocalCertificate
   nameWithType: SslStream.LocalCertificate
-  fullName: System.Net.Security.SslStream.LocalCertificate
+  fullName: SslStream.LocalCertificate
   type: Property
   assemblies:
   - System.Net.Security
@@ -3188,7 +3238,8 @@ items:
     description: Authentication failed or has not occurred.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3202,7 +3253,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3215,8 +3267,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.Position
   commentId: P:System.Net.Security.SslStream.Position
   id: Position
@@ -3225,7 +3275,7 @@ items:
   - csharp
   name: Position
   nameWithType: SslStream.Position
-  fullName: System.Net.Security.SslStream.Position
+  fullName: SslStream.Position
   type: Property
   assemblies:
   - System.Net.Security
@@ -3246,7 +3296,8 @@ items:
     description: "Setting this property is not supported.  \n  \n -or-  \n  \n Getting the value of this property is not supported when the underlying stream is a <xref href=\"System.Net.Sockets.NetworkStream\"></xref>."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3260,7 +3311,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3273,8 +3325,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.Read(System.Byte[],System.Int32,System.Int32)
   commentId: M:System.Net.Security.SslStream.Read(System.Byte[],System.Int32,System.Int32)
   id: Read(System.Byte[],System.Int32,System.Int32)
@@ -3283,7 +3333,7 @@ items:
   - csharp
   name: Read(Byte[], Int32, Int32)
   nameWithType: SslStream.Read(Byte[], Int32, Int32)
-  fullName: System.Net.Security.SslStream.Read(Byte[], Int32, Int32)
+  fullName: SslStream.Read(Byte[], Int32, Int32)
   type: Method
   assemblies:
   - System.Net.Security
@@ -3331,7 +3381,8 @@ items:
     description: Authentication has not occurred.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3345,7 +3396,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3358,8 +3410,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.ReadTimeout
   commentId: P:System.Net.Security.SslStream.ReadTimeout
   id: ReadTimeout
@@ -3368,7 +3418,7 @@ items:
   - csharp
   name: ReadTimeout
   nameWithType: SslStream.ReadTimeout
-  fullName: System.Net.Security.SslStream.ReadTimeout
+  fullName: SslStream.ReadTimeout
   type: Property
   assemblies:
   - System.Net.Security
@@ -3388,7 +3438,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3402,7 +3453,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3415,8 +3467,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.RemoteCertificate
   commentId: P:System.Net.Security.SslStream.RemoteCertificate
   id: RemoteCertificate
@@ -3425,7 +3475,7 @@ items:
   - csharp
   name: RemoteCertificate
   nameWithType: SslStream.RemoteCertificate
-  fullName: System.Net.Security.SslStream.RemoteCertificate
+  fullName: SslStream.RemoteCertificate
   type: Property
   assemblies:
   - System.Net.Security
@@ -3448,7 +3498,8 @@ items:
     description: Authentication failed or has not occurred.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3462,7 +3513,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3475,8 +3527,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.Seek(System.Int64,System.IO.SeekOrigin)
   commentId: M:System.Net.Security.SslStream.Seek(System.Int64,System.IO.SeekOrigin)
   id: Seek(System.Int64,System.IO.SeekOrigin)
@@ -3485,7 +3535,7 @@ items:
   - csharp
   name: Seek(Int64, SeekOrigin)
   nameWithType: SslStream.Seek(Int64, SeekOrigin)
-  fullName: System.Net.Security.SslStream.Seek(Int64, SeekOrigin)
+  fullName: SslStream.Seek(Int64, SeekOrigin)
   type: Method
   assemblies:
   - System.Net.Security
@@ -3513,7 +3563,8 @@ items:
     description: Seeking is not supported by <xref href="System.Net.Security.SslStream"></xref> objects.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3527,7 +3578,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3540,8 +3592,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.SetLength(System.Int64)
   commentId: M:System.Net.Security.SslStream.SetLength(System.Int64)
   id: SetLength(System.Int64)
@@ -3550,7 +3600,7 @@ items:
   - csharp
   name: SetLength(Int64)
   nameWithType: SslStream.SetLength(Int64)
-  fullName: System.Net.Security.SslStream.SetLength(Int64)
+  fullName: SslStream.SetLength(Int64)
   type: Method
   assemblies:
   - System.Net.Security
@@ -3569,7 +3619,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3583,7 +3634,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3596,8 +3648,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.ShutdownAsync
   commentId: M:System.Net.Security.SslStream.ShutdownAsync
   id: ShutdownAsync
@@ -3606,10 +3656,11 @@ items:
   - csharp
   name: ShutdownAsync()
   nameWithType: SslStream.ShutdownAsync()
-  fullName: System.Net.Security.SslStream.ShutdownAsync()
+  fullName: SslStream.ShutdownAsync()
   type: Method
   assemblies:
   - System
+  - System.Net.Security
   namespace: System.Net.Security
   summary: Shuts down this SslStream.
   syntax:
@@ -3621,12 +3672,12 @@ items:
   overload: System.Net.Security.SslStream.ShutdownAsync*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.7
   monikers:
+  - netcore-2.0
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.SslProtocol
   commentId: P:System.Net.Security.SslStream.SslProtocol
   id: SslProtocol
@@ -3635,7 +3686,7 @@ items:
   - csharp
   name: SslProtocol
   nameWithType: SslStream.SslProtocol
-  fullName: System.Net.Security.SslStream.SslProtocol
+  fullName: SslStream.SslProtocol
   type: Property
   assemblies:
   - System.Net.Security
@@ -3643,7 +3694,7 @@ items:
   - netstandard
   namespace: System.Net.Security
   summary: Gets a value that indicates the security protocol used to authenticate this connection.
-  remarks: The supported security protocols are specified when the <xref:System.Net.Security.SslStream> is created. If no security protocol was passed to the constructor, the instance is created using <xref:System.Security.Authentication.SslProtocols>. The actual protocol used for authentication is selected based on the protocols supported by the client and server.
+  remarks: The supported security protocols are specified when the <xref:System.Net.Security.SslStream> is created. If no security protocol was passed to the constructor, the instance is created using <xref:System.Security.Authentication.SslProtocols.Default>. The actual protocol used for authentication is selected based on the protocols supported by the client and server.
   example:
   - "The following example displays the security properties of the specified stream.  \n  \n [!code-cpp[NclSslServerSync#3](~/samples/snippets/cpp/VS_Snippets_Remoting/NclSslServerSync/CPP/NclSslServerSync.cpp#3)]\n [!code-csharp[NclSslServerSync#3](~/samples/snippets/csharp/VS_Snippets_Remoting/NclSslServerSync/CS/serversync.cs#3)]"
   syntax:
@@ -3655,7 +3706,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3669,7 +3721,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3682,8 +3735,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.TransportContext
   commentId: P:System.Net.Security.SslStream.TransportContext
   id: TransportContext
@@ -3692,7 +3743,7 @@ items:
   - csharp
   name: TransportContext
   nameWithType: SslStream.TransportContext
-  fullName: System.Net.Security.SslStream.TransportContext
+  fullName: SslStream.TransportContext
   type: Property
   assemblies:
   - System.Net.Security
@@ -3709,7 +3760,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3723,7 +3775,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3736,8 +3789,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.Write(System.Byte[])
   commentId: M:System.Net.Security.SslStream.Write(System.Byte[])
   id: Write(System.Byte[])
@@ -3746,7 +3797,7 @@ items:
   - csharp
   name: Write(Byte[])
   nameWithType: SslStream.Write(Byte[])
-  fullName: System.Net.Security.SslStream.Write(Byte[])
+  fullName: SslStream.Write(Byte[])
   type: Method
   assemblies:
   - System.Net.Security
@@ -3782,7 +3833,8 @@ items:
     description: Authentication has not occurred.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3796,7 +3848,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3809,8 +3862,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.Write(System.Byte[],System.Int32,System.Int32)
   commentId: M:System.Net.Security.SslStream.Write(System.Byte[],System.Int32,System.Int32)
   id: Write(System.Byte[],System.Int32,System.Int32)
@@ -3819,7 +3870,7 @@ items:
   - csharp
   name: Write(Byte[], Int32, Int32)
   nameWithType: SslStream.Write(Byte[], Int32, Int32)
-  fullName: System.Net.Security.SslStream.Write(Byte[], Int32, Int32)
+  fullName: SslStream.Write(Byte[], Int32, Int32)
   type: Method
   assemblies:
   - System.Net.Security
@@ -3862,7 +3913,8 @@ items:
     description: Authentication has not occurred.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3876,7 +3928,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3889,8 +3942,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Security.SslStream.WriteTimeout
   commentId: P:System.Net.Security.SslStream.WriteTimeout
   id: WriteTimeout
@@ -3899,7 +3950,7 @@ items:
   - csharp
   name: WriteTimeout
   nameWithType: SslStream.WriteTimeout
-  fullName: System.Net.Security.SslStream.WriteTimeout
+  fullName: SslStream.WriteTimeout
   type: Property
   assemblies:
   - System.Net.Security
@@ -3919,7 +3970,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3933,7 +3985,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3946,8 +3999,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
-  ms.author: bobdel
-  manager: markl
 references:
 - uid: System.Net.Security.AuthenticatedStream
   parent: System.Net.Security
@@ -4008,7 +4059,7 @@ references:
   isExternal: false
   name: SslStream(Stream)
   nameWithType: SslStream.SslStream(Stream)
-  fullName: System.Net.Security.SslStream.SslStream(Stream)
+  fullName: SslStream.SslStream(Stream)
 - uid: System.IO.Stream
   parent: System.IO
   isExternal: false
@@ -4020,7 +4071,7 @@ references:
   isExternal: false
   name: SslStream(Stream, Boolean)
   nameWithType: SslStream.SslStream(Stream, Boolean)
-  fullName: System.Net.Security.SslStream.SslStream(Stream, Boolean)
+  fullName: SslStream.SslStream(Stream, Boolean)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -4032,7 +4083,7 @@ references:
   isExternal: false
   name: SslStream(Stream, Boolean, RemoteCertificateValidationCallback)
   nameWithType: SslStream.SslStream(Stream, Boolean, RemoteCertificateValidationCallback)
-  fullName: System.Net.Security.SslStream.SslStream(Stream, Boolean, RemoteCertificateValidationCallback)
+  fullName: SslStream.SslStream(Stream, Boolean, RemoteCertificateValidationCallback)
 - uid: System.Net.Security.RemoteCertificateValidationCallback
   parent: System.Net.Security
   isExternal: false
@@ -4044,7 +4095,7 @@ references:
   isExternal: false
   name: SslStream(Stream, Boolean, RemoteCertificateValidationCallback, LocalCertificateSelectionCallback)
   nameWithType: SslStream.SslStream(Stream, Boolean, RemoteCertificateValidationCallback, LocalCertificateSelectionCallback)
-  fullName: System.Net.Security.SslStream.SslStream(Stream, Boolean, RemoteCertificateValidationCallback, LocalCertificateSelectionCallback)
+  fullName: SslStream.SslStream(Stream, Boolean, RemoteCertificateValidationCallback, LocalCertificateSelectionCallback)
 - uid: System.Net.Security.LocalCertificateSelectionCallback
   parent: System.Net.Security
   isExternal: false
@@ -4056,7 +4107,7 @@ references:
   isExternal: false
   name: SslStream(Stream, Boolean, RemoteCertificateValidationCallback, LocalCertificateSelectionCallback, EncryptionPolicy)
   nameWithType: SslStream.SslStream(Stream, Boolean, RemoteCertificateValidationCallback, LocalCertificateSelectionCallback, EncryptionPolicy)
-  fullName: System.Net.Security.SslStream.SslStream(Stream, Boolean, RemoteCertificateValidationCallback, LocalCertificateSelectionCallback, EncryptionPolicy)
+  fullName: SslStream.SslStream(Stream, Boolean, RemoteCertificateValidationCallback, LocalCertificateSelectionCallback, EncryptionPolicy)
 - uid: System.Net.Security.EncryptionPolicy
   parent: System.Net.Security
   isExternal: false
@@ -4068,7 +4119,7 @@ references:
   isExternal: false
   name: AuthenticateAsClient(String)
   nameWithType: SslStream.AuthenticateAsClient(String)
-  fullName: System.Net.Security.SslStream.AuthenticateAsClient(String)
+  fullName: SslStream.AuthenticateAsClient(String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -4080,7 +4131,7 @@ references:
   isExternal: false
   name: AuthenticateAsClient(String, X509CertificateCollection, Boolean)
   nameWithType: SslStream.AuthenticateAsClient(String, X509CertificateCollection, Boolean)
-  fullName: System.Net.Security.SslStream.AuthenticateAsClient(String, X509CertificateCollection, Boolean)
+  fullName: SslStream.AuthenticateAsClient(String, X509CertificateCollection, Boolean)
 - uid: System.Security.Cryptography.X509Certificates.X509CertificateCollection
   parent: System.Security.Cryptography.X509Certificates
   isExternal: false
@@ -4092,7 +4143,7 @@ references:
   isExternal: false
   name: AuthenticateAsClient(String, X509CertificateCollection, SslProtocols, Boolean)
   nameWithType: SslStream.AuthenticateAsClient(String, X509CertificateCollection, SslProtocols, Boolean)
-  fullName: System.Net.Security.SslStream.AuthenticateAsClient(String, X509CertificateCollection, SslProtocols, Boolean)
+  fullName: SslStream.AuthenticateAsClient(String, X509CertificateCollection, SslProtocols, Boolean)
 - uid: System.Security.Authentication.SslProtocols
   parent: System.Security.Authentication
   isExternal: false
@@ -4104,7 +4155,7 @@ references:
   isExternal: false
   name: AuthenticateAsClientAsync(String)
   nameWithType: SslStream.AuthenticateAsClientAsync(String)
-  fullName: System.Net.Security.SslStream.AuthenticateAsClientAsync(String)
+  fullName: SslStream.AuthenticateAsClientAsync(String)
 - uid: System.Threading.Tasks.Task
   parent: System.Threading.Tasks
   isExternal: false
@@ -4116,19 +4167,19 @@ references:
   isExternal: false
   name: AuthenticateAsClientAsync(String, X509CertificateCollection, Boolean)
   nameWithType: SslStream.AuthenticateAsClientAsync(String, X509CertificateCollection, Boolean)
-  fullName: System.Net.Security.SslStream.AuthenticateAsClientAsync(String, X509CertificateCollection, Boolean)
+  fullName: SslStream.AuthenticateAsClientAsync(String, X509CertificateCollection, Boolean)
 - uid: System.Net.Security.SslStream.AuthenticateAsClientAsync(System.String,System.Security.Cryptography.X509Certificates.X509CertificateCollection,System.Security.Authentication.SslProtocols,System.Boolean)
   parent: System.Net.Security.SslStream
   isExternal: false
   name: AuthenticateAsClientAsync(String, X509CertificateCollection, SslProtocols, Boolean)
   nameWithType: SslStream.AuthenticateAsClientAsync(String, X509CertificateCollection, SslProtocols, Boolean)
-  fullName: System.Net.Security.SslStream.AuthenticateAsClientAsync(String, X509CertificateCollection, SslProtocols, Boolean)
+  fullName: SslStream.AuthenticateAsClientAsync(String, X509CertificateCollection, SslProtocols, Boolean)
 - uid: System.Net.Security.SslStream.AuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate)
   parent: System.Net.Security.SslStream
   isExternal: false
   name: AuthenticateAsServer(X509Certificate)
   nameWithType: SslStream.AuthenticateAsServer(X509Certificate)
-  fullName: System.Net.Security.SslStream.AuthenticateAsServer(X509Certificate)
+  fullName: SslStream.AuthenticateAsServer(X509Certificate)
 - uid: System.Security.Cryptography.X509Certificates.X509Certificate
   parent: System.Security.Cryptography.X509Certificates
   isExternal: false
@@ -4140,37 +4191,37 @@ references:
   isExternal: false
   name: AuthenticateAsServer(X509Certificate, Boolean, Boolean)
   nameWithType: SslStream.AuthenticateAsServer(X509Certificate, Boolean, Boolean)
-  fullName: System.Net.Security.SslStream.AuthenticateAsServer(X509Certificate, Boolean, Boolean)
+  fullName: SslStream.AuthenticateAsServer(X509Certificate, Boolean, Boolean)
 - uid: System.Net.Security.SslStream.AuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Security.Authentication.SslProtocols,System.Boolean)
   parent: System.Net.Security.SslStream
   isExternal: false
   name: AuthenticateAsServer(X509Certificate, Boolean, SslProtocols, Boolean)
   nameWithType: SslStream.AuthenticateAsServer(X509Certificate, Boolean, SslProtocols, Boolean)
-  fullName: System.Net.Security.SslStream.AuthenticateAsServer(X509Certificate, Boolean, SslProtocols, Boolean)
+  fullName: SslStream.AuthenticateAsServer(X509Certificate, Boolean, SslProtocols, Boolean)
 - uid: System.Net.Security.SslStream.AuthenticateAsServerAsync(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Security.Authentication.SslProtocols,System.Boolean)
   parent: System.Net.Security.SslStream
   isExternal: false
   name: AuthenticateAsServerAsync(X509Certificate, Boolean, SslProtocols, Boolean)
   nameWithType: SslStream.AuthenticateAsServerAsync(X509Certificate, Boolean, SslProtocols, Boolean)
-  fullName: System.Net.Security.SslStream.AuthenticateAsServerAsync(X509Certificate, Boolean, SslProtocols, Boolean)
+  fullName: SslStream.AuthenticateAsServerAsync(X509Certificate, Boolean, SslProtocols, Boolean)
 - uid: System.Net.Security.SslStream.AuthenticateAsServerAsync(System.Security.Cryptography.X509Certificates.X509Certificate)
   parent: System.Net.Security.SslStream
   isExternal: false
   name: AuthenticateAsServerAsync(X509Certificate)
   nameWithType: SslStream.AuthenticateAsServerAsync(X509Certificate)
-  fullName: System.Net.Security.SslStream.AuthenticateAsServerAsync(X509Certificate)
+  fullName: SslStream.AuthenticateAsServerAsync(X509Certificate)
 - uid: System.Net.Security.SslStream.AuthenticateAsServerAsync(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Boolean)
   parent: System.Net.Security.SslStream
   isExternal: false
   name: AuthenticateAsServerAsync(X509Certificate, Boolean, Boolean)
   nameWithType: SslStream.AuthenticateAsServerAsync(X509Certificate, Boolean, Boolean)
-  fullName: System.Net.Security.SslStream.AuthenticateAsServerAsync(X509Certificate, Boolean, Boolean)
+  fullName: SslStream.AuthenticateAsServerAsync(X509Certificate, Boolean, Boolean)
 - uid: System.Net.Security.SslStream.BeginAuthenticateAsClient(System.String,System.AsyncCallback,System.Object)
   parent: System.Net.Security.SslStream
   isExternal: false
   name: BeginAuthenticateAsClient(String, AsyncCallback, Object)
   nameWithType: SslStream.BeginAuthenticateAsClient(String, AsyncCallback, Object)
-  fullName: System.Net.Security.SslStream.BeginAuthenticateAsClient(String, AsyncCallback, Object)
+  fullName: SslStream.BeginAuthenticateAsClient(String, AsyncCallback, Object)
 - uid: System.IAsyncResult
   parent: System
   isExternal: false
@@ -4194,37 +4245,37 @@ references:
   isExternal: false
   name: BeginAuthenticateAsClient(String, X509CertificateCollection, Boolean, AsyncCallback, Object)
   nameWithType: SslStream.BeginAuthenticateAsClient(String, X509CertificateCollection, Boolean, AsyncCallback, Object)
-  fullName: System.Net.Security.SslStream.BeginAuthenticateAsClient(String, X509CertificateCollection, Boolean, AsyncCallback, Object)
+  fullName: SslStream.BeginAuthenticateAsClient(String, X509CertificateCollection, Boolean, AsyncCallback, Object)
 - uid: System.Net.Security.SslStream.BeginAuthenticateAsClient(System.String,System.Security.Cryptography.X509Certificates.X509CertificateCollection,System.Security.Authentication.SslProtocols,System.Boolean,System.AsyncCallback,System.Object)
   parent: System.Net.Security.SslStream
   isExternal: false
   name: BeginAuthenticateAsClient(String, X509CertificateCollection, SslProtocols, Boolean, AsyncCallback, Object)
   nameWithType: SslStream.BeginAuthenticateAsClient(String, X509CertificateCollection, SslProtocols, Boolean, AsyncCallback, Object)
-  fullName: System.Net.Security.SslStream.BeginAuthenticateAsClient(String, X509CertificateCollection, SslProtocols, Boolean, AsyncCallback, Object)
+  fullName: SslStream.BeginAuthenticateAsClient(String, X509CertificateCollection, SslProtocols, Boolean, AsyncCallback, Object)
 - uid: System.Net.Security.SslStream.BeginAuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate,System.AsyncCallback,System.Object)
   parent: System.Net.Security.SslStream
   isExternal: false
   name: BeginAuthenticateAsServer(X509Certificate, AsyncCallback, Object)
   nameWithType: SslStream.BeginAuthenticateAsServer(X509Certificate, AsyncCallback, Object)
-  fullName: System.Net.Security.SslStream.BeginAuthenticateAsServer(X509Certificate, AsyncCallback, Object)
+  fullName: SslStream.BeginAuthenticateAsServer(X509Certificate, AsyncCallback, Object)
 - uid: System.Net.Security.SslStream.BeginAuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Boolean,System.AsyncCallback,System.Object)
   parent: System.Net.Security.SslStream
   isExternal: false
   name: BeginAuthenticateAsServer(X509Certificate, Boolean, Boolean, AsyncCallback, Object)
   nameWithType: SslStream.BeginAuthenticateAsServer(X509Certificate, Boolean, Boolean, AsyncCallback, Object)
-  fullName: System.Net.Security.SslStream.BeginAuthenticateAsServer(X509Certificate, Boolean, Boolean, AsyncCallback, Object)
+  fullName: SslStream.BeginAuthenticateAsServer(X509Certificate, Boolean, Boolean, AsyncCallback, Object)
 - uid: System.Net.Security.SslStream.BeginAuthenticateAsServer(System.Security.Cryptography.X509Certificates.X509Certificate,System.Boolean,System.Security.Authentication.SslProtocols,System.Boolean,System.AsyncCallback,System.Object)
   parent: System.Net.Security.SslStream
   isExternal: false
   name: BeginAuthenticateAsServer(X509Certificate, Boolean, SslProtocols, Boolean, AsyncCallback, Object)
   nameWithType: SslStream.BeginAuthenticateAsServer(X509Certificate, Boolean, SslProtocols, Boolean, AsyncCallback, Object)
-  fullName: System.Net.Security.SslStream.BeginAuthenticateAsServer(X509Certificate, Boolean, SslProtocols, Boolean, AsyncCallback, Object)
+  fullName: SslStream.BeginAuthenticateAsServer(X509Certificate, Boolean, SslProtocols, Boolean, AsyncCallback, Object)
 - uid: System.Net.Security.SslStream.BeginRead(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)
   parent: System.Net.Security.SslStream
   isExternal: false
   name: BeginRead(Byte[], Int32, Int32, AsyncCallback, Object)
   nameWithType: SslStream.BeginRead(Byte[], Int32, Int32, AsyncCallback, Object)
-  fullName: System.Net.Security.SslStream.BeginRead(Byte[], Int32, Int32, AsyncCallback, Object)
+  fullName: SslStream.BeginRead(Byte[], Int32, Int32, AsyncCallback, Object)
 - uid: System.Byte
   name: Byte
   nameWithType: Byte
@@ -4254,43 +4305,43 @@ references:
   isExternal: false
   name: BeginWrite(Byte[], Int32, Int32, AsyncCallback, Object)
   nameWithType: SslStream.BeginWrite(Byte[], Int32, Int32, AsyncCallback, Object)
-  fullName: System.Net.Security.SslStream.BeginWrite(Byte[], Int32, Int32, AsyncCallback, Object)
+  fullName: SslStream.BeginWrite(Byte[], Int32, Int32, AsyncCallback, Object)
 - uid: System.Net.Security.SslStream.CanRead
   parent: System.Net.Security.SslStream
   isExternal: false
   name: CanRead
   nameWithType: SslStream.CanRead
-  fullName: System.Net.Security.SslStream.CanRead
+  fullName: SslStream.CanRead
 - uid: System.Net.Security.SslStream.CanSeek
   parent: System.Net.Security.SslStream
   isExternal: false
   name: CanSeek
   nameWithType: SslStream.CanSeek
-  fullName: System.Net.Security.SslStream.CanSeek
+  fullName: SslStream.CanSeek
 - uid: System.Net.Security.SslStream.CanTimeout
   parent: System.Net.Security.SslStream
   isExternal: false
   name: CanTimeout
   nameWithType: SslStream.CanTimeout
-  fullName: System.Net.Security.SslStream.CanTimeout
+  fullName: SslStream.CanTimeout
 - uid: System.Net.Security.SslStream.CanWrite
   parent: System.Net.Security.SslStream
   isExternal: false
   name: CanWrite
   nameWithType: SslStream.CanWrite
-  fullName: System.Net.Security.SslStream.CanWrite
+  fullName: SslStream.CanWrite
 - uid: System.Net.Security.SslStream.CheckCertRevocationStatus
   parent: System.Net.Security.SslStream
   isExternal: false
   name: CheckCertRevocationStatus
   nameWithType: SslStream.CheckCertRevocationStatus
-  fullName: System.Net.Security.SslStream.CheckCertRevocationStatus
+  fullName: SslStream.CheckCertRevocationStatus
 - uid: System.Net.Security.SslStream.CipherAlgorithm
   parent: System.Net.Security.SslStream
   isExternal: false
   name: CipherAlgorithm
   nameWithType: SslStream.CipherAlgorithm
-  fullName: System.Net.Security.SslStream.CipherAlgorithm
+  fullName: SslStream.CipherAlgorithm
 - uid: System.Security.Authentication.CipherAlgorithmType
   parent: System.Security.Authentication
   isExternal: false
@@ -4302,49 +4353,61 @@ references:
   isExternal: false
   name: CipherStrength
   nameWithType: SslStream.CipherStrength
-  fullName: System.Net.Security.SslStream.CipherStrength
+  fullName: SslStream.CipherStrength
 - uid: System.Net.Security.SslStream.Dispose(System.Boolean)
   parent: System.Net.Security.SslStream
   isExternal: false
   name: Dispose(Boolean)
   nameWithType: SslStream.Dispose(Boolean)
-  fullName: System.Net.Security.SslStream.Dispose(Boolean)
+  fullName: SslStream.Dispose(Boolean)
 - uid: System.Net.Security.SslStream.EndAuthenticateAsClient(System.IAsyncResult)
   parent: System.Net.Security.SslStream
   isExternal: false
   name: EndAuthenticateAsClient(IAsyncResult)
   nameWithType: SslStream.EndAuthenticateAsClient(IAsyncResult)
-  fullName: System.Net.Security.SslStream.EndAuthenticateAsClient(IAsyncResult)
+  fullName: SslStream.EndAuthenticateAsClient(IAsyncResult)
 - uid: System.Net.Security.SslStream.EndAuthenticateAsServer(System.IAsyncResult)
   parent: System.Net.Security.SslStream
   isExternal: false
   name: EndAuthenticateAsServer(IAsyncResult)
   nameWithType: SslStream.EndAuthenticateAsServer(IAsyncResult)
-  fullName: System.Net.Security.SslStream.EndAuthenticateAsServer(IAsyncResult)
+  fullName: SslStream.EndAuthenticateAsServer(IAsyncResult)
 - uid: System.Net.Security.SslStream.EndRead(System.IAsyncResult)
   parent: System.Net.Security.SslStream
   isExternal: false
   name: EndRead(IAsyncResult)
   nameWithType: SslStream.EndRead(IAsyncResult)
-  fullName: System.Net.Security.SslStream.EndRead(IAsyncResult)
+  fullName: SslStream.EndRead(IAsyncResult)
 - uid: System.Net.Security.SslStream.EndWrite(System.IAsyncResult)
   parent: System.Net.Security.SslStream
   isExternal: false
   name: EndWrite(IAsyncResult)
   nameWithType: SslStream.EndWrite(IAsyncResult)
-  fullName: System.Net.Security.SslStream.EndWrite(IAsyncResult)
+  fullName: SslStream.EndWrite(IAsyncResult)
 - uid: System.Net.Security.SslStream.Flush
   parent: System.Net.Security.SslStream
   isExternal: false
   name: Flush()
   nameWithType: SslStream.Flush()
-  fullName: System.Net.Security.SslStream.Flush()
+  fullName: SslStream.Flush()
+- uid: System.Net.Security.SslStream.FlushAsync(System.Threading.CancellationToken)
+  parent: System.Net.Security.SslStream
+  isExternal: false
+  name: FlushAsync(CancellationToken)
+  nameWithType: SslStream.FlushAsync(CancellationToken)
+  fullName: SslStream.FlushAsync(CancellationToken)
+- uid: System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: false
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
 - uid: System.Net.Security.SslStream.HashAlgorithm
   parent: System.Net.Security.SslStream
   isExternal: false
   name: HashAlgorithm
   nameWithType: SslStream.HashAlgorithm
-  fullName: System.Net.Security.SslStream.HashAlgorithm
+  fullName: SslStream.HashAlgorithm
 - uid: System.Security.Authentication.HashAlgorithmType
   parent: System.Security.Authentication
   isExternal: false
@@ -4356,43 +4419,43 @@ references:
   isExternal: false
   name: HashStrength
   nameWithType: SslStream.HashStrength
-  fullName: System.Net.Security.SslStream.HashStrength
+  fullName: SslStream.HashStrength
 - uid: System.Net.Security.SslStream.IsAuthenticated
   parent: System.Net.Security.SslStream
   isExternal: false
   name: IsAuthenticated
   nameWithType: SslStream.IsAuthenticated
-  fullName: System.Net.Security.SslStream.IsAuthenticated
+  fullName: SslStream.IsAuthenticated
 - uid: System.Net.Security.SslStream.IsEncrypted
   parent: System.Net.Security.SslStream
   isExternal: false
   name: IsEncrypted
   nameWithType: SslStream.IsEncrypted
-  fullName: System.Net.Security.SslStream.IsEncrypted
+  fullName: SslStream.IsEncrypted
 - uid: System.Net.Security.SslStream.IsMutuallyAuthenticated
   parent: System.Net.Security.SslStream
   isExternal: false
   name: IsMutuallyAuthenticated
   nameWithType: SslStream.IsMutuallyAuthenticated
-  fullName: System.Net.Security.SslStream.IsMutuallyAuthenticated
+  fullName: SslStream.IsMutuallyAuthenticated
 - uid: System.Net.Security.SslStream.IsServer
   parent: System.Net.Security.SslStream
   isExternal: false
   name: IsServer
   nameWithType: SslStream.IsServer
-  fullName: System.Net.Security.SslStream.IsServer
+  fullName: SslStream.IsServer
 - uid: System.Net.Security.SslStream.IsSigned
   parent: System.Net.Security.SslStream
   isExternal: false
   name: IsSigned
   nameWithType: SslStream.IsSigned
-  fullName: System.Net.Security.SslStream.IsSigned
+  fullName: SslStream.IsSigned
 - uid: System.Net.Security.SslStream.KeyExchangeAlgorithm
   parent: System.Net.Security.SslStream
   isExternal: false
   name: KeyExchangeAlgorithm
   nameWithType: SslStream.KeyExchangeAlgorithm
-  fullName: System.Net.Security.SslStream.KeyExchangeAlgorithm
+  fullName: SslStream.KeyExchangeAlgorithm
 - uid: System.Security.Authentication.ExchangeAlgorithmType
   parent: System.Security.Authentication
   isExternal: false
@@ -4404,13 +4467,13 @@ references:
   isExternal: false
   name: KeyExchangeStrength
   nameWithType: SslStream.KeyExchangeStrength
-  fullName: System.Net.Security.SslStream.KeyExchangeStrength
+  fullName: SslStream.KeyExchangeStrength
 - uid: System.Net.Security.SslStream.Length
   parent: System.Net.Security.SslStream
   isExternal: false
   name: Length
   nameWithType: SslStream.Length
-  fullName: System.Net.Security.SslStream.Length
+  fullName: SslStream.Length
 - uid: System.Int64
   parent: System
   isExternal: false
@@ -4422,37 +4485,37 @@ references:
   isExternal: false
   name: LocalCertificate
   nameWithType: SslStream.LocalCertificate
-  fullName: System.Net.Security.SslStream.LocalCertificate
+  fullName: SslStream.LocalCertificate
 - uid: System.Net.Security.SslStream.Position
   parent: System.Net.Security.SslStream
   isExternal: false
   name: Position
   nameWithType: SslStream.Position
-  fullName: System.Net.Security.SslStream.Position
+  fullName: SslStream.Position
 - uid: System.Net.Security.SslStream.Read(System.Byte[],System.Int32,System.Int32)
   parent: System.Net.Security.SslStream
   isExternal: false
   name: Read(Byte[], Int32, Int32)
   nameWithType: SslStream.Read(Byte[], Int32, Int32)
-  fullName: System.Net.Security.SslStream.Read(Byte[], Int32, Int32)
+  fullName: SslStream.Read(Byte[], Int32, Int32)
 - uid: System.Net.Security.SslStream.ReadTimeout
   parent: System.Net.Security.SslStream
   isExternal: false
   name: ReadTimeout
   nameWithType: SslStream.ReadTimeout
-  fullName: System.Net.Security.SslStream.ReadTimeout
+  fullName: SslStream.ReadTimeout
 - uid: System.Net.Security.SslStream.RemoteCertificate
   parent: System.Net.Security.SslStream
   isExternal: false
   name: RemoteCertificate
   nameWithType: SslStream.RemoteCertificate
-  fullName: System.Net.Security.SslStream.RemoteCertificate
+  fullName: SslStream.RemoteCertificate
 - uid: System.Net.Security.SslStream.Seek(System.Int64,System.IO.SeekOrigin)
   parent: System.Net.Security.SslStream
   isExternal: false
   name: Seek(Int64, SeekOrigin)
   nameWithType: SslStream.Seek(Int64, SeekOrigin)
-  fullName: System.Net.Security.SslStream.Seek(Int64, SeekOrigin)
+  fullName: SslStream.Seek(Int64, SeekOrigin)
 - uid: System.IO.SeekOrigin
   parent: System.IO
   isExternal: false
@@ -4464,25 +4527,25 @@ references:
   isExternal: false
   name: SetLength(Int64)
   nameWithType: SslStream.SetLength(Int64)
-  fullName: System.Net.Security.SslStream.SetLength(Int64)
+  fullName: SslStream.SetLength(Int64)
 - uid: System.Net.Security.SslStream.ShutdownAsync
   parent: System.Net.Security.SslStream
   isExternal: false
   name: ShutdownAsync()
   nameWithType: SslStream.ShutdownAsync()
-  fullName: System.Net.Security.SslStream.ShutdownAsync()
+  fullName: SslStream.ShutdownAsync()
 - uid: System.Net.Security.SslStream.SslProtocol
   parent: System.Net.Security.SslStream
   isExternal: false
   name: SslProtocol
   nameWithType: SslStream.SslProtocol
-  fullName: System.Net.Security.SslStream.SslProtocol
+  fullName: SslStream.SslProtocol
 - uid: System.Net.Security.SslStream.TransportContext
   parent: System.Net.Security.SslStream
   isExternal: false
   name: TransportContext
   nameWithType: SslStream.TransportContext
-  fullName: System.Net.Security.SslStream.TransportContext
+  fullName: SslStream.TransportContext
 - uid: System.Net.TransportContext
   parent: System.Net
   isExternal: false
@@ -4494,28 +4557,29 @@ references:
   isExternal: false
   name: Write(Byte[])
   nameWithType: SslStream.Write(Byte[])
-  fullName: System.Net.Security.SslStream.Write(Byte[])
+  fullName: SslStream.Write(Byte[])
 - uid: System.Net.Security.SslStream.Write(System.Byte[],System.Int32,System.Int32)
   parent: System.Net.Security.SslStream
   isExternal: false
   name: Write(Byte[], Int32, Int32)
   nameWithType: SslStream.Write(Byte[], Int32, Int32)
-  fullName: System.Net.Security.SslStream.Write(Byte[], Int32, Int32)
+  fullName: SslStream.Write(Byte[], Int32, Int32)
 - uid: System.Net.Security.SslStream.WriteTimeout
   parent: System.Net.Security.SslStream
   isExternal: false
   name: WriteTimeout
   nameWithType: SslStream.WriteTimeout
-  fullName: System.Net.Security.SslStream.WriteTimeout
+  fullName: SslStream.WriteTimeout
 - uid: System.Net.Security.SslStream.#ctor*
   parent: System.Net.Security.SslStream
   isExternal: false
   name: SslStream
   nameWithType: SslStream.SslStream
-  fullName: System.Net.Security.SslStream.SslStream
+  fullName: SslStream.SslStream
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4533,8 +4597,9 @@ references:
   isExternal: false
   name: BeginAuthenticateAsClient
   nameWithType: SslStream.BeginAuthenticateAsClient
-  fullName: System.Net.Security.SslStream.BeginAuthenticateAsClient
+  fullName: SslStream.BeginAuthenticateAsClient
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4552,8 +4617,9 @@ references:
   isExternal: false
   name: BeginAuthenticateAsServer
   nameWithType: SslStream.BeginAuthenticateAsServer
-  fullName: System.Net.Security.SslStream.BeginAuthenticateAsServer
+  fullName: SslStream.BeginAuthenticateAsServer
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4571,8 +4637,9 @@ references:
   isExternal: false
   name: AuthenticateAsClient
   nameWithType: SslStream.AuthenticateAsClient
-  fullName: System.Net.Security.SslStream.AuthenticateAsClient
+  fullName: SslStream.AuthenticateAsClient
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4590,10 +4657,11 @@ references:
   isExternal: false
   name: AuthenticateAsClientAsync
   nameWithType: SslStream.AuthenticateAsClientAsync
-  fullName: System.Net.Security.SslStream.AuthenticateAsClientAsync
+  fullName: SslStream.AuthenticateAsClientAsync
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4611,8 +4679,9 @@ references:
   isExternal: false
   name: AuthenticateAsServer
   nameWithType: SslStream.AuthenticateAsServer
-  fullName: System.Net.Security.SslStream.AuthenticateAsServer
+  fullName: SslStream.AuthenticateAsServer
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4630,10 +4699,11 @@ references:
   isExternal: false
   name: AuthenticateAsServerAsync
   nameWithType: SslStream.AuthenticateAsServerAsync
-  fullName: System.Net.Security.SslStream.AuthenticateAsServerAsync
+  fullName: SslStream.AuthenticateAsServerAsync
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4651,8 +4721,9 @@ references:
   isExternal: false
   name: BeginRead
   nameWithType: SslStream.BeginRead
-  fullName: System.Net.Security.SslStream.BeginRead
+  fullName: SslStream.BeginRead
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4670,8 +4741,9 @@ references:
   isExternal: false
   name: BeginWrite
   nameWithType: SslStream.BeginWrite
-  fullName: System.Net.Security.SslStream.BeginWrite
+  fullName: SslStream.BeginWrite
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4689,10 +4761,11 @@ references:
   isExternal: false
   name: CanRead
   nameWithType: SslStream.CanRead
-  fullName: System.Net.Security.SslStream.CanRead
+  fullName: SslStream.CanRead
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4710,10 +4783,11 @@ references:
   isExternal: false
   name: CanSeek
   nameWithType: SslStream.CanSeek
-  fullName: System.Net.Security.SslStream.CanSeek
+  fullName: SslStream.CanSeek
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4731,10 +4805,11 @@ references:
   isExternal: false
   name: CanTimeout
   nameWithType: SslStream.CanTimeout
-  fullName: System.Net.Security.SslStream.CanTimeout
+  fullName: SslStream.CanTimeout
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4752,10 +4827,11 @@ references:
   isExternal: false
   name: CanWrite
   nameWithType: SslStream.CanWrite
-  fullName: System.Net.Security.SslStream.CanWrite
+  fullName: SslStream.CanWrite
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4773,10 +4849,11 @@ references:
   isExternal: false
   name: CheckCertRevocationStatus
   nameWithType: SslStream.CheckCertRevocationStatus
-  fullName: System.Net.Security.SslStream.CheckCertRevocationStatus
+  fullName: SslStream.CheckCertRevocationStatus
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4794,10 +4871,11 @@ references:
   isExternal: false
   name: CipherAlgorithm
   nameWithType: SslStream.CipherAlgorithm
-  fullName: System.Net.Security.SslStream.CipherAlgorithm
+  fullName: SslStream.CipherAlgorithm
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4815,10 +4893,11 @@ references:
   isExternal: false
   name: CipherStrength
   nameWithType: SslStream.CipherStrength
-  fullName: System.Net.Security.SslStream.CipherStrength
+  fullName: SslStream.CipherStrength
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4836,8 +4915,9 @@ references:
   isExternal: false
   name: Dispose
   nameWithType: SslStream.Dispose
-  fullName: System.Net.Security.SslStream.Dispose
+  fullName: SslStream.Dispose
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4855,8 +4935,9 @@ references:
   isExternal: false
   name: EndAuthenticateAsClient
   nameWithType: SslStream.EndAuthenticateAsClient
-  fullName: System.Net.Security.SslStream.EndAuthenticateAsClient
+  fullName: SslStream.EndAuthenticateAsClient
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4874,8 +4955,9 @@ references:
   isExternal: false
   name: EndAuthenticateAsServer
   nameWithType: SslStream.EndAuthenticateAsServer
-  fullName: System.Net.Security.SslStream.EndAuthenticateAsServer
+  fullName: SslStream.EndAuthenticateAsServer
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4893,8 +4975,9 @@ references:
   isExternal: false
   name: EndRead
   nameWithType: SslStream.EndRead
-  fullName: System.Net.Security.SslStream.EndRead
+  fullName: SslStream.EndRead
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4912,8 +4995,9 @@ references:
   isExternal: false
   name: EndWrite
   nameWithType: SslStream.EndWrite
-  fullName: System.Net.Security.SslStream.EndWrite
+  fullName: SslStream.EndWrite
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4931,10 +5015,11 @@ references:
   isExternal: false
   name: Flush
   nameWithType: SslStream.Flush
-  fullName: System.Net.Security.SslStream.Flush
+  fullName: SslStream.Flush
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4947,15 +5032,25 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
+- uid: System.Net.Security.SslStream.FlushAsync*
+  parent: System.Net.Security.SslStream
+  isExternal: false
+  name: FlushAsync
+  nameWithType: SslStream.FlushAsync
+  fullName: SslStream.FlushAsync
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
 - uid: System.Net.Security.SslStream.HashAlgorithm*
   parent: System.Net.Security.SslStream
   isExternal: false
   name: HashAlgorithm
   nameWithType: SslStream.HashAlgorithm
-  fullName: System.Net.Security.SslStream.HashAlgorithm
+  fullName: SslStream.HashAlgorithm
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4973,10 +5068,11 @@ references:
   isExternal: false
   name: HashStrength
   nameWithType: SslStream.HashStrength
-  fullName: System.Net.Security.SslStream.HashStrength
+  fullName: SslStream.HashStrength
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4994,10 +5090,11 @@ references:
   isExternal: false
   name: IsAuthenticated
   nameWithType: SslStream.IsAuthenticated
-  fullName: System.Net.Security.SslStream.IsAuthenticated
+  fullName: SslStream.IsAuthenticated
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5015,10 +5112,11 @@ references:
   isExternal: false
   name: IsEncrypted
   nameWithType: SslStream.IsEncrypted
-  fullName: System.Net.Security.SslStream.IsEncrypted
+  fullName: SslStream.IsEncrypted
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5036,10 +5134,11 @@ references:
   isExternal: false
   name: IsMutuallyAuthenticated
   nameWithType: SslStream.IsMutuallyAuthenticated
-  fullName: System.Net.Security.SslStream.IsMutuallyAuthenticated
+  fullName: SslStream.IsMutuallyAuthenticated
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5057,10 +5156,11 @@ references:
   isExternal: false
   name: IsServer
   nameWithType: SslStream.IsServer
-  fullName: System.Net.Security.SslStream.IsServer
+  fullName: SslStream.IsServer
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5078,10 +5178,11 @@ references:
   isExternal: false
   name: IsSigned
   nameWithType: SslStream.IsSigned
-  fullName: System.Net.Security.SslStream.IsSigned
+  fullName: SslStream.IsSigned
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5099,10 +5200,11 @@ references:
   isExternal: false
   name: KeyExchangeAlgorithm
   nameWithType: SslStream.KeyExchangeAlgorithm
-  fullName: System.Net.Security.SslStream.KeyExchangeAlgorithm
+  fullName: SslStream.KeyExchangeAlgorithm
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5120,10 +5222,11 @@ references:
   isExternal: false
   name: KeyExchangeStrength
   nameWithType: SslStream.KeyExchangeStrength
-  fullName: System.Net.Security.SslStream.KeyExchangeStrength
+  fullName: SslStream.KeyExchangeStrength
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5141,10 +5244,11 @@ references:
   isExternal: false
   name: Length
   nameWithType: SslStream.Length
-  fullName: System.Net.Security.SslStream.Length
+  fullName: SslStream.Length
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5162,10 +5266,11 @@ references:
   isExternal: false
   name: LocalCertificate
   nameWithType: SslStream.LocalCertificate
-  fullName: System.Net.Security.SslStream.LocalCertificate
+  fullName: SslStream.LocalCertificate
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5183,10 +5288,11 @@ references:
   isExternal: false
   name: Position
   nameWithType: SslStream.Position
-  fullName: System.Net.Security.SslStream.Position
+  fullName: SslStream.Position
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5204,10 +5310,11 @@ references:
   isExternal: false
   name: Read
   nameWithType: SslStream.Read
-  fullName: System.Net.Security.SslStream.Read
+  fullName: SslStream.Read
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5225,10 +5332,11 @@ references:
   isExternal: false
   name: ReadTimeout
   nameWithType: SslStream.ReadTimeout
-  fullName: System.Net.Security.SslStream.ReadTimeout
+  fullName: SslStream.ReadTimeout
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5246,10 +5354,11 @@ references:
   isExternal: false
   name: RemoteCertificate
   nameWithType: SslStream.RemoteCertificate
-  fullName: System.Net.Security.SslStream.RemoteCertificate
+  fullName: SslStream.RemoteCertificate
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5267,10 +5376,11 @@ references:
   isExternal: false
   name: Seek
   nameWithType: SslStream.Seek
-  fullName: System.Net.Security.SslStream.Seek
+  fullName: SslStream.Seek
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5288,10 +5398,11 @@ references:
   isExternal: false
   name: SetLength
   nameWithType: SslStream.SetLength
-  fullName: System.Net.Security.SslStream.SetLength
+  fullName: SslStream.SetLength
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5309,8 +5420,9 @@ references:
   isExternal: false
   name: ShutdownAsync
   nameWithType: SslStream.ShutdownAsync
-  fullName: System.Net.Security.SslStream.ShutdownAsync
+  fullName: SslStream.ShutdownAsync
   monikers:
+  - netcore-2.0
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Security/SslStream.xml
 - uid: System.Net.Security.SslStream.SslProtocol*
@@ -5318,10 +5430,11 @@ references:
   isExternal: false
   name: SslProtocol
   nameWithType: SslStream.SslProtocol
-  fullName: System.Net.Security.SslStream.SslProtocol
+  fullName: SslStream.SslProtocol
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5339,10 +5452,11 @@ references:
   isExternal: false
   name: TransportContext
   nameWithType: SslStream.TransportContext
-  fullName: System.Net.Security.SslStream.TransportContext
+  fullName: SslStream.TransportContext
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5360,10 +5474,11 @@ references:
   isExternal: false
   name: Write
   nameWithType: SslStream.Write
-  fullName: System.Net.Security.SslStream.Write
+  fullName: SslStream.Write
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5381,10 +5496,11 @@ references:
   isExternal: false
   name: WriteTimeout
   nameWithType: SslStream.WriteTimeout
-  fullName: System.Net.Security.SslStream.WriteTimeout
+  fullName: SslStream.WriteTimeout
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

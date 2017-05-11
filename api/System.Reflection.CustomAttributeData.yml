@@ -26,6 +26,7 @@ items:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Provides access to custom attribute data for assemblies, modules, types, members and parameters that are loaded into the reflection-only context.
   remarks: "Code that is being examined in the reflection-only context cannot be executed, so it is not always possible to examine custom attributes by creating instances of them and then examining their properties, using methods like <xref:System.Attribute.GetCustomAttributes%2A?displayProperty=fullName>, <xref:System.Reflection.MemberInfo.GetCustomAttributes%2A?displayProperty=fullName>, and so on. If the code for the attribute type itself is loaded into the reflection-only context, it cannot be executed.  \n  \n The <xref:System.Reflection.CustomAttributeData> class allows examination of custom attributes in the reflection-only context by providing an abstraction for attributes. The members of this class can be used to obtain the positional arguments and named arguments of the attribute. Use the <xref:System.Reflection.CustomAttributeData.ConstructorArguments%2A> property to get a list of <xref:System.Reflection.CustomAttributeTypedArgument> structures that represent the positional arguments, and use the <xref:System.Reflection.CustomAttributeData.NamedArguments%2A> property to get a list of <xref:System.Reflection.CustomAttributeNamedArgument> structures that represent the named arguments.  \n  \n> [!NOTE]\n>  The <xref:System.Reflection.CustomAttributeNamedArgument> structure only provides information about the attribute property used to get and set the argument value. To obtain the type and value of the argument, use the <xref:System.Reflection.CustomAttributeNamedArgument.TypedValue%2A?displayProperty=fullName> property to obtain a <xref:System.Reflection.CustomAttributeTypedArgument> structure.  \n  \n When you have a <xref:System.Reflection.CustomAttributeTypedArgument> structure for an argument, whether named or positional, use the <xref:System.Reflection.CustomAttributeTypedArgument.ArgumentType%2A?displayProperty=fullName> property to get the type and the <xref:System.Reflection.CustomAttributeTypedArgument.Value%2A?displayProperty=fullName> property to get the value.  \n  \n> [!NOTE]\n>  For an array argument, the <xref:System.Reflection.CustomAttributeTypedArgument.Value%2A?displayProperty=fullName> property returns a generic <xref:System.Collections.ObjectModel.ReadOnlyCollection%601> of <xref:System.Reflection.CustomAttributeTypedArgument> objects. Each <xref:System.Reflection.CustomAttributeTypedArgument> object in the collection represents the corresponding element of the array.  \n  \n <xref:System.Reflection.CustomAttributeData> can be used in the execution context as well as in the reflection-only context. For example, you might want to avoid loading the assembly that contains the code for a custom attribute. Using the <xref:System.Reflection.CustomAttributeData> class is different from using methods like <xref:System.Attribute.GetCustomAttributes%2A?displayProperty=fullName>:  \n  \n-   The properties and methods of <xref:System.Reflection.CustomAttributeData> only provide you with the values that were specified for the attribute instance, not the semantics of the constructor. For example, a string argument of an attribute might be converted internally to some other representation, and returned in a canonical form; or a property might have side effects when the actual attribute code is executed.  \n  \n-   The properties and methods of <xref:System.Reflection.CustomAttributeData> do not allow you to retrieve the custom attributes inherited from base classes.  \n  \n To create instances of the <xref:System.Reflection.CustomAttributeData> class, use the `static` (`Shared` in Visual Basic) <xref:System.Reflection.CustomAttributeData.GetCustomAttributes%2A> factory methods."
@@ -48,7 +49,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -69,7 +71,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -89,9 +92,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection/CustomAttributeData.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.CustomAttributeData.#ctor
   commentId: M:System.Reflection.CustomAttributeData.#ctor
   id: '#ctor'
@@ -100,11 +100,12 @@ items:
   - csharp
   name: CustomAttributeData()
   nameWithType: CustomAttributeData.CustomAttributeData()
-  fullName: System.Reflection.CustomAttributeData.CustomAttributeData()
+  fullName: CustomAttributeData.CustomAttributeData()
   type: Constructor
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Initializes a new instance of the <xref href="System.Reflection.CustomAttributeData"></xref> class.
   remarks: This constructor is invoked by derived classes during the construction of <xref:System.Reflection.CustomAttributeData> objects.
@@ -114,6 +115,7 @@ items:
   overload: System.Reflection.CustomAttributeData.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -126,6 +128,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -138,9 +141,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection/CustomAttributeData.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.CustomAttributeData.AttributeType
   commentId: P:System.Reflection.CustomAttributeData.AttributeType
   id: AttributeType
@@ -149,12 +149,13 @@ items:
   - csharp
   name: AttributeType
   nameWithType: CustomAttributeData.AttributeType
-  fullName: System.Reflection.CustomAttributeData.AttributeType
+  fullName: CustomAttributeData.AttributeType
   type: Property
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Gets the type of the attribute.
   syntax:
@@ -166,7 +167,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -187,7 +189,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -207,9 +210,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection/CustomAttributeData.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.CustomAttributeData.Constructor
   commentId: P:System.Reflection.CustomAttributeData.Constructor
   id: Constructor
@@ -218,12 +218,13 @@ items:
   - csharp
   name: Constructor
   nameWithType: CustomAttributeData.Constructor
-  fullName: System.Reflection.CustomAttributeData.Constructor
+  fullName: CustomAttributeData.Constructor
   type: Property
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Gets a <xref href="System.Reflection.ConstructorInfo"></xref> object that represents the constructor that would have initialized the custom attribute.
   remarks: If an attribute type has multiple constructors, this property returns only the particular constructor that would have initialized the attribute instance represented by the current <xref:System.Reflection.CustomAttributeData> object.
@@ -243,7 +244,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -259,7 +261,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -274,9 +277,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection/CustomAttributeData.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.CustomAttributeData.ConstructorArguments
   commentId: P:System.Reflection.CustomAttributeData.ConstructorArguments
   id: ConstructorArguments
@@ -285,12 +285,13 @@ items:
   - csharp
   name: ConstructorArguments
   nameWithType: CustomAttributeData.ConstructorArguments
-  fullName: System.Reflection.CustomAttributeData.ConstructorArguments
+  fullName: CustomAttributeData.ConstructorArguments
   type: Property
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Gets the list of positional arguments specified for the attribute instance represented by the <xref href="System.Reflection.CustomAttributeData"></xref> object.
   remarks: "This method gets the positional arguments that were specified for the custom attribute instance without executing any of the custom attribute code. Thus, it can be used in the reflection-only context.  \n  \n Use the <xref:System.Reflection.CustomAttributeData.NamedArguments%2A> method to get the named arguments specified for the attribute instance."
@@ -310,7 +311,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -331,7 +333,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -351,9 +354,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection/CustomAttributeData.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.CustomAttributeData.Equals(System.Object)
   commentId: M:System.Reflection.CustomAttributeData.Equals(System.Object)
   id: Equals(System.Object)
@@ -362,11 +362,12 @@ items:
   - csharp
   name: Equals(Object)
   nameWithType: CustomAttributeData.Equals(Object)
-  fullName: System.Reflection.CustomAttributeData.Equals(Object)
+  fullName: CustomAttributeData.Equals(Object)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Returns a value that indicates whether this instance is equal to a specified object.
   syntax:
@@ -381,6 +382,7 @@ items:
   overload: System.Reflection.CustomAttributeData.Equals*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -393,6 +395,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -405,9 +408,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection/CustomAttributeData.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.CustomAttributeData.GetCustomAttributes(System.Reflection.Assembly)
   commentId: M:System.Reflection.CustomAttributeData.GetCustomAttributes(System.Reflection.Assembly)
   id: GetCustomAttributes(System.Reflection.Assembly)
@@ -416,12 +416,13 @@ items:
   - csharp
   name: GetCustomAttributes(Assembly)
   nameWithType: CustomAttributeData.GetCustomAttributes(Assembly)
-  fullName: System.Reflection.CustomAttributeData.GetCustomAttributes(Assembly)
+  fullName: CustomAttributeData.GetCustomAttributes(Assembly)
   type: Method
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Returns a list of <xref href="System.Reflection.CustomAttributeData"></xref> objects representing data about the attributes that have been applied to the target assembly.
   remarks: This method provides an alternative to the <xref:System.Reflection.Assembly.GetCustomAttributes%2A> method that can always be used in the Reflection-only context.
@@ -443,7 +444,8 @@ items:
     description: <code>target</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -459,7 +461,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -474,9 +477,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection/CustomAttributeData.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.CustomAttributeData.GetCustomAttributes(System.Reflection.MemberInfo)
   commentId: M:System.Reflection.CustomAttributeData.GetCustomAttributes(System.Reflection.MemberInfo)
   id: GetCustomAttributes(System.Reflection.MemberInfo)
@@ -485,12 +485,13 @@ items:
   - csharp
   name: GetCustomAttributes(MemberInfo)
   nameWithType: CustomAttributeData.GetCustomAttributes(MemberInfo)
-  fullName: System.Reflection.CustomAttributeData.GetCustomAttributes(MemberInfo)
+  fullName: CustomAttributeData.GetCustomAttributes(MemberInfo)
   type: Method
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Returns a list of <xref href="System.Reflection.CustomAttributeData"></xref> objects representing data about the attributes that have been applied to the target member.
   remarks: This method overload gets custom attribute data for types, nested types, and type members, because the <xref:System.Type> class and the classes in the <xref:System.Reflection> namespace that represent type members all derive from <xref:System.Reflection.MemberInfo>.
@@ -512,7 +513,8 @@ items:
     description: <code>target</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -528,7 +530,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -544,9 +547,6 @@ items:
   - xamarinmac-3.0
   altCompliant: System.Reflection.MemberInfo.GetCustomAttributes
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection/CustomAttributeData.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.CustomAttributeData.GetCustomAttributes(System.Reflection.Module)
   commentId: M:System.Reflection.CustomAttributeData.GetCustomAttributes(System.Reflection.Module)
   id: GetCustomAttributes(System.Reflection.Module)
@@ -555,12 +555,13 @@ items:
   - csharp
   name: GetCustomAttributes(Module)
   nameWithType: CustomAttributeData.GetCustomAttributes(Module)
-  fullName: System.Reflection.CustomAttributeData.GetCustomAttributes(Module)
+  fullName: CustomAttributeData.GetCustomAttributes(Module)
   type: Method
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Returns a list of <xref href="System.Reflection.CustomAttributeData"></xref> objects representing data about the attributes that have been applied to the target module.
   syntax:
@@ -579,7 +580,8 @@ items:
     description: <code>target</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -595,7 +597,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -610,9 +613,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection/CustomAttributeData.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.CustomAttributeData.GetCustomAttributes(System.Reflection.ParameterInfo)
   commentId: M:System.Reflection.CustomAttributeData.GetCustomAttributes(System.Reflection.ParameterInfo)
   id: GetCustomAttributes(System.Reflection.ParameterInfo)
@@ -621,12 +621,13 @@ items:
   - csharp
   name: GetCustomAttributes(ParameterInfo)
   nameWithType: CustomAttributeData.GetCustomAttributes(ParameterInfo)
-  fullName: System.Reflection.CustomAttributeData.GetCustomAttributes(ParameterInfo)
+  fullName: CustomAttributeData.GetCustomAttributes(ParameterInfo)
   type: Method
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Returns a list of <xref href="System.Reflection.CustomAttributeData"></xref> objects representing data about the attributes that have been applied to the target parameter.
   remarks: This method provides an alternative to the <xref:System.Reflection.ParameterInfo.GetCustomAttributes%2A> method that can always be used in the Reflection-only context.
@@ -648,7 +649,8 @@ items:
     description: <code>target</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -664,7 +666,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -679,9 +682,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection/CustomAttributeData.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.CustomAttributeData.GetHashCode
   commentId: M:System.Reflection.CustomAttributeData.GetHashCode
   id: GetHashCode
@@ -690,11 +690,12 @@ items:
   - csharp
   name: GetHashCode()
   nameWithType: CustomAttributeData.GetHashCode()
-  fullName: System.Reflection.CustomAttributeData.GetHashCode()
+  fullName: CustomAttributeData.GetHashCode()
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Serves as a hash function for a particular type.
   syntax:
@@ -706,6 +707,7 @@ items:
   overload: System.Reflection.CustomAttributeData.GetHashCode*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -718,6 +720,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -730,9 +733,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection/CustomAttributeData.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.CustomAttributeData.NamedArguments
   commentId: P:System.Reflection.CustomAttributeData.NamedArguments
   id: NamedArguments
@@ -741,12 +741,13 @@ items:
   - csharp
   name: NamedArguments
   nameWithType: CustomAttributeData.NamedArguments
-  fullName: System.Reflection.CustomAttributeData.NamedArguments
+  fullName: CustomAttributeData.NamedArguments
   type: Property
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Gets the list of named arguments specified for the attribute instance represented by the <xref href="System.Reflection.CustomAttributeData"></xref> object.
   remarks: "This method gets the named arguments that were specified for the custom attribute instance without executing any of the custom attribute code. Thus, it can be used in the Reflection-only context.  \n  \n The list that is returned contains only the named arguments that were specified for the attribute instance.  \n  \n Use the <xref:System.Reflection.CustomAttributeData.ConstructorArguments%2A> method to get the positional arguments that were specified for the attribute instance."
@@ -761,7 +762,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -782,7 +784,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -802,9 +805,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection/CustomAttributeData.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.CustomAttributeData.ToString
   commentId: M:System.Reflection.CustomAttributeData.ToString
   id: ToString
@@ -813,11 +813,12 @@ items:
   - csharp
   name: ToString()
   nameWithType: CustomAttributeData.ToString()
-  fullName: System.Reflection.CustomAttributeData.ToString()
+  fullName: CustomAttributeData.ToString()
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Returns a string representation of the custom attribute.
   remarks: The string value includes the attribute type, the attribute parameters, and the named parameters.
@@ -832,6 +833,7 @@ items:
   overload: System.Reflection.CustomAttributeData.ToString*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -844,6 +846,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -856,9 +859,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection/CustomAttributeData.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -877,13 +877,13 @@ references:
   isExternal: false
   name: CustomAttributeData()
   nameWithType: CustomAttributeData.CustomAttributeData()
-  fullName: System.Reflection.CustomAttributeData.CustomAttributeData()
+  fullName: CustomAttributeData.CustomAttributeData()
 - uid: System.Reflection.CustomAttributeData.AttributeType
   parent: System.Reflection.CustomAttributeData
   isExternal: false
   name: AttributeType
   nameWithType: CustomAttributeData.AttributeType
-  fullName: System.Reflection.CustomAttributeData.AttributeType
+  fullName: CustomAttributeData.AttributeType
 - uid: System.Type
   parent: System
   isExternal: false
@@ -895,7 +895,7 @@ references:
   isExternal: false
   name: Constructor
   nameWithType: CustomAttributeData.Constructor
-  fullName: System.Reflection.CustomAttributeData.Constructor
+  fullName: CustomAttributeData.Constructor
 - uid: System.Reflection.ConstructorInfo
   parent: System.Reflection
   isExternal: false
@@ -907,7 +907,7 @@ references:
   isExternal: false
   name: ConstructorArguments
   nameWithType: CustomAttributeData.ConstructorArguments
-  fullName: System.Reflection.CustomAttributeData.ConstructorArguments
+  fullName: CustomAttributeData.ConstructorArguments
 - uid: System.Collections.Generic.IList`1
   name: IList<T>
   nameWithType: IList<T>
@@ -942,7 +942,7 @@ references:
   isExternal: false
   name: Equals(Object)
   nameWithType: CustomAttributeData.Equals(Object)
-  fullName: System.Reflection.CustomAttributeData.Equals(Object)
+  fullName: CustomAttributeData.Equals(Object)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -954,7 +954,7 @@ references:
   isExternal: false
   name: GetCustomAttributes(Assembly)
   nameWithType: CustomAttributeData.GetCustomAttributes(Assembly)
-  fullName: System.Reflection.CustomAttributeData.GetCustomAttributes(Assembly)
+  fullName: CustomAttributeData.GetCustomAttributes(Assembly)
 - uid: System.Reflection.CustomAttributeData
   name: CustomAttributeData
   nameWithType: CustomAttributeData
@@ -991,7 +991,7 @@ references:
   isExternal: false
   name: GetCustomAttributes(MemberInfo)
   nameWithType: CustomAttributeData.GetCustomAttributes(MemberInfo)
-  fullName: System.Reflection.CustomAttributeData.GetCustomAttributes(MemberInfo)
+  fullName: CustomAttributeData.GetCustomAttributes(MemberInfo)
 - uid: System.Reflection.MemberInfo
   parent: System.Reflection
   isExternal: false
@@ -1003,7 +1003,7 @@ references:
   isExternal: false
   name: GetCustomAttributes(Module)
   nameWithType: CustomAttributeData.GetCustomAttributes(Module)
-  fullName: System.Reflection.CustomAttributeData.GetCustomAttributes(Module)
+  fullName: CustomAttributeData.GetCustomAttributes(Module)
 - uid: System.Reflection.Module
   parent: System.Reflection
   isExternal: false
@@ -1015,7 +1015,7 @@ references:
   isExternal: false
   name: GetCustomAttributes(ParameterInfo)
   nameWithType: CustomAttributeData.GetCustomAttributes(ParameterInfo)
-  fullName: System.Reflection.CustomAttributeData.GetCustomAttributes(ParameterInfo)
+  fullName: CustomAttributeData.GetCustomAttributes(ParameterInfo)
 - uid: System.Reflection.ParameterInfo
   parent: System.Reflection
   isExternal: false
@@ -1027,7 +1027,7 @@ references:
   isExternal: false
   name: GetHashCode()
   nameWithType: CustomAttributeData.GetHashCode()
-  fullName: System.Reflection.CustomAttributeData.GetHashCode()
+  fullName: CustomAttributeData.GetHashCode()
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -1039,7 +1039,7 @@ references:
   isExternal: false
   name: NamedArguments
   nameWithType: CustomAttributeData.NamedArguments
-  fullName: System.Reflection.CustomAttributeData.NamedArguments
+  fullName: CustomAttributeData.NamedArguments
 - uid: System.Reflection.CustomAttributeNamedArgument
   name: CustomAttributeNamedArgument
   nameWithType: CustomAttributeNamedArgument
@@ -1070,7 +1070,7 @@ references:
   isExternal: false
   name: ToString()
   nameWithType: CustomAttributeData.ToString()
-  fullName: System.Reflection.CustomAttributeData.ToString()
+  fullName: CustomAttributeData.ToString()
 - uid: System.String
   parent: System
   isExternal: false
@@ -1082,8 +1082,9 @@ references:
   isExternal: false
   name: CustomAttributeData
   nameWithType: CustomAttributeData.CustomAttributeData
-  fullName: System.Reflection.CustomAttributeData.CustomAttributeData
+  fullName: CustomAttributeData.CustomAttributeData
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1101,10 +1102,11 @@ references:
   isExternal: false
   name: AttributeType
   nameWithType: CustomAttributeData.AttributeType
-  fullName: System.Reflection.CustomAttributeData.AttributeType
+  fullName: CustomAttributeData.AttributeType
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1129,10 +1131,11 @@ references:
   isExternal: false
   name: Constructor
   nameWithType: CustomAttributeData.Constructor
-  fullName: System.Reflection.CustomAttributeData.Constructor
+  fullName: CustomAttributeData.Constructor
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1152,10 +1155,11 @@ references:
   isExternal: false
   name: ConstructorArguments
   nameWithType: CustomAttributeData.ConstructorArguments
-  fullName: System.Reflection.CustomAttributeData.ConstructorArguments
+  fullName: CustomAttributeData.ConstructorArguments
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1180,8 +1184,9 @@ references:
   isExternal: false
   name: Equals
   nameWithType: CustomAttributeData.Equals
-  fullName: System.Reflection.CustomAttributeData.Equals
+  fullName: CustomAttributeData.Equals
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1199,10 +1204,11 @@ references:
   isExternal: false
   name: GetCustomAttributes
   nameWithType: CustomAttributeData.GetCustomAttributes
-  fullName: System.Reflection.CustomAttributeData.GetCustomAttributes
+  fullName: CustomAttributeData.GetCustomAttributes
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1222,8 +1228,9 @@ references:
   isExternal: false
   name: GetHashCode
   nameWithType: CustomAttributeData.GetHashCode
-  fullName: System.Reflection.CustomAttributeData.GetHashCode
+  fullName: CustomAttributeData.GetHashCode
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1241,10 +1248,11 @@ references:
   isExternal: false
   name: NamedArguments
   nameWithType: CustomAttributeData.NamedArguments
-  fullName: System.Reflection.CustomAttributeData.NamedArguments
+  fullName: CustomAttributeData.NamedArguments
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1269,8 +1277,9 @@ references:
   isExternal: false
   name: ToString
   nameWithType: CustomAttributeData.ToString
-  fullName: System.Reflection.CustomAttributeData.ToString
+  fullName: CustomAttributeData.ToString
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

@@ -20,6 +20,7 @@ items:
   - System.Text.Encoding
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Text
   summary: Provides a buffer that allows a fallback handler to return an alternate string to a decoder when it cannot decode an input byte sequence.
   remarks: "An encoding defines a mapping between a Unicode character and an encoded sequence of bytes. A decoding operation, which converts an input byte sequence to an output character, fails if no mapping is defined for a particular byte sequence.  \n  \n The .NET Framework provides a failure handling mechanism, called a fallback, if a conversion cannot be performed. All decoder fallback handlers must implement the following:  \n  \n-   A decoder fallback, which is represented by a class derived from the <xref:System.Text.DecoderFallback> class.  \n  \n-   A decoder fallback buffer, which is represented by a type derived from the <xref:System.Text.DecoderFallbackBuffer> class that can return a string to the conversion operation.  \n  \n Fallbacks can use three strategies to handle conversion failures:  \n  \n-   Best-fit mapping. The decoder fallback buffer can return a string that represents a close approximation to the input byte sequence. The .NET Framework does not provide a public best-fit <xref:System.Text.DecoderFallbackBuffer> implementation.  \n  \n-   Replacement. The decoder fallback buffer can return a string, such as a question mark (\"?\"), that indicates that a byte sequence could not be decoded. In the .NET Framework, the <xref:System.Text.DecoderReplacementFallback> and <xref:System.Text.DecoderReplacementFallbackBuffer> classes provide a public replacement fallback buffer implementation. The constructor of the <xref:System.Text.DecoderReplacementFallback> class enables you to define the replacement string.  \n  \n-   Exception. The <xref:System.Text.DecoderFallbackBuffer> implementation throws an exception, which indicates that a byte sequence cannot be decoded, and terminates the decoding operation. In this case, the fallback handler must provide a <xref:System.Text.DecoderFallbackBuffer> implementation, although it does not return a string to the decoder. In the .NET Framework, the <xref:System.Text.DecoderExceptionFallback> and <xref:System.Text.DecoderExceptionFallbackBuffer> classes provide a public exception fallback implementation that throws a <xref:System.Text.DecoderFallbackException> when a byte sequence cannot be decoded.  \n  \n The buffer in a <xref:System.Text.DecoderFallbackBuffer> implementation represents the entire string to be returned to the decoder in response to a decoder fallback. Generally, implementations also include state information, such as the index of the next character to return to the decoder and the number of remaining characters to be returned. Because <xref:System.Text.DecoderFallbackBuffer> is an abstract class, it requires derived classes to implement the following members at a minimum:  \n  \n-   The <xref:System.Text.DecoderFallbackBuffer.Fallback%2A> method, which is called by the decoder when it cannot decode a byte sequence. The decoder passes two pieces of information to the fallback buffer implementation: an array containing the bytes that could not be decoded and the index of the first byte in the input byte array. In a decoder fallback exception handler, the exception is thrown in this method. Otherwise, the method returns `true` if it provides a fallback, or `false` if it does not.  \n  \n-   The <xref:System.Text.DecoderFallbackBuffer.GetNextChar%2A> method, which is called repeatedly by the decoder if the <xref:System.Text.DecoderFallbackBuffer.Fallback%2A> method returns `true`. In successive calls, the handler should return each character in its buffer. When it has returned all characters, it should return U+0000. An exception fallback handler always returns U+0000.  \n  \n-   The <xref:System.Text.DecoderFallbackBuffer.MovePrevious%2A> method, which tries to move the pointer to the previous position in the buffer and indicates whether the move was successful. An exception handler always returns `false`.  \n  \n-   The <xref:System.Text.DecoderFallbackBuffer.Remaining%2A> property, which indicates the number of remaining characters to be returned to the decoder. An exception fallback handler always returns zero."
@@ -41,7 +42,8 @@ items:
   - System.Object.ToString
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -58,7 +60,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -74,9 +77,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text/DecoderFallbackBuffer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Text.DecoderFallbackBuffer.#ctor
   commentId: M:System.Text.DecoderFallbackBuffer.#ctor
   id: '#ctor'
@@ -85,12 +85,13 @@ items:
   - csharp
   name: DecoderFallbackBuffer()
   nameWithType: DecoderFallbackBuffer.DecoderFallbackBuffer()
-  fullName: System.Text.DecoderFallbackBuffer.DecoderFallbackBuffer()
+  fullName: DecoderFallbackBuffer.DecoderFallbackBuffer()
   type: Constructor
   assemblies:
   - System.Text.Encoding
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Text
   summary: Initializes a new instance of the <xref href="System.Text.DecoderFallbackBuffer"></xref> class.
   syntax:
@@ -100,7 +101,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -117,7 +119,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -133,9 +136,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text/DecoderFallbackBuffer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Text.DecoderFallbackBuffer.Fallback(System.Byte[],System.Int32)
   commentId: M:System.Text.DecoderFallbackBuffer.Fallback(System.Byte[],System.Int32)
   id: Fallback(System.Byte[],System.Int32)
@@ -144,12 +144,13 @@ items:
   - csharp
   name: Fallback(Byte[], Int32)
   nameWithType: DecoderFallbackBuffer.Fallback(Byte[], Int32)
-  fullName: System.Text.DecoderFallbackBuffer.Fallback(Byte[], Int32)
+  fullName: DecoderFallbackBuffer.Fallback(Byte[], Int32)
   type: Method
   assemblies:
   - System.Text.Encoding
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Text
   summary: When overridden in a derived class, prepares the fallback buffer to handle the specified input byte sequence.
   remarks: The <xref:System.Text.Encoding.GetChars%2A?displayProperty=fullName>, <xref:System.Text.Encoding.GetString%2A?displayProperty=fullName>, and <xref:System.Text.Decoder.Convert%2A?displayProperty=fullName> methods call <xref:System.Text.DecoderFallbackBuffer.Fallback%2A> if they encounter an unknown input byte sequence that cannot be decoded. A return value of `true` indicates that the fallback buffer can process the input byte sequence, which causes the calling method to call the <xref:System.Text.DecoderFallbackBuffer.GetNextChar%2A> method to obtain each character of the fallback buffer. Because it does not process individual bytes, the <xref:System.Text.DecoderFallbackBuffer.Fallback%2A> method in an exception fallback handler throws an exception.
@@ -169,7 +170,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -186,7 +188,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -202,9 +205,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text/DecoderFallbackBuffer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Text.DecoderFallbackBuffer.GetNextChar
   commentId: M:System.Text.DecoderFallbackBuffer.GetNextChar
   id: GetNextChar
@@ -213,12 +213,13 @@ items:
   - csharp
   name: GetNextChar()
   nameWithType: DecoderFallbackBuffer.GetNextChar()
-  fullName: System.Text.DecoderFallbackBuffer.GetNextChar()
+  fullName: DecoderFallbackBuffer.GetNextChar()
   type: Method
   assemblies:
   - System.Text.Encoding
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Text
   summary: When overridden in a derived class, retrieves the next character in the fallback buffer.
   remarks: "A decoding operation calls the <xref:System.Text.DecoderFallbackBuffer.Fallback%2A> method if the operation encounters an unknown byte sequence in the input. If the <xref:System.Text.DecoderFallbackBuffer.Fallback%2A> method returns `true`, a substitute string exists that can be inserted in the output instead of decoding the unknown input. The decoding operation calls the <xref:System.Text.DecoderFallbackBuffer.GetNextChar%2A> method repeatedly and obtains the substitute string one character at a time. When all characters in the fallback buffer have been returned to the decoder, the method should return U+0000.  \n  \n For an exception fallback handler, the <xref:System.Text.DecoderFallbackBuffer.GetNextChar%2A> method should return U+0000."
@@ -232,7 +233,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -249,7 +251,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -265,9 +268,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text/DecoderFallbackBuffer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Text.DecoderFallbackBuffer.MovePrevious
   commentId: M:System.Text.DecoderFallbackBuffer.MovePrevious
   id: MovePrevious
@@ -276,12 +276,13 @@ items:
   - csharp
   name: MovePrevious()
   nameWithType: DecoderFallbackBuffer.MovePrevious()
-  fullName: System.Text.DecoderFallbackBuffer.MovePrevious()
+  fullName: DecoderFallbackBuffer.MovePrevious()
   type: Method
   assemblies:
   - System.Text.Encoding
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Text
   summary: When overridden in a derived class, causes the next call to the <xref href="System.Text.DecoderFallbackBuffer.GetNextChar"></xref> method to access the data buffer character position that is prior to the current character position.
   remarks: An exception fallback handler should return `false`.
@@ -295,7 +296,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -312,7 +314,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -328,9 +331,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text/DecoderFallbackBuffer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Text.DecoderFallbackBuffer.Remaining
   commentId: P:System.Text.DecoderFallbackBuffer.Remaining
   id: Remaining
@@ -339,12 +339,13 @@ items:
   - csharp
   name: Remaining
   nameWithType: DecoderFallbackBuffer.Remaining
-  fullName: System.Text.DecoderFallbackBuffer.Remaining
+  fullName: DecoderFallbackBuffer.Remaining
   type: Property
   assemblies:
   - System.Text.Encoding
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Text
   summary: When overridden in a derived class, gets the number of characters in the current <xref href="System.Text.DecoderFallbackBuffer"></xref> object that remain to be processed.
   remarks: "The <xref:System.Text.DecoderFallbackBuffer.Fallback%2A> method returns `true` if <xref:System.Text.DecoderFallbackBuffer.Remaining%2A> is a nonzero value.  \n  \n For an exception fallback handler, the <xref:System.Text.DecoderFallbackBuffer.Remaining%2A> method should return zero."
@@ -357,7 +358,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -374,7 +376,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -390,9 +393,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text/DecoderFallbackBuffer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Text.DecoderFallbackBuffer.Reset
   commentId: M:System.Text.DecoderFallbackBuffer.Reset
   id: Reset
@@ -401,12 +401,13 @@ items:
   - csharp
   name: Reset()
   nameWithType: DecoderFallbackBuffer.Reset()
-  fullName: System.Text.DecoderFallbackBuffer.Reset()
+  fullName: DecoderFallbackBuffer.Reset()
   type: Method
   assemblies:
   - System.Text.Encoding
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Text
   summary: Initializes all data and state information pertaining to this fallback buffer.
   syntax:
@@ -416,7 +417,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -433,7 +435,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -449,9 +452,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text/DecoderFallbackBuffer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -464,13 +464,13 @@ references:
   isExternal: false
   name: DecoderFallbackBuffer()
   nameWithType: DecoderFallbackBuffer.DecoderFallbackBuffer()
-  fullName: System.Text.DecoderFallbackBuffer.DecoderFallbackBuffer()
+  fullName: DecoderFallbackBuffer.DecoderFallbackBuffer()
 - uid: System.Text.DecoderFallbackBuffer.Fallback(System.Byte[],System.Int32)
   parent: System.Text.DecoderFallbackBuffer
   isExternal: false
   name: Fallback(Byte[], Int32)
   nameWithType: DecoderFallbackBuffer.Fallback(Byte[], Int32)
-  fullName: System.Text.DecoderFallbackBuffer.Fallback(Byte[], Int32)
+  fullName: DecoderFallbackBuffer.Fallback(Byte[], Int32)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -506,7 +506,7 @@ references:
   isExternal: false
   name: GetNextChar()
   nameWithType: DecoderFallbackBuffer.GetNextChar()
-  fullName: System.Text.DecoderFallbackBuffer.GetNextChar()
+  fullName: DecoderFallbackBuffer.GetNextChar()
 - uid: System.Char
   parent: System
   isExternal: false
@@ -518,28 +518,29 @@ references:
   isExternal: false
   name: MovePrevious()
   nameWithType: DecoderFallbackBuffer.MovePrevious()
-  fullName: System.Text.DecoderFallbackBuffer.MovePrevious()
+  fullName: DecoderFallbackBuffer.MovePrevious()
 - uid: System.Text.DecoderFallbackBuffer.Remaining
   parent: System.Text.DecoderFallbackBuffer
   isExternal: false
   name: Remaining
   nameWithType: DecoderFallbackBuffer.Remaining
-  fullName: System.Text.DecoderFallbackBuffer.Remaining
+  fullName: DecoderFallbackBuffer.Remaining
 - uid: System.Text.DecoderFallbackBuffer.Reset
   parent: System.Text.DecoderFallbackBuffer
   isExternal: false
   name: Reset()
   nameWithType: DecoderFallbackBuffer.Reset()
-  fullName: System.Text.DecoderFallbackBuffer.Reset()
+  fullName: DecoderFallbackBuffer.Reset()
 - uid: System.Text.DecoderFallbackBuffer.#ctor*
   parent: System.Text.DecoderFallbackBuffer
   isExternal: false
   name: DecoderFallbackBuffer
   nameWithType: DecoderFallbackBuffer.DecoderFallbackBuffer
-  fullName: System.Text.DecoderFallbackBuffer.DecoderFallbackBuffer
+  fullName: DecoderFallbackBuffer.DecoderFallbackBuffer
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -560,10 +561,11 @@ references:
   isExternal: false
   name: Fallback
   nameWithType: DecoderFallbackBuffer.Fallback
-  fullName: System.Text.DecoderFallbackBuffer.Fallback
+  fullName: DecoderFallbackBuffer.Fallback
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -584,10 +586,11 @@ references:
   isExternal: false
   name: GetNextChar
   nameWithType: DecoderFallbackBuffer.GetNextChar
-  fullName: System.Text.DecoderFallbackBuffer.GetNextChar
+  fullName: DecoderFallbackBuffer.GetNextChar
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -608,10 +611,11 @@ references:
   isExternal: false
   name: MovePrevious
   nameWithType: DecoderFallbackBuffer.MovePrevious
-  fullName: System.Text.DecoderFallbackBuffer.MovePrevious
+  fullName: DecoderFallbackBuffer.MovePrevious
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -632,10 +636,11 @@ references:
   isExternal: false
   name: Remaining
   nameWithType: DecoderFallbackBuffer.Remaining
-  fullName: System.Text.DecoderFallbackBuffer.Remaining
+  fullName: DecoderFallbackBuffer.Remaining
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -656,10 +661,11 @@ references:
   isExternal: false
   name: Reset
   nameWithType: DecoderFallbackBuffer.Reset
-  fullName: System.Text.DecoderFallbackBuffer.Reset
+  fullName: DecoderFallbackBuffer.Reset
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

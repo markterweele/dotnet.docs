@@ -40,6 +40,7 @@ items:
   type: Enum
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: Specifies the formula used to calculate the <xref href="System.Diagnostics.PerformanceCounter.NextValue"></xref> method for a <xref href="System.Diagnostics.PerformanceCounter"></xref> instance.
   remarks: "Some counter types represent raw data, while others represent calculated values that are based on one or more counter samples. The following categories classify the types of counters available.  \n  \n-   Average: measure a value over time and display the average of the last two measurements. Associated with each average counter is a base counter that tracks the number of samples involved.  \n  \n-   Difference: subtract the last measurement from the previous one and display the difference, if it is positive; if negative, they display a zero.  \n  \n-   Instantaneous: display the most recent measurement.  \n  \n-   Percentage: display calculated values as a percentage.  \n  \n-   Rate: sample an increasing count of events over time and divide the change in count values by the change in time to display a rate of activity.  \n  \n When sampling performance counter data, using a counter type that represents an average can make raw data values meaningful for your use. For example, the raw data counter `NumberOfItems64` can expose data that is fairly random from sample to sample. The formula for an average calculation of the values that the counter returns would be (X 0 +X 1 +…+X n)/n, where each X i is a raw counter sample.  \n  \n Rate counters are similar to average counters, but more useful for situations in which the rate increases as a resource is used. A formula that quickly calculates the average is ((X n -X 0)/(T n -T 0)) / frequency, where each X i is a counter sample and each T i is the time that the corresponding sample was taken. The result is the average usage per second.  \n  \n> [!NOTE]\n>  Unless otherwise indicated, the time base is seconds.  \n  \n When instrumenting applications (creating and writing custom performance counters), you might be working with performance counter types that rely on an accompanying base counter that is used in the calculations. The base counter must be immediately after its associated counter in the <xref:System.Diagnostics.CounterCreationDataCollection> collection your application uses. The following table lists the base counter types with their corresponding performance counter types.  \n  \n|Base counter type|Performance counter types|  \n|-----------------------|-------------------------------|  \n|`AverageBase`|`AverageTimer32`<br /><br /> `AverageCount64`|  \n|`CounterMultiBase`|`CounterMultiTimer`<br /><br /> `CounterMultiTimerInverse`<br /><br /> `CounterMultiTimer100Ns`<br /><br /> `CounterMultiTimer100NsInverse`|  \n|`RawBase`|`RawFraction`|  \n|`SampleBase`|`SampleFraction`|"
@@ -57,6 +58,7 @@ items:
   attributes:
   - type: System.ComponentModel.TypeConverterAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -66,6 +68,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -75,9 +78,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/PerformanceCounterType.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.PerformanceCounterType.AverageBase
   commentId: F:System.Diagnostics.PerformanceCounterType.AverageBase
   id: AverageBase
@@ -86,10 +86,11 @@ items:
   - csharp
   name: AverageBase
   nameWithType: PerformanceCounterType.AverageBase
-  fullName: System.Diagnostics.PerformanceCounterType.AverageBase
+  fullName: PerformanceCounterType.AverageBase
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: A base counter that is used in the calculation of time or count averages, such as `AverageTimer32` and `AverageCount64`. Stores the denominator for calculating a counter to present "time per operation" or "count per operation".
   syntax:
@@ -99,6 +100,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -108,6 +110,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -125,10 +128,11 @@ items:
   - csharp
   name: AverageCount64
   nameWithType: PerformanceCounterType.AverageCount64
-  fullName: System.Diagnostics.PerformanceCounterType.AverageCount64
+  fullName: PerformanceCounterType.AverageCount64
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: An average counter that shows how many items are processed, on average, during an operation. Counters of this type display a ratio of the items processed to the number of operations completed. The ratio is calculated by comparing the number of items processed during the last interval to the number of operations completed during the last interval.
   remarks: "Formula: (N 1 -N 0)/(B 1 -B 0), where N 1 and N 0 are performance counter readings, and the B 1 and B 0 are their corresponding `AverageBase` values. Thus, the numerator represents the numbers of items processed during the sample interval, and the denominator represents the number of operations completed during the sample interval.  \n  \n Counters of this type include PhysicalDisk\\ Avg. Disk Bytes/Transfer."
@@ -139,6 +143,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -148,6 +153,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -165,10 +171,11 @@ items:
   - csharp
   name: AverageTimer32
   nameWithType: PerformanceCounterType.AverageTimer32
-  fullName: System.Diagnostics.PerformanceCounterType.AverageTimer32
+  fullName: PerformanceCounterType.AverageTimer32
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: An average counter that measures the time it takes, on average, to complete a process or operation. Counters of this type display a ratio of the total elapsed time of the sample interval to the number of processes or operations completed during that time. This counter type measures time in ticks of the system clock.
   remarks: "Formula: ((N 1 -N 0)/F)/(B 1 -B 0), where N 1 and N 0 are performance counter readings, B 1 and B 0 are their corresponding `AverageBase` values, and F is the number of ticks per second. The value of F is factored into the equation so that the result can be displayed in seconds. Thus, the numerator represents the numbers of ticks counted during the last sample interval, F represents the frequency of the ticks, and the denominator represents the number of operations completed during the last sample interval.  \n  \n Counters of this type include PhysicalDisk\\ Avg. Disk sec/Transfer."
@@ -179,6 +186,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -188,6 +196,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -205,10 +214,11 @@ items:
   - csharp
   name: CounterDelta32
   nameWithType: PerformanceCounterType.CounterDelta32
-  fullName: System.Diagnostics.PerformanceCounterType.CounterDelta32
+  fullName: PerformanceCounterType.CounterDelta32
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: A difference counter that shows the change in the measured attribute between the two most recent sample intervals.
   remarks: 'Formula: N 1 -N 0, where N 1 and N 0 are performance counter readings.'
@@ -219,6 +229,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -228,6 +239,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -245,10 +257,11 @@ items:
   - csharp
   name: CounterDelta64
   nameWithType: PerformanceCounterType.CounterDelta64
-  fullName: System.Diagnostics.PerformanceCounterType.CounterDelta64
+  fullName: PerformanceCounterType.CounterDelta64
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: A difference counter that shows the change in the measured attribute between the two most recent sample intervals. It is the same as the `CounterDelta32` counter type except that is uses larger fields to accomodate larger values.
   remarks: 'Formula: N 1 -N 0, where N 1 and N 0 are performance counter readings.'
@@ -259,6 +272,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -268,6 +282,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -285,10 +300,11 @@ items:
   - csharp
   name: CounterMultiBase
   nameWithType: PerformanceCounterType.CounterMultiBase
-  fullName: System.Diagnostics.PerformanceCounterType.CounterMultiBase
+  fullName: PerformanceCounterType.CounterMultiBase
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: A base counter that indicates the number of items sampled. It is used as the denominator in the calculations to get an average among the items sampled when taking timings of multiple, but similar items. Used with `CounterMultiTimer`, `CounterMultiTimerInverse`, `CounterMultiTimer100Ns`, and `CounterMultiTimer100NsInverse`.
   syntax:
@@ -298,6 +314,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -307,6 +324,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -324,10 +342,11 @@ items:
   - csharp
   name: CounterMultiTimer
   nameWithType: PerformanceCounterType.CounterMultiTimer
-  fullName: System.Diagnostics.PerformanceCounterType.CounterMultiTimer
+  fullName: PerformanceCounterType.CounterMultiTimer
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: A percentage counter that displays the active time of one or more components as a percentage of the total time of the sample interval. Because the numerator records the active time of components operating simultaneously, the resulting percentage can exceed 100 percent.
   remarks: "This counter is a multitimer. Multitimers collect data from more than one instance of a component, such as a processor or disk. This counter type differs from `CounterMultiTimer100Ns` in that it measures time in units of ticks of the system performance timer, rather than in 100 nanosecond units.  \n  \n Formula: ((N 1 - N 0) / (D 1 - D 0)) x 100 / B, where N 1 and N 0 are performance counter readings, D 1 and D 0 are their corresponding time readings in ticks of the system performance timer, and the variable B denotes the base count for the monitored components (using a base counter of type `CounterMultiBase`). Thus, the numerator represents the portions of the sample interval during which the monitored components were active, and the denominator represents the total elapsed time of the sample interval."
@@ -338,6 +357,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -347,6 +367,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -364,10 +385,11 @@ items:
   - csharp
   name: CounterMultiTimer100Ns
   nameWithType: PerformanceCounterType.CounterMultiTimer100Ns
-  fullName: System.Diagnostics.PerformanceCounterType.CounterMultiTimer100Ns
+  fullName: PerformanceCounterType.CounterMultiTimer100Ns
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: A percentage counter that shows the active time of one or more components as a percentage of the total time of the sample interval. It measures time in 100 nanosecond (ns) units.
   remarks: "This counter type is a multitimer. Multitimers are designed to monitor more than one instance of a component, such as a processor or disk.  \n  \n Formula: ((N 1 - N 0) / (D 1 - D 0)) x 100 / B, where N 1 and N 0 are performance counter readings, D 1 and D 0 are their corresponding time readings in 100-nanosecond units, and the variable B denotes the base count for the monitored components (using a base counter of type `CounterMultiBase`). Thus, the numerator represents the portions of the sample interval during which the monitored components were active, and the denominator represents the total elapsed time of the sample interval."
@@ -378,6 +400,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -387,6 +410,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -404,10 +428,11 @@ items:
   - csharp
   name: CounterMultiTimer100NsInverse
   nameWithType: PerformanceCounterType.CounterMultiTimer100NsInverse
-  fullName: System.Diagnostics.PerformanceCounterType.CounterMultiTimer100NsInverse
+  fullName: PerformanceCounterType.CounterMultiTimer100NsInverse
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: A percentage counter that shows the active time of one or more components as a percentage of the total time of the sample interval. Counters of this type measure time in 100 nanosecond (ns) units. They derive the active time by measuring the time that the components were not active and subtracting the result from multiplying 100 percent by the number of objects monitored.
   remarks: "This counter type is an inverse multitimer. Multitimers are designed to monitor more than one instance of a component, such as a processor or disk. Inverse counters measure the time that a component is not active and derive its active time from the measurement of inactive time  \n  \n Formula: (B - ((N 1 - N 0) / (D 1 - D 0))) x 100, where the denominator represents the total elapsed time of the sample interval, the numerator represents the time during the interval when monitored components were inactive, and B represents the number of components being monitored, using a base counter of type `CounterMultiBase`."
@@ -418,6 +443,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -427,6 +453,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -444,10 +471,11 @@ items:
   - csharp
   name: CounterMultiTimerInverse
   nameWithType: PerformanceCounterType.CounterMultiTimerInverse
-  fullName: System.Diagnostics.PerformanceCounterType.CounterMultiTimerInverse
+  fullName: PerformanceCounterType.CounterMultiTimerInverse
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: A percentage counter that shows the active time of one or more components as a percentage of the total time of the sample interval. It derives the active time by measuring the time that the components were not active and subtracting the result from 100 percent by the number of objects monitored.
   remarks: "This counter type is an inverse multitimer. Multitimers monitor more than one instance of a component, such as a processor or disk. Inverse counters measure the time that a component is not active and derive its active time from that measurement.  \n  \n This counter differs from `CounterMultiTimer100NsInverse` in that it measures time in units of ticks of the system performance timer, rather than in 100 nanosecond units.  \n  \n Formula: (B- ((N 1 - N 0) / (D 1 - D 0))) x 100, where the denominator represents the total elapsed time of the sample interval, the numerator represents the time during the interval when monitored components were inactive, and B represents the number of components being monitored, using a base counter of type `CounterMultiBase`."
@@ -458,6 +486,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -467,6 +496,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -484,10 +514,11 @@ items:
   - csharp
   name: CounterTimer
   nameWithType: PerformanceCounterType.CounterTimer
-  fullName: System.Diagnostics.PerformanceCounterType.CounterTimer
+  fullName: PerformanceCounterType.CounterTimer
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: A percentage counter that shows the average time that a component is active as a percentage of the total sample time.
   remarks: 'Formula: (N 1 - N 0) / (D 1 - D 0), where N 1 and N 0 are performance counter readings, and D 1 and D 0 are their corresponding time readings. Thus, the numerator represents the portions of the sample interval during which the monitored components were active, and the denominator represents the total elapsed time of the sample interval.'
@@ -498,6 +529,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -507,6 +539,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -524,10 +557,11 @@ items:
   - csharp
   name: CounterTimerInverse
   nameWithType: PerformanceCounterType.CounterTimerInverse
-  fullName: System.Diagnostics.PerformanceCounterType.CounterTimerInverse
+  fullName: PerformanceCounterType.CounterTimerInverse
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: A percentage counter that displays the average percentage of active time observed during sample interval. The value of these counters is calculated by monitoring the percentage of time that the service was inactive and then subtracting that value from 100 percent.
   remarks: "This is an inverse counter type. Inverse counters measure the time that a component is note active and derive the active time from that measurement. This counter type is the same as `CounterTimer100NsInv` except that it measures time in units of ticks of the system performance timer rather than in 100 nanosecond units.  \n  \n Formula: (1- ((N 1 - N 0) / (D 1 - D 0))) x 100, where the numerator represents the time during the interval when the monitored components were inactive, and the denominator represents the total elapsed time of the sample interval."
@@ -538,6 +572,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -547,6 +582,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -564,10 +600,11 @@ items:
   - csharp
   name: CountPerTimeInterval32
   nameWithType: PerformanceCounterType.CountPerTimeInterval32
-  fullName: System.Diagnostics.PerformanceCounterType.CountPerTimeInterval32
+  fullName: PerformanceCounterType.CountPerTimeInterval32
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: An average counter designed to monitor the average length of a queue to a resource over time. It shows the difference between the queue lengths observed during the last two sample intervals divided by the duration of the interval. This type of counter is typically used to track the number of items that are queued or waiting.
   remarks: 'Formula: (N 1 - N 0) / (D 1 - D 0), where the numerator represents the number of items in the queue and the denominator represents the time elapsed during the last sample interval.'
@@ -578,6 +615,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -587,6 +625,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -604,10 +643,11 @@ items:
   - csharp
   name: CountPerTimeInterval64
   nameWithType: PerformanceCounterType.CountPerTimeInterval64
-  fullName: System.Diagnostics.PerformanceCounterType.CountPerTimeInterval64
+  fullName: PerformanceCounterType.CountPerTimeInterval64
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: An average counter that monitors the average length of a queue to a resource over time. Counters of this type display the difference between the queue lengths observed during the last two sample intervals, divided by the duration of the interval. This counter type is the same as `CountPerTimeInterval32` except that it uses larger fields to accommodate larger values. This type of counter is typically used to track a high-volume or very large number of items that are queued or waiting.
   remarks: 'Formula: (N 1 - N 0) / (D 1 - D 0), where the numerator represents the number of items in a queue and the denominator represents the time elapsed during the sample interval.'
@@ -618,6 +658,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -627,6 +668,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -644,10 +686,11 @@ items:
   - csharp
   name: ElapsedTime
   nameWithType: PerformanceCounterType.ElapsedTime
-  fullName: System.Diagnostics.PerformanceCounterType.ElapsedTime
+  fullName: PerformanceCounterType.ElapsedTime
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: A difference timer that shows the total time between when the component or process started and the time when this value is calculated.
   remarks: "Formula: (D 0 - N 0) / F, where D 0 represents the current time, N 0 represents the time the object was started, and F represents the number of time units that elapse in one second. The value of F is factored into the equation so that the result can be displayed in seconds.  \n  \n Counters of this type include System\\ System Up Time."
@@ -658,6 +701,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -667,6 +711,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -684,10 +729,11 @@ items:
   - csharp
   name: NumberOfItems32
   nameWithType: PerformanceCounterType.NumberOfItems32
-  fullName: System.Diagnostics.PerformanceCounterType.NumberOfItems32
+  fullName: PerformanceCounterType.NumberOfItems32
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: An instantaneous counter that shows the most recently observed value. Used, for example, to maintain a simple count of items or operations.
   remarks: "Formula: None. Does not display an average, but shows the raw data as it is collected.  \n  \n Counters of this type include Memory\\Available Bytes."
@@ -698,6 +744,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -707,6 +754,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -724,10 +772,11 @@ items:
   - csharp
   name: NumberOfItems64
   nameWithType: PerformanceCounterType.NumberOfItems64
-  fullName: System.Diagnostics.PerformanceCounterType.NumberOfItems64
+  fullName: PerformanceCounterType.NumberOfItems64
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: An instantaneous counter that shows the most recently observed value. Used, for example, to maintain a simple count of a very large number of items or operations. It is the same as `NumberOfItems32` except that it uses larger fields to accommodate larger values.
   remarks: 'Formula: None. Does not display an average, but shows the raw data as it is collected.'
@@ -738,6 +787,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -747,6 +797,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -764,10 +815,11 @@ items:
   - csharp
   name: NumberOfItemsHEX32
   nameWithType: PerformanceCounterType.NumberOfItemsHEX32
-  fullName: System.Diagnostics.PerformanceCounterType.NumberOfItemsHEX32
+  fullName: PerformanceCounterType.NumberOfItemsHEX32
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: An instantaneous counter that shows the most recently observed value in hexadecimal format. Used, for example, to maintain a simple count of items or operations.
   remarks: 'Formula: None. Does not display an average, but shows the raw data as it is collected.'
@@ -778,6 +830,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -787,6 +840,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -804,10 +858,11 @@ items:
   - csharp
   name: NumberOfItemsHEX64
   nameWithType: PerformanceCounterType.NumberOfItemsHEX64
-  fullName: System.Diagnostics.PerformanceCounterType.NumberOfItemsHEX64
+  fullName: PerformanceCounterType.NumberOfItemsHEX64
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: An instantaneous counter that shows the most recently observed value. Used, for example, to maintain a simple count of a very large number of items or operations. It is the same as `NumberOfItemsHEX32` except that it uses larger fields to accommodate larger values.
   remarks: 'Formula: None. Does not display an average, but shows the raw data as it is collected'
@@ -818,6 +873,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -827,6 +883,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -844,10 +901,11 @@ items:
   - csharp
   name: RateOfCountsPerSecond32
   nameWithType: PerformanceCounterType.RateOfCountsPerSecond32
-  fullName: System.Diagnostics.PerformanceCounterType.RateOfCountsPerSecond32
+  fullName: PerformanceCounterType.RateOfCountsPerSecond32
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: A difference counter that shows the average number of operations completed during each second of the sample interval. Counters of this type measure time in ticks of the system clock.
   remarks: "Formula: (N 1 - N 0) / ((D 1 -D 0) / F), where N 1 and N 0 are performance counter readings, D 1 and D 0 are their corresponding time readings, and F represents the number of ticks per second. Thus, the numerator represents the number of operations performed during the last sample interval, the denominator represents the number of ticks elapsed during the last sample interval, and F is the frequency of the ticks. The value of F is factored into the equation so that the result can be displayed in seconds.  \n  \n Counters of this type include System\\ File Read Operations/sec."
@@ -858,6 +916,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -867,6 +926,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -884,10 +944,11 @@ items:
   - csharp
   name: RateOfCountsPerSecond64
   nameWithType: PerformanceCounterType.RateOfCountsPerSecond64
-  fullName: System.Diagnostics.PerformanceCounterType.RateOfCountsPerSecond64
+  fullName: PerformanceCounterType.RateOfCountsPerSecond64
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: A difference counter that shows the average number of operations completed during each second of the sample interval. Counters of this type measure time in ticks of the system clock. This counter type is the same as the `RateOfCountsPerSecond32` type, but it uses larger fields to accommodate larger values to track a high-volume number of items or operations per second, such as a byte-transmission rate.
   remarks: "Formula: (N 1 - N 0) / ((D 1 -D 0) / F), where N 1 and N 0 are performance counter readings, D 1 and D 0 are their corresponding time readings, and F represents the number of ticks per second. Thus, the numerator represents the number of operations performed during the last sample interval, the denominator represents the number of ticks elapsed during the last sample interval, and F is the frequency of the ticks. The value of F is factored into the equation so that the result can be displayed in seconds.  \n  \n Counters of this type include System\\ File Read Bytes/sec."
@@ -898,6 +959,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -907,6 +969,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -924,10 +987,11 @@ items:
   - csharp
   name: RawBase
   nameWithType: PerformanceCounterType.RawBase
-  fullName: System.Diagnostics.PerformanceCounterType.RawBase
+  fullName: PerformanceCounterType.RawBase
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: A base counter that stores the denominator of a counter that presents a general arithmetic fraction. Check that this value is greater than zero before using it as the denominator in a `RawFraction` value calculation.
   syntax:
@@ -937,6 +1001,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -946,6 +1011,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -963,10 +1029,11 @@ items:
   - csharp
   name: RawFraction
   nameWithType: PerformanceCounterType.RawFraction
-  fullName: System.Diagnostics.PerformanceCounterType.RawFraction
+  fullName: PerformanceCounterType.RawFraction
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: An instantaneous percentage counter that shows the ratio of a subset to its set as a percentage. For example, it compares the number of bytes in use on a disk to the total number of bytes on the disk. Counters of this type display the current percentage only, not an average over time.
   remarks: "Formula: (N 0 / D 0) x 100, where D 0 represents a measured attribute (using a base counter of type `RawBase`) and N 0 represents one component of that attribute.  \n  \n Counters of this type include Paging File\\\\% Usage Peak."
@@ -977,6 +1044,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -986,6 +1054,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1003,10 +1072,11 @@ items:
   - csharp
   name: SampleBase
   nameWithType: PerformanceCounterType.SampleBase
-  fullName: System.Diagnostics.PerformanceCounterType.SampleBase
+  fullName: PerformanceCounterType.SampleBase
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: A base counter that stores the number of sampling interrupts taken and is used as a denominator in the sampling fraction. The sampling fraction is the number of samples that were 1 (or `true`) for a sample interrupt. Check that this value is greater than zero before using it as the denominator in a calculation of `SampleFraction`.
   syntax:
@@ -1016,6 +1086,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1025,6 +1096,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1042,10 +1114,11 @@ items:
   - csharp
   name: SampleCounter
   nameWithType: PerformanceCounterType.SampleCounter
-  fullName: System.Diagnostics.PerformanceCounterType.SampleCounter
+  fullName: PerformanceCounterType.SampleCounter
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: An average counter that shows the average number of operations completed in one second. When a counter of this type samples the data, each sampling interrupt returns one or zero. The counter data is the number of ones that were sampled. It measures time in units of ticks of the system performance timer.
   remarks: 'Formula: (N 1 – N 0) / ((D 1 – D 0) / F), where the numerator (N) represents the number of operations completed, the denominator (D) represents elapsed time in units of ticks of the system performance timer, and F represents the number of ticks that elapse in one second. F is factored into the equation so that the result can be displayed in seconds.'
@@ -1056,6 +1129,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1065,6 +1139,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1082,10 +1157,11 @@ items:
   - csharp
   name: SampleFraction
   nameWithType: PerformanceCounterType.SampleFraction
-  fullName: System.Diagnostics.PerformanceCounterType.SampleFraction
+  fullName: PerformanceCounterType.SampleFraction
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: A percentage counter that shows the average ratio of hits to all operations during the last two sample intervals.
   remarks: "Formula: ((N 1 - N 0) / (D 1 - D 0)) x 100, where the numerator represents the number of successful operations during the last sample interval, and the denominator represents the change in the number of all operations (of the type measured) completed during the sample interval, using counters of type `SampleBase`.  \n  \n Counters of this type include Cache\\Pin Read Hits %."
@@ -1096,6 +1172,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1105,6 +1182,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1122,10 +1200,11 @@ items:
   - csharp
   name: Timer100Ns
   nameWithType: PerformanceCounterType.Timer100Ns
-  fullName: System.Diagnostics.PerformanceCounterType.Timer100Ns
+  fullName: PerformanceCounterType.Timer100Ns
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: A percentage counter that shows the active time of a component as a percentage of the total elapsed time of the sample interval. It measures time in units of 100 nanoseconds (ns). Counters of this type are designed to measure the activity of one component at a time.
   remarks: "Formula: (N 1 - N 0) / (D 1 - D 0) x 100, where the numerator represents the portions of the sample interval during which the monitored components were active, and the denominator represents the total elapsed time of the sample interval.  \n  \n Counters of this type include Processor\\ % User Time."
@@ -1136,6 +1215,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1145,6 +1225,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1162,10 +1243,11 @@ items:
   - csharp
   name: Timer100NsInverse
   nameWithType: PerformanceCounterType.Timer100NsInverse
-  fullName: System.Diagnostics.PerformanceCounterType.Timer100NsInverse
+  fullName: PerformanceCounterType.Timer100NsInverse
   type: Field
   assemblies:
   - System
+  - System.Diagnostics.PerformanceCounter
   namespace: System.Diagnostics
   summary: A percentage counter that shows the average percentage of active time observed during the sample interval.
   remarks: "This is an inverse counter. Counters of this type calculate active time by measuring the time that the service was inactive and then subtracting the percentage of active time from 100 percent.  \n  \n Formula: (1- ((N 1 - N 0) / (D 1 - D 0))) x 100, where the numerator represents the time during the interval when the monitored components were inactive, and the denominator represents the total elapsed time of the sample interval.  \n  \n Counters of this type include Processor\\ % Processor Time."
@@ -1176,6 +1258,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1185,6 +1268,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1206,7 +1290,7 @@ references:
   isExternal: false
   name: AverageBase
   nameWithType: PerformanceCounterType.AverageBase
-  fullName: System.Diagnostics.PerformanceCounterType.AverageBase
+  fullName: PerformanceCounterType.AverageBase
 - uid: System.Diagnostics.PerformanceCounterType
   parent: System.Diagnostics
   isExternal: false
@@ -1218,160 +1302,160 @@ references:
   isExternal: false
   name: AverageCount64
   nameWithType: PerformanceCounterType.AverageCount64
-  fullName: System.Diagnostics.PerformanceCounterType.AverageCount64
+  fullName: PerformanceCounterType.AverageCount64
 - uid: System.Diagnostics.PerformanceCounterType.AverageTimer32
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: AverageTimer32
   nameWithType: PerformanceCounterType.AverageTimer32
-  fullName: System.Diagnostics.PerformanceCounterType.AverageTimer32
+  fullName: PerformanceCounterType.AverageTimer32
 - uid: System.Diagnostics.PerformanceCounterType.CounterDelta32
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: CounterDelta32
   nameWithType: PerformanceCounterType.CounterDelta32
-  fullName: System.Diagnostics.PerformanceCounterType.CounterDelta32
+  fullName: PerformanceCounterType.CounterDelta32
 - uid: System.Diagnostics.PerformanceCounterType.CounterDelta64
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: CounterDelta64
   nameWithType: PerformanceCounterType.CounterDelta64
-  fullName: System.Diagnostics.PerformanceCounterType.CounterDelta64
+  fullName: PerformanceCounterType.CounterDelta64
 - uid: System.Diagnostics.PerformanceCounterType.CounterMultiBase
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: CounterMultiBase
   nameWithType: PerformanceCounterType.CounterMultiBase
-  fullName: System.Diagnostics.PerformanceCounterType.CounterMultiBase
+  fullName: PerformanceCounterType.CounterMultiBase
 - uid: System.Diagnostics.PerformanceCounterType.CounterMultiTimer
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: CounterMultiTimer
   nameWithType: PerformanceCounterType.CounterMultiTimer
-  fullName: System.Diagnostics.PerformanceCounterType.CounterMultiTimer
+  fullName: PerformanceCounterType.CounterMultiTimer
 - uid: System.Diagnostics.PerformanceCounterType.CounterMultiTimer100Ns
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: CounterMultiTimer100Ns
   nameWithType: PerformanceCounterType.CounterMultiTimer100Ns
-  fullName: System.Diagnostics.PerformanceCounterType.CounterMultiTimer100Ns
+  fullName: PerformanceCounterType.CounterMultiTimer100Ns
 - uid: System.Diagnostics.PerformanceCounterType.CounterMultiTimer100NsInverse
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: CounterMultiTimer100NsInverse
   nameWithType: PerformanceCounterType.CounterMultiTimer100NsInverse
-  fullName: System.Diagnostics.PerformanceCounterType.CounterMultiTimer100NsInverse
+  fullName: PerformanceCounterType.CounterMultiTimer100NsInverse
 - uid: System.Diagnostics.PerformanceCounterType.CounterMultiTimerInverse
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: CounterMultiTimerInverse
   nameWithType: PerformanceCounterType.CounterMultiTimerInverse
-  fullName: System.Diagnostics.PerformanceCounterType.CounterMultiTimerInverse
+  fullName: PerformanceCounterType.CounterMultiTimerInverse
 - uid: System.Diagnostics.PerformanceCounterType.CounterTimer
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: CounterTimer
   nameWithType: PerformanceCounterType.CounterTimer
-  fullName: System.Diagnostics.PerformanceCounterType.CounterTimer
+  fullName: PerformanceCounterType.CounterTimer
 - uid: System.Diagnostics.PerformanceCounterType.CounterTimerInverse
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: CounterTimerInverse
   nameWithType: PerformanceCounterType.CounterTimerInverse
-  fullName: System.Diagnostics.PerformanceCounterType.CounterTimerInverse
+  fullName: PerformanceCounterType.CounterTimerInverse
 - uid: System.Diagnostics.PerformanceCounterType.CountPerTimeInterval32
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: CountPerTimeInterval32
   nameWithType: PerformanceCounterType.CountPerTimeInterval32
-  fullName: System.Diagnostics.PerformanceCounterType.CountPerTimeInterval32
+  fullName: PerformanceCounterType.CountPerTimeInterval32
 - uid: System.Diagnostics.PerformanceCounterType.CountPerTimeInterval64
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: CountPerTimeInterval64
   nameWithType: PerformanceCounterType.CountPerTimeInterval64
-  fullName: System.Diagnostics.PerformanceCounterType.CountPerTimeInterval64
+  fullName: PerformanceCounterType.CountPerTimeInterval64
 - uid: System.Diagnostics.PerformanceCounterType.ElapsedTime
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: ElapsedTime
   nameWithType: PerformanceCounterType.ElapsedTime
-  fullName: System.Diagnostics.PerformanceCounterType.ElapsedTime
+  fullName: PerformanceCounterType.ElapsedTime
 - uid: System.Diagnostics.PerformanceCounterType.NumberOfItems32
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: NumberOfItems32
   nameWithType: PerformanceCounterType.NumberOfItems32
-  fullName: System.Diagnostics.PerformanceCounterType.NumberOfItems32
+  fullName: PerformanceCounterType.NumberOfItems32
 - uid: System.Diagnostics.PerformanceCounterType.NumberOfItems64
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: NumberOfItems64
   nameWithType: PerformanceCounterType.NumberOfItems64
-  fullName: System.Diagnostics.PerformanceCounterType.NumberOfItems64
+  fullName: PerformanceCounterType.NumberOfItems64
 - uid: System.Diagnostics.PerformanceCounterType.NumberOfItemsHEX32
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: NumberOfItemsHEX32
   nameWithType: PerformanceCounterType.NumberOfItemsHEX32
-  fullName: System.Diagnostics.PerformanceCounterType.NumberOfItemsHEX32
+  fullName: PerformanceCounterType.NumberOfItemsHEX32
 - uid: System.Diagnostics.PerformanceCounterType.NumberOfItemsHEX64
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: NumberOfItemsHEX64
   nameWithType: PerformanceCounterType.NumberOfItemsHEX64
-  fullName: System.Diagnostics.PerformanceCounterType.NumberOfItemsHEX64
+  fullName: PerformanceCounterType.NumberOfItemsHEX64
 - uid: System.Diagnostics.PerformanceCounterType.RateOfCountsPerSecond32
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: RateOfCountsPerSecond32
   nameWithType: PerformanceCounterType.RateOfCountsPerSecond32
-  fullName: System.Diagnostics.PerformanceCounterType.RateOfCountsPerSecond32
+  fullName: PerformanceCounterType.RateOfCountsPerSecond32
 - uid: System.Diagnostics.PerformanceCounterType.RateOfCountsPerSecond64
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: RateOfCountsPerSecond64
   nameWithType: PerformanceCounterType.RateOfCountsPerSecond64
-  fullName: System.Diagnostics.PerformanceCounterType.RateOfCountsPerSecond64
+  fullName: PerformanceCounterType.RateOfCountsPerSecond64
 - uid: System.Diagnostics.PerformanceCounterType.RawBase
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: RawBase
   nameWithType: PerformanceCounterType.RawBase
-  fullName: System.Diagnostics.PerformanceCounterType.RawBase
+  fullName: PerformanceCounterType.RawBase
 - uid: System.Diagnostics.PerformanceCounterType.RawFraction
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: RawFraction
   nameWithType: PerformanceCounterType.RawFraction
-  fullName: System.Diagnostics.PerformanceCounterType.RawFraction
+  fullName: PerformanceCounterType.RawFraction
 - uid: System.Diagnostics.PerformanceCounterType.SampleBase
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: SampleBase
   nameWithType: PerformanceCounterType.SampleBase
-  fullName: System.Diagnostics.PerformanceCounterType.SampleBase
+  fullName: PerformanceCounterType.SampleBase
 - uid: System.Diagnostics.PerformanceCounterType.SampleCounter
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: SampleCounter
   nameWithType: PerformanceCounterType.SampleCounter
-  fullName: System.Diagnostics.PerformanceCounterType.SampleCounter
+  fullName: PerformanceCounterType.SampleCounter
 - uid: System.Diagnostics.PerformanceCounterType.SampleFraction
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: SampleFraction
   nameWithType: PerformanceCounterType.SampleFraction
-  fullName: System.Diagnostics.PerformanceCounterType.SampleFraction
+  fullName: PerformanceCounterType.SampleFraction
 - uid: System.Diagnostics.PerformanceCounterType.Timer100Ns
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: Timer100Ns
   nameWithType: PerformanceCounterType.Timer100Ns
-  fullName: System.Diagnostics.PerformanceCounterType.Timer100Ns
+  fullName: PerformanceCounterType.Timer100Ns
 - uid: System.Diagnostics.PerformanceCounterType.Timer100NsInverse
   parent: System.Diagnostics.PerformanceCounterType
   isExternal: false
   name: Timer100NsInverse
   nameWithType: PerformanceCounterType.Timer100NsInverse
-  fullName: System.Diagnostics.PerformanceCounterType.Timer100NsInverse
+  fullName: PerformanceCounterType.Timer100NsInverse

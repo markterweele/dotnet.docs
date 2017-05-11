@@ -18,10 +18,10 @@ items:
   assemblies:
   - System.ServiceModel
   namespace: System.ServiceModel.Activation
-  summary: Applied to a [!INCLUDE[indigo1](~/includes/indigo1-md.md)] service to indicate whether that service can be run in [!INCLUDE[vstecasp](~/includes/vstecasp-md.md)] compatibility code.
+  summary: Applied to a Windows Communication Foundation (WCF) service to indicate whether that service can be run in ASP.NET compatibility code.
   remarks: "When applied to a service implementation class, this attribute indicates whether this service requires or supports [!INCLUDE[vstecasp](~/includes/vstecasp-md.md)] compatibility mode to be enabled for the hosting application domain (AppDomain).  \n  \n AppDomains hosting [!INCLUDE[indigo2](~/includes/indigo2-md.md)] services can run in two different hosting modes:  \n  \n-   Mixed Transports Mode (Default): In this mode, [!INCLUDE[indigo2](~/includes/indigo2-md.md)] services do not participate in the [!INCLUDE[vstecasp](~/includes/vstecasp-md.md)] HTTP pipeline. This guarantees that a [!INCLUDE[indigo2](~/includes/indigo2-md.md)] service behaves consistently, independent of hosting environment and transport.  \n  \n-   [!INCLUDE[vstecasp](~/includes/vstecasp-md.md)] Compatibility Mode: In this mode, [!INCLUDE[indigo2](~/includes/indigo2-md.md)] services participate in the [!INCLUDE[vstecasp](~/includes/vstecasp-md.md)] HTTP pipeline in a manner similar to ASMX services. [!INCLUDE[vstecasp](~/includes/vstecasp-md.md)] features such as File Authorization, UrlAuthorization, and HTTP Session State are applicable to [!INCLUDE[indigo2](~/includes/indigo2-md.md)] services running in this mode.  \n  \n The hosting mode is controlled by the application-level configuration flag `aspNetCompatibilityEnabled`.  \n  \n `<system.serviceModel>`  \n  \n `<serviceHostingEnvironment aspNetCompatibilityEnabled=\"true\"/>`  \n  \n `</system.serviceModel>`  \n  \n This flag is `false` by default and thus [!INCLUDE[indigo2](~/includes/indigo2-md.md)] services run in the Mixed Transports Mode unless you explicitly opt into the [!INCLUDE[vstecasp](~/includes/vstecasp-md.md)] compatibility mode.  \n  \n [!INCLUDE[crabout](~/includes/crabout-md.md)] [!INCLUDE[vstecasp](~/includes/vstecasp-md.md)] compatibility mode, see [\\&lt;serviceHostingEnvironment\\&gt;](~/docs/framework/configure-apps/file-schema/wcf/servicehostingenvironment.md).  \n  \n Use the <xref:System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.RequirementsMode%2A> property to do this. At runtime, applications can detect if [!INCLUDE[vstecasp](~/includes/vstecasp-md.md)] compatibility mode is enabled by checking the value of the static property <xref:System.ServiceModel.ServiceHostingEnvironment.AspNetCompatibilityEnabled%2A>."
   example:
-  - "Service developers can ensure that their service is only run in ASP.NET Compatibility Mode by setting the <xref:System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.RequirementsMode%2A> property on the <xref:System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute> to <xref:System.ServiceModel.Activation.AspNetCompatibilityRequirementsMode> as shown in the following example  \n  \n [!code-csharp[S_AspNetCompatibility#1](~/samples/snippets/csharp/VS_Snippets_CFX/s_aspnetcompatibility/cs/service.cs#1)]\n [!code-vb[S_AspNetCompatibility#1](~/samples/snippets/visualbasic/VS_Snippets_CFX/s_aspnetcompatibility/vb/service.vb#1)]  \n  \n [!code-csharp[S_AspNetCompatibility#2](~/samples/snippets/csharp/VS_Snippets_CFX/s_aspnetcompatibility/cs/service.cs#2)]\n [!code-vb[S_AspNetCompatibility#2](~/samples/snippets/visualbasic/VS_Snippets_CFX/s_aspnetcompatibility/vb/service.vb#2)]"
+  - "Service developers can ensure that their service is only run in ASP.NET Compatibility Mode by setting the <xref:System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.RequirementsMode%2A> property on the <xref:System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute> to <xref:System.ServiceModel.Activation.AspNetCompatibilityRequirementsMode.Required> as shown in the following example  \n  \n [!code-csharp[S_AspNetCompatibility#1](~/samples/snippets/csharp/VS_Snippets_CFX/s_aspnetcompatibility/cs/service.cs#1)]\n [!code-vb[S_AspNetCompatibility#1](~/samples/snippets/visualbasic/VS_Snippets_CFX/s_aspnetcompatibility/vb/service.vb#1)]  \n  \n [!code-csharp[S_AspNetCompatibility#2](~/samples/snippets/csharp/VS_Snippets_CFX/s_aspnetcompatibility/cs/service.cs#2)]\n [!code-vb[S_AspNetCompatibility#2](~/samples/snippets/visualbasic/VS_Snippets_CFX/s_aspnetcompatibility/vb/service.vb#2)]"
   syntax:
     content: >-
       [System.AttributeUsage(System.AttributeTargets.Class)]
@@ -98,9 +98,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Activation/AspNetCompatibilityRequirementsAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.#ctor
   commentId: M:System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.#ctor
   id: '#ctor'
@@ -109,7 +106,7 @@ items:
   - csharp
   name: AspNetCompatibilityRequirementsAttribute()
   nameWithType: AspNetCompatibilityRequirementsAttribute.AspNetCompatibilityRequirementsAttribute()
-  fullName: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.AspNetCompatibilityRequirementsAttribute()
+  fullName: AspNetCompatibilityRequirementsAttribute.AspNetCompatibilityRequirementsAttribute()
   type: Constructor
   assemblies:
   - System.ServiceModel
@@ -137,9 +134,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Activation/AspNetCompatibilityRequirementsAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.RequirementsMode
   commentId: P:System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.RequirementsMode
   id: RequirementsMode
@@ -148,7 +142,7 @@ items:
   - csharp
   name: RequirementsMode
   nameWithType: AspNetCompatibilityRequirementsAttribute.RequirementsMode
-  fullName: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.RequirementsMode
+  fullName: AspNetCompatibilityRequirementsAttribute.RequirementsMode
   type: Property
   assemblies:
   - System.ServiceModel
@@ -186,9 +180,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Activation/AspNetCompatibilityRequirementsAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.System#ServiceModel#Description#IServiceBehavior#AddBindingParameters(System.ServiceModel.Description.ServiceDescription,System.ServiceModel.ServiceHostBase,System.Collections.ObjectModel.Collection{System.ServiceModel.Description.ServiceEndpoint},System.ServiceModel.Channels.BindingParameterCollection)
   commentId: M:System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.System#ServiceModel#Description#IServiceBehavior#AddBindingParameters(System.ServiceModel.Description.ServiceDescription,System.ServiceModel.ServiceHostBase,System.Collections.ObjectModel.Collection{System.ServiceModel.Description.ServiceEndpoint},System.ServiceModel.Channels.BindingParameterCollection)
   id: System#ServiceModel#Description#IServiceBehavior#AddBindingParameters(System.ServiceModel.Description.ServiceDescription,System.ServiceModel.ServiceHostBase,System.Collections.ObjectModel.Collection{System.ServiceModel.Description.ServiceEndpoint},System.ServiceModel.Channels.BindingParameterCollection)
@@ -198,7 +189,7 @@ items:
   - csharp
   name: IServiceBehavior.AddBindingParameters(ServiceDescription, ServiceHostBase, Collection<ServiceEndpoint>, BindingParameterCollection)
   nameWithType: AspNetCompatibilityRequirementsAttribute.IServiceBehavior.AddBindingParameters(ServiceDescription, ServiceHostBase, Collection<ServiceEndpoint>, BindingParameterCollection)
-  fullName: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.IServiceBehavior.AddBindingParameters(ServiceDescription, ServiceHostBase, Collection<ServiceEndpoint>, BindingParameterCollection)
+  fullName: AspNetCompatibilityRequirementsAttribute.IServiceBehavior.AddBindingParameters(ServiceDescription, ServiceHostBase, Collection<ServiceEndpoint>, BindingParameterCollection)
   type: Method
   assemblies:
   - System.ServiceModel
@@ -239,9 +230,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Activation/AspNetCompatibilityRequirementsAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.System#ServiceModel#Description#IServiceBehavior#ApplyDispatchBehavior(System.ServiceModel.Description.ServiceDescription,System.ServiceModel.ServiceHostBase)
   commentId: M:System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.System#ServiceModel#Description#IServiceBehavior#ApplyDispatchBehavior(System.ServiceModel.Description.ServiceDescription,System.ServiceModel.ServiceHostBase)
   id: System#ServiceModel#Description#IServiceBehavior#ApplyDispatchBehavior(System.ServiceModel.Description.ServiceDescription,System.ServiceModel.ServiceHostBase)
@@ -251,7 +239,7 @@ items:
   - csharp
   name: IServiceBehavior.ApplyDispatchBehavior(ServiceDescription, ServiceHostBase)
   nameWithType: AspNetCompatibilityRequirementsAttribute.IServiceBehavior.ApplyDispatchBehavior(ServiceDescription, ServiceHostBase)
-  fullName: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.IServiceBehavior.ApplyDispatchBehavior(ServiceDescription, ServiceHostBase)
+  fullName: AspNetCompatibilityRequirementsAttribute.IServiceBehavior.ApplyDispatchBehavior(ServiceDescription, ServiceHostBase)
   type: Method
   assemblies:
   - System.ServiceModel
@@ -292,9 +280,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Activation/AspNetCompatibilityRequirementsAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.System#ServiceModel#Description#IServiceBehavior#Validate(System.ServiceModel.Description.ServiceDescription,System.ServiceModel.ServiceHostBase)
   commentId: M:System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.System#ServiceModel#Description#IServiceBehavior#Validate(System.ServiceModel.Description.ServiceDescription,System.ServiceModel.ServiceHostBase)
   id: System#ServiceModel#Description#IServiceBehavior#Validate(System.ServiceModel.Description.ServiceDescription,System.ServiceModel.ServiceHostBase)
@@ -304,7 +289,7 @@ items:
   - csharp
   name: IServiceBehavior.Validate(ServiceDescription, ServiceHostBase)
   nameWithType: AspNetCompatibilityRequirementsAttribute.IServiceBehavior.Validate(ServiceDescription, ServiceHostBase)
-  fullName: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.IServiceBehavior.Validate(ServiceDescription, ServiceHostBase)
+  fullName: AspNetCompatibilityRequirementsAttribute.IServiceBehavior.Validate(ServiceDescription, ServiceHostBase)
   type: Method
   assemblies:
   - System.ServiceModel
@@ -339,9 +324,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Activation/AspNetCompatibilityRequirementsAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 references:
 - uid: System.Attribute
   parent: System
@@ -372,13 +354,13 @@ references:
   isExternal: false
   name: AspNetCompatibilityRequirementsAttribute()
   nameWithType: AspNetCompatibilityRequirementsAttribute.AspNetCompatibilityRequirementsAttribute()
-  fullName: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.AspNetCompatibilityRequirementsAttribute()
+  fullName: AspNetCompatibilityRequirementsAttribute.AspNetCompatibilityRequirementsAttribute()
 - uid: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.RequirementsMode
   parent: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute
   isExternal: false
   name: RequirementsMode
   nameWithType: AspNetCompatibilityRequirementsAttribute.RequirementsMode
-  fullName: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.RequirementsMode
+  fullName: AspNetCompatibilityRequirementsAttribute.RequirementsMode
 - uid: System.ServiceModel.Activation.AspNetCompatibilityRequirementsMode
   parent: System.ServiceModel.Activation
   isExternal: false
@@ -390,7 +372,7 @@ references:
   isExternal: false
   name: IServiceBehavior.AddBindingParameters(ServiceDescription, ServiceHostBase, Collection<ServiceEndpoint>, BindingParameterCollection)
   nameWithType: AspNetCompatibilityRequirementsAttribute.IServiceBehavior.AddBindingParameters(ServiceDescription, ServiceHostBase, Collection<ServiceEndpoint>, BindingParameterCollection)
-  fullName: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.IServiceBehavior.AddBindingParameters(ServiceDescription, ServiceHostBase, Collection<ServiceEndpoint>, BindingParameterCollection)
+  fullName: AspNetCompatibilityRequirementsAttribute.IServiceBehavior.AddBindingParameters(ServiceDescription, ServiceHostBase, Collection<ServiceEndpoint>, BindingParameterCollection)
 - uid: System.ServiceModel.Description.ServiceDescription
   parent: System.ServiceModel.Description
   isExternal: false
@@ -443,19 +425,19 @@ references:
   isExternal: false
   name: IServiceBehavior.ApplyDispatchBehavior(ServiceDescription, ServiceHostBase)
   nameWithType: AspNetCompatibilityRequirementsAttribute.IServiceBehavior.ApplyDispatchBehavior(ServiceDescription, ServiceHostBase)
-  fullName: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.IServiceBehavior.ApplyDispatchBehavior(ServiceDescription, ServiceHostBase)
+  fullName: AspNetCompatibilityRequirementsAttribute.IServiceBehavior.ApplyDispatchBehavior(ServiceDescription, ServiceHostBase)
 - uid: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.System#ServiceModel#Description#IServiceBehavior#Validate(System.ServiceModel.Description.ServiceDescription,System.ServiceModel.ServiceHostBase)
   parent: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute
   isExternal: false
   name: IServiceBehavior.Validate(ServiceDescription, ServiceHostBase)
   nameWithType: AspNetCompatibilityRequirementsAttribute.IServiceBehavior.Validate(ServiceDescription, ServiceHostBase)
-  fullName: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.IServiceBehavior.Validate(ServiceDescription, ServiceHostBase)
+  fullName: AspNetCompatibilityRequirementsAttribute.IServiceBehavior.Validate(ServiceDescription, ServiceHostBase)
 - uid: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.#ctor*
   parent: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute
   isExternal: false
   name: AspNetCompatibilityRequirementsAttribute
   nameWithType: AspNetCompatibilityRequirementsAttribute.AspNetCompatibilityRequirementsAttribute
-  fullName: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.AspNetCompatibilityRequirementsAttribute
+  fullName: AspNetCompatibilityRequirementsAttribute.AspNetCompatibilityRequirementsAttribute
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -470,7 +452,7 @@ references:
   isExternal: false
   name: RequirementsMode
   nameWithType: AspNetCompatibilityRequirementsAttribute.RequirementsMode
-  fullName: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.RequirementsMode
+  fullName: AspNetCompatibilityRequirementsAttribute.RequirementsMode
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -485,7 +467,7 @@ references:
   isExternal: false
   name: System.ServiceModel.Description.IServiceBehavior.AddBindingParameters
   nameWithType: AspNetCompatibilityRequirementsAttribute.System.ServiceModel.Description.IServiceBehavior.AddBindingParameters
-  fullName: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.System.ServiceModel.Description.IServiceBehavior.AddBindingParameters
+  fullName: AspNetCompatibilityRequirementsAttribute.System.ServiceModel.Description.IServiceBehavior.AddBindingParameters
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -500,7 +482,7 @@ references:
   isExternal: false
   name: System.ServiceModel.Description.IServiceBehavior.ApplyDispatchBehavior
   nameWithType: AspNetCompatibilityRequirementsAttribute.System.ServiceModel.Description.IServiceBehavior.ApplyDispatchBehavior
-  fullName: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.System.ServiceModel.Description.IServiceBehavior.ApplyDispatchBehavior
+  fullName: AspNetCompatibilityRequirementsAttribute.System.ServiceModel.Description.IServiceBehavior.ApplyDispatchBehavior
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -515,7 +497,7 @@ references:
   isExternal: false
   name: System.ServiceModel.Description.IServiceBehavior.Validate
   nameWithType: AspNetCompatibilityRequirementsAttribute.System.ServiceModel.Description.IServiceBehavior.Validate
-  fullName: System.ServiceModel.Activation.AspNetCompatibilityRequirementsAttribute.System.ServiceModel.Description.IServiceBehavior.Validate
+  fullName: AspNetCompatibilityRequirementsAttribute.System.ServiceModel.Description.IServiceBehavior.Validate
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -525,3 +507,9 @@ references:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Activation/AspNetCompatibilityRequirementsAttribute.xml
+- uid: System.ServiceModel.Description.IServiceBehavior
+  parent: System.ServiceModel.Description
+  isExternal: false
+  name: IServiceBehavior
+  nameWithType: IServiceBehavior
+  fullName: System.ServiceModel.Description.IServiceBehavior

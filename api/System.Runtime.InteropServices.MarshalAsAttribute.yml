@@ -28,7 +28,7 @@ items:
   - netstandard
   namespace: System.Runtime.InteropServices
   summary: Indicates how to marshal the data between managed and unmanaged code.
-  remarks: "You can apply this attribute to parameters, fields, or return values.  \n  \n This attribute is optional, as each data type has a default marshaling behavior. This attribute is only necessary when a given type can be marshaled to multiple types. For example, you can marshal a string to unmanaged code as either a <xref:System.Runtime.InteropServices.UnmanagedType>, a <xref:System.Runtime.InteropServices.UnmanagedType>, a <xref:System.Runtime.InteropServices.UnmanagedType>, or a <xref:System.Runtime.InteropServices.UnmanagedType>. By default, the common language runtime marshals a string parameter as a <xref:System.Runtime.InteropServices.UnmanagedType> to COM methods. You can apply the <xref:System.Runtime.InteropServices.MarshalAsAttribute> attribute to an individual field or parameter to cause that particular string to be marshaled as a <xref:System.Runtime.InteropServices.UnmanagedType> instead of a <xref:System.Runtime.InteropServices.UnmanagedType>. The [Tlbexp.exe (Type Library Exporter)](~/docs/framework/tools/tlbexp-exe-type-library-exporter.md) passes your marshaling preferences to the common language runtime.  \n  \n Some parameters and return values have different default marshaling behavior when used with COM interop or platform invoke. By default, the runtime marshals a string parameter (and fields in a value type) as a <xref:System.Runtime.InteropServices.UnmanagedType> to a platform invoke method or function. For additional information, see [Default Marshaling Behavior](~/docs/framework/interop/default-marshaling-behavior.md).  \n  \n In most cases, the attribute simply identifies the format of the unmanaged data using the <xref:System.Runtime.InteropServices.UnmanagedType> enumeration, as shown in the following C# signature:  \n  \n [!code-csharp[system.runtime.interopservices.MarshalAsAttribute#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.runtime.interopservices.MarshalAsAttribute/cs/Signature1.cs#2)]\n [!code-vb[system.runtime.interopservices.MarshalAsAttribute#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.runtime.interopservices.MarshalAsAttribute/vb/Signature1.vb#2)]  \n  \n Some <xref:System.Runtime.InteropServices.UnmanagedType> enumeration members require additional information. For example, additional information is needed when the <xref:System.Runtime.InteropServices.UnmanagedType> is <xref:System.Runtime.InteropServices.UnmanagedType>. For a complete description of how to use this attribute with arrays, see [Default Marshaling for Arrays](~/docs/framework/interop/default-marshaling-for-arrays.md).  \n  \n The [Tlbimp.exe (Type Library Importer)](~/docs/framework/tools/tlbimp-exe-type-library-importer.md) also applies this attribute to parameters, fields, and return values to indicate that the data type in the input type library is not the default type for the corresponding managed data type. Tlbimp.exe always applies the <xref:System.Runtime.InteropServices.MarshalAsAttribute> to <xref:System.String> and <xref:System.Object> types for clarity, regardless of the type specified in the input type library.  \n  \n> [!NOTE]\n>  The <xref:System.Runtime.InteropServices.MarshalAsAttribute> does not support marshaling of generic types."
+  remarks: "You can apply this attribute to parameters, fields, or return values.  \n  \n This attribute is optional, as each data type has a default marshaling behavior. This attribute is only necessary when a given type can be marshaled to multiple types. For example, you can marshal a string to unmanaged code as either a <xref:System.Runtime.InteropServices.UnmanagedType.LPStr>, a <xref:System.Runtime.InteropServices.UnmanagedType.LPWStr>, a <xref:System.Runtime.InteropServices.UnmanagedType.LPTStr>, or a <xref:System.Runtime.InteropServices.UnmanagedType.BStr>. By default, the common language runtime marshals a string parameter as a <xref:System.Runtime.InteropServices.UnmanagedType.BStr> to COM methods. You can apply the <xref:System.Runtime.InteropServices.MarshalAsAttribute> attribute to an individual field or parameter to cause that particular string to be marshaled as a <xref:System.Runtime.InteropServices.UnmanagedType.LPStr> instead of a <xref:System.Runtime.InteropServices.UnmanagedType.BStr>. The [Tlbexp.exe (Type Library Exporter)](~/docs/framework/tools/tlbexp-exe-type-library-exporter.md) passes your marshaling preferences to the common language runtime.  \n  \n Some parameters and return values have different default marshaling behavior when used with COM interop or platform invoke. By default, the runtime marshals a string parameter (and fields in a value type) as a <xref:System.Runtime.InteropServices.UnmanagedType.LPStr> to a platform invoke method or function. For additional information, see [Default Marshaling Behavior](~/docs/framework/interop/default-marshaling-behavior.md).  \n  \n In most cases, the attribute simply identifies the format of the unmanaged data using the <xref:System.Runtime.InteropServices.UnmanagedType> enumeration, as shown in the following C# signature:  \n  \n [!code-csharp[system.runtime.interopservices.MarshalAsAttribute#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.runtime.interopservices.MarshalAsAttribute/cs/Signature1.cs#2)]\n [!code-vb[system.runtime.interopservices.MarshalAsAttribute#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.runtime.interopservices.MarshalAsAttribute/vb/Signature1.vb#2)]  \n  \n Some <xref:System.Runtime.InteropServices.UnmanagedType> enumeration members require additional information. For example, additional information is needed when the <xref:System.Runtime.InteropServices.UnmanagedType> is <xref:System.Runtime.InteropServices.UnmanagedType.LPArray>. For a complete description of how to use this attribute with arrays, see [Default Marshaling for Arrays](~/docs/framework/interop/default-marshaling-for-arrays.md).  \n  \n The [Tlbimp.exe (Type Library Importer)](~/docs/framework/tools/tlbimp-exe-type-library-importer.md) also applies this attribute to parameters, fields, and return values to indicate that the data type in the input type library is not the default type for the corresponding managed data type. Tlbimp.exe always applies the <xref:System.Runtime.InteropServices.MarshalAsAttribute> to <xref:System.String> and <xref:System.Object> types for clarity, regardless of the type specified in the input type library.  \n  \n> [!NOTE]\n>  The <xref:System.Runtime.InteropServices.MarshalAsAttribute> does not support marshaling of generic types."
   example:
   - "The following example applies the <xref:System.Runtime.InteropServices.MarshalAsAttribute> to a field, a method parameter, and a method return value in a managed type.  \n  \n [!code-csharp[System.Runtime.InteropServices.MarshalAsAttribute#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.runtime.interopservices.MarshalAsAttribute/cs/marshalasattribute.cs#1)]\n [!code-vb[System.Runtime.InteropServices.MarshalAsAttribute#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.runtime.interopservices.MarshalAsAttribute/vb/marshalasattribute.vb#1)]  \n  \n The following example applies the <xref:System.Runtime.InteropServices.MarshalAsAttribute> attribute to a property:  \n  \n [!code-csharp[System.Runtime.InteropServices.MarshalAsAttribute#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.runtime.interopservices.MarshalAsAttribute/cs/Signature1.cs#3)]\n [!code-vb[System.Runtime.InteropServices.MarshalAsAttribute#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.runtime.interopservices.MarshalAsAttribute/vb/Signature1.vb#3)]"
   syntax:
@@ -94,7 +94,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -114,7 +115,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -133,9 +135,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/MarshalAsAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.MarshalAsAttribute.#ctor(System.Int16)
   commentId: M:System.Runtime.InteropServices.MarshalAsAttribute.#ctor(System.Int16)
   id: '#ctor(System.Int16)'
@@ -144,7 +143,7 @@ items:
   - csharp
   name: MarshalAsAttribute(Int16)
   nameWithType: MarshalAsAttribute.MarshalAsAttribute(Int16)
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.MarshalAsAttribute(Int16)
+  fullName: MarshalAsAttribute.MarshalAsAttribute(Int16)
   type: Constructor
   assemblies:
   - System.Runtime.InteropServices
@@ -163,7 +162,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -183,7 +183,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -202,9 +203,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/MarshalAsAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.MarshalAsAttribute.#ctor(System.Runtime.InteropServices.UnmanagedType)
   commentId: M:System.Runtime.InteropServices.MarshalAsAttribute.#ctor(System.Runtime.InteropServices.UnmanagedType)
   id: '#ctor(System.Runtime.InteropServices.UnmanagedType)'
@@ -213,7 +211,7 @@ items:
   - csharp
   name: MarshalAsAttribute(UnmanagedType)
   nameWithType: MarshalAsAttribute.MarshalAsAttribute(UnmanagedType)
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.MarshalAsAttribute(UnmanagedType)
+  fullName: MarshalAsAttribute.MarshalAsAttribute(UnmanagedType)
   type: Constructor
   assemblies:
   - System.Runtime.InteropServices
@@ -232,7 +230,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -252,7 +251,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -271,9 +271,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/MarshalAsAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.MarshalAsAttribute.ArraySubType
   commentId: F:System.Runtime.InteropServices.MarshalAsAttribute.ArraySubType
   id: ArraySubType
@@ -282,7 +279,7 @@ items:
   - csharp
   name: ArraySubType
   nameWithType: MarshalAsAttribute.ArraySubType
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.ArraySubType
+  fullName: MarshalAsAttribute.ArraySubType
   type: Field
   assemblies:
   - System.Runtime.InteropServices
@@ -299,7 +296,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -319,7 +317,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -338,9 +337,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/MarshalAsAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.MarshalAsAttribute.IidParameterIndex
   commentId: F:System.Runtime.InteropServices.MarshalAsAttribute.IidParameterIndex
   id: IidParameterIndex
@@ -349,7 +345,7 @@ items:
   - csharp
   name: IidParameterIndex
   nameWithType: MarshalAsAttribute.IidParameterIndex
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.IidParameterIndex
+  fullName: MarshalAsAttribute.IidParameterIndex
   type: Field
   assemblies:
   - System.Runtime.InteropServices
@@ -365,7 +361,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -385,7 +382,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -404,9 +402,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/MarshalAsAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.MarshalAsAttribute.MarshalCookie
   commentId: F:System.Runtime.InteropServices.MarshalAsAttribute.MarshalCookie
   id: MarshalCookie
@@ -415,7 +410,7 @@ items:
   - csharp
   name: MarshalCookie
   nameWithType: MarshalAsAttribute.MarshalCookie
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.MarshalCookie
+  fullName: MarshalAsAttribute.MarshalCookie
   type: Field
   assemblies:
   - System.Runtime.InteropServices
@@ -432,7 +427,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -452,7 +448,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -471,9 +468,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/MarshalAsAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.MarshalAsAttribute.MarshalType
   commentId: F:System.Runtime.InteropServices.MarshalAsAttribute.MarshalType
   id: MarshalType
@@ -482,7 +476,7 @@ items:
   - csharp
   name: MarshalType
   nameWithType: MarshalAsAttribute.MarshalType
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.MarshalType
+  fullName: MarshalAsAttribute.MarshalType
   type: Field
   assemblies:
   - System.Runtime.InteropServices
@@ -504,7 +498,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -524,7 +519,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -543,9 +539,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/MarshalAsAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.MarshalAsAttribute.MarshalTypeRef
   commentId: F:System.Runtime.InteropServices.MarshalAsAttribute.MarshalTypeRef
   id: MarshalTypeRef
@@ -554,7 +547,7 @@ items:
   - csharp
   name: MarshalTypeRef
   nameWithType: MarshalAsAttribute.MarshalTypeRef
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.MarshalTypeRef
+  fullName: MarshalAsAttribute.MarshalTypeRef
   type: Field
   assemblies:
   - System.Runtime.InteropServices
@@ -576,7 +569,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -596,7 +590,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -615,9 +610,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/MarshalAsAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.MarshalAsAttribute.SafeArraySubType
   commentId: F:System.Runtime.InteropServices.MarshalAsAttribute.SafeArraySubType
   id: SafeArraySubType
@@ -626,7 +618,7 @@ items:
   - csharp
   name: SafeArraySubType
   nameWithType: MarshalAsAttribute.SafeArraySubType
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.SafeArraySubType
+  fullName: MarshalAsAttribute.SafeArraySubType
   type: Field
   assemblies:
   - System.Runtime.InteropServices
@@ -634,7 +626,7 @@ items:
   - netstandard
   namespace: System.Runtime.InteropServices
   summary: Indicates the element type of the <xref href="System.Runtime.InteropServices.UnmanagedType.SafeArray"></xref>.
-  remarks: You can set this field to a value from the <xref:System.Runtime.InteropServices.VarEnum?displayProperty=fullName> enumeration to specify the type of the safe array's elements. If a type is not specified, the managed element type's default type (if passed as a VARIANT) is used. For example, the `SafeArraySubType` for an `int` array in COM is <xref:System.Runtime.InteropServices.VarEnum>. For additional information, see [Default Marshaling for Arrays](~/docs/framework/interop/default-marshaling-for-arrays.md).
+  remarks: You can set this field to a value from the <xref:System.Runtime.InteropServices.VarEnum?displayProperty=fullName> enumeration to specify the type of the safe array's elements. If a type is not specified, the managed element type's default type (if passed as a VARIANT) is used. For example, the `SafeArraySubType` for an `int` array in COM is <xref:System.Runtime.InteropServices.VarEnum.VT_I4>. For additional information, see [Default Marshaling for Arrays](~/docs/framework/interop/default-marshaling-for-arrays.md).
   syntax:
     content: public System.Runtime.InteropServices.VarEnum SafeArraySubType;
     return:
@@ -643,7 +635,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -663,7 +656,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -682,9 +676,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/MarshalAsAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.MarshalAsAttribute.SafeArrayUserDefinedSubType
   commentId: F:System.Runtime.InteropServices.MarshalAsAttribute.SafeArrayUserDefinedSubType
   id: SafeArrayUserDefinedSubType
@@ -693,7 +684,7 @@ items:
   - csharp
   name: SafeArrayUserDefinedSubType
   nameWithType: MarshalAsAttribute.SafeArrayUserDefinedSubType
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.SafeArrayUserDefinedSubType
+  fullName: MarshalAsAttribute.SafeArrayUserDefinedSubType
   type: Field
   assemblies:
   - System.Runtime.InteropServices
@@ -710,7 +701,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -730,7 +722,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -749,9 +742,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/MarshalAsAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.MarshalAsAttribute.SizeConst
   commentId: F:System.Runtime.InteropServices.MarshalAsAttribute.SizeConst
   id: SizeConst
@@ -760,7 +750,7 @@ items:
   - csharp
   name: SizeConst
   nameWithType: MarshalAsAttribute.SizeConst
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.SizeConst
+  fullName: MarshalAsAttribute.SizeConst
   type: Field
   assemblies:
   - System.Runtime.InteropServices
@@ -768,7 +758,7 @@ items:
   - netstandard
   namespace: System.Runtime.InteropServices
   summary: Indicates the number of elements in the fixed-length array or the number of characters (not bytes) in a string to import.
-  remarks: "This field is required for the <xref:System.Runtime.InteropServices.UnmanagedType> and <xref:System.Runtime.InteropServices.UnmanagedType> members of the <xref:System.Runtime.InteropServices.UnmanagedType?displayProperty=fullName> enumeration. Because the compressed format of the metadata is limited to 0x1FFFFFFF, the range of allowed values for <xref:System.Runtime.InteropServices.MarshalAsAttribute.SizeConst> are (>= 0 and <= 0x1FFFFFFF).  \n  \n For additional information, see [Default Marshaling for Arrays](~/docs/framework/interop/default-marshaling-for-arrays.md)."
+  remarks: "This field is required for the <xref:System.Runtime.InteropServices.UnmanagedType.ByValArray> and <xref:System.Runtime.InteropServices.UnmanagedType.ByValTStr> members of the <xref:System.Runtime.InteropServices.UnmanagedType?displayProperty=fullName> enumeration. Because the compressed format of the metadata is limited to 0x1FFFFFFF, the range of allowed values for <xref:System.Runtime.InteropServices.MarshalAsAttribute.SizeConst> are (>= 0 and <= 0x1FFFFFFF).  \n  \n For additional information, see [Default Marshaling for Arrays](~/docs/framework/interop/default-marshaling-for-arrays.md)."
   syntax:
     content: public int SizeConst;
     return:
@@ -777,7 +767,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -797,7 +788,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -816,9 +808,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/MarshalAsAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.MarshalAsAttribute.SizeParamIndex
   commentId: F:System.Runtime.InteropServices.MarshalAsAttribute.SizeParamIndex
   id: SizeParamIndex
@@ -827,7 +816,7 @@ items:
   - csharp
   name: SizeParamIndex
   nameWithType: MarshalAsAttribute.SizeParamIndex
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.SizeParamIndex
+  fullName: MarshalAsAttribute.SizeParamIndex
   type: Field
   assemblies:
   - System.Runtime.InteropServices
@@ -849,7 +838,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -869,7 +859,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -888,9 +879,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/MarshalAsAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.MarshalAsAttribute.Value
   commentId: P:System.Runtime.InteropServices.MarshalAsAttribute.Value
   id: Value
@@ -899,7 +887,7 @@ items:
   - csharp
   name: Value
   nameWithType: MarshalAsAttribute.Value
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.Value
+  fullName: MarshalAsAttribute.Value
   type: Property
   assemblies:
   - System.Runtime.InteropServices
@@ -907,7 +895,7 @@ items:
   - netstandard
   namespace: System.Runtime.InteropServices
   summary: Gets the <xref href="System.Runtime.InteropServices.UnmanagedType"></xref> value the data is to be marshaled as.
-  remarks: This value is used with <xref:System.Runtime.InteropServices.MarshalAsAttribute> to indicate how types should be marshaled between managed and unmanaged code. In some cases, you can use this field with certain `UnmanagedType` enumeration members. For <xref:System.Runtime.InteropServices.UnmanagedType> and <xref:System.Runtime.InteropServices.UnmanagedType>, you must use additional named parameters.
+  remarks: This value is used with <xref:System.Runtime.InteropServices.MarshalAsAttribute> to indicate how types should be marshaled between managed and unmanaged code. In some cases, you can use this field with certain `UnmanagedType` enumeration members. For <xref:System.Runtime.InteropServices.UnmanagedType.CustomMarshaler> and <xref:System.Runtime.InteropServices.UnmanagedType.ByValArray>, you must use additional named parameters.
   syntax:
     content: public System.Runtime.InteropServices.UnmanagedType Value { get; }
     return:
@@ -917,7 +905,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -937,7 +926,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -956,9 +946,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/MarshalAsAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.Attribute
   parent: System
@@ -971,7 +958,7 @@ references:
   isExternal: false
   name: MarshalAsAttribute(Int16)
   nameWithType: MarshalAsAttribute.MarshalAsAttribute(Int16)
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.MarshalAsAttribute(Int16)
+  fullName: MarshalAsAttribute.MarshalAsAttribute(Int16)
 - uid: System.Int16
   parent: System
   isExternal: false
@@ -983,7 +970,7 @@ references:
   isExternal: false
   name: MarshalAsAttribute(UnmanagedType)
   nameWithType: MarshalAsAttribute.MarshalAsAttribute(UnmanagedType)
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.MarshalAsAttribute(UnmanagedType)
+  fullName: MarshalAsAttribute.MarshalAsAttribute(UnmanagedType)
 - uid: System.Runtime.InteropServices.UnmanagedType
   parent: System.Runtime.InteropServices
   isExternal: false
@@ -995,13 +982,13 @@ references:
   isExternal: false
   name: ArraySubType
   nameWithType: MarshalAsAttribute.ArraySubType
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.ArraySubType
+  fullName: MarshalAsAttribute.ArraySubType
 - uid: System.Runtime.InteropServices.MarshalAsAttribute.IidParameterIndex
   parent: System.Runtime.InteropServices.MarshalAsAttribute
   isExternal: false
   name: IidParameterIndex
   nameWithType: MarshalAsAttribute.IidParameterIndex
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.IidParameterIndex
+  fullName: MarshalAsAttribute.IidParameterIndex
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -1013,7 +1000,7 @@ references:
   isExternal: false
   name: MarshalCookie
   nameWithType: MarshalAsAttribute.MarshalCookie
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.MarshalCookie
+  fullName: MarshalAsAttribute.MarshalCookie
 - uid: System.String
   parent: System
   isExternal: false
@@ -1025,13 +1012,13 @@ references:
   isExternal: false
   name: MarshalType
   nameWithType: MarshalAsAttribute.MarshalType
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.MarshalType
+  fullName: MarshalAsAttribute.MarshalType
 - uid: System.Runtime.InteropServices.MarshalAsAttribute.MarshalTypeRef
   parent: System.Runtime.InteropServices.MarshalAsAttribute
   isExternal: false
   name: MarshalTypeRef
   nameWithType: MarshalAsAttribute.MarshalTypeRef
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.MarshalTypeRef
+  fullName: MarshalAsAttribute.MarshalTypeRef
 - uid: System.Type
   parent: System
   isExternal: false
@@ -1043,7 +1030,7 @@ references:
   isExternal: false
   name: SafeArraySubType
   nameWithType: MarshalAsAttribute.SafeArraySubType
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.SafeArraySubType
+  fullName: MarshalAsAttribute.SafeArraySubType
 - uid: System.Runtime.InteropServices.VarEnum
   parent: System.Runtime.InteropServices
   isExternal: false
@@ -1055,34 +1042,35 @@ references:
   isExternal: false
   name: SafeArrayUserDefinedSubType
   nameWithType: MarshalAsAttribute.SafeArrayUserDefinedSubType
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.SafeArrayUserDefinedSubType
+  fullName: MarshalAsAttribute.SafeArrayUserDefinedSubType
 - uid: System.Runtime.InteropServices.MarshalAsAttribute.SizeConst
   parent: System.Runtime.InteropServices.MarshalAsAttribute
   isExternal: false
   name: SizeConst
   nameWithType: MarshalAsAttribute.SizeConst
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.SizeConst
+  fullName: MarshalAsAttribute.SizeConst
 - uid: System.Runtime.InteropServices.MarshalAsAttribute.SizeParamIndex
   parent: System.Runtime.InteropServices.MarshalAsAttribute
   isExternal: false
   name: SizeParamIndex
   nameWithType: MarshalAsAttribute.SizeParamIndex
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.SizeParamIndex
+  fullName: MarshalAsAttribute.SizeParamIndex
 - uid: System.Runtime.InteropServices.MarshalAsAttribute.Value
   parent: System.Runtime.InteropServices.MarshalAsAttribute
   isExternal: false
   name: Value
   nameWithType: MarshalAsAttribute.Value
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.Value
+  fullName: MarshalAsAttribute.Value
 - uid: System.Runtime.InteropServices.MarshalAsAttribute.#ctor*
   parent: System.Runtime.InteropServices.MarshalAsAttribute
   isExternal: false
   name: MarshalAsAttribute
   nameWithType: MarshalAsAttribute.MarshalAsAttribute
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.MarshalAsAttribute
+  fullName: MarshalAsAttribute.MarshalAsAttribute
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1106,10 +1094,11 @@ references:
   isExternal: false
   name: Value
   nameWithType: MarshalAsAttribute.Value
-  fullName: System.Runtime.InteropServices.MarshalAsAttribute.Value
+  fullName: MarshalAsAttribute.Value
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

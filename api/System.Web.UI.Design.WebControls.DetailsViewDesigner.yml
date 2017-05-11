@@ -31,7 +31,7 @@ items:
   summary: Provides design-time support in a visual designer for the <xref href="System.Web.UI.WebControls.DetailsView"></xref> control.
   remarks: "In a visual designer, when you switch from Source to Design view, the markup source code that describes the <xref:System.Web.UI.WebControls.DetailsView> control is parsed and a design-time version of the control is created on the design surface. When you switch back to Source view, the design-time control is persisted to markup source code and edited into the markup for the Web page.  \n  \n The properties of the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner> class provide the following functionality:  \n  \n-   The <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.ActionLists%2A> property returns a <xref:System.ComponentModel.Design.DesignerActionListCollection> object, which typically contains an object that is derived from the <xref:System.ComponentModel.Design.DesignerActionList> class for each level in the inheritance tree of the designer.  \n  \n-   The <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.AutoFormats%2A> property returns a collection of formatting schemes for display in the **Auto Format** dialog box.  \n  \n-   The <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.TemplateGroups%2A> property returns a collection of template groups for the fields of the associated <xref:System.Web.UI.WebControls.DetailsView> control and the top level <xref:System.Web.UI.WebControls.DetailsView> templates.  \n  \n-   The <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.UsePreviewControl%2A> property always returns `true`, indicating that the designer creates a temporary copy of the associated <xref:System.Web.UI.WebControls.DetailsView> control to generate the design-time markup.  \n  \n The <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner> class methods provide the following functionality:  \n  \n-   The <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.DataBind%2A> method binds the associated <xref:System.Web.UI.WebControls.DetailsView> control to a design-time data source.  \n  \n-   The <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml%2A> method returns the markup that is used to render the associated <xref:System.Web.UI.WebControls.DetailsView> at design time.  \n  \n-   The <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.Initialize%2A> method prepares the designer to view, edit, and design the associated <xref:System.Web.UI.WebControls.DetailsView>.  \n  \n-   The <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.OnClick%2A> method is called when a region of the design-time view of the associated <xref:System.Web.UI.WebControls.DetailsView> is clicked.  \n  \n-   The <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.OnSchemaRefreshed%2A> method is called when the schema of the data source of the associated <xref:System.Web.UI.WebControls.DetailsView> changes.  \n  \n-   The <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.PreFilterProperties%2A> method is used to remove or add additional properties or to shadow properties of the associated <xref:System.Web.UI.WebControls.DetailsView>.  \n  \n Design-time editable regions are not supported in the <xref:System.Web.UI.WebControls.DetailsView> control, so the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetEditableDesignerRegionContent%2A> and <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.SetEditableDesignerRegionContent%2A> methods have no functionality."
   example:
-  - "The following code example shows how to extend the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner> class to change the appearance of controls that are derived from the <xref:System.Web.UI.WebControls.DetailsView> control at design time.  \n  \n The example derives the `MyDetailsView` control from the <xref:System.Web.UI.WebControls.DetailsView>. The `MyDetailsView` is simply a copy of the <xref:System.Web.UI.WebControls.DetailsView> control. The example also derives the `MyDetailsViewDesigner` class from <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner> and places a <xref:System.ComponentModel.DesignerAttribute> object for `MyDetailsViewDesigner` on the `MyDetailsView` control.  \n  \n `The MyDetailsViewDesigner` overrides the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.SampleRowCount%2A> property to specify that the pager row of the design-time view of the `MyDetailsView` contain five page links. It overrides the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.PreFilterProperties%2A> method to make the <xref:System.Web.UI.Control.NamingContainer%2A> property visible in the **Property** grid at design time. It overrides the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml%2A> method to include the <xref:System.Web.UI.WebControls.DetailsView.Caption%2A> property, if it is specified, as a new first row in the `MyDetailsView` grid at design time. If the <xref:System.Web.UI.WebControls.WebControl.BorderStyle%2A> property of the `MyDetailsView` is the <xref:System.Web.UI.WebControls.BorderStyle> or <xref:System.Web.UI.WebControls.BorderStyle> value, the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml%2A> draws a blue dashed border around the control to make its extent more visible.  \n  \n [!code-csharp[System.Web.UI.Design.WebControls.DetailsViewDesigner#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.DetailsViewDesigner/CS/detailsviewdesigner.cs#1)]\n [!code-vb[System.Web.UI.Design.WebControls.DetailsViewDesigner#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.DetailsViewDesigner/VB/detailsviewdesigner.vb#1)]"
+  - "The following code example shows how to extend the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner> class to change the appearance of controls that are derived from the <xref:System.Web.UI.WebControls.DetailsView> control at design time.  \n  \n The example derives the `MyDetailsView` control from the <xref:System.Web.UI.WebControls.DetailsView>. The `MyDetailsView` is simply a copy of the <xref:System.Web.UI.WebControls.DetailsView> control. The example also derives the `MyDetailsViewDesigner` class from <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner> and places a <xref:System.ComponentModel.DesignerAttribute> object for `MyDetailsViewDesigner` on the `MyDetailsView` control.  \n  \n `The MyDetailsViewDesigner` overrides the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.SampleRowCount%2A> property to specify that the pager row of the design-time view of the `MyDetailsView` contain five page links. It overrides the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.PreFilterProperties%2A> method to make the <xref:System.Web.UI.Control.NamingContainer%2A> property visible in the **Property** grid at design time. It overrides the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml%2A> method to include the <xref:System.Web.UI.WebControls.DetailsView.Caption%2A> property, if it is specified, as a new first row in the `MyDetailsView` grid at design time. If the <xref:System.Web.UI.WebControls.WebControl.BorderStyle%2A> property of the `MyDetailsView` is the <xref:System.Web.UI.WebControls.BorderStyle.NotSet> or <xref:System.Web.UI.WebControls.BorderStyle.None> value, the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml%2A> draws a blue dashed border around the control to make its extent more visible.  \n  \n [!code-csharp[System.Web.UI.Design.WebControls.DetailsViewDesigner#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.DetailsViewDesigner/CS/detailsviewdesigner.cs#1)]\n [!code-vb[System.Web.UI.Design.WebControls.DetailsViewDesigner#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.DetailsViewDesigner/VB/detailsviewdesigner.vb#1)]"
   syntax:
     content: 'public class DetailsViewDesigner : System.Web.UI.Design.WebControls.DataBoundControlDesigner'
   inheritance:
@@ -171,8 +171,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/DetailsViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.DetailsViewDesigner.#ctor
   commentId: M:System.Web.UI.Design.WebControls.DetailsViewDesigner.#ctor
   id: '#ctor'
@@ -181,7 +179,7 @@ items:
   - csharp
   name: DetailsViewDesigner()
   nameWithType: DetailsViewDesigner.DetailsViewDesigner()
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.DetailsViewDesigner()
+  fullName: DetailsViewDesigner.DetailsViewDesigner()
   type: Constructor
   assemblies:
   - System.Design
@@ -210,8 +208,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/DetailsViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.DetailsViewDesigner.ActionLists
   commentId: P:System.Web.UI.Design.WebControls.DetailsViewDesigner.ActionLists
   id: ActionLists
@@ -220,7 +216,7 @@ items:
   - csharp
   name: ActionLists
   nameWithType: DetailsViewDesigner.ActionLists
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.ActionLists
+  fullName: DetailsViewDesigner.ActionLists
   type: Property
   assemblies:
   - System.Design
@@ -250,8 +246,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/DetailsViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.DetailsViewDesigner.AutoFormats
   commentId: P:System.Web.UI.Design.WebControls.DetailsViewDesigner.AutoFormats
   id: AutoFormats
@@ -260,7 +254,7 @@ items:
   - csharp
   name: AutoFormats
   nameWithType: DetailsViewDesigner.AutoFormats
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.AutoFormats
+  fullName: DetailsViewDesigner.AutoFormats
   type: Property
   assemblies:
   - System.Design
@@ -291,8 +285,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/DetailsViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.DetailsViewDesigner.DataBind(System.Web.UI.WebControls.BaseDataBoundControl)
   commentId: M:System.Web.UI.Design.WebControls.DetailsViewDesigner.DataBind(System.Web.UI.WebControls.BaseDataBoundControl)
   id: DataBind(System.Web.UI.WebControls.BaseDataBoundControl)
@@ -301,7 +293,7 @@ items:
   - csharp
   name: DataBind(BaseDataBoundControl)
   nameWithType: DetailsViewDesigner.DataBind(BaseDataBoundControl)
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.DataBind(BaseDataBoundControl)
+  fullName: DetailsViewDesigner.DataBind(BaseDataBoundControl)
   type: Method
   assemblies:
   - System.Design
@@ -333,8 +325,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/DetailsViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml
   commentId: M:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml
   id: GetDesignTimeHtml
@@ -343,7 +333,7 @@ items:
   - csharp
   name: GetDesignTimeHtml()
   nameWithType: DetailsViewDesigner.GetDesignTimeHtml()
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml()
+  fullName: DetailsViewDesigner.GetDesignTimeHtml()
   type: Method
   assemblies:
   - System.Design
@@ -351,7 +341,7 @@ items:
   summary: Gets the markup that is used to render the associated control at design time.
   remarks: First, the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml> method sets the <xref:System.Web.UI.WebControls.DetailsView.AutoGenerateRows%2A> property of the <xref:System.Web.UI.WebControls.DetailsView> control to `true`, if the <xref:System.Web.UI.WebControls.DetailsView.Fields%2A> collection is empty. The <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml%2A> then sets the <xref:System.Web.UI.WebControls.DetailsView.DataKeyNames%2A> collection of the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml%2A> control to an empty <xref:System.String> array if the schema of the data source cannot be obtained. It refreshes the <xref:System.ComponentModel.TypeDescriptor> object to force the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.PreFilterProperties%2A> method to be called. It then calls the base method to generate the markup.
   example:
-  - "The following code example shows how to override the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml%2A> method in a class inherited from the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner> class to change the appearance of the <xref:System.Web.UI.WebControls.DetailsView> control at design time. The example adds a new first row to the grid to contain the <xref:System.Web.UI.WebControls.DetailsView.Caption%2A> property, if the <xref:System.Web.UI.WebControls.DetailsView.Caption%2A> is defined. If the <xref:System.Web.UI.WebControls.WebControl.BorderStyle%2A> property of the control that is derived from <xref:System.Web.UI.WebControls.DetailsView> is the <xref:System.Web.UI.WebControls.BorderStyle> or <xref:System.Web.UI.WebControls.BorderStyle> value, the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml%2A> draws a blue dashed border around the control to make its extent more visible. It does not change the run-time appearance of the control.  \n  \n [!code-csharp[System.Web.UI.Design.WebControls.DetailsViewDesigner#4](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.DetailsViewDesigner/CS/detailsviewdesigner.cs#4)]\n [!code-vb[System.Web.UI.Design.WebControls.DetailsViewDesigner#4](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.DetailsViewDesigner/VB/detailsviewdesigner.vb#4)]"
+  - "The following code example shows how to override the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml%2A> method in a class inherited from the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner> class to change the appearance of the <xref:System.Web.UI.WebControls.DetailsView> control at design time. The example adds a new first row to the grid to contain the <xref:System.Web.UI.WebControls.DetailsView.Caption%2A> property, if the <xref:System.Web.UI.WebControls.DetailsView.Caption%2A> is defined. If the <xref:System.Web.UI.WebControls.WebControl.BorderStyle%2A> property of the control that is derived from <xref:System.Web.UI.WebControls.DetailsView> is the <xref:System.Web.UI.WebControls.BorderStyle.NotSet> or <xref:System.Web.UI.WebControls.BorderStyle.None> value, the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml%2A> draws a blue dashed border around the control to make its extent more visible. It does not change the run-time appearance of the control.  \n  \n [!code-csharp[System.Web.UI.Design.WebControls.DetailsViewDesigner#4](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.DetailsViewDesigner/CS/detailsviewdesigner.cs#4)]\n [!code-vb[System.Web.UI.Design.WebControls.DetailsViewDesigner#4](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.DetailsViewDesigner/VB/detailsviewdesigner.vb#4)]"
   syntax:
     content: public override string GetDesignTimeHtml ();
     parameters: []
@@ -377,8 +367,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/DetailsViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml(System.Web.UI.Design.DesignerRegionCollection)
   commentId: M:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml(System.Web.UI.Design.DesignerRegionCollection)
   id: GetDesignTimeHtml(System.Web.UI.Design.DesignerRegionCollection)
@@ -387,7 +375,7 @@ items:
   - csharp
   name: GetDesignTimeHtml(DesignerRegionCollection)
   nameWithType: DetailsViewDesigner.GetDesignTimeHtml(DesignerRegionCollection)
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml(DesignerRegionCollection)
+  fullName: DetailsViewDesigner.GetDesignTimeHtml(DesignerRegionCollection)
   type: Method
   assemblies:
   - System.Design
@@ -395,7 +383,7 @@ items:
   summary: Gets the markup that is used to render the associated control at design time and populates a collection of designer regions.
   remarks: "The <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml%2A?displayProperty=fullName> method calls the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml%2A?displayProperty=fullName> method to generate the markup for the design-time rendering of the <xref:System.Web.UI.WebControls.DetailsView> control. The <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml%2A?displayProperty=fullName> method also populates `regions` with a <xref:System.Web.UI.Design.DesignerRegion> object for each clickable or selectable region of the design-time rendering.  \n  \n For the <xref:System.Web.UI.WebControls.DetailsView>, the first cell in each row is selectable; all the cells in the rows are clickable."
   example:
-  - "The following code example shows how to override the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml%2A> method in a class that is inherited from the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner> class to change the appearance of the <xref:System.Web.UI.WebControls.DetailsView> control at design time. The example adds a new first row to the grid to contain the <xref:System.Web.UI.WebControls.DetailsView.Caption%2A> property, if the <xref:System.Web.UI.WebControls.DetailsView.Caption%2A> is defined. If the <xref:System.Web.UI.WebControls.WebControl.BorderStyle%2A> property of the control that is derived from the <xref:System.Web.UI.WebControls.DetailsView> is the <xref:System.Web.UI.WebControls.BorderStyle> or <xref:System.Web.UI.WebControls.BorderStyle> value, the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml%2A> draws a blue dashed border around the control to make its extent more visible. It does not change the run-time appearance of the control.  \n  \n [!code-csharp[System.Web.UI.Design.WebControls.DetailsViewDesigner#4](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.DetailsViewDesigner/CS/detailsviewdesigner.cs#4)]\n [!code-vb[System.Web.UI.Design.WebControls.DetailsViewDesigner#4](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.DetailsViewDesigner/VB/detailsviewdesigner.vb#4)]"
+  - "The following code example shows how to override the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml%2A> method in a class that is inherited from the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner> class to change the appearance of the <xref:System.Web.UI.WebControls.DetailsView> control at design time. The example adds a new first row to the grid to contain the <xref:System.Web.UI.WebControls.DetailsView.Caption%2A> property, if the <xref:System.Web.UI.WebControls.DetailsView.Caption%2A> is defined. If the <xref:System.Web.UI.WebControls.WebControl.BorderStyle%2A> property of the control that is derived from the <xref:System.Web.UI.WebControls.DetailsView> is the <xref:System.Web.UI.WebControls.BorderStyle.NotSet> or <xref:System.Web.UI.WebControls.BorderStyle.None> value, the <xref:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml%2A> draws a blue dashed border around the control to make its extent more visible. It does not change the run-time appearance of the control.  \n  \n [!code-csharp[System.Web.UI.Design.WebControls.DetailsViewDesigner#4](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.DetailsViewDesigner/CS/detailsviewdesigner.cs#4)]\n [!code-vb[System.Web.UI.Design.WebControls.DetailsViewDesigner#4](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.DetailsViewDesigner/VB/detailsviewdesigner.vb#4)]"
   syntax:
     content: public override string GetDesignTimeHtml (System.Web.UI.Design.DesignerRegionCollection regions);
     parameters:
@@ -424,8 +412,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/DetailsViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.DetailsViewDesigner.GetEditableDesignerRegionContent(System.Web.UI.Design.EditableDesignerRegion)
   commentId: M:System.Web.UI.Design.WebControls.DetailsViewDesigner.GetEditableDesignerRegionContent(System.Web.UI.Design.EditableDesignerRegion)
   id: GetEditableDesignerRegionContent(System.Web.UI.Design.EditableDesignerRegion)
@@ -434,7 +420,7 @@ items:
   - csharp
   name: GetEditableDesignerRegionContent(EditableDesignerRegion)
   nameWithType: DetailsViewDesigner.GetEditableDesignerRegionContent(EditableDesignerRegion)
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.GetEditableDesignerRegionContent(EditableDesignerRegion)
+  fullName: DetailsViewDesigner.GetEditableDesignerRegionContent(EditableDesignerRegion)
   type: Method
   assemblies:
   - System.Design
@@ -469,8 +455,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/DetailsViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.DetailsViewDesigner.Initialize(System.ComponentModel.IComponent)
   commentId: M:System.Web.UI.Design.WebControls.DetailsViewDesigner.Initialize(System.ComponentModel.IComponent)
   id: Initialize(System.ComponentModel.IComponent)
@@ -479,7 +463,7 @@ items:
   - csharp
   name: Initialize(IComponent)
   nameWithType: DetailsViewDesigner.Initialize(IComponent)
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.Initialize(IComponent)
+  fullName: DetailsViewDesigner.Initialize(IComponent)
   type: Method
   assemblies:
   - System.Design
@@ -511,8 +495,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/DetailsViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.DetailsViewDesigner.OnClick(System.Web.UI.Design.DesignerRegionMouseEventArgs)
   commentId: M:System.Web.UI.Design.WebControls.DetailsViewDesigner.OnClick(System.Web.UI.Design.DesignerRegionMouseEventArgs)
   id: OnClick(System.Web.UI.Design.DesignerRegionMouseEventArgs)
@@ -521,7 +503,7 @@ items:
   - csharp
   name: OnClick(DesignerRegionMouseEventArgs)
   nameWithType: DetailsViewDesigner.OnClick(DesignerRegionMouseEventArgs)
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.OnClick(DesignerRegionMouseEventArgs)
+  fullName: DetailsViewDesigner.OnClick(DesignerRegionMouseEventArgs)
   type: Method
   assemblies:
   - System.Design
@@ -553,8 +535,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/DetailsViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.DetailsViewDesigner.OnSchemaRefreshed
   commentId: M:System.Web.UI.Design.WebControls.DetailsViewDesigner.OnSchemaRefreshed
   id: OnSchemaRefreshed
@@ -563,7 +543,7 @@ items:
   - csharp
   name: OnSchemaRefreshed()
   nameWithType: DetailsViewDesigner.OnSchemaRefreshed()
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.OnSchemaRefreshed()
+  fullName: DetailsViewDesigner.OnSchemaRefreshed()
   type: Method
   assemblies:
   - System.Design
@@ -592,8 +572,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/DetailsViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.DetailsViewDesigner.PreFilterProperties(System.Collections.IDictionary)
   commentId: M:System.Web.UI.Design.WebControls.DetailsViewDesigner.PreFilterProperties(System.Collections.IDictionary)
   id: PreFilterProperties(System.Collections.IDictionary)
@@ -602,7 +580,7 @@ items:
   - csharp
   name: PreFilterProperties(IDictionary)
   nameWithType: DetailsViewDesigner.PreFilterProperties(IDictionary)
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.PreFilterProperties(IDictionary)
+  fullName: DetailsViewDesigner.PreFilterProperties(IDictionary)
   type: Method
   assemblies:
   - System.Design
@@ -636,8 +614,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/DetailsViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.DetailsViewDesigner.SampleRowCount
   commentId: P:System.Web.UI.Design.WebControls.DetailsViewDesigner.SampleRowCount
   id: SampleRowCount
@@ -646,7 +622,7 @@ items:
   - csharp
   name: SampleRowCount
   nameWithType: DetailsViewDesigner.SampleRowCount
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.SampleRowCount
+  fullName: DetailsViewDesigner.SampleRowCount
   type: Property
   assemblies:
   - System.Design
@@ -679,8 +655,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/DetailsViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.DetailsViewDesigner.SetEditableDesignerRegionContent(System.Web.UI.Design.EditableDesignerRegion,System.String)
   commentId: M:System.Web.UI.Design.WebControls.DetailsViewDesigner.SetEditableDesignerRegionContent(System.Web.UI.Design.EditableDesignerRegion,System.String)
   id: SetEditableDesignerRegionContent(System.Web.UI.Design.EditableDesignerRegion,System.String)
@@ -689,7 +663,7 @@ items:
   - csharp
   name: SetEditableDesignerRegionContent(EditableDesignerRegion, String)
   nameWithType: DetailsViewDesigner.SetEditableDesignerRegionContent(EditableDesignerRegion, String)
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.SetEditableDesignerRegionContent(EditableDesignerRegion, String)
+  fullName: DetailsViewDesigner.SetEditableDesignerRegionContent(EditableDesignerRegion, String)
   type: Method
   assemblies:
   - System.Design
@@ -724,8 +698,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/DetailsViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.DetailsViewDesigner.TemplateGroups
   commentId: P:System.Web.UI.Design.WebControls.DetailsViewDesigner.TemplateGroups
   id: TemplateGroups
@@ -734,7 +706,7 @@ items:
   - csharp
   name: TemplateGroups
   nameWithType: DetailsViewDesigner.TemplateGroups
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.TemplateGroups
+  fullName: DetailsViewDesigner.TemplateGroups
   type: Property
   assemblies:
   - System.Design
@@ -765,8 +737,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/DetailsViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.DetailsViewDesigner.UsePreviewControl
   commentId: P:System.Web.UI.Design.WebControls.DetailsViewDesigner.UsePreviewControl
   id: UsePreviewControl
@@ -775,7 +745,7 @@ items:
   - csharp
   name: UsePreviewControl
   nameWithType: DetailsViewDesigner.UsePreviewControl
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.UsePreviewControl
+  fullName: DetailsViewDesigner.UsePreviewControl
   type: Property
   assemblies:
   - System.Design
@@ -806,8 +776,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/DetailsViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 references:
 - uid: System.Web.UI.Design.WebControls.DataBoundControlDesigner
   parent: System.Web.UI.Design.WebControls
@@ -820,13 +788,13 @@ references:
   isExternal: false
   name: DetailsViewDesigner()
   nameWithType: DetailsViewDesigner.DetailsViewDesigner()
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.DetailsViewDesigner()
+  fullName: DetailsViewDesigner.DetailsViewDesigner()
 - uid: System.Web.UI.Design.WebControls.DetailsViewDesigner.ActionLists
   parent: System.Web.UI.Design.WebControls.DetailsViewDesigner
   isExternal: false
   name: ActionLists
   nameWithType: DetailsViewDesigner.ActionLists
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.ActionLists
+  fullName: DetailsViewDesigner.ActionLists
 - uid: System.ComponentModel.Design.DesignerActionListCollection
   parent: System.ComponentModel.Design
   isExternal: false
@@ -838,7 +806,7 @@ references:
   isExternal: false
   name: AutoFormats
   nameWithType: DetailsViewDesigner.AutoFormats
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.AutoFormats
+  fullName: DetailsViewDesigner.AutoFormats
 - uid: System.Web.UI.Design.DesignerAutoFormatCollection
   parent: System.Web.UI.Design
   isExternal: false
@@ -850,7 +818,7 @@ references:
   isExternal: false
   name: DataBind(BaseDataBoundControl)
   nameWithType: DetailsViewDesigner.DataBind(BaseDataBoundControl)
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.DataBind(BaseDataBoundControl)
+  fullName: DetailsViewDesigner.DataBind(BaseDataBoundControl)
 - uid: System.Web.UI.WebControls.BaseDataBoundControl
   parent: System.Web.UI.WebControls
   isExternal: false
@@ -862,7 +830,7 @@ references:
   isExternal: false
   name: GetDesignTimeHtml()
   nameWithType: DetailsViewDesigner.GetDesignTimeHtml()
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml()
+  fullName: DetailsViewDesigner.GetDesignTimeHtml()
 - uid: System.String
   parent: System
   isExternal: false
@@ -874,7 +842,7 @@ references:
   isExternal: false
   name: GetDesignTimeHtml(DesignerRegionCollection)
   nameWithType: DetailsViewDesigner.GetDesignTimeHtml(DesignerRegionCollection)
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml(DesignerRegionCollection)
+  fullName: DetailsViewDesigner.GetDesignTimeHtml(DesignerRegionCollection)
 - uid: System.Web.UI.Design.DesignerRegionCollection
   parent: System.Web.UI.Design
   isExternal: false
@@ -886,7 +854,7 @@ references:
   isExternal: false
   name: GetEditableDesignerRegionContent(EditableDesignerRegion)
   nameWithType: DetailsViewDesigner.GetEditableDesignerRegionContent(EditableDesignerRegion)
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.GetEditableDesignerRegionContent(EditableDesignerRegion)
+  fullName: DetailsViewDesigner.GetEditableDesignerRegionContent(EditableDesignerRegion)
 - uid: System.Web.UI.Design.EditableDesignerRegion
   parent: System.Web.UI.Design
   isExternal: false
@@ -898,7 +866,7 @@ references:
   isExternal: false
   name: Initialize(IComponent)
   nameWithType: DetailsViewDesigner.Initialize(IComponent)
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.Initialize(IComponent)
+  fullName: DetailsViewDesigner.Initialize(IComponent)
 - uid: System.ComponentModel.IComponent
   parent: System.ComponentModel
   isExternal: false
@@ -910,7 +878,7 @@ references:
   isExternal: false
   name: OnClick(DesignerRegionMouseEventArgs)
   nameWithType: DetailsViewDesigner.OnClick(DesignerRegionMouseEventArgs)
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.OnClick(DesignerRegionMouseEventArgs)
+  fullName: DetailsViewDesigner.OnClick(DesignerRegionMouseEventArgs)
 - uid: System.Web.UI.Design.DesignerRegionMouseEventArgs
   parent: System.Web.UI.Design
   isExternal: false
@@ -922,13 +890,13 @@ references:
   isExternal: false
   name: OnSchemaRefreshed()
   nameWithType: DetailsViewDesigner.OnSchemaRefreshed()
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.OnSchemaRefreshed()
+  fullName: DetailsViewDesigner.OnSchemaRefreshed()
 - uid: System.Web.UI.Design.WebControls.DetailsViewDesigner.PreFilterProperties(System.Collections.IDictionary)
   parent: System.Web.UI.Design.WebControls.DetailsViewDesigner
   isExternal: false
   name: PreFilterProperties(IDictionary)
   nameWithType: DetailsViewDesigner.PreFilterProperties(IDictionary)
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.PreFilterProperties(IDictionary)
+  fullName: DetailsViewDesigner.PreFilterProperties(IDictionary)
 - uid: System.Collections.IDictionary
   parent: System.Collections
   isExternal: false
@@ -940,7 +908,7 @@ references:
   isExternal: false
   name: SampleRowCount
   nameWithType: DetailsViewDesigner.SampleRowCount
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.SampleRowCount
+  fullName: DetailsViewDesigner.SampleRowCount
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -952,13 +920,13 @@ references:
   isExternal: false
   name: SetEditableDesignerRegionContent(EditableDesignerRegion, String)
   nameWithType: DetailsViewDesigner.SetEditableDesignerRegionContent(EditableDesignerRegion, String)
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.SetEditableDesignerRegionContent(EditableDesignerRegion, String)
+  fullName: DetailsViewDesigner.SetEditableDesignerRegionContent(EditableDesignerRegion, String)
 - uid: System.Web.UI.Design.WebControls.DetailsViewDesigner.TemplateGroups
   parent: System.Web.UI.Design.WebControls.DetailsViewDesigner
   isExternal: false
   name: TemplateGroups
   nameWithType: DetailsViewDesigner.TemplateGroups
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.TemplateGroups
+  fullName: DetailsViewDesigner.TemplateGroups
 - uid: System.Web.UI.Design.TemplateGroupCollection
   parent: System.Web.UI.Design
   isExternal: false
@@ -970,7 +938,7 @@ references:
   isExternal: false
   name: UsePreviewControl
   nameWithType: DetailsViewDesigner.UsePreviewControl
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.UsePreviewControl
+  fullName: DetailsViewDesigner.UsePreviewControl
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -982,7 +950,7 @@ references:
   isExternal: false
   name: DetailsViewDesigner
   nameWithType: DetailsViewDesigner.DetailsViewDesigner
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.DetailsViewDesigner
+  fullName: DetailsViewDesigner.DetailsViewDesigner
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -997,7 +965,7 @@ references:
   isExternal: false
   name: ActionLists
   nameWithType: DetailsViewDesigner.ActionLists
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.ActionLists
+  fullName: DetailsViewDesigner.ActionLists
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1012,7 +980,7 @@ references:
   isExternal: false
   name: AutoFormats
   nameWithType: DetailsViewDesigner.AutoFormats
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.AutoFormats
+  fullName: DetailsViewDesigner.AutoFormats
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1027,7 +995,7 @@ references:
   isExternal: false
   name: DataBind
   nameWithType: DetailsViewDesigner.DataBind
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.DataBind
+  fullName: DetailsViewDesigner.DataBind
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1042,7 +1010,7 @@ references:
   isExternal: false
   name: GetDesignTimeHtml
   nameWithType: DetailsViewDesigner.GetDesignTimeHtml
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.GetDesignTimeHtml
+  fullName: DetailsViewDesigner.GetDesignTimeHtml
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1057,7 +1025,7 @@ references:
   isExternal: false
   name: GetEditableDesignerRegionContent
   nameWithType: DetailsViewDesigner.GetEditableDesignerRegionContent
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.GetEditableDesignerRegionContent
+  fullName: DetailsViewDesigner.GetEditableDesignerRegionContent
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1072,7 +1040,7 @@ references:
   isExternal: false
   name: Initialize
   nameWithType: DetailsViewDesigner.Initialize
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.Initialize
+  fullName: DetailsViewDesigner.Initialize
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1087,7 +1055,7 @@ references:
   isExternal: false
   name: OnClick
   nameWithType: DetailsViewDesigner.OnClick
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.OnClick
+  fullName: DetailsViewDesigner.OnClick
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1102,7 +1070,7 @@ references:
   isExternal: false
   name: OnSchemaRefreshed
   nameWithType: DetailsViewDesigner.OnSchemaRefreshed
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.OnSchemaRefreshed
+  fullName: DetailsViewDesigner.OnSchemaRefreshed
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1117,7 +1085,7 @@ references:
   isExternal: false
   name: PreFilterProperties
   nameWithType: DetailsViewDesigner.PreFilterProperties
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.PreFilterProperties
+  fullName: DetailsViewDesigner.PreFilterProperties
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1132,7 +1100,7 @@ references:
   isExternal: false
   name: SampleRowCount
   nameWithType: DetailsViewDesigner.SampleRowCount
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.SampleRowCount
+  fullName: DetailsViewDesigner.SampleRowCount
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1147,7 +1115,7 @@ references:
   isExternal: false
   name: SetEditableDesignerRegionContent
   nameWithType: DetailsViewDesigner.SetEditableDesignerRegionContent
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.SetEditableDesignerRegionContent
+  fullName: DetailsViewDesigner.SetEditableDesignerRegionContent
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1162,7 +1130,7 @@ references:
   isExternal: false
   name: TemplateGroups
   nameWithType: DetailsViewDesigner.TemplateGroups
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.TemplateGroups
+  fullName: DetailsViewDesigner.TemplateGroups
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1177,7 +1145,7 @@ references:
   isExternal: false
   name: UsePreviewControl
   nameWithType: DetailsViewDesigner.UsePreviewControl
-  fullName: System.Web.UI.Design.WebControls.DetailsViewDesigner.UsePreviewControl
+  fullName: DetailsViewDesigner.UsePreviewControl
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

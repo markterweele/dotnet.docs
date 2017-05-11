@@ -57,7 +57,7 @@ items:
   summary: Represents a window that supports content navigation.
   remarks: "<xref:System.Windows.Navigation.NavigationWindow> derives from <xref:System.Windows.Window> and extends it with the ability to navigate to and display content.  \n  \n Content can be any [!INCLUDE[TLA2#tla_winfx](~/includes/tla2sharptla-winfx-md.md)] object or [!INCLUDE[TLA#tla_html](~/includes/tlasharptla-html-md.md)] file. In general, however, a <xref:System.Windows.Controls.Page> object is the preferred way to package content for navigation.  \n  \n Content can be navigated to by setting the <xref:System.Windows.Navigation.NavigationWindow.Source%2A> property with the [!INCLUDE[TLA2#tla_uri](~/includes/tla2sharptla-uri-md.md)] for the desired content. Additionally, content can be navigated to by using one of the following overloads of the <xref:System.Windows.Navigation.NavigationWindow.Navigate%2A> method:  \n  \n-   <xref:System.Windows.Navigation.NavigationWindow.Navigate%28System.Uri%29>  \n  \n-   <xref:System.Windows.Navigation.NavigationWindow.Navigate%28System.Uri%2CSystem.Object%29>  \n  \n When content is navigated to by [!INCLUDE[TLA2#tla_uri](~/includes/tla2sharptla-uri-md.md)], <xref:System.Windows.Navigation.NavigationWindow> will return an object that contains the content.  \n  \n> [!NOTE]\n>  Navigation by [!INCLUDE[TLA2#tla_uri](~/includes/tla2sharptla-uri-md.md)] also supports navigation to a content fragment. See <xref:System.Windows.Navigation.NavigationWindow.FragmentNavigation>.  \n  \n Alternatively, content can be navigated to by using one of the <xref:System.Windows.Navigation.NavigationWindow.Navigate%2A> method overloads that accepts an object:  \n  \n-   <xref:System.Windows.Navigation.NavigationWindow.Navigate%28System.Object%29>  \n  \n-   <xref:System.Windows.Navigation.NavigationWindow.Navigate%28System.Object%2CSystem.Object%29>  \n  \n The lifetime of a navigation can be tracked through the following events:  \n  \n-   <xref:System.Windows.Navigation.NavigationWindow.Navigating>  \n  \n-   <xref:System.Windows.Navigation.NavigationWindow.Navigated>  \n  \n-   <xref:System.Windows.Navigation.NavigationWindow.NavigationProgress>  \n  \n-   <xref:System.Windows.Navigation.NavigationWindow.NavigationFailed>  \n  \n-   <xref:System.Windows.Navigation.NavigationWindow.NavigationStopped>  \n  \n-   <xref:System.Windows.Navigation.NavigationWindow.LoadCompleted>  \n  \n-   <xref:System.Windows.Navigation.NavigationWindow.FragmentNavigation>.  \n  \n Not all events are raised each time that a navigation occurs; the set of events that are raised is determined by the type of navigation that occurs (content or content fragment) and how the navigation completes (canceled, stopped, or failed).  \n  \n The following figure illustrates the sequence in which these events will fire:  \n  \n ![Page navigation flow chart](~/add/media/navigationoverviewfigure11.png \"Page navigation flow chart\")  \n  \n During or after a navigation, <xref:System.Windows.Navigation.NavigationWindow> provides information about the content that is being navigated to, including the [!INCLUDE[TLA2#tla_uri](~/includes/tla2sharptla-uri-md.md)] of the content being navigated to (<xref:System.Windows.Navigation.NavigationWindow.Source%2A>), the [!INCLUDE[TLA2#tla_uri](~/includes/tla2sharptla-uri-md.md)] of the current content (<xref:System.Windows.Navigation.NavigationWindow.CurrentSource%2A>), and an object that contains the content that was navigated to (<xref:System.Windows.Controls.ContentControl.Content%2A>).  \n  \n When content is navigated to, <xref:System.Windows.Navigation.NavigationWindow> records the navigation as an entry in navigation history. An entry is added to back navigation history when either a new navigation occurs, by calling the <xref:System.Windows.Navigation.NavigationWindow.Navigate%2A> method, or by navigating to an entry in forward navigation history, by calling <xref:System.Windows.Navigation.NavigationWindow.GoForward%2A>. An entry is added to forward navigation history by navigating to an entry in back navigation history, by calling <xref:System.Windows.Navigation.NavigationWindow.GoBack%2A>. <xref:System.Windows.Navigation.NavigationWindow.CanGoBack%2A> and <xref:System.Windows.Navigation.NavigationWindow.CanGoForward%2A> report whether there are entries in back and forward navigation history, respectively.  \n  \n The first time that one piece of content is navigated to from another piece of content, <xref:System.Windows.Navigation.NavigationWindow> automatically displays a navigation [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)] that allows users to navigate back and forwards through navigation history. You can configure when the navigation [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)] is shown by setting the <xref:System.Windows.Navigation.NavigationWindow.ShowsNavigationUI%2A> property.  \n  \n The most recent entry in back navigation history can be removed by calling <xref:System.Windows.Navigation.NavigationWindow.RemoveBackEntry%2A>.  \n  \n <xref:System.Windows.Navigation.NavigationWindow> does not store an instance of a content object in navigation history. Instead, <xref:System.Windows.Navigation.NavigationWindow> creates a new instance of the content object each time it is navigated to by using navigation history. This behavior is designed to avoid excessive memory consumption when large numbers and large pieces of content are being navigated to. Consequently, the state of the content is not remembered from one navigation to the next. However, [!INCLUDE[TLA2#tla_wpf](~/includes/tla2sharptla-wpf-md.md)] provides several techniques by which you can store a piece of state for a piece of content in navigation history.  \n  \n Using <xref:System.Windows.Navigation.NavigationWindow.AddBackEntry%2A>, you can also remember multiple sets of state for a single page instance.  \n  \n <xref:System.Windows.Navigation.NavigationWindow> is one of two navigators in [!INCLUDE[TLA2#tla_wpf](~/includes/tla2sharptla-wpf-md.md)], the other being <xref:System.Windows.Controls.Frame>. Essentially, navigator is a class supports navigation and navigation history. Visually, [!INCLUDE[TLA2#tla_xbap#plural](~/includes/tla2sharptla-xbapsharpplural-md.md)] use [!INCLUDE[TLA2#tla_ie7](~/includes/tla2sharptla-ie7-md.md)] as a navigator, to provide an integrated user experience. However, [!INCLUDE[TLA2#tla_xbap#plural](~/includes/tla2sharptla-xbapsharpplural-md.md)] actually use <xref:System.Windows.Navigation.NavigationWindow> as the navigator; the <xref:System.Windows.Application.MainWindow%2A> property of an [!INCLUDE[TLA2#tla_xbap](~/includes/tla2sharptla-xbap-md.md)] running in [!INCLUDE[TLA2#tla_ie7](~/includes/tla2sharptla-ie7-md.md)] will return a reference to the <xref:System.Windows.Navigation.NavigationWindow>, and the navigation history that is managed by the <xref:System.Windows.Navigation.NavigationWindow> is integrated with the navigation history that is managed by [!INCLUDE[TLA2#tla_ie7](~/includes/tla2sharptla-ie7-md.md)].  \n  \n **Content Model:**  <xref:System.Windows.Navigation.NavigationWindow> is a <xref:System.Windows.Controls.ContentControl>, which means that <xref:System.Windows.Navigation.NavigationWindow> can contain content such as text, images, or panels. Also, <xref:System.Windows.Navigation.NavigationWindow> is a root element and, consequently, cannot be part of another element's content. For more information about the content model for <xref:System.Windows.Controls.Button>, see [WPF Content Model](~/docs/framework/wpf/controls/wpf-content-model.md).  \n  \n## Customizing the NavigationWindow Control  \n To apply the same property settings to multiple <xref:System.Windows.Navigation.NavigationWindow> controls, use the <xref:System.Windows.FrameworkElement.Style%2A> property. You can modify the default <xref:System.Windows.Controls.ControlTemplate> to give the control a unique appearance. For more information about creating a <xref:System.Windows.Controls.ControlTemplate>, see [Customizing the Appearance of an Existing Control by Creating a ControlTemplate](~/docs/framework/wpf/controls/customizing-the-appearance-of-an-existing-control.md).  To see the parts and states that are specific to the <xref:System.Windows.Navigation.NavigationWindow>, see [NavigationWindow Styles and Templates](~/docs/framework/wpf/controls/navigationwindow-styles-and-templates.md).  \n  \n Dependency properties for this control might be set by the control’s default style.  If a property is set by a default style, the property might change from its default value when the control appears in the application. The default style is determined by which desktop theme is used when the application is running.  For more information, see [Default WPF Themes](http://go.microsoft.com/fwlink/?LinkID=158252).  \n  \n> [!NOTE]\n>  Setting a visual property will only have an effect if that property is both present in <xref:System.Windows.Navigation.NavigationWindow> control's default template and is set by using a . You can find a list of visual properties in the \"Changing the Visual Structure of a Control\" section in [Customizing the Appearance of an Existing Control by Creating a ControlTemplate](~/docs/framework/wpf/controls/customizing-the-appearance-of-an-existing-control.md)."
   example:
-  - "The following example shows how to create a <xref:System.Windows.Navigation.NavigationWindow>.  \n  \n <!-- TODO: review snippet reference [!code-xml[NavigationWindowSnippets#NavigationWindowAndSource](~/samples/snippets/xaml/VS_Snippets_Wpf/NavigationWindowSnippets/xaml/mainwindow.xaml#navigationwindowandsource)]  -->\n [!code-xml[NavigationWindowSnippets#NavigationWindowAndSource](~/samples/snippets/csharp/VS_Snippets_Wpf/NavigationWindowSnippets/CS/mainwindow.xaml#navigationwindowandsource)]"
+  - "The following example shows how to create a <xref:System.Windows.Navigation.NavigationWindow>.  \n  \n [!code-xml[NavigationWindowSnippets#NavigationWindowAndSource](~/samples/snippets/csharp/VS_Snippets_Wpf/NavigationWindowSnippets/CS/mainwindow.xaml#navigationwindowandsource)]"
   syntax:
     content: >-
       [System.Windows.Markup.ContentProperty]
@@ -781,9 +781,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.#ctor
   commentId: M:System.Windows.Navigation.NavigationWindow.#ctor
   id: '#ctor'
@@ -792,7 +789,7 @@ items:
   - csharp
   name: NavigationWindow()
   nameWithType: NavigationWindow.NavigationWindow()
-  fullName: System.Windows.Navigation.NavigationWindow.NavigationWindow()
+  fullName: NavigationWindow.NavigationWindow()
   type: Constructor
   assemblies:
   - PresentationFramework
@@ -820,8 +817,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Navigation.NavigationWindow.AddBackEntry(System.Windows.Navigation.CustomContentState)
   commentId: M:System.Windows.Navigation.NavigationWindow.AddBackEntry(System.Windows.Navigation.CustomContentState)
   id: AddBackEntry(System.Windows.Navigation.CustomContentState)
@@ -830,7 +825,7 @@ items:
   - csharp
   name: AddBackEntry(CustomContentState)
   nameWithType: NavigationWindow.AddBackEntry(CustomContentState)
-  fullName: System.Windows.Navigation.NavigationWindow.AddBackEntry(CustomContentState)
+  fullName: NavigationWindow.AddBackEntry(CustomContentState)
   type: Method
   assemblies:
   - PresentationFramework
@@ -865,9 +860,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.AddChild(System.Object)
   commentId: M:System.Windows.Navigation.NavigationWindow.AddChild(System.Object)
   id: AddChild(System.Object)
@@ -876,7 +868,7 @@ items:
   - csharp
   name: AddChild(Object)
   nameWithType: NavigationWindow.AddChild(Object)
-  fullName: System.Windows.Navigation.NavigationWindow.AddChild(Object)
+  fullName: NavigationWindow.AddChild(Object)
   type: Method
   assemblies:
   - PresentationFramework
@@ -910,9 +902,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.AddText(System.String)
   commentId: M:System.Windows.Navigation.NavigationWindow.AddText(System.String)
   id: AddText(System.String)
@@ -921,7 +910,7 @@ items:
   - csharp
   name: AddText(String)
   nameWithType: NavigationWindow.AddText(String)
-  fullName: System.Windows.Navigation.NavigationWindow.AddText(String)
+  fullName: NavigationWindow.AddText(String)
   type: Method
   assemblies:
   - PresentationFramework
@@ -955,9 +944,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.BackStack
   commentId: P:System.Windows.Navigation.NavigationWindow.BackStack
   id: BackStack
@@ -966,7 +952,7 @@ items:
   - csharp
   name: BackStack
   nameWithType: NavigationWindow.BackStack
-  fullName: System.Windows.Navigation.NavigationWindow.BackStack
+  fullName: NavigationWindow.BackStack
   type: Property
   assemblies:
   - PresentationFramework
@@ -997,9 +983,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.BackStackProperty
   commentId: F:System.Windows.Navigation.NavigationWindow.BackStackProperty
   id: BackStackProperty
@@ -1008,7 +991,7 @@ items:
   - csharp
   name: BackStackProperty
   nameWithType: NavigationWindow.BackStackProperty
-  fullName: System.Windows.Navigation.NavigationWindow.BackStackProperty
+  fullName: NavigationWindow.BackStackProperty
   type: Field
   assemblies:
   - PresentationFramework
@@ -1037,9 +1020,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.CanGoBack
   commentId: P:System.Windows.Navigation.NavigationWindow.CanGoBack
   id: CanGoBack
@@ -1048,7 +1028,7 @@ items:
   - csharp
   name: CanGoBack
   nameWithType: NavigationWindow.CanGoBack
-  fullName: System.Windows.Navigation.NavigationWindow.CanGoBack
+  fullName: NavigationWindow.CanGoBack
   type: Property
   assemblies:
   - PresentationFramework
@@ -1079,9 +1059,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.CanGoBackProperty
   commentId: F:System.Windows.Navigation.NavigationWindow.CanGoBackProperty
   id: CanGoBackProperty
@@ -1090,7 +1067,7 @@ items:
   - csharp
   name: CanGoBackProperty
   nameWithType: NavigationWindow.CanGoBackProperty
-  fullName: System.Windows.Navigation.NavigationWindow.CanGoBackProperty
+  fullName: NavigationWindow.CanGoBackProperty
   type: Field
   assemblies:
   - PresentationFramework
@@ -1119,9 +1096,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.CanGoForward
   commentId: P:System.Windows.Navigation.NavigationWindow.CanGoForward
   id: CanGoForward
@@ -1130,7 +1104,7 @@ items:
   - csharp
   name: CanGoForward
   nameWithType: NavigationWindow.CanGoForward
-  fullName: System.Windows.Navigation.NavigationWindow.CanGoForward
+  fullName: NavigationWindow.CanGoForward
   type: Property
   assemblies:
   - PresentationFramework
@@ -1161,9 +1135,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.CanGoForwardProperty
   commentId: F:System.Windows.Navigation.NavigationWindow.CanGoForwardProperty
   id: CanGoForwardProperty
@@ -1172,7 +1143,7 @@ items:
   - csharp
   name: CanGoForwardProperty
   nameWithType: NavigationWindow.CanGoForwardProperty
-  fullName: System.Windows.Navigation.NavigationWindow.CanGoForwardProperty
+  fullName: NavigationWindow.CanGoForwardProperty
   type: Field
   assemblies:
   - PresentationFramework
@@ -1201,9 +1172,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.CurrentSource
   commentId: P:System.Windows.Navigation.NavigationWindow.CurrentSource
   id: CurrentSource
@@ -1212,7 +1180,7 @@ items:
   - csharp
   name: CurrentSource
   nameWithType: NavigationWindow.CurrentSource
-  fullName: System.Windows.Navigation.NavigationWindow.CurrentSource
+  fullName: NavigationWindow.CurrentSource
   type: Property
   assemblies:
   - PresentationFramework
@@ -1243,8 +1211,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Navigation.NavigationWindow.ForwardStack
   commentId: P:System.Windows.Navigation.NavigationWindow.ForwardStack
   id: ForwardStack
@@ -1253,7 +1219,7 @@ items:
   - csharp
   name: ForwardStack
   nameWithType: NavigationWindow.ForwardStack
-  fullName: System.Windows.Navigation.NavigationWindow.ForwardStack
+  fullName: NavigationWindow.ForwardStack
   type: Property
   assemblies:
   - PresentationFramework
@@ -1284,9 +1250,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.ForwardStackProperty
   commentId: F:System.Windows.Navigation.NavigationWindow.ForwardStackProperty
   id: ForwardStackProperty
@@ -1295,7 +1258,7 @@ items:
   - csharp
   name: ForwardStackProperty
   nameWithType: NavigationWindow.ForwardStackProperty
-  fullName: System.Windows.Navigation.NavigationWindow.ForwardStackProperty
+  fullName: NavigationWindow.ForwardStackProperty
   type: Field
   assemblies:
   - PresentationFramework
@@ -1324,9 +1287,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.FragmentNavigation
   commentId: E:System.Windows.Navigation.NavigationWindow.FragmentNavigation
   id: FragmentNavigation
@@ -1335,7 +1295,7 @@ items:
   - csharp
   name: FragmentNavigation
   nameWithType: NavigationWindow.FragmentNavigation
-  fullName: System.Windows.Navigation.NavigationWindow.FragmentNavigation
+  fullName: NavigationWindow.FragmentNavigation
   type: Event
   assemblies:
   - PresentationFramework
@@ -1365,9 +1325,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.GoBack
   commentId: M:System.Windows.Navigation.NavigationWindow.GoBack
   id: GoBack
@@ -1376,7 +1333,7 @@ items:
   - csharp
   name: GoBack()
   nameWithType: NavigationWindow.GoBack()
-  fullName: System.Windows.Navigation.NavigationWindow.GoBack()
+  fullName: NavigationWindow.GoBack()
   type: Method
   assemblies:
   - PresentationFramework
@@ -1407,9 +1364,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.GoForward
   commentId: M:System.Windows.Navigation.NavigationWindow.GoForward
   id: GoForward
@@ -1418,7 +1372,7 @@ items:
   - csharp
   name: GoForward()
   nameWithType: NavigationWindow.GoForward()
-  fullName: System.Windows.Navigation.NavigationWindow.GoForward()
+  fullName: NavigationWindow.GoForward()
   type: Method
   assemblies:
   - PresentationFramework
@@ -1449,9 +1403,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.LoadCompleted
   commentId: E:System.Windows.Navigation.NavigationWindow.LoadCompleted
   id: LoadCompleted
@@ -1460,7 +1411,7 @@ items:
   - csharp
   name: LoadCompleted
   nameWithType: NavigationWindow.LoadCompleted
-  fullName: System.Windows.Navigation.NavigationWindow.LoadCompleted
+  fullName: NavigationWindow.LoadCompleted
   type: Event
   assemblies:
   - PresentationFramework
@@ -1490,9 +1441,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.Navigate(System.Object,System.Object)
   commentId: M:System.Windows.Navigation.NavigationWindow.Navigate(System.Object,System.Object)
   id: Navigate(System.Object,System.Object)
@@ -1501,7 +1449,7 @@ items:
   - csharp
   name: Navigate(Object, Object)
   nameWithType: NavigationWindow.Navigate(Object, Object)
-  fullName: System.Windows.Navigation.NavigationWindow.Navigate(Object, Object)
+  fullName: NavigationWindow.Navigate(Object, Object)
   type: Method
   assemblies:
   - PresentationFramework
@@ -1539,8 +1487,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Navigation.NavigationWindow.Navigate(System.Uri,System.Object)
   commentId: M:System.Windows.Navigation.NavigationWindow.Navigate(System.Uri,System.Object)
   id: Navigate(System.Uri,System.Object)
@@ -1549,7 +1495,7 @@ items:
   - csharp
   name: Navigate(Uri, Object)
   nameWithType: NavigationWindow.Navigate(Uri, Object)
-  fullName: System.Windows.Navigation.NavigationWindow.Navigate(Uri, Object)
+  fullName: NavigationWindow.Navigate(Uri, Object)
   type: Method
   assemblies:
   - PresentationFramework
@@ -1587,8 +1533,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Navigation.NavigationWindow.Navigate(System.Object)
   commentId: M:System.Windows.Navigation.NavigationWindow.Navigate(System.Object)
   id: Navigate(System.Object)
@@ -1597,7 +1541,7 @@ items:
   - csharp
   name: Navigate(Object)
   nameWithType: NavigationWindow.Navigate(Object)
-  fullName: System.Windows.Navigation.NavigationWindow.Navigate(Object)
+  fullName: NavigationWindow.Navigate(Object)
   type: Method
   assemblies:
   - PresentationFramework
@@ -1634,9 +1578,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.Navigate(System.Uri)
   commentId: M:System.Windows.Navigation.NavigationWindow.Navigate(System.Uri)
   id: Navigate(System.Uri)
@@ -1645,7 +1586,7 @@ items:
   - csharp
   name: Navigate(Uri)
   nameWithType: NavigationWindow.Navigate(Uri)
-  fullName: System.Windows.Navigation.NavigationWindow.Navigate(Uri)
+  fullName: NavigationWindow.Navigate(Uri)
   type: Method
   assemblies:
   - PresentationFramework
@@ -1682,9 +1623,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.Navigated
   commentId: E:System.Windows.Navigation.NavigationWindow.Navigated
   id: Navigated
@@ -1693,7 +1631,7 @@ items:
   - csharp
   name: Navigated
   nameWithType: NavigationWindow.Navigated
-  fullName: System.Windows.Navigation.NavigationWindow.Navigated
+  fullName: NavigationWindow.Navigated
   type: Event
   assemblies:
   - PresentationFramework
@@ -1723,9 +1661,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.Navigating
   commentId: E:System.Windows.Navigation.NavigationWindow.Navigating
   id: Navigating
@@ -1734,7 +1669,7 @@ items:
   - csharp
   name: Navigating
   nameWithType: NavigationWindow.Navigating
-  fullName: System.Windows.Navigation.NavigationWindow.Navigating
+  fullName: NavigationWindow.Navigating
   type: Event
   assemblies:
   - PresentationFramework
@@ -1764,9 +1699,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.NavigationFailed
   commentId: E:System.Windows.Navigation.NavigationWindow.NavigationFailed
   id: NavigationFailed
@@ -1775,7 +1707,7 @@ items:
   - csharp
   name: NavigationFailed
   nameWithType: NavigationWindow.NavigationFailed
-  fullName: System.Windows.Navigation.NavigationWindow.NavigationFailed
+  fullName: NavigationWindow.NavigationFailed
   type: Event
   assemblies:
   - PresentationFramework
@@ -1805,9 +1737,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.NavigationProgress
   commentId: E:System.Windows.Navigation.NavigationWindow.NavigationProgress
   id: NavigationProgress
@@ -1816,7 +1745,7 @@ items:
   - csharp
   name: NavigationProgress
   nameWithType: NavigationWindow.NavigationProgress
-  fullName: System.Windows.Navigation.NavigationWindow.NavigationProgress
+  fullName: NavigationWindow.NavigationProgress
   type: Event
   assemblies:
   - PresentationFramework
@@ -1846,9 +1775,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.NavigationService
   commentId: P:System.Windows.Navigation.NavigationWindow.NavigationService
   id: NavigationService
@@ -1857,7 +1783,7 @@ items:
   - csharp
   name: NavigationService
   nameWithType: NavigationWindow.NavigationService
-  fullName: System.Windows.Navigation.NavigationWindow.NavigationService
+  fullName: NavigationWindow.NavigationService
   type: Property
   assemblies:
   - PresentationFramework
@@ -1888,9 +1814,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.NavigationStopped
   commentId: E:System.Windows.Navigation.NavigationWindow.NavigationStopped
   id: NavigationStopped
@@ -1899,7 +1822,7 @@ items:
   - csharp
   name: NavigationStopped
   nameWithType: NavigationWindow.NavigationStopped
-  fullName: System.Windows.Navigation.NavigationWindow.NavigationStopped
+  fullName: NavigationWindow.NavigationStopped
   type: Event
   assemblies:
   - PresentationFramework
@@ -1929,9 +1852,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.OnApplyTemplate
   commentId: M:System.Windows.Navigation.NavigationWindow.OnApplyTemplate
   id: OnApplyTemplate
@@ -1940,7 +1860,7 @@ items:
   - csharp
   name: OnApplyTemplate()
   nameWithType: NavigationWindow.OnApplyTemplate()
-  fullName: System.Windows.Navigation.NavigationWindow.OnApplyTemplate()
+  fullName: NavigationWindow.OnApplyTemplate()
   type: Method
   assemblies:
   - PresentationFramework
@@ -1973,9 +1893,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.OnClosed(System.EventArgs)
   commentId: M:System.Windows.Navigation.NavigationWindow.OnClosed(System.EventArgs)
   id: OnClosed(System.EventArgs)
@@ -1984,7 +1901,7 @@ items:
   - csharp
   name: OnClosed(EventArgs)
   nameWithType: NavigationWindow.OnClosed(EventArgs)
-  fullName: System.Windows.Navigation.NavigationWindow.OnClosed(EventArgs)
+  fullName: NavigationWindow.OnClosed(EventArgs)
   type: Method
   assemblies:
   - PresentationFramework
@@ -2016,9 +1933,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.OnCreateAutomationPeer
   commentId: M:System.Windows.Navigation.NavigationWindow.OnCreateAutomationPeer
   id: OnCreateAutomationPeer
@@ -2027,7 +1941,7 @@ items:
   - csharp
   name: OnCreateAutomationPeer()
   nameWithType: NavigationWindow.OnCreateAutomationPeer()
-  fullName: System.Windows.Navigation.NavigationWindow.OnCreateAutomationPeer()
+  fullName: NavigationWindow.OnCreateAutomationPeer()
   type: Method
   assemblies:
   - PresentationFramework
@@ -2059,9 +1973,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.Refresh
   commentId: M:System.Windows.Navigation.NavigationWindow.Refresh
   id: Refresh
@@ -2070,7 +1981,7 @@ items:
   - csharp
   name: Refresh()
   nameWithType: NavigationWindow.Refresh()
-  fullName: System.Windows.Navigation.NavigationWindow.Refresh()
+  fullName: NavigationWindow.Refresh()
   type: Method
   assemblies:
   - PresentationFramework
@@ -2101,9 +2012,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.RemoveBackEntry
   commentId: M:System.Windows.Navigation.NavigationWindow.RemoveBackEntry
   id: RemoveBackEntry
@@ -2112,7 +2020,7 @@ items:
   - csharp
   name: RemoveBackEntry()
   nameWithType: NavigationWindow.RemoveBackEntry()
-  fullName: System.Windows.Navigation.NavigationWindow.RemoveBackEntry()
+  fullName: NavigationWindow.RemoveBackEntry()
   type: Method
   assemblies:
   - PresentationFramework
@@ -2144,9 +2052,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.SandboxExternalContent
   commentId: P:System.Windows.Navigation.NavigationWindow.SandboxExternalContent
   id: SandboxExternalContent
@@ -2155,13 +2060,13 @@ items:
   - csharp
   name: SandboxExternalContent
   nameWithType: NavigationWindow.SandboxExternalContent
-  fullName: System.Windows.Navigation.NavigationWindow.SandboxExternalContent
+  fullName: NavigationWindow.SandboxExternalContent
   type: Property
   assemblies:
   - PresentationFramework
   namespace: System.Windows.Navigation
   summary: Gets or sets a value that indicates whether a <xref href="System.Windows.Navigation.NavigationWindow"></xref> isolates external [!INCLUDE[TLA#tla_xaml](~/includes/tlasharptla-xaml-md.md)] content within a partial trust security sandbox (with default Internet zone permission set).
-  remarks: "External content is [!INCLUDE[TLA2#tla_xaml](~/includes/tla2sharptla-xaml-md.md)] content that is not included with an application as either a resource file or a content file (for more information, see [WPF Application Resource, Content, and Data Files](../Topic/WPF%20Application%20Resource,%20Content,%20and%20Data%20Files.md)).  \n  \n When <xref:System.Windows.Navigation.NavigationWindow.SandboxExternalContent%2A> is true, and the content of the <xref:System.Windows.Navigation.NavigationWindow> is an external [!INCLUDE[TLA2#tla_xaml](~/includes/tla2sharptla-xaml-md.md)] file, the content is loaded into a partial trust security sandbox that is limited to the default Internet zone permission set. Additionally, the external content is loaded into a separate process. Consequently, the external content becomes isolated and does not have access to application-scope resources, such as resource dictionaries (for more information, see <xref:System.Windows.ResourceDictionary>).  \n  \n> [!NOTE]\n>  <xref:System.Windows.Navigation.NavigationWindow> contains external content only when the <xref:System.Windows.Navigation.NavigationWindow.Source%2A> property is set to the [!INCLUDE[TLA#tla_uri](~/includes/tlasharptla-uri-md.md)] for an external [!INCLUDE[TLA2#tla_xaml](~/includes/tla2sharptla-xaml-md.md)] file. <xref:System.Windows.Navigation.NavigationWindow> content that is provided using the <xref:System.Windows.Controls.ContentControl.Content%2A> property is considered internal content and, subsequently, is not isolated.  \n  \n<a name=\"dependencyPropertyInfo_NavigationWindowSandboxExternalContent\"></a>   \n## Dependency Property Information  \n  \n|||  \n|-|-|  \n|Identifier field|<xref:System.Windows.Navigation.NavigationWindow.SandboxExternalContent%2A>|  \n|Metadata properties set to `true`|None|"
+  remarks: "External content is [!INCLUDE[TLA2#tla_xaml](~/includes/tla2sharptla-xaml-md.md)] content that is not included with an application as either a resource file or a content file (for more information, see [WPF Application Resource, Content, and Data Files](~/docs/framework/wpf/app-development/wpf-application-resource-content-and-data-files.md)).  \n  \n When <xref:System.Windows.Navigation.NavigationWindow.SandboxExternalContent%2A> is true, and the content of the <xref:System.Windows.Navigation.NavigationWindow> is an external [!INCLUDE[TLA2#tla_xaml](~/includes/tla2sharptla-xaml-md.md)] file, the content is loaded into a partial trust security sandbox that is limited to the default Internet zone permission set. Additionally, the external content is loaded into a separate process. Consequently, the external content becomes isolated and does not have access to application-scope resources, such as resource dictionaries (for more information, see <xref:System.Windows.ResourceDictionary>).  \n  \n> [!NOTE]\n>  <xref:System.Windows.Navigation.NavigationWindow> contains external content only when the <xref:System.Windows.Navigation.NavigationWindow.Source%2A> property is set to the [!INCLUDE[TLA#tla_uri](~/includes/tlasharptla-uri-md.md)] for an external [!INCLUDE[TLA2#tla_xaml](~/includes/tla2sharptla-xaml-md.md)] file. <xref:System.Windows.Navigation.NavigationWindow> content that is provided using the <xref:System.Windows.Controls.ContentControl.Content%2A> property is considered internal content and, subsequently, is not isolated.  \n  \n<a name=\"dependencyPropertyInfo_NavigationWindowSandboxExternalContent\"></a>   \n## Dependency Property Information  \n  \n|||  \n|-|-|  \n|Identifier field|<xref:System.Windows.Navigation.NavigationWindow.SandboxExternalContent%2A>|  \n|Metadata properties set to `true`|None|"
   syntax:
     content: public bool SandboxExternalContent { get; set; }
     return:
@@ -2189,9 +2094,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.SandboxExternalContentProperty
   commentId: F:System.Windows.Navigation.NavigationWindow.SandboxExternalContentProperty
   id: SandboxExternalContentProperty
@@ -2200,7 +2102,7 @@ items:
   - csharp
   name: SandboxExternalContentProperty
   nameWithType: NavigationWindow.SandboxExternalContentProperty
-  fullName: System.Windows.Navigation.NavigationWindow.SandboxExternalContentProperty
+  fullName: NavigationWindow.SandboxExternalContentProperty
   type: Field
   assemblies:
   - PresentationFramework
@@ -2229,8 +2131,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Navigation.NavigationWindow.ShouldSerializeContent
   commentId: M:System.Windows.Navigation.NavigationWindow.ShouldSerializeContent
   id: ShouldSerializeContent
@@ -2239,7 +2139,7 @@ items:
   - csharp
   name: ShouldSerializeContent()
   nameWithType: NavigationWindow.ShouldSerializeContent()
-  fullName: System.Windows.Navigation.NavigationWindow.ShouldSerializeContent()
+  fullName: NavigationWindow.ShouldSerializeContent()
   type: Method
   assemblies:
   - PresentationFramework
@@ -2272,9 +2172,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.ShowsNavigationUI
   commentId: P:System.Windows.Navigation.NavigationWindow.ShowsNavigationUI
   id: ShowsNavigationUI
@@ -2283,7 +2180,7 @@ items:
   - csharp
   name: ShowsNavigationUI
   nameWithType: NavigationWindow.ShowsNavigationUI
-  fullName: System.Windows.Navigation.NavigationWindow.ShowsNavigationUI
+  fullName: NavigationWindow.ShowsNavigationUI
   type: Property
   assemblies:
   - PresentationFramework
@@ -2314,9 +2211,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.ShowsNavigationUIProperty
   commentId: F:System.Windows.Navigation.NavigationWindow.ShowsNavigationUIProperty
   id: ShowsNavigationUIProperty
@@ -2325,7 +2219,7 @@ items:
   - csharp
   name: ShowsNavigationUIProperty
   nameWithType: NavigationWindow.ShowsNavigationUIProperty
-  fullName: System.Windows.Navigation.NavigationWindow.ShowsNavigationUIProperty
+  fullName: NavigationWindow.ShowsNavigationUIProperty
   type: Field
   assemblies:
   - PresentationFramework
@@ -2354,9 +2248,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.Source
   commentId: P:System.Windows.Navigation.NavigationWindow.Source
   id: Source
@@ -2365,7 +2256,7 @@ items:
   - csharp
   name: Source
   nameWithType: NavigationWindow.Source
-  fullName: System.Windows.Navigation.NavigationWindow.Source
+  fullName: NavigationWindow.Source
   type: Property
   assemblies:
   - PresentationFramework
@@ -2399,9 +2290,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.SourceProperty
   commentId: F:System.Windows.Navigation.NavigationWindow.SourceProperty
   id: SourceProperty
@@ -2410,7 +2298,7 @@ items:
   - csharp
   name: SourceProperty
   nameWithType: NavigationWindow.SourceProperty
-  fullName: System.Windows.Navigation.NavigationWindow.SourceProperty
+  fullName: NavigationWindow.SourceProperty
   type: Field
   assemblies:
   - PresentationFramework
@@ -2439,9 +2327,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.StopLoading
   commentId: M:System.Windows.Navigation.NavigationWindow.StopLoading
   id: StopLoading
@@ -2450,7 +2335,7 @@ items:
   - csharp
   name: StopLoading()
   nameWithType: NavigationWindow.StopLoading()
-  fullName: System.Windows.Navigation.NavigationWindow.StopLoading()
+  fullName: NavigationWindow.StopLoading()
   type: Method
   assemblies:
   - PresentationFramework
@@ -2481,9 +2366,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Navigation.NavigationWindow.System#Windows#Markup#IUriContext#BaseUri
   commentId: P:System.Windows.Navigation.NavigationWindow.System#Windows#Markup#IUriContext#BaseUri
   id: System#Windows#Markup#IUriContext#BaseUri
@@ -2493,7 +2375,7 @@ items:
   - csharp
   name: IUriContext.BaseUri
   nameWithType: NavigationWindow.IUriContext.BaseUri
-  fullName: System.Windows.Navigation.NavigationWindow.IUriContext.BaseUri
+  fullName: NavigationWindow.IUriContext.BaseUri
   type: Property
   assemblies:
   - PresentationFramework
@@ -2524,8 +2406,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
-  ms.author: jimwalk
-  manager: martinek
 references:
 - uid: System.Windows.Window
   parent: System.Windows
@@ -2556,13 +2436,13 @@ references:
   isExternal: false
   name: NavigationWindow()
   nameWithType: NavigationWindow.NavigationWindow()
-  fullName: System.Windows.Navigation.NavigationWindow.NavigationWindow()
+  fullName: NavigationWindow.NavigationWindow()
 - uid: System.Windows.Navigation.NavigationWindow.AddBackEntry(System.Windows.Navigation.CustomContentState)
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: AddBackEntry(CustomContentState)
   nameWithType: NavigationWindow.AddBackEntry(CustomContentState)
-  fullName: System.Windows.Navigation.NavigationWindow.AddBackEntry(CustomContentState)
+  fullName: NavigationWindow.AddBackEntry(CustomContentState)
 - uid: System.Windows.Navigation.CustomContentState
   parent: System.Windows.Navigation
   isExternal: false
@@ -2574,7 +2454,7 @@ references:
   isExternal: false
   name: AddChild(Object)
   nameWithType: NavigationWindow.AddChild(Object)
-  fullName: System.Windows.Navigation.NavigationWindow.AddChild(Object)
+  fullName: NavigationWindow.AddChild(Object)
 - uid: System.Object
   parent: System
   isExternal: false
@@ -2586,7 +2466,7 @@ references:
   isExternal: false
   name: AddText(String)
   nameWithType: NavigationWindow.AddText(String)
-  fullName: System.Windows.Navigation.NavigationWindow.AddText(String)
+  fullName: NavigationWindow.AddText(String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -2598,7 +2478,7 @@ references:
   isExternal: false
   name: BackStack
   nameWithType: NavigationWindow.BackStack
-  fullName: System.Windows.Navigation.NavigationWindow.BackStack
+  fullName: NavigationWindow.BackStack
 - uid: System.Collections.IEnumerable
   parent: System.Collections
   isExternal: false
@@ -2610,7 +2490,7 @@ references:
   isExternal: false
   name: BackStackProperty
   nameWithType: NavigationWindow.BackStackProperty
-  fullName: System.Windows.Navigation.NavigationWindow.BackStackProperty
+  fullName: NavigationWindow.BackStackProperty
 - uid: System.Windows.DependencyProperty
   parent: System.Windows
   isExternal: false
@@ -2622,7 +2502,7 @@ references:
   isExternal: false
   name: CanGoBack
   nameWithType: NavigationWindow.CanGoBack
-  fullName: System.Windows.Navigation.NavigationWindow.CanGoBack
+  fullName: NavigationWindow.CanGoBack
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -2634,25 +2514,25 @@ references:
   isExternal: false
   name: CanGoBackProperty
   nameWithType: NavigationWindow.CanGoBackProperty
-  fullName: System.Windows.Navigation.NavigationWindow.CanGoBackProperty
+  fullName: NavigationWindow.CanGoBackProperty
 - uid: System.Windows.Navigation.NavigationWindow.CanGoForward
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: CanGoForward
   nameWithType: NavigationWindow.CanGoForward
-  fullName: System.Windows.Navigation.NavigationWindow.CanGoForward
+  fullName: NavigationWindow.CanGoForward
 - uid: System.Windows.Navigation.NavigationWindow.CanGoForwardProperty
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: CanGoForwardProperty
   nameWithType: NavigationWindow.CanGoForwardProperty
-  fullName: System.Windows.Navigation.NavigationWindow.CanGoForwardProperty
+  fullName: NavigationWindow.CanGoForwardProperty
 - uid: System.Windows.Navigation.NavigationWindow.CurrentSource
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: CurrentSource
   nameWithType: NavigationWindow.CurrentSource
-  fullName: System.Windows.Navigation.NavigationWindow.CurrentSource
+  fullName: NavigationWindow.CurrentSource
 - uid: System.Uri
   parent: System
   isExternal: false
@@ -2664,19 +2544,19 @@ references:
   isExternal: false
   name: ForwardStack
   nameWithType: NavigationWindow.ForwardStack
-  fullName: System.Windows.Navigation.NavigationWindow.ForwardStack
+  fullName: NavigationWindow.ForwardStack
 - uid: System.Windows.Navigation.NavigationWindow.ForwardStackProperty
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: ForwardStackProperty
   nameWithType: NavigationWindow.ForwardStackProperty
-  fullName: System.Windows.Navigation.NavigationWindow.ForwardStackProperty
+  fullName: NavigationWindow.ForwardStackProperty
 - uid: System.Windows.Navigation.NavigationWindow.FragmentNavigation
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: FragmentNavigation
   nameWithType: NavigationWindow.FragmentNavigation
-  fullName: System.Windows.Navigation.NavigationWindow.FragmentNavigation
+  fullName: NavigationWindow.FragmentNavigation
 - uid: System.Windows.Navigation.FragmentNavigationEventHandler
   parent: System.Windows.Navigation
   isExternal: false
@@ -2688,19 +2568,19 @@ references:
   isExternal: false
   name: GoBack()
   nameWithType: NavigationWindow.GoBack()
-  fullName: System.Windows.Navigation.NavigationWindow.GoBack()
+  fullName: NavigationWindow.GoBack()
 - uid: System.Windows.Navigation.NavigationWindow.GoForward
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: GoForward()
   nameWithType: NavigationWindow.GoForward()
-  fullName: System.Windows.Navigation.NavigationWindow.GoForward()
+  fullName: NavigationWindow.GoForward()
 - uid: System.Windows.Navigation.NavigationWindow.LoadCompleted
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: LoadCompleted
   nameWithType: NavigationWindow.LoadCompleted
-  fullName: System.Windows.Navigation.NavigationWindow.LoadCompleted
+  fullName: NavigationWindow.LoadCompleted
 - uid: System.Windows.Navigation.LoadCompletedEventHandler
   parent: System.Windows.Navigation
   isExternal: false
@@ -2712,31 +2592,31 @@ references:
   isExternal: false
   name: Navigate(Object, Object)
   nameWithType: NavigationWindow.Navigate(Object, Object)
-  fullName: System.Windows.Navigation.NavigationWindow.Navigate(Object, Object)
+  fullName: NavigationWindow.Navigate(Object, Object)
 - uid: System.Windows.Navigation.NavigationWindow.Navigate(System.Uri,System.Object)
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: Navigate(Uri, Object)
   nameWithType: NavigationWindow.Navigate(Uri, Object)
-  fullName: System.Windows.Navigation.NavigationWindow.Navigate(Uri, Object)
+  fullName: NavigationWindow.Navigate(Uri, Object)
 - uid: System.Windows.Navigation.NavigationWindow.Navigate(System.Object)
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: Navigate(Object)
   nameWithType: NavigationWindow.Navigate(Object)
-  fullName: System.Windows.Navigation.NavigationWindow.Navigate(Object)
+  fullName: NavigationWindow.Navigate(Object)
 - uid: System.Windows.Navigation.NavigationWindow.Navigate(System.Uri)
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: Navigate(Uri)
   nameWithType: NavigationWindow.Navigate(Uri)
-  fullName: System.Windows.Navigation.NavigationWindow.Navigate(Uri)
+  fullName: NavigationWindow.Navigate(Uri)
 - uid: System.Windows.Navigation.NavigationWindow.Navigated
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: Navigated
   nameWithType: NavigationWindow.Navigated
-  fullName: System.Windows.Navigation.NavigationWindow.Navigated
+  fullName: NavigationWindow.Navigated
 - uid: System.Windows.Navigation.NavigatedEventHandler
   parent: System.Windows.Navigation
   isExternal: false
@@ -2748,7 +2628,7 @@ references:
   isExternal: false
   name: Navigating
   nameWithType: NavigationWindow.Navigating
-  fullName: System.Windows.Navigation.NavigationWindow.Navigating
+  fullName: NavigationWindow.Navigating
 - uid: System.Windows.Navigation.NavigatingCancelEventHandler
   parent: System.Windows.Navigation
   isExternal: false
@@ -2760,7 +2640,7 @@ references:
   isExternal: false
   name: NavigationFailed
   nameWithType: NavigationWindow.NavigationFailed
-  fullName: System.Windows.Navigation.NavigationWindow.NavigationFailed
+  fullName: NavigationWindow.NavigationFailed
 - uid: System.Windows.Navigation.NavigationFailedEventHandler
   parent: System.Windows.Navigation
   isExternal: false
@@ -2772,7 +2652,7 @@ references:
   isExternal: false
   name: NavigationProgress
   nameWithType: NavigationWindow.NavigationProgress
-  fullName: System.Windows.Navigation.NavigationWindow.NavigationProgress
+  fullName: NavigationWindow.NavigationProgress
 - uid: System.Windows.Navigation.NavigationProgressEventHandler
   parent: System.Windows.Navigation
   isExternal: false
@@ -2784,7 +2664,7 @@ references:
   isExternal: false
   name: NavigationService
   nameWithType: NavigationWindow.NavigationService
-  fullName: System.Windows.Navigation.NavigationWindow.NavigationService
+  fullName: NavigationWindow.NavigationService
 - uid: System.Windows.Navigation.NavigationService
   parent: System.Windows.Navigation
   isExternal: false
@@ -2796,7 +2676,7 @@ references:
   isExternal: false
   name: NavigationStopped
   nameWithType: NavigationWindow.NavigationStopped
-  fullName: System.Windows.Navigation.NavigationWindow.NavigationStopped
+  fullName: NavigationWindow.NavigationStopped
 - uid: System.Windows.Navigation.NavigationStoppedEventHandler
   parent: System.Windows.Navigation
   isExternal: false
@@ -2808,13 +2688,13 @@ references:
   isExternal: false
   name: OnApplyTemplate()
   nameWithType: NavigationWindow.OnApplyTemplate()
-  fullName: System.Windows.Navigation.NavigationWindow.OnApplyTemplate()
+  fullName: NavigationWindow.OnApplyTemplate()
 - uid: System.Windows.Navigation.NavigationWindow.OnClosed(System.EventArgs)
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: OnClosed(EventArgs)
   nameWithType: NavigationWindow.OnClosed(EventArgs)
-  fullName: System.Windows.Navigation.NavigationWindow.OnClosed(EventArgs)
+  fullName: NavigationWindow.OnClosed(EventArgs)
 - uid: System.EventArgs
   parent: System
   isExternal: false
@@ -2826,7 +2706,7 @@ references:
   isExternal: false
   name: OnCreateAutomationPeer()
   nameWithType: NavigationWindow.OnCreateAutomationPeer()
-  fullName: System.Windows.Navigation.NavigationWindow.OnCreateAutomationPeer()
+  fullName: NavigationWindow.OnCreateAutomationPeer()
 - uid: System.Windows.Automation.Peers.AutomationPeer
   parent: System.Windows.Automation.Peers
   isExternal: false
@@ -2838,13 +2718,13 @@ references:
   isExternal: false
   name: Refresh()
   nameWithType: NavigationWindow.Refresh()
-  fullName: System.Windows.Navigation.NavigationWindow.Refresh()
+  fullName: NavigationWindow.Refresh()
 - uid: System.Windows.Navigation.NavigationWindow.RemoveBackEntry
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: RemoveBackEntry()
   nameWithType: NavigationWindow.RemoveBackEntry()
-  fullName: System.Windows.Navigation.NavigationWindow.RemoveBackEntry()
+  fullName: NavigationWindow.RemoveBackEntry()
 - uid: System.Windows.Navigation.JournalEntry
   parent: System.Windows.Navigation
   isExternal: false
@@ -2856,61 +2736,61 @@ references:
   isExternal: false
   name: SandboxExternalContent
   nameWithType: NavigationWindow.SandboxExternalContent
-  fullName: System.Windows.Navigation.NavigationWindow.SandboxExternalContent
+  fullName: NavigationWindow.SandboxExternalContent
 - uid: System.Windows.Navigation.NavigationWindow.SandboxExternalContentProperty
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: SandboxExternalContentProperty
   nameWithType: NavigationWindow.SandboxExternalContentProperty
-  fullName: System.Windows.Navigation.NavigationWindow.SandboxExternalContentProperty
+  fullName: NavigationWindow.SandboxExternalContentProperty
 - uid: System.Windows.Navigation.NavigationWindow.ShouldSerializeContent
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: ShouldSerializeContent()
   nameWithType: NavigationWindow.ShouldSerializeContent()
-  fullName: System.Windows.Navigation.NavigationWindow.ShouldSerializeContent()
+  fullName: NavigationWindow.ShouldSerializeContent()
 - uid: System.Windows.Navigation.NavigationWindow.ShowsNavigationUI
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: ShowsNavigationUI
   nameWithType: NavigationWindow.ShowsNavigationUI
-  fullName: System.Windows.Navigation.NavigationWindow.ShowsNavigationUI
+  fullName: NavigationWindow.ShowsNavigationUI
 - uid: System.Windows.Navigation.NavigationWindow.ShowsNavigationUIProperty
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: ShowsNavigationUIProperty
   nameWithType: NavigationWindow.ShowsNavigationUIProperty
-  fullName: System.Windows.Navigation.NavigationWindow.ShowsNavigationUIProperty
+  fullName: NavigationWindow.ShowsNavigationUIProperty
 - uid: System.Windows.Navigation.NavigationWindow.Source
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: Source
   nameWithType: NavigationWindow.Source
-  fullName: System.Windows.Navigation.NavigationWindow.Source
+  fullName: NavigationWindow.Source
 - uid: System.Windows.Navigation.NavigationWindow.SourceProperty
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: SourceProperty
   nameWithType: NavigationWindow.SourceProperty
-  fullName: System.Windows.Navigation.NavigationWindow.SourceProperty
+  fullName: NavigationWindow.SourceProperty
 - uid: System.Windows.Navigation.NavigationWindow.StopLoading
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: StopLoading()
   nameWithType: NavigationWindow.StopLoading()
-  fullName: System.Windows.Navigation.NavigationWindow.StopLoading()
+  fullName: NavigationWindow.StopLoading()
 - uid: System.Windows.Navigation.NavigationWindow.System#Windows#Markup#IUriContext#BaseUri
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: IUriContext.BaseUri
   nameWithType: NavigationWindow.IUriContext.BaseUri
-  fullName: System.Windows.Navigation.NavigationWindow.IUriContext.BaseUri
+  fullName: NavigationWindow.IUriContext.BaseUri
 - uid: System.Windows.Navigation.NavigationWindow.#ctor*
   parent: System.Windows.Navigation.NavigationWindow
   isExternal: false
   name: NavigationWindow
   nameWithType: NavigationWindow.NavigationWindow
-  fullName: System.Windows.Navigation.NavigationWindow.NavigationWindow
+  fullName: NavigationWindow.NavigationWindow
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2925,7 +2805,7 @@ references:
   isExternal: false
   name: AddBackEntry
   nameWithType: NavigationWindow.AddBackEntry
-  fullName: System.Windows.Navigation.NavigationWindow.AddBackEntry
+  fullName: NavigationWindow.AddBackEntry
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2940,7 +2820,7 @@ references:
   isExternal: false
   name: AddChild
   nameWithType: NavigationWindow.AddChild
-  fullName: System.Windows.Navigation.NavigationWindow.AddChild
+  fullName: NavigationWindow.AddChild
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2955,7 +2835,7 @@ references:
   isExternal: false
   name: AddText
   nameWithType: NavigationWindow.AddText
-  fullName: System.Windows.Navigation.NavigationWindow.AddText
+  fullName: NavigationWindow.AddText
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2970,7 +2850,7 @@ references:
   isExternal: false
   name: BackStack
   nameWithType: NavigationWindow.BackStack
-  fullName: System.Windows.Navigation.NavigationWindow.BackStack
+  fullName: NavigationWindow.BackStack
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2985,7 +2865,7 @@ references:
   isExternal: false
   name: CanGoBack
   nameWithType: NavigationWindow.CanGoBack
-  fullName: System.Windows.Navigation.NavigationWindow.CanGoBack
+  fullName: NavigationWindow.CanGoBack
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3000,7 +2880,7 @@ references:
   isExternal: false
   name: CanGoForward
   nameWithType: NavigationWindow.CanGoForward
-  fullName: System.Windows.Navigation.NavigationWindow.CanGoForward
+  fullName: NavigationWindow.CanGoForward
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3015,7 +2895,7 @@ references:
   isExternal: false
   name: CurrentSource
   nameWithType: NavigationWindow.CurrentSource
-  fullName: System.Windows.Navigation.NavigationWindow.CurrentSource
+  fullName: NavigationWindow.CurrentSource
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3030,7 +2910,7 @@ references:
   isExternal: false
   name: ForwardStack
   nameWithType: NavigationWindow.ForwardStack
-  fullName: System.Windows.Navigation.NavigationWindow.ForwardStack
+  fullName: NavigationWindow.ForwardStack
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3045,7 +2925,7 @@ references:
   isExternal: false
   name: GoBack
   nameWithType: NavigationWindow.GoBack
-  fullName: System.Windows.Navigation.NavigationWindow.GoBack
+  fullName: NavigationWindow.GoBack
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3060,7 +2940,7 @@ references:
   isExternal: false
   name: GoForward
   nameWithType: NavigationWindow.GoForward
-  fullName: System.Windows.Navigation.NavigationWindow.GoForward
+  fullName: NavigationWindow.GoForward
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3075,7 +2955,7 @@ references:
   isExternal: false
   name: Navigate
   nameWithType: NavigationWindow.Navigate
-  fullName: System.Windows.Navigation.NavigationWindow.Navigate
+  fullName: NavigationWindow.Navigate
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3090,7 +2970,7 @@ references:
   isExternal: false
   name: NavigationService
   nameWithType: NavigationWindow.NavigationService
-  fullName: System.Windows.Navigation.NavigationWindow.NavigationService
+  fullName: NavigationWindow.NavigationService
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3105,7 +2985,7 @@ references:
   isExternal: false
   name: OnApplyTemplate
   nameWithType: NavigationWindow.OnApplyTemplate
-  fullName: System.Windows.Navigation.NavigationWindow.OnApplyTemplate
+  fullName: NavigationWindow.OnApplyTemplate
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3120,7 +3000,7 @@ references:
   isExternal: false
   name: OnClosed
   nameWithType: NavigationWindow.OnClosed
-  fullName: System.Windows.Navigation.NavigationWindow.OnClosed
+  fullName: NavigationWindow.OnClosed
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3135,7 +3015,7 @@ references:
   isExternal: false
   name: OnCreateAutomationPeer
   nameWithType: NavigationWindow.OnCreateAutomationPeer
-  fullName: System.Windows.Navigation.NavigationWindow.OnCreateAutomationPeer
+  fullName: NavigationWindow.OnCreateAutomationPeer
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3150,7 +3030,7 @@ references:
   isExternal: false
   name: Refresh
   nameWithType: NavigationWindow.Refresh
-  fullName: System.Windows.Navigation.NavigationWindow.Refresh
+  fullName: NavigationWindow.Refresh
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3165,7 +3045,7 @@ references:
   isExternal: false
   name: RemoveBackEntry
   nameWithType: NavigationWindow.RemoveBackEntry
-  fullName: System.Windows.Navigation.NavigationWindow.RemoveBackEntry
+  fullName: NavigationWindow.RemoveBackEntry
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3180,7 +3060,7 @@ references:
   isExternal: false
   name: SandboxExternalContent
   nameWithType: NavigationWindow.SandboxExternalContent
-  fullName: System.Windows.Navigation.NavigationWindow.SandboxExternalContent
+  fullName: NavigationWindow.SandboxExternalContent
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3195,7 +3075,7 @@ references:
   isExternal: false
   name: ShouldSerializeContent
   nameWithType: NavigationWindow.ShouldSerializeContent
-  fullName: System.Windows.Navigation.NavigationWindow.ShouldSerializeContent
+  fullName: NavigationWindow.ShouldSerializeContent
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3210,7 +3090,7 @@ references:
   isExternal: false
   name: ShowsNavigationUI
   nameWithType: NavigationWindow.ShowsNavigationUI
-  fullName: System.Windows.Navigation.NavigationWindow.ShowsNavigationUI
+  fullName: NavigationWindow.ShowsNavigationUI
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3225,7 +3105,7 @@ references:
   isExternal: false
   name: Source
   nameWithType: NavigationWindow.Source
-  fullName: System.Windows.Navigation.NavigationWindow.Source
+  fullName: NavigationWindow.Source
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3240,7 +3120,7 @@ references:
   isExternal: false
   name: StopLoading
   nameWithType: NavigationWindow.StopLoading
-  fullName: System.Windows.Navigation.NavigationWindow.StopLoading
+  fullName: NavigationWindow.StopLoading
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3255,7 +3135,7 @@ references:
   isExternal: false
   name: System.Windows.Markup.IUriContext.BaseUri
   nameWithType: NavigationWindow.System.Windows.Markup.IUriContext.BaseUri
-  fullName: System.Windows.Navigation.NavigationWindow.System.Windows.Markup.IUriContext.BaseUri
+  fullName: NavigationWindow.System.Windows.Markup.IUriContext.BaseUri
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3265,3 +3145,9 @@ references:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Navigation/NavigationWindow.xml
+- uid: System.Windows.Markup.IUriContext
+  parent: System.Windows.Markup
+  isExternal: false
+  name: IUriContext
+  nameWithType: IUriContext
+  fullName: System.Windows.Markup.IUriContext

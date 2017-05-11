@@ -23,7 +23,7 @@ items:
   assemblies:
   - System.ServiceModel
   namespace: System.ServiceModel
-  summary: Indicates that a method defines an operation that is part of a service contract in a [!INCLUDE[indigo1](~/includes/indigo1-md.md)] application.
+  summary: Indicates that a method defines an operation that is part of a service contract in a Windows Communication Foundation (WCF) application.
   remarks: "Apply the <xref:System.ServiceModel.OperationContractAttribute> to a method to indicate that the method implements a service operation as part of a service contract (specified by a <xref:System.ServiceModel.ServiceContractAttribute> attribute).  \n  \n Use the <xref:System.ServiceModel.OperationContractAttribute> properties to control the structure of the operation and the values expressed in metadata:  \n  \n-   The <xref:System.ServiceModel.OperationContractAttribute.Action%2A> property specifies the action that uniquely identifies this operation. [!INCLUDE[indigo2](~/includes/indigo2-md.md)] dispatches request messages to methods based on their action.  \n  \n-   The <xref:System.ServiceModel.OperationContractAttribute.AsyncPattern%2A> property indicates that the operation is implemented or can be called asynchronously using a Begin/End method pair.  \n  \n-   The <xref:System.ServiceModel.OperationContractAttribute.HasProtectionLevel%2A> property indicates whether the <xref:System.ServiceModel.OperationContractAttribute.ProtectionLevel%2A> property has been explicitly set.  \n  \n-   The <xref:System.ServiceModel.OperationContractAttribute.IsOneWay%2A> property indicates that the operation only consists of a single input message. The operation has no associated output message.  \n  \n-   The <xref:System.ServiceModel.OperationContractAttribute.IsInitiating%2A> property specifies whether this operation can be the initial operation in a session.  \n  \n-   The <xref:System.ServiceModel.OperationContractAttribute.IsTerminating%2A> property specifies whether [!INCLUDE[indigo2](~/includes/indigo2-md.md)] attempts to terminate the current session after the operation completes.  \n  \n-   The <xref:System.ServiceModel.OperationContractAttribute.ProtectionLevel%2A> property specifies the message-level security that an operation requires at run time.  \n  \n-   The <xref:System.ServiceModel.OperationContractAttribute.ReplyAction%2A> property specifies the action of the reply message for the operation.  \n  \n The <xref:System.ServiceModel.OperationContractAttribute> attribute declares that a method is an operation in a service contract. Only methods attributed with the <xref:System.ServiceModel.OperationContractAttribute> are exposed as service operations. A service contract without any methods marked with the <xref:System.ServiceModel.OperationContractAttribute> exposes no operations.  \n  \n The <xref:System.ServiceModel.OperationContractAttribute.AsyncPattern%2A> property indicates that a pair of `Begin`\\<*methodName*> and `End`\\<*methodName*> methods form a single operation implemented asynchronously (whether on the client or the service). The ability of a service to implement operations asynchronously is a service implementation detail and is not exposed in metadata (such as Web Services Description Language (WSDL)).  \n  \n Similarly, clients can choose to invoke operations asynchronously independent of how the service method is implemented. Calling service operations asynchronously in the client is recommended when a service method takes some time but must return information directly to the client. For details, see <xref:System.ServiceModel.OperationContractAttribute.AsyncPattern%2A>.  \n  \n The <xref:System.ServiceModel.OperationContractAttribute.IsOneWay%2A> property indicates that a method does not return any value at all, including an empty underlying response message. This type of method is useful for notifications or event-style communication. Methods of this kind cannot return a reply message so the method's declaration must return `void`.  \n  \n> [!IMPORTANT]\n>  When programmatically retrieving the information store in this attribute, use the <xref:System.ServiceModel.Description.ContractDescription> class instead of reflection.  \n  \n> [!NOTE]\n>  If the <xref:System.ServiceModel.OperationContractAttribute.IsOneWay%2A> property is set to `false`, (the default), even methods that return `void` are two-way methods at the underlying message level. In this case, the infrastructure creates and sends an empty message to indicate to the caller that the method has returned. Using this approach enables the application and the infrastructure to send error information (such as a SOAP fault) back to the client. Setting <xref:System.ServiceModel.OperationContractAttribute.IsOneWay%2A> to `true` is the only way to prevent the creation and dispatch of a reply message. For more information, see [One-Way Services](~/docs/framework/wcf/feature-details/one-way-services.md).  \n  \n The <xref:System.ServiceModel.OperationContractAttribute.Action%2A> and <xref:System.ServiceModel.OperationContractAttribute.ReplyAction%2A> properties can be used not only to modify the default action of SOAP messages but also to create handlers for unrecognized messages or to disable adding actions for direct message programming. Use the <xref:System.ServiceModel.OperationContractAttribute.IsInitiating%2A> property to prevent clients from calling a particular service operation prior to other operations. Use the <xref:System.ServiceModel.OperationContractAttribute.IsTerminating%2A> property to have [!INCLUDE[indigo2](~/includes/indigo2-md.md)] close the channel after clients call a particular service operation. For more information, see [Using Sessions](~/docs/framework/wcf/using-sessions.md).  \n  \n The <xref:System.ServiceModel.OperationContractAttribute.ProtectionLevel%2A> property enables you to specify on the operation contract whether the operation messages are signed, encrypted, or signed and encrypted. If a binding cannot provide the security level required by the contract, an exception is thrown at run time. For more information, see <xref:System.ServiceModel.OperationContractAttribute.ProtectionLevel%2A> and [Understanding Protection Level](~/docs/framework/wcf/understanding-protection-level.md)."
   example:
   - "The following code example shows a simple service contract with one operation.  \n  \n [!code-csharp[OperationContractAttribute#1](~/samples/snippets/csharp/VS_Snippets_CFX/operationcontractattribute/cs/services.cs#1)]\n [!code-vb[OperationContractAttribute#1](~/samples/snippets/visualbasic/VS_Snippets_CFX/operationcontractattribute/vb/services.vb#1)]  \n  \n The following example is a service that implements an implicit service contract that specifies three operations. Two of the operations are two-way operations, which return underlying response messages to the caller no matter what the return value is. The third operation receives a call, an underlying inbound message, but returns no underlying response message.  \n  \n```csharp  \n[ServiceContractAttribute]  \npublic class OneAndTwoWay  \n{  \n  // The client waits until a response message appears.  \n  [OperationContractAttribute]  \n  public int MethodOne (int x, out int y)  \n  {  \n    y = 34;  \n    return 0;  \n  }  \n  \n  // The client waits until an empty response message appears.  \n  [OperationContractAttribute]  \n  public void MethodTwo (int x)  \n  {  \n    return;  \n  }  \n  \n  // The client returns as soon as an outbound message  \n  // is dispatched to the service; no response  \n  // message is generated or sent from the service.  \n  [OperationContractAttribute(IsOneWay=true)]  \n  public void MethodThree (int x)  \n  {  \n    return;  \n  }  \n}  \n```"
@@ -108,9 +108,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/OperationContractAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.OperationContractAttribute.#ctor
   commentId: M:System.ServiceModel.OperationContractAttribute.#ctor
   id: '#ctor'
@@ -119,7 +116,7 @@ items:
   - csharp
   name: OperationContractAttribute()
   nameWithType: OperationContractAttribute.OperationContractAttribute()
-  fullName: System.ServiceModel.OperationContractAttribute.OperationContractAttribute()
+  fullName: OperationContractAttribute.OperationContractAttribute()
   type: Constructor
   assemblies:
   - System.ServiceModel
@@ -153,9 +150,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/OperationContractAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.OperationContractAttribute.Action
   commentId: P:System.ServiceModel.OperationContractAttribute.Action
   id: Action
@@ -164,7 +158,7 @@ items:
   - csharp
   name: Action
   nameWithType: OperationContractAttribute.Action
-  fullName: System.ServiceModel.OperationContractAttribute.Action
+  fullName: OperationContractAttribute.Action
   type: Property
   assemblies:
   - System.ServiceModel
@@ -206,9 +200,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/OperationContractAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.OperationContractAttribute.AsyncPattern
   commentId: P:System.ServiceModel.OperationContractAttribute.AsyncPattern
   id: AsyncPattern
@@ -217,7 +208,7 @@ items:
   - csharp
   name: AsyncPattern
   nameWithType: OperationContractAttribute.AsyncPattern
-  fullName: System.ServiceModel.OperationContractAttribute.AsyncPattern
+  fullName: OperationContractAttribute.AsyncPattern
   type: Property
   assemblies:
   - System.ServiceModel
@@ -256,9 +247,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/OperationContractAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.OperationContractAttribute.HasProtectionLevel
   commentId: P:System.ServiceModel.OperationContractAttribute.HasProtectionLevel
   id: HasProtectionLevel
@@ -267,7 +255,7 @@ items:
   - csharp
   name: HasProtectionLevel
   nameWithType: OperationContractAttribute.HasProtectionLevel
-  fullName: System.ServiceModel.OperationContractAttribute.HasProtectionLevel
+  fullName: OperationContractAttribute.HasProtectionLevel
   type: Property
   assemblies:
   - System.ServiceModel
@@ -304,9 +292,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/OperationContractAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.OperationContractAttribute.IsInitiating
   commentId: P:System.ServiceModel.OperationContractAttribute.IsInitiating
   id: IsInitiating
@@ -315,13 +300,13 @@ items:
   - csharp
   name: IsInitiating
   nameWithType: OperationContractAttribute.IsInitiating
-  fullName: System.ServiceModel.OperationContractAttribute.IsInitiating
+  fullName: OperationContractAttribute.IsInitiating
   type: Property
   assemblies:
   - System.ServiceModel
   namespace: System.ServiceModel
   summary: Gets or sets a value that indicates whether the method implements an operation that can initiate a session on the server (if such a session exists).
-  remarks: "The <xref:System.ServiceModel.OperationContractAttribute.IsInitiating%2A> property controls whether an operation can be the first operation called when a session is created.  \n  \n> [!NOTE]\n>  The value of <xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A?displayProperty=fullName> must be either <xref:System.ServiceModel.SessionMode> or <xref:System.ServiceModel.SessionMode> and the binding used must require or allow sessions for the <xref:System.ServiceModel.OperationContractAttribute.IsInitiating%2A> property to work properly.  \n  \n The default is `true`, which means that an operation can be the first one called on a channel. Subsequent calls to the initiating method have no effect, other than to call the method. No other sessions are created. If the contract does not make use of a session, setting <xref:System.ServiceModel.OperationContractAttribute.IsInitiating%2A> to `false` is ignored.  \n  \n Typically, you set <xref:System.ServiceModel.OperationContractAttribute.IsInitiating%2A> to `false` to force clients to call another method on the service before they can invoke this one. For example, if your service has a series of operations that depend on an order ID number, you can set <xref:System.ServiceModel.OperationContractAttribute.IsInitiating%2A> to `true` for a `GetOrderId` service operation and set all remaining service operations to `false`. This ensures that each new client obtains an order ID prior to using the other methods exposed by the service.  \n  \n> [!NOTE]\n>  There is an interaction between <xref:System.ServiceModel.OperationContractAttribute.IsInitiating%2A> and the <xref:System.ServiceModel.OperationContractAttribute.Action%2A> property. A service contract can have only one service operation with the <xref:System.ServiceModel.OperationContractAttribute.Action%2A> property set to \"*\". Any group of service contracts hosted at the same listen URI that a service class implements can have many service operations with the <xref:System.ServiceModel.OperationContractAttribute.Action%2A> property set to \"\\*\" when the <xref:System.ServiceModel.OperationContractAttribute.IsInitiating%2A> property is set to `false`. However, only one of those service methods can have the <xref:System.ServiceModel.OperationContractAttribute.Action%2A> property set to \"\\*\" and the <xref:System.ServiceModel.OperationContractAttribute.IsInitiating%2A> property set to `true`.  \n  \n If a service receives a message for a non-initiating operation, the service returns an ActionNotSupported SOAP fault. The client experiences this as an <xref:System.ServiceModel.FaultException>. If a client calls a non-initiating operation first, the client runtime throws an <xref:System.InvalidOperationException?displayProperty=fullName>.  \n  \n For more information, see [Using Sessions](~/docs/framework/wcf/using-sessions.md)."
+  remarks: "The <xref:System.ServiceModel.OperationContractAttribute.IsInitiating%2A> property controls whether an operation can be the first operation called when a session is created.  \n  \n> [!NOTE]\n>  The value of <xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A?displayProperty=fullName> must be either <xref:System.ServiceModel.SessionMode.Allowed> or <xref:System.ServiceModel.SessionMode.Required> and the binding used must require or allow sessions for the <xref:System.ServiceModel.OperationContractAttribute.IsInitiating%2A> property to work properly.  \n  \n The default is `true`, which means that an operation can be the first one called on a channel. Subsequent calls to the initiating method have no effect, other than to call the method. No other sessions are created. If the contract does not make use of a session, setting <xref:System.ServiceModel.OperationContractAttribute.IsInitiating%2A> to `false` is ignored.  \n  \n Typically, you set <xref:System.ServiceModel.OperationContractAttribute.IsInitiating%2A> to `false` to force clients to call another method on the service before they can invoke this one. For example, if your service has a series of operations that depend on an order ID number, you can set <xref:System.ServiceModel.OperationContractAttribute.IsInitiating%2A> to `true` for a `GetOrderId` service operation and set all remaining service operations to `false`. This ensures that each new client obtains an order ID prior to using the other methods exposed by the service.  \n  \n> [!NOTE]\n>  There is an interaction between <xref:System.ServiceModel.OperationContractAttribute.IsInitiating%2A> and the <xref:System.ServiceModel.OperationContractAttribute.Action%2A> property. A service contract can have only one service operation with the <xref:System.ServiceModel.OperationContractAttribute.Action%2A> property set to \"*\". Any group of service contracts hosted at the same listen URI that a service class implements can have many service operations with the <xref:System.ServiceModel.OperationContractAttribute.Action%2A> property set to \"\\*\" when the <xref:System.ServiceModel.OperationContractAttribute.IsInitiating%2A> property is set to `false`. However, only one of those service methods can have the <xref:System.ServiceModel.OperationContractAttribute.Action%2A> property set to \"\\*\" and the <xref:System.ServiceModel.OperationContractAttribute.IsInitiating%2A> property set to `true`.  \n  \n If a service receives a message for a non-initiating operation, the service returns an ActionNotSupported SOAP fault. The client experiences this as an <xref:System.ServiceModel.FaultException>. If a client calls a non-initiating operation first, the client runtime throws an <xref:System.InvalidOperationException?displayProperty=fullName>.  \n  \n For more information, see [Using Sessions](~/docs/framework/wcf/using-sessions.md)."
   example:
   - "The following example is a service that implements a service contract that specifies three methods. The service requires a session. If a caller's first call is to any operation other than `MethodOne`, the channel is refused and an exception is thrown. When a caller initiates a session by calling `MethodOne`, that caller can terminate the communication session at any time by calling `MethodThree`. `MethodTwo` can be called any number of times during a session.  \n  \n```csharp  \n[ServiceContract(SessionMode=SessionMode.Required)]  \npublic class InitializeAndTerminateService  \n{  \n  [OperationContract(  \n    IsOneWay=true,  \n    IsInitiating=true,  \n    IsTerminating=false  \n  )]  \n  public void MethodOne()  \n  {  \n    return;  \n  }  \n  \n  [OperationContract(  \n    IsInitiating=false,  \n    IsTerminating=false  \n  )]  \n  public int MethodTwo(int x, out int y)  \n  {  \n    y = 34;  \n    return 0;  \n  }  \n  \n  [OperationContract(  \n    IsOneWay=true,  \n    IsInitiating=false,  \n    IsTerminating=true  \n  )]  \n  public void MethodThree()  \n  {  \n    return;  \n  }  \n}  \n```"
   syntax:
@@ -354,9 +339,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/OperationContractAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.OperationContractAttribute.IsOneWay
   commentId: P:System.ServiceModel.OperationContractAttribute.IsOneWay
   id: IsOneWay
@@ -365,7 +347,7 @@ items:
   - csharp
   name: IsOneWay
   nameWithType: OperationContractAttribute.IsOneWay
-  fullName: System.ServiceModel.OperationContractAttribute.IsOneWay
+  fullName: OperationContractAttribute.IsOneWay
   type: Property
   assemblies:
   - System.ServiceModel
@@ -404,9 +386,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/OperationContractAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.OperationContractAttribute.IsTerminating
   commentId: P:System.ServiceModel.OperationContractAttribute.IsTerminating
   id: IsTerminating
@@ -415,7 +394,7 @@ items:
   - csharp
   name: IsTerminating
   nameWithType: OperationContractAttribute.IsTerminating
-  fullName: System.ServiceModel.OperationContractAttribute.IsTerminating
+  fullName: OperationContractAttribute.IsTerminating
   type: Property
   assemblies:
   - System.ServiceModel
@@ -454,9 +433,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/OperationContractAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.OperationContractAttribute.Name
   commentId: P:System.ServiceModel.OperationContractAttribute.Name
   id: Name
@@ -465,7 +441,7 @@ items:
   - csharp
   name: Name
   nameWithType: OperationContractAttribute.Name
-  fullName: System.ServiceModel.OperationContractAttribute.Name
+  fullName: OperationContractAttribute.Name
   type: Property
   assemblies:
   - System.ServiceModel
@@ -510,9 +486,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/OperationContractAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.OperationContractAttribute.ProtectionLevel
   commentId: P:System.ServiceModel.OperationContractAttribute.ProtectionLevel
   id: ProtectionLevel
@@ -521,7 +494,7 @@ items:
   - csharp
   name: ProtectionLevel
   nameWithType: OperationContractAttribute.ProtectionLevel
-  fullName: System.ServiceModel.OperationContractAttribute.ProtectionLevel
+  fullName: OperationContractAttribute.ProtectionLevel
   type: Property
   assemblies:
   - System.ServiceModel
@@ -561,9 +534,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/OperationContractAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.OperationContractAttribute.ReplyAction
   commentId: P:System.ServiceModel.OperationContractAttribute.ReplyAction
   id: ReplyAction
@@ -572,7 +542,7 @@ items:
   - csharp
   name: ReplyAction
   nameWithType: OperationContractAttribute.ReplyAction
-  fullName: System.ServiceModel.OperationContractAttribute.ReplyAction
+  fullName: OperationContractAttribute.ReplyAction
   type: Property
   assemblies:
   - System.ServiceModel
@@ -614,9 +584,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/OperationContractAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 references:
 - uid: System.Attribute
   parent: System
@@ -641,13 +608,13 @@ references:
   isExternal: false
   name: OperationContractAttribute()
   nameWithType: OperationContractAttribute.OperationContractAttribute()
-  fullName: System.ServiceModel.OperationContractAttribute.OperationContractAttribute()
+  fullName: OperationContractAttribute.OperationContractAttribute()
 - uid: System.ServiceModel.OperationContractAttribute.Action
   parent: System.ServiceModel.OperationContractAttribute
   isExternal: false
   name: Action
   nameWithType: OperationContractAttribute.Action
-  fullName: System.ServiceModel.OperationContractAttribute.Action
+  fullName: OperationContractAttribute.Action
 - uid: System.String
   parent: System
   isExternal: false
@@ -659,7 +626,7 @@ references:
   isExternal: false
   name: AsyncPattern
   nameWithType: OperationContractAttribute.AsyncPattern
-  fullName: System.ServiceModel.OperationContractAttribute.AsyncPattern
+  fullName: OperationContractAttribute.AsyncPattern
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -671,37 +638,37 @@ references:
   isExternal: false
   name: HasProtectionLevel
   nameWithType: OperationContractAttribute.HasProtectionLevel
-  fullName: System.ServiceModel.OperationContractAttribute.HasProtectionLevel
+  fullName: OperationContractAttribute.HasProtectionLevel
 - uid: System.ServiceModel.OperationContractAttribute.IsInitiating
   parent: System.ServiceModel.OperationContractAttribute
   isExternal: false
   name: IsInitiating
   nameWithType: OperationContractAttribute.IsInitiating
-  fullName: System.ServiceModel.OperationContractAttribute.IsInitiating
+  fullName: OperationContractAttribute.IsInitiating
 - uid: System.ServiceModel.OperationContractAttribute.IsOneWay
   parent: System.ServiceModel.OperationContractAttribute
   isExternal: false
   name: IsOneWay
   nameWithType: OperationContractAttribute.IsOneWay
-  fullName: System.ServiceModel.OperationContractAttribute.IsOneWay
+  fullName: OperationContractAttribute.IsOneWay
 - uid: System.ServiceModel.OperationContractAttribute.IsTerminating
   parent: System.ServiceModel.OperationContractAttribute
   isExternal: false
   name: IsTerminating
   nameWithType: OperationContractAttribute.IsTerminating
-  fullName: System.ServiceModel.OperationContractAttribute.IsTerminating
+  fullName: OperationContractAttribute.IsTerminating
 - uid: System.ServiceModel.OperationContractAttribute.Name
   parent: System.ServiceModel.OperationContractAttribute
   isExternal: false
   name: Name
   nameWithType: OperationContractAttribute.Name
-  fullName: System.ServiceModel.OperationContractAttribute.Name
+  fullName: OperationContractAttribute.Name
 - uid: System.ServiceModel.OperationContractAttribute.ProtectionLevel
   parent: System.ServiceModel.OperationContractAttribute
   isExternal: false
   name: ProtectionLevel
   nameWithType: OperationContractAttribute.ProtectionLevel
-  fullName: System.ServiceModel.OperationContractAttribute.ProtectionLevel
+  fullName: OperationContractAttribute.ProtectionLevel
 - uid: System.Net.Security.ProtectionLevel
   parent: System.Net.Security
   isExternal: false
@@ -713,13 +680,13 @@ references:
   isExternal: false
   name: ReplyAction
   nameWithType: OperationContractAttribute.ReplyAction
-  fullName: System.ServiceModel.OperationContractAttribute.ReplyAction
+  fullName: OperationContractAttribute.ReplyAction
 - uid: System.ServiceModel.OperationContractAttribute.#ctor*
   parent: System.ServiceModel.OperationContractAttribute
   isExternal: false
   name: OperationContractAttribute
   nameWithType: OperationContractAttribute.OperationContractAttribute
-  fullName: System.ServiceModel.OperationContractAttribute.OperationContractAttribute
+  fullName: OperationContractAttribute.OperationContractAttribute
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -737,7 +704,7 @@ references:
   isExternal: false
   name: Action
   nameWithType: OperationContractAttribute.Action
-  fullName: System.ServiceModel.OperationContractAttribute.Action
+  fullName: OperationContractAttribute.Action
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -755,7 +722,7 @@ references:
   isExternal: false
   name: AsyncPattern
   nameWithType: OperationContractAttribute.AsyncPattern
-  fullName: System.ServiceModel.OperationContractAttribute.AsyncPattern
+  fullName: OperationContractAttribute.AsyncPattern
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -773,7 +740,7 @@ references:
   isExternal: false
   name: HasProtectionLevel
   nameWithType: OperationContractAttribute.HasProtectionLevel
-  fullName: System.ServiceModel.OperationContractAttribute.HasProtectionLevel
+  fullName: OperationContractAttribute.HasProtectionLevel
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -791,7 +758,7 @@ references:
   isExternal: false
   name: IsInitiating
   nameWithType: OperationContractAttribute.IsInitiating
-  fullName: System.ServiceModel.OperationContractAttribute.IsInitiating
+  fullName: OperationContractAttribute.IsInitiating
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -809,7 +776,7 @@ references:
   isExternal: false
   name: IsOneWay
   nameWithType: OperationContractAttribute.IsOneWay
-  fullName: System.ServiceModel.OperationContractAttribute.IsOneWay
+  fullName: OperationContractAttribute.IsOneWay
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -827,7 +794,7 @@ references:
   isExternal: false
   name: IsTerminating
   nameWithType: OperationContractAttribute.IsTerminating
-  fullName: System.ServiceModel.OperationContractAttribute.IsTerminating
+  fullName: OperationContractAttribute.IsTerminating
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -845,7 +812,7 @@ references:
   isExternal: false
   name: Name
   nameWithType: OperationContractAttribute.Name
-  fullName: System.ServiceModel.OperationContractAttribute.Name
+  fullName: OperationContractAttribute.Name
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -863,7 +830,7 @@ references:
   isExternal: false
   name: ProtectionLevel
   nameWithType: OperationContractAttribute.ProtectionLevel
-  fullName: System.ServiceModel.OperationContractAttribute.ProtectionLevel
+  fullName: OperationContractAttribute.ProtectionLevel
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -881,7 +848,7 @@ references:
   isExternal: false
   name: ReplyAction
   nameWithType: OperationContractAttribute.ReplyAction
-  fullName: System.ServiceModel.OperationContractAttribute.ReplyAction
+  fullName: OperationContractAttribute.ReplyAction
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

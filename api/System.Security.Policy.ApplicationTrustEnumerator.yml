@@ -16,6 +16,7 @@ items:
   type: Class
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Represents the enumerator for <xref href="System.Security.Policy.ApplicationTrust"></xref> objects in the <xref href="System.Security.Policy.ApplicationTrustCollection"></xref> collection.
   remarks: "Enumerators only allow reading the data in the collection. Enumerators cannot be used to modify the underlying collection.  \n  \n Initially, the enumerator is positioned before the first element in the collection. The <xref:System.Security.Policy.ApplicationTrustEnumerator.Reset%2A> method also brings the enumerator back to this position. At this position, calling the <xref:System.Security.Policy.ApplicationTrustEnumerator.Current%2A> property throws an exception. Therefore, you must call the <xref:System.Security.Policy.ApplicationTrustEnumerator.MoveNext%2A> method to advance the enumerator to the first element of the collection before reading the value of the <xref:System.Security.Policy.ApplicationTrustEnumerator.Current%2A> property.  \n  \n <xref:System.Security.Policy.ApplicationTrustEnumerator.Current%2A> returns the same object until either <xref:System.Security.Policy.ApplicationTrustEnumerator.MoveNext%2A> or <xref:System.Security.Policy.ApplicationTrustEnumerator.Reset%2A> is called. <xref:System.Security.Policy.ApplicationTrustEnumerator.MoveNext%2A> sets <xref:System.Security.Policy.ApplicationTrustEnumerator.Current%2A> to the next element.  \n  \n After the end of the collection is passed, the enumerator is positioned after the last element in the collection, and calling <xref:System.Security.Policy.ApplicationTrustEnumerator.MoveNext%2A> returns `false`. If the last call to <xref:System.Security.Policy.ApplicationTrustEnumerator.MoveNext%2A> returned `false`, calling <xref:System.Security.Policy.ApplicationTrustEnumerator.Current%2A> throws an exception. To reset <xref:System.Security.Policy.ApplicationTrustEnumerator.Current%2A> to the first element of the collection, call <xref:System.Security.Policy.ApplicationTrustEnumerator.Reset%2A> followed by a call to <xref:System.Security.Policy.ApplicationTrustEnumerator.MoveNext%2A>.  \n  \n An enumerator remains valid as long as the collection remains unchanged. If changes are made to the collection, such as adding, modifying, or deleting elements, the enumerator is irrecoverably invalidated and the next call to <xref:System.Security.Policy.ApplicationTrustEnumerator.MoveNext%2A> or <xref:System.Security.Policy.ApplicationTrustEnumerator.Reset%2A> throws an <xref:System.InvalidOperationException> exception. If the collection is modified between calling <xref:System.Security.Policy.ApplicationTrustEnumerator.MoveNext%2A> and <xref:System.Security.Policy.ApplicationTrustEnumerator.Current%2A>, <xref:System.Security.Policy.ApplicationTrustEnumerator.Current%2A> returns the element to which it is currently set, even if the enumerator is already invalidated.  \n  \n The enumerator does not have exclusive access to the collection; therefore, enumerating through a collection is intrinsically not a thread-safe procedure. Even when a collection is synchronized, other threads can still modify the collection, which causes the enumerator to throw an exception. To guarantee thread safety during enumeration, you can either lock the collection during the entire enumeration or catch the exceptions resulting from changes made by other threads."
@@ -39,6 +40,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -50,6 +52,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -61,9 +64,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/ApplicationTrustEnumerator.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.ApplicationTrustEnumerator.Current
   commentId: P:System.Security.Policy.ApplicationTrustEnumerator.Current
   id: Current
@@ -72,10 +72,11 @@ items:
   - csharp
   name: Current
   nameWithType: ApplicationTrustEnumerator.Current
-  fullName: System.Security.Policy.ApplicationTrustEnumerator.Current
+  fullName: ApplicationTrustEnumerator.Current
   type: Property
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Gets the current <xref href="System.Security.Policy.ApplicationTrust"></xref> object in the <xref href="System.Security.Policy.ApplicationTrustCollection"></xref> collection.
   remarks: "When the enumerator is created, it does not point to an object, so the <xref:System.Security.Policy.ApplicationTrustEnumerator.Current%2A> property is not valid and will throw an exception if it is accessed. You must first call the <xref:System.Security.Policy.ApplicationTrustEnumerator.MoveNext%2A> method to position the cursor at the first object in the collection.  \n  \n Multiple calls to <xref:System.Security.Policy.ApplicationTrustEnumerator.Current%2A> with no intervening calls to <xref:System.Security.Policy.ApplicationTrustEnumerator.MoveNext%2A> will return the same <xref:System.Security.Policy.ApplicationTrust> object."
@@ -87,6 +88,7 @@ items:
   overload: System.Security.Policy.ApplicationTrustEnumerator.Current*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -98,6 +100,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -109,9 +112,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/ApplicationTrustEnumerator.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.ApplicationTrustEnumerator.MoveNext
   commentId: M:System.Security.Policy.ApplicationTrustEnumerator.MoveNext
   id: MoveNext
@@ -120,10 +120,11 @@ items:
   - csharp
   name: MoveNext()
   nameWithType: ApplicationTrustEnumerator.MoveNext()
-  fullName: System.Security.Policy.ApplicationTrustEnumerator.MoveNext()
+  fullName: ApplicationTrustEnumerator.MoveNext()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Moves to the next element in the <xref href="System.Security.Policy.ApplicationTrustCollection"></xref> collection.
   remarks: "The <xref:System.Security.Policy.ApplicationTrustEnumerator.MoveNext%2A> method immediately returns `false` if there are no objects in the collection.  \n  \n <xref:System.Security.Policy.ApplicationTrustEnumerator.MoveNext%2A> will return `true` until it has reached the end of the collection. It will then return `false` for each successive call. However, after <xref:System.Security.Policy.ApplicationTrustEnumerator.MoveNext%2A> has returned `false`, accessing the <xref:System.Security.Policy.ApplicationTrustEnumerator.Current%2A> property will throw an exception.  \n  \n Upon creation, an enumerator is positioned before the first <xref:System.Security.Policy.ApplicationTrust> object in the collection, and the first call to <xref:System.Security.Policy.ApplicationTrustEnumerator.MoveNext%2A> positions the enumerator at the first object in the collection."
@@ -136,6 +137,7 @@ items:
   overload: System.Security.Policy.ApplicationTrustEnumerator.MoveNext*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -147,6 +149,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -158,9 +161,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/ApplicationTrustEnumerator.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.ApplicationTrustEnumerator.Reset
   commentId: M:System.Security.Policy.ApplicationTrustEnumerator.Reset
   id: Reset
@@ -169,10 +169,11 @@ items:
   - csharp
   name: Reset()
   nameWithType: ApplicationTrustEnumerator.Reset()
-  fullName: System.Security.Policy.ApplicationTrustEnumerator.Reset()
+  fullName: ApplicationTrustEnumerator.Reset()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Resets the enumerator to the beginning of the <xref href="System.Security.Policy.ApplicationTrustCollection"></xref> collection.
   remarks: "An enumerator moves in a forward-only direction. Use this method to return the enumerator to the beginning of the collection of <xref:System.Security.Policy.ApplicationTrust> objects.  \n  \n The <xref:System.Security.Policy.ApplicationTrustEnumerator.Reset%2A> method positions the cursor at the first object in the collection. After calling <xref:System.Security.Policy.ApplicationTrustEnumerator.Reset%2A>, you do not need to call the <xref:System.Security.Policy.ApplicationTrustEnumerator.MoveNext%2A> method to move the cursor forward to the first object."
@@ -182,6 +183,7 @@ items:
   overload: System.Security.Policy.ApplicationTrustEnumerator.Reset*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -193,6 +195,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -204,9 +207,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/ApplicationTrustEnumerator.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.ApplicationTrustEnumerator.System#Collections#IEnumerator#Current
   commentId: P:System.Security.Policy.ApplicationTrustEnumerator.System#Collections#IEnumerator#Current
   id: System#Collections#IEnumerator#Current
@@ -216,10 +216,11 @@ items:
   - csharp
   name: IEnumerator.Current
   nameWithType: ApplicationTrustEnumerator.IEnumerator.Current
-  fullName: System.Security.Policy.ApplicationTrustEnumerator.IEnumerator.Current
+  fullName: ApplicationTrustEnumerator.IEnumerator.Current
   type: Property
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Gets the current <xref href="System.Object"></xref> in the <xref href="System.Security.Policy.ApplicationTrustCollection"></xref> collection.
   remarks: Do not call this method; use the <xref:System.Security.Policy.ApplicationTrustEnumerator.Current%2A> property instead.
@@ -231,6 +232,7 @@ items:
   overload: System.Security.Policy.ApplicationTrustEnumerator.System#Collections#IEnumerator#Current*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -242,6 +244,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -253,9 +256,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/ApplicationTrustEnumerator.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -268,7 +268,7 @@ references:
   isExternal: false
   name: Current
   nameWithType: ApplicationTrustEnumerator.Current
-  fullName: System.Security.Policy.ApplicationTrustEnumerator.Current
+  fullName: ApplicationTrustEnumerator.Current
 - uid: System.Security.Policy.ApplicationTrust
   parent: System.Security.Policy
   isExternal: false
@@ -280,7 +280,7 @@ references:
   isExternal: false
   name: MoveNext()
   nameWithType: ApplicationTrustEnumerator.MoveNext()
-  fullName: System.Security.Policy.ApplicationTrustEnumerator.MoveNext()
+  fullName: ApplicationTrustEnumerator.MoveNext()
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -292,20 +292,21 @@ references:
   isExternal: false
   name: Reset()
   nameWithType: ApplicationTrustEnumerator.Reset()
-  fullName: System.Security.Policy.ApplicationTrustEnumerator.Reset()
+  fullName: ApplicationTrustEnumerator.Reset()
 - uid: System.Security.Policy.ApplicationTrustEnumerator.System#Collections#IEnumerator#Current
   parent: System.Security.Policy.ApplicationTrustEnumerator
   isExternal: false
   name: IEnumerator.Current
   nameWithType: ApplicationTrustEnumerator.IEnumerator.Current
-  fullName: System.Security.Policy.ApplicationTrustEnumerator.IEnumerator.Current
+  fullName: ApplicationTrustEnumerator.IEnumerator.Current
 - uid: System.Security.Policy.ApplicationTrustEnumerator.Current*
   parent: System.Security.Policy.ApplicationTrustEnumerator
   isExternal: false
   name: Current
   nameWithType: ApplicationTrustEnumerator.Current
-  fullName: System.Security.Policy.ApplicationTrustEnumerator.Current
+  fullName: ApplicationTrustEnumerator.Current
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -322,8 +323,9 @@ references:
   isExternal: false
   name: MoveNext
   nameWithType: ApplicationTrustEnumerator.MoveNext
-  fullName: System.Security.Policy.ApplicationTrustEnumerator.MoveNext
+  fullName: ApplicationTrustEnumerator.MoveNext
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -340,8 +342,9 @@ references:
   isExternal: false
   name: Reset
   nameWithType: ApplicationTrustEnumerator.Reset
-  fullName: System.Security.Policy.ApplicationTrustEnumerator.Reset
+  fullName: ApplicationTrustEnumerator.Reset
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -358,8 +361,9 @@ references:
   isExternal: false
   name: System.Collections.IEnumerator.Current
   nameWithType: ApplicationTrustEnumerator.System.Collections.IEnumerator.Current
-  fullName: System.Security.Policy.ApplicationTrustEnumerator.System.Collections.IEnumerator.Current
+  fullName: ApplicationTrustEnumerator.System.Collections.IEnumerator.Current
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -371,3 +375,9 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/ApplicationTrustEnumerator.xml
+- uid: System.Collections.IEnumerator
+  parent: System.Collections
+  isExternal: false
+  name: IEnumerator
+  nameWithType: IEnumerator
+  fullName: System.Collections.IEnumerator

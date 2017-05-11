@@ -38,7 +38,7 @@ items:
   summary: Exposes a <xref href="System.IO.Stream"></xref> around a named pipe, supporting both synchronous and asynchronous read and write operations.
   remarks: "Named pipes provide one-way or duplex pipes for communication between a pipe server and one or more pipe clients. Named pipes can be used for interprocess communication locally or over a network. A single pipe name can be shared by multiple <xref:System.IO.Pipes.NamedPipeClientStream> objects.  \n  \n Any process can act as either a named pipe server or client, or both.  \n  \n> [!NOTE]\n>  For [!INCLUDE[winxppro](~/includes/winxppro-md.md)] and [!INCLUDE[win2kserver](~/includes/win2kserver-md.md)], a maximum of 10 pipes can simultaneously connect over the network."
   example:
-  - "The following example demonstrates a way to send a string from a parent process to a child process on the same computer using named pipes. This example creates a <xref:System.IO.Pipes.NamedPipeServerStream> object in a parent process with a <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection>. The server then waits for a <xref:System.IO.Pipes.NamedPipeClientStream> object in a child process to connect to it. In this example, both processes are on the same computer and the <xref:System.IO.Pipes.NamedPipeClientStream> object has a <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection>. The parent process then sends a user-supplied string to the child process. The string is displayed to the console.  \n  \n This example is for the server process, which uses the <xref:System.IO.Pipes.NamedPipeServerStream> class. For the entire code example, including the code for both the pipe client and server, see [How to: Use Named Pipes for Network Interprocess Communication](~/docs/standard/io/how-to-use-named-pipes-for-network-interprocess-communication.md).  \n  \n [!code-csharp[System.IO.Pipes.NamedPipeServerStream_Sample1#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.NamedPipeServerStream_Sample1/cs/Program.cs#01)]\n [!code-vb[System.IO.Pipes.NamedPipeServerStream_Sample1#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.NamedPipeServerStream_Sample1/vb/program.vb#01)]"
+  - "The following example demonstrates a way to send a string from a parent process to a child process on the same computer using named pipes. This example creates a <xref:System.IO.Pipes.NamedPipeServerStream> object in a parent process with a <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.Out>. The server then waits for a <xref:System.IO.Pipes.NamedPipeClientStream> object in a child process to connect to it. In this example, both processes are on the same computer and the <xref:System.IO.Pipes.NamedPipeClientStream> object has a <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.In>. The parent process then sends a user-supplied string to the child process. The string is displayed to the console.  \n  \n This example is for the server process, which uses the <xref:System.IO.Pipes.NamedPipeServerStream> class. For the entire code example, including the code for both the pipe client and server, see [How to: Use Named Pipes for Network Interprocess Communication](~/docs/standard/io/how-to-use-named-pipes-for-network-interprocess-communication.md).  \n  \n [!code-csharp[System.IO.Pipes.NamedPipeServerStream_Sample1#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.NamedPipeServerStream_Sample1/cs/Program.cs#01)]\n [!code-vb[System.IO.Pipes.NamedPipeServerStream_Sample1#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.NamedPipeServerStream_Sample1/vb/program.vb#01)]"
   syntax:
     content: 'public sealed class NamedPipeServerStream : System.IO.Pipes.PipeStream'
   inheritance:
@@ -112,7 +112,8 @@ items:
   - System.IO.Pipes.PipesAclExtensions.SetAccessControl(System.IO.Pipes.PipeStream,System.IO.Pipes.PipeSecurity)
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -126,7 +127,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -139,9 +141,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/NamedPipeServerStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.NamedPipeServerStream.#ctor(System.String)
   commentId: M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String)
   id: '#ctor(System.String)'
@@ -150,7 +149,7 @@ items:
   - csharp
   name: NamedPipeServerStream(String)
   nameWithType: NamedPipeServerStream.NamedPipeServerStream(String)
-  fullName: System.IO.Pipes.NamedPipeServerStream.NamedPipeServerStream(String)
+  fullName: NamedPipeServerStream.NamedPipeServerStream(String)
   type: Constructor
   assemblies:
   - System.IO.Pipes
@@ -158,7 +157,7 @@ items:
   - netstandard
   namespace: System.IO.Pipes
   summary: Initializes a new instance of the <xref href="System.IO.Pipes.NamedPipeServerStream"></xref> class with the specified pipe name.
-  remarks: "This constructor creates a <xref:System.IO.Pipes.NamedPipeServerStream> object that has the following characteristics:  \n  \n-   A default pipe direction of <xref:System.IO.Pipes.PipeDirection>.  \n  \n-   The maximum number of server instances that share the same name set to 1.  \n  \n-   A <xref:System.IO.Pipes.PipeTransmissionMode> value of <xref:System.IO.Pipes.PipeTransmissionMode>.  \n  \n-   A <xref:System.IO.Pipes.PipeOptions> value of <xref:System.IO.Pipes.PipeOptions>.  \n  \n-   Default input and output buffer sizes.  \n  \n-   No pipe security.  \n  \n-   A <xref:System.IO.HandleInheritability> value of <xref:System.IO.HandleInheritability>.  \n  \n-   No specified additional <xref:System.IO.Pipes.PipeAccessRights>."
+  remarks: "This constructor creates a <xref:System.IO.Pipes.NamedPipeServerStream> object that has the following characteristics:  \n  \n-   A default pipe direction of <xref:System.IO.Pipes.PipeDirection.InOut>.  \n  \n-   The maximum number of server instances that share the same name set to 1.  \n  \n-   A <xref:System.IO.Pipes.PipeTransmissionMode> value of <xref:System.IO.Pipes.PipeTransmissionMode.Byte>.  \n  \n-   A <xref:System.IO.Pipes.PipeOptions> value of <xref:System.IO.Pipes.PipeOptions.None>.  \n  \n-   Default input and output buffer sizes.  \n  \n-   No pipe security.  \n  \n-   A <xref:System.IO.HandleInheritability> value of <xref:System.IO.HandleInheritability.None>.  \n  \n-   No specified additional <xref:System.IO.Pipes.PipeAccessRights>."
   syntax:
     content: public NamedPipeServerStream (string pipeName);
     parameters:
@@ -187,7 +186,8 @@ items:
     description: The maximum number of server instances has been exceeded.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -201,7 +201,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -214,9 +215,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/NamedPipeServerStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions,System.Int32,System.Int32,System.IO.Pipes.PipeSecurity,System.IO.HandleInheritability)
   commentId: M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions,System.Int32,System.Int32,System.IO.Pipes.PipeSecurity,System.IO.HandleInheritability)
   id: '#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions,System.Int32,System.Int32,System.IO.Pipes.PipeSecurity,System.IO.HandleInheritability)'
@@ -225,7 +223,7 @@ items:
   - csharp
   name: NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity, HandleInheritability)
   nameWithType: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity, HandleInheritability)
-  fullName: System.IO.Pipes.NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity, HandleInheritability)
+  fullName: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity, HandleInheritability)
   type: Constructor
   assemblies:
   - System.Core
@@ -305,9 +303,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/NamedPipeServerStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions,System.Int32,System.Int32,System.IO.Pipes.PipeSecurity)
   commentId: M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions,System.Int32,System.Int32,System.IO.Pipes.PipeSecurity)
   id: '#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions,System.Int32,System.Int32,System.IO.Pipes.PipeSecurity)'
@@ -316,13 +311,13 @@ items:
   - csharp
   name: NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity)
   nameWithType: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity)
-  fullName: System.IO.Pipes.NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity)
+  fullName: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity)
   type: Constructor
   assemblies:
   - System.Core
   namespace: System.IO.Pipes
   summary: Initializes a new instance of the <xref href="System.IO.Pipes.NamedPipeServerStream"></xref> class with the specified pipe name, pipe direction, maximum number of server instances, transmission mode, pipe options, recommended in and out buffer sizes, and pipe security.
-  remarks: "This constructor creates a <xref:System.IO.Pipes.NamedPipeServerStream> object that has the following characteristics:  \n  \n-   A default <xref:System.IO.HandleInheritability> value of <xref:System.IO.HandleInheritability>.  \n  \n-   No specified additional <xref:System.IO.Pipes.PipeAccessRights>."
+  remarks: "This constructor creates a <xref:System.IO.Pipes.NamedPipeServerStream> object that has the following characteristics:  \n  \n-   A default <xref:System.IO.HandleInheritability> value of <xref:System.IO.HandleInheritability.None>.  \n  \n-   No specified additional <xref:System.IO.Pipes.PipeAccessRights>."
   syntax:
     content: public NamedPipeServerStream (string pipeName, System.IO.Pipes.PipeDirection direction, int maxNumberOfServerInstances, System.IO.Pipes.PipeTransmissionMode transmissionMode, System.IO.Pipes.PipeOptions options, int inBufferSize, int outBufferSize, System.IO.Pipes.PipeSecurity pipeSecurity);
     parameters:
@@ -393,9 +388,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/NamedPipeServerStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions,System.Int32,System.Int32)
   commentId: M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions,System.Int32,System.Int32)
   id: '#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions,System.Int32,System.Int32)'
@@ -404,7 +396,7 @@ items:
   - csharp
   name: NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32)
   nameWithType: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32)
-  fullName: System.IO.Pipes.NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32)
+  fullName: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32)
   type: Constructor
   assemblies:
   - System.IO.Pipes
@@ -412,7 +404,7 @@ items:
   - netstandard
   namespace: System.IO.Pipes
   summary: Initializes a new instance of the <xref href="System.IO.Pipes.NamedPipeServerStream"></xref> class with the specified pipe name, pipe direction, maximum number of server instances, transmission mode, pipe options, and recommended in and out buffer sizes.
-  remarks: "This constructor creates a <xref:System.IO.Pipes.NamedPipeServerStream> object that has the following characteristics:  \n  \n-   No additional pipe security.  \n  \n-   A default <xref:System.IO.HandleInheritability> value of <xref:System.IO.HandleInheritability>.  \n  \n-   No specified additional <xref:System.IO.Pipes.PipeAccessRights>."
+  remarks: "This constructor creates a <xref:System.IO.Pipes.NamedPipeServerStream> object that has the following characteristics:  \n  \n-   No additional pipe security.  \n  \n-   A default <xref:System.IO.HandleInheritability> value of <xref:System.IO.HandleInheritability.None>.  \n  \n-   No specified additional <xref:System.IO.Pipes.PipeAccessRights>."
   syntax:
     content: public NamedPipeServerStream (string pipeName, System.IO.Pipes.PipeDirection direction, int maxNumberOfServerInstances, System.IO.Pipes.PipeTransmissionMode transmissionMode, System.IO.Pipes.PipeOptions options, int inBufferSize, int outBufferSize);
     parameters:
@@ -459,7 +451,8 @@ items:
     description: The maximum number of server instances has been exceeded.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -473,7 +466,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -486,9 +480,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/NamedPipeServerStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions)
   commentId: M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions)
   id: '#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions)'
@@ -497,7 +488,7 @@ items:
   - csharp
   name: NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions)
   nameWithType: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions)
-  fullName: System.IO.Pipes.NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions)
+  fullName: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions)
   type: Constructor
   assemblies:
   - System.IO.Pipes
@@ -505,7 +496,7 @@ items:
   - netstandard
   namespace: System.IO.Pipes
   summary: Initializes a new instance of the <xref href="System.IO.Pipes.NamedPipeServerStream"></xref> class with the specified pipe name, pipe direction, maximum number of server instances, transmission mode, and pipe options.
-  remarks: "This constructor creates a <xref:System.IO.Pipes.NamedPipeServerStream> object that has the following characteristics:  \n  \n-   Default input and output buffer sizes.  \n  \n-   No pipe security.  \n  \n-   A <xref:System.IO.HandleInheritability> value of <xref:System.IO.HandleInheritability>.  \n  \n-   No specified additional <xref:System.IO.Pipes.PipeAccessRights>."
+  remarks: "This constructor creates a <xref:System.IO.Pipes.NamedPipeServerStream> object that has the following characteristics:  \n  \n-   Default input and output buffer sizes.  \n  \n-   No pipe security.  \n  \n-   A <xref:System.IO.HandleInheritability> value of <xref:System.IO.HandleInheritability.None>.  \n  \n-   No specified additional <xref:System.IO.Pipes.PipeAccessRights>."
   syntax:
     content: public NamedPipeServerStream (string pipeName, System.IO.Pipes.PipeDirection direction, int maxNumberOfServerInstances, System.IO.Pipes.PipeTransmissionMode transmissionMode, System.IO.Pipes.PipeOptions options);
     parameters:
@@ -546,7 +537,8 @@ items:
     description: The maximum number of server instances has been exceeded.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -560,7 +552,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -573,9 +566,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/NamedPipeServerStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions,System.Int32,System.Int32,System.IO.Pipes.PipeSecurity,System.IO.HandleInheritability,System.IO.Pipes.PipeAccessRights)
   commentId: M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions,System.Int32,System.Int32,System.IO.Pipes.PipeSecurity,System.IO.HandleInheritability,System.IO.Pipes.PipeAccessRights)
   id: '#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions,System.Int32,System.Int32,System.IO.Pipes.PipeSecurity,System.IO.HandleInheritability,System.IO.Pipes.PipeAccessRights)'
@@ -584,7 +574,7 @@ items:
   - csharp
   name: NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity, HandleInheritability, PipeAccessRights)
   nameWithType: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity, HandleInheritability, PipeAccessRights)
-  fullName: System.IO.Pipes.NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity, HandleInheritability, PipeAccessRights)
+  fullName: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity, HandleInheritability, PipeAccessRights)
   type: Constructor
   assemblies:
   - System.Core
@@ -666,9 +656,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/NamedPipeServerStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.NamedPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,System.Boolean,System.Boolean,Microsoft.Win32.SafeHandles.SafePipeHandle)
   commentId: M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,System.Boolean,System.Boolean,Microsoft.Win32.SafeHandles.SafePipeHandle)
   id: '#ctor(System.IO.Pipes.PipeDirection,System.Boolean,System.Boolean,Microsoft.Win32.SafeHandles.SafePipeHandle)'
@@ -677,7 +664,7 @@ items:
   - csharp
   name: NamedPipeServerStream(PipeDirection, Boolean, Boolean, SafePipeHandle)
   nameWithType: NamedPipeServerStream.NamedPipeServerStream(PipeDirection, Boolean, Boolean, SafePipeHandle)
-  fullName: System.IO.Pipes.NamedPipeServerStream.NamedPipeServerStream(PipeDirection, Boolean, Boolean, SafePipeHandle)
+  fullName: NamedPipeServerStream.NamedPipeServerStream(PipeDirection, Boolean, Boolean, SafePipeHandle)
   type: Constructor
   assemblies:
   - System.IO.Pipes
@@ -716,7 +703,8 @@ items:
     description: "<code>safePipeHandle</code> is not a valid pipe handle.  \n  \n -or-  \n  \n The maximum number of server instances has been exceeded."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -730,7 +718,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -743,9 +732,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/NamedPipeServerStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32)
   commentId: M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32)
   id: '#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32)'
@@ -754,7 +740,7 @@ items:
   - csharp
   name: NamedPipeServerStream(String, PipeDirection, Int32)
   nameWithType: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32)
-  fullName: System.IO.Pipes.NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32)
+  fullName: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32)
   type: Constructor
   assemblies:
   - System.IO.Pipes
@@ -762,7 +748,7 @@ items:
   - netstandard
   namespace: System.IO.Pipes
   summary: Initializes a new instance of the <xref href="System.IO.Pipes.NamedPipeServerStream"></xref> class with the specified pipe name, pipe direction, and maximum number of server instances.
-  remarks: "This constructor creates a <xref:System.IO.Pipes.NamedPipeServerStream> object that has the following characteristics:  \n  \n-   A default value of 1 for the maximum number of server instances that share the same name.  \n  \n-   A default <xref:System.IO.Pipes.PipeTransmissionMode> value of <xref:System.IO.Pipes.PipeTransmissionMode>.  \n  \n-   A <xref:System.IO.Pipes.PipeOptions> value of <xref:System.IO.Pipes.PipeOptions>.  \n  \n-   Default input and output buffer sizes.  \n  \n-   No pipe security.  \n  \n-   A <xref:System.IO.HandleInheritability> value of <xref:System.IO.HandleInheritability>.  \n  \n-   No specified additional <xref:System.IO.Pipes.PipeAccessRights>."
+  remarks: "This constructor creates a <xref:System.IO.Pipes.NamedPipeServerStream> object that has the following characteristics:  \n  \n-   A default value of 1 for the maximum number of server instances that share the same name.  \n  \n-   A default <xref:System.IO.Pipes.PipeTransmissionMode> value of <xref:System.IO.Pipes.PipeTransmissionMode.Byte>.  \n  \n-   A <xref:System.IO.Pipes.PipeOptions> value of <xref:System.IO.Pipes.PipeOptions.None>.  \n  \n-   Default input and output buffer sizes.  \n  \n-   No pipe security.  \n  \n-   A <xref:System.IO.HandleInheritability> value of <xref:System.IO.HandleInheritability.None>.  \n  \n-   No specified additional <xref:System.IO.Pipes.PipeAccessRights>."
   syntax:
     content: public NamedPipeServerStream (string pipeName, System.IO.Pipes.PipeDirection direction, int maxNumberOfServerInstances);
     parameters:
@@ -797,7 +783,8 @@ items:
     description: The maximum number of server instances has been exceeded.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -811,7 +798,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -824,9 +812,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/NamedPipeServerStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection)
   commentId: M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection)
   id: '#ctor(System.String,System.IO.Pipes.PipeDirection)'
@@ -835,7 +820,7 @@ items:
   - csharp
   name: NamedPipeServerStream(String, PipeDirection)
   nameWithType: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection)
-  fullName: System.IO.Pipes.NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection)
+  fullName: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection)
   type: Constructor
   assemblies:
   - System.IO.Pipes
@@ -843,9 +828,9 @@ items:
   - netstandard
   namespace: System.IO.Pipes
   summary: Initializes a new instance of the <xref href="System.IO.Pipes.NamedPipeServerStream"></xref> class with the specified pipe name and pipe direction.
-  remarks: "This constructor creates a <xref:System.IO.Pipes.NamedPipeServerStream> object that has the following characteristics:  \n  \n-   A <xref:System.IO.Pipes.PipeTransmissionMode> value of <xref:System.IO.Pipes.PipeTransmissionMode>.  \n  \n-   A <xref:System.IO.Pipes.PipeOptions> value of <xref:System.IO.Pipes.PipeOptions>.  \n  \n-   Default input and output buffer sizes.  \n  \n-   No pipe security.  \n  \n-   A <xref:System.IO.HandleInheritability> value of <xref:System.IO.HandleInheritability>.  \n  \n-   No specified additional <xref:System.IO.Pipes.PipeAccessRights>."
+  remarks: "This constructor creates a <xref:System.IO.Pipes.NamedPipeServerStream> object that has the following characteristics:  \n  \n-   A <xref:System.IO.Pipes.PipeTransmissionMode> value of <xref:System.IO.Pipes.PipeTransmissionMode.Byte>.  \n  \n-   A <xref:System.IO.Pipes.PipeOptions> value of <xref:System.IO.Pipes.PipeOptions.None>.  \n  \n-   Default input and output buffer sizes.  \n  \n-   No pipe security.  \n  \n-   A <xref:System.IO.HandleInheritability> value of <xref:System.IO.HandleInheritability.None>.  \n  \n-   No specified additional <xref:System.IO.Pipes.PipeAccessRights>."
   example:
-  - "The following example demonstrates a method to send a string from a parent process to a child process using named pipes. This example creates a <xref:System.IO.Pipes.NamedPipeServerStream> object in a parent process. The <xref:System.IO.Pipes.NamedPipeServerStream> object has a <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection>, which then blocks until a <xref:System.IO.Pipes.NamedPipeClientStream> object establishes a connection to the current <xref:System.IO.Pipes.NamedPipeServerStream> object.  \n  \n [!code-csharp[System.IO.Pipes.NamedPipeServerStream_Sample1#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.NamedPipeServerStream_Sample1/cs/Program.cs#01)]\n [!code-vb[System.IO.Pipes.NamedPipeServerStream_Sample1#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.NamedPipeServerStream_Sample1/vb/program.vb#01)]"
+  - "The following example demonstrates a method to send a string from a parent process to a child process using named pipes. This example creates a <xref:System.IO.Pipes.NamedPipeServerStream> object in a parent process. The <xref:System.IO.Pipes.NamedPipeServerStream> object has a <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.Out>, which then blocks until a <xref:System.IO.Pipes.NamedPipeClientStream> object establishes a connection to the current <xref:System.IO.Pipes.NamedPipeServerStream> object.  \n  \n [!code-csharp[System.IO.Pipes.NamedPipeServerStream_Sample1#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.NamedPipeServerStream_Sample1/cs/Program.cs#01)]\n [!code-vb[System.IO.Pipes.NamedPipeServerStream_Sample1#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.NamedPipeServerStream_Sample1/vb/program.vb#01)]"
   syntax:
     content: public NamedPipeServerStream (string pipeName, System.IO.Pipes.PipeDirection direction);
     parameters:
@@ -877,7 +862,8 @@ items:
     description: The maximum number of server instances has been exceeded.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -891,7 +877,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -904,9 +891,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/NamedPipeServerStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode)
   commentId: M:System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode)
   id: '#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode)'
@@ -915,7 +899,7 @@ items:
   - csharp
   name: NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode)
   nameWithType: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode)
-  fullName: System.IO.Pipes.NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode)
+  fullName: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode)
   type: Constructor
   assemblies:
   - System.IO.Pipes
@@ -923,7 +907,7 @@ items:
   - netstandard
   namespace: System.IO.Pipes
   summary: Initializes a new instance of the <xref href="System.IO.Pipes.NamedPipeServerStream"></xref> class with the specified pipe name, pipe direction, maximum number of server instances, and transmission mode.
-  remarks: "This constructor creates a <xref:System.IO.Pipes.NamedPipeServerStream> object that has the following characteristics:  \n  \n-   A default <xref:System.IO.Pipes.PipeOptions> value of <xref:System.IO.Pipes.PipeOptions>.  \n  \n-   Default input and output buffer sizes.  \n  \n-   No pipe security.  \n  \n-   A <xref:System.IO.HandleInheritability> value of <xref:System.IO.HandleInheritability>.  \n  \n-   No specified additional <xref:System.IO.Pipes.PipeAccessRights>."
+  remarks: "This constructor creates a <xref:System.IO.Pipes.NamedPipeServerStream> object that has the following characteristics:  \n  \n-   A default <xref:System.IO.Pipes.PipeOptions> value of <xref:System.IO.Pipes.PipeOptions.None>.  \n  \n-   Default input and output buffer sizes.  \n  \n-   No pipe security.  \n  \n-   A <xref:System.IO.HandleInheritability> value of <xref:System.IO.HandleInheritability.None>.  \n  \n-   No specified additional <xref:System.IO.Pipes.PipeAccessRights>."
   syntax:
     content: public NamedPipeServerStream (string pipeName, System.IO.Pipes.PipeDirection direction, int maxNumberOfServerInstances, System.IO.Pipes.PipeTransmissionMode transmissionMode);
     parameters:
@@ -961,7 +945,8 @@ items:
     description: The maximum number of server instances has been exceeded.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -975,7 +960,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -988,9 +974,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/NamedPipeServerStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.NamedPipeServerStream.BeginWaitForConnection(System.AsyncCallback,System.Object)
   commentId: M:System.IO.Pipes.NamedPipeServerStream.BeginWaitForConnection(System.AsyncCallback,System.Object)
   id: BeginWaitForConnection(System.AsyncCallback,System.Object)
@@ -999,11 +982,12 @@ items:
   - csharp
   name: BeginWaitForConnection(AsyncCallback, Object)
   nameWithType: NamedPipeServerStream.BeginWaitForConnection(AsyncCallback, Object)
-  fullName: System.IO.Pipes.NamedPipeServerStream.BeginWaitForConnection(AsyncCallback, Object)
+  fullName: NamedPipeServerStream.BeginWaitForConnection(AsyncCallback, Object)
   type: Method
   assemblies:
   - System.Core
   - netstandard
+  - System.IO.Pipes
   namespace: System.IO.Pipes
   summary: Begins an asynchronous operation to wait for a client to connect.
   remarks: "This is the asynchronous equivalent of <xref:System.IO.Pipes.NamedPipeServerStream.WaitForConnection%2A>.  \n  \n <xref:System.IO.Pipes.NamedPipeServerStream.EndWaitForConnection%2A> must be called exactly once for every call to <xref:System.IO.Pipes.NamedPipeServerStream.BeginWaitForConnection%2A>."
@@ -1031,6 +1015,7 @@ items:
     commentId: T:System.ObjectDisposedException
     description: The pipe is closed.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1043,6 +1028,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1055,9 +1041,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/NamedPipeServerStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.NamedPipeServerStream.Disconnect
   commentId: M:System.IO.Pipes.NamedPipeServerStream.Disconnect
   id: Disconnect
@@ -1066,7 +1049,7 @@ items:
   - csharp
   name: Disconnect()
   nameWithType: NamedPipeServerStream.Disconnect()
-  fullName: System.IO.Pipes.NamedPipeServerStream.Disconnect()
+  fullName: NamedPipeServerStream.Disconnect()
   type: Method
   assemblies:
   - System.IO.Pipes
@@ -1074,7 +1057,7 @@ items:
   - netstandard
   namespace: System.IO.Pipes
   summary: Disconnects the current connection.
-  remarks: Calling the <xref:System.IO.Pipes.NamedPipeServerStream.Disconnect%2A> method will block until all the sent characters have been read unless the transmission mode of the pipe is set to <xref:System.IO.Pipes.PipeTransmissionMode> and the buffer size is set in the constructor that created the <xref:System.IO.Pipes.NamedPipeServerStream> object. In this case, not all of the messages will be received. Calling <xref:System.IO.Pipes.PipeStream.WaitForPipeDrain%2A> causes the server to block until all the data has been read from the pipe.
+  remarks: Calling the <xref:System.IO.Pipes.NamedPipeServerStream.Disconnect%2A> method will block until all the sent characters have been read unless the transmission mode of the pipe is set to <xref:System.IO.Pipes.PipeTransmissionMode.Message> and the buffer size is set in the constructor that created the <xref:System.IO.Pipes.NamedPipeServerStream> object. In this case, not all of the messages will be received. Calling <xref:System.IO.Pipes.PipeStream.WaitForPipeDrain%2A> causes the server to block until all the data has been read from the pipe.
   syntax:
     content: public void Disconnect ();
     parameters: []
@@ -1088,7 +1071,8 @@ items:
     description: The pipe is closed.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1102,7 +1086,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1115,9 +1100,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/NamedPipeServerStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.NamedPipeServerStream.EndWaitForConnection(System.IAsyncResult)
   commentId: M:System.IO.Pipes.NamedPipeServerStream.EndWaitForConnection(System.IAsyncResult)
   id: EndWaitForConnection(System.IAsyncResult)
@@ -1126,11 +1108,12 @@ items:
   - csharp
   name: EndWaitForConnection(IAsyncResult)
   nameWithType: NamedPipeServerStream.EndWaitForConnection(IAsyncResult)
-  fullName: System.IO.Pipes.NamedPipeServerStream.EndWaitForConnection(IAsyncResult)
+  fullName: NamedPipeServerStream.EndWaitForConnection(IAsyncResult)
   type: Method
   assemblies:
   - System.Core
   - netstandard
+  - System.IO.Pipes
   namespace: System.IO.Pipes
   summary: Ends an asynchronous operation to wait for a client to connect.
   remarks: <xref:System.IO.Pipes.NamedPipeServerStream.EndWaitForConnection%2A> must be called exactly once for every call to <xref:System.IO.Pipes.NamedPipeServerStream.BeginWaitForConnection%2A>.
@@ -1155,6 +1138,7 @@ items:
     commentId: T:System.ObjectDisposedException
     description: The pipe is closed.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1167,6 +1151,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1179,9 +1164,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/NamedPipeServerStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.NamedPipeServerStream.Finalize
   commentId: M:System.IO.Pipes.NamedPipeServerStream.Finalize
   id: Finalize
@@ -1190,7 +1172,7 @@ items:
   - csharp
   name: Finalize()
   nameWithType: NamedPipeServerStream.Finalize()
-  fullName: System.IO.Pipes.NamedPipeServerStream.Finalize()
+  fullName: NamedPipeServerStream.Finalize()
   type: Method
   assemblies:
   - System.IO.Pipes
@@ -1204,7 +1186,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1217,7 +1200,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1229,9 +1213,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/NamedPipeServerStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.NamedPipeServerStream.GetImpersonationUserName
   commentId: M:System.IO.Pipes.NamedPipeServerStream.GetImpersonationUserName
   id: GetImpersonationUserName
@@ -1240,7 +1221,7 @@ items:
   - csharp
   name: GetImpersonationUserName()
   nameWithType: NamedPipeServerStream.GetImpersonationUserName()
-  fullName: System.IO.Pipes.NamedPipeServerStream.GetImpersonationUserName()
+  fullName: NamedPipeServerStream.GetImpersonationUserName()
   type: Method
   assemblies:
   - System.IO.Pipes
@@ -1248,7 +1229,7 @@ items:
   - netstandard
   namespace: System.IO.Pipes
   summary: Gets the user name of the client on the other end of the pipe.
-  remarks: The <xref:System.IO.Pipes.NamedPipeServerStream.GetImpersonationUserName%2A> method returns `null` if the client has not yet written to the pipe or if the connected client did not connect with a <xref:System.Security.Principal.TokenImpersonationLevel> of <xref:System.Security.Principal.TokenImpersonationLevel>.
+  remarks: The <xref:System.IO.Pipes.NamedPipeServerStream.GetImpersonationUserName%2A> method returns `null` if the client has not yet written to the pipe or if the connected client did not connect with a <xref:System.Security.Principal.TokenImpersonationLevel> of <xref:System.Security.Principal.TokenImpersonationLevel.Impersonation>.
   example:
   - "The following example demonstrates a method to create a pipe server that can respond to multiple simultaneous client requests, and a method for client impersonation. This example creates a <xref:System.IO.Pipes.NamedPipeServerStream> object in a parent process, which then creates multiple threads that wait for <xref:System.IO.Pipes.NamedPipeClientStream> objects to connect. After a client is connected, it supplies a file name to the server and the contents of that file are read and sent back to the client. Because the <xref:System.IO.Pipes.NamedPipeServerStream> impersonates the client when opening the file, the client can request only files that it has sufficient permissions to open.  \n  \n [!code-cpp[System.IO.Pipes.NamedPipeServerStream_ImpersonationSample1#01](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.Pipes.NamedPipeServerStream_ImpersonationSample1/cpp/program.cpp#01)]\n [!code-csharp[System.IO.Pipes.NamedPipeServerStream_ImpersonationSample1#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.NamedPipeServerStream_ImpersonationSample1/cs/Program.cs#01)]\n [!code-vb[System.IO.Pipes.NamedPipeServerStream_ImpersonationSample1#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.NamedPipeServerStream_ImpersonationSample1/vb/program.vb#01)]"
   syntax:
@@ -1270,7 +1251,8 @@ items:
     description: "The pipe connection has been broken.  \n  \n -or-  \n  \n The user name of the client is longer than 19 characters."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1284,7 +1266,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1297,9 +1280,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/NamedPipeServerStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances
   commentId: F:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances
   id: MaxAllowedServerInstances
@@ -1308,11 +1288,12 @@ items:
   - csharp
   name: MaxAllowedServerInstances
   nameWithType: NamedPipeServerStream.MaxAllowedServerInstances
-  fullName: System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances
+  fullName: NamedPipeServerStream.MaxAllowedServerInstances
   type: Field
   assemblies:
   - System.Core
   - netstandard
+  - System.IO.Pipes
   namespace: System.IO.Pipes
   summary: Represents the maximum number of server instances that the system resources allow.
   remarks: Use the <xref:System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances> when creating a <xref:System.IO.Pipes.NamedPipeServerStream> object to set the maximum number of server instances that the system resources allow.
@@ -1323,6 +1304,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1335,6 +1317,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1347,9 +1330,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/NamedPipeServerStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.NamedPipeServerStream.RunAsClient(System.IO.Pipes.PipeStreamImpersonationWorker)
   commentId: M:System.IO.Pipes.NamedPipeServerStream.RunAsClient(System.IO.Pipes.PipeStreamImpersonationWorker)
   id: RunAsClient(System.IO.Pipes.PipeStreamImpersonationWorker)
@@ -1358,11 +1338,12 @@ items:
   - csharp
   name: RunAsClient(PipeStreamImpersonationWorker)
   nameWithType: NamedPipeServerStream.RunAsClient(PipeStreamImpersonationWorker)
-  fullName: System.IO.Pipes.NamedPipeServerStream.RunAsClient(PipeStreamImpersonationWorker)
+  fullName: NamedPipeServerStream.RunAsClient(PipeStreamImpersonationWorker)
   type: Method
   assemblies:
   - System.Core
   - netstandard
+  - System.IO.Pipes
   namespace: System.IO.Pipes
   summary: Calls a delegate while impersonating the client.
   remarks: The connecting client's permissions are applied to the remote server. For example, if the connecting client tries to request the contents of a file on the server, the client can request only files that it has sufficient permissions to open.
@@ -1386,6 +1367,7 @@ items:
     commentId: T:System.IO.IOException
     description: "The pipe connection has been broken.  \n  \n -or-  \n  \n An I/O error occurred."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1398,6 +1380,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1410,9 +1393,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/NamedPipeServerStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.NamedPipeServerStream.WaitForConnection
   commentId: M:System.IO.Pipes.NamedPipeServerStream.WaitForConnection
   id: WaitForConnection
@@ -1421,7 +1401,7 @@ items:
   - csharp
   name: WaitForConnection()
   nameWithType: NamedPipeServerStream.WaitForConnection()
-  fullName: System.IO.Pipes.NamedPipeServerStream.WaitForConnection()
+  fullName: NamedPipeServerStream.WaitForConnection()
   type: Method
   assemblies:
   - System.IO.Pipes
@@ -1431,7 +1411,7 @@ items:
   summary: Waits for a client to connect to this <xref href="System.IO.Pipes.NamedPipeServerStream"></xref> object.
   remarks: Calling this method causes the <xref:System.IO.Pipes.NamedPipeServerStream> object to block until a client connects.
   example:
-  - "The following example demonstrates a method to send a string from a parent process to a child process using named pipes. This example creates a <xref:System.IO.Pipes.NamedPipeServerStream> object in a parent process. This object has a <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection>, which then blocks until a <xref:System.IO.Pipes.NamedPipeClientStream> object establishes a connection to the <xref:System.IO.Pipes.NamedPipeServerStream> object. This example is part of a larger example provided for the <xref:System.IO.Pipes.NamedPipeServerStream> and <xref:System.IO.Pipes.NamedPipeClientStream> classes.  \n  \n [!code-csharp[System.IO.Pipes.NamedPipeServerStream_Sample1#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.NamedPipeServerStream_Sample1/cs/Program.cs#01)]\n [!code-vb[System.IO.Pipes.NamedPipeServerStream_Sample1#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.NamedPipeServerStream_Sample1/vb/program.vb#01)]"
+  - "The following example demonstrates a method to send a string from a parent process to a child process using named pipes. This example creates a <xref:System.IO.Pipes.NamedPipeServerStream> object in a parent process. This object has a <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.Out>, which then blocks until a <xref:System.IO.Pipes.NamedPipeClientStream> object establishes a connection to the <xref:System.IO.Pipes.NamedPipeServerStream> object. This example is part of a larger example provided for the <xref:System.IO.Pipes.NamedPipeServerStream> and <xref:System.IO.Pipes.NamedPipeClientStream> classes.  \n  \n [!code-csharp[System.IO.Pipes.NamedPipeServerStream_Sample1#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.NamedPipeServerStream_Sample1/cs/Program.cs#01)]\n [!code-vb[System.IO.Pipes.NamedPipeServerStream_Sample1#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.NamedPipeServerStream_Sample1/vb/program.vb#01)]"
   syntax:
     content: public void WaitForConnection ();
     parameters: []
@@ -1448,7 +1428,8 @@ items:
     description: The pipe connection has been broken.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1462,7 +1443,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1475,9 +1457,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/NamedPipeServerStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.NamedPipeServerStream.WaitForConnectionAsync
   commentId: M:System.IO.Pipes.NamedPipeServerStream.WaitForConnectionAsync
   id: WaitForConnectionAsync
@@ -1486,7 +1465,7 @@ items:
   - csharp
   name: WaitForConnectionAsync()
   nameWithType: NamedPipeServerStream.WaitForConnectionAsync()
-  fullName: System.IO.Pipes.NamedPipeServerStream.WaitForConnectionAsync()
+  fullName: NamedPipeServerStream.WaitForConnectionAsync()
   type: Method
   assemblies:
   - System.IO.Pipes
@@ -1505,7 +1484,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.6
@@ -1516,7 +1496,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.6
@@ -1526,9 +1507,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/NamedPipeServerStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.NamedPipeServerStream.WaitForConnectionAsync(System.Threading.CancellationToken)
   commentId: M:System.IO.Pipes.NamedPipeServerStream.WaitForConnectionAsync(System.Threading.CancellationToken)
   id: WaitForConnectionAsync(System.Threading.CancellationToken)
@@ -1537,7 +1515,7 @@ items:
   - csharp
   name: WaitForConnectionAsync(CancellationToken)
   nameWithType: NamedPipeServerStream.WaitForConnectionAsync(CancellationToken)
-  fullName: System.IO.Pipes.NamedPipeServerStream.WaitForConnectionAsync(CancellationToken)
+  fullName: NamedPipeServerStream.WaitForConnectionAsync(CancellationToken)
   type: Method
   assemblies:
   - System.IO.Pipes
@@ -1559,7 +1537,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.6
@@ -1570,7 +1549,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.6
@@ -1580,9 +1560,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/NamedPipeServerStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.IO.Pipes.PipeStream
   parent: System.IO.Pipes
@@ -1643,7 +1620,7 @@ references:
   isExternal: false
   name: NamedPipeServerStream(String)
   nameWithType: NamedPipeServerStream.NamedPipeServerStream(String)
-  fullName: System.IO.Pipes.NamedPipeServerStream.NamedPipeServerStream(String)
+  fullName: NamedPipeServerStream.NamedPipeServerStream(String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -1655,7 +1632,7 @@ references:
   isExternal: false
   name: NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity, HandleInheritability)
   nameWithType: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity, HandleInheritability)
-  fullName: System.IO.Pipes.NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity, HandleInheritability)
+  fullName: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity, HandleInheritability)
 - uid: System.IO.Pipes.PipeDirection
   parent: System.IO.Pipes
   isExternal: false
@@ -1697,25 +1674,25 @@ references:
   isExternal: false
   name: NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity)
   nameWithType: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity)
-  fullName: System.IO.Pipes.NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity)
+  fullName: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity)
 - uid: System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions,System.Int32,System.Int32)
   parent: System.IO.Pipes.NamedPipeServerStream
   isExternal: false
   name: NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32)
   nameWithType: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32)
-  fullName: System.IO.Pipes.NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32)
+  fullName: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32)
 - uid: System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions)
   parent: System.IO.Pipes.NamedPipeServerStream
   isExternal: false
   name: NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions)
   nameWithType: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions)
-  fullName: System.IO.Pipes.NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions)
+  fullName: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions)
 - uid: System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode,System.IO.Pipes.PipeOptions,System.Int32,System.Int32,System.IO.Pipes.PipeSecurity,System.IO.HandleInheritability,System.IO.Pipes.PipeAccessRights)
   parent: System.IO.Pipes.NamedPipeServerStream
   isExternal: false
   name: NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity, HandleInheritability, PipeAccessRights)
   nameWithType: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity, HandleInheritability, PipeAccessRights)
-  fullName: System.IO.Pipes.NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity, HandleInheritability, PipeAccessRights)
+  fullName: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode, PipeOptions, Int32, Int32, PipeSecurity, HandleInheritability, PipeAccessRights)
 - uid: System.IO.Pipes.PipeAccessRights
   parent: System.IO.Pipes
   isExternal: false
@@ -1727,7 +1704,7 @@ references:
   isExternal: false
   name: NamedPipeServerStream(PipeDirection, Boolean, Boolean, SafePipeHandle)
   nameWithType: NamedPipeServerStream.NamedPipeServerStream(PipeDirection, Boolean, Boolean, SafePipeHandle)
-  fullName: System.IO.Pipes.NamedPipeServerStream.NamedPipeServerStream(PipeDirection, Boolean, Boolean, SafePipeHandle)
+  fullName: NamedPipeServerStream.NamedPipeServerStream(PipeDirection, Boolean, Boolean, SafePipeHandle)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -1745,25 +1722,25 @@ references:
   isExternal: false
   name: NamedPipeServerStream(String, PipeDirection, Int32)
   nameWithType: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32)
-  fullName: System.IO.Pipes.NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32)
+  fullName: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32)
 - uid: System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection)
   parent: System.IO.Pipes.NamedPipeServerStream
   isExternal: false
   name: NamedPipeServerStream(String, PipeDirection)
   nameWithType: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection)
-  fullName: System.IO.Pipes.NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection)
+  fullName: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection)
 - uid: System.IO.Pipes.NamedPipeServerStream.#ctor(System.String,System.IO.Pipes.PipeDirection,System.Int32,System.IO.Pipes.PipeTransmissionMode)
   parent: System.IO.Pipes.NamedPipeServerStream
   isExternal: false
   name: NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode)
   nameWithType: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode)
-  fullName: System.IO.Pipes.NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode)
+  fullName: NamedPipeServerStream.NamedPipeServerStream(String, PipeDirection, Int32, PipeTransmissionMode)
 - uid: System.IO.Pipes.NamedPipeServerStream.BeginWaitForConnection(System.AsyncCallback,System.Object)
   parent: System.IO.Pipes.NamedPipeServerStream
   isExternal: false
   name: BeginWaitForConnection(AsyncCallback, Object)
   nameWithType: NamedPipeServerStream.BeginWaitForConnection(AsyncCallback, Object)
-  fullName: System.IO.Pipes.NamedPipeServerStream.BeginWaitForConnection(AsyncCallback, Object)
+  fullName: NamedPipeServerStream.BeginWaitForConnection(AsyncCallback, Object)
 - uid: System.IAsyncResult
   parent: System
   isExternal: false
@@ -1787,37 +1764,37 @@ references:
   isExternal: false
   name: Disconnect()
   nameWithType: NamedPipeServerStream.Disconnect()
-  fullName: System.IO.Pipes.NamedPipeServerStream.Disconnect()
+  fullName: NamedPipeServerStream.Disconnect()
 - uid: System.IO.Pipes.NamedPipeServerStream.EndWaitForConnection(System.IAsyncResult)
   parent: System.IO.Pipes.NamedPipeServerStream
   isExternal: false
   name: EndWaitForConnection(IAsyncResult)
   nameWithType: NamedPipeServerStream.EndWaitForConnection(IAsyncResult)
-  fullName: System.IO.Pipes.NamedPipeServerStream.EndWaitForConnection(IAsyncResult)
+  fullName: NamedPipeServerStream.EndWaitForConnection(IAsyncResult)
 - uid: System.IO.Pipes.NamedPipeServerStream.Finalize
   parent: System.IO.Pipes.NamedPipeServerStream
   isExternal: false
   name: Finalize()
   nameWithType: NamedPipeServerStream.Finalize()
-  fullName: System.IO.Pipes.NamedPipeServerStream.Finalize()
+  fullName: NamedPipeServerStream.Finalize()
 - uid: System.IO.Pipes.NamedPipeServerStream.GetImpersonationUserName
   parent: System.IO.Pipes.NamedPipeServerStream
   isExternal: false
   name: GetImpersonationUserName()
   nameWithType: NamedPipeServerStream.GetImpersonationUserName()
-  fullName: System.IO.Pipes.NamedPipeServerStream.GetImpersonationUserName()
+  fullName: NamedPipeServerStream.GetImpersonationUserName()
 - uid: System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances
   parent: System.IO.Pipes.NamedPipeServerStream
   isExternal: false
   name: MaxAllowedServerInstances
   nameWithType: NamedPipeServerStream.MaxAllowedServerInstances
-  fullName: System.IO.Pipes.NamedPipeServerStream.MaxAllowedServerInstances
+  fullName: NamedPipeServerStream.MaxAllowedServerInstances
 - uid: System.IO.Pipes.NamedPipeServerStream.RunAsClient(System.IO.Pipes.PipeStreamImpersonationWorker)
   parent: System.IO.Pipes.NamedPipeServerStream
   isExternal: false
   name: RunAsClient(PipeStreamImpersonationWorker)
   nameWithType: NamedPipeServerStream.RunAsClient(PipeStreamImpersonationWorker)
-  fullName: System.IO.Pipes.NamedPipeServerStream.RunAsClient(PipeStreamImpersonationWorker)
+  fullName: NamedPipeServerStream.RunAsClient(PipeStreamImpersonationWorker)
 - uid: System.IO.Pipes.PipeStreamImpersonationWorker
   parent: System.IO.Pipes
   isExternal: false
@@ -1829,13 +1806,13 @@ references:
   isExternal: false
   name: WaitForConnection()
   nameWithType: NamedPipeServerStream.WaitForConnection()
-  fullName: System.IO.Pipes.NamedPipeServerStream.WaitForConnection()
+  fullName: NamedPipeServerStream.WaitForConnection()
 - uid: System.IO.Pipes.NamedPipeServerStream.WaitForConnectionAsync
   parent: System.IO.Pipes.NamedPipeServerStream
   isExternal: false
   name: WaitForConnectionAsync()
   nameWithType: NamedPipeServerStream.WaitForConnectionAsync()
-  fullName: System.IO.Pipes.NamedPipeServerStream.WaitForConnectionAsync()
+  fullName: NamedPipeServerStream.WaitForConnectionAsync()
 - uid: System.Threading.Tasks.Task
   parent: System.Threading.Tasks
   isExternal: false
@@ -1847,7 +1824,7 @@ references:
   isExternal: false
   name: WaitForConnectionAsync(CancellationToken)
   nameWithType: NamedPipeServerStream.WaitForConnectionAsync(CancellationToken)
-  fullName: System.IO.Pipes.NamedPipeServerStream.WaitForConnectionAsync(CancellationToken)
+  fullName: NamedPipeServerStream.WaitForConnectionAsync(CancellationToken)
 - uid: System.Threading.CancellationToken
   parent: System.Threading
   isExternal: false
@@ -1859,10 +1836,11 @@ references:
   isExternal: false
   name: NamedPipeServerStream
   nameWithType: NamedPipeServerStream.NamedPipeServerStream
-  fullName: System.IO.Pipes.NamedPipeServerStream.NamedPipeServerStream
+  fullName: NamedPipeServerStream.NamedPipeServerStream
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1880,8 +1858,9 @@ references:
   isExternal: false
   name: BeginWaitForConnection
   nameWithType: NamedPipeServerStream.BeginWaitForConnection
-  fullName: System.IO.Pipes.NamedPipeServerStream.BeginWaitForConnection
+  fullName: NamedPipeServerStream.BeginWaitForConnection
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1899,10 +1878,11 @@ references:
   isExternal: false
   name: Disconnect
   nameWithType: NamedPipeServerStream.Disconnect
-  fullName: System.IO.Pipes.NamedPipeServerStream.Disconnect
+  fullName: NamedPipeServerStream.Disconnect
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1920,8 +1900,9 @@ references:
   isExternal: false
   name: EndWaitForConnection
   nameWithType: NamedPipeServerStream.EndWaitForConnection
-  fullName: System.IO.Pipes.NamedPipeServerStream.EndWaitForConnection
+  fullName: NamedPipeServerStream.EndWaitForConnection
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1939,10 +1920,11 @@ references:
   isExternal: false
   name: Finalize
   nameWithType: NamedPipeServerStream.Finalize
-  fullName: System.IO.Pipes.NamedPipeServerStream.Finalize
+  fullName: NamedPipeServerStream.Finalize
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1959,10 +1941,11 @@ references:
   isExternal: false
   name: GetImpersonationUserName
   nameWithType: NamedPipeServerStream.GetImpersonationUserName
-  fullName: System.IO.Pipes.NamedPipeServerStream.GetImpersonationUserName
+  fullName: NamedPipeServerStream.GetImpersonationUserName
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1980,8 +1963,9 @@ references:
   isExternal: false
   name: RunAsClient
   nameWithType: NamedPipeServerStream.RunAsClient
-  fullName: System.IO.Pipes.NamedPipeServerStream.RunAsClient
+  fullName: NamedPipeServerStream.RunAsClient
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1999,10 +1983,11 @@ references:
   isExternal: false
   name: WaitForConnection
   nameWithType: NamedPipeServerStream.WaitForConnection
-  fullName: System.IO.Pipes.NamedPipeServerStream.WaitForConnection
+  fullName: NamedPipeServerStream.WaitForConnection
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2020,10 +2005,11 @@ references:
   isExternal: false
   name: WaitForConnectionAsync
   nameWithType: NamedPipeServerStream.WaitForConnectionAsync
-  fullName: System.IO.Pipes.NamedPipeServerStream.WaitForConnectionAsync
+  fullName: NamedPipeServerStream.WaitForConnectionAsync
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.6
@@ -2038,10 +2024,10 @@ references:
   isExternal: false
   name: GetAccessControl(PipeStream)
   nameWithType: PipesAclExtensions.GetAccessControl(PipeStream)
-  fullName: System.IO.Pipes.PipesAclExtensions.GetAccessControl(PipeStream)
+  fullName: PipesAclExtensions.GetAccessControl(PipeStream)
 - uid: System.IO.Pipes.PipesAclExtensions.SetAccessControl(System.IO.Pipes.PipeStream,System.IO.Pipes.PipeSecurity)
   parent: System.IO.Pipes.PipesAclExtensions
   isExternal: false
   name: SetAccessControl(PipeStream, PipeSecurity)
   nameWithType: PipesAclExtensions.SetAccessControl(PipeStream, PipeSecurity)
-  fullName: System.IO.Pipes.PipesAclExtensions.SetAccessControl(PipeStream, PipeSecurity)
+  fullName: PipesAclExtensions.SetAccessControl(PipeStream, PipeSecurity)

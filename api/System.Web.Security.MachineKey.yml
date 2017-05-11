@@ -49,9 +49,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/MachineKey.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.MachineKey.Decode(System.String,System.Web.Security.MachineKeyProtection)
   commentId: M:System.Web.Security.MachineKey.Decode(System.String,System.Web.Security.MachineKeyProtection)
   id: Decode(System.String,System.Web.Security.MachineKeyProtection)
@@ -60,7 +57,7 @@ items:
   - csharp
   name: Decode(String, MachineKeyProtection)
   nameWithType: MachineKey.Decode(String, MachineKeyProtection)
-  fullName: System.Web.Security.MachineKey.Decode(String, MachineKeyProtection)
+  fullName: MachineKey.Decode(String, MachineKeyProtection)
   type: Method
   assemblies:
   - System.Web
@@ -105,9 +102,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/MachineKey.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.MachineKey.Encode(System.Byte[],System.Web.Security.MachineKeyProtection)
   commentId: M:System.Web.Security.MachineKey.Encode(System.Byte[],System.Web.Security.MachineKeyProtection)
   id: Encode(System.Byte[],System.Web.Security.MachineKeyProtection)
@@ -116,7 +110,7 @@ items:
   - csharp
   name: Encode(Byte[], MachineKeyProtection)
   nameWithType: MachineKey.Encode(Byte[], MachineKeyProtection)
-  fullName: System.Web.Security.MachineKey.Encode(Byte[], MachineKeyProtection)
+  fullName: MachineKey.Encode(Byte[], MachineKeyProtection)
   type: Method
   assemblies:
   - System.Web
@@ -161,9 +155,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/MachineKey.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.MachineKey.Protect(System.Byte[],System.String[])
   commentId: M:System.Web.Security.MachineKey.Protect(System.Byte[],System.String[])
   id: Protect(System.Byte[],System.String[])
@@ -172,13 +163,13 @@ items:
   - csharp
   name: Protect(Byte[], String[])
   nameWithType: MachineKey.Protect(Byte[], String[])
-  fullName: System.Web.Security.MachineKey.Protect(Byte[], String[])
+  fullName: MachineKey.Protect(Byte[], String[])
   type: Method
   assemblies:
   - System.Web
   namespace: System.Web.Security
   summary: Protects the specified data by encrypting or signing it.
-  remarks: "This method supersedes the <xref:System.Web.Security.MachineKey.Encode%2A> method, which requires the caller to specify whether the plaintext data should be encrypted, signed, or both. The <xref:System.Web.Security.MachineKey.Protect%2A> method performs the appropriate operation and securely protects the data. Ciphertext data produced by this method can only be deciphered by the <xref:System.Web.Security.MachineKey.Unprotect%2A> method.  \n  \n The `purposes` parameter is an optional list of reasons that can lock the ciphertext to a specific purpose. This parameter lets you isolate cryptographic operations performed by different subsystems within an application. A malicious client should not be able to get the result of one subsystem's <xref:System.Web.Security.MachineKey.Protect%2A> method and feed it as input to another subsystem's <xref:System.Web.Security.MachineKey.Unprotect%2A> method, which could compromise application security. The `purposes` parameter helps ensure that protected data can only be used by the component that originally generated it. Applications should make sure that each subsystem uses a unique `purposes` list.  \n  \n For example, to protect or unprotect an authentication token, you could call the method using code like the following example:  \n  \n```csharp  \nMachineKey.Protect(..., \"Authentication token\");  \nMachineKey.Unprotect(..., \"Authentication token\");  \n```  \n  \n```vb  \nMachineKey.Protect(..., \"Authentication token\")  \nMachineKey.Unprotect(..., \"Authentication token\")  \n```  \n  \n Applications can dynamically generate the `purposes` parameter. In that case, prefix user-supplied values with a fixed value (like \"`Username:` \" + *username*) to minimize the risk of a malicious client crafting input that matches a token that is used by some other part of the system. Any dynamically-generated strings should come after fixed strings. For example, to protect or unprotect a private message that is tied to a specific user, use code like the following example:  \n  \n```csharp  \nMachineKey.Protect(..., \"Private message\", \"Recipient: \" + username);  \nMachineKey.Unprotect(..., \"Private message\", \"Recipient: \" + username);  \n```  \n  \n```vb  \nMachineKey.Protect(..., \"Private message\", \"Recipient: \" + username)  \nMachineKey.Unprotect(..., \"Private message\", \"Recipient: \" + username)  \n```  \n  \n When the <xref:System.Web.Security.MachineKey.Unprotect%2A> method is called, the value that is provided for the `purposes` parameter must be the same value that was provided to the <xref:System.Web.Security.MachineKey.Protect%2A> method. Otherwise the operation will fail with a <xref:System.Security.Cryptography.CryptographicException> exception.  \n  \n The configuration settings that are required for the <xref:System.Web.Configuration.MachineKeyCompatibilityMode?displayProperty=fullName> option are required for this method even if the <xref:System.Web.Configuration.MachineKeySection.CompatibilityMode%2A?displayProperty=fullName> property is not set to the <xref:System.Web.Configuration.MachineKeyCompatibilityMode> option."
+  remarks: "This method supersedes the <xref:System.Web.Security.MachineKey.Encode%2A> method, which requires the caller to specify whether the plaintext data should be encrypted, signed, or both. The <xref:System.Web.Security.MachineKey.Protect%2A> method performs the appropriate operation and securely protects the data. Ciphertext data produced by this method can only be deciphered by the <xref:System.Web.Security.MachineKey.Unprotect%2A> method.  \n  \n The `purposes` parameter is an optional list of reasons that can lock the ciphertext to a specific purpose. This parameter lets you isolate cryptographic operations performed by different subsystems within an application. A malicious client should not be able to get the result of one subsystem's <xref:System.Web.Security.MachineKey.Protect%2A> method and feed it as input to another subsystem's <xref:System.Web.Security.MachineKey.Unprotect%2A> method, which could compromise application security. The `purposes` parameter helps ensure that protected data can only be used by the component that originally generated it. Applications should make sure that each subsystem uses a unique `purposes` list.  \n  \n For example, to protect or unprotect an authentication token, you could call the method using code like the following example:  \n  \n```csharp  \nMachineKey.Protect(..., \"Authentication token\");  \nMachineKey.Unprotect(..., \"Authentication token\");  \n```  \n  \n```vb  \nMachineKey.Protect(..., \"Authentication token\")  \nMachineKey.Unprotect(..., \"Authentication token\")  \n```  \n  \n Applications can dynamically generate the `purposes` parameter. In that case, prefix user-supplied values with a fixed value (like \"`Username:` \" + *username*) to minimize the risk of a malicious client crafting input that matches a token that is used by some other part of the system. Any dynamically-generated strings should come after fixed strings. For example, to protect or unprotect a private message that is tied to a specific user, use code like the following example:  \n  \n```csharp  \nMachineKey.Protect(..., \"Private message\", \"Recipient: \" + username);  \nMachineKey.Unprotect(..., \"Private message\", \"Recipient: \" + username);  \n```  \n  \n```vb  \nMachineKey.Protect(..., \"Private message\", \"Recipient: \" + username)  \nMachineKey.Unprotect(..., \"Private message\", \"Recipient: \" + username)  \n```  \n  \n When the <xref:System.Web.Security.MachineKey.Unprotect%2A> method is called, the value that is provided for the `purposes` parameter must be the same value that was provided to the <xref:System.Web.Security.MachineKey.Protect%2A> method. Otherwise the operation will fail with a <xref:System.Security.Cryptography.CryptographicException> exception.  \n  \n The configuration settings that are required for the <xref:System.Web.Configuration.MachineKeyCompatibilityMode?displayProperty=fullName> option are required for this method even if the <xref:System.Web.Configuration.MachineKeySection.CompatibilityMode%2A?displayProperty=fullName> property is not set to the <xref:System.Web.Configuration.MachineKeyCompatibilityMode.Framework45> option."
   syntax:
     content: public static byte[] Protect (byte[] userData, string[] purposes);
     parameters:
@@ -216,9 +207,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/MachineKey.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.MachineKey.Unprotect(System.Byte[],System.String[])
   commentId: M:System.Web.Security.MachineKey.Unprotect(System.Byte[],System.String[])
   id: Unprotect(System.Byte[],System.String[])
@@ -227,7 +215,7 @@ items:
   - csharp
   name: Unprotect(Byte[], String[])
   nameWithType: MachineKey.Unprotect(Byte[], String[])
-  fullName: System.Web.Security.MachineKey.Unprotect(Byte[], String[])
+  fullName: MachineKey.Unprotect(Byte[], String[])
   type: Method
   assemblies:
   - System.Web
@@ -274,9 +262,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/MachineKey.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -307,7 +292,7 @@ references:
   isExternal: false
   name: Decode(String, MachineKeyProtection)
   nameWithType: MachineKey.Decode(String, MachineKeyProtection)
-  fullName: System.Web.Security.MachineKey.Decode(String, MachineKeyProtection)
+  fullName: MachineKey.Decode(String, MachineKeyProtection)
 - uid: System.Byte
   name: Byte
   nameWithType: Byte
@@ -343,13 +328,13 @@ references:
   isExternal: false
   name: Encode(Byte[], MachineKeyProtection)
   nameWithType: MachineKey.Encode(Byte[], MachineKeyProtection)
-  fullName: System.Web.Security.MachineKey.Encode(Byte[], MachineKeyProtection)
+  fullName: MachineKey.Encode(Byte[], MachineKeyProtection)
 - uid: System.Web.Security.MachineKey.Protect(System.Byte[],System.String[])
   parent: System.Web.Security.MachineKey
   isExternal: false
   name: Protect(Byte[], String[])
   nameWithType: MachineKey.Protect(Byte[], String[])
-  fullName: System.Web.Security.MachineKey.Protect(Byte[], String[])
+  fullName: MachineKey.Protect(Byte[], String[])
 - uid: System.String[]
   parent: System
   isExternal: false
@@ -369,13 +354,13 @@ references:
   isExternal: false
   name: Unprotect(Byte[], String[])
   nameWithType: MachineKey.Unprotect(Byte[], String[])
-  fullName: System.Web.Security.MachineKey.Unprotect(Byte[], String[])
+  fullName: MachineKey.Unprotect(Byte[], String[])
 - uid: System.Web.Security.MachineKey.Decode*
   parent: System.Web.Security.MachineKey
   isExternal: false
   name: Decode
   nameWithType: MachineKey.Decode
-  fullName: System.Web.Security.MachineKey.Decode
+  fullName: MachineKey.Decode
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -390,7 +375,7 @@ references:
   isExternal: false
   name: Encode
   nameWithType: MachineKey.Encode
-  fullName: System.Web.Security.MachineKey.Encode
+  fullName: MachineKey.Encode
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -405,7 +390,7 @@ references:
   isExternal: false
   name: Protect
   nameWithType: MachineKey.Protect
-  fullName: System.Web.Security.MachineKey.Protect
+  fullName: MachineKey.Protect
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -420,7 +405,7 @@ references:
   isExternal: false
   name: Unprotect
   nameWithType: MachineKey.Unprotect
-  fullName: System.Web.Security.MachineKey.Unprotect
+  fullName: MachineKey.Unprotect
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

@@ -21,7 +21,7 @@ items:
   summary: Indicates the type of class interface to be generated for a class exposed to COM, if an interface is generated at all.
   remarks: "You can apply this attribute to assemblies or classes.  \n  \n This attribute controls whether the Type Library Exporter (Tlbexp.exe) automatically generates a class interface for the attributed class. A class interface carries the same name as the class itself, but the name is prefixed with an underscore. When exposed, the class interface contains all the `public`, non- `static` members of the managed class, including members inherited from its base class. Managed classes cannot access a class interface and have no need to as they can access the class members directly. Tlbexp.exe generates a unique interface identifier (IID) for the class interface.  \n  \n Class interfaces can be dual or dispatch-only interfaces. Optionally, you can suppress the generation of the class interface and provide a custom interface instead. You expose or suppress a class interface by specifying a <xref:System.Runtime.InteropServices.ClassInterfaceType?displayProperty=fullName> enumeration member. When you apply <xref:System.Runtime.InteropServices.ClassInterfaceAttribute> to an assembly, the attribute pertains to all classes in the assembly unless the individual classes override the setting with their own attribute.  \n  \n Although class interfaces eliminate the task of explicitly defining interfaces for each class, their use in production applications is strongly discouraged. Dual class interfaces allow clients to bind to a specific interface layout that is subject to change as the class evolves. For example, consider a managed class that exposes a class interface to COM clients. The first version of the class contains methods `North` and `South`. An unmanaged client can bind to the class interface, which provides `North` as the first method in the class interface and method `South` as the second method. Now consider the next version of the class, which has a new method, `East`, inserted between methods `North` and `South`. Unmanaged clients that try to bind to the new class through the old class interface end up calling method `East` when they intend to call method `South`, because the positioning of methods within the interface has changed. Moreover, any change to the layout of a base class also affects the layout of the class interface for all derived classes. Managed clients, which bind directly to classes, do not exhibit the same versioning problems. For specific guidelines on using a class interface, see [COM Callable Wrapper](~/docs/framework/interop/com-callable-wrapper.md).  \n  \n The [Tlbimp.exe (Type Library Importer)](~/docs/framework/tools/tlbimp-exe-type-library-importer.md) always applies to imported classes the <xref:System.Runtime.InteropServices.ClassInterfaceType?displayProperty=fullName> enumeration member to indicate that existing COM classes never expose managed interfaces."
   example:
-  - "The following example shows how to apply the <xref:System.Runtime.InteropServices.ClassInterfaceAttribute> with the <xref:System.Runtime.InteropServices.ClassInterfaceType> value <xref:System.Runtime.InteropServices.ClassInterfaceType>, which generates an `IDispatch` interface for `MyClass`.  \n  \n [!code-cpp[Classic ClassInterfaceAttribute Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_Classic/classic ClassInterfaceAttribute Example/CPP/source.cpp#1)]\n [!code-csharp[Classic ClassInterfaceAttribute Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_Classic/classic ClassInterfaceAttribute Example/CS/source.cs#1)]\n [!code-vb[Classic ClassInterfaceAttribute Example#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_Classic/classic ClassInterfaceAttribute Example/VB/source.vb#1)]"
+  - "The following example shows how to apply the <xref:System.Runtime.InteropServices.ClassInterfaceAttribute> with the <xref:System.Runtime.InteropServices.ClassInterfaceType> value <xref:System.Runtime.InteropServices.ClassInterfaceType.AutoDispatch>, which generates an `IDispatch` interface for `MyClass`.  \n  \n [!code-cpp[Classic ClassInterfaceAttribute Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_Classic/classic ClassInterfaceAttribute Example/CPP/source.cpp#1)]\n [!code-csharp[Classic ClassInterfaceAttribute Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_Classic/classic ClassInterfaceAttribute Example/CS/source.cs#1)]\n [!code-vb[Classic ClassInterfaceAttribute Example#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_Classic/classic ClassInterfaceAttribute Example/VB/source.vb#1)]"
   syntax:
     content: >-
       [System.AttributeUsage(System.AttributeTargets.Assembly | System.AttributeTargets.Class, Inherited=false)]
@@ -85,7 +85,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -105,7 +106,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -124,9 +126,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/ClassInterfaceAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.ClassInterfaceAttribute.#ctor(System.Int16)
   commentId: M:System.Runtime.InteropServices.ClassInterfaceAttribute.#ctor(System.Int16)
   id: '#ctor(System.Int16)'
@@ -135,7 +134,7 @@ items:
   - csharp
   name: ClassInterfaceAttribute(Int16)
   nameWithType: ClassInterfaceAttribute.ClassInterfaceAttribute(Int16)
-  fullName: System.Runtime.InteropServices.ClassInterfaceAttribute.ClassInterfaceAttribute(Int16)
+  fullName: ClassInterfaceAttribute.ClassInterfaceAttribute(Int16)
   type: Constructor
   assemblies:
   - System.Runtime.InteropServices
@@ -154,7 +153,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -174,7 +174,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -193,9 +194,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/ClassInterfaceAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.ClassInterfaceAttribute.#ctor(System.Runtime.InteropServices.ClassInterfaceType)
   commentId: M:System.Runtime.InteropServices.ClassInterfaceAttribute.#ctor(System.Runtime.InteropServices.ClassInterfaceType)
   id: '#ctor(System.Runtime.InteropServices.ClassInterfaceType)'
@@ -204,7 +202,7 @@ items:
   - csharp
   name: ClassInterfaceAttribute(ClassInterfaceType)
   nameWithType: ClassInterfaceAttribute.ClassInterfaceAttribute(ClassInterfaceType)
-  fullName: System.Runtime.InteropServices.ClassInterfaceAttribute.ClassInterfaceAttribute(ClassInterfaceType)
+  fullName: ClassInterfaceAttribute.ClassInterfaceAttribute(ClassInterfaceType)
   type: Constructor
   assemblies:
   - System.Runtime.InteropServices
@@ -223,7 +221,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -243,7 +242,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -262,9 +262,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/ClassInterfaceAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.ClassInterfaceAttribute.Value
   commentId: P:System.Runtime.InteropServices.ClassInterfaceAttribute.Value
   id: Value
@@ -273,7 +270,7 @@ items:
   - csharp
   name: Value
   nameWithType: ClassInterfaceAttribute.Value
-  fullName: System.Runtime.InteropServices.ClassInterfaceAttribute.Value
+  fullName: ClassInterfaceAttribute.Value
   type: Property
   assemblies:
   - System.Runtime.InteropServices
@@ -290,7 +287,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -310,7 +308,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -329,9 +328,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/ClassInterfaceAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.Attribute
   parent: System
@@ -344,7 +340,7 @@ references:
   isExternal: false
   name: ClassInterfaceAttribute(Int16)
   nameWithType: ClassInterfaceAttribute.ClassInterfaceAttribute(Int16)
-  fullName: System.Runtime.InteropServices.ClassInterfaceAttribute.ClassInterfaceAttribute(Int16)
+  fullName: ClassInterfaceAttribute.ClassInterfaceAttribute(Int16)
 - uid: System.Int16
   parent: System
   isExternal: false
@@ -356,7 +352,7 @@ references:
   isExternal: false
   name: ClassInterfaceAttribute(ClassInterfaceType)
   nameWithType: ClassInterfaceAttribute.ClassInterfaceAttribute(ClassInterfaceType)
-  fullName: System.Runtime.InteropServices.ClassInterfaceAttribute.ClassInterfaceAttribute(ClassInterfaceType)
+  fullName: ClassInterfaceAttribute.ClassInterfaceAttribute(ClassInterfaceType)
 - uid: System.Runtime.InteropServices.ClassInterfaceType
   parent: System.Runtime.InteropServices
   isExternal: false
@@ -368,16 +364,17 @@ references:
   isExternal: false
   name: Value
   nameWithType: ClassInterfaceAttribute.Value
-  fullName: System.Runtime.InteropServices.ClassInterfaceAttribute.Value
+  fullName: ClassInterfaceAttribute.Value
 - uid: System.Runtime.InteropServices.ClassInterfaceAttribute.#ctor*
   parent: System.Runtime.InteropServices.ClassInterfaceAttribute
   isExternal: false
   name: ClassInterfaceAttribute
   nameWithType: ClassInterfaceAttribute.ClassInterfaceAttribute
-  fullName: System.Runtime.InteropServices.ClassInterfaceAttribute.ClassInterfaceAttribute
+  fullName: ClassInterfaceAttribute.ClassInterfaceAttribute
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -401,10 +398,11 @@ references:
   isExternal: false
   name: Value
   nameWithType: ClassInterfaceAttribute.Value
-  fullName: System.Runtime.InteropServices.ClassInterfaceAttribute.Value
+  fullName: ClassInterfaceAttribute.Value
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

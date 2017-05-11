@@ -16,7 +16,7 @@ items:
   assemblies:
   - UIAutomationTypes
   namespace: System.Windows.Automation
-  summary: Contains information about the event that is raised when the [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] tree structure has changed.
+  summary: Contains information about the event that is raised when the UI Automation tree structure has changed.
   syntax:
     content: 'public sealed class StructureChangedEventArgs : System.Windows.Automation.AutomationEventArgs'
   inheritance:
@@ -51,9 +51,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Automation/StructureChangedEventArgs.xml
-  author: Xansky
-  ms.author: mhopkins
-  manager: ghogen
 - uid: System.Windows.Automation.StructureChangedEventArgs.#ctor(System.Windows.Automation.StructureChangeType,System.Int32[])
   commentId: M:System.Windows.Automation.StructureChangedEventArgs.#ctor(System.Windows.Automation.StructureChangeType,System.Int32[])
   id: '#ctor(System.Windows.Automation.StructureChangeType,System.Int32[])'
@@ -62,13 +59,13 @@ items:
   - csharp
   name: StructureChangedEventArgs(StructureChangeType, Int32[])
   nameWithType: StructureChangedEventArgs.StructureChangedEventArgs(StructureChangeType, Int32[])
-  fullName: System.Windows.Automation.StructureChangedEventArgs.StructureChangedEventArgs(StructureChangeType, Int32[])
+  fullName: StructureChangedEventArgs.StructureChangedEventArgs(StructureChangeType, Int32[])
   type: Constructor
   assemblies:
   - UIAutomationTypes
   namespace: System.Windows.Automation
   summary: Initializes a new instance of the <xref href="System.Windows.Automation.StructureChangedEventArgs.StructureChangeType"></xref> class, specifying the type of change and the [!INCLUDE[TLA#tla_id](~/includes/tlasharptla-id-md.md)] of the element whose structure changed.
-  remarks: "The values that can be returned in `structureChangeType` depend on the implementation of the UI Automation provider. For example, when items are added to or removed from a [!INCLUDE[TLA2#tla_win32](~/includes/tla2sharptla-win32-md.md)] list box, if the provider is not able to determine the number of items added or removed, it might specify <xref:System.Windows.Automation.StructureChangeType> and not <xref:System.Windows.Automation.StructureChangeType> or <xref:System.Windows.Automation.StructureChangeType>.  \n  \n The following table describes the information in the event received by the <xref:System.Windows.Automation.StructureChangedEventHandler> for different structure changes.  \n  \n|`structureChangeType`|Event source|`runtimeId`|  \n|---------------------------|------------------|-----------------|  \n|<xref:System.Windows.Automation.StructureChangeType>|The child that was added.|The child that was added.|  \n|<xref:System.Windows.Automation.StructureChangeType>|The parent of the child that was removed.|The child that was removed.|  \n|<xref:System.Windows.Automation.StructureChangeType>|The parent of the children that were added.|The parent of the children that were added.|  \n|<xref:System.Windows.Automation.StructureChangeType>|The parent of the children that were removed.|The parent of the children that were removed.|  \n|<xref:System.Windows.Automation.StructureChangeType>|The parent of the children that were invalidated.|The parent of the children that were invalidated|  \n  \n Custom controls might not be able to provide a meaningful value in `runtimeId`. For more information, see <xref:System.Windows.Automation.Provider.AutomationInteropProvider.RaiseStructureChangedEvent%2A>."
+  remarks: "The values that can be returned in `structureChangeType` depend on the implementation of the UI Automation provider. For example, when items are added to or removed from a [!INCLUDE[TLA2#tla_win32](~/includes/tla2sharptla-win32-md.md)] list box, if the provider is not able to determine the number of items added or removed, it might specify <xref:System.Windows.Automation.StructureChangeType.ChildrenInvalidated> and not <xref:System.Windows.Automation.StructureChangeType.ChildAdded> or <xref:System.Windows.Automation.StructureChangeType.ChildRemoved>.  \n  \n The following table describes the information in the event received by the <xref:System.Windows.Automation.StructureChangedEventHandler> for different structure changes.  \n  \n|`structureChangeType`|Event source|`runtimeId`|  \n|---------------------------|------------------|-----------------|  \n|<xref:System.Windows.Automation.StructureChangeType.ChildAdded>|The child that was added.|The child that was added.|  \n|<xref:System.Windows.Automation.StructureChangeType.ChildRemoved>|The parent of the child that was removed.|The child that was removed.|  \n|<xref:System.Windows.Automation.StructureChangeType.ChildrenBulkAdded>|The parent of the children that were added.|The parent of the children that were added.|  \n|<xref:System.Windows.Automation.StructureChangeType.ChildrenBulkRemoved>|The parent of the children that were removed.|The parent of the children that were removed.|  \n|<xref:System.Windows.Automation.StructureChangeType.ChildrenInvalidated>|The parent of the children that were invalidated.|The parent of the children that were invalidated|  \n  \n Custom controls might not be able to provide a meaningful value in `runtimeId`. For more information, see <xref:System.Windows.Automation.Provider.AutomationInteropProvider.RaiseStructureChangedEvent%2A>."
   example:
   - "The following example shows how to construct and raise an event when children are added to, or removed from, a custom list box.  \n  \n [!code-csharp[FragmentProvider#101](~/samples/snippets/csharp/VS_Snippets_Wpf/FragmentProvider/CSharp/ListFragment.cs#101)]\n [!code-vb[FragmentProvider#101](~/samples/snippets/visualbasic/VS_Snippets_Wpf/FragmentProvider/VisualBasic/ListFragment.vb#101)]"
   syntax:
@@ -79,7 +76,7 @@ items:
       description: A single value that specifies the type of change.
     - id: runtimeId
       type: System.Int32[]
-      description: The runtime [!INCLUDE[TLA#tla_id](~/includes/tlasharptla-id-md.md)] of the [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] element whose structure changed. See Remarks.
+      description: The runtime [!INCLUDE[TLA#tla_id](~/includes/tlasharptla-id-md.md)] of the [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] element whose structure changed.
   overload: System.Windows.Automation.StructureChangedEventArgs.#ctor*
   exceptions: []
   version:
@@ -99,9 +96,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Automation/StructureChangedEventArgs.xml
-  author: Xansky
-  ms.author: mhopkins
-  manager: ghogen
 - uid: System.Windows.Automation.StructureChangedEventArgs.GetRuntimeId
   commentId: M:System.Windows.Automation.StructureChangedEventArgs.GetRuntimeId
   id: GetRuntimeId
@@ -110,7 +104,7 @@ items:
   - csharp
   name: GetRuntimeId()
   nameWithType: StructureChangedEventArgs.GetRuntimeId()
-  fullName: System.Windows.Automation.StructureChangedEventArgs.GetRuntimeId()
+  fullName: StructureChangedEventArgs.GetRuntimeId()
   type: Method
   assemblies:
   - UIAutomationTypes
@@ -142,9 +136,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Automation/StructureChangedEventArgs.xml
-  author: Xansky
-  ms.author: mhopkins
-  manager: ghogen
 - uid: System.Windows.Automation.StructureChangedEventArgs.StructureChangeType
   commentId: P:System.Windows.Automation.StructureChangedEventArgs.StructureChangeType
   id: StructureChangeType
@@ -153,7 +144,7 @@ items:
   - csharp
   name: StructureChangeType
   nameWithType: StructureChangedEventArgs.StructureChangeType
-  fullName: System.Windows.Automation.StructureChangedEventArgs.StructureChangeType
+  fullName: StructureChangedEventArgs.StructureChangeType
   type: Property
   assemblies:
   - UIAutomationTypes
@@ -183,9 +174,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Automation/StructureChangedEventArgs.xml
-  author: Xansky
-  ms.author: mhopkins
-  manager: ghogen
 references:
 - uid: System.Windows.Automation.AutomationEventArgs
   parent: System.Windows.Automation
@@ -198,7 +186,7 @@ references:
   isExternal: false
   name: StructureChangedEventArgs(StructureChangeType, Int32[])
   nameWithType: StructureChangedEventArgs.StructureChangedEventArgs(StructureChangeType, Int32[])
-  fullName: System.Windows.Automation.StructureChangedEventArgs.StructureChangedEventArgs(StructureChangeType, Int32[])
+  fullName: StructureChangedEventArgs.StructureChangedEventArgs(StructureChangeType, Int32[])
 - uid: System.Windows.Automation.StructureChangeType
   parent: System.Windows.Automation
   isExternal: false
@@ -228,19 +216,19 @@ references:
   isExternal: false
   name: GetRuntimeId()
   nameWithType: StructureChangedEventArgs.GetRuntimeId()
-  fullName: System.Windows.Automation.StructureChangedEventArgs.GetRuntimeId()
+  fullName: StructureChangedEventArgs.GetRuntimeId()
 - uid: System.Windows.Automation.StructureChangedEventArgs.StructureChangeType
   parent: System.Windows.Automation.StructureChangedEventArgs
   isExternal: false
   name: StructureChangeType
   nameWithType: StructureChangedEventArgs.StructureChangeType
-  fullName: System.Windows.Automation.StructureChangedEventArgs.StructureChangeType
+  fullName: StructureChangedEventArgs.StructureChangeType
 - uid: System.Windows.Automation.StructureChangedEventArgs.#ctor*
   parent: System.Windows.Automation.StructureChangedEventArgs
   isExternal: false
   name: StructureChangedEventArgs
   nameWithType: StructureChangedEventArgs.StructureChangedEventArgs
-  fullName: System.Windows.Automation.StructureChangedEventArgs.StructureChangedEventArgs
+  fullName: StructureChangedEventArgs.StructureChangedEventArgs
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -255,7 +243,7 @@ references:
   isExternal: false
   name: GetRuntimeId
   nameWithType: StructureChangedEventArgs.GetRuntimeId
-  fullName: System.Windows.Automation.StructureChangedEventArgs.GetRuntimeId
+  fullName: StructureChangedEventArgs.GetRuntimeId
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -270,7 +258,7 @@ references:
   isExternal: false
   name: StructureChangeType
   nameWithType: StructureChangedEventArgs.StructureChangeType
-  fullName: System.Windows.Automation.StructureChangedEventArgs.StructureChangeType
+  fullName: StructureChangedEventArgs.StructureChangeType
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

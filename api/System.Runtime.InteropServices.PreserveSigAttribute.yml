@@ -17,7 +17,7 @@ items:
   - netstandard
   namespace: System.Runtime.InteropServices
   summary: Indicates that the HRESULT or `retval` signature transformation that takes place during COM interop calls should be suppressed.
-  remarks: "You can apply this attribute to methods.  \n  \n By default, the [Tlbexp.exe (Type Library Exporter)](~/docs/framework/tools/tlbexp-exe-type-library-exporter.md) ensures that a call that returns an HRESULT of S_OK is transformed such that the [out, retval] parameter is used as the function return value. The S_OK HRESULT is discarded. For HRESULTs other than S_OK, the runtime throws an exception and discards the [out, retval] parameter. When you apply the <xref:System.Runtime.InteropServices.PreserveSigAttribute> to a managed method signature, the managed and unmanaged signatures of the attributed method are identical.  \n  \n Preserving the original method signature is necessary if the member returns more than one success HRESULT value and you want to detect the different values. Since most COM member return an HRESULT, by applying the <xref:System.Runtime.InteropServices.PreserveSigAttribute>, you can retrieve an integer representing the success or failure HRESULT. Tlbexp.exe preserves any [out, retavl] parameters as out parameters in the managed signature.  \n  \n The [Tlbimp.exe (Type Library Importer)](~/docs/framework/tools/tlbimp-exe-type-library-importer.md) also applies this attribute; it applies the attribute to dispinterfaces when it imports a type library.  \n  \n> [!NOTE]\n>  Return types of <xref:System.Runtime.InteropServices.UnmanagedType>, <xref:System.Guid>, and <xref:System.Object> are not supported by the <xref:System.Runtime.InteropServices.PreserveSigAttribute> class when interoperation occurs from COM to managed code and the managed code is marked with the <xref:System.Runtime.InteropServices.PreserveSigAttribute> class.  When you attempt to use one of these return types with the <xref:System.Runtime.InteropServices.PreserveSigAttribute> class during these conditions, a <xref:System.TypeLoadException> is thrown."
+  remarks: "You can apply this attribute to methods.  \n  \n By default, the [Tlbexp.exe (Type Library Exporter)](~/docs/framework/tools/tlbexp-exe-type-library-exporter.md) ensures that a call that returns an HRESULT of S_OK is transformed such that the [out, retval] parameter is used as the function return value. The S_OK HRESULT is discarded. For HRESULTs other than S_OK, the runtime throws an exception and discards the [out, retval] parameter. When you apply the <xref:System.Runtime.InteropServices.PreserveSigAttribute> to a managed method signature, the managed and unmanaged signatures of the attributed method are identical.  \n  \n Preserving the original method signature is necessary if the member returns more than one success HRESULT value and you want to detect the different values. Since most COM member return an HRESULT, by applying the <xref:System.Runtime.InteropServices.PreserveSigAttribute>, you can retrieve an integer representing the success or failure HRESULT. Tlbexp.exe preserves any [out, retavl] parameters as out parameters in the managed signature.  \n  \n The [Tlbimp.exe (Type Library Importer)](~/docs/framework/tools/tlbimp-exe-type-library-importer.md) also applies this attribute; it applies the attribute to dispinterfaces when it imports a type library.  \n  \n> [!NOTE]\n>  Return types of <xref:System.Runtime.InteropServices.UnmanagedType.Currency>, <xref:System.Guid>, and <xref:System.Object> are not supported by the <xref:System.Runtime.InteropServices.PreserveSigAttribute> class when interoperation occurs from COM to managed code and the managed code is marked with the <xref:System.Runtime.InteropServices.PreserveSigAttribute> class.  When you attempt to use one of these return types with the <xref:System.Runtime.InteropServices.PreserveSigAttribute> class during these conditions, a <xref:System.TypeLoadException> is thrown."
   example:
   - "The following example shows how Tlbexp.exe converts a C# method without <xref:System.Runtime.InteropServices.PreserveSigAttribute> when exporting an assembly to a COM type library.  \n  \n Managed signature:  \n  \n```  \nint DoSomething (long l);  \n```  \n  \n Unmanaged signature:  \n  \n```  \nHRESULT DoSomething ([in] long l, [out, retval] int * i);  \n```  \n  \n When you apply <xref:System.Runtime.InteropServices.PreserveSigAttribute> to the same C# method and export the assembly, the method conversion differs from the previous example. Notice that Tlbexp.exe removes the HRESULT and the [out, retval] parameter modifier.  \n  \n Managed signature:  \n  \n```  \n[PreserveSig] int DoSomething (long l);  \n```  \n  \n Unmanaged signature:  \n  \n```  \nint DoSomething ([in] long l);  \n```"
   syntax:
@@ -83,7 +83,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -103,7 +104,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -122,9 +124,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/PreserveSigAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.PreserveSigAttribute.#ctor
   commentId: M:System.Runtime.InteropServices.PreserveSigAttribute.#ctor
   id: '#ctor'
@@ -133,7 +132,7 @@ items:
   - csharp
   name: PreserveSigAttribute()
   nameWithType: PreserveSigAttribute.PreserveSigAttribute()
-  fullName: System.Runtime.InteropServices.PreserveSigAttribute.PreserveSigAttribute()
+  fullName: PreserveSigAttribute.PreserveSigAttribute()
   type: Constructor
   assemblies:
   - System.Runtime.InteropServices
@@ -148,7 +147,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -168,7 +168,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -187,9 +188,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/PreserveSigAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.Attribute
   parent: System
@@ -202,16 +200,17 @@ references:
   isExternal: false
   name: PreserveSigAttribute()
   nameWithType: PreserveSigAttribute.PreserveSigAttribute()
-  fullName: System.Runtime.InteropServices.PreserveSigAttribute.PreserveSigAttribute()
+  fullName: PreserveSigAttribute.PreserveSigAttribute()
 - uid: System.Runtime.InteropServices.PreserveSigAttribute.#ctor*
   parent: System.Runtime.InteropServices.PreserveSigAttribute
   isExternal: false
   name: PreserveSigAttribute
   nameWithType: PreserveSigAttribute.PreserveSigAttribute
-  fullName: System.Runtime.InteropServices.PreserveSigAttribute.PreserveSigAttribute
+  fullName: PreserveSigAttribute.PreserveSigAttribute
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

@@ -17,7 +17,7 @@ items:
   - System.ServiceModel
   namespace: System.ServiceModel.Channels
   summary: Defines an interface that allows you to get and set the context on the channel.
-  remarks: "For channels that use <xref:System.ServiceModel.WSHttpContextBinding> with the <xref:System.ServiceModel.SessionMode> value set, the context cannot be retrieved on the client using <xref:System.ServiceModel.Channels.IContextManager> because a new channel that establishes a session is created each time <xref:System.ServiceModel.Channels.IChannelFactory.GetProperty%2A> is called to enforce <xref:System.ServiceModel.SessionMode> semantics on a channel. This means that even though the context is properly propagated back to the client in this case, it cannot be retrieved using <xref:System.ServiceModel.Channels.IContextManager>. You can still retrieve it using <xref:System.ServiceModel.Channels.ContextMessageProperty> as shown in the following code.  \n  \n```csharp  \nusing (new OperationContextScope((IContextChannel)channel))  \n{  \n    channel.MyChannel(\"Test\");  \n    ContextMessageProperty context;  \n    if (ContextMessageProperty.TryGet(OperationContext.Current.IncomingMessageProperties, out context))  \n    {  \n        Console.WriteLine(context.Count);  \n    }  \n}  \n  \n```"
+  remarks: "For channels that use <xref:System.ServiceModel.WSHttpContextBinding> with the <xref:System.ServiceModel.SessionMode.NotAllowed> value set, the context cannot be retrieved on the client using <xref:System.ServiceModel.Channels.IContextManager> because a new channel that establishes a session is created each time <xref:System.ServiceModel.Channels.IChannelFactory.GetProperty%2A> is called to enforce <xref:System.ServiceModel.SessionMode.NotAllowed> semantics on a channel. This means that even though the context is properly propagated back to the client in this case, it cannot be retrieved using <xref:System.ServiceModel.Channels.IContextManager>. You can still retrieve it using <xref:System.ServiceModel.Channels.ContextMessageProperty> as shown in the following code.  \n  \n```csharp  \nusing (new OperationContextScope((IContextChannel)channel))  \n{  \n    channel.MyChannel(\"Test\");  \n    ContextMessageProperty context;  \n    if (ContextMessageProperty.TryGet(OperationContext.Current.IncomingMessageProperties, out context))  \n    {  \n        Console.WriteLine(context.Count);  \n    }  \n}  \n  \n```"
   syntax:
     content: public interface IContextManager
   implements: []
@@ -39,9 +39,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/IContextManager.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Channels.IContextManager.Enabled
   commentId: P:System.ServiceModel.Channels.IContextManager.Enabled
   id: Enabled
@@ -50,7 +47,7 @@ items:
   - csharp
   name: Enabled
   nameWithType: IContextManager.Enabled
-  fullName: System.ServiceModel.Channels.IContextManager.Enabled
+  fullName: IContextManager.Enabled
   type: Property
   assemblies:
   - System.ServiceModel
@@ -81,9 +78,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/IContextManager.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Channels.IContextManager.GetContext
   commentId: M:System.ServiceModel.Channels.IContextManager.GetContext
   id: GetContext
@@ -92,7 +86,7 @@ items:
   - csharp
   name: GetContext()
   nameWithType: IContextManager.GetContext()
-  fullName: System.ServiceModel.Channels.IContextManager.GetContext()
+  fullName: IContextManager.GetContext()
   type: Method
   assemblies:
   - System.ServiceModel
@@ -126,9 +120,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/IContextManager.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Channels.IContextManager.SetContext(System.Collections.Generic.IDictionary{System.String,System.String})
   commentId: M:System.ServiceModel.Channels.IContextManager.SetContext(System.Collections.Generic.IDictionary{System.String,System.String})
   id: SetContext(System.Collections.Generic.IDictionary{System.String,System.String})
@@ -137,7 +128,7 @@ items:
   - csharp
   name: SetContext(IDictionary<String,String>)
   nameWithType: IContextManager.SetContext(IDictionary<String,String>)
-  fullName: System.ServiceModel.Channels.IContextManager.SetContext(IDictionary<String,String>)
+  fullName: IContextManager.SetContext(IDictionary<String,String>)
   type: Method
   assemblies:
   - System.ServiceModel
@@ -171,16 +162,13 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Channels/IContextManager.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 references:
 - uid: System.ServiceModel.Channels.IContextManager.Enabled
   parent: System.ServiceModel.Channels.IContextManager
   isExternal: false
   name: Enabled
   nameWithType: IContextManager.Enabled
-  fullName: System.ServiceModel.Channels.IContextManager.Enabled
+  fullName: IContextManager.Enabled
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -192,7 +180,7 @@ references:
   isExternal: false
   name: GetContext()
   nameWithType: IContextManager.GetContext()
-  fullName: System.ServiceModel.Channels.IContextManager.GetContext()
+  fullName: IContextManager.GetContext()
 - uid: System.Collections.Generic.IDictionary`2
   name: IDictionary<TKey,TValue>
   nameWithType: IDictionary<TKey,TValue>
@@ -234,13 +222,13 @@ references:
   isExternal: false
   name: SetContext(IDictionary<String,String>)
   nameWithType: IContextManager.SetContext(IDictionary<String,String>)
-  fullName: System.ServiceModel.Channels.IContextManager.SetContext(IDictionary<String,String>)
+  fullName: IContextManager.SetContext(IDictionary<String,String>)
 - uid: System.ServiceModel.Channels.IContextManager.Enabled*
   parent: System.ServiceModel.Channels.IContextManager
   isExternal: false
   name: Enabled
   nameWithType: IContextManager.Enabled
-  fullName: System.ServiceModel.Channels.IContextManager.Enabled
+  fullName: IContextManager.Enabled
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -255,7 +243,7 @@ references:
   isExternal: false
   name: GetContext
   nameWithType: IContextManager.GetContext
-  fullName: System.ServiceModel.Channels.IContextManager.GetContext
+  fullName: IContextManager.GetContext
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -270,7 +258,7 @@ references:
   isExternal: false
   name: SetContext
   nameWithType: IContextManager.SetContext
-  fullName: System.ServiceModel.Channels.IContextManager.SetContext
+  fullName: IContextManager.SetContext
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

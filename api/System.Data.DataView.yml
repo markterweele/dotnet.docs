@@ -90,9 +90,10 @@ items:
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Represents a databindable, customized view of a <xref href="System.Data.DataTable"></xref> for sorting, filtering, searching, editing, and navigation. The <xref href="System.Data.DataView"></xref> does not store data, but instead represents a connected view of its corresponding <xref href="System.Data.DataTable"></xref>. Changes to the <xref href="System.Data.DataView"></xref>’s data will affect the <xref href="System.Data.DataTable"></xref>. Changes to the <xref href="System.Data.DataTable"></xref>’s data will affect all <xref href="System.Data.DataView"></xref>s associated with it.
-  remarks: "A major function of the <xref:System.Data.DataView> is to allow for data binding on both Windows Forms and Web Forms.  \n  \n Additionally, a <xref:System.Data.DataView> can be customized to present a subset of data from the <xref:System.Data.DataTable>. This capability lets you have two controls bound to the same <xref:System.Data.DataTable>, but that show different versions of the data. For example, one control might be bound to a <xref:System.Data.DataView> that shows all the rows in the table, and a second might be configured to display only the rows that have been deleted from the <xref:System.Data.DataTable>. The <xref:System.Data.DataTable> also has a <xref:System.Data.DataTable.DefaultView%2A> property. This returns the default <xref:System.Data.DataView> for the table. For example, if you want to create a custom view on the table, set the <xref:System.Data.DataView.RowFilter%2A> on the <xref:System.Data.DataView> returned by the <xref:System.Data.DataTable.DefaultView%2A>.  \n  \n To create a filtered and sorted view of data, set the <xref:System.Data.DataView.RowFilter%2A> and <xref:System.Data.DataView.Sort%2A> properties. Then, use the <xref:System.Data.DataView.Item%2A> property to return a single <xref:System.Data.DataRowView>.  \n  \n You can also add and delete from the set of rows using the <xref:System.Data.DataView.AddNew%2A> and <xref:System.Data.DataView.Delete%2A> methods. When you use those methods, the <xref:System.Data.DataView.RowStateFilter%2A> property can set to specify that only deleted rows or new rows be displayed by the <xref:System.Data.DataView>.  \n  \n> [!NOTE]\n>  If you do not explicitly specify sort criteria for `DataView`, the `DataRowView` objects in `DataView` are sorted based on the index of DataView's corresponding `DataRow` in the `DataTable.Rows``DataRowCollection`.  \n  \n [!INCLUDE[linq_dataset](~/includes/linq-dataset-md.md)] allows developers to create complex, powerful queries over a <xref:System.Data.DataSet> by using [!INCLUDE[vbteclinq](~/includes/vbteclinq-md.md)]. A [!INCLUDE[linq_dataset](~/includes/linq-dataset-md.md)] query returns an enumeration of <xref:System.Data.DataRow> objects, however, which is not easily used in a binding scenario. <xref:System.Data.DataView> can be created from a [!INCLUDE[linq_dataset](~/includes/linq-dataset-md.md)] query and takes on the filtering and sorting characteristics of that query. [!INCLUDE[linq_dataset](~/includes/linq-dataset-md.md)] extends the functionality of the <xref:System.Data.DataView> by providing [!INCLUDE[vbteclinq](~/includes/vbteclinq-md.md)] expression-based filtering and sorting, which allows for much more complex and powerful filtering and sorting operations than string-based filtering and sorting. See [Data Binding and LINQ to DataSet](~/docs/framework/data/adonet/data-binding-and-linq-to-dataset.md) for more information."
+  remarks: "A major function of the <xref:System.Data.DataView> is to allow for data binding on both Windows Forms and Web Forms.  \n  \n Additionally, a <xref:System.Data.DataView> can be customized to present a subset of data from the <xref:System.Data.DataTable>. This capability lets you have two controls bound to the same <xref:System.Data.DataTable>, but that show different versions of the data. For example, one control might be bound to a <xref:System.Data.DataView> that shows all the rows in the table, and a second might be configured to display only the rows that have been deleted from the <xref:System.Data.DataTable>. The <xref:System.Data.DataTable> also has a <xref:System.Data.DataTable.DefaultView%2A> property. This returns the default <xref:System.Data.DataView> for the table. For example, if you want to create a custom view on the table, set the <xref:System.Data.DataView.RowFilter%2A> on the <xref:System.Data.DataView> returned by the <xref:System.Data.DataTable.DefaultView%2A>.  \n  \n To create a filtered and sorted view of data, set the <xref:System.Data.DataView.RowFilter%2A> and <xref:System.Data.DataView.Sort%2A> properties. Then, use the <xref:System.Data.DataView.Item%2A> property to return a single <xref:System.Data.DataRowView>.  \n  \n You can also add and delete from the set of rows using the <xref:System.Data.DataView.AddNew%2A> and <xref:System.Data.DataView.Delete%2A> methods. When you use those methods, the <xref:System.Data.DataView.RowStateFilter%2A> property can set to specify that only deleted rows or new rows be displayed by the <xref:System.Data.DataView>.  \n  \n> [!NOTE]\n>  If you do not explicitly specify sort criteria for `DataView`, the `DataRowView` objects in `DataView` are sorted based on the index of DataView's corresponding `DataRow` in the `DataTable.Rows` `DataRowCollection`.  \n  \n [!INCLUDE[linq_dataset](~/includes/linq-dataset-md.md)] allows developers to create complex, powerful queries over a <xref:System.Data.DataSet> by using [!INCLUDE[vbteclinq](~/includes/vbteclinq-md.md)]. A [!INCLUDE[linq_dataset](~/includes/linq-dataset-md.md)] query returns an enumeration of <xref:System.Data.DataRow> objects, however, which is not easily used in a binding scenario. <xref:System.Data.DataView> can be created from a [!INCLUDE[linq_dataset](~/includes/linq-dataset-md.md)] query and takes on the filtering and sorting characteristics of that query. [!INCLUDE[linq_dataset](~/includes/linq-dataset-md.md)] extends the functionality of the <xref:System.Data.DataView> by providing [!INCLUDE[vbteclinq](~/includes/vbteclinq-md.md)] expression-based filtering and sorting, which allows for much more complex and powerful filtering and sorting operations than string-based filtering and sorting. See [Data Binding and LINQ to DataSet](~/docs/framework/data/adonet/data-binding-and-linq-to-dataset.md) for more information."
   example:
   - "The following example creates a single <xref:System.Data.DataTable> with one column and five rows. Two <xref:System.Data.DataView> objects are created and the <xref:System.Data.DataView.RowStateFilter%2A> is set on each to show different views of the table data. The values are then printed.  \n  \n [!code-csharp[Classic WebData DataView Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData DataView Example/CS/source.cs#1)]\n [!code-vb[Classic WebData DataView Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData DataView Example/VB/source.vb#1)]  \n  \n The following example creates a <xref:System.Data.DataView> of online orders ordered by total due from a [!INCLUDE[linq_dataset](~/includes/linq-dataset-md.md)] query:  \n  \n [!code-csharp[DP DataView Samples#CreateLDVFromQuery1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/DP DataView Samples/CS/Form1.cs#createldvfromquery1)]\n [!code-vb[DP DataView Samples#CreateLDVFromQuery1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/DP DataView Samples/VB/Form1.vb#createldvfromquery1)]"
   syntax:
@@ -127,6 +128,7 @@ items:
   - System.Linq.Queryable.AsQueryable(System.Collections.IEnumerable)
   attributes: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -139,6 +141,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -151,9 +154,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.#ctor
   commentId: M:System.Data.DataView.#ctor
   id: '#ctor'
@@ -162,11 +162,12 @@ items:
   - csharp
   name: DataView()
   nameWithType: DataView.DataView()
-  fullName: System.Data.DataView.DataView()
+  fullName: DataView.DataView()
   type: Constructor
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Initializes a new instance of the <xref href="System.Data.DataView"></xref> class.
   remarks: ''
@@ -178,6 +179,7 @@ items:
   overload: System.Data.DataView.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -190,6 +192,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -202,9 +205,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.#ctor(System.Data.DataTable)
   commentId: M:System.Data.DataView.#ctor(System.Data.DataTable)
   id: '#ctor(System.Data.DataTable)'
@@ -213,11 +213,12 @@ items:
   - csharp
   name: DataView(DataTable)
   nameWithType: DataView.DataView(DataTable)
-  fullName: System.Data.DataView.DataView(DataTable)
+  fullName: DataView.DataView(DataTable)
   type: Constructor
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Initializes a new instance of the <xref href="System.Data.DataView"></xref> class with the specified <xref href="System.Data.DataTable"></xref>.
   remarks: ''
@@ -232,6 +233,7 @@ items:
   overload: System.Data.DataView.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -244,6 +246,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -256,9 +259,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.#ctor(System.Data.DataTable,System.String,System.String,System.Data.DataViewRowState)
   commentId: M:System.Data.DataView.#ctor(System.Data.DataTable,System.String,System.String,System.Data.DataViewRowState)
   id: '#ctor(System.Data.DataTable,System.String,System.String,System.Data.DataViewRowState)'
@@ -267,11 +267,12 @@ items:
   - csharp
   name: DataView(DataTable, String, String, DataViewRowState)
   nameWithType: DataView.DataView(DataTable, String, String, DataViewRowState)
-  fullName: System.Data.DataView.DataView(DataTable, String, String, DataViewRowState)
+  fullName: DataView.DataView(DataTable, String, String, DataViewRowState)
   type: Constructor
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Initializes a new instance of the <xref href="System.Data.DataView"></xref> class with the specified <xref href="System.Data.DataTable"></xref>, <xref href="System.Data.DataView.RowFilter"></xref>, <xref href="System.Data.DataView.Sort"></xref>, and <xref href="System.Data.DataViewRowState"></xref>.
   remarks: ''
@@ -295,6 +296,7 @@ items:
   overload: System.Data.DataView.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -307,6 +309,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -319,9 +322,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.AddNew
   commentId: M:System.Data.DataView.AddNew
   id: AddNew
@@ -330,11 +330,12 @@ items:
   - csharp
   name: AddNew()
   nameWithType: DataView.AddNew()
-  fullName: System.Data.DataView.AddNew()
+  fullName: DataView.AddNew()
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Adds a new row to the <xref href="System.Data.DataView"></xref>.
   remarks: ''
@@ -349,6 +350,7 @@ items:
   overload: System.Data.DataView.AddNew*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -361,6 +363,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -373,9 +376,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.AllowDelete
   commentId: P:System.Data.DataView.AllowDelete
   id: AllowDelete
@@ -384,11 +384,12 @@ items:
   - csharp
   name: AllowDelete
   nameWithType: DataView.AllowDelete
-  fullName: System.Data.DataView.AllowDelete
+  fullName: DataView.AllowDelete
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Sets or gets a value that indicates whether deletes are allowed.
   remarks: ''
@@ -403,6 +404,7 @@ items:
   exceptions: []
   attributes: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -415,6 +417,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -427,9 +430,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.AllowEdit
   commentId: P:System.Data.DataView.AllowEdit
   id: AllowEdit
@@ -438,11 +438,12 @@ items:
   - csharp
   name: AllowEdit
   nameWithType: DataView.AllowEdit
-  fullName: System.Data.DataView.AllowEdit
+  fullName: DataView.AllowEdit
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Gets or sets a value that indicates whether edits are allowed.
   remarks: ''
@@ -457,6 +458,7 @@ items:
   exceptions: []
   attributes: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -469,6 +471,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -481,9 +484,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.AllowNew
   commentId: P:System.Data.DataView.AllowNew
   id: AllowNew
@@ -492,11 +492,12 @@ items:
   - csharp
   name: AllowNew
   nameWithType: DataView.AllowNew
-  fullName: System.Data.DataView.AllowNew
+  fullName: DataView.AllowNew
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Gets or sets a value that indicates whether the new rows can be added by using the <xref href="System.Data.DataView.AddNew"></xref> method.
   remarks: ''
@@ -511,6 +512,7 @@ items:
   exceptions: []
   attributes: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -523,6 +525,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -535,9 +538,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.ApplyDefaultSort
   commentId: P:System.Data.DataView.ApplyDefaultSort
   id: ApplyDefaultSort
@@ -546,11 +546,12 @@ items:
   - csharp
   name: ApplyDefaultSort
   nameWithType: DataView.ApplyDefaultSort
-  fullName: System.Data.DataView.ApplyDefaultSort
+  fullName: DataView.ApplyDefaultSort
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Gets or sets a value that indicates whether to use the default sort. The default sort is (ascending) by all primary keys as specified by <xref href="System.Data.DataTable.PrimaryKey"></xref>.
   syntax:
@@ -562,6 +563,7 @@ items:
   exceptions: []
   attributes: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -574,6 +576,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -586,9 +589,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.BeginInit
   commentId: M:System.Data.DataView.BeginInit
   id: BeginInit
@@ -597,11 +597,12 @@ items:
   - csharp
   name: BeginInit()
   nameWithType: DataView.BeginInit()
-  fullName: System.Data.DataView.BeginInit()
+  fullName: DataView.BeginInit()
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Starts the initialization of a <xref href="System.Data.DataView"></xref> that is used on a form or used by another component. The initialization occurs at runtime.
   remarks: The Visual Studio .NET design environment uses this method to start the initialization of a component that is used on a form or used by another component. The <xref:System.Data.DataView.EndInit%2A> method ends the initialization. Using the `BeginInit` and `EndInit` methods prevents the control from being used before it is fully initialized.
@@ -611,6 +612,7 @@ items:
   overload: System.Data.DataView.BeginInit*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -623,6 +625,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -635,9 +638,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.Close
   commentId: M:System.Data.DataView.Close
   id: Close
@@ -646,11 +646,12 @@ items:
   - csharp
   name: Close()
   nameWithType: DataView.Close()
-  fullName: System.Data.DataView.Close()
+  fullName: DataView.Close()
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Closes the <xref href="System.Data.DataView"></xref>.
   remarks: "The method lets you manually close the <xref:System.Data.DataView> in derived classes. Use the corresponding <xref:System.Data.DataView.Open%2A> method to open the <xref:System.Data.DataView>.  \n  \n This property is designed for internal use only."
@@ -660,6 +661,7 @@ items:
   overload: System.Data.DataView.Close*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -672,6 +674,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -684,9 +687,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.ColumnCollectionChanged(System.Object,System.ComponentModel.CollectionChangeEventArgs)
   commentId: M:System.Data.DataView.ColumnCollectionChanged(System.Object,System.ComponentModel.CollectionChangeEventArgs)
   id: ColumnCollectionChanged(System.Object,System.ComponentModel.CollectionChangeEventArgs)
@@ -695,11 +695,12 @@ items:
   - csharp
   name: ColumnCollectionChanged(Object, CollectionChangeEventArgs)
   nameWithType: DataView.ColumnCollectionChanged(Object, CollectionChangeEventArgs)
-  fullName: System.Data.DataView.ColumnCollectionChanged(Object, CollectionChangeEventArgs)
+  fullName: DataView.ColumnCollectionChanged(Object, CollectionChangeEventArgs)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Occurs after a <xref href="System.Data.DataColumnCollection"></xref> has been changed successfully.
   syntax:
@@ -714,6 +715,7 @@ items:
   overload: System.Data.DataView.ColumnCollectionChanged*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -726,6 +728,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -738,9 +741,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.CopyTo(System.Array,System.Int32)
   commentId: M:System.Data.DataView.CopyTo(System.Array,System.Int32)
   id: CopyTo(System.Array,System.Int32)
@@ -749,11 +749,12 @@ items:
   - csharp
   name: CopyTo(Array, Int32)
   nameWithType: DataView.CopyTo(Array, Int32)
-  fullName: System.Data.DataView.CopyTo(Array, Int32)
+  fullName: DataView.CopyTo(Array, Int32)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Copies items into an array. Only for Web Forms Interfaces.
   syntax:
@@ -768,6 +769,7 @@ items:
   overload: System.Data.DataView.CopyTo*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -780,6 +782,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -792,9 +795,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.Count
   commentId: P:System.Data.DataView.Count
   id: Count
@@ -803,11 +803,12 @@ items:
   - csharp
   name: Count
   nameWithType: DataView.Count
-  fullName: System.Data.DataView.Count
+  fullName: DataView.Count
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Gets the number of records in the <xref href="System.Data.DataView"></xref> after <xref href="System.Data.DataView.RowFilter"></xref> and <xref href="System.Data.DataView.RowStateFilter"></xref> have been applied.
   syntax:
@@ -823,6 +824,7 @@ items:
   attributes:
   - type: System.ComponentModel.BrowsableAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -835,6 +837,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -847,9 +850,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.DataViewManager
   commentId: P:System.Data.DataView.DataViewManager
   id: DataViewManager
@@ -858,11 +858,12 @@ items:
   - csharp
   name: DataViewManager
   nameWithType: DataView.DataViewManager
-  fullName: System.Data.DataView.DataViewManager
+  fullName: DataView.DataViewManager
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Gets the <xref href="System.Data.DataViewManager"></xref> associated with this view.
   syntax:
@@ -878,6 +879,7 @@ items:
   attributes:
   - type: System.ComponentModel.BrowsableAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -890,6 +892,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -902,9 +905,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.Delete(System.Int32)
   commentId: M:System.Data.DataView.Delete(System.Int32)
   id: Delete(System.Int32)
@@ -913,11 +913,12 @@ items:
   - csharp
   name: Delete(Int32)
   nameWithType: DataView.Delete(Int32)
-  fullName: System.Data.DataView.Delete(Int32)
+  fullName: DataView.Delete(Int32)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Deletes a row at the specified index.
   remarks: After deleting a <xref:System.Data.DataRow>, its state changes to `DataViewRowState.Deleted`. You can roll back the deletion by calling <xref:System.Data.DataTable.RejectChanges%2A> on the <xref:System.Data.DataTable>.
@@ -932,6 +933,7 @@ items:
   overload: System.Data.DataView.Delete*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -944,6 +946,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -956,9 +959,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.Dispose(System.Boolean)
   commentId: M:System.Data.DataView.Dispose(System.Boolean)
   id: Dispose(System.Boolean)
@@ -967,11 +967,12 @@ items:
   - csharp
   name: Dispose(Boolean)
   nameWithType: DataView.Dispose(Boolean)
-  fullName: System.Data.DataView.Dispose(Boolean)
+  fullName: DataView.Dispose(Boolean)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Disposes of the resources (other than memory) used by the <xref href="System.Data.DataView"></xref> object.
   remarks: Property change notifications between the <xref:System.Data.DataView> and the underlying <xref:System.Data.DataTable> stop after this method is called. <xref:System.Data.DataView.Dispose%2A> should be called for all <xref:System.Data.DataView> objects.
@@ -984,6 +985,7 @@ items:
   overload: System.Data.DataView.Dispose*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -996,6 +998,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1008,9 +1011,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.EndInit
   commentId: M:System.Data.DataView.EndInit
   id: EndInit
@@ -1019,11 +1019,12 @@ items:
   - csharp
   name: EndInit()
   nameWithType: DataView.EndInit()
-  fullName: System.Data.DataView.EndInit()
+  fullName: DataView.EndInit()
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Ends the initialization of a <xref href="System.Data.DataView"></xref> that is used on a form or used by another component. The initialization occurs at runtime.
   remarks: The Visual Studio .NET design environment uses this method to end the initialization of a component that is used on a form or used by another component. The <xref:System.Data.DataView.BeginInit%2A> method starts the initialization. Using the `BeginInit` and `EndInit` methods prevents the control from being used before it is fully initialized.
@@ -1033,6 +1034,7 @@ items:
   overload: System.Data.DataView.EndInit*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1045,6 +1047,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1057,9 +1060,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.Equals(System.Data.DataView)
   commentId: M:System.Data.DataView.Equals(System.Data.DataView)
   id: Equals(System.Data.DataView)
@@ -1068,11 +1068,12 @@ items:
   - csharp
   name: Equals(DataView)
   nameWithType: DataView.Equals(DataView)
-  fullName: System.Data.DataView.Equals(DataView)
+  fullName: DataView.Equals(DataView)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Determines whether the specified <xref href="System.Data.DataView"></xref> instances are considered equal.
   syntax:
@@ -1087,6 +1088,7 @@ items:
   overload: System.Data.DataView.Equals*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1099,6 +1101,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1111,9 +1114,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.Find(System.Object[])
   commentId: M:System.Data.DataView.Find(System.Object[])
   id: Find(System.Object[])
@@ -1122,11 +1122,12 @@ items:
   - csharp
   name: Find(Object[])
   nameWithType: DataView.Find(Object[])
-  fullName: System.Data.DataView.Find(Object[])
+  fullName: DataView.Find(Object[])
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Finds a row in the <xref href="System.Data.DataView"></xref> by the specified sort key values.
   remarks: ''
@@ -1144,6 +1145,7 @@ items:
   overload: System.Data.DataView.Find*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1156,6 +1158,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1168,9 +1171,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.Find(System.Object)
   commentId: M:System.Data.DataView.Find(System.Object)
   id: Find(System.Object)
@@ -1179,11 +1179,12 @@ items:
   - csharp
   name: Find(Object)
   nameWithType: DataView.Find(Object)
-  fullName: System.Data.DataView.Find(Object)
+  fullName: DataView.Find(Object)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Finds a row in the <xref href="System.Data.DataView"></xref> by the specified sort key value.
   remarks: ''
@@ -1201,6 +1202,7 @@ items:
   overload: System.Data.DataView.Find*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1213,6 +1215,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1225,9 +1228,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.FindRows(System.Object)
   commentId: M:System.Data.DataView.FindRows(System.Object)
   id: FindRows(System.Object)
@@ -1236,11 +1236,12 @@ items:
   - csharp
   name: FindRows(Object)
   nameWithType: DataView.FindRows(Object)
-  fullName: System.Data.DataView.FindRows(Object)
+  fullName: DataView.FindRows(Object)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Returns an array of <xref href="System.Data.DataRowView"></xref> objects whose columns match the specified sort key value.
   syntax:
@@ -1255,6 +1256,7 @@ items:
   overload: System.Data.DataView.FindRows*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1267,6 +1269,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1279,9 +1282,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.FindRows(System.Object[])
   commentId: M:System.Data.DataView.FindRows(System.Object[])
   id: FindRows(System.Object[])
@@ -1290,11 +1290,12 @@ items:
   - csharp
   name: FindRows(Object[])
   nameWithType: DataView.FindRows(Object[])
-  fullName: System.Data.DataView.FindRows(Object[])
+  fullName: DataView.FindRows(Object[])
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Returns an array of <xref href="System.Data.DataRowView"></xref> objects whose columns match the specified sort key value.
   syntax:
@@ -1309,6 +1310,7 @@ items:
   overload: System.Data.DataView.FindRows*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1321,6 +1323,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1333,9 +1336,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.GetEnumerator
   commentId: M:System.Data.DataView.GetEnumerator
   id: GetEnumerator
@@ -1344,11 +1344,12 @@ items:
   - csharp
   name: GetEnumerator()
   nameWithType: DataView.GetEnumerator()
-  fullName: System.Data.DataView.GetEnumerator()
+  fullName: DataView.GetEnumerator()
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Gets an enumerator for this <xref href="System.Data.DataView"></xref>.
   syntax:
@@ -1360,6 +1361,7 @@ items:
   overload: System.Data.DataView.GetEnumerator*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1372,6 +1374,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1384,9 +1387,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.IndexListChanged(System.Object,System.ComponentModel.ListChangedEventArgs)
   commentId: M:System.Data.DataView.IndexListChanged(System.Object,System.ComponentModel.ListChangedEventArgs)
   id: IndexListChanged(System.Object,System.ComponentModel.ListChangedEventArgs)
@@ -1395,11 +1395,12 @@ items:
   - csharp
   name: IndexListChanged(Object, ListChangedEventArgs)
   nameWithType: DataView.IndexListChanged(Object, ListChangedEventArgs)
-  fullName: System.Data.DataView.IndexListChanged(Object, ListChangedEventArgs)
+  fullName: DataView.IndexListChanged(Object, ListChangedEventArgs)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Occurs after a <xref href="System.Data.DataView"></xref> has been changed successfully.
   syntax:
@@ -1414,6 +1415,7 @@ items:
   overload: System.Data.DataView.IndexListChanged*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1426,6 +1428,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1438,9 +1441,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.Initialized
   commentId: E:System.Data.DataView.Initialized
   id: Initialized
@@ -1449,11 +1449,12 @@ items:
   - csharp
   name: Initialized
   nameWithType: DataView.Initialized
-  fullName: System.Data.DataView.Initialized
+  fullName: DataView.Initialized
   type: Event
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Occurs when initialization of the <xref href="System.Data.DataView"></xref> is completed.
   syntax:
@@ -1463,6 +1464,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1475,6 +1477,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1487,9 +1490,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.IsInitialized
   commentId: P:System.Data.DataView.IsInitialized
   id: IsInitialized
@@ -1498,11 +1498,12 @@ items:
   - csharp
   name: IsInitialized
   nameWithType: DataView.IsInitialized
-  fullName: System.Data.DataView.IsInitialized
+  fullName: DataView.IsInitialized
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Gets a value that indicates whether the component is initialized.
   syntax:
@@ -1518,6 +1519,7 @@ items:
   attributes:
   - type: System.ComponentModel.BrowsableAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1530,6 +1532,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1542,9 +1545,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.IsOpen
   commentId: P:System.Data.DataView.IsOpen
   id: IsOpen
@@ -1553,11 +1553,12 @@ items:
   - csharp
   name: IsOpen
   nameWithType: DataView.IsOpen
-  fullName: System.Data.DataView.IsOpen
+  fullName: DataView.IsOpen
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Gets a value that indicates whether the data source is currently open and projecting views of data on the <xref href="System.Data.DataTable"></xref>.
   remarks: "A <xref:System.Data.DataView> is a \"view\" on a <xref:System.Data.DataTable> because it provides custom sorting and filtering of the data. The <xref:System.Data.DataView.IsOpen%2A> property can be queried to determine whether a <xref:System.Data.DataView> has been opened by using the <xref:System.Data.DataView.Open%2A> method.  \n  \n This property is designed for internal use only."
@@ -1574,6 +1575,7 @@ items:
   attributes:
   - type: System.ComponentModel.BrowsableAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1586,6 +1588,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1598,9 +1601,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.Item(System.Int32)
   commentId: P:System.Data.DataView.Item(System.Int32)
   id: Item(System.Int32)
@@ -1609,11 +1609,12 @@ items:
   - csharp
   name: Item(Int32)
   nameWithType: DataView.Item(Int32)
-  fullName: System.Data.DataView.Item(Int32)
+  fullName: DataView.Item(Int32)
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Gets a row of data from a specified table.
   syntax:
@@ -1628,6 +1629,7 @@ items:
   overload: System.Data.DataView.Item*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1640,6 +1642,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1652,9 +1655,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.ListChanged
   commentId: E:System.Data.DataView.ListChanged
   id: ListChanged
@@ -1663,11 +1663,12 @@ items:
   - csharp
   name: ListChanged
   nameWithType: DataView.ListChanged
-  fullName: System.Data.DataView.ListChanged
+  fullName: DataView.ListChanged
   type: Event
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Occurs when the list managed by the <xref href="System.Data.DataView"></xref> changes.
   remarks: ''
@@ -1680,6 +1681,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1692,6 +1694,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1704,9 +1707,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.OnListChanged(System.ComponentModel.ListChangedEventArgs)
   commentId: M:System.Data.DataView.OnListChanged(System.ComponentModel.ListChangedEventArgs)
   id: OnListChanged(System.ComponentModel.ListChangedEventArgs)
@@ -1715,11 +1715,12 @@ items:
   - csharp
   name: OnListChanged(ListChangedEventArgs)
   nameWithType: DataView.OnListChanged(ListChangedEventArgs)
-  fullName: System.Data.DataView.OnListChanged(ListChangedEventArgs)
+  fullName: DataView.OnListChanged(ListChangedEventArgs)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Raises the <xref href="System.Data.DataView.ListChanged"></xref> event.
   syntax:
@@ -1731,6 +1732,7 @@ items:
   overload: System.Data.DataView.OnListChanged*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1743,6 +1745,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1755,9 +1758,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.Open
   commentId: M:System.Data.DataView.Open
   id: Open
@@ -1766,11 +1766,12 @@ items:
   - csharp
   name: Open()
   nameWithType: DataView.Open()
-  fullName: System.Data.DataView.Open()
+  fullName: DataView.Open()
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Opens a <xref href="System.Data.DataView"></xref>.
   remarks: "The method lets you manually open the <xref:System.Data.DataView> in derived classes. Use the corresponding <xref:System.Data.DataView.Close%2A> method to close the <xref:System.Data.DataView>.  \n  \n This property is designed for internal use only."
@@ -1780,6 +1781,7 @@ items:
   overload: System.Data.DataView.Open*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1792,6 +1794,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1804,9 +1807,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.Reset
   commentId: M:System.Data.DataView.Reset
   id: Reset
@@ -1815,11 +1815,12 @@ items:
   - csharp
   name: Reset()
   nameWithType: DataView.Reset()
-  fullName: System.Data.DataView.Reset()
+  fullName: DataView.Reset()
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Reserved for internal use only.
   syntax:
@@ -1828,6 +1829,7 @@ items:
   overload: System.Data.DataView.Reset*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1840,6 +1842,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1852,9 +1855,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.RowFilter
   commentId: P:System.Data.DataView.RowFilter
   id: RowFilter
@@ -1863,11 +1863,12 @@ items:
   - csharp
   name: RowFilter
   nameWithType: DataView.RowFilter
-  fullName: System.Data.DataView.RowFilter
+  fullName: DataView.RowFilter
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Gets or sets the expression used to filter which rows are viewed in the <xref href="System.Data.DataView"></xref>.
   remarks: "To form a <xref:System.Data.DataView.RowFilter%2A> value, specify the name of a column followed by an operator and a value to filter on. The value must be in quotation marks. For example:  \n  \n \"LastName = 'Smith'\"  \n  \n See the <xref:System.Data.DataColumn.Expression%2A> property of the <xref:System.Data.DataColumn> class for more information.  \n  \n To return only those columns with null values, use the following expression:  \n  \n \"Isnull(Col1,'Null Column') = 'Null Column'\""
@@ -1877,11 +1878,12 @@ items:
     content: public virtual string RowFilter { get; set; }
     return:
       type: System.String
-      description: A string that specifies how rows are to be filtered. For more information, see the Remarks section.
+      description: A string that specifies how rows are to be filtered.
   overload: System.Data.DataView.RowFilter*
   exceptions: []
   attributes: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1894,6 +1896,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1906,9 +1909,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.RowStateFilter
   commentId: P:System.Data.DataView.RowStateFilter
   id: RowStateFilter
@@ -1917,11 +1917,12 @@ items:
   - csharp
   name: RowStateFilter
   nameWithType: DataView.RowStateFilter
-  fullName: System.Data.DataView.RowStateFilter
+  fullName: DataView.RowStateFilter
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Gets or sets the row state filter used in the <xref href="System.Data.DataView"></xref>.
   remarks: "Only rows that have been deleted by using the <xref:System.Data.DataView.Delete%2A> method will have their <xref:System.Data.DataView.RowStateFilter%2A> value set to `Deleted`. Those rows added using the <xref:System.Data.DataView.AddNew%2A> method will similarly have the property set to `Added`.  \n  \n> [!NOTE]\n>  Using the <xref:System.Data.DataRowCollection.Remove%2A> method of the <xref:System.Data.DataRowCollection> class does not mean that a row will be marked as `Deleted`. Use the <xref:System.Data.DataView.Delete%2A> method instead to make sure that such rows can be viewed in the <xref:System.Data.DataView>.  \n  \n New rows will also be visible when the <xref:System.Data.DataView.RowStateFilter%2A> is set to `ModifiedCurrent` or `CurrentRows`.  \n  \n Deleted rows will also be visible when the <xref:System.Data.DataView.RowStateFilter%2A> is set to `ModifiedOriginal` and `OriginalRows`."
@@ -1936,6 +1937,7 @@ items:
   exceptions: []
   attributes: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1948,6 +1950,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1960,9 +1963,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.Sort
   commentId: P:System.Data.DataView.Sort
   id: Sort
@@ -1971,14 +1971,15 @@ items:
   - csharp
   name: Sort
   nameWithType: DataView.Sort
-  fullName: System.Data.DataView.Sort
+  fullName: DataView.Sort
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Gets or sets the sort column or columns, and sort order for the <xref href="System.Data.DataView"></xref>.
-  remarks: "If you do not explicitly specify sort criteria for `DataView`, the `DataRowView` objects in `DataView` are sorted based on the index of its corresponding `DataRow` in the `DataTable.Rows``DataRowCollection`.  \n  \n For more information, see [DataViews](~/docs/framework/data/adonet/dataset-datatable-dataview/dataviews.md)."
+  remarks: "If you do not explicitly specify sort criteria for `DataView`, the `DataRowView` objects in `DataView` are sorted based on the index of its corresponding `DataRow` in the `DataTable.Rows` `DataRowCollection`.  \n  \n For more information, see [DataViews](~/docs/framework/data/adonet/dataset-datatable-dataview/dataviews.md)."
   example:
   - "The following example instructs the <xref:System.Data.DataView> to sort the table by two columns.  \n  \n [!code-csharp[Classic WebData DataView.Sort Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData DataView.Sort Example/CS/source.cs#1)]\n [!code-vb[Classic WebData DataView.Sort Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData DataView.Sort Example/VB/source.vb#1)]"
   syntax:
@@ -1990,6 +1991,7 @@ items:
   exceptions: []
   attributes: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2002,6 +2004,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2014,9 +2017,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.Table
   commentId: P:System.Data.DataView.Table
   id: Table
@@ -2025,11 +2025,12 @@ items:
   - csharp
   name: Table
   nameWithType: DataView.Table
-  fullName: System.Data.DataView.Table
+  fullName: DataView.Table
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Gets or sets the source <xref href="System.Data.DataTable"></xref>.
   remarks: "The <xref:System.Data.DataTable> also has a <xref:System.Data.DataTable.DefaultView%2A> property which returns the default <xref:System.Data.DataView> for the table. For example, if you want to create a custom view on the table, set the <xref:System.Data.DataView.RowFilter%2A> on the <xref:System.Data.DataView> returned by the <xref:System.Data.DataTable.DefaultView%2A>.  \n  \n You can only set the <xref:System.Data.DataView.Table%2A> property if the current value is null."
@@ -2048,6 +2049,7 @@ items:
   attributes:
   - type: System.ComponentModel.TypeConverterAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2060,6 +2062,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2072,9 +2075,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.ToTable(System.Boolean,System.String[])
   commentId: M:System.Data.DataView.ToTable(System.Boolean,System.String[])
   id: ToTable(System.Boolean,System.String[])
@@ -2083,11 +2083,12 @@ items:
   - csharp
   name: ToTable(Boolean, String[])
   nameWithType: DataView.ToTable(Boolean, String[])
-  fullName: System.Data.DataView.ToTable(Boolean, String[])
+  fullName: DataView.ToTable(Boolean, String[])
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Creates and returns a new <xref href="System.Data.DataTable"></xref> based on rows in an existing <xref href="System.Data.DataView"></xref>.
   remarks: Because this method does not let you specify the name for the output <xref:System.Data.DataTable>, its name is the same as the name of the source <xref:System.Data.DataTable>.
@@ -2108,6 +2109,7 @@ items:
   overload: System.Data.DataView.ToTable*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2120,6 +2122,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2132,9 +2135,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.ToTable(System.String)
   commentId: M:System.Data.DataView.ToTable(System.String)
   id: ToTable(System.String)
@@ -2143,11 +2143,12 @@ items:
   - csharp
   name: ToTable(String)
   nameWithType: DataView.ToTable(String)
-  fullName: System.Data.DataView.ToTable(String)
+  fullName: DataView.ToTable(String)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Creates and returns a new <xref href="System.Data.DataTable"></xref> based on rows in an existing <xref href="System.Data.DataView"></xref>.
   remarks: Because this method does not let you specify a subset of available columns, the output table contains the same columns as the input table.
@@ -2165,6 +2166,7 @@ items:
   overload: System.Data.DataView.ToTable*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2177,6 +2179,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2189,9 +2192,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.ToTable(System.String,System.Boolean,System.String[])
   commentId: M:System.Data.DataView.ToTable(System.String,System.Boolean,System.String[])
   id: ToTable(System.String,System.Boolean,System.String[])
@@ -2200,11 +2200,12 @@ items:
   - csharp
   name: ToTable(String, Boolean, String[])
   nameWithType: DataView.ToTable(String, Boolean, String[])
-  fullName: System.Data.DataView.ToTable(String, Boolean, String[])
+  fullName: DataView.ToTable(String, Boolean, String[])
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Creates and returns a new <xref href="System.Data.DataTable"></xref> based on rows in an existing <xref href="System.Data.DataView"></xref>.
   remarks: Use this overloaded version of the <xref:System.Data.DataView.ToTable%2A> method if you have to retrieve distinct values in a subset of available columns, specifying a new name for the returned <xref:System.Data.DataTable>. If you do not need distinct rows or a subset of columns, see <xref:System.Data.DataView.ToTable%2A>.
@@ -2228,6 +2229,7 @@ items:
   overload: System.Data.DataView.ToTable*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2240,6 +2242,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2252,9 +2255,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.ToTable
   commentId: M:System.Data.DataView.ToTable
   id: ToTable
@@ -2263,11 +2263,12 @@ items:
   - csharp
   name: ToTable()
   nameWithType: DataView.ToTable()
-  fullName: System.Data.DataView.ToTable()
+  fullName: DataView.ToTable()
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Creates and returns a new <xref href="System.Data.DataTable"></xref> based on rows in an existing <xref href="System.Data.DataView"></xref>.
   remarks: Because this method does not let you specify the name for the output <xref:System.Data.DataTable>, its name is the same as the name of the source `DataTable`. Because this method does not let you specify a subset of available columns, the output table contains the same columns as the input table.
@@ -2282,6 +2283,7 @@ items:
   overload: System.Data.DataView.ToTable*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2294,6 +2296,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2306,9 +2309,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.UpdateIndex(System.Boolean)
   commentId: M:System.Data.DataView.UpdateIndex(System.Boolean)
   id: UpdateIndex(System.Boolean)
@@ -2317,11 +2317,12 @@ items:
   - csharp
   name: UpdateIndex(Boolean)
   nameWithType: DataView.UpdateIndex(Boolean)
-  fullName: System.Data.DataView.UpdateIndex(Boolean)
+  fullName: DataView.UpdateIndex(Boolean)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Reserved for internal use only.
   syntax:
@@ -2333,6 +2334,7 @@ items:
   overload: System.Data.DataView.UpdateIndex*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2345,6 +2347,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2357,9 +2360,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.UpdateIndex
   commentId: M:System.Data.DataView.UpdateIndex
   id: UpdateIndex
@@ -2368,11 +2368,12 @@ items:
   - csharp
   name: UpdateIndex()
   nameWithType: DataView.UpdateIndex()
-  fullName: System.Data.DataView.UpdateIndex()
+  fullName: DataView.UpdateIndex()
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: Reserved for internal use only.
   syntax:
@@ -2381,6 +2382,7 @@ items:
   overload: System.Data.DataView.UpdateIndex*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2393,6 +2395,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2405,9 +2408,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#Collections#ICollection#IsSynchronized
   commentId: P:System.Data.DataView.System#Collections#ICollection#IsSynchronized
   id: System#Collections#ICollection#IsSynchronized
@@ -2417,11 +2417,12 @@ items:
   - csharp
   name: ICollection.IsSynchronized
   nameWithType: DataView.ICollection.IsSynchronized
-  fullName: System.Data.DataView.ICollection.IsSynchronized
+  fullName: DataView.ICollection.IsSynchronized
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.Collections.ICollection.IsSynchronized"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.Collections.ICollection> interface.
@@ -2433,6 +2434,7 @@ items:
   overload: System.Data.DataView.System#Collections#ICollection#IsSynchronized*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2445,6 +2447,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2457,9 +2460,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#Collections#ICollection#SyncRoot
   commentId: P:System.Data.DataView.System#Collections#ICollection#SyncRoot
   id: System#Collections#ICollection#SyncRoot
@@ -2469,11 +2469,12 @@ items:
   - csharp
   name: ICollection.SyncRoot
   nameWithType: DataView.ICollection.SyncRoot
-  fullName: System.Data.DataView.ICollection.SyncRoot
+  fullName: DataView.ICollection.SyncRoot
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.Collections.ICollection.SyncRoot"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.Collections.ICollection> interface.
@@ -2485,6 +2486,7 @@ items:
   overload: System.Data.DataView.System#Collections#ICollection#SyncRoot*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2497,6 +2499,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2509,9 +2512,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#Collections#IList#Add(System.Object)
   commentId: M:System.Data.DataView.System#Collections#IList#Add(System.Object)
   id: System#Collections#IList#Add(System.Object)
@@ -2521,11 +2521,12 @@ items:
   - csharp
   name: IList.Add(Object)
   nameWithType: DataView.IList.Add(Object)
-  fullName: System.Data.DataView.IList.Add(Object)
+  fullName: DataView.IList.Add(Object)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.Collections.IList.Add(System.Object)"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.Collections.IList> interface.
@@ -2534,13 +2535,14 @@ items:
     parameters:
     - id: value
       type: System.Object
-      description: A <xref href="stem.Object"></xref> value.
+      description: A <xref href="System.Object"></xref> value.
     return:
       type: System.Int32
       description: For a description of this member, see <xref href="System.Collections.IList.Add(System.Object)"></xref>.
   overload: System.Data.DataView.System#Collections#IList#Add*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2553,6 +2555,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2565,9 +2568,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#Collections#IList#Clear
   commentId: M:System.Data.DataView.System#Collections#IList#Clear
   id: System#Collections#IList#Clear
@@ -2577,11 +2577,12 @@ items:
   - csharp
   name: IList.Clear()
   nameWithType: DataView.IList.Clear()
-  fullName: System.Data.DataView.IList.Clear()
+  fullName: DataView.IList.Clear()
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.Collections.IList.Clear"></xref>.
   remarks: This member is an explicit interface member implementation. The use of this member is not supported and will cause a <xref:System.ArgumentException>. Instead, use the Clear method on the <xref:System.Data.DataRowCollection> object returned by <xref:System.Data.DataTable.Rows%2A>.
@@ -2591,6 +2592,7 @@ items:
   overload: System.Data.DataView.System#Collections#IList#Clear*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2603,6 +2605,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2615,9 +2618,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#Collections#IList#Contains(System.Object)
   commentId: M:System.Data.DataView.System#Collections#IList#Contains(System.Object)
   id: System#Collections#IList#Contains(System.Object)
@@ -2627,11 +2627,12 @@ items:
   - csharp
   name: IList.Contains(Object)
   nameWithType: DataView.IList.Contains(Object)
-  fullName: System.Data.DataView.IList.Contains(Object)
+  fullName: DataView.IList.Contains(Object)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.Collections.IList.Contains(System.Object)"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.Collections.IList> interface.
@@ -2640,13 +2641,14 @@ items:
     parameters:
     - id: value
       type: System.Object
-      description: A <xref href="stem.Object"></xref> value.
+      description: A <xref href="System.Object"></xref> value.
     return:
       type: System.Boolean
       description: For a description of this member, see <xref href="System.Collections.IList.Contains(System.Object)"></xref>.
   overload: System.Data.DataView.System#Collections#IList#Contains*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2659,6 +2661,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2671,9 +2674,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#Collections#IList#IndexOf(System.Object)
   commentId: M:System.Data.DataView.System#Collections#IList#IndexOf(System.Object)
   id: System#Collections#IList#IndexOf(System.Object)
@@ -2683,11 +2683,12 @@ items:
   - csharp
   name: IList.IndexOf(Object)
   nameWithType: DataView.IList.IndexOf(Object)
-  fullName: System.Data.DataView.IList.IndexOf(Object)
+  fullName: DataView.IList.IndexOf(Object)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.Collections.IList.IndexOf(System.Object)"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.Collections.IList> interface.
@@ -2696,13 +2697,14 @@ items:
     parameters:
     - id: value
       type: System.Object
-      description: A <xref href="stem.Object"></xref> value.
+      description: A <xref href="System.Object"></xref> value.
     return:
       type: System.Int32
       description: For a description of this member, see <xref href="System.Collections.IList.IndexOf(System.Object)"></xref>.
   overload: System.Data.DataView.System#Collections#IList#IndexOf*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2715,6 +2717,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2727,9 +2730,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#Collections#IList#Insert(System.Int32,System.Object)
   commentId: M:System.Data.DataView.System#Collections#IList#Insert(System.Int32,System.Object)
   id: System#Collections#IList#Insert(System.Int32,System.Object)
@@ -2739,11 +2739,12 @@ items:
   - csharp
   name: IList.Insert(Int32, Object)
   nameWithType: DataView.IList.Insert(Int32, Object)
-  fullName: System.Data.DataView.IList.Insert(Int32, Object)
+  fullName: DataView.IList.Insert(Int32, Object)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.Collections.IList.Insert(System.Int32,System.Object)"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.Collections.IList> interface.
@@ -2752,13 +2753,14 @@ items:
     parameters:
     - id: index
       type: System.Int32
-      description: A <xref href="stem.Int32"></xref> value.
+      description: A <xref href="System.Int32"></xref> value.
     - id: value
       type: System.Object
-      description: A <xref href="stem.Object"></xref> value to be inserted.
+      description: A <xref href="System.Object"></xref> value to be inserted.
   overload: System.Data.DataView.System#Collections#IList#Insert*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2771,6 +2773,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2783,9 +2786,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#Collections#IList#IsFixedSize
   commentId: P:System.Data.DataView.System#Collections#IList#IsFixedSize
   id: System#Collections#IList#IsFixedSize
@@ -2795,11 +2795,12 @@ items:
   - csharp
   name: IList.IsFixedSize
   nameWithType: DataView.IList.IsFixedSize
-  fullName: System.Data.DataView.IList.IsFixedSize
+  fullName: DataView.IList.IsFixedSize
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.Collections.IList.IsFixedSize"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.Collections.IList> interface.
@@ -2811,6 +2812,7 @@ items:
   overload: System.Data.DataView.System#Collections#IList#IsFixedSize*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2823,6 +2825,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2835,9 +2838,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#Collections#IList#IsReadOnly
   commentId: P:System.Data.DataView.System#Collections#IList#IsReadOnly
   id: System#Collections#IList#IsReadOnly
@@ -2847,11 +2847,12 @@ items:
   - csharp
   name: IList.IsReadOnly
   nameWithType: DataView.IList.IsReadOnly
-  fullName: System.Data.DataView.IList.IsReadOnly
+  fullName: DataView.IList.IsReadOnly
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.Collections.IList.IsReadOnly"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.Collections.IList> interface.
@@ -2863,6 +2864,7 @@ items:
   overload: System.Data.DataView.System#Collections#IList#IsReadOnly*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2875,6 +2877,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2887,9 +2890,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#Collections#IList#Item(System.Int32)
   commentId: P:System.Data.DataView.System#Collections#IList#Item(System.Int32)
   id: System#Collections#IList#Item(System.Int32)
@@ -2899,11 +2899,12 @@ items:
   - csharp
   name: IList.Item(Int32)
   nameWithType: DataView.IList.Item(Int32)
-  fullName: System.Data.DataView.IList.Item(Int32)
+  fullName: DataView.IList.Item(Int32)
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.Collections.IList.Item(System.Int32)"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.Collections.IList> interface.
@@ -2912,13 +2913,14 @@ items:
     parameters:
     - id: recordIndex
       type: System.Int32
-      description: A <xref href="stem.Int32"></xref> value.
+      description: A <xref href="System.Int32"></xref> value.
     return:
       type: System.Object
       description: For a description of this member, see <xref href="System.Collections.IList.Item(System.Int32)"></xref>.
   overload: System.Data.DataView.System#Collections#IList#Item*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2931,6 +2933,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2943,9 +2946,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#Collections#IList#Remove(System.Object)
   commentId: M:System.Data.DataView.System#Collections#IList#Remove(System.Object)
   id: System#Collections#IList#Remove(System.Object)
@@ -2955,11 +2955,12 @@ items:
   - csharp
   name: IList.Remove(Object)
   nameWithType: DataView.IList.Remove(Object)
-  fullName: System.Data.DataView.IList.Remove(Object)
+  fullName: DataView.IList.Remove(Object)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.Collections.IList.Remove(System.Object)"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.Collections.IList> interface.
@@ -2968,10 +2969,11 @@ items:
     parameters:
     - id: value
       type: System.Object
-      description: A <xref href="stem.Object"></xref> value.
+      description: A <xref href="System.Object"></xref> value.
   overload: System.Data.DataView.System#Collections#IList#Remove*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2984,6 +2986,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2996,9 +2999,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#Collections#IList#RemoveAt(System.Int32)
   commentId: M:System.Data.DataView.System#Collections#IList#RemoveAt(System.Int32)
   id: System#Collections#IList#RemoveAt(System.Int32)
@@ -3008,11 +3008,12 @@ items:
   - csharp
   name: IList.RemoveAt(Int32)
   nameWithType: DataView.IList.RemoveAt(Int32)
-  fullName: System.Data.DataView.IList.RemoveAt(Int32)
+  fullName: DataView.IList.RemoveAt(Int32)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.Collections.IList.RemoveAt(System.Int32)"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.Collections.IList> interface.
@@ -3021,10 +3022,11 @@ items:
     parameters:
     - id: index
       type: System.Int32
-      description: A <xref href="stem.Int32"></xref> value.
+      description: A <xref href="System.Int32"></xref> value.
   overload: System.Data.DataView.System#Collections#IList#RemoveAt*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3037,6 +3039,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3049,9 +3052,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#AddIndex(System.ComponentModel.PropertyDescriptor)
   commentId: M:System.Data.DataView.System#ComponentModel#IBindingList#AddIndex(System.ComponentModel.PropertyDescriptor)
   id: System#ComponentModel#IBindingList#AddIndex(System.ComponentModel.PropertyDescriptor)
@@ -3061,11 +3061,12 @@ items:
   - csharp
   name: IBindingList.AddIndex(PropertyDescriptor)
   nameWithType: DataView.IBindingList.AddIndex(PropertyDescriptor)
-  fullName: System.Data.DataView.IBindingList.AddIndex(PropertyDescriptor)
+  fullName: DataView.IBindingList.AddIndex(PropertyDescriptor)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.IBindingList.AddIndex(System.ComponentModel.PropertyDescriptor)"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.IBindingList> interface.
@@ -3074,10 +3075,11 @@ items:
     parameters:
     - id: property
       type: System.ComponentModel.PropertyDescriptor
-      description: A <xref href="stem.ComponentModel.PropertyDescriptor"></xref> object.
+      description: A <xref href="System.ComponentModel.PropertyDescriptor"></xref> object.
   overload: System.Data.DataView.System#ComponentModel#IBindingList#AddIndex*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3090,6 +3092,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3102,9 +3105,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#AddNew
   commentId: M:System.Data.DataView.System#ComponentModel#IBindingList#AddNew
   id: System#ComponentModel#IBindingList#AddNew
@@ -3114,11 +3114,12 @@ items:
   - csharp
   name: IBindingList.AddNew()
   nameWithType: DataView.IBindingList.AddNew()
-  fullName: System.Data.DataView.IBindingList.AddNew()
+  fullName: DataView.IBindingList.AddNew()
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.IBindingList.AddNew"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.IBindingList> interface.
@@ -3131,6 +3132,7 @@ items:
   overload: System.Data.DataView.System#ComponentModel#IBindingList#AddNew*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3143,6 +3145,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3155,9 +3158,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#AllowEdit
   commentId: P:System.Data.DataView.System#ComponentModel#IBindingList#AllowEdit
   id: System#ComponentModel#IBindingList#AllowEdit
@@ -3167,11 +3167,12 @@ items:
   - csharp
   name: IBindingList.AllowEdit
   nameWithType: DataView.IBindingList.AllowEdit
-  fullName: System.Data.DataView.IBindingList.AllowEdit
+  fullName: DataView.IBindingList.AllowEdit
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.IBindingList.AllowEdit"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.IBindingList> interface.
@@ -3183,6 +3184,7 @@ items:
   overload: System.Data.DataView.System#ComponentModel#IBindingList#AllowEdit*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3195,6 +3197,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3207,9 +3210,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#AllowNew
   commentId: P:System.Data.DataView.System#ComponentModel#IBindingList#AllowNew
   id: System#ComponentModel#IBindingList#AllowNew
@@ -3219,11 +3219,12 @@ items:
   - csharp
   name: IBindingList.AllowNew
   nameWithType: DataView.IBindingList.AllowNew
-  fullName: System.Data.DataView.IBindingList.AllowNew
+  fullName: DataView.IBindingList.AllowNew
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.IBindingList.AllowNew"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.IBindingList> interface.
@@ -3235,6 +3236,7 @@ items:
   overload: System.Data.DataView.System#ComponentModel#IBindingList#AllowNew*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3247,6 +3249,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3259,9 +3262,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#AllowRemove
   commentId: P:System.Data.DataView.System#ComponentModel#IBindingList#AllowRemove
   id: System#ComponentModel#IBindingList#AllowRemove
@@ -3271,11 +3271,12 @@ items:
   - csharp
   name: IBindingList.AllowRemove
   nameWithType: DataView.IBindingList.AllowRemove
-  fullName: System.Data.DataView.IBindingList.AllowRemove
+  fullName: DataView.IBindingList.AllowRemove
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.IBindingList.AllowRemove"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.IBindingList> interface.
@@ -3287,6 +3288,7 @@ items:
   overload: System.Data.DataView.System#ComponentModel#IBindingList#AllowRemove*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3299,6 +3301,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3311,9 +3314,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#ApplySort(System.ComponentModel.PropertyDescriptor,System.ComponentModel.ListSortDirection)
   commentId: M:System.Data.DataView.System#ComponentModel#IBindingList#ApplySort(System.ComponentModel.PropertyDescriptor,System.ComponentModel.ListSortDirection)
   id: System#ComponentModel#IBindingList#ApplySort(System.ComponentModel.PropertyDescriptor,System.ComponentModel.ListSortDirection)
@@ -3323,11 +3323,12 @@ items:
   - csharp
   name: IBindingList.ApplySort(PropertyDescriptor, ListSortDirection)
   nameWithType: DataView.IBindingList.ApplySort(PropertyDescriptor, ListSortDirection)
-  fullName: System.Data.DataView.IBindingList.ApplySort(PropertyDescriptor, ListSortDirection)
+  fullName: DataView.IBindingList.ApplySort(PropertyDescriptor, ListSortDirection)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.IBindingList.ApplySort(System.ComponentModel.PropertyDescriptor,System.ComponentModel.ListSortDirection)"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.IBindingList> interface.
@@ -3336,13 +3337,14 @@ items:
     parameters:
     - id: property
       type: System.ComponentModel.PropertyDescriptor
-      description: A <xref href="stem.ComponentModel.PropertyDescriptor"></xref> object.
+      description: A <xref href="System.ComponentModel.PropertyDescriptor"></xref> object.
     - id: direction
       type: System.ComponentModel.ListSortDirection
-      description: A <xref href="stem.ComponentModel.ListSortDirection"></xref> object.
+      description: A <xref href="System.ComponentModel.ListSortDirection"></xref> object.
   overload: System.Data.DataView.System#ComponentModel#IBindingList#ApplySort*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3355,6 +3357,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3367,9 +3370,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#Find(System.ComponentModel.PropertyDescriptor,System.Object)
   commentId: M:System.Data.DataView.System#ComponentModel#IBindingList#Find(System.ComponentModel.PropertyDescriptor,System.Object)
   id: System#ComponentModel#IBindingList#Find(System.ComponentModel.PropertyDescriptor,System.Object)
@@ -3379,11 +3379,12 @@ items:
   - csharp
   name: IBindingList.Find(PropertyDescriptor, Object)
   nameWithType: DataView.IBindingList.Find(PropertyDescriptor, Object)
-  fullName: System.Data.DataView.IBindingList.Find(PropertyDescriptor, Object)
+  fullName: DataView.IBindingList.Find(PropertyDescriptor, Object)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.IBindingList.Find(System.ComponentModel.PropertyDescriptor,System.Object)"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.IBindingList> interface.
@@ -3392,16 +3393,17 @@ items:
     parameters:
     - id: property
       type: System.ComponentModel.PropertyDescriptor
-      description: A <xref href="stem.ComponentModel.PropertyDescriptor"></xref> object.
+      description: A <xref href="System.ComponentModel.PropertyDescriptor"></xref> object.
     - id: key
       type: System.Object
-      description: A <xref href="stem.Object"></xref> value.
+      description: A <xref href="System.Object"></xref> value.
     return:
       type: System.Int32
       description: For a description of this member, see <xref href="System.ComponentModel.IBindingList.Find(System.ComponentModel.PropertyDescriptor,System.Object)"></xref>.
   overload: System.Data.DataView.System#ComponentModel#IBindingList#Find*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3414,6 +3416,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3426,9 +3429,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#IsSorted
   commentId: P:System.Data.DataView.System#ComponentModel#IBindingList#IsSorted
   id: System#ComponentModel#IBindingList#IsSorted
@@ -3438,11 +3438,12 @@ items:
   - csharp
   name: IBindingList.IsSorted
   nameWithType: DataView.IBindingList.IsSorted
-  fullName: System.Data.DataView.IBindingList.IsSorted
+  fullName: DataView.IBindingList.IsSorted
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.IBindingList.IsSorted"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.IBindingList> interface.
@@ -3454,6 +3455,7 @@ items:
   overload: System.Data.DataView.System#ComponentModel#IBindingList#IsSorted*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3466,6 +3468,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3478,9 +3481,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#RemoveIndex(System.ComponentModel.PropertyDescriptor)
   commentId: M:System.Data.DataView.System#ComponentModel#IBindingList#RemoveIndex(System.ComponentModel.PropertyDescriptor)
   id: System#ComponentModel#IBindingList#RemoveIndex(System.ComponentModel.PropertyDescriptor)
@@ -3490,11 +3490,12 @@ items:
   - csharp
   name: IBindingList.RemoveIndex(PropertyDescriptor)
   nameWithType: DataView.IBindingList.RemoveIndex(PropertyDescriptor)
-  fullName: System.Data.DataView.IBindingList.RemoveIndex(PropertyDescriptor)
+  fullName: DataView.IBindingList.RemoveIndex(PropertyDescriptor)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.IBindingList.RemoveIndex(System.ComponentModel.PropertyDescriptor)"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.IBindingList> interface.
@@ -3503,10 +3504,11 @@ items:
     parameters:
     - id: property
       type: System.ComponentModel.PropertyDescriptor
-      description: A <xref href="stem.ComponentModel.PropertyDescriptor"></xref> object.
+      description: A <xref href="System.ComponentModel.PropertyDescriptor"></xref> object.
   overload: System.Data.DataView.System#ComponentModel#IBindingList#RemoveIndex*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3519,6 +3521,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3531,9 +3534,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#RemoveSort
   commentId: M:System.Data.DataView.System#ComponentModel#IBindingList#RemoveSort
   id: System#ComponentModel#IBindingList#RemoveSort
@@ -3543,11 +3543,12 @@ items:
   - csharp
   name: IBindingList.RemoveSort()
   nameWithType: DataView.IBindingList.RemoveSort()
-  fullName: System.Data.DataView.IBindingList.RemoveSort()
+  fullName: DataView.IBindingList.RemoveSort()
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.IBindingList.RemoveSort"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.IBindingList> interface.
@@ -3557,6 +3558,7 @@ items:
   overload: System.Data.DataView.System#ComponentModel#IBindingList#RemoveSort*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3569,6 +3571,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3581,9 +3584,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#SortDirection
   commentId: P:System.Data.DataView.System#ComponentModel#IBindingList#SortDirection
   id: System#ComponentModel#IBindingList#SortDirection
@@ -3593,11 +3593,12 @@ items:
   - csharp
   name: IBindingList.SortDirection
   nameWithType: DataView.IBindingList.SortDirection
-  fullName: System.Data.DataView.IBindingList.SortDirection
+  fullName: DataView.IBindingList.SortDirection
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.IBindingList.SortDirection"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.IBindingList> interface.
@@ -3609,6 +3610,7 @@ items:
   overload: System.Data.DataView.System#ComponentModel#IBindingList#SortDirection*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3621,6 +3623,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3633,9 +3636,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#SortProperty
   commentId: P:System.Data.DataView.System#ComponentModel#IBindingList#SortProperty
   id: System#ComponentModel#IBindingList#SortProperty
@@ -3645,11 +3645,12 @@ items:
   - csharp
   name: IBindingList.SortProperty
   nameWithType: DataView.IBindingList.SortProperty
-  fullName: System.Data.DataView.IBindingList.SortProperty
+  fullName: DataView.IBindingList.SortProperty
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.IBindingList.SortProperty"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.IBindingList> interface.
@@ -3661,6 +3662,7 @@ items:
   overload: System.Data.DataView.System#ComponentModel#IBindingList#SortProperty*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3673,6 +3675,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3685,9 +3688,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#SupportsChangeNotification
   commentId: P:System.Data.DataView.System#ComponentModel#IBindingList#SupportsChangeNotification
   id: System#ComponentModel#IBindingList#SupportsChangeNotification
@@ -3697,11 +3697,12 @@ items:
   - csharp
   name: IBindingList.SupportsChangeNotification
   nameWithType: DataView.IBindingList.SupportsChangeNotification
-  fullName: System.Data.DataView.IBindingList.SupportsChangeNotification
+  fullName: DataView.IBindingList.SupportsChangeNotification
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.IBindingList.SupportsChangeNotification"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.IBindingList> interface.
@@ -3713,6 +3714,7 @@ items:
   overload: System.Data.DataView.System#ComponentModel#IBindingList#SupportsChangeNotification*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3725,6 +3727,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3737,9 +3740,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#SupportsSearching
   commentId: P:System.Data.DataView.System#ComponentModel#IBindingList#SupportsSearching
   id: System#ComponentModel#IBindingList#SupportsSearching
@@ -3749,11 +3749,12 @@ items:
   - csharp
   name: IBindingList.SupportsSearching
   nameWithType: DataView.IBindingList.SupportsSearching
-  fullName: System.Data.DataView.IBindingList.SupportsSearching
+  fullName: DataView.IBindingList.SupportsSearching
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.IBindingList.SupportsSearching"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.IBindingList> interface.
@@ -3765,6 +3766,7 @@ items:
   overload: System.Data.DataView.System#ComponentModel#IBindingList#SupportsSearching*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3777,6 +3779,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3789,9 +3792,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#SupportsSorting
   commentId: P:System.Data.DataView.System#ComponentModel#IBindingList#SupportsSorting
   id: System#ComponentModel#IBindingList#SupportsSorting
@@ -3801,11 +3801,12 @@ items:
   - csharp
   name: IBindingList.SupportsSorting
   nameWithType: DataView.IBindingList.SupportsSorting
-  fullName: System.Data.DataView.IBindingList.SupportsSorting
+  fullName: DataView.IBindingList.SupportsSorting
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.IBindingList.SupportsSorting"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.IBindingList> interface.
@@ -3817,6 +3818,7 @@ items:
   overload: System.Data.DataView.System#ComponentModel#IBindingList#SupportsSorting*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3829,6 +3831,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3841,9 +3844,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#IBindingListView#ApplySort(System.ComponentModel.ListSortDescriptionCollection)
   commentId: M:System.Data.DataView.System#ComponentModel#IBindingListView#ApplySort(System.ComponentModel.ListSortDescriptionCollection)
   id: System#ComponentModel#IBindingListView#ApplySort(System.ComponentModel.ListSortDescriptionCollection)
@@ -3853,11 +3853,12 @@ items:
   - csharp
   name: IBindingListView.ApplySort(ListSortDescriptionCollection)
   nameWithType: DataView.IBindingListView.ApplySort(ListSortDescriptionCollection)
-  fullName: System.Data.DataView.IBindingListView.ApplySort(ListSortDescriptionCollection)
+  fullName: DataView.IBindingListView.ApplySort(ListSortDescriptionCollection)
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.IBindingListView.ApplySort(System.ComponentModel.ListSortDescriptionCollection)"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.IBindingListView> interface.
@@ -3866,10 +3867,11 @@ items:
     parameters:
     - id: sorts
       type: System.ComponentModel.ListSortDescriptionCollection
-      description: A <xref href="stem.ComponentModel.ListSortDescriptionCollection"></xref> object.
+      description: A <xref href="System.ComponentModel.ListSortDescriptionCollection"></xref> object.
   overload: System.Data.DataView.System#ComponentModel#IBindingListView#ApplySort*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3882,6 +3884,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3894,9 +3897,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#IBindingListView#Filter
   commentId: P:System.Data.DataView.System#ComponentModel#IBindingListView#Filter
   id: System#ComponentModel#IBindingListView#Filter
@@ -3906,11 +3906,12 @@ items:
   - csharp
   name: IBindingListView.Filter
   nameWithType: DataView.IBindingListView.Filter
-  fullName: System.Data.DataView.IBindingListView.Filter
+  fullName: DataView.IBindingListView.Filter
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.IBindingListView.Filter"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.IBindingListView> interface.
@@ -3922,6 +3923,7 @@ items:
   overload: System.Data.DataView.System#ComponentModel#IBindingListView#Filter*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3934,6 +3936,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3946,9 +3949,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#IBindingListView#RemoveFilter
   commentId: M:System.Data.DataView.System#ComponentModel#IBindingListView#RemoveFilter
   id: System#ComponentModel#IBindingListView#RemoveFilter
@@ -3958,11 +3958,12 @@ items:
   - csharp
   name: IBindingListView.RemoveFilter()
   nameWithType: DataView.IBindingListView.RemoveFilter()
-  fullName: System.Data.DataView.IBindingListView.RemoveFilter()
+  fullName: DataView.IBindingListView.RemoveFilter()
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.IBindingListView.RemoveFilter"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.IBindingListView> interface.
@@ -3972,6 +3973,7 @@ items:
   overload: System.Data.DataView.System#ComponentModel#IBindingListView#RemoveFilter*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3984,6 +3986,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3996,9 +3999,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#IBindingListView#SortDescriptions
   commentId: P:System.Data.DataView.System#ComponentModel#IBindingListView#SortDescriptions
   id: System#ComponentModel#IBindingListView#SortDescriptions
@@ -4008,11 +4008,12 @@ items:
   - csharp
   name: IBindingListView.SortDescriptions
   nameWithType: DataView.IBindingListView.SortDescriptions
-  fullName: System.Data.DataView.IBindingListView.SortDescriptions
+  fullName: DataView.IBindingListView.SortDescriptions
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.IBindingListView.SortDescriptions"></xref>.
   remarks: This member is an explicit interface member implementation. The use of this member is not supported and will cause a <xref:System.ArgumentException>. Instead, use the Clear method on the <xref:System.Data.DataRowCollection> object returned by <xref:System.Data.DataTable.Rows%2A>.
@@ -4024,6 +4025,7 @@ items:
   overload: System.Data.DataView.System#ComponentModel#IBindingListView#SortDescriptions*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4036,6 +4038,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4048,9 +4051,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#IBindingListView#SupportsAdvancedSorting
   commentId: P:System.Data.DataView.System#ComponentModel#IBindingListView#SupportsAdvancedSorting
   id: System#ComponentModel#IBindingListView#SupportsAdvancedSorting
@@ -4060,11 +4060,12 @@ items:
   - csharp
   name: IBindingListView.SupportsAdvancedSorting
   nameWithType: DataView.IBindingListView.SupportsAdvancedSorting
-  fullName: System.Data.DataView.IBindingListView.SupportsAdvancedSorting
+  fullName: DataView.IBindingListView.SupportsAdvancedSorting
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.IBindingListView.SupportsAdvancedSorting"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.IBindingListView> interface.
@@ -4076,6 +4077,7 @@ items:
   overload: System.Data.DataView.System#ComponentModel#IBindingListView#SupportsAdvancedSorting*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4088,6 +4090,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4100,9 +4103,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#IBindingListView#SupportsFiltering
   commentId: P:System.Data.DataView.System#ComponentModel#IBindingListView#SupportsFiltering
   id: System#ComponentModel#IBindingListView#SupportsFiltering
@@ -4112,11 +4112,12 @@ items:
   - csharp
   name: IBindingListView.SupportsFiltering
   nameWithType: DataView.IBindingListView.SupportsFiltering
-  fullName: System.Data.DataView.IBindingListView.SupportsFiltering
+  fullName: DataView.IBindingListView.SupportsFiltering
   type: Property
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.IBindingListView.SupportsFiltering"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.IBindingListView> interface.
@@ -4128,6 +4129,7 @@ items:
   overload: System.Data.DataView.System#ComponentModel#IBindingListView#SupportsFiltering*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4140,6 +4142,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4152,9 +4155,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#ITypedList#GetItemProperties(System.ComponentModel.PropertyDescriptor[])
   commentId: M:System.Data.DataView.System#ComponentModel#ITypedList#GetItemProperties(System.ComponentModel.PropertyDescriptor[])
   id: System#ComponentModel#ITypedList#GetItemProperties(System.ComponentModel.PropertyDescriptor[])
@@ -4164,11 +4164,12 @@ items:
   - csharp
   name: ITypedList.GetItemProperties(PropertyDescriptor[])
   nameWithType: DataView.ITypedList.GetItemProperties(PropertyDescriptor[])
-  fullName: System.Data.DataView.ITypedList.GetItemProperties(PropertyDescriptor[])
+  fullName: DataView.ITypedList.GetItemProperties(PropertyDescriptor[])
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.ITypedList.GetItemProperties(System.ComponentModel.PropertyDescriptor[])"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.ITypedList> interface.
@@ -4184,6 +4185,7 @@ items:
   overload: System.Data.DataView.System#ComponentModel#ITypedList#GetItemProperties*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4196,6 +4198,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4208,9 +4211,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.DataView.System#ComponentModel#ITypedList#GetListName(System.ComponentModel.PropertyDescriptor[])
   commentId: M:System.Data.DataView.System#ComponentModel#ITypedList#GetListName(System.ComponentModel.PropertyDescriptor[])
   id: System#ComponentModel#ITypedList#GetListName(System.ComponentModel.PropertyDescriptor[])
@@ -4220,11 +4220,12 @@ items:
   - csharp
   name: ITypedList.GetListName(PropertyDescriptor[])
   nameWithType: DataView.ITypedList.GetListName(PropertyDescriptor[])
-  fullName: System.Data.DataView.ITypedList.GetListName(PropertyDescriptor[])
+  fullName: DataView.ITypedList.GetListName(PropertyDescriptor[])
   type: Method
   assemblies:
   - System.Data
   - netstandard
+  - System.Data.Common
   namespace: System.Data
   summary: For a description of this member, see <xref href="System.ComponentModel.ITypedList.GetListName(System.ComponentModel.PropertyDescriptor[])"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Data.DataView> instance is cast to an <xref:System.ComponentModel.ITypedList> interface.
@@ -4233,13 +4234,14 @@ items:
     parameters:
     - id: listAccessors
       type: System.ComponentModel.PropertyDescriptor[]
-      description: An array of <xref href="stem.ComponentModel.PropertyDescriptor"></xref> objects.
+      description: An array of <xref href="System.ComponentModel.PropertyDescriptor"></xref> objects.
     return:
       type: System.String
       description: For a description of this member, see <xref href="System.ComponentModel.ITypedList.GetListName(System.ComponentModel.PropertyDescriptor[])"></xref>.
   overload: System.Data.DataView.System#ComponentModel#ITypedList#GetListName*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4252,6 +4254,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4264,9 +4267,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data/DataView.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 references:
 - uid: System.ComponentModel.MarshalByValueComponent
   parent: System.ComponentModel
@@ -4279,13 +4279,13 @@ references:
   isExternal: false
   name: DataView()
   nameWithType: DataView.DataView()
-  fullName: System.Data.DataView.DataView()
+  fullName: DataView.DataView()
 - uid: System.Data.DataView.#ctor(System.Data.DataTable)
   parent: System.Data.DataView
   isExternal: false
   name: DataView(DataTable)
   nameWithType: DataView.DataView(DataTable)
-  fullName: System.Data.DataView.DataView(DataTable)
+  fullName: DataView.DataView(DataTable)
 - uid: System.Data.DataTable
   parent: System.Data
   isExternal: false
@@ -4297,7 +4297,7 @@ references:
   isExternal: false
   name: DataView(DataTable, String, String, DataViewRowState)
   nameWithType: DataView.DataView(DataTable, String, String, DataViewRowState)
-  fullName: System.Data.DataView.DataView(DataTable, String, String, DataViewRowState)
+  fullName: DataView.DataView(DataTable, String, String, DataViewRowState)
 - uid: System.String
   parent: System
   isExternal: false
@@ -4315,7 +4315,7 @@ references:
   isExternal: false
   name: AddNew()
   nameWithType: DataView.AddNew()
-  fullName: System.Data.DataView.AddNew()
+  fullName: DataView.AddNew()
 - uid: System.Data.DataRowView
   parent: System.Data
   isExternal: false
@@ -4327,7 +4327,7 @@ references:
   isExternal: false
   name: AllowDelete
   nameWithType: DataView.AllowDelete
-  fullName: System.Data.DataView.AllowDelete
+  fullName: DataView.AllowDelete
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -4339,37 +4339,37 @@ references:
   isExternal: false
   name: AllowEdit
   nameWithType: DataView.AllowEdit
-  fullName: System.Data.DataView.AllowEdit
+  fullName: DataView.AllowEdit
 - uid: System.Data.DataView.AllowNew
   parent: System.Data.DataView
   isExternal: false
   name: AllowNew
   nameWithType: DataView.AllowNew
-  fullName: System.Data.DataView.AllowNew
+  fullName: DataView.AllowNew
 - uid: System.Data.DataView.ApplyDefaultSort
   parent: System.Data.DataView
   isExternal: false
   name: ApplyDefaultSort
   nameWithType: DataView.ApplyDefaultSort
-  fullName: System.Data.DataView.ApplyDefaultSort
+  fullName: DataView.ApplyDefaultSort
 - uid: System.Data.DataView.BeginInit
   parent: System.Data.DataView
   isExternal: false
   name: BeginInit()
   nameWithType: DataView.BeginInit()
-  fullName: System.Data.DataView.BeginInit()
+  fullName: DataView.BeginInit()
 - uid: System.Data.DataView.Close
   parent: System.Data.DataView
   isExternal: false
   name: Close()
   nameWithType: DataView.Close()
-  fullName: System.Data.DataView.Close()
+  fullName: DataView.Close()
 - uid: System.Data.DataView.ColumnCollectionChanged(System.Object,System.ComponentModel.CollectionChangeEventArgs)
   parent: System.Data.DataView
   isExternal: false
   name: ColumnCollectionChanged(Object, CollectionChangeEventArgs)
   nameWithType: DataView.ColumnCollectionChanged(Object, CollectionChangeEventArgs)
-  fullName: System.Data.DataView.ColumnCollectionChanged(Object, CollectionChangeEventArgs)
+  fullName: DataView.ColumnCollectionChanged(Object, CollectionChangeEventArgs)
 - uid: System.Object
   parent: System
   isExternal: false
@@ -4387,7 +4387,7 @@ references:
   isExternal: false
   name: CopyTo(Array, Int32)
   nameWithType: DataView.CopyTo(Array, Int32)
-  fullName: System.Data.DataView.CopyTo(Array, Int32)
+  fullName: DataView.CopyTo(Array, Int32)
 - uid: System.Array
   parent: System
   isExternal: false
@@ -4405,13 +4405,13 @@ references:
   isExternal: false
   name: Count
   nameWithType: DataView.Count
-  fullName: System.Data.DataView.Count
+  fullName: DataView.Count
 - uid: System.Data.DataView.DataViewManager
   parent: System.Data.DataView
   isExternal: false
   name: DataViewManager
   nameWithType: DataView.DataViewManager
-  fullName: System.Data.DataView.DataViewManager
+  fullName: DataView.DataViewManager
 - uid: System.Data.DataViewManager
   parent: System.Data
   isExternal: false
@@ -4423,25 +4423,25 @@ references:
   isExternal: false
   name: Delete(Int32)
   nameWithType: DataView.Delete(Int32)
-  fullName: System.Data.DataView.Delete(Int32)
+  fullName: DataView.Delete(Int32)
 - uid: System.Data.DataView.Dispose(System.Boolean)
   parent: System.Data.DataView
   isExternal: false
   name: Dispose(Boolean)
   nameWithType: DataView.Dispose(Boolean)
-  fullName: System.Data.DataView.Dispose(Boolean)
+  fullName: DataView.Dispose(Boolean)
 - uid: System.Data.DataView.EndInit
   parent: System.Data.DataView
   isExternal: false
   name: EndInit()
   nameWithType: DataView.EndInit()
-  fullName: System.Data.DataView.EndInit()
+  fullName: DataView.EndInit()
 - uid: System.Data.DataView.Equals(System.Data.DataView)
   parent: System.Data.DataView
   isExternal: false
   name: Equals(DataView)
   nameWithType: DataView.Equals(DataView)
-  fullName: System.Data.DataView.Equals(DataView)
+  fullName: DataView.Equals(DataView)
 - uid: System.Data.DataView
   parent: System.Data
   isExternal: false
@@ -4453,7 +4453,7 @@ references:
   isExternal: false
   name: Find(Object[])
   nameWithType: DataView.Find(Object[])
-  fullName: System.Data.DataView.Find(Object[])
+  fullName: DataView.Find(Object[])
 - uid: System.Object[]
   parent: System
   isExternal: false
@@ -4473,13 +4473,13 @@ references:
   isExternal: false
   name: Find(Object)
   nameWithType: DataView.Find(Object)
-  fullName: System.Data.DataView.Find(Object)
+  fullName: DataView.Find(Object)
 - uid: System.Data.DataView.FindRows(System.Object)
   parent: System.Data.DataView
   isExternal: false
   name: FindRows(Object)
   nameWithType: DataView.FindRows(Object)
-  fullName: System.Data.DataView.FindRows(Object)
+  fullName: DataView.FindRows(Object)
 - uid: System.Data.DataRowView[]
   parent: System.Data
   isExternal: false
@@ -4499,13 +4499,13 @@ references:
   isExternal: false
   name: FindRows(Object[])
   nameWithType: DataView.FindRows(Object[])
-  fullName: System.Data.DataView.FindRows(Object[])
+  fullName: DataView.FindRows(Object[])
 - uid: System.Data.DataView.GetEnumerator
   parent: System.Data.DataView
   isExternal: false
   name: GetEnumerator()
   nameWithType: DataView.GetEnumerator()
-  fullName: System.Data.DataView.GetEnumerator()
+  fullName: DataView.GetEnumerator()
 - uid: System.Collections.IEnumerator
   parent: System.Collections
   isExternal: false
@@ -4517,7 +4517,7 @@ references:
   isExternal: false
   name: IndexListChanged(Object, ListChangedEventArgs)
   nameWithType: DataView.IndexListChanged(Object, ListChangedEventArgs)
-  fullName: System.Data.DataView.IndexListChanged(Object, ListChangedEventArgs)
+  fullName: DataView.IndexListChanged(Object, ListChangedEventArgs)
 - uid: System.ComponentModel.ListChangedEventArgs
   parent: System.ComponentModel
   isExternal: false
@@ -4529,7 +4529,7 @@ references:
   isExternal: false
   name: Initialized
   nameWithType: DataView.Initialized
-  fullName: System.Data.DataView.Initialized
+  fullName: DataView.Initialized
 - uid: System.EventHandler
   parent: System
   isExternal: false
@@ -4541,25 +4541,25 @@ references:
   isExternal: false
   name: IsInitialized
   nameWithType: DataView.IsInitialized
-  fullName: System.Data.DataView.IsInitialized
+  fullName: DataView.IsInitialized
 - uid: System.Data.DataView.IsOpen
   parent: System.Data.DataView
   isExternal: false
   name: IsOpen
   nameWithType: DataView.IsOpen
-  fullName: System.Data.DataView.IsOpen
+  fullName: DataView.IsOpen
 - uid: System.Data.DataView.Item(System.Int32)
   parent: System.Data.DataView
   isExternal: false
   name: Item(Int32)
   nameWithType: DataView.Item(Int32)
-  fullName: System.Data.DataView.Item(Int32)
+  fullName: DataView.Item(Int32)
 - uid: System.Data.DataView.ListChanged
   parent: System.Data.DataView
   isExternal: false
   name: ListChanged
   nameWithType: DataView.ListChanged
-  fullName: System.Data.DataView.ListChanged
+  fullName: DataView.ListChanged
 - uid: System.ComponentModel.ListChangedEventHandler
   parent: System.ComponentModel
   isExternal: false
@@ -4571,49 +4571,49 @@ references:
   isExternal: false
   name: OnListChanged(ListChangedEventArgs)
   nameWithType: DataView.OnListChanged(ListChangedEventArgs)
-  fullName: System.Data.DataView.OnListChanged(ListChangedEventArgs)
+  fullName: DataView.OnListChanged(ListChangedEventArgs)
 - uid: System.Data.DataView.Open
   parent: System.Data.DataView
   isExternal: false
   name: Open()
   nameWithType: DataView.Open()
-  fullName: System.Data.DataView.Open()
+  fullName: DataView.Open()
 - uid: System.Data.DataView.Reset
   parent: System.Data.DataView
   isExternal: false
   name: Reset()
   nameWithType: DataView.Reset()
-  fullName: System.Data.DataView.Reset()
+  fullName: DataView.Reset()
 - uid: System.Data.DataView.RowFilter
   parent: System.Data.DataView
   isExternal: false
   name: RowFilter
   nameWithType: DataView.RowFilter
-  fullName: System.Data.DataView.RowFilter
+  fullName: DataView.RowFilter
 - uid: System.Data.DataView.RowStateFilter
   parent: System.Data.DataView
   isExternal: false
   name: RowStateFilter
   nameWithType: DataView.RowStateFilter
-  fullName: System.Data.DataView.RowStateFilter
+  fullName: DataView.RowStateFilter
 - uid: System.Data.DataView.Sort
   parent: System.Data.DataView
   isExternal: false
   name: Sort
   nameWithType: DataView.Sort
-  fullName: System.Data.DataView.Sort
+  fullName: DataView.Sort
 - uid: System.Data.DataView.Table
   parent: System.Data.DataView
   isExternal: false
   name: Table
   nameWithType: DataView.Table
-  fullName: System.Data.DataView.Table
+  fullName: DataView.Table
 - uid: System.Data.DataView.ToTable(System.Boolean,System.String[])
   parent: System.Data.DataView
   isExternal: false
   name: ToTable(Boolean, String[])
   nameWithType: DataView.ToTable(Boolean, String[])
-  fullName: System.Data.DataView.ToTable(Boolean, String[])
+  fullName: DataView.ToTable(Boolean, String[])
 - uid: System.String[]
   parent: System
   isExternal: false
@@ -4633,109 +4633,109 @@ references:
   isExternal: false
   name: ToTable(String)
   nameWithType: DataView.ToTable(String)
-  fullName: System.Data.DataView.ToTable(String)
+  fullName: DataView.ToTable(String)
 - uid: System.Data.DataView.ToTable(System.String,System.Boolean,System.String[])
   parent: System.Data.DataView
   isExternal: false
   name: ToTable(String, Boolean, String[])
   nameWithType: DataView.ToTable(String, Boolean, String[])
-  fullName: System.Data.DataView.ToTable(String, Boolean, String[])
+  fullName: DataView.ToTable(String, Boolean, String[])
 - uid: System.Data.DataView.ToTable
   parent: System.Data.DataView
   isExternal: false
   name: ToTable()
   nameWithType: DataView.ToTable()
-  fullName: System.Data.DataView.ToTable()
+  fullName: DataView.ToTable()
 - uid: System.Data.DataView.UpdateIndex(System.Boolean)
   parent: System.Data.DataView
   isExternal: false
   name: UpdateIndex(Boolean)
   nameWithType: DataView.UpdateIndex(Boolean)
-  fullName: System.Data.DataView.UpdateIndex(Boolean)
+  fullName: DataView.UpdateIndex(Boolean)
 - uid: System.Data.DataView.UpdateIndex
   parent: System.Data.DataView
   isExternal: false
   name: UpdateIndex()
   nameWithType: DataView.UpdateIndex()
-  fullName: System.Data.DataView.UpdateIndex()
+  fullName: DataView.UpdateIndex()
 - uid: System.Data.DataView.System#Collections#ICollection#IsSynchronized
   parent: System.Data.DataView
   isExternal: false
   name: ICollection.IsSynchronized
   nameWithType: DataView.ICollection.IsSynchronized
-  fullName: System.Data.DataView.ICollection.IsSynchronized
+  fullName: DataView.ICollection.IsSynchronized
 - uid: System.Data.DataView.System#Collections#ICollection#SyncRoot
   parent: System.Data.DataView
   isExternal: false
   name: ICollection.SyncRoot
   nameWithType: DataView.ICollection.SyncRoot
-  fullName: System.Data.DataView.ICollection.SyncRoot
+  fullName: DataView.ICollection.SyncRoot
 - uid: System.Data.DataView.System#Collections#IList#Add(System.Object)
   parent: System.Data.DataView
   isExternal: false
   name: IList.Add(Object)
   nameWithType: DataView.IList.Add(Object)
-  fullName: System.Data.DataView.IList.Add(Object)
+  fullName: DataView.IList.Add(Object)
 - uid: System.Data.DataView.System#Collections#IList#Clear
   parent: System.Data.DataView
   isExternal: false
   name: IList.Clear()
   nameWithType: DataView.IList.Clear()
-  fullName: System.Data.DataView.IList.Clear()
+  fullName: DataView.IList.Clear()
 - uid: System.Data.DataView.System#Collections#IList#Contains(System.Object)
   parent: System.Data.DataView
   isExternal: false
   name: IList.Contains(Object)
   nameWithType: DataView.IList.Contains(Object)
-  fullName: System.Data.DataView.IList.Contains(Object)
+  fullName: DataView.IList.Contains(Object)
 - uid: System.Data.DataView.System#Collections#IList#IndexOf(System.Object)
   parent: System.Data.DataView
   isExternal: false
   name: IList.IndexOf(Object)
   nameWithType: DataView.IList.IndexOf(Object)
-  fullName: System.Data.DataView.IList.IndexOf(Object)
+  fullName: DataView.IList.IndexOf(Object)
 - uid: System.Data.DataView.System#Collections#IList#Insert(System.Int32,System.Object)
   parent: System.Data.DataView
   isExternal: false
   name: IList.Insert(Int32, Object)
   nameWithType: DataView.IList.Insert(Int32, Object)
-  fullName: System.Data.DataView.IList.Insert(Int32, Object)
+  fullName: DataView.IList.Insert(Int32, Object)
 - uid: System.Data.DataView.System#Collections#IList#IsFixedSize
   parent: System.Data.DataView
   isExternal: false
   name: IList.IsFixedSize
   nameWithType: DataView.IList.IsFixedSize
-  fullName: System.Data.DataView.IList.IsFixedSize
+  fullName: DataView.IList.IsFixedSize
 - uid: System.Data.DataView.System#Collections#IList#IsReadOnly
   parent: System.Data.DataView
   isExternal: false
   name: IList.IsReadOnly
   nameWithType: DataView.IList.IsReadOnly
-  fullName: System.Data.DataView.IList.IsReadOnly
+  fullName: DataView.IList.IsReadOnly
 - uid: System.Data.DataView.System#Collections#IList#Item(System.Int32)
   parent: System.Data.DataView
   isExternal: false
   name: IList.Item(Int32)
   nameWithType: DataView.IList.Item(Int32)
-  fullName: System.Data.DataView.IList.Item(Int32)
+  fullName: DataView.IList.Item(Int32)
 - uid: System.Data.DataView.System#Collections#IList#Remove(System.Object)
   parent: System.Data.DataView
   isExternal: false
   name: IList.Remove(Object)
   nameWithType: DataView.IList.Remove(Object)
-  fullName: System.Data.DataView.IList.Remove(Object)
+  fullName: DataView.IList.Remove(Object)
 - uid: System.Data.DataView.System#Collections#IList#RemoveAt(System.Int32)
   parent: System.Data.DataView
   isExternal: false
   name: IList.RemoveAt(Int32)
   nameWithType: DataView.IList.RemoveAt(Int32)
-  fullName: System.Data.DataView.IList.RemoveAt(Int32)
+  fullName: DataView.IList.RemoveAt(Int32)
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#AddIndex(System.ComponentModel.PropertyDescriptor)
   parent: System.Data.DataView
   isExternal: false
   name: IBindingList.AddIndex(PropertyDescriptor)
   nameWithType: DataView.IBindingList.AddIndex(PropertyDescriptor)
-  fullName: System.Data.DataView.IBindingList.AddIndex(PropertyDescriptor)
+  fullName: DataView.IBindingList.AddIndex(PropertyDescriptor)
 - uid: System.ComponentModel.PropertyDescriptor
   parent: System.ComponentModel
   isExternal: false
@@ -4747,31 +4747,31 @@ references:
   isExternal: false
   name: IBindingList.AddNew()
   nameWithType: DataView.IBindingList.AddNew()
-  fullName: System.Data.DataView.IBindingList.AddNew()
+  fullName: DataView.IBindingList.AddNew()
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#AllowEdit
   parent: System.Data.DataView
   isExternal: false
   name: IBindingList.AllowEdit
   nameWithType: DataView.IBindingList.AllowEdit
-  fullName: System.Data.DataView.IBindingList.AllowEdit
+  fullName: DataView.IBindingList.AllowEdit
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#AllowNew
   parent: System.Data.DataView
   isExternal: false
   name: IBindingList.AllowNew
   nameWithType: DataView.IBindingList.AllowNew
-  fullName: System.Data.DataView.IBindingList.AllowNew
+  fullName: DataView.IBindingList.AllowNew
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#AllowRemove
   parent: System.Data.DataView
   isExternal: false
   name: IBindingList.AllowRemove
   nameWithType: DataView.IBindingList.AllowRemove
-  fullName: System.Data.DataView.IBindingList.AllowRemove
+  fullName: DataView.IBindingList.AllowRemove
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#ApplySort(System.ComponentModel.PropertyDescriptor,System.ComponentModel.ListSortDirection)
   parent: System.Data.DataView
   isExternal: false
   name: IBindingList.ApplySort(PropertyDescriptor, ListSortDirection)
   nameWithType: DataView.IBindingList.ApplySort(PropertyDescriptor, ListSortDirection)
-  fullName: System.Data.DataView.IBindingList.ApplySort(PropertyDescriptor, ListSortDirection)
+  fullName: DataView.IBindingList.ApplySort(PropertyDescriptor, ListSortDirection)
 - uid: System.ComponentModel.ListSortDirection
   parent: System.ComponentModel
   isExternal: false
@@ -4783,61 +4783,61 @@ references:
   isExternal: false
   name: IBindingList.Find(PropertyDescriptor, Object)
   nameWithType: DataView.IBindingList.Find(PropertyDescriptor, Object)
-  fullName: System.Data.DataView.IBindingList.Find(PropertyDescriptor, Object)
+  fullName: DataView.IBindingList.Find(PropertyDescriptor, Object)
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#IsSorted
   parent: System.Data.DataView
   isExternal: false
   name: IBindingList.IsSorted
   nameWithType: DataView.IBindingList.IsSorted
-  fullName: System.Data.DataView.IBindingList.IsSorted
+  fullName: DataView.IBindingList.IsSorted
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#RemoveIndex(System.ComponentModel.PropertyDescriptor)
   parent: System.Data.DataView
   isExternal: false
   name: IBindingList.RemoveIndex(PropertyDescriptor)
   nameWithType: DataView.IBindingList.RemoveIndex(PropertyDescriptor)
-  fullName: System.Data.DataView.IBindingList.RemoveIndex(PropertyDescriptor)
+  fullName: DataView.IBindingList.RemoveIndex(PropertyDescriptor)
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#RemoveSort
   parent: System.Data.DataView
   isExternal: false
   name: IBindingList.RemoveSort()
   nameWithType: DataView.IBindingList.RemoveSort()
-  fullName: System.Data.DataView.IBindingList.RemoveSort()
+  fullName: DataView.IBindingList.RemoveSort()
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#SortDirection
   parent: System.Data.DataView
   isExternal: false
   name: IBindingList.SortDirection
   nameWithType: DataView.IBindingList.SortDirection
-  fullName: System.Data.DataView.IBindingList.SortDirection
+  fullName: DataView.IBindingList.SortDirection
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#SortProperty
   parent: System.Data.DataView
   isExternal: false
   name: IBindingList.SortProperty
   nameWithType: DataView.IBindingList.SortProperty
-  fullName: System.Data.DataView.IBindingList.SortProperty
+  fullName: DataView.IBindingList.SortProperty
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#SupportsChangeNotification
   parent: System.Data.DataView
   isExternal: false
   name: IBindingList.SupportsChangeNotification
   nameWithType: DataView.IBindingList.SupportsChangeNotification
-  fullName: System.Data.DataView.IBindingList.SupportsChangeNotification
+  fullName: DataView.IBindingList.SupportsChangeNotification
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#SupportsSearching
   parent: System.Data.DataView
   isExternal: false
   name: IBindingList.SupportsSearching
   nameWithType: DataView.IBindingList.SupportsSearching
-  fullName: System.Data.DataView.IBindingList.SupportsSearching
+  fullName: DataView.IBindingList.SupportsSearching
 - uid: System.Data.DataView.System#ComponentModel#IBindingList#SupportsSorting
   parent: System.Data.DataView
   isExternal: false
   name: IBindingList.SupportsSorting
   nameWithType: DataView.IBindingList.SupportsSorting
-  fullName: System.Data.DataView.IBindingList.SupportsSorting
+  fullName: DataView.IBindingList.SupportsSorting
 - uid: System.Data.DataView.System#ComponentModel#IBindingListView#ApplySort(System.ComponentModel.ListSortDescriptionCollection)
   parent: System.Data.DataView
   isExternal: false
   name: IBindingListView.ApplySort(ListSortDescriptionCollection)
   nameWithType: DataView.IBindingListView.ApplySort(ListSortDescriptionCollection)
-  fullName: System.Data.DataView.IBindingListView.ApplySort(ListSortDescriptionCollection)
+  fullName: DataView.IBindingListView.ApplySort(ListSortDescriptionCollection)
 - uid: System.ComponentModel.ListSortDescriptionCollection
   parent: System.ComponentModel
   isExternal: false
@@ -4849,37 +4849,37 @@ references:
   isExternal: false
   name: IBindingListView.Filter
   nameWithType: DataView.IBindingListView.Filter
-  fullName: System.Data.DataView.IBindingListView.Filter
+  fullName: DataView.IBindingListView.Filter
 - uid: System.Data.DataView.System#ComponentModel#IBindingListView#RemoveFilter
   parent: System.Data.DataView
   isExternal: false
   name: IBindingListView.RemoveFilter()
   nameWithType: DataView.IBindingListView.RemoveFilter()
-  fullName: System.Data.DataView.IBindingListView.RemoveFilter()
+  fullName: DataView.IBindingListView.RemoveFilter()
 - uid: System.Data.DataView.System#ComponentModel#IBindingListView#SortDescriptions
   parent: System.Data.DataView
   isExternal: false
   name: IBindingListView.SortDescriptions
   nameWithType: DataView.IBindingListView.SortDescriptions
-  fullName: System.Data.DataView.IBindingListView.SortDescriptions
+  fullName: DataView.IBindingListView.SortDescriptions
 - uid: System.Data.DataView.System#ComponentModel#IBindingListView#SupportsAdvancedSorting
   parent: System.Data.DataView
   isExternal: false
   name: IBindingListView.SupportsAdvancedSorting
   nameWithType: DataView.IBindingListView.SupportsAdvancedSorting
-  fullName: System.Data.DataView.IBindingListView.SupportsAdvancedSorting
+  fullName: DataView.IBindingListView.SupportsAdvancedSorting
 - uid: System.Data.DataView.System#ComponentModel#IBindingListView#SupportsFiltering
   parent: System.Data.DataView
   isExternal: false
   name: IBindingListView.SupportsFiltering
   nameWithType: DataView.IBindingListView.SupportsFiltering
-  fullName: System.Data.DataView.IBindingListView.SupportsFiltering
+  fullName: DataView.IBindingListView.SupportsFiltering
 - uid: System.Data.DataView.System#ComponentModel#ITypedList#GetItemProperties(System.ComponentModel.PropertyDescriptor[])
   parent: System.Data.DataView
   isExternal: false
   name: ITypedList.GetItemProperties(PropertyDescriptor[])
   nameWithType: DataView.ITypedList.GetItemProperties(PropertyDescriptor[])
-  fullName: System.Data.DataView.ITypedList.GetItemProperties(PropertyDescriptor[])
+  fullName: DataView.ITypedList.GetItemProperties(PropertyDescriptor[])
 - uid: System.ComponentModel.PropertyDescriptorCollection
   parent: System.ComponentModel
   isExternal: false
@@ -4905,14 +4905,15 @@ references:
   isExternal: false
   name: ITypedList.GetListName(PropertyDescriptor[])
   nameWithType: DataView.ITypedList.GetListName(PropertyDescriptor[])
-  fullName: System.Data.DataView.ITypedList.GetListName(PropertyDescriptor[])
+  fullName: DataView.ITypedList.GetListName(PropertyDescriptor[])
 - uid: System.Data.DataView.ToTable*
   parent: System.Data.DataView
   isExternal: false
   name: ToTable
   nameWithType: DataView.ToTable
-  fullName: System.Data.DataView.ToTable
+  fullName: DataView.ToTable
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4930,8 +4931,9 @@ references:
   isExternal: false
   name: DataView
   nameWithType: DataView.DataView
-  fullName: System.Data.DataView.DataView
+  fullName: DataView.DataView
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4949,8 +4951,9 @@ references:
   isExternal: false
   name: AddNew
   nameWithType: DataView.AddNew
-  fullName: System.Data.DataView.AddNew
+  fullName: DataView.AddNew
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4968,8 +4971,9 @@ references:
   isExternal: false
   name: AllowDelete
   nameWithType: DataView.AllowDelete
-  fullName: System.Data.DataView.AllowDelete
+  fullName: DataView.AllowDelete
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4987,8 +4991,9 @@ references:
   isExternal: false
   name: AllowEdit
   nameWithType: DataView.AllowEdit
-  fullName: System.Data.DataView.AllowEdit
+  fullName: DataView.AllowEdit
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5006,8 +5011,9 @@ references:
   isExternal: false
   name: AllowNew
   nameWithType: DataView.AllowNew
-  fullName: System.Data.DataView.AllowNew
+  fullName: DataView.AllowNew
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5025,8 +5031,9 @@ references:
   isExternal: false
   name: ApplyDefaultSort
   nameWithType: DataView.ApplyDefaultSort
-  fullName: System.Data.DataView.ApplyDefaultSort
+  fullName: DataView.ApplyDefaultSort
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5044,8 +5051,9 @@ references:
   isExternal: false
   name: BeginInit
   nameWithType: DataView.BeginInit
-  fullName: System.Data.DataView.BeginInit
+  fullName: DataView.BeginInit
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5063,8 +5071,9 @@ references:
   isExternal: false
   name: Close
   nameWithType: DataView.Close
-  fullName: System.Data.DataView.Close
+  fullName: DataView.Close
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5082,8 +5091,9 @@ references:
   isExternal: false
   name: ColumnCollectionChanged
   nameWithType: DataView.ColumnCollectionChanged
-  fullName: System.Data.DataView.ColumnCollectionChanged
+  fullName: DataView.ColumnCollectionChanged
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5101,8 +5111,9 @@ references:
   isExternal: false
   name: CopyTo
   nameWithType: DataView.CopyTo
-  fullName: System.Data.DataView.CopyTo
+  fullName: DataView.CopyTo
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5120,8 +5131,9 @@ references:
   isExternal: false
   name: Count
   nameWithType: DataView.Count
-  fullName: System.Data.DataView.Count
+  fullName: DataView.Count
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5139,8 +5151,9 @@ references:
   isExternal: false
   name: DataViewManager
   nameWithType: DataView.DataViewManager
-  fullName: System.Data.DataView.DataViewManager
+  fullName: DataView.DataViewManager
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5158,8 +5171,9 @@ references:
   isExternal: false
   name: Delete
   nameWithType: DataView.Delete
-  fullName: System.Data.DataView.Delete
+  fullName: DataView.Delete
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5177,8 +5191,9 @@ references:
   isExternal: false
   name: Dispose
   nameWithType: DataView.Dispose
-  fullName: System.Data.DataView.Dispose
+  fullName: DataView.Dispose
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5196,8 +5211,9 @@ references:
   isExternal: false
   name: EndInit
   nameWithType: DataView.EndInit
-  fullName: System.Data.DataView.EndInit
+  fullName: DataView.EndInit
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5215,8 +5231,9 @@ references:
   isExternal: false
   name: Equals
   nameWithType: DataView.Equals
-  fullName: System.Data.DataView.Equals
+  fullName: DataView.Equals
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5234,8 +5251,9 @@ references:
   isExternal: false
   name: Find
   nameWithType: DataView.Find
-  fullName: System.Data.DataView.Find
+  fullName: DataView.Find
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5253,8 +5271,9 @@ references:
   isExternal: false
   name: FindRows
   nameWithType: DataView.FindRows
-  fullName: System.Data.DataView.FindRows
+  fullName: DataView.FindRows
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5272,8 +5291,9 @@ references:
   isExternal: false
   name: GetEnumerator
   nameWithType: DataView.GetEnumerator
-  fullName: System.Data.DataView.GetEnumerator
+  fullName: DataView.GetEnumerator
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5291,8 +5311,9 @@ references:
   isExternal: false
   name: IndexListChanged
   nameWithType: DataView.IndexListChanged
-  fullName: System.Data.DataView.IndexListChanged
+  fullName: DataView.IndexListChanged
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5310,8 +5331,9 @@ references:
   isExternal: false
   name: IsInitialized
   nameWithType: DataView.IsInitialized
-  fullName: System.Data.DataView.IsInitialized
+  fullName: DataView.IsInitialized
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5329,8 +5351,9 @@ references:
   isExternal: false
   name: IsOpen
   nameWithType: DataView.IsOpen
-  fullName: System.Data.DataView.IsOpen
+  fullName: DataView.IsOpen
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5348,8 +5371,9 @@ references:
   isExternal: false
   name: Item
   nameWithType: DataView.Item
-  fullName: System.Data.DataView.Item
+  fullName: DataView.Item
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5367,8 +5391,9 @@ references:
   isExternal: false
   name: OnListChanged
   nameWithType: DataView.OnListChanged
-  fullName: System.Data.DataView.OnListChanged
+  fullName: DataView.OnListChanged
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5386,8 +5411,9 @@ references:
   isExternal: false
   name: Open
   nameWithType: DataView.Open
-  fullName: System.Data.DataView.Open
+  fullName: DataView.Open
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5405,8 +5431,9 @@ references:
   isExternal: false
   name: Reset
   nameWithType: DataView.Reset
-  fullName: System.Data.DataView.Reset
+  fullName: DataView.Reset
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5424,8 +5451,9 @@ references:
   isExternal: false
   name: RowFilter
   nameWithType: DataView.RowFilter
-  fullName: System.Data.DataView.RowFilter
+  fullName: DataView.RowFilter
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5443,8 +5471,9 @@ references:
   isExternal: false
   name: RowStateFilter
   nameWithType: DataView.RowStateFilter
-  fullName: System.Data.DataView.RowStateFilter
+  fullName: DataView.RowStateFilter
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5462,8 +5491,9 @@ references:
   isExternal: false
   name: Sort
   nameWithType: DataView.Sort
-  fullName: System.Data.DataView.Sort
+  fullName: DataView.Sort
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5481,8 +5511,9 @@ references:
   isExternal: false
   name: Table
   nameWithType: DataView.Table
-  fullName: System.Data.DataView.Table
+  fullName: DataView.Table
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5500,8 +5531,9 @@ references:
   isExternal: false
   name: UpdateIndex
   nameWithType: DataView.UpdateIndex
-  fullName: System.Data.DataView.UpdateIndex
+  fullName: DataView.UpdateIndex
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5519,8 +5551,9 @@ references:
   isExternal: false
   name: System.Collections.ICollection.IsSynchronized
   nameWithType: DataView.System.Collections.ICollection.IsSynchronized
-  fullName: System.Data.DataView.System.Collections.ICollection.IsSynchronized
+  fullName: DataView.System.Collections.ICollection.IsSynchronized
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5538,8 +5571,9 @@ references:
   isExternal: false
   name: System.Collections.ICollection.SyncRoot
   nameWithType: DataView.System.Collections.ICollection.SyncRoot
-  fullName: System.Data.DataView.System.Collections.ICollection.SyncRoot
+  fullName: DataView.System.Collections.ICollection.SyncRoot
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5557,8 +5591,9 @@ references:
   isExternal: false
   name: System.Collections.IList.Add
   nameWithType: DataView.System.Collections.IList.Add
-  fullName: System.Data.DataView.System.Collections.IList.Add
+  fullName: DataView.System.Collections.IList.Add
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5576,8 +5611,9 @@ references:
   isExternal: false
   name: System.Collections.IList.Clear
   nameWithType: DataView.System.Collections.IList.Clear
-  fullName: System.Data.DataView.System.Collections.IList.Clear
+  fullName: DataView.System.Collections.IList.Clear
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5595,8 +5631,9 @@ references:
   isExternal: false
   name: System.Collections.IList.Contains
   nameWithType: DataView.System.Collections.IList.Contains
-  fullName: System.Data.DataView.System.Collections.IList.Contains
+  fullName: DataView.System.Collections.IList.Contains
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5614,8 +5651,9 @@ references:
   isExternal: false
   name: System.Collections.IList.IndexOf
   nameWithType: DataView.System.Collections.IList.IndexOf
-  fullName: System.Data.DataView.System.Collections.IList.IndexOf
+  fullName: DataView.System.Collections.IList.IndexOf
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5633,8 +5671,9 @@ references:
   isExternal: false
   name: System.Collections.IList.Insert
   nameWithType: DataView.System.Collections.IList.Insert
-  fullName: System.Data.DataView.System.Collections.IList.Insert
+  fullName: DataView.System.Collections.IList.Insert
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5652,8 +5691,9 @@ references:
   isExternal: false
   name: System.Collections.IList.IsFixedSize
   nameWithType: DataView.System.Collections.IList.IsFixedSize
-  fullName: System.Data.DataView.System.Collections.IList.IsFixedSize
+  fullName: DataView.System.Collections.IList.IsFixedSize
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5671,8 +5711,9 @@ references:
   isExternal: false
   name: System.Collections.IList.IsReadOnly
   nameWithType: DataView.System.Collections.IList.IsReadOnly
-  fullName: System.Data.DataView.System.Collections.IList.IsReadOnly
+  fullName: DataView.System.Collections.IList.IsReadOnly
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5690,8 +5731,9 @@ references:
   isExternal: false
   name: System.Collections.IList.Item
   nameWithType: DataView.System.Collections.IList.Item
-  fullName: System.Data.DataView.System.Collections.IList.Item
+  fullName: DataView.System.Collections.IList.Item
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5709,8 +5751,9 @@ references:
   isExternal: false
   name: System.Collections.IList.Remove
   nameWithType: DataView.System.Collections.IList.Remove
-  fullName: System.Data.DataView.System.Collections.IList.Remove
+  fullName: DataView.System.Collections.IList.Remove
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5728,8 +5771,9 @@ references:
   isExternal: false
   name: System.Collections.IList.RemoveAt
   nameWithType: DataView.System.Collections.IList.RemoveAt
-  fullName: System.Data.DataView.System.Collections.IList.RemoveAt
+  fullName: DataView.System.Collections.IList.RemoveAt
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5747,8 +5791,9 @@ references:
   isExternal: false
   name: System.ComponentModel.IBindingList.AddIndex
   nameWithType: DataView.System.ComponentModel.IBindingList.AddIndex
-  fullName: System.Data.DataView.System.ComponentModel.IBindingList.AddIndex
+  fullName: DataView.System.ComponentModel.IBindingList.AddIndex
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5766,8 +5811,9 @@ references:
   isExternal: false
   name: System.ComponentModel.IBindingList.AddNew
   nameWithType: DataView.System.ComponentModel.IBindingList.AddNew
-  fullName: System.Data.DataView.System.ComponentModel.IBindingList.AddNew
+  fullName: DataView.System.ComponentModel.IBindingList.AddNew
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5785,8 +5831,9 @@ references:
   isExternal: false
   name: System.ComponentModel.IBindingList.AllowEdit
   nameWithType: DataView.System.ComponentModel.IBindingList.AllowEdit
-  fullName: System.Data.DataView.System.ComponentModel.IBindingList.AllowEdit
+  fullName: DataView.System.ComponentModel.IBindingList.AllowEdit
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5804,8 +5851,9 @@ references:
   isExternal: false
   name: System.ComponentModel.IBindingList.AllowNew
   nameWithType: DataView.System.ComponentModel.IBindingList.AllowNew
-  fullName: System.Data.DataView.System.ComponentModel.IBindingList.AllowNew
+  fullName: DataView.System.ComponentModel.IBindingList.AllowNew
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5823,8 +5871,9 @@ references:
   isExternal: false
   name: System.ComponentModel.IBindingList.AllowRemove
   nameWithType: DataView.System.ComponentModel.IBindingList.AllowRemove
-  fullName: System.Data.DataView.System.ComponentModel.IBindingList.AllowRemove
+  fullName: DataView.System.ComponentModel.IBindingList.AllowRemove
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5842,8 +5891,9 @@ references:
   isExternal: false
   name: System.ComponentModel.IBindingList.ApplySort
   nameWithType: DataView.System.ComponentModel.IBindingList.ApplySort
-  fullName: System.Data.DataView.System.ComponentModel.IBindingList.ApplySort
+  fullName: DataView.System.ComponentModel.IBindingList.ApplySort
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5861,8 +5911,9 @@ references:
   isExternal: false
   name: System.ComponentModel.IBindingList.Find
   nameWithType: DataView.System.ComponentModel.IBindingList.Find
-  fullName: System.Data.DataView.System.ComponentModel.IBindingList.Find
+  fullName: DataView.System.ComponentModel.IBindingList.Find
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5880,8 +5931,9 @@ references:
   isExternal: false
   name: System.ComponentModel.IBindingList.IsSorted
   nameWithType: DataView.System.ComponentModel.IBindingList.IsSorted
-  fullName: System.Data.DataView.System.ComponentModel.IBindingList.IsSorted
+  fullName: DataView.System.ComponentModel.IBindingList.IsSorted
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5899,8 +5951,9 @@ references:
   isExternal: false
   name: System.ComponentModel.IBindingList.RemoveIndex
   nameWithType: DataView.System.ComponentModel.IBindingList.RemoveIndex
-  fullName: System.Data.DataView.System.ComponentModel.IBindingList.RemoveIndex
+  fullName: DataView.System.ComponentModel.IBindingList.RemoveIndex
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5918,8 +5971,9 @@ references:
   isExternal: false
   name: System.ComponentModel.IBindingList.RemoveSort
   nameWithType: DataView.System.ComponentModel.IBindingList.RemoveSort
-  fullName: System.Data.DataView.System.ComponentModel.IBindingList.RemoveSort
+  fullName: DataView.System.ComponentModel.IBindingList.RemoveSort
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5937,8 +5991,9 @@ references:
   isExternal: false
   name: System.ComponentModel.IBindingList.SortDirection
   nameWithType: DataView.System.ComponentModel.IBindingList.SortDirection
-  fullName: System.Data.DataView.System.ComponentModel.IBindingList.SortDirection
+  fullName: DataView.System.ComponentModel.IBindingList.SortDirection
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5956,8 +6011,9 @@ references:
   isExternal: false
   name: System.ComponentModel.IBindingList.SortProperty
   nameWithType: DataView.System.ComponentModel.IBindingList.SortProperty
-  fullName: System.Data.DataView.System.ComponentModel.IBindingList.SortProperty
+  fullName: DataView.System.ComponentModel.IBindingList.SortProperty
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5975,8 +6031,9 @@ references:
   isExternal: false
   name: System.ComponentModel.IBindingList.SupportsChangeNotification
   nameWithType: DataView.System.ComponentModel.IBindingList.SupportsChangeNotification
-  fullName: System.Data.DataView.System.ComponentModel.IBindingList.SupportsChangeNotification
+  fullName: DataView.System.ComponentModel.IBindingList.SupportsChangeNotification
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5994,8 +6051,9 @@ references:
   isExternal: false
   name: System.ComponentModel.IBindingList.SupportsSearching
   nameWithType: DataView.System.ComponentModel.IBindingList.SupportsSearching
-  fullName: System.Data.DataView.System.ComponentModel.IBindingList.SupportsSearching
+  fullName: DataView.System.ComponentModel.IBindingList.SupportsSearching
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6013,8 +6071,9 @@ references:
   isExternal: false
   name: System.ComponentModel.IBindingList.SupportsSorting
   nameWithType: DataView.System.ComponentModel.IBindingList.SupportsSorting
-  fullName: System.Data.DataView.System.ComponentModel.IBindingList.SupportsSorting
+  fullName: DataView.System.ComponentModel.IBindingList.SupportsSorting
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6032,8 +6091,9 @@ references:
   isExternal: false
   name: System.ComponentModel.IBindingListView.ApplySort
   nameWithType: DataView.System.ComponentModel.IBindingListView.ApplySort
-  fullName: System.Data.DataView.System.ComponentModel.IBindingListView.ApplySort
+  fullName: DataView.System.ComponentModel.IBindingListView.ApplySort
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6051,8 +6111,9 @@ references:
   isExternal: false
   name: System.ComponentModel.IBindingListView.Filter
   nameWithType: DataView.System.ComponentModel.IBindingListView.Filter
-  fullName: System.Data.DataView.System.ComponentModel.IBindingListView.Filter
+  fullName: DataView.System.ComponentModel.IBindingListView.Filter
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6070,8 +6131,9 @@ references:
   isExternal: false
   name: System.ComponentModel.IBindingListView.RemoveFilter
   nameWithType: DataView.System.ComponentModel.IBindingListView.RemoveFilter
-  fullName: System.Data.DataView.System.ComponentModel.IBindingListView.RemoveFilter
+  fullName: DataView.System.ComponentModel.IBindingListView.RemoveFilter
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6089,8 +6151,9 @@ references:
   isExternal: false
   name: System.ComponentModel.IBindingListView.SortDescriptions
   nameWithType: DataView.System.ComponentModel.IBindingListView.SortDescriptions
-  fullName: System.Data.DataView.System.ComponentModel.IBindingListView.SortDescriptions
+  fullName: DataView.System.ComponentModel.IBindingListView.SortDescriptions
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6108,8 +6171,9 @@ references:
   isExternal: false
   name: System.ComponentModel.IBindingListView.SupportsAdvancedSorting
   nameWithType: DataView.System.ComponentModel.IBindingListView.SupportsAdvancedSorting
-  fullName: System.Data.DataView.System.ComponentModel.IBindingListView.SupportsAdvancedSorting
+  fullName: DataView.System.ComponentModel.IBindingListView.SupportsAdvancedSorting
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6127,8 +6191,9 @@ references:
   isExternal: false
   name: System.ComponentModel.IBindingListView.SupportsFiltering
   nameWithType: DataView.System.ComponentModel.IBindingListView.SupportsFiltering
-  fullName: System.Data.DataView.System.ComponentModel.IBindingListView.SupportsFiltering
+  fullName: DataView.System.ComponentModel.IBindingListView.SupportsFiltering
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6146,8 +6211,9 @@ references:
   isExternal: false
   name: System.ComponentModel.ITypedList.GetItemProperties
   nameWithType: DataView.System.ComponentModel.ITypedList.GetItemProperties
-  fullName: System.Data.DataView.System.ComponentModel.ITypedList.GetItemProperties
+  fullName: DataView.System.ComponentModel.ITypedList.GetItemProperties
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6165,8 +6231,9 @@ references:
   isExternal: false
   name: System.ComponentModel.ITypedList.GetListName
   nameWithType: DataView.System.ComponentModel.ITypedList.GetListName
-  fullName: System.Data.DataView.System.ComponentModel.ITypedList.GetListName
+  fullName: DataView.System.ComponentModel.ITypedList.GetListName
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6184,22 +6251,46 @@ references:
   isExternal: false
   name: Cast<TResult>(IEnumerable)
   nameWithType: Enumerable.Cast<TResult>(IEnumerable)
-  fullName: System.Linq.Enumerable.Cast<TResult>(IEnumerable)
+  fullName: Enumerable.Cast<TResult>(IEnumerable)
 - uid: System.Linq.Enumerable.OfType``1(System.Collections.IEnumerable)
   parent: System.Linq.Enumerable
   isExternal: false
   name: OfType<TResult>(IEnumerable)
   nameWithType: Enumerable.OfType<TResult>(IEnumerable)
-  fullName: System.Linq.Enumerable.OfType<TResult>(IEnumerable)
+  fullName: Enumerable.OfType<TResult>(IEnumerable)
 - uid: System.Linq.ParallelEnumerable.AsParallel(System.Collections.IEnumerable)
   parent: System.Linq.ParallelEnumerable
   isExternal: false
   name: AsParallel(IEnumerable)
   nameWithType: ParallelEnumerable.AsParallel(IEnumerable)
-  fullName: System.Linq.ParallelEnumerable.AsParallel(IEnumerable)
+  fullName: ParallelEnumerable.AsParallel(IEnumerable)
 - uid: System.Linq.Queryable.AsQueryable(System.Collections.IEnumerable)
   parent: System.Linq.Queryable
   isExternal: false
   name: AsQueryable(IEnumerable)
   nameWithType: Queryable.AsQueryable(IEnumerable)
-  fullName: System.Linq.Queryable.AsQueryable(IEnumerable)
+  fullName: Queryable.AsQueryable(IEnumerable)
+- uid: System.Collections.IList
+  parent: System.Collections
+  isExternal: false
+  name: IList
+  nameWithType: IList
+  fullName: System.Collections.IList
+- uid: System.ComponentModel.IBindingListView
+  parent: System.ComponentModel
+  isExternal: false
+  name: IBindingListView
+  nameWithType: IBindingListView
+  fullName: System.ComponentModel.IBindingListView
+- uid: System.ComponentModel.ISupportInitializeNotification
+  parent: System.ComponentModel
+  isExternal: false
+  name: ISupportInitializeNotification
+  nameWithType: ISupportInitializeNotification
+  fullName: System.ComponentModel.ISupportInitializeNotification
+- uid: System.ComponentModel.ITypedList
+  parent: System.ComponentModel
+  isExternal: false
+  name: ITypedList
+  nameWithType: ITypedList
+  fullName: System.ComponentModel.ITypedList

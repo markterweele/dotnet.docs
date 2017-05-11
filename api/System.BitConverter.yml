@@ -15,8 +15,10 @@ items:
   - System.BitConverter.GetBytes(System.UInt16)
   - System.BitConverter.GetBytes(System.UInt32)
   - System.BitConverter.GetBytes(System.UInt64)
+  - System.BitConverter.Int32BitsToSingle(System.Int32)
   - System.BitConverter.Int64BitsToDouble(System.Int64)
   - System.BitConverter.IsLittleEndian
+  - System.BitConverter.SingleToInt32Bits(System.Single)
   - System.BitConverter.ToBoolean(System.Byte[],System.Int32)
   - System.BitConverter.ToChar(System.Byte[],System.Int32)
   - System.BitConverter.ToDouble(System.Byte[],System.Int32)
@@ -42,7 +44,7 @@ items:
   - netstandard
   namespace: System
   summary: Converts base data types to an array of bytes, and an array of bytes to base data types.
-  remarks: "The <xref:System.BitConverter> class helps manipulate value types in their fundamental form, as a series of bytes. A byte is defined as an 8-bit unsigned integer. The <xref:System.BitConverter> class includes static methods to convert each of the primitive types to and from an array of bytes, as the following table illustrates.  \n  \n|Type|To byte conversion|From byte conversion|  \n|----------|------------------------|--------------------------|  \n|<xref:System.Boolean>|<xref:System.BitConverter.GetBytes%28System.Boolean%29>|<xref:System.BitConverter.ToBoolean%2A>|  \n|<xref:System.Char>|<xref:System.BitConverter.GetBytes%28System.Char%29>|<xref:System.BitConverter.ToChar%2A>|  \n|<xref:System.Double>|<xref:System.BitConverter.GetBytes%28System.Double%29><br /><br /> -or-<br /><br /> <xref:System.BitConverter.DoubleToInt64Bits%28System.Double%29>|<xref:System.BitConverter.ToDouble%2A><br /><br /> -or-<br /><br /> <xref:System.BitConverter.Int64BitsToDouble%2A>|  \n|<xref:System.Int16>|<xref:System.BitConverter.GetBytes%28System.Int16%29>|<xref:System.BitConverter.ToInt16%2A>|  \n|<xref:System.Int32>|<xref:System.BitConverter.GetBytes%28System.Int32%29>|<xref:System.BitConverter.ToInt32%2A>|  \n|<xref:System.Int64>|<xref:System.BitConverter.GetBytes%28System.Int64%29>|<xref:System.BitConverter.ToInt64%2A>|  \n|<xref:System.Single>|<xref:System.BitConverter.GetBytes%28System.Single%29>|<xref:System.BitConverter.ToSingle%2A>|  \n|<xref:System.UInt16>|<xref:System.BitConverter.GetBytes%28System.UInt16%29>|<xref:System.BitConverter.ToUInt16%2A>|  \n|<xref:System.UInt32>|<xref:System.BitConverter.GetBytes%28System.UInt32%29>|<xref:System.BitConverter.ToUInt32%2A>|  \n|<xref:System.UInt64>|<xref:System.BitConverter.GetBytes%28System.UInt64%29>|<xref:System.BitConverter.ToUInt64%2A>|  \n  \n If you use <xref:System.BitConverter> methods to round-trip data, make sure that the <xref:System.BitConverter.GetBytes%2A> overload and the `To`*Type* method specify the same type. As the following example illustrates, restoring an array that represents a signed integer by calling the <xref:System.BitConverter.ToUInt32%2A> method can result in a value that is different from the original. For more information, see the entry [Working with Signed Non-Decimal and Bitwise Values](http://go.microsoft.com/fwlink/?LinkId=186999) in the BCL Team Blog.  \n  \n [!code-csharp[System.BitConverter.Class#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.BitConverter.Class/CS/example1.cs#3)]\n [!code-vb[System.BitConverter.Class#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.BitConverter.Class/VB/example1.vb#3)]  \n  \n The order of bytes in the array returned by the <xref:System.BitConverter.GetBytes%2A> method overloads (as well as the order of bits in the integer returned by the <xref:System.BitConverter.DoubleToInt64Bits%2A> method and the order of hexadecimal strings returned by the [ToString(Byte\\<xref:System.BitConverter.ToString%28System.Byte%5B%5D%29> method) depends on whether the computer architecture is little-endian or big-endian. Similarly, the order of bytes in the array and returned by the `To`*IntegerValue* methods and the <xref:System.BitConverter.ToChar%2A> method depends on whether the computer architecture is little-endian or big-endian. The endianness of an architecture is indicated by the <xref:System.BitConverter.IsLittleEndian> property, which returns `true` on little-endian systems and `false` on big-endian systems. On little-endian systems, lower-order bytes precede higher-order bytes. On big-endian system, higher-order bytes precede lower-order bytes. The following table illustrates the difference in the byte arrays that result from passing the integer 1,234,567,890 (0x499602D2) to the <xref:System.BitConverter.GetBytes%28System.Int32%29> method. The bytes are listed in order from the byte at index 0 to the byte at index 3.  \n  \n|||  \n|-|-|  \n|Little-endian|D2-02-96-49|  \n|Big-endian|49-96-02-D2|  \n  \n Because the return value of some methods depends on system architecture, be careful when transmitting byte data beyond machine boundaries:  \n  \n-   If all systems sending and receiving data are guaranteed to have the same endianness, nothing has be done to the data.  \n  \n-   If systems sending and receiving data can have different endianness, always transmit data in a particular order. This means that the order of bytes in the array may have to be reversed either before sending them or after receiving them. A common convention is to transmit data in network byte order (big-endian order). The following example provides an implementation for sending an integer value in network byte order.  \n  \n     [!code-csharp[System.BitConverter.Class#4](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.BitConverter.Class/CS/networkorder1.cs#4)]\n     [!code-vb[System.BitConverter.Class#4](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.BitConverter.Class/VB/networkorder1.vb#4)]  \n  \n-   If systems sending and receiving data can have different endianness and the data to be transmitted consists of signed integers, call the <xref:System.Net.IPAddress.HostToNetworkOrder%2A?displayProperty=fullName> method to convert the data to network byte order and the <xref:System.Net.IPAddress.NetworkToHostOrder%2A?displayProperty=fullName> method to convert it to the order required by the recipient."
+  remarks: "The <xref:System.BitConverter> class helps manipulate value types in their fundamental form, as a series of bytes. A byte is defined as an 8-bit unsigned integer. The <xref:System.BitConverter> class includes static methods to convert each of the primitive types to and from an array of bytes, as the following table illustrates.  \n  \n|Type|To byte conversion|From byte conversion|  \n|----------|------------------------|--------------------------|  \n|<xref:System.Boolean>|<xref:System.BitConverter.GetBytes%28System.Boolean%29>|<xref:System.BitConverter.ToBoolean%2A>|  \n|<xref:System.Char>|<xref:System.BitConverter.GetBytes%28System.Char%29>|<xref:System.BitConverter.ToChar%2A>|  \n|<xref:System.Double>|<xref:System.BitConverter.GetBytes%28System.Double%29><br /><br /> -or-<br /><br /> <xref:System.BitConverter.DoubleToInt64Bits%28System.Double%29>|<xref:System.BitConverter.ToDouble%2A><br /><br /> -or-<br /><br /> <xref:System.BitConverter.Int64BitsToDouble%2A>|  \n|<xref:System.Int16>|<xref:System.BitConverter.GetBytes%28System.Int16%29>|<xref:System.BitConverter.ToInt16%2A>|  \n|<xref:System.Int32>|<xref:System.BitConverter.GetBytes%28System.Int32%29>|<xref:System.BitConverter.ToInt32%2A>|  \n|<xref:System.Int64>|<xref:System.BitConverter.GetBytes%28System.Int64%29>|<xref:System.BitConverter.ToInt64%2A>|  \n|<xref:System.Single>|<xref:System.BitConverter.GetBytes%28System.Single%29>|<xref:System.BitConverter.ToSingle%2A>|  \n|<xref:System.UInt16>|<xref:System.BitConverter.GetBytes%28System.UInt16%29>|<xref:System.BitConverter.ToUInt16%2A>|  \n|<xref:System.UInt32>|<xref:System.BitConverter.GetBytes%28System.UInt32%29>|<xref:System.BitConverter.ToUInt32%2A>|  \n|<xref:System.UInt64>|<xref:System.BitConverter.GetBytes%28System.UInt64%29>|<xref:System.BitConverter.ToUInt64%2A>|  \n  \n If you use <xref:System.BitConverter> methods to round-trip data, make sure that the <xref:System.BitConverter.GetBytes%2A> overload and the `To`*Type* method specify the same type. As the following example illustrates, restoring an array that represents a signed integer by calling the <xref:System.BitConverter.ToUInt32%2A> method can result in a value that is different from the original. For more information, see the entry [Working with Signed Non-Decimal and Bitwise Values](http://go.microsoft.com/fwlink/?LinkId=186999) in the BCL Team Blog.  \n  \n [!code-csharp[System.BitConverter.Class#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.BitConverter.Class/CS/example1.cs#3)]\n [!code-vb[System.BitConverter.Class#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.BitConverter.Class/VB/example1.vb#3)]  \n  \n The order of bytes in the array returned by the <xref:System.BitConverter.GetBytes%2A> method overloads (as well as the order of bits in the integer returned by the <xref:System.BitConverter.DoubleToInt64Bits%2A> method and the order of hexadecimal strings returned by the <xref:System.BitConverter.ToString%28System.Byte%5B%5D%29> method) depends on whether the computer architecture is little-endian or big-endian. Similarly, the order of bytes in the array and returned by the `To`*IntegerValue* methods and the <xref:System.BitConverter.ToChar%2A> method depends on whether the computer architecture is little-endian or big-endian. The endianness of an architecture is indicated by the <xref:System.BitConverter.IsLittleEndian> property, which returns `true` on little-endian systems and `false` on big-endian systems. On little-endian systems, lower-order bytes precede higher-order bytes. On big-endian system, higher-order bytes precede lower-order bytes. The following table illustrates the difference in the byte arrays that result from passing the integer 1,234,567,890 (0x499602D2) to the <xref:System.BitConverter.GetBytes%28System.Int32%29> method. The bytes are listed in order from the byte at index 0 to the byte at index 3.  \n  \n|||  \n|-|-|  \n|Little-endian|D2-02-96-49|  \n|Big-endian|49-96-02-D2|  \n  \n Because the return value of some methods depends on system architecture, be careful when transmitting byte data beyond machine boundaries:  \n  \n-   If all systems sending and receiving data are guaranteed to have the same endianness, nothing has be done to the data.  \n  \n-   If systems sending and receiving data can have different endianness, always transmit data in a particular order. This means that the order of bytes in the array may have to be reversed either before sending them or after receiving them. A common convention is to transmit data in network byte order (big-endian order). The following example provides an implementation for sending an integer value in network byte order.  \n  \n     [!code-csharp[System.BitConverter.Class#4](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.BitConverter.Class/CS/networkorder1.cs#4)]\n     [!code-vb[System.BitConverter.Class#4](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.BitConverter.Class/VB/networkorder1.vb#4)]  \n  \n-   If systems sending and receiving data can have different endianness and the data to be transmitted consists of signed integers, call the <xref:System.Net.IPAddress.HostToNetworkOrder%2A?displayProperty=fullName> method to convert the data to network byte order and the <xref:System.Net.IPAddress.NetworkToHostOrder%2A?displayProperty=fullName> method to convert it to the order required by the recipient."
   example:
   - "The following code example illustrates the use of several <xref:System.BitConverter> class methods.  \n  \n [!code-cpp[System.BitConverter.Class#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.BitConverter.Class/CPP/bitconv.cpp#1)]\n [!code-csharp[System.BitConverter.Class#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.BitConverter.Class/CS/bitconv.cs#1)]\n [!code-vb[System.BitConverter.Class#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.BitConverter.Class/VB/bitconv.vb#1)]"
   syntax:
@@ -60,7 +62,8 @@ items:
   - System.Object.ToString
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -81,7 +84,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -101,9 +105,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.DoubleToInt64Bits(System.Double)
   commentId: M:System.BitConverter.DoubleToInt64Bits(System.Double)
   id: DoubleToInt64Bits(System.Double)
@@ -112,7 +113,7 @@ items:
   - csharp
   name: DoubleToInt64Bits(Double)
   nameWithType: BitConverter.DoubleToInt64Bits(Double)
-  fullName: System.BitConverter.DoubleToInt64Bits(Double)
+  fullName: BitConverter.DoubleToInt64Bits(Double)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -137,7 +138,8 @@ items:
   attributes: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -158,7 +160,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -178,9 +181,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.GetBytes(System.Boolean)
   commentId: M:System.BitConverter.GetBytes(System.Boolean)
   id: GetBytes(System.Boolean)
@@ -189,7 +189,7 @@ items:
   - csharp
   name: GetBytes(Boolean)
   nameWithType: BitConverter.GetBytes(Boolean)
-  fullName: System.BitConverter.GetBytes(Boolean)
+  fullName: BitConverter.GetBytes(Boolean)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -213,7 +213,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -234,7 +235,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -254,9 +256,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.GetBytes(System.Char)
   commentId: M:System.BitConverter.GetBytes(System.Char)
   id: GetBytes(System.Char)
@@ -265,7 +264,7 @@ items:
   - csharp
   name: GetBytes(Char)
   nameWithType: BitConverter.GetBytes(Char)
-  fullName: System.BitConverter.GetBytes(Char)
+  fullName: BitConverter.GetBytes(Char)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -289,7 +288,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -310,7 +310,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -330,9 +331,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.GetBytes(System.Double)
   commentId: M:System.BitConverter.GetBytes(System.Double)
   id: GetBytes(System.Double)
@@ -341,7 +339,7 @@ items:
   - csharp
   name: GetBytes(Double)
   nameWithType: BitConverter.GetBytes(Double)
-  fullName: System.BitConverter.GetBytes(Double)
+  fullName: BitConverter.GetBytes(Double)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -366,7 +364,8 @@ items:
   attributes: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -387,7 +386,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -407,9 +407,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.GetBytes(System.Int16)
   commentId: M:System.BitConverter.GetBytes(System.Int16)
   id: GetBytes(System.Int16)
@@ -418,7 +415,7 @@ items:
   - csharp
   name: GetBytes(Int16)
   nameWithType: BitConverter.GetBytes(Int16)
-  fullName: System.BitConverter.GetBytes(Int16)
+  fullName: BitConverter.GetBytes(Int16)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -443,7 +440,8 @@ items:
   attributes: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -464,7 +462,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -484,9 +483,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.GetBytes(System.Int32)
   commentId: M:System.BitConverter.GetBytes(System.Int32)
   id: GetBytes(System.Int32)
@@ -495,7 +491,7 @@ items:
   - csharp
   name: GetBytes(Int32)
   nameWithType: BitConverter.GetBytes(Int32)
-  fullName: System.BitConverter.GetBytes(Int32)
+  fullName: BitConverter.GetBytes(Int32)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -520,7 +516,8 @@ items:
   attributes: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -541,7 +538,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -561,9 +559,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.GetBytes(System.Int64)
   commentId: M:System.BitConverter.GetBytes(System.Int64)
   id: GetBytes(System.Int64)
@@ -572,7 +567,7 @@ items:
   - csharp
   name: GetBytes(Int64)
   nameWithType: BitConverter.GetBytes(Int64)
-  fullName: System.BitConverter.GetBytes(Int64)
+  fullName: BitConverter.GetBytes(Int64)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -597,7 +592,8 @@ items:
   attributes: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -618,7 +614,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -638,9 +635,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.GetBytes(System.Single)
   commentId: M:System.BitConverter.GetBytes(System.Single)
   id: GetBytes(System.Single)
@@ -649,7 +643,7 @@ items:
   - csharp
   name: GetBytes(Single)
   nameWithType: BitConverter.GetBytes(Single)
-  fullName: System.BitConverter.GetBytes(Single)
+  fullName: BitConverter.GetBytes(Single)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -674,7 +668,8 @@ items:
   attributes: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -695,7 +690,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -715,9 +711,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.GetBytes(System.UInt16)
   commentId: M:System.BitConverter.GetBytes(System.UInt16)
   id: GetBytes(System.UInt16)
@@ -726,7 +719,7 @@ items:
   - csharp
   name: GetBytes(UInt16)
   nameWithType: BitConverter.GetBytes(UInt16)
-  fullName: System.BitConverter.GetBytes(UInt16)
+  fullName: BitConverter.GetBytes(UInt16)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -755,7 +748,8 @@ items:
   - type: System.CLSCompliantAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -776,7 +770,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -796,9 +791,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.GetBytes(System.UInt32)
   commentId: M:System.BitConverter.GetBytes(System.UInt32)
   id: GetBytes(System.UInt32)
@@ -807,7 +799,7 @@ items:
   - csharp
   name: GetBytes(UInt32)
   nameWithType: BitConverter.GetBytes(UInt32)
-  fullName: System.BitConverter.GetBytes(UInt32)
+  fullName: BitConverter.GetBytes(UInt32)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -836,7 +828,8 @@ items:
   - type: System.CLSCompliantAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -857,7 +850,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -877,9 +871,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.GetBytes(System.UInt64)
   commentId: M:System.BitConverter.GetBytes(System.UInt64)
   id: GetBytes(System.UInt64)
@@ -888,7 +879,7 @@ items:
   - csharp
   name: GetBytes(UInt64)
   nameWithType: BitConverter.GetBytes(UInt64)
-  fullName: System.BitConverter.GetBytes(UInt64)
+  fullName: BitConverter.GetBytes(UInt64)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -917,7 +908,8 @@ items:
   - type: System.CLSCompliantAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -938,7 +930,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -958,9 +951,35 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
+- uid: System.BitConverter.Int32BitsToSingle(System.Int32)
+  commentId: M:System.BitConverter.Int32BitsToSingle(System.Int32)
+  id: Int32BitsToSingle(System.Int32)
+  parent: System.BitConverter
+  langs:
+  - csharp
+  name: Int32BitsToSingle(Int32)
+  nameWithType: BitConverter.Int32BitsToSingle(Int32)
+  fullName: BitConverter.Int32BitsToSingle(Int32)
+  type: Method
+  assemblies:
+  - System.Runtime.Extensions
+  namespace: System
+  syntax:
+    content: public static float Int32BitsToSingle (int value);
+    parameters:
+    - id: value
+      type: System.Int32
+      description: To be added.
+    return:
+      type: System.Single
+      description: To be added.
+  overload: System.BitConverter.Int32BitsToSingle*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
 - uid: System.BitConverter.Int64BitsToDouble(System.Int64)
   commentId: M:System.BitConverter.Int64BitsToDouble(System.Int64)
   id: Int64BitsToDouble(System.Int64)
@@ -969,7 +988,7 @@ items:
   - csharp
   name: Int64BitsToDouble(Int64)
   nameWithType: BitConverter.Int64BitsToDouble(Int64)
-  fullName: System.BitConverter.Int64BitsToDouble(Int64)
+  fullName: BitConverter.Int64BitsToDouble(Int64)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -994,7 +1013,8 @@ items:
   attributes: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1015,7 +1035,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1035,9 +1056,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.IsLittleEndian
   commentId: F:System.BitConverter.IsLittleEndian
   id: IsLittleEndian
@@ -1046,7 +1064,7 @@ items:
   - csharp
   name: IsLittleEndian
   nameWithType: BitConverter.IsLittleEndian
-  fullName: System.BitConverter.IsLittleEndian
+  fullName: BitConverter.IsLittleEndian
   type: Field
   assemblies:
   - System.Runtime.Extensions
@@ -1065,7 +1083,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1086,7 +1105,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1106,9 +1126,35 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
+- uid: System.BitConverter.SingleToInt32Bits(System.Single)
+  commentId: M:System.BitConverter.SingleToInt32Bits(System.Single)
+  id: SingleToInt32Bits(System.Single)
+  parent: System.BitConverter
+  langs:
+  - csharp
+  name: SingleToInt32Bits(Single)
+  nameWithType: BitConverter.SingleToInt32Bits(Single)
+  fullName: BitConverter.SingleToInt32Bits(Single)
+  type: Method
+  assemblies:
+  - System.Runtime.Extensions
+  namespace: System
+  syntax:
+    content: public static int SingleToInt32Bits (float value);
+    parameters:
+    - id: value
+      type: System.Single
+      description: To be added.
+    return:
+      type: System.Int32
+      description: To be added.
+  overload: System.BitConverter.SingleToInt32Bits*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
 - uid: System.BitConverter.ToBoolean(System.Byte[],System.Int32)
   commentId: M:System.BitConverter.ToBoolean(System.Byte[],System.Int32)
   id: ToBoolean(System.Byte[],System.Int32)
@@ -1117,7 +1163,7 @@ items:
   - csharp
   name: ToBoolean(Byte[], Int32)
   nameWithType: BitConverter.ToBoolean(Byte[], Int32)
-  fullName: System.BitConverter.ToBoolean(Byte[], Int32)
+  fullName: BitConverter.ToBoolean(Byte[], Int32)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -1150,7 +1196,8 @@ items:
     description: <code>startIndex</code> is less than zero or greater than the length of <code>value</code> minus 1.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1171,7 +1218,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1191,9 +1239,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.ToChar(System.Byte[],System.Int32)
   commentId: M:System.BitConverter.ToChar(System.Byte[],System.Int32)
   id: ToChar(System.Byte[],System.Int32)
@@ -1202,7 +1247,7 @@ items:
   - csharp
   name: ToChar(Byte[], Int32)
   nameWithType: BitConverter.ToChar(Byte[], Int32)
-  fullName: System.BitConverter.ToChar(Byte[], Int32)
+  fullName: BitConverter.ToChar(Byte[], Int32)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -1238,7 +1283,8 @@ items:
     description: <code>startIndex</code> is less than zero or greater than the length of <code>value</code> minus 1.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1259,7 +1305,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1279,9 +1326,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.ToDouble(System.Byte[],System.Int32)
   commentId: M:System.BitConverter.ToDouble(System.Byte[],System.Int32)
   id: ToDouble(System.Byte[],System.Int32)
@@ -1290,7 +1334,7 @@ items:
   - csharp
   name: ToDouble(Byte[], Int32)
   nameWithType: BitConverter.ToDouble(Byte[], Int32)
-  fullName: System.BitConverter.ToDouble(Byte[], Int32)
+  fullName: BitConverter.ToDouble(Byte[], Int32)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -1327,7 +1371,8 @@ items:
   attributes: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1348,7 +1393,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1368,9 +1414,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.ToInt16(System.Byte[],System.Int32)
   commentId: M:System.BitConverter.ToInt16(System.Byte[],System.Int32)
   id: ToInt16(System.Byte[],System.Int32)
@@ -1379,7 +1422,7 @@ items:
   - csharp
   name: ToInt16(Byte[], Int32)
   nameWithType: BitConverter.ToInt16(Byte[], Int32)
-  fullName: System.BitConverter.ToInt16(Byte[], Int32)
+  fullName: BitConverter.ToInt16(Byte[], Int32)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -1416,7 +1459,8 @@ items:
   attributes: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1437,7 +1481,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1457,9 +1502,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.ToInt32(System.Byte[],System.Int32)
   commentId: M:System.BitConverter.ToInt32(System.Byte[],System.Int32)
   id: ToInt32(System.Byte[],System.Int32)
@@ -1468,7 +1510,7 @@ items:
   - csharp
   name: ToInt32(Byte[], Int32)
   nameWithType: BitConverter.ToInt32(Byte[], Int32)
-  fullName: System.BitConverter.ToInt32(Byte[], Int32)
+  fullName: BitConverter.ToInt32(Byte[], Int32)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -1505,7 +1547,8 @@ items:
   attributes: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1526,7 +1569,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1546,9 +1590,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.ToInt64(System.Byte[],System.Int32)
   commentId: M:System.BitConverter.ToInt64(System.Byte[],System.Int32)
   id: ToInt64(System.Byte[],System.Int32)
@@ -1557,7 +1598,7 @@ items:
   - csharp
   name: ToInt64(Byte[], Int32)
   nameWithType: BitConverter.ToInt64(Byte[], Int32)
-  fullName: System.BitConverter.ToInt64(Byte[], Int32)
+  fullName: BitConverter.ToInt64(Byte[], Int32)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -1594,7 +1635,8 @@ items:
   attributes: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1615,7 +1657,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1635,9 +1678,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.ToSingle(System.Byte[],System.Int32)
   commentId: M:System.BitConverter.ToSingle(System.Byte[],System.Int32)
   id: ToSingle(System.Byte[],System.Int32)
@@ -1646,7 +1686,7 @@ items:
   - csharp
   name: ToSingle(Byte[], Int32)
   nameWithType: BitConverter.ToSingle(Byte[], Int32)
-  fullName: System.BitConverter.ToSingle(Byte[], Int32)
+  fullName: BitConverter.ToSingle(Byte[], Int32)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -1683,7 +1723,8 @@ items:
   attributes: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1704,7 +1745,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1724,9 +1766,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.ToString(System.Byte[])
   commentId: M:System.BitConverter.ToString(System.Byte[])
   id: ToString(System.Byte[])
@@ -1735,7 +1774,7 @@ items:
   - csharp
   name: ToString(Byte[])
   nameWithType: BitConverter.ToString(Byte[])
-  fullName: System.BitConverter.ToString(Byte[])
+  fullName: BitConverter.ToString(Byte[])
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -1762,7 +1801,8 @@ items:
     description: <code>value</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1783,7 +1823,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1803,9 +1844,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.ToString(System.Byte[],System.Int32)
   commentId: M:System.BitConverter.ToString(System.Byte[],System.Int32)
   id: ToString(System.Byte[],System.Int32)
@@ -1814,7 +1852,7 @@ items:
   - csharp
   name: ToString(Byte[], Int32)
   nameWithType: BitConverter.ToString(Byte[], Int32)
-  fullName: System.BitConverter.ToString(Byte[], Int32)
+  fullName: BitConverter.ToString(Byte[], Int32)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -1847,7 +1885,8 @@ items:
     description: <code>startIndex</code> is less than zero or greater than the length of <code>value</code> minus 1.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1868,7 +1907,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1888,9 +1928,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.ToString(System.Byte[],System.Int32,System.Int32)
   commentId: M:System.BitConverter.ToString(System.Byte[],System.Int32,System.Int32)
   id: ToString(System.Byte[],System.Int32,System.Int32)
@@ -1899,7 +1936,7 @@ items:
   - csharp
   name: ToString(Byte[], Int32, Int32)
   nameWithType: BitConverter.ToString(Byte[], Int32, Int32)
-  fullName: System.BitConverter.ToString(Byte[], Int32, Int32)
+  fullName: BitConverter.ToString(Byte[], Int32, Int32)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -1909,7 +1946,7 @@ items:
   summary: Converts the numeric value of each element of a specified subarray of bytes to its equivalent hexadecimal string representation.
   remarks: "The `length` elements from array position `startIndex` are converted. If `length` equals zero, the method returns <xref:System.String?displayProperty=fullName>.  \n  \n The order of hexadecimal strings returned by the <xref:System.BitConverter.ToString%2A> method depends on whether the computer architecture is little-endian or big-endian."
   example:
-  - "The following example uses the [ToString Method (Byte\\<xref:System.BitConverter.ToString%2A> method to convert part of a byte array, starting at the specified `startIndex` and with the specified `length`, to a string.  \n  \n [!code-cpp[System.BitConverter.ToString#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.BitConverter.ToString/CPP/batostringii.cpp#2)]\n [!code-csharp[System.BitConverter.ToString#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.BitConverter.ToString/CS/batostringii.cs#2)]\n [!code-vb[System.BitConverter.ToString#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.BitConverter.ToString/VB/batostringii.vb#2)]"
+  - "The following example uses the <xref:System.BitConverter.ToString%2A> method to convert part of a byte array, starting at the specified `startIndex` and with the specified `length`, to a string.  \n  \n [!code-cpp[System.BitConverter.ToString#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.BitConverter.ToString/CPP/batostringii.cpp#2)]\n [!code-csharp[System.BitConverter.ToString#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.BitConverter.ToString/CS/batostringii.cs#2)]\n [!code-vb[System.BitConverter.ToString#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.BitConverter.ToString/VB/batostringii.vb#2)]"
   syntax:
     content: public static string ToString (byte[] value, int startIndex, int length);
     parameters:
@@ -1938,7 +1975,8 @@ items:
     description: The combination of <code>startIndex</code> and <code>length</code> does not specify a position within <code>value</code>; that is, the <code>startIndex</code> parameter is greater than the length of <code>value</code> minus the <code>length</code> parameter.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1959,7 +1997,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1979,9 +2018,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.ToUInt16(System.Byte[],System.Int32)
   commentId: M:System.BitConverter.ToUInt16(System.Byte[],System.Int32)
   id: ToUInt16(System.Byte[],System.Int32)
@@ -1990,7 +2026,7 @@ items:
   - csharp
   name: ToUInt16(Byte[], Int32)
   nameWithType: BitConverter.ToUInt16(Byte[], Int32)
-  fullName: System.BitConverter.ToUInt16(Byte[], Int32)
+  fullName: BitConverter.ToUInt16(Byte[], Int32)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -2031,7 +2067,8 @@ items:
   - type: System.CLSCompliantAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2052,7 +2089,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2072,9 +2110,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.ToUInt32(System.Byte[],System.Int32)
   commentId: M:System.BitConverter.ToUInt32(System.Byte[],System.Int32)
   id: ToUInt32(System.Byte[],System.Int32)
@@ -2083,7 +2118,7 @@ items:
   - csharp
   name: ToUInt32(Byte[], Int32)
   nameWithType: BitConverter.ToUInt32(Byte[], Int32)
-  fullName: System.BitConverter.ToUInt32(Byte[], Int32)
+  fullName: BitConverter.ToUInt32(Byte[], Int32)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -2124,7 +2159,8 @@ items:
   - type: System.CLSCompliantAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2145,7 +2181,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2165,9 +2202,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.BitConverter.ToUInt64(System.Byte[],System.Int32)
   commentId: M:System.BitConverter.ToUInt64(System.Byte[],System.Int32)
   id: ToUInt64(System.Byte[],System.Int32)
@@ -2176,7 +2210,7 @@ items:
   - csharp
   name: ToUInt64(Byte[], Int32)
   nameWithType: BitConverter.ToUInt64(Byte[], Int32)
-  fullName: System.BitConverter.ToUInt64(Byte[], Int32)
+  fullName: BitConverter.ToUInt64(Byte[], Int32)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -2217,7 +2251,8 @@ items:
   - type: System.CLSCompliantAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2238,7 +2273,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2258,9 +2294,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -2291,7 +2324,7 @@ references:
   isExternal: false
   name: DoubleToInt64Bits(Double)
   nameWithType: BitConverter.DoubleToInt64Bits(Double)
-  fullName: System.BitConverter.DoubleToInt64Bits(Double)
+  fullName: BitConverter.DoubleToInt64Bits(Double)
 - uid: System.Int64
   parent: System
   isExternal: false
@@ -2309,7 +2342,7 @@ references:
   isExternal: false
   name: GetBytes(Boolean)
   nameWithType: BitConverter.GetBytes(Boolean)
-  fullName: System.BitConverter.GetBytes(Boolean)
+  fullName: BitConverter.GetBytes(Boolean)
 - uid: System.Byte
   name: Byte
   nameWithType: Byte
@@ -2339,7 +2372,7 @@ references:
   isExternal: false
   name: GetBytes(Char)
   nameWithType: BitConverter.GetBytes(Char)
-  fullName: System.BitConverter.GetBytes(Char)
+  fullName: BitConverter.GetBytes(Char)
 - uid: System.Char
   parent: System
   isExternal: false
@@ -2351,13 +2384,13 @@ references:
   isExternal: false
   name: GetBytes(Double)
   nameWithType: BitConverter.GetBytes(Double)
-  fullName: System.BitConverter.GetBytes(Double)
+  fullName: BitConverter.GetBytes(Double)
 - uid: System.BitConverter.GetBytes(System.Int16)
   parent: System.BitConverter
   isExternal: false
   name: GetBytes(Int16)
   nameWithType: BitConverter.GetBytes(Int16)
-  fullName: System.BitConverter.GetBytes(Int16)
+  fullName: BitConverter.GetBytes(Int16)
 - uid: System.Int16
   parent: System
   isExternal: false
@@ -2369,7 +2402,7 @@ references:
   isExternal: false
   name: GetBytes(Int32)
   nameWithType: BitConverter.GetBytes(Int32)
-  fullName: System.BitConverter.GetBytes(Int32)
+  fullName: BitConverter.GetBytes(Int32)
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -2381,13 +2414,13 @@ references:
   isExternal: false
   name: GetBytes(Int64)
   nameWithType: BitConverter.GetBytes(Int64)
-  fullName: System.BitConverter.GetBytes(Int64)
+  fullName: BitConverter.GetBytes(Int64)
 - uid: System.BitConverter.GetBytes(System.Single)
   parent: System.BitConverter
   isExternal: false
   name: GetBytes(Single)
   nameWithType: BitConverter.GetBytes(Single)
-  fullName: System.BitConverter.GetBytes(Single)
+  fullName: BitConverter.GetBytes(Single)
 - uid: System.Single
   parent: System
   isExternal: false
@@ -2399,7 +2432,7 @@ references:
   isExternal: false
   name: GetBytes(UInt16)
   nameWithType: BitConverter.GetBytes(UInt16)
-  fullName: System.BitConverter.GetBytes(UInt16)
+  fullName: BitConverter.GetBytes(UInt16)
 - uid: System.UInt16
   parent: System
   isExternal: false
@@ -2411,7 +2444,7 @@ references:
   isExternal: false
   name: GetBytes(UInt32)
   nameWithType: BitConverter.GetBytes(UInt32)
-  fullName: System.BitConverter.GetBytes(UInt32)
+  fullName: BitConverter.GetBytes(UInt32)
 - uid: System.UInt32
   parent: System
   isExternal: false
@@ -2423,73 +2456,85 @@ references:
   isExternal: false
   name: GetBytes(UInt64)
   nameWithType: BitConverter.GetBytes(UInt64)
-  fullName: System.BitConverter.GetBytes(UInt64)
+  fullName: BitConverter.GetBytes(UInt64)
 - uid: System.UInt64
   parent: System
   isExternal: false
   name: UInt64
   nameWithType: UInt64
   fullName: System.UInt64
+- uid: System.BitConverter.Int32BitsToSingle(System.Int32)
+  parent: System.BitConverter
+  isExternal: false
+  name: Int32BitsToSingle(Int32)
+  nameWithType: BitConverter.Int32BitsToSingle(Int32)
+  fullName: BitConverter.Int32BitsToSingle(Int32)
 - uid: System.BitConverter.Int64BitsToDouble(System.Int64)
   parent: System.BitConverter
   isExternal: false
   name: Int64BitsToDouble(Int64)
   nameWithType: BitConverter.Int64BitsToDouble(Int64)
-  fullName: System.BitConverter.Int64BitsToDouble(Int64)
+  fullName: BitConverter.Int64BitsToDouble(Int64)
 - uid: System.BitConverter.IsLittleEndian
   parent: System.BitConverter
   isExternal: false
   name: IsLittleEndian
   nameWithType: BitConverter.IsLittleEndian
-  fullName: System.BitConverter.IsLittleEndian
+  fullName: BitConverter.IsLittleEndian
+- uid: System.BitConverter.SingleToInt32Bits(System.Single)
+  parent: System.BitConverter
+  isExternal: false
+  name: SingleToInt32Bits(Single)
+  nameWithType: BitConverter.SingleToInt32Bits(Single)
+  fullName: BitConverter.SingleToInt32Bits(Single)
 - uid: System.BitConverter.ToBoolean(System.Byte[],System.Int32)
   parent: System.BitConverter
   isExternal: false
   name: ToBoolean(Byte[], Int32)
   nameWithType: BitConverter.ToBoolean(Byte[], Int32)
-  fullName: System.BitConverter.ToBoolean(Byte[], Int32)
+  fullName: BitConverter.ToBoolean(Byte[], Int32)
 - uid: System.BitConverter.ToChar(System.Byte[],System.Int32)
   parent: System.BitConverter
   isExternal: false
   name: ToChar(Byte[], Int32)
   nameWithType: BitConverter.ToChar(Byte[], Int32)
-  fullName: System.BitConverter.ToChar(Byte[], Int32)
+  fullName: BitConverter.ToChar(Byte[], Int32)
 - uid: System.BitConverter.ToDouble(System.Byte[],System.Int32)
   parent: System.BitConverter
   isExternal: false
   name: ToDouble(Byte[], Int32)
   nameWithType: BitConverter.ToDouble(Byte[], Int32)
-  fullName: System.BitConverter.ToDouble(Byte[], Int32)
+  fullName: BitConverter.ToDouble(Byte[], Int32)
 - uid: System.BitConverter.ToInt16(System.Byte[],System.Int32)
   parent: System.BitConverter
   isExternal: false
   name: ToInt16(Byte[], Int32)
   nameWithType: BitConverter.ToInt16(Byte[], Int32)
-  fullName: System.BitConverter.ToInt16(Byte[], Int32)
+  fullName: BitConverter.ToInt16(Byte[], Int32)
 - uid: System.BitConverter.ToInt32(System.Byte[],System.Int32)
   parent: System.BitConverter
   isExternal: false
   name: ToInt32(Byte[], Int32)
   nameWithType: BitConverter.ToInt32(Byte[], Int32)
-  fullName: System.BitConverter.ToInt32(Byte[], Int32)
+  fullName: BitConverter.ToInt32(Byte[], Int32)
 - uid: System.BitConverter.ToInt64(System.Byte[],System.Int32)
   parent: System.BitConverter
   isExternal: false
   name: ToInt64(Byte[], Int32)
   nameWithType: BitConverter.ToInt64(Byte[], Int32)
-  fullName: System.BitConverter.ToInt64(Byte[], Int32)
+  fullName: BitConverter.ToInt64(Byte[], Int32)
 - uid: System.BitConverter.ToSingle(System.Byte[],System.Int32)
   parent: System.BitConverter
   isExternal: false
   name: ToSingle(Byte[], Int32)
   nameWithType: BitConverter.ToSingle(Byte[], Int32)
-  fullName: System.BitConverter.ToSingle(Byte[], Int32)
+  fullName: BitConverter.ToSingle(Byte[], Int32)
 - uid: System.BitConverter.ToString(System.Byte[])
   parent: System.BitConverter
   isExternal: false
   name: ToString(Byte[])
   nameWithType: BitConverter.ToString(Byte[])
-  fullName: System.BitConverter.ToString(Byte[])
+  fullName: BitConverter.ToString(Byte[])
 - uid: System.String
   parent: System
   isExternal: false
@@ -2501,40 +2546,41 @@ references:
   isExternal: false
   name: ToString(Byte[], Int32)
   nameWithType: BitConverter.ToString(Byte[], Int32)
-  fullName: System.BitConverter.ToString(Byte[], Int32)
+  fullName: BitConverter.ToString(Byte[], Int32)
 - uid: System.BitConverter.ToString(System.Byte[],System.Int32,System.Int32)
   parent: System.BitConverter
   isExternal: false
   name: ToString(Byte[], Int32, Int32)
   nameWithType: BitConverter.ToString(Byte[], Int32, Int32)
-  fullName: System.BitConverter.ToString(Byte[], Int32, Int32)
+  fullName: BitConverter.ToString(Byte[], Int32, Int32)
 - uid: System.BitConverter.ToUInt16(System.Byte[],System.Int32)
   parent: System.BitConverter
   isExternal: false
   name: ToUInt16(Byte[], Int32)
   nameWithType: BitConverter.ToUInt16(Byte[], Int32)
-  fullName: System.BitConverter.ToUInt16(Byte[], Int32)
+  fullName: BitConverter.ToUInt16(Byte[], Int32)
 - uid: System.BitConverter.ToUInt32(System.Byte[],System.Int32)
   parent: System.BitConverter
   isExternal: false
   name: ToUInt32(Byte[], Int32)
   nameWithType: BitConverter.ToUInt32(Byte[], Int32)
-  fullName: System.BitConverter.ToUInt32(Byte[], Int32)
+  fullName: BitConverter.ToUInt32(Byte[], Int32)
 - uid: System.BitConverter.ToUInt64(System.Byte[],System.Int32)
   parent: System.BitConverter
   isExternal: false
   name: ToUInt64(Byte[], Int32)
   nameWithType: BitConverter.ToUInt64(Byte[], Int32)
-  fullName: System.BitConverter.ToUInt64(Byte[], Int32)
+  fullName: BitConverter.ToUInt64(Byte[], Int32)
 - uid: System.BitConverter.DoubleToInt64Bits*
   parent: System.BitConverter
   isExternal: false
   name: DoubleToInt64Bits
   nameWithType: BitConverter.DoubleToInt64Bits
-  fullName: System.BitConverter.DoubleToInt64Bits
+  fullName: BitConverter.DoubleToInt64Bits
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2559,10 +2605,11 @@ references:
   isExternal: false
   name: GetBytes
   nameWithType: BitConverter.GetBytes
-  fullName: System.BitConverter.GetBytes
+  fullName: BitConverter.GetBytes
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2581,16 +2628,26 @@ references:
   - xamarinandroid-7.1
   - xamarinios-10.8
   - xamarinmac-3.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
+- uid: System.BitConverter.Int32BitsToSingle*
+  parent: System.BitConverter
+  isExternal: false
+  name: Int32BitsToSingle
+  nameWithType: BitConverter.Int32BitsToSingle
+  fullName: BitConverter.Int32BitsToSingle
+  monikers:
+  - netcore-2.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
 - uid: System.BitConverter.Int64BitsToDouble*
   parent: System.BitConverter
   isExternal: false
   name: Int64BitsToDouble
   nameWithType: BitConverter.Int64BitsToDouble
-  fullName: System.BitConverter.Int64BitsToDouble
+  fullName: BitConverter.Int64BitsToDouble
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2610,15 +2667,25 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
+- uid: System.BitConverter.SingleToInt32Bits*
+  parent: System.BitConverter
+  isExternal: false
+  name: SingleToInt32Bits
+  nameWithType: BitConverter.SingleToInt32Bits
+  fullName: BitConverter.SingleToInt32Bits
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/BitConverter.xml
 - uid: System.BitConverter.ToBoolean*
   parent: System.BitConverter
   isExternal: false
   name: ToBoolean
   nameWithType: BitConverter.ToBoolean
-  fullName: System.BitConverter.ToBoolean
+  fullName: BitConverter.ToBoolean
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2643,10 +2710,11 @@ references:
   isExternal: false
   name: ToChar
   nameWithType: BitConverter.ToChar
-  fullName: System.BitConverter.ToChar
+  fullName: BitConverter.ToChar
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2671,10 +2739,11 @@ references:
   isExternal: false
   name: ToDouble
   nameWithType: BitConverter.ToDouble
-  fullName: System.BitConverter.ToDouble
+  fullName: BitConverter.ToDouble
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2699,10 +2768,11 @@ references:
   isExternal: false
   name: ToInt16
   nameWithType: BitConverter.ToInt16
-  fullName: System.BitConverter.ToInt16
+  fullName: BitConverter.ToInt16
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2727,10 +2797,11 @@ references:
   isExternal: false
   name: ToInt32
   nameWithType: BitConverter.ToInt32
-  fullName: System.BitConverter.ToInt32
+  fullName: BitConverter.ToInt32
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2755,10 +2826,11 @@ references:
   isExternal: false
   name: ToInt64
   nameWithType: BitConverter.ToInt64
-  fullName: System.BitConverter.ToInt64
+  fullName: BitConverter.ToInt64
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2783,10 +2855,11 @@ references:
   isExternal: false
   name: ToSingle
   nameWithType: BitConverter.ToSingle
-  fullName: System.BitConverter.ToSingle
+  fullName: BitConverter.ToSingle
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2811,10 +2884,11 @@ references:
   isExternal: false
   name: ToString
   nameWithType: BitConverter.ToString
-  fullName: System.BitConverter.ToString
+  fullName: BitConverter.ToString
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2839,10 +2913,11 @@ references:
   isExternal: false
   name: ToUInt16
   nameWithType: BitConverter.ToUInt16
-  fullName: System.BitConverter.ToUInt16
+  fullName: BitConverter.ToUInt16
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2867,10 +2942,11 @@ references:
   isExternal: false
   name: ToUInt32
   nameWithType: BitConverter.ToUInt32
-  fullName: System.BitConverter.ToUInt32
+  fullName: BitConverter.ToUInt32
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2895,10 +2971,11 @@ references:
   isExternal: false
   name: ToUInt64
   nameWithType: BitConverter.ToUInt64
-  fullName: System.BitConverter.ToUInt64
+  fullName: BitConverter.ToUInt64
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

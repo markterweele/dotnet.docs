@@ -20,10 +20,14 @@ items:
   assemblies:
   - WindowsBase
   namespace: System.Windows.Interop
-  summary: Provides a keyboard sink for components that manages tabbing, accelerators, and mnemonics across interop boundaries and between HWNDs. This interface implements keyboard message management in [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)]-[!INCLUDE[TLA2#tla_win32](~/includes/tla2sharptla-win32-md.md)] interoperation scenarios.
+  summary: Provides a keyboard sink for components that manages tabbing, accelerators, and mnemonics across interop boundaries and between HWNDs. This interface implements keyboard message management in WPF-Win32 interoperation scenarios.
   remarks: "A keyboard sink handles input from particular subsets of the overall keyboard input model for [!INCLUDE[TLA#tla_win32](~/includes/tlasharptla-win32-md.md)] and [!INCLUDE[TLA#tla_winclient](~/includes/tlasharptla-winclient-md.md)], and enables some keyboard input to be processed and directed to HWNDs other than the one with current keyboard focus.  \n  \n If your component contains other components, and maintains a tab order, your component must also implement <xref:System.Windows.Interop.IKeyboardInputSite> and keep track of which component has focus.  \n  \n For a discussion of the input architecture specifically implemented for [!INCLUDE[TLA#tla_winforms](~/includes/tlasharptla-winforms-md.md)] interop, see [Windows Forms and WPF Interoperability Input Architecture](~/docs/framework/wpf/advanced/windows-forms-and-wpf-interoperability-input-architecture.md).  \n  \n <xref:System.Windows.Interop.HwndSource> and <xref:System.Windows.Interop.HwndHost> each implement the <xref:System.Windows.Interop.IKeyboardInputSink> interface, through explicit interface definitions. The explicit definitions supply default behaviors, and can also be accessed if necessary through an <xref:System.Windows.Interop.IKeyboardInputSink> interface cast of <xref:System.Windows.Interop.HwndSource> or <xref:System.Windows.Interop.HwndHost>."
   syntax:
     content: public interface IKeyboardInputSink
+  derivedClasses:
+  - System.Windows.Forms.Integration.WindowsFormsHost
+  - System.Windows.Interop.HwndHost
+  - System.Windows.Interop.HwndSource
   implements: []
   version:
   - netframework-4.5.1
@@ -42,8 +46,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/IKeyboardInputSink.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Interop.IKeyboardInputSink.HasFocusWithin
   commentId: M:System.Windows.Interop.IKeyboardInputSink.HasFocusWithin
   id: HasFocusWithin
@@ -52,7 +54,7 @@ items:
   - csharp
   name: HasFocusWithin()
   nameWithType: IKeyboardInputSink.HasFocusWithin()
-  fullName: System.Windows.Interop.IKeyboardInputSink.HasFocusWithin()
+  fullName: IKeyboardInputSink.HasFocusWithin()
   type: Method
   assemblies:
   - WindowsBase
@@ -84,8 +86,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/IKeyboardInputSink.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Interop.IKeyboardInputSink.KeyboardInputSite
   commentId: P:System.Windows.Interop.IKeyboardInputSink.KeyboardInputSite
   id: KeyboardInputSite
@@ -94,7 +94,7 @@ items:
   - csharp
   name: KeyboardInputSite
   nameWithType: IKeyboardInputSink.KeyboardInputSite
-  fullName: System.Windows.Interop.IKeyboardInputSink.KeyboardInputSite
+  fullName: IKeyboardInputSink.KeyboardInputSite
   type: Property
   assemblies:
   - WindowsBase
@@ -130,9 +130,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/IKeyboardInputSink.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.IKeyboardInputSink.OnMnemonic(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   commentId: M:System.Windows.Interop.IKeyboardInputSink.OnMnemonic(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   id: OnMnemonic(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
@@ -141,7 +138,7 @@ items:
   - csharp
   name: OnMnemonic(MSG, ModifierKeys)
   nameWithType: IKeyboardInputSink.OnMnemonic(MSG, ModifierKeys)
-  fullName: System.Windows.Interop.IKeyboardInputSink.OnMnemonic(MSG, ModifierKeys)
+  fullName: IKeyboardInputSink.OnMnemonic(MSG, ModifierKeys)
   type: Method
   assemblies:
   - WindowsBase
@@ -184,8 +181,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/IKeyboardInputSink.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Interop.IKeyboardInputSink.RegisterKeyboardInputSink(System.Windows.Interop.IKeyboardInputSink)
   commentId: M:System.Windows.Interop.IKeyboardInputSink.RegisterKeyboardInputSink(System.Windows.Interop.IKeyboardInputSink)
   id: RegisterKeyboardInputSink(System.Windows.Interop.IKeyboardInputSink)
@@ -194,7 +189,7 @@ items:
   - csharp
   name: RegisterKeyboardInputSink(IKeyboardInputSink)
   nameWithType: IKeyboardInputSink.RegisterKeyboardInputSink(IKeyboardInputSink)
-  fullName: System.Windows.Interop.IKeyboardInputSink.RegisterKeyboardInputSink(IKeyboardInputSink)
+  fullName: IKeyboardInputSink.RegisterKeyboardInputSink(IKeyboardInputSink)
   type: Method
   assemblies:
   - WindowsBase
@@ -234,9 +229,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/IKeyboardInputSink.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.IKeyboardInputSink.TabInto(System.Windows.Input.TraversalRequest)
   commentId: M:System.Windows.Interop.IKeyboardInputSink.TabInto(System.Windows.Input.TraversalRequest)
   id: TabInto(System.Windows.Input.TraversalRequest)
@@ -245,13 +237,13 @@ items:
   - csharp
   name: TabInto(TraversalRequest)
   nameWithType: IKeyboardInputSink.TabInto(TraversalRequest)
-  fullName: System.Windows.Interop.IKeyboardInputSink.TabInto(TraversalRequest)
+  fullName: IKeyboardInputSink.TabInto(TraversalRequest)
   type: Method
   assemblies:
   - WindowsBase
   namespace: System.Windows.Interop
   summary: Sets focus on either the first tab stop or the last tab stop of the sink.
-  remarks: <xref:System.Windows.Input.FocusNavigationDirection> and <xref:System.Windows.Input.FocusNavigationDirection> are the only relevant values that should be passed to this method in the <xref:System.Windows.Input.TraversalRequest>.
+  remarks: <xref:System.Windows.Input.FocusNavigationDirection.First> and <xref:System.Windows.Input.FocusNavigationDirection.Last> are the only relevant values that should be passed to this method in the <xref:System.Windows.Input.TraversalRequest>.
   syntax:
     content: public bool TabInto (System.Windows.Input.TraversalRequest request);
     parameters:
@@ -280,8 +272,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/IKeyboardInputSink.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Interop.IKeyboardInputSink.TranslateAccelerator(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   commentId: M:System.Windows.Interop.IKeyboardInputSink.TranslateAccelerator(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   id: TranslateAccelerator(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
@@ -290,7 +280,7 @@ items:
   - csharp
   name: TranslateAccelerator(MSG, ModifierKeys)
   nameWithType: IKeyboardInputSink.TranslateAccelerator(MSG, ModifierKeys)
-  fullName: System.Windows.Interop.IKeyboardInputSink.TranslateAccelerator(MSG, ModifierKeys)
+  fullName: IKeyboardInputSink.TranslateAccelerator(MSG, ModifierKeys)
   type: Method
   assemblies:
   - WindowsBase
@@ -333,9 +323,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/IKeyboardInputSink.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.IKeyboardInputSink.TranslateChar(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   commentId: M:System.Windows.Interop.IKeyboardInputSink.TranslateChar(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   id: TranslateChar(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
@@ -344,7 +331,7 @@ items:
   - csharp
   name: TranslateChar(MSG, ModifierKeys)
   nameWithType: IKeyboardInputSink.TranslateChar(MSG, ModifierKeys)
-  fullName: System.Windows.Interop.IKeyboardInputSink.TranslateChar(MSG, ModifierKeys)
+  fullName: IKeyboardInputSink.TranslateChar(MSG, ModifierKeys)
   type: Method
   assemblies:
   - WindowsBase
@@ -387,15 +374,13 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/IKeyboardInputSink.xml
-  ms.author: kempb
-  manager: ghogen
 references:
 - uid: System.Windows.Interop.IKeyboardInputSink.HasFocusWithin
   parent: System.Windows.Interop.IKeyboardInputSink
   isExternal: false
   name: HasFocusWithin()
   nameWithType: IKeyboardInputSink.HasFocusWithin()
-  fullName: System.Windows.Interop.IKeyboardInputSink.HasFocusWithin()
+  fullName: IKeyboardInputSink.HasFocusWithin()
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -407,7 +392,7 @@ references:
   isExternal: false
   name: KeyboardInputSite
   nameWithType: IKeyboardInputSink.KeyboardInputSite
-  fullName: System.Windows.Interop.IKeyboardInputSink.KeyboardInputSite
+  fullName: IKeyboardInputSink.KeyboardInputSite
 - uid: System.Windows.Interop.IKeyboardInputSite
   parent: System.Windows.Interop
   isExternal: false
@@ -419,7 +404,7 @@ references:
   isExternal: false
   name: OnMnemonic(MSG, ModifierKeys)
   nameWithType: IKeyboardInputSink.OnMnemonic(MSG, ModifierKeys)
-  fullName: System.Windows.Interop.IKeyboardInputSink.OnMnemonic(MSG, ModifierKeys)
+  fullName: IKeyboardInputSink.OnMnemonic(MSG, ModifierKeys)
 - uid: System.Windows.Interop.MSG
   parent: System.Windows.Interop
   isExternal: false
@@ -437,7 +422,7 @@ references:
   isExternal: false
   name: RegisterKeyboardInputSink(IKeyboardInputSink)
   nameWithType: IKeyboardInputSink.RegisterKeyboardInputSink(IKeyboardInputSink)
-  fullName: System.Windows.Interop.IKeyboardInputSink.RegisterKeyboardInputSink(IKeyboardInputSink)
+  fullName: IKeyboardInputSink.RegisterKeyboardInputSink(IKeyboardInputSink)
 - uid: System.Windows.Interop.IKeyboardInputSink
   parent: System.Windows.Interop
   isExternal: false
@@ -449,7 +434,7 @@ references:
   isExternal: false
   name: TabInto(TraversalRequest)
   nameWithType: IKeyboardInputSink.TabInto(TraversalRequest)
-  fullName: System.Windows.Interop.IKeyboardInputSink.TabInto(TraversalRequest)
+  fullName: IKeyboardInputSink.TabInto(TraversalRequest)
 - uid: System.Windows.Input.TraversalRequest
   parent: System.Windows.Input
   isExternal: false
@@ -461,19 +446,19 @@ references:
   isExternal: false
   name: TranslateAccelerator(MSG, ModifierKeys)
   nameWithType: IKeyboardInputSink.TranslateAccelerator(MSG, ModifierKeys)
-  fullName: System.Windows.Interop.IKeyboardInputSink.TranslateAccelerator(MSG, ModifierKeys)
+  fullName: IKeyboardInputSink.TranslateAccelerator(MSG, ModifierKeys)
 - uid: System.Windows.Interop.IKeyboardInputSink.TranslateChar(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   parent: System.Windows.Interop.IKeyboardInputSink
   isExternal: false
   name: TranslateChar(MSG, ModifierKeys)
   nameWithType: IKeyboardInputSink.TranslateChar(MSG, ModifierKeys)
-  fullName: System.Windows.Interop.IKeyboardInputSink.TranslateChar(MSG, ModifierKeys)
+  fullName: IKeyboardInputSink.TranslateChar(MSG, ModifierKeys)
 - uid: System.Windows.Interop.IKeyboardInputSink.HasFocusWithin*
   parent: System.Windows.Interop.IKeyboardInputSink
   isExternal: false
   name: HasFocusWithin
   nameWithType: IKeyboardInputSink.HasFocusWithin
-  fullName: System.Windows.Interop.IKeyboardInputSink.HasFocusWithin
+  fullName: IKeyboardInputSink.HasFocusWithin
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -488,7 +473,7 @@ references:
   isExternal: false
   name: KeyboardInputSite
   nameWithType: IKeyboardInputSink.KeyboardInputSite
-  fullName: System.Windows.Interop.IKeyboardInputSink.KeyboardInputSite
+  fullName: IKeyboardInputSink.KeyboardInputSite
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -503,7 +488,7 @@ references:
   isExternal: false
   name: OnMnemonic
   nameWithType: IKeyboardInputSink.OnMnemonic
-  fullName: System.Windows.Interop.IKeyboardInputSink.OnMnemonic
+  fullName: IKeyboardInputSink.OnMnemonic
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -518,7 +503,7 @@ references:
   isExternal: false
   name: RegisterKeyboardInputSink
   nameWithType: IKeyboardInputSink.RegisterKeyboardInputSink
-  fullName: System.Windows.Interop.IKeyboardInputSink.RegisterKeyboardInputSink
+  fullName: IKeyboardInputSink.RegisterKeyboardInputSink
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -533,7 +518,7 @@ references:
   isExternal: false
   name: TabInto
   nameWithType: IKeyboardInputSink.TabInto
-  fullName: System.Windows.Interop.IKeyboardInputSink.TabInto
+  fullName: IKeyboardInputSink.TabInto
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -548,7 +533,7 @@ references:
   isExternal: false
   name: TranslateAccelerator
   nameWithType: IKeyboardInputSink.TranslateAccelerator
-  fullName: System.Windows.Interop.IKeyboardInputSink.TranslateAccelerator
+  fullName: IKeyboardInputSink.TranslateAccelerator
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -563,7 +548,7 @@ references:
   isExternal: false
   name: TranslateChar
   nameWithType: IKeyboardInputSink.TranslateChar
-  fullName: System.Windows.Interop.IKeyboardInputSink.TranslateChar
+  fullName: IKeyboardInputSink.TranslateChar
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

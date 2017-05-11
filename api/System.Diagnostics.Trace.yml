@@ -54,7 +54,7 @@ items:
   - netstandard
   namespace: System.Diagnostics
   summary: Provides a set of methods and properties that help you trace the execution of your code. This class cannot be inherited.
-  remarks: "You can use the properties and methods in the <xref:System.Diagnostics.Trace> class to instrument release builds. Instrumentation allows you to monitor the health of your application running in real-life settings. Tracing helps you isolate problems and fix them without disturbing a running system.  \n  \n This class provides methods to display an <xref:System.Diagnostics.Trace.Assert%2A> dialog box, and to emit an assertion that will always <xref:System.Diagnostics.Trace.Fail%2A>. This class provides write methods in the following variations: <xref:System.Diagnostics.Trace.Write%2A>, <xref:System.Diagnostics.Trace.WriteLine%2A>, <xref:System.Diagnostics.Trace.WriteIf%2A>, and <xref:System.Diagnostics.Trace.WriteLineIf%2A>.  \n  \n The <xref:System.Diagnostics.BooleanSwitch> and <xref:System.Diagnostics.TraceSwitch> classes provide means to dynamically control the tracing output. You can modify the values of these switches without recompiling your application. For information on using the configuration file to set a switch, see the <xref:System.Diagnostics.Switch> class and the [How to: Create, Initialize and Configure Trace Switches](../Topic/How%20to:%20Create,%20Initialize%20and%20Configure%20Trace%20Switches.md) topic.  \n  \n You can customize the tracing output's target by adding <xref:System.Diagnostics.TraceListener> instances to or removing instances from the <xref:System.Diagnostics.Trace.Listeners%2A> collection. The <xref:System.Diagnostics.Trace.Listeners%2A> collection is shared by both the <xref:System.Diagnostics.Debug> and the <xref:System.Diagnostics.Trace> classes; adding a trace listener to either class adds the listener to both. By default, trace output is emitted using the <xref:System.Diagnostics.DefaultTraceListener> class.  \n  \n> [!NOTE]\n>  Adding a trace listener to the <xref:System.Diagnostics.Trace.Listeners%2A> collection can cause an exception to be thrown while tracing, if a resource used by the trace listener is not available. The conditions and the exception thrown depend on the trace listener and cannot be enumerated in this topic. It may be useful to place calls to the <xref:System.Diagnostics.Trace> methods in `try`/`catch` blocks to detect and handle any exceptions from trace listeners.  \n  \n> [!NOTE]\n>  If you add trace listeners to partially trusted code, you will get a <xref:System.Security.SecurityException> exception, because adding trace listeners requires <xref:System.Security.Permissions.SecurityPermissionFlag> permission. To trace partially trusted code that is running in a sandbox in Visual Studio, do not add trace listeners. Instead, view the <xref:System.Diagnostics.Trace> and <xref:System.Diagnostics.Debug> messages in the **Output** window.  \n  \n The <xref:System.Diagnostics.Trace> class provides properties to get or set the level of <xref:System.Diagnostics.Trace.Indent%2A>, the <xref:System.Diagnostics.Trace.IndentSize%2A>, and whether to <xref:System.Diagnostics.Trace.AutoFlush%2A> after each write.  \n  \n To set the <xref:System.Diagnostics.Trace.AutoFlush%2A> and <xref:System.Diagnostics.Trace.IndentSize%2A> for <xref:System.Diagnostics.Trace>, you can edit the configuration file that corresponds to the name of your application. The configuration file should be formatted like the following example:  \n  \n```  \n<configuration>  \n  <system.diagnostics>  \n    <trace autoflush=\"false\" indentsize=\"3\" />  \n  </system.diagnostics>  \n</configuration>  \n```  \n  \n The <xref:System.Diagnostics.ConditionalAttribute> attribute is applied to the methods of <xref:System.Diagnostics.Trace>. Compilers that support <xref:System.Diagnostics.ConditionalAttribute> ignore calls to these methods unless \"TRACE\" is defined as a conditional compilation symbol. Refer to a compiler's documentation to determine whether <xref:System.Diagnostics.ConditionalAttribute> is supported and the syntax for defining a conditional compilation symbol.  \n  \n> [!NOTE]\n>  In Visual Studio projects, by default, the \"DEBUG\" conditional compilation symbol is defined for debug builds, and the \"TRACE\" symbol is defined for both debug and release builds. For information about how to disable this behavior, see the Visual Studio documentation.  \n  \n To define the \"TRACE\" conditional compilation symbol in C#, add the `/d:TRACE` option to the compiler command line when you compile your code using a command line, or add `#define TRACE` to the top of your file. In Visual Basic, add the `/d:TRACE=True` option to the compiler command line or add `#Const TRACE=True` to the file.  \n  \n <xref:System.Diagnostics.ConditionalAttribute> is not supported by the C++ compiler. To provide equivalent functionality, you must enclose calls to the methods of <xref:System.Diagnostics.Trace> in an `#if defined(TRACE) ... #endif` block, and add the `/DTRACE` option to the compiler command line or add `#define TRACE` to the file."
+  remarks: "You can use the properties and methods in the <xref:System.Diagnostics.Trace> class to instrument release builds. Instrumentation allows you to monitor the health of your application running in real-life settings. Tracing helps you isolate problems and fix them without disturbing a running system.  \n  \n This class provides methods to display an <xref:System.Diagnostics.Trace.Assert%2A> dialog box, and to emit an assertion that will always <xref:System.Diagnostics.Trace.Fail%2A>. This class provides write methods in the following variations: <xref:System.Diagnostics.Trace.Write%2A>, <xref:System.Diagnostics.Trace.WriteLine%2A>, <xref:System.Diagnostics.Trace.WriteIf%2A>, and <xref:System.Diagnostics.Trace.WriteLineIf%2A>.  \n  \n The <xref:System.Diagnostics.BooleanSwitch> and <xref:System.Diagnostics.TraceSwitch> classes provide means to dynamically control the tracing output. You can modify the values of these switches without recompiling your application. For information on using the configuration file to set a switch, see the <xref:System.Diagnostics.Switch> class and the [How to: Create, Initialize and Configure Trace Switches](~/docs/framework/debug-trace-profile/how-to-create-initialize-and-configure-trace-switches.md) topic.  \n  \n You can customize the tracing output's target by adding <xref:System.Diagnostics.TraceListener> instances to or removing instances from the <xref:System.Diagnostics.Trace.Listeners%2A> collection. The <xref:System.Diagnostics.Trace.Listeners%2A> collection is shared by both the <xref:System.Diagnostics.Debug> and the <xref:System.Diagnostics.Trace> classes; adding a trace listener to either class adds the listener to both. By default, trace output is emitted using the <xref:System.Diagnostics.DefaultTraceListener> class.  \n  \n> [!NOTE]\n>  Adding a trace listener to the <xref:System.Diagnostics.Trace.Listeners%2A> collection can cause an exception to be thrown while tracing, if a resource used by the trace listener is not available. The conditions and the exception thrown depend on the trace listener and cannot be enumerated in this topic. It may be useful to place calls to the <xref:System.Diagnostics.Trace> methods in `try`/`catch` blocks to detect and handle any exceptions from trace listeners.  \n  \n> [!NOTE]\n>  If you add trace listeners to partially trusted code, you will get a <xref:System.Security.SecurityException> exception, because adding trace listeners requires <xref:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode> permission. To trace partially trusted code that is running in a sandbox in Visual Studio, do not add trace listeners. Instead, view the <xref:System.Diagnostics.Trace> and <xref:System.Diagnostics.Debug> messages in the **Output** window.  \n  \n The <xref:System.Diagnostics.Trace> class provides properties to get or set the level of <xref:System.Diagnostics.Trace.Indent%2A>, the <xref:System.Diagnostics.Trace.IndentSize%2A>, and whether to <xref:System.Diagnostics.Trace.AutoFlush%2A> after each write.  \n  \n To set the <xref:System.Diagnostics.Trace.AutoFlush%2A> and <xref:System.Diagnostics.Trace.IndentSize%2A> for <xref:System.Diagnostics.Trace>, you can edit the configuration file that corresponds to the name of your application. The configuration file should be formatted like the following example:  \n  \n```  \n<configuration>  \n  <system.diagnostics>  \n    <trace autoflush=\"false\" indentsize=\"3\" />  \n  </system.diagnostics>  \n</configuration>  \n```  \n  \n The <xref:System.Diagnostics.ConditionalAttribute> attribute is applied to the methods of <xref:System.Diagnostics.Trace>. Compilers that support <xref:System.Diagnostics.ConditionalAttribute> ignore calls to these methods unless \"TRACE\" is defined as a conditional compilation symbol. Refer to a compiler's documentation to determine whether <xref:System.Diagnostics.ConditionalAttribute> is supported and the syntax for defining a conditional compilation symbol.  \n  \n> [!NOTE]\n>  In Visual Studio projects, by default, the \"DEBUG\" conditional compilation symbol is defined for debug builds, and the \"TRACE\" symbol is defined for both debug and release builds. For information about how to disable this behavior, see the Visual Studio documentation.  \n  \n To define the \"TRACE\" conditional compilation symbol in C#, add the `/d:TRACE` option to the compiler command line when you compile your code using a command line, or add `#define TRACE` to the top of your file. In Visual Basic, add the `/d:TRACE=True` option to the compiler command line or add `#Const TRACE=True` to the file.  \n  \n <xref:System.Diagnostics.ConditionalAttribute> is not supported by the C++ compiler. To provide equivalent functionality, you must enclose calls to the methods of <xref:System.Diagnostics.Trace> in an `#if defined(TRACE) ... #endif` block, and add the `/DTRACE` option to the compiler command line or add `#define TRACE` to the file."
   example:
   - "The following example uses <xref:System.Diagnostics.Trace> to indicate the beginning and the end of a program's execution. The example also uses the <xref:System.Diagnostics.Trace.Indent%2A?displayProperty=fullName> and <xref:System.Diagnostics.Trace.Unindent%2A?displayProperty=fullName> methods to distinguish the tracing output. For a more complete example of the use of <xref:System.Diagnostics.Trace>, see [How to: Add Trace Statements to Application Code](~/docs/framework/debug-trace-profile/how-to-add-trace-statements-to-application-code.md).  \n  \n [!code-cpp[Classic Trace Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_Classic/classic Trace Example/CPP/source.cpp#1)]\n [!code-csharp[Classic Trace Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_Classic/classic Trace Example/CS/source.cs#1)]\n [!code-vb[Classic Trace Example#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_Classic/classic Trace Example/VB/source.vb#1)]"
   syntax:
@@ -72,7 +72,8 @@ items:
   - System.Object.ToString
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -86,7 +87,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -99,9 +101,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.Assert(System.Boolean)
   commentId: M:System.Diagnostics.Trace.Assert(System.Boolean)
   id: Assert(System.Boolean)
@@ -110,7 +109,7 @@ items:
   - csharp
   name: Assert(Boolean)
   nameWithType: Trace.Assert(Boolean)
-  fullName: System.Diagnostics.Trace.Assert(Boolean)
+  fullName: Trace.Assert(Boolean)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -136,7 +135,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -150,7 +150,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -163,9 +164,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.Assert(System.Boolean,System.String)
   commentId: M:System.Diagnostics.Trace.Assert(System.Boolean,System.String)
   id: Assert(System.Boolean,System.String)
@@ -174,7 +172,7 @@ items:
   - csharp
   name: Assert(Boolean, String)
   nameWithType: Trace.Assert(Boolean, String)
-  fullName: System.Diagnostics.Trace.Assert(Boolean, String)
+  fullName: Trace.Assert(Boolean, String)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -203,7 +201,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -217,7 +216,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -230,9 +230,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.Assert(System.Boolean,System.String,System.String)
   commentId: M:System.Diagnostics.Trace.Assert(System.Boolean,System.String,System.String)
   id: Assert(System.Boolean,System.String,System.String)
@@ -241,7 +238,7 @@ items:
   - csharp
   name: Assert(Boolean, String, String)
   nameWithType: Trace.Assert(Boolean, String, String)
-  fullName: System.Diagnostics.Trace.Assert(Boolean, String, String)
+  fullName: Trace.Assert(Boolean, String, String)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -273,7 +270,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -287,7 +285,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -300,9 +299,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.AutoFlush
   commentId: P:System.Diagnostics.Trace.AutoFlush
   id: AutoFlush
@@ -311,7 +307,7 @@ items:
   - csharp
   name: AutoFlush
   nameWithType: Trace.AutoFlush
-  fullName: System.Diagnostics.Trace.AutoFlush
+  fullName: Trace.AutoFlush
   type: Property
   assemblies:
   - System.Diagnostics.TraceSource
@@ -329,7 +325,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -343,7 +340,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -356,9 +354,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.Close
   commentId: M:System.Diagnostics.Trace.Close
   id: Close
@@ -367,7 +362,7 @@ items:
   - csharp
   name: Close()
   nameWithType: Trace.Close()
-  fullName: System.Diagnostics.Trace.Close()
+  fullName: Trace.Close()
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -390,7 +385,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -404,7 +400,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -417,9 +414,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.CorrelationManager
   commentId: P:System.Diagnostics.Trace.CorrelationManager
   id: CorrelationManager
@@ -428,11 +422,12 @@ items:
   - csharp
   name: CorrelationManager
   nameWithType: Trace.CorrelationManager
-  fullName: System.Diagnostics.Trace.CorrelationManager
+  fullName: Trace.CorrelationManager
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.Diagnostics.TraceSource
   namespace: System.Diagnostics
   summary: Gets the correlation manager for the thread for this trace.
   remarks: "> [!NOTE]\n>  This is an advanced property that most applications should not have occasion to use.  \n  \n The <xref:System.Diagnostics.CorrelationManager> class provides methods used to store a logical operation identity in a thread-bound context and automatically tag each trace event generated by the thread with the stored identity."
@@ -444,6 +439,7 @@ items:
   overload: System.Diagnostics.Trace.CorrelationManager*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -456,6 +452,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -468,9 +465,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.Fail(System.String)
   commentId: M:System.Diagnostics.Trace.Fail(System.String)
   id: Fail(System.String)
@@ -479,7 +473,7 @@ items:
   - csharp
   name: Fail(String)
   nameWithType: Trace.Fail(String)
-  fullName: System.Diagnostics.Trace.Fail(String)
+  fullName: Trace.Fail(String)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -505,7 +499,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -519,7 +514,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -532,9 +528,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.Fail(System.String,System.String)
   commentId: M:System.Diagnostics.Trace.Fail(System.String,System.String)
   id: Fail(System.String,System.String)
@@ -543,7 +536,7 @@ items:
   - csharp
   name: Fail(String, String)
   nameWithType: Trace.Fail(String, String)
-  fullName: System.Diagnostics.Trace.Fail(String, String)
+  fullName: Trace.Fail(String, String)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -572,7 +565,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -586,7 +580,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -599,9 +594,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.Flush
   commentId: M:System.Diagnostics.Trace.Flush
   id: Flush
@@ -610,7 +602,7 @@ items:
   - csharp
   name: Flush()
   nameWithType: Trace.Flush()
-  fullName: System.Diagnostics.Trace.Flush()
+  fullName: Trace.Flush()
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -633,7 +625,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -647,7 +640,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -660,9 +654,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.Indent
   commentId: M:System.Diagnostics.Trace.Indent
   id: Indent
@@ -671,7 +662,7 @@ items:
   - csharp
   name: Indent()
   nameWithType: Trace.Indent()
-  fullName: System.Diagnostics.Trace.Indent()
+  fullName: Trace.Indent()
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -694,7 +685,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -708,7 +700,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -721,9 +714,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.IndentLevel
   commentId: P:System.Diagnostics.Trace.IndentLevel
   id: IndentLevel
@@ -732,7 +722,7 @@ items:
   - csharp
   name: IndentLevel
   nameWithType: Trace.IndentLevel
-  fullName: System.Diagnostics.Trace.IndentLevel
+  fullName: Trace.IndentLevel
   type: Property
   assemblies:
   - System.Diagnostics.TraceSource
@@ -752,7 +742,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -766,7 +757,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -779,9 +771,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.IndentSize
   commentId: P:System.Diagnostics.Trace.IndentSize
   id: IndentSize
@@ -790,7 +779,7 @@ items:
   - csharp
   name: IndentSize
   nameWithType: Trace.IndentSize
-  fullName: System.Diagnostics.Trace.IndentSize
+  fullName: Trace.IndentSize
   type: Property
   assemblies:
   - System.Diagnostics.TraceSource
@@ -808,7 +797,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -822,7 +812,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -835,9 +826,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.Listeners
   commentId: P:System.Diagnostics.Trace.Listeners
   id: Listeners
@@ -846,7 +834,7 @@ items:
   - csharp
   name: Listeners
   nameWithType: Trace.Listeners
-  fullName: System.Diagnostics.Trace.Listeners
+  fullName: Trace.Listeners
   type: Property
   assemblies:
   - System.Diagnostics.TraceSource
@@ -866,7 +854,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -880,7 +869,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -893,9 +883,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.Refresh
   commentId: M:System.Diagnostics.Trace.Refresh
   id: Refresh
@@ -904,7 +891,7 @@ items:
   - csharp
   name: Refresh()
   nameWithType: Trace.Refresh()
-  fullName: System.Diagnostics.Trace.Refresh()
+  fullName: Trace.Refresh()
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -920,7 +907,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -934,7 +922,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -947,9 +936,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.TraceError(System.String)
   commentId: M:System.Diagnostics.Trace.TraceError(System.String)
   id: TraceError(System.String)
@@ -958,7 +944,7 @@ items:
   - csharp
   name: TraceError(String)
   nameWithType: Trace.TraceError(String)
-  fullName: System.Diagnostics.Trace.TraceError(String)
+  fullName: Trace.TraceError(String)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -966,7 +952,7 @@ items:
   - netstandard
   namespace: System.Diagnostics
   summary: Writes an error message to the trace listeners in the <xref href="System.Diagnostics.Trace.Listeners"></xref> collection using the specified message.
-  remarks: <xref:System.Diagnostics.Trace.TraceError%2A> calls the `TraceEvent` method for each trace listener, with the trace event type <xref:System.Diagnostics.TraceEventType>, passing the informative message as the message string.
+  remarks: <xref:System.Diagnostics.Trace.TraceError%2A> calls the `TraceEvent` method for each trace listener, with the trace event type <xref:System.Diagnostics.TraceEventType.Error>, passing the informative message as the message string.
   syntax:
     content: >-
       [System.Diagnostics.Conditional("TRACE")]
@@ -982,7 +968,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -996,7 +983,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1009,9 +997,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.TraceError(System.String,System.Object[])
   commentId: M:System.Diagnostics.Trace.TraceError(System.String,System.Object[])
   id: TraceError(System.String,System.Object[])
@@ -1020,7 +1005,7 @@ items:
   - csharp
   name: TraceError(String, Object[])
   nameWithType: Trace.TraceError(String, Object[])
-  fullName: System.Diagnostics.Trace.TraceError(String, Object[])
+  fullName: Trace.TraceError(String, Object[])
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -1028,7 +1013,7 @@ items:
   - netstandard
   namespace: System.Diagnostics
   summary: Writes an error message to the trace listeners in the <xref href="System.Diagnostics.Trace.Listeners"></xref> collection using the specified array of objects and formatting information.
-  remarks: <xref:System.Diagnostics.Trace.TraceError%2A> calls the `TraceEvent` methods in the trace listeners with the trace event type <xref:System.Diagnostics.TraceEventType>, passing the message content as an object array with formatting information. See the <xref:System.String.Format%2A> method for more information about the `format` and `args` parameters.
+  remarks: <xref:System.Diagnostics.Trace.TraceError%2A> calls the `TraceEvent` methods in the trace listeners with the trace event type <xref:System.Diagnostics.TraceEventType.Error>, passing the message content as an object array with formatting information. See the <xref:System.String.Format%2A> method for more information about the `format` and `args` parameters.
   syntax:
     content: >-
       [System.Diagnostics.Conditional("TRACE")]
@@ -1047,7 +1032,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1061,7 +1047,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1074,9 +1061,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.TraceInformation(System.String)
   commentId: M:System.Diagnostics.Trace.TraceInformation(System.String)
   id: TraceInformation(System.String)
@@ -1085,7 +1069,7 @@ items:
   - csharp
   name: TraceInformation(String)
   nameWithType: Trace.TraceInformation(String)
-  fullName: System.Diagnostics.Trace.TraceInformation(String)
+  fullName: Trace.TraceInformation(String)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -1093,7 +1077,7 @@ items:
   - netstandard
   namespace: System.Diagnostics
   summary: Writes an informational message to the trace listeners in the <xref href="System.Diagnostics.Trace.Listeners"></xref> collection using the specified message.
-  remarks: <xref:System.Diagnostics.Trace.TraceInformation%2A> calls the `TraceEvent` method for each trace listener, with the trace event type <xref:System.Diagnostics.TraceEventType>, passing the informative message as the message string.
+  remarks: <xref:System.Diagnostics.Trace.TraceInformation%2A> calls the `TraceEvent` method for each trace listener, with the trace event type <xref:System.Diagnostics.TraceEventType.Information>, passing the informative message as the message string.
   syntax:
     content: >-
       [System.Diagnostics.Conditional("TRACE")]
@@ -1109,7 +1093,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1123,7 +1108,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1136,9 +1122,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.TraceInformation(System.String,System.Object[])
   commentId: M:System.Diagnostics.Trace.TraceInformation(System.String,System.Object[])
   id: TraceInformation(System.String,System.Object[])
@@ -1147,7 +1130,7 @@ items:
   - csharp
   name: TraceInformation(String, Object[])
   nameWithType: Trace.TraceInformation(String, Object[])
-  fullName: System.Diagnostics.Trace.TraceInformation(String, Object[])
+  fullName: Trace.TraceInformation(String, Object[])
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -1155,7 +1138,7 @@ items:
   - netstandard
   namespace: System.Diagnostics
   summary: Writes an informational message to the trace listeners in the <xref href="System.Diagnostics.Trace.Listeners"></xref> collection using the specified array of objects and formatting information.
-  remarks: <xref:System.Diagnostics.Trace.TraceInformation%2A> calls the `TraceEvent` methods in the trace listeners with the trace event type <xref:System.Diagnostics.TraceEventType>, passing the message content as an object array with formatting information. See the <xref:System.String.Format%2A> method for more information about the `format` and `args` parameters.
+  remarks: <xref:System.Diagnostics.Trace.TraceInformation%2A> calls the `TraceEvent` methods in the trace listeners with the trace event type <xref:System.Diagnostics.TraceEventType.Information>, passing the message content as an object array with formatting information. See the <xref:System.String.Format%2A> method for more information about the `format` and `args` parameters.
   syntax:
     content: >-
       [System.Diagnostics.Conditional("TRACE")]
@@ -1174,7 +1157,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1188,7 +1172,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1201,9 +1186,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.TraceWarning(System.String,System.Object[])
   commentId: M:System.Diagnostics.Trace.TraceWarning(System.String,System.Object[])
   id: TraceWarning(System.String,System.Object[])
@@ -1212,7 +1194,7 @@ items:
   - csharp
   name: TraceWarning(String, Object[])
   nameWithType: Trace.TraceWarning(String, Object[])
-  fullName: System.Diagnostics.Trace.TraceWarning(String, Object[])
+  fullName: Trace.TraceWarning(String, Object[])
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -1220,7 +1202,7 @@ items:
   - netstandard
   namespace: System.Diagnostics
   summary: Writes a warning message to the trace listeners in the <xref href="System.Diagnostics.Trace.Listeners"></xref> collection using the specified array of objects and formatting information.
-  remarks: <xref:System.Diagnostics.Trace.TraceWarning%2A> calls the `TraceEvent` methods in the trace listeners with the trace event type <xref:System.Diagnostics.TraceEventType>, passing the message content as an object array with formatting information. See the <xref:System.String.Format%2A> method for more information about the `format` and `args` parameters.
+  remarks: <xref:System.Diagnostics.Trace.TraceWarning%2A> calls the `TraceEvent` methods in the trace listeners with the trace event type <xref:System.Diagnostics.TraceEventType.Warning>, passing the message content as an object array with formatting information. See the <xref:System.String.Format%2A> method for more information about the `format` and `args` parameters.
   syntax:
     content: >-
       [System.Diagnostics.Conditional("TRACE")]
@@ -1239,7 +1221,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1253,7 +1236,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1266,9 +1250,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.TraceWarning(System.String)
   commentId: M:System.Diagnostics.Trace.TraceWarning(System.String)
   id: TraceWarning(System.String)
@@ -1277,7 +1258,7 @@ items:
   - csharp
   name: TraceWarning(String)
   nameWithType: Trace.TraceWarning(String)
-  fullName: System.Diagnostics.Trace.TraceWarning(String)
+  fullName: Trace.TraceWarning(String)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -1285,7 +1266,7 @@ items:
   - netstandard
   namespace: System.Diagnostics
   summary: Writes a warning message to the trace listeners in the <xref href="System.Diagnostics.Trace.Listeners"></xref> collection using the specified message.
-  remarks: <xref:System.Diagnostics.Trace.TraceWarning%2A> calls the `TraceEvent` method for each trace listener with the trace event type <xref:System.Diagnostics.TraceEventType>, passing the informative message as the message string.
+  remarks: <xref:System.Diagnostics.Trace.TraceWarning%2A> calls the `TraceEvent` method for each trace listener with the trace event type <xref:System.Diagnostics.TraceEventType.Warning>, passing the informative message as the message string.
   syntax:
     content: >-
       [System.Diagnostics.Conditional("TRACE")]
@@ -1301,7 +1282,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1315,7 +1297,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1328,9 +1311,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.Unindent
   commentId: M:System.Diagnostics.Trace.Unindent
   id: Unindent
@@ -1339,7 +1319,7 @@ items:
   - csharp
   name: Unindent()
   nameWithType: Trace.Unindent()
-  fullName: System.Diagnostics.Trace.Unindent()
+  fullName: Trace.Unindent()
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -1362,7 +1342,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1376,7 +1357,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1389,9 +1371,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.UseGlobalLock
   commentId: P:System.Diagnostics.Trace.UseGlobalLock
   id: UseGlobalLock
@@ -1400,7 +1379,7 @@ items:
   - csharp
   name: UseGlobalLock
   nameWithType: Trace.UseGlobalLock
-  fullName: System.Diagnostics.Trace.UseGlobalLock
+  fullName: Trace.UseGlobalLock
   type: Property
   assemblies:
   - System.Diagnostics.TraceSource
@@ -1418,7 +1397,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1432,7 +1412,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1445,9 +1426,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.Write(System.Object)
   commentId: M:System.Diagnostics.Trace.Write(System.Object)
   id: Write(System.Object)
@@ -1456,7 +1434,7 @@ items:
   - csharp
   name: Write(Object)
   nameWithType: Trace.Write(Object)
-  fullName: System.Diagnostics.Trace.Write(Object)
+  fullName: Trace.Write(Object)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -1482,7 +1460,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1496,7 +1475,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1509,9 +1489,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.Write(System.String)
   commentId: M:System.Diagnostics.Trace.Write(System.String)
   id: Write(System.String)
@@ -1520,7 +1497,7 @@ items:
   - csharp
   name: Write(String)
   nameWithType: Trace.Write(String)
-  fullName: System.Diagnostics.Trace.Write(String)
+  fullName: Trace.Write(String)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -1546,7 +1523,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1560,7 +1538,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1573,9 +1552,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.Write(System.Object,System.String)
   commentId: M:System.Diagnostics.Trace.Write(System.Object,System.String)
   id: Write(System.Object,System.String)
@@ -1584,7 +1560,7 @@ items:
   - csharp
   name: Write(Object, String)
   nameWithType: Trace.Write(Object, String)
-  fullName: System.Diagnostics.Trace.Write(Object, String)
+  fullName: Trace.Write(Object, String)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -1613,7 +1589,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1627,7 +1604,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1640,9 +1618,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.Write(System.String,System.String)
   commentId: M:System.Diagnostics.Trace.Write(System.String,System.String)
   id: Write(System.String,System.String)
@@ -1651,7 +1626,7 @@ items:
   - csharp
   name: Write(String, String)
   nameWithType: Trace.Write(String, String)
-  fullName: System.Diagnostics.Trace.Write(String, String)
+  fullName: Trace.Write(String, String)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -1680,7 +1655,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1694,7 +1670,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1707,9 +1684,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.WriteIf(System.Boolean,System.String,System.String)
   commentId: M:System.Diagnostics.Trace.WriteIf(System.Boolean,System.String,System.String)
   id: WriteIf(System.Boolean,System.String,System.String)
@@ -1718,7 +1692,7 @@ items:
   - csharp
   name: WriteIf(Boolean, String, String)
   nameWithType: Trace.WriteIf(Boolean, String, String)
-  fullName: System.Diagnostics.Trace.WriteIf(Boolean, String, String)
+  fullName: Trace.WriteIf(Boolean, String, String)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -1750,7 +1724,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1764,7 +1739,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1777,9 +1753,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.WriteIf(System.Boolean,System.Object,System.String)
   commentId: M:System.Diagnostics.Trace.WriteIf(System.Boolean,System.Object,System.String)
   id: WriteIf(System.Boolean,System.Object,System.String)
@@ -1788,7 +1761,7 @@ items:
   - csharp
   name: WriteIf(Boolean, Object, String)
   nameWithType: Trace.WriteIf(Boolean, Object, String)
-  fullName: System.Diagnostics.Trace.WriteIf(Boolean, Object, String)
+  fullName: Trace.WriteIf(Boolean, Object, String)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -1820,7 +1793,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1834,7 +1808,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1847,9 +1822,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.WriteIf(System.Boolean,System.Object)
   commentId: M:System.Diagnostics.Trace.WriteIf(System.Boolean,System.Object)
   id: WriteIf(System.Boolean,System.Object)
@@ -1858,7 +1830,7 @@ items:
   - csharp
   name: WriteIf(Boolean, Object)
   nameWithType: Trace.WriteIf(Boolean, Object)
-  fullName: System.Diagnostics.Trace.WriteIf(Boolean, Object)
+  fullName: Trace.WriteIf(Boolean, Object)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -1887,7 +1859,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1901,7 +1874,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1914,9 +1888,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.WriteIf(System.Boolean,System.String)
   commentId: M:System.Diagnostics.Trace.WriteIf(System.Boolean,System.String)
   id: WriteIf(System.Boolean,System.String)
@@ -1925,7 +1896,7 @@ items:
   - csharp
   name: WriteIf(Boolean, String)
   nameWithType: Trace.WriteIf(Boolean, String)
-  fullName: System.Diagnostics.Trace.WriteIf(Boolean, String)
+  fullName: Trace.WriteIf(Boolean, String)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -1954,7 +1925,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1968,7 +1940,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1981,9 +1954,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.WriteLine(System.Object)
   commentId: M:System.Diagnostics.Trace.WriteLine(System.Object)
   id: WriteLine(System.Object)
@@ -1992,7 +1962,7 @@ items:
   - csharp
   name: WriteLine(Object)
   nameWithType: Trace.WriteLine(Object)
-  fullName: System.Diagnostics.Trace.WriteLine(Object)
+  fullName: Trace.WriteLine(Object)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -2018,7 +1988,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2032,7 +2003,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2045,9 +2017,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.WriteLine(System.String)
   commentId: M:System.Diagnostics.Trace.WriteLine(System.String)
   id: WriteLine(System.String)
@@ -2056,7 +2025,7 @@ items:
   - csharp
   name: WriteLine(String)
   nameWithType: Trace.WriteLine(String)
-  fullName: System.Diagnostics.Trace.WriteLine(String)
+  fullName: Trace.WriteLine(String)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -2082,7 +2051,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2096,7 +2066,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2109,9 +2080,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.WriteLine(System.Object,System.String)
   commentId: M:System.Diagnostics.Trace.WriteLine(System.Object,System.String)
   id: WriteLine(System.Object,System.String)
@@ -2120,7 +2088,7 @@ items:
   - csharp
   name: WriteLine(Object, String)
   nameWithType: Trace.WriteLine(Object, String)
-  fullName: System.Diagnostics.Trace.WriteLine(Object, String)
+  fullName: Trace.WriteLine(Object, String)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -2149,7 +2117,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2163,7 +2132,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2176,9 +2146,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.WriteLine(System.String,System.String)
   commentId: M:System.Diagnostics.Trace.WriteLine(System.String,System.String)
   id: WriteLine(System.String,System.String)
@@ -2187,7 +2154,7 @@ items:
   - csharp
   name: WriteLine(String, String)
   nameWithType: Trace.WriteLine(String, String)
-  fullName: System.Diagnostics.Trace.WriteLine(String, String)
+  fullName: Trace.WriteLine(String, String)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -2216,7 +2183,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2230,7 +2198,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2243,9 +2212,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.WriteLineIf(System.Boolean,System.Object,System.String)
   commentId: M:System.Diagnostics.Trace.WriteLineIf(System.Boolean,System.Object,System.String)
   id: WriteLineIf(System.Boolean,System.Object,System.String)
@@ -2254,7 +2220,7 @@ items:
   - csharp
   name: WriteLineIf(Boolean, Object, String)
   nameWithType: Trace.WriteLineIf(Boolean, Object, String)
-  fullName: System.Diagnostics.Trace.WriteLineIf(Boolean, Object, String)
+  fullName: Trace.WriteLineIf(Boolean, Object, String)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -2286,7 +2252,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2300,7 +2267,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2313,9 +2281,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.WriteLineIf(System.Boolean,System.Object)
   commentId: M:System.Diagnostics.Trace.WriteLineIf(System.Boolean,System.Object)
   id: WriteLineIf(System.Boolean,System.Object)
@@ -2324,7 +2289,7 @@ items:
   - csharp
   name: WriteLineIf(Boolean, Object)
   nameWithType: Trace.WriteLineIf(Boolean, Object)
-  fullName: System.Diagnostics.Trace.WriteLineIf(Boolean, Object)
+  fullName: Trace.WriteLineIf(Boolean, Object)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -2353,7 +2318,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2367,7 +2333,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2380,9 +2347,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.WriteLineIf(System.Boolean,System.String)
   commentId: M:System.Diagnostics.Trace.WriteLineIf(System.Boolean,System.String)
   id: WriteLineIf(System.Boolean,System.String)
@@ -2391,7 +2355,7 @@ items:
   - csharp
   name: WriteLineIf(Boolean, String)
   nameWithType: Trace.WriteLineIf(Boolean, String)
-  fullName: System.Diagnostics.Trace.WriteLineIf(Boolean, String)
+  fullName: Trace.WriteLineIf(Boolean, String)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -2420,7 +2384,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2434,7 +2399,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2447,9 +2413,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.Trace.WriteLineIf(System.Boolean,System.String,System.String)
   commentId: M:System.Diagnostics.Trace.WriteLineIf(System.Boolean,System.String,System.String)
   id: WriteLineIf(System.Boolean,System.String,System.String)
@@ -2458,7 +2421,7 @@ items:
   - csharp
   name: WriteLineIf(Boolean, String, String)
   nameWithType: Trace.WriteLineIf(Boolean, String, String)
-  fullName: System.Diagnostics.Trace.WriteLineIf(Boolean, String, String)
+  fullName: Trace.WriteLineIf(Boolean, String, String)
   type: Method
   assemblies:
   - System.Diagnostics.TraceSource
@@ -2490,7 +2453,8 @@ items:
   - type: System.Diagnostics.ConditionalAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2504,7 +2468,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2517,9 +2482,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/Trace.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -2532,7 +2494,7 @@ references:
   isExternal: false
   name: Assert(Boolean)
   nameWithType: Trace.Assert(Boolean)
-  fullName: System.Diagnostics.Trace.Assert(Boolean)
+  fullName: Trace.Assert(Boolean)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -2544,7 +2506,7 @@ references:
   isExternal: false
   name: Assert(Boolean, String)
   nameWithType: Trace.Assert(Boolean, String)
-  fullName: System.Diagnostics.Trace.Assert(Boolean, String)
+  fullName: Trace.Assert(Boolean, String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -2556,25 +2518,25 @@ references:
   isExternal: false
   name: Assert(Boolean, String, String)
   nameWithType: Trace.Assert(Boolean, String, String)
-  fullName: System.Diagnostics.Trace.Assert(Boolean, String, String)
+  fullName: Trace.Assert(Boolean, String, String)
 - uid: System.Diagnostics.Trace.AutoFlush
   parent: System.Diagnostics.Trace
   isExternal: false
   name: AutoFlush
   nameWithType: Trace.AutoFlush
-  fullName: System.Diagnostics.Trace.AutoFlush
+  fullName: Trace.AutoFlush
 - uid: System.Diagnostics.Trace.Close
   parent: System.Diagnostics.Trace
   isExternal: false
   name: Close()
   nameWithType: Trace.Close()
-  fullName: System.Diagnostics.Trace.Close()
+  fullName: Trace.Close()
 - uid: System.Diagnostics.Trace.CorrelationManager
   parent: System.Diagnostics.Trace
   isExternal: false
   name: CorrelationManager
   nameWithType: Trace.CorrelationManager
-  fullName: System.Diagnostics.Trace.CorrelationManager
+  fullName: Trace.CorrelationManager
 - uid: System.Diagnostics.CorrelationManager
   parent: System.Diagnostics
   isExternal: false
@@ -2586,31 +2548,31 @@ references:
   isExternal: false
   name: Fail(String)
   nameWithType: Trace.Fail(String)
-  fullName: System.Diagnostics.Trace.Fail(String)
+  fullName: Trace.Fail(String)
 - uid: System.Diagnostics.Trace.Fail(System.String,System.String)
   parent: System.Diagnostics.Trace
   isExternal: false
   name: Fail(String, String)
   nameWithType: Trace.Fail(String, String)
-  fullName: System.Diagnostics.Trace.Fail(String, String)
+  fullName: Trace.Fail(String, String)
 - uid: System.Diagnostics.Trace.Flush
   parent: System.Diagnostics.Trace
   isExternal: false
   name: Flush()
   nameWithType: Trace.Flush()
-  fullName: System.Diagnostics.Trace.Flush()
+  fullName: Trace.Flush()
 - uid: System.Diagnostics.Trace.Indent
   parent: System.Diagnostics.Trace
   isExternal: false
   name: Indent()
   nameWithType: Trace.Indent()
-  fullName: System.Diagnostics.Trace.Indent()
+  fullName: Trace.Indent()
 - uid: System.Diagnostics.Trace.IndentLevel
   parent: System.Diagnostics.Trace
   isExternal: false
   name: IndentLevel
   nameWithType: Trace.IndentLevel
-  fullName: System.Diagnostics.Trace.IndentLevel
+  fullName: Trace.IndentLevel
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -2622,13 +2584,13 @@ references:
   isExternal: false
   name: IndentSize
   nameWithType: Trace.IndentSize
-  fullName: System.Diagnostics.Trace.IndentSize
+  fullName: Trace.IndentSize
 - uid: System.Diagnostics.Trace.Listeners
   parent: System.Diagnostics.Trace
   isExternal: false
   name: Listeners
   nameWithType: Trace.Listeners
-  fullName: System.Diagnostics.Trace.Listeners
+  fullName: Trace.Listeners
 - uid: System.Diagnostics.TraceListenerCollection
   parent: System.Diagnostics
   isExternal: false
@@ -2640,19 +2602,19 @@ references:
   isExternal: false
   name: Refresh()
   nameWithType: Trace.Refresh()
-  fullName: System.Diagnostics.Trace.Refresh()
+  fullName: Trace.Refresh()
 - uid: System.Diagnostics.Trace.TraceError(System.String)
   parent: System.Diagnostics.Trace
   isExternal: false
   name: TraceError(String)
   nameWithType: Trace.TraceError(String)
-  fullName: System.Diagnostics.Trace.TraceError(String)
+  fullName: Trace.TraceError(String)
 - uid: System.Diagnostics.Trace.TraceError(System.String,System.Object[])
   parent: System.Diagnostics.Trace
   isExternal: false
   name: TraceError(String, Object[])
   nameWithType: Trace.TraceError(String, Object[])
-  fullName: System.Diagnostics.Trace.TraceError(String, Object[])
+  fullName: Trace.TraceError(String, Object[])
 - uid: System.Object[]
   parent: System
   isExternal: false
@@ -2672,142 +2634,143 @@ references:
   isExternal: false
   name: TraceInformation(String)
   nameWithType: Trace.TraceInformation(String)
-  fullName: System.Diagnostics.Trace.TraceInformation(String)
+  fullName: Trace.TraceInformation(String)
 - uid: System.Diagnostics.Trace.TraceInformation(System.String,System.Object[])
   parent: System.Diagnostics.Trace
   isExternal: false
   name: TraceInformation(String, Object[])
   nameWithType: Trace.TraceInformation(String, Object[])
-  fullName: System.Diagnostics.Trace.TraceInformation(String, Object[])
+  fullName: Trace.TraceInformation(String, Object[])
 - uid: System.Diagnostics.Trace.TraceWarning(System.String,System.Object[])
   parent: System.Diagnostics.Trace
   isExternal: false
   name: TraceWarning(String, Object[])
   nameWithType: Trace.TraceWarning(String, Object[])
-  fullName: System.Diagnostics.Trace.TraceWarning(String, Object[])
+  fullName: Trace.TraceWarning(String, Object[])
 - uid: System.Diagnostics.Trace.TraceWarning(System.String)
   parent: System.Diagnostics.Trace
   isExternal: false
   name: TraceWarning(String)
   nameWithType: Trace.TraceWarning(String)
-  fullName: System.Diagnostics.Trace.TraceWarning(String)
+  fullName: Trace.TraceWarning(String)
 - uid: System.Diagnostics.Trace.Unindent
   parent: System.Diagnostics.Trace
   isExternal: false
   name: Unindent()
   nameWithType: Trace.Unindent()
-  fullName: System.Diagnostics.Trace.Unindent()
+  fullName: Trace.Unindent()
 - uid: System.Diagnostics.Trace.UseGlobalLock
   parent: System.Diagnostics.Trace
   isExternal: false
   name: UseGlobalLock
   nameWithType: Trace.UseGlobalLock
-  fullName: System.Diagnostics.Trace.UseGlobalLock
+  fullName: Trace.UseGlobalLock
 - uid: System.Diagnostics.Trace.Write(System.Object)
   parent: System.Diagnostics.Trace
   isExternal: false
   name: Write(Object)
   nameWithType: Trace.Write(Object)
-  fullName: System.Diagnostics.Trace.Write(Object)
+  fullName: Trace.Write(Object)
 - uid: System.Diagnostics.Trace.Write(System.String)
   parent: System.Diagnostics.Trace
   isExternal: false
   name: Write(String)
   nameWithType: Trace.Write(String)
-  fullName: System.Diagnostics.Trace.Write(String)
+  fullName: Trace.Write(String)
 - uid: System.Diagnostics.Trace.Write(System.Object,System.String)
   parent: System.Diagnostics.Trace
   isExternal: false
   name: Write(Object, String)
   nameWithType: Trace.Write(Object, String)
-  fullName: System.Diagnostics.Trace.Write(Object, String)
+  fullName: Trace.Write(Object, String)
 - uid: System.Diagnostics.Trace.Write(System.String,System.String)
   parent: System.Diagnostics.Trace
   isExternal: false
   name: Write(String, String)
   nameWithType: Trace.Write(String, String)
-  fullName: System.Diagnostics.Trace.Write(String, String)
+  fullName: Trace.Write(String, String)
 - uid: System.Diagnostics.Trace.WriteIf(System.Boolean,System.String,System.String)
   parent: System.Diagnostics.Trace
   isExternal: false
   name: WriteIf(Boolean, String, String)
   nameWithType: Trace.WriteIf(Boolean, String, String)
-  fullName: System.Diagnostics.Trace.WriteIf(Boolean, String, String)
+  fullName: Trace.WriteIf(Boolean, String, String)
 - uid: System.Diagnostics.Trace.WriteIf(System.Boolean,System.Object,System.String)
   parent: System.Diagnostics.Trace
   isExternal: false
   name: WriteIf(Boolean, Object, String)
   nameWithType: Trace.WriteIf(Boolean, Object, String)
-  fullName: System.Diagnostics.Trace.WriteIf(Boolean, Object, String)
+  fullName: Trace.WriteIf(Boolean, Object, String)
 - uid: System.Diagnostics.Trace.WriteIf(System.Boolean,System.Object)
   parent: System.Diagnostics.Trace
   isExternal: false
   name: WriteIf(Boolean, Object)
   nameWithType: Trace.WriteIf(Boolean, Object)
-  fullName: System.Diagnostics.Trace.WriteIf(Boolean, Object)
+  fullName: Trace.WriteIf(Boolean, Object)
 - uid: System.Diagnostics.Trace.WriteIf(System.Boolean,System.String)
   parent: System.Diagnostics.Trace
   isExternal: false
   name: WriteIf(Boolean, String)
   nameWithType: Trace.WriteIf(Boolean, String)
-  fullName: System.Diagnostics.Trace.WriteIf(Boolean, String)
+  fullName: Trace.WriteIf(Boolean, String)
 - uid: System.Diagnostics.Trace.WriteLine(System.Object)
   parent: System.Diagnostics.Trace
   isExternal: false
   name: WriteLine(Object)
   nameWithType: Trace.WriteLine(Object)
-  fullName: System.Diagnostics.Trace.WriteLine(Object)
+  fullName: Trace.WriteLine(Object)
 - uid: System.Diagnostics.Trace.WriteLine(System.String)
   parent: System.Diagnostics.Trace
   isExternal: false
   name: WriteLine(String)
   nameWithType: Trace.WriteLine(String)
-  fullName: System.Diagnostics.Trace.WriteLine(String)
+  fullName: Trace.WriteLine(String)
 - uid: System.Diagnostics.Trace.WriteLine(System.Object,System.String)
   parent: System.Diagnostics.Trace
   isExternal: false
   name: WriteLine(Object, String)
   nameWithType: Trace.WriteLine(Object, String)
-  fullName: System.Diagnostics.Trace.WriteLine(Object, String)
+  fullName: Trace.WriteLine(Object, String)
 - uid: System.Diagnostics.Trace.WriteLine(System.String,System.String)
   parent: System.Diagnostics.Trace
   isExternal: false
   name: WriteLine(String, String)
   nameWithType: Trace.WriteLine(String, String)
-  fullName: System.Diagnostics.Trace.WriteLine(String, String)
+  fullName: Trace.WriteLine(String, String)
 - uid: System.Diagnostics.Trace.WriteLineIf(System.Boolean,System.Object,System.String)
   parent: System.Diagnostics.Trace
   isExternal: false
   name: WriteLineIf(Boolean, Object, String)
   nameWithType: Trace.WriteLineIf(Boolean, Object, String)
-  fullName: System.Diagnostics.Trace.WriteLineIf(Boolean, Object, String)
+  fullName: Trace.WriteLineIf(Boolean, Object, String)
 - uid: System.Diagnostics.Trace.WriteLineIf(System.Boolean,System.Object)
   parent: System.Diagnostics.Trace
   isExternal: false
   name: WriteLineIf(Boolean, Object)
   nameWithType: Trace.WriteLineIf(Boolean, Object)
-  fullName: System.Diagnostics.Trace.WriteLineIf(Boolean, Object)
+  fullName: Trace.WriteLineIf(Boolean, Object)
 - uid: System.Diagnostics.Trace.WriteLineIf(System.Boolean,System.String)
   parent: System.Diagnostics.Trace
   isExternal: false
   name: WriteLineIf(Boolean, String)
   nameWithType: Trace.WriteLineIf(Boolean, String)
-  fullName: System.Diagnostics.Trace.WriteLineIf(Boolean, String)
+  fullName: Trace.WriteLineIf(Boolean, String)
 - uid: System.Diagnostics.Trace.WriteLineIf(System.Boolean,System.String,System.String)
   parent: System.Diagnostics.Trace
   isExternal: false
   name: WriteLineIf(Boolean, String, String)
   nameWithType: Trace.WriteLineIf(Boolean, String, String)
-  fullName: System.Diagnostics.Trace.WriteLineIf(Boolean, String, String)
+  fullName: Trace.WriteLineIf(Boolean, String, String)
 - uid: System.Diagnostics.Trace.Assert*
   parent: System.Diagnostics.Trace
   isExternal: false
   name: Assert
   nameWithType: Trace.Assert
-  fullName: System.Diagnostics.Trace.Assert
+  fullName: Trace.Assert
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2825,10 +2788,11 @@ references:
   isExternal: false
   name: AutoFlush
   nameWithType: Trace.AutoFlush
-  fullName: System.Diagnostics.Trace.AutoFlush
+  fullName: Trace.AutoFlush
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2846,10 +2810,11 @@ references:
   isExternal: false
   name: Close
   nameWithType: Trace.Close
-  fullName: System.Diagnostics.Trace.Close
+  fullName: Trace.Close
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2867,8 +2832,9 @@ references:
   isExternal: false
   name: CorrelationManager
   nameWithType: Trace.CorrelationManager
-  fullName: System.Diagnostics.Trace.CorrelationManager
+  fullName: Trace.CorrelationManager
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2886,10 +2852,11 @@ references:
   isExternal: false
   name: Fail
   nameWithType: Trace.Fail
-  fullName: System.Diagnostics.Trace.Fail
+  fullName: Trace.Fail
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2907,10 +2874,11 @@ references:
   isExternal: false
   name: Flush
   nameWithType: Trace.Flush
-  fullName: System.Diagnostics.Trace.Flush
+  fullName: Trace.Flush
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2928,10 +2896,11 @@ references:
   isExternal: false
   name: Indent
   nameWithType: Trace.Indent
-  fullName: System.Diagnostics.Trace.Indent
+  fullName: Trace.Indent
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2949,10 +2918,11 @@ references:
   isExternal: false
   name: IndentLevel
   nameWithType: Trace.IndentLevel
-  fullName: System.Diagnostics.Trace.IndentLevel
+  fullName: Trace.IndentLevel
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2970,10 +2940,11 @@ references:
   isExternal: false
   name: IndentSize
   nameWithType: Trace.IndentSize
-  fullName: System.Diagnostics.Trace.IndentSize
+  fullName: Trace.IndentSize
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2991,10 +2962,11 @@ references:
   isExternal: false
   name: Listeners
   nameWithType: Trace.Listeners
-  fullName: System.Diagnostics.Trace.Listeners
+  fullName: Trace.Listeners
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3012,10 +2984,11 @@ references:
   isExternal: false
   name: Refresh
   nameWithType: Trace.Refresh
-  fullName: System.Diagnostics.Trace.Refresh
+  fullName: Trace.Refresh
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3033,10 +3006,11 @@ references:
   isExternal: false
   name: TraceError
   nameWithType: Trace.TraceError
-  fullName: System.Diagnostics.Trace.TraceError
+  fullName: Trace.TraceError
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3054,10 +3028,11 @@ references:
   isExternal: false
   name: TraceInformation
   nameWithType: Trace.TraceInformation
-  fullName: System.Diagnostics.Trace.TraceInformation
+  fullName: Trace.TraceInformation
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3075,10 +3050,11 @@ references:
   isExternal: false
   name: TraceWarning
   nameWithType: Trace.TraceWarning
-  fullName: System.Diagnostics.Trace.TraceWarning
+  fullName: Trace.TraceWarning
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3096,10 +3072,11 @@ references:
   isExternal: false
   name: Unindent
   nameWithType: Trace.Unindent
-  fullName: System.Diagnostics.Trace.Unindent
+  fullName: Trace.Unindent
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3117,10 +3094,11 @@ references:
   isExternal: false
   name: UseGlobalLock
   nameWithType: Trace.UseGlobalLock
-  fullName: System.Diagnostics.Trace.UseGlobalLock
+  fullName: Trace.UseGlobalLock
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3138,10 +3116,11 @@ references:
   isExternal: false
   name: Write
   nameWithType: Trace.Write
-  fullName: System.Diagnostics.Trace.Write
+  fullName: Trace.Write
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3159,10 +3138,11 @@ references:
   isExternal: false
   name: WriteIf
   nameWithType: Trace.WriteIf
-  fullName: System.Diagnostics.Trace.WriteIf
+  fullName: Trace.WriteIf
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3180,10 +3160,11 @@ references:
   isExternal: false
   name: WriteLine
   nameWithType: Trace.WriteLine
-  fullName: System.Diagnostics.Trace.WriteLine
+  fullName: Trace.WriteLine
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3201,10 +3182,11 @@ references:
   isExternal: false
   name: WriteLineIf
   nameWithType: Trace.WriteLineIf
-  fullName: System.Diagnostics.Trace.WriteLineIf
+  fullName: Trace.WriteLineIf
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

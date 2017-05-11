@@ -14,6 +14,7 @@ items:
   assemblies:
   - mscorlib
   - netstandard
+  - System.Threading.Thread
   namespace: System
   summary: Encapsulates a memory slot to store local data. This class cannot be inherited.
   remarks: "The .NET Framework provides two mechanisms for using thread local storage (TLS): thread-relative static fields, and data slots.  \n  \n-   Thread-relative static fields are `static` fields (`Shared` fields in Visual Basic) that are marked with the <xref:System.ThreadStaticAttribute> attribute. They provide better performance than data slots, and enable compile-time type checking.  \n  \n-   Data slots are slower and more awkward to use than thread-relative static fields. Also, data is stored as type <xref:System.Object>, so you must cast it to the correct type before using it. However, you can use data slots when you have insufficient information at compile time to allocate static fields.  \n  \n For more information about using TLS, see [Thread Local Storage: Thread-Relative Static Fields and Data Slots](~/docs/standard/threading/thread-local-storage-thread-relative-static-fields-and-data-slots.md).  \n  \n Similarly, the .NET Framework provides two mechanisms for using context local storage: context-relative static fields and data slots. Context-relative static fields are static fields that are marked with the <xref:System.ContextStaticAttribute> attribute. The trade-offs between using these two mechanisms are similar to the tradeoffs between using thread-relative static fields and data slots.  \n  \n The <xref:System.LocalDataStoreSlot> structure serves as a local store memory mechanism that threads and contexts can use to store thread-specific and context-specific data, respectively. The common language runtime allocates a multi-slot data store array to each process when it is created. The thread or context calls various functions to allocate a data slot in the data store, to store and retrieve a data value in the slot, and to free a data slot for reuse after the thread or context object expires.  \n  \n The data slots are unique per thread or context; their values are not shared between the thread or context objects. Data slots can be allocated by a name or by an index number.  \n  \n For more information about storing local data, see <xref:System.Threading.Thread> or <xref:System.Runtime.Remoting.Contexts.Context>. The <xref:System.LocalDataStoreSlot> class is used with methods such as <xref:System.Threading.Thread.AllocateNamedDataSlot%2A?displayProperty=fullName>, <xref:System.Runtime.Remoting.Contexts.Context.AllocateNamedDataSlot%2A?displayProperty=fullName>, <xref:System.Threading.Thread.GetData%2A?displayProperty=fullName>, and <xref:System.Runtime.Remoting.Contexts.Context.GetData%2A?displayProperty=fullName>; it does not have any methods of its own that you need to use."
@@ -36,6 +37,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -48,6 +50,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -60,9 +63,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/LocalDataStoreSlot.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.LocalDataStoreSlot.Finalize
   commentId: M:System.LocalDataStoreSlot.Finalize
   id: Finalize
@@ -71,10 +71,11 @@ items:
   - csharp
   name: Finalize()
   nameWithType: LocalDataStoreSlot.Finalize()
-  fullName: System.LocalDataStoreSlot.Finalize()
+  fullName: LocalDataStoreSlot.Finalize()
   type: Method
   assemblies:
   - mscorlib
+  - System.Threading.Thread
   namespace: System
   summary: Ensures that resources are freed and other cleanup operations are performed when the garbage collector reclaims the <xref href="System.LocalDataStoreSlot"></xref> object.
   remarks: The garbage collector calls <xref:System.LocalDataStoreSlot.Finalize%2A> when the current object is ready to be finalized.
@@ -84,6 +85,7 @@ items:
   overload: System.LocalDataStoreSlot.Finalize*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -95,6 +97,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -106,9 +109,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/LocalDataStoreSlot.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -121,14 +121,15 @@ references:
   isExternal: false
   name: Finalize()
   nameWithType: LocalDataStoreSlot.Finalize()
-  fullName: System.LocalDataStoreSlot.Finalize()
+  fullName: LocalDataStoreSlot.Finalize()
 - uid: System.LocalDataStoreSlot.Finalize*
   parent: System.LocalDataStoreSlot
   isExternal: false
   name: Finalize
   nameWithType: LocalDataStoreSlot.Finalize
-  fullName: System.LocalDataStoreSlot.Finalize
+  fullName: LocalDataStoreSlot.Finalize
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

@@ -39,6 +39,7 @@ items:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Represents the Saudi Hijri (Um Al Qura) calendar.
   remarks: "The <xref:System.Globalization.UmAlQuraCalendar> class is nearly identical to the <xref:System.Globalization.HijriCalendar> class, except the Um Al Qura calendar uses a table-based algorithm licensed from the Saudi government to calculate dates, can express dates to the year 1500 A.H., and does not support the <xref:System.Globalization.HijriCalendar.HijriAdjustment%2A> property.  \n  \n> [!NOTE]\n>  For information about using the <xref:System.Globalization.UmAlQuraCalendar> class and the other calendar classes in the .NET Framework, see [Working with Calendars](~/docs/standard/datetime/working-with-calendars.md).  \n  \n For the <xref:System.Globalization.UmAlQuraCalendar> class, each month has either 29 or 30 days, but usually in no discernible order. Whereas the documentation for the Hijri Calendar gives a table that shows the corresponding days in each month, no such general table can be produced for the Um Al Qura calendar.  \n  \n For more information about the Hijri calendar, see the <xref:System.Globalization.HijriCalendar> class.  \n  \n **Note** The <xref:System.Globalization.UmAlQuraCalendar> class supports only dates from 04/30/1900 00.00.00 (Gregorian date) through 11/16/2077 23:59:59 (Gregorian date)."
@@ -81,7 +82,8 @@ items:
   - System.Object.ToString
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -98,7 +100,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -114,9 +117,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.#ctor
   commentId: M:System.Globalization.UmAlQuraCalendar.#ctor
   id: '#ctor'
@@ -125,12 +125,13 @@ items:
   - csharp
   name: UmAlQuraCalendar()
   nameWithType: UmAlQuraCalendar.UmAlQuraCalendar()
-  fullName: System.Globalization.UmAlQuraCalendar.UmAlQuraCalendar()
+  fullName: UmAlQuraCalendar.UmAlQuraCalendar()
   type: Constructor
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Initializes a new instance of the <xref href="System.Globalization.UmAlQuraCalendar"></xref> class.
   syntax:
@@ -140,7 +141,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -157,7 +159,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -173,9 +176,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.AddMonths(System.DateTime,System.Int32)
   commentId: M:System.Globalization.UmAlQuraCalendar.AddMonths(System.DateTime,System.Int32)
   id: AddMonths(System.DateTime,System.Int32)
@@ -184,12 +184,13 @@ items:
   - csharp
   name: AddMonths(DateTime, Int32)
   nameWithType: UmAlQuraCalendar.AddMonths(DateTime, Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.AddMonths(DateTime, Int32)
+  fullName: UmAlQuraCalendar.AddMonths(DateTime, Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Calculates a date that is a specified number of months away from a specified initial date.
   remarks: "The day part of the resulting <xref:System.DateTime> is affected if the resulting day is not a valid day in the resulting month of the resulting year. It is changed to the last valid day in the resulting month of the resulting year. The year part of the resulting <xref:System.DateTime> is affected if the resulting month is outside the year of the specified <xref:System.DateTime>. This implementation supports only the current era. Therefore, an exception is thrown if the resulting year is outside the era of the specified <xref:System.DateTime>. The time-of-day part of the resulting <xref:System.DateTime> remains the same as the specified <xref:System.DateTime>.  \n  \n For example, if the specified month is Zulkadah, which has 30 days, the specified day is the 30th day of that month, and the value of the `months` parameter is 3, the resulting year is one more than the specified year, the resulting month is Safar, and the resulting day is the 29th day, which is the last day in Safar.  \n  \n If the value of the `months` parameter is negative, the resulting <xref:System.DateTime> is earlier than the specified <xref:System.DateTime>.  \n  \n The<xref:System.DateTime.Kind%2A> property of the returned <xref:System.DateTime> value always equals <xref:System.DateTimeKind?displayProperty=fullName>. You can preserve the <xref:System.DateTime.Kind%2A> property of the `time` parameter by calling the <xref:System.DateTime.SpecifyKind%2A?displayProperty=fullName> method, as the following example shows.  \n  \n [!code-csharp[System.Globalization.Calendar.AddMethods#5](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.globalization.calendar.addmethods/cs/add1.cs#5)]\n [!code-vb[System.Globalization.Calendar.AddMethods#5](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.globalization.calendar.addmethods/vb/add1.vb#5)]"
@@ -217,7 +218,8 @@ items:
     description: "<code>months</code> is less than -120,000 or greater than 120,000.  \n  \n -or-  \n  \n <code>time</code> is outside the range supported by this calendar."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -234,7 +236,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -250,9 +253,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.AddYears(System.DateTime,System.Int32)
   commentId: M:System.Globalization.UmAlQuraCalendar.AddYears(System.DateTime,System.Int32)
   id: AddYears(System.DateTime,System.Int32)
@@ -261,12 +261,13 @@ items:
   - csharp
   name: AddYears(DateTime, Int32)
   nameWithType: UmAlQuraCalendar.AddYears(DateTime, Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.AddYears(DateTime, Int32)
+  fullName: UmAlQuraCalendar.AddYears(DateTime, Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Calculates a date that is a specified number of years away from a specified initial date.
   remarks: "The day part of the resulting <xref:System.DateTime> is affected if the resulting day is not a valid day in the resulting month of the resulting year. It is changed to the last valid day in the resulting month of the resulting year. The month part of the resulting <xref:System.DateTime> remains the same as the specified <xref:System.DateTime>. This implementation supports only the current era. Therefore, an exception is thrown if the resulting year is outside the era of the specified <xref:System.DateTime>. The time-of-day part of the resulting <xref:System.DateTime> remains the same as the specified <xref:System.DateTime>.  \n  \n For example, Zulhijjah has 29 days, except during leap years when it has 30 days. If the specified date is the 30th day of Zulhijjah in a leap year and the value of the `years` parameter is 1, the resulting date is the 29th day of Zulhijjah in the following year.  \n  \n If `years` is negative, the resulting <xref:System.DateTime> is earlier than the specified <xref:System.DateTime>.  \n  \n The<xref:System.DateTime.Kind%2A> property of the returned <xref:System.DateTime> value always equals <xref:System.DateTimeKind?displayProperty=fullName>. You can preserve the <xref:System.DateTime.Kind%2A> property of the `time` parameter by calling the <xref:System.DateTime.SpecifyKind%2A?displayProperty=fullName> method, as the following example shows.  \n  \n [!code-csharp[System.Globalization.Calendar.AddMethods#8](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.globalization.calendar.addmethods/cs/add1.cs#8)]\n [!code-vb[System.Globalization.Calendar.AddMethods#8](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.globalization.calendar.addmethods/vb/add1.vb#8)]"
@@ -294,7 +295,8 @@ items:
     description: "<code>years</code> is less than -10,000 or greater than 10,000.  \n  \n -or-  \n  \n <code>time</code> is outside the range supported by this calendar."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -311,7 +313,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -327,9 +330,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.AlgorithmType
   commentId: P:System.Globalization.UmAlQuraCalendar.AlgorithmType
   id: AlgorithmType
@@ -338,11 +338,12 @@ items:
   - csharp
   name: AlgorithmType
   nameWithType: UmAlQuraCalendar.AlgorithmType
-  fullName: System.Globalization.UmAlQuraCalendar.AlgorithmType
+  fullName: UmAlQuraCalendar.AlgorithmType
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets a value indicating whether the current calendar is solar-based, lunar-based, or a combination of both.
   remarks: ''
@@ -356,6 +357,7 @@ items:
   overload: System.Globalization.UmAlQuraCalendar.AlgorithmType*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -368,6 +370,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -380,9 +383,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.DaysInYearBeforeMinSupportedYear
   commentId: P:System.Globalization.UmAlQuraCalendar.DaysInYearBeforeMinSupportedYear
   id: DaysInYearBeforeMinSupportedYear
@@ -391,11 +391,12 @@ items:
   - csharp
   name: DaysInYearBeforeMinSupportedYear
   nameWithType: UmAlQuraCalendar.DaysInYearBeforeMinSupportedYear
-  fullName: System.Globalization.UmAlQuraCalendar.DaysInYearBeforeMinSupportedYear
+  fullName: UmAlQuraCalendar.DaysInYearBeforeMinSupportedYear
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets the number of days in the year that precedes the year that is specified by the <xref href="System.Globalization.UmAlQuraCalendar.MinSupportedDateTime"></xref> property.
   remarks: This property returns a constant value of 384.
@@ -407,6 +408,7 @@ items:
   overload: System.Globalization.UmAlQuraCalendar.DaysInYearBeforeMinSupportedYear*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -419,6 +421,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -431,9 +434,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.Eras
   commentId: P:System.Globalization.UmAlQuraCalendar.Eras
   id: Eras
@@ -442,12 +442,13 @@ items:
   - csharp
   name: Eras
   nameWithType: UmAlQuraCalendar.Eras
-  fullName: System.Globalization.UmAlQuraCalendar.Eras
+  fullName: UmAlQuraCalendar.Eras
   type: Property
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets a list of the eras that are supported by the current <xref href="System.Globalization.UmAlQuraCalendar"></xref>.
   remarks: 'The Hijri calendar recognizes one era: A.H. (Latin "Anno Hegirae", which means "the year of the migration," in reference to the migration of Muhammad (PBUH) from Mecca). This property always returns an array with only one element.'
@@ -460,7 +461,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -477,7 +479,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -493,9 +496,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.GetDayOfMonth(System.DateTime)
   commentId: M:System.Globalization.UmAlQuraCalendar.GetDayOfMonth(System.DateTime)
   id: GetDayOfMonth(System.DateTime)
@@ -504,12 +504,13 @@ items:
   - csharp
   name: GetDayOfMonth(DateTime)
   nameWithType: UmAlQuraCalendar.GetDayOfMonth(DateTime)
-  fullName: System.Globalization.UmAlQuraCalendar.GetDayOfMonth(DateTime)
+  fullName: UmAlQuraCalendar.GetDayOfMonth(DateTime)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Calculates the day of the month on which a specified date occurs.
   remarks: ''
@@ -531,7 +532,8 @@ items:
     description: <code>time</code> is outside the range supported by this calendar.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -548,7 +550,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -564,9 +567,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.GetDayOfWeek(System.DateTime)
   commentId: M:System.Globalization.UmAlQuraCalendar.GetDayOfWeek(System.DateTime)
   id: GetDayOfWeek(System.DateTime)
@@ -575,12 +575,13 @@ items:
   - csharp
   name: GetDayOfWeek(DateTime)
   nameWithType: UmAlQuraCalendar.GetDayOfWeek(DateTime)
-  fullName: System.Globalization.UmAlQuraCalendar.GetDayOfWeek(DateTime)
+  fullName: UmAlQuraCalendar.GetDayOfWeek(DateTime)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Calculates the day of the week on which a specified date occurs.
   remarks: "The <xref:System.DayOfWeek> values are as follows:  \n  \n|DayOfWeek value|which indicates|  \n|---------------------|---------------------|  \n|Sunday|الاحد (Al-Ahad)|  \n|Monday|الاثنين (Al-Ithnayn)|  \n|Tuesday|الثلاثاء (At-Thulaathaa')|  \n|Wednesday|الاربعاء (Al-Arbi'aa')|  \n|Thursday|الخميس (Al-Khamiis)|  \n|Friday|الجمعة (Al-Jumu'ah)|  \n|Saturday|السبت (As-Sabt)|"
@@ -602,7 +603,8 @@ items:
     description: <code>time</code> is outside the range supported by this calendar.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -619,7 +621,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -635,9 +638,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.GetDayOfYear(System.DateTime)
   commentId: M:System.Globalization.UmAlQuraCalendar.GetDayOfYear(System.DateTime)
   id: GetDayOfYear(System.DateTime)
@@ -646,12 +646,13 @@ items:
   - csharp
   name: GetDayOfYear(DateTime)
   nameWithType: UmAlQuraCalendar.GetDayOfYear(DateTime)
-  fullName: System.Globalization.UmAlQuraCalendar.GetDayOfYear(DateTime)
+  fullName: UmAlQuraCalendar.GetDayOfYear(DateTime)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Calculates the day of the year on which a specified date occurs.
   remarks: The day of the year is defined as the number of days from the first day of the year. For example, the <xref:System.Globalization.UmAlQuraCalendar.GetDayOfYear%2A> method returns 1 for the first day of the first month of the year, and the total number of days in the year for the last day of the last month.
@@ -673,7 +674,8 @@ items:
     description: <code>time</code> is outside the range supported by this calendar.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -690,7 +692,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -706,9 +709,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.GetDaysInMonth(System.Int32,System.Int32,System.Int32)
   commentId: M:System.Globalization.UmAlQuraCalendar.GetDaysInMonth(System.Int32,System.Int32,System.Int32)
   id: GetDaysInMonth(System.Int32,System.Int32,System.Int32)
@@ -717,12 +717,13 @@ items:
   - csharp
   name: GetDaysInMonth(Int32, Int32, Int32)
   nameWithType: UmAlQuraCalendar.GetDaysInMonth(Int32, Int32, Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.GetDaysInMonth(Int32, Int32, Int32)
+  fullName: UmAlQuraCalendar.GetDaysInMonth(Int32, Int32, Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Calculates the number of days in the specified month of the specified year and era.
   remarks: This method returns a different number of days in a specified month for a common year versus a leap year. For example, this method returns 29 or 30 for Zulhijjah (`month` = 12), depending on whether `year` is a leap year.
@@ -750,7 +751,8 @@ items:
     description: <code>year</code>, <code>month</code>, or <code>era</code> is outside the range supported by the <xref href="System.Globalization.UmAlQuraCalendar"></xref> class.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -767,7 +769,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -783,9 +786,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.GetDaysInYear(System.Int32,System.Int32)
   commentId: M:System.Globalization.UmAlQuraCalendar.GetDaysInYear(System.Int32,System.Int32)
   id: GetDaysInYear(System.Int32,System.Int32)
@@ -794,12 +794,13 @@ items:
   - csharp
   name: GetDaysInYear(Int32, Int32)
   nameWithType: UmAlQuraCalendar.GetDaysInYear(Int32, Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.GetDaysInYear(Int32, Int32)
+  fullName: UmAlQuraCalendar.GetDaysInYear(Int32, Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Calculates the number of days in the specified year of the specified era.
   remarks: ''
@@ -824,7 +825,8 @@ items:
     description: <code>year</code> or <code>era</code> is outside the range supported by the <xref href="System.Globalization.UmAlQuraCalendar"></xref> class.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -841,7 +843,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -857,9 +860,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.GetEra(System.DateTime)
   commentId: M:System.Globalization.UmAlQuraCalendar.GetEra(System.DateTime)
   id: GetEra(System.DateTime)
@@ -868,12 +868,13 @@ items:
   - csharp
   name: GetEra(DateTime)
   nameWithType: UmAlQuraCalendar.GetEra(DateTime)
-  fullName: System.Globalization.UmAlQuraCalendar.GetEra(DateTime)
+  fullName: UmAlQuraCalendar.GetEra(DateTime)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Calculates the era in which a specified date occurs.
   remarks: 'The Um Al Qura calendar recognizes one era: A.H. (Latin "Anno Hegirae", which means "the year of the migration," in reference to the migration of Muhammad (PBUH) from Mecca).'
@@ -895,7 +896,8 @@ items:
     description: <code>time</code> is outside the range supported by this calendar.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -912,7 +914,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -928,9 +931,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.GetLeapMonth(System.Int32,System.Int32)
   commentId: M:System.Globalization.UmAlQuraCalendar.GetLeapMonth(System.Int32,System.Int32)
   id: GetLeapMonth(System.Int32,System.Int32)
@@ -939,12 +939,13 @@ items:
   - csharp
   name: GetLeapMonth(Int32, Int32)
   nameWithType: UmAlQuraCalendar.GetLeapMonth(Int32, Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.GetLeapMonth(Int32, Int32)
+  fullName: UmAlQuraCalendar.GetLeapMonth(Int32, Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Calculates the leap month for a specified year and era.
   remarks: In a calendar that supports the notion of a leap month, the leap month can occur either after a particular month or after any month in a year. For example, the <xref:System.Globalization.EastAsianLunisolarCalendar.GetMonth%28System.DateTime%29?displayProperty=fullName> method returns a number between 1 and 13 that indicates the month associated with a specified date. If there is a leap month between the eighth and ninth months of the year, the <xref:System.Globalization.EastAsianLunisolarCalendar.GetMonth%2A> method returns 8 for the eighth month, 9 for the leap eighth month, and 10 for the ninth month.
@@ -967,7 +968,8 @@ items:
     description: "<code>year</code> is less than 1318 or greater than 1450.  \n  \n -or-  \n  \n <code>era</code> is not `UmAlQuraCalendar.Eras[UmAlQuraCalendar.CurrentEra]` or <xref href=\"System.Globalization.UmAlQuraCalendar.UmAlQuraEra\"></xref>."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -984,7 +986,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1000,9 +1003,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.GetMonth(System.DateTime)
   commentId: M:System.Globalization.UmAlQuraCalendar.GetMonth(System.DateTime)
   id: GetMonth(System.DateTime)
@@ -1011,12 +1011,13 @@ items:
   - csharp
   name: GetMonth(DateTime)
   nameWithType: UmAlQuraCalendar.GetMonth(DateTime)
-  fullName: System.Globalization.UmAlQuraCalendar.GetMonth(DateTime)
+  fullName: UmAlQuraCalendar.GetMonth(DateTime)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Calculates the month in which a specified date occurs.
   remarks: ''
@@ -1038,7 +1039,8 @@ items:
     description: <code>time</code> is outside the range supported by this calendar.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1055,7 +1057,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1071,9 +1074,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.GetMonthsInYear(System.Int32,System.Int32)
   commentId: M:System.Globalization.UmAlQuraCalendar.GetMonthsInYear(System.Int32,System.Int32)
   id: GetMonthsInYear(System.Int32,System.Int32)
@@ -1082,12 +1082,13 @@ items:
   - csharp
   name: GetMonthsInYear(Int32, Int32)
   nameWithType: UmAlQuraCalendar.GetMonthsInYear(Int32, Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.GetMonthsInYear(Int32, Int32)
+  fullName: UmAlQuraCalendar.GetMonthsInYear(Int32, Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Calculates the number of months in the specified year of the specified era.
   remarks: ''
@@ -1115,7 +1116,8 @@ items:
     description: <code>era</code> is outside the range supported by this calendar.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1132,7 +1134,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1148,9 +1151,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.GetYear(System.DateTime)
   commentId: M:System.Globalization.UmAlQuraCalendar.GetYear(System.DateTime)
   id: GetYear(System.DateTime)
@@ -1159,12 +1159,13 @@ items:
   - csharp
   name: GetYear(DateTime)
   nameWithType: UmAlQuraCalendar.GetYear(DateTime)
-  fullName: System.Globalization.UmAlQuraCalendar.GetYear(DateTime)
+  fullName: UmAlQuraCalendar.GetYear(DateTime)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Calculates the year of a date represented by a specified <xref href="System.DateTime"></xref>.
   remarks: ''
@@ -1186,7 +1187,8 @@ items:
     description: <code>time</code> is outside the range supported by this calendar.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1203,7 +1205,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1219,9 +1222,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.IsLeapDay(System.Int32,System.Int32,System.Int32,System.Int32)
   commentId: M:System.Globalization.UmAlQuraCalendar.IsLeapDay(System.Int32,System.Int32,System.Int32,System.Int32)
   id: IsLeapDay(System.Int32,System.Int32,System.Int32,System.Int32)
@@ -1230,12 +1230,13 @@ items:
   - csharp
   name: IsLeapDay(Int32, Int32, Int32, Int32)
   nameWithType: UmAlQuraCalendar.IsLeapDay(Int32, Int32, Int32, Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.IsLeapDay(Int32, Int32, Int32, Int32)
+  fullName: UmAlQuraCalendar.IsLeapDay(Int32, Int32, Int32, Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Determines whether the specified date is a leap day.
   remarks: A leap day is a day that occurs only in a leap year.
@@ -1266,7 +1267,8 @@ items:
     description: <code>year</code>, <code>month</code>, <code>day</code>, or <code>era</code> is outside the range supported by the <xref href="System.Globalization.UmAlQuraCalendar"></xref> class.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1283,7 +1285,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1299,9 +1302,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.IsLeapMonth(System.Int32,System.Int32,System.Int32)
   commentId: M:System.Globalization.UmAlQuraCalendar.IsLeapMonth(System.Int32,System.Int32,System.Int32)
   id: IsLeapMonth(System.Int32,System.Int32,System.Int32)
@@ -1310,12 +1310,13 @@ items:
   - csharp
   name: IsLeapMonth(Int32, Int32, Int32)
   nameWithType: UmAlQuraCalendar.IsLeapMonth(Int32, Int32, Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.IsLeapMonth(Int32, Int32, Int32)
+  fullName: UmAlQuraCalendar.IsLeapMonth(Int32, Int32, Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Determines whether the specified month in the specified year and era is a leap month.
   remarks: A leap month is an entire month that occurs only in a leap year.
@@ -1341,7 +1342,8 @@ items:
     description: <code>year</code>, <code>month</code>, or <code>era</code> is outside the range supported by the <xref href="System.Globalization.UmAlQuraCalendar"></xref> class.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1358,7 +1360,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1374,9 +1377,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.IsLeapYear(System.Int32,System.Int32)
   commentId: M:System.Globalization.UmAlQuraCalendar.IsLeapYear(System.Int32,System.Int32)
   id: IsLeapYear(System.Int32,System.Int32)
@@ -1385,12 +1385,13 @@ items:
   - csharp
   name: IsLeapYear(Int32, Int32)
   nameWithType: UmAlQuraCalendar.IsLeapYear(Int32, Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.IsLeapYear(Int32, Int32)
+  fullName: UmAlQuraCalendar.IsLeapYear(Int32, Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Determines whether the specified year in the specified era is a leap year.
   remarks: A common year has 354 days and a leap year has 355 days.
@@ -1415,7 +1416,8 @@ items:
     description: <code>year</code> or <code>era</code> is outside the range supported by the <xref href="System.Globalization.UmAlQuraCalendar"></xref> class.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1432,7 +1434,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1448,9 +1451,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.MaxSupportedDateTime
   commentId: P:System.Globalization.UmAlQuraCalendar.MaxSupportedDateTime
   id: MaxSupportedDateTime
@@ -1459,12 +1459,13 @@ items:
   - csharp
   name: MaxSupportedDateTime
   nameWithType: UmAlQuraCalendar.MaxSupportedDateTime
-  fullName: System.Globalization.UmAlQuraCalendar.MaxSupportedDateTime
+  fullName: UmAlQuraCalendar.MaxSupportedDateTime
   type: Property
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets the latest date and time supported by this calendar.
   remarks: >-
@@ -1482,7 +1483,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1499,7 +1501,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1515,9 +1518,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.MinSupportedDateTime
   commentId: P:System.Globalization.UmAlQuraCalendar.MinSupportedDateTime
   id: MinSupportedDateTime
@@ -1526,12 +1526,13 @@ items:
   - csharp
   name: MinSupportedDateTime
   nameWithType: UmAlQuraCalendar.MinSupportedDateTime
-  fullName: System.Globalization.UmAlQuraCalendar.MinSupportedDateTime
+  fullName: UmAlQuraCalendar.MinSupportedDateTime
   type: Property
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets the earliest date and time supported by this calendar.
   remarks: ''
@@ -1546,7 +1547,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1563,7 +1565,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1579,9 +1582,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.ToDateTime(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
   commentId: M:System.Globalization.UmAlQuraCalendar.ToDateTime(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
   id: ToDateTime(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
@@ -1590,12 +1590,13 @@ items:
   - csharp
   name: ToDateTime(Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32)
   nameWithType: UmAlQuraCalendar.ToDateTime(Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.ToDateTime(Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32)
+  fullName: UmAlQuraCalendar.ToDateTime(Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Returns a <xref href="System.DateTime"></xref> that is set to the specified date, time, and era.
   remarks: The <xref:System.Globalization.UmAlQuraCalendar.ToDateTime%2A> method is useful because it can convert any date in the current calendar to a Gregorian calendar date. The Gregorian date can subsequently be used, for example, to compare dates in different calendars or create an equivalent date in a particular calendar.
@@ -1636,7 +1637,8 @@ items:
     description: "<code>year</code>, <code>month</code>, <code>day</code>, or <code>era</code> is outside the range supported by the <xref href=\"System.Globalization.UmAlQuraCalendar\"></xref> class.  \n  \n -or-  \n  \n <code>hour</code> is less than zero or greater than 23.  \n  \n -or-  \n  \n <code>minute</code> is less than zero or greater than 59.  \n  \n -or-  \n  \n <code>second</code> is less than zero or greater than 59.  \n  \n -or-  \n  \n <code>millisecond</code> is less than zero or greater than 999."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1653,7 +1655,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1669,9 +1672,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.ToFourDigitYear(System.Int32)
   commentId: M:System.Globalization.UmAlQuraCalendar.ToFourDigitYear(System.Int32)
   id: ToFourDigitYear(System.Int32)
@@ -1680,12 +1680,13 @@ items:
   - csharp
   name: ToFourDigitYear(Int32)
   nameWithType: UmAlQuraCalendar.ToFourDigitYear(Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.ToFourDigitYear(Int32)
+  fullName: UmAlQuraCalendar.ToFourDigitYear(Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Converts the specified year to a four-digit year by using the <xref href="System.Globalization.UmAlQuraCalendar.TwoDigitYearMax"></xref> property to determine the appropriate century.
   remarks: "The <xref:System.Globalization.UmAlQuraCalendar.ToFourDigitYear%2A> method uses the `year` parameter, the <xref:System.Globalization.UmAlQuraCalendar.TwoDigitYearMax%2A> property, and a year to calculate a 4-digit year. The century is determined by finding the sole occurrence of the 2-digit `year` parameter within that 100-year range. For example, if <xref:System.Globalization.UmAlQuraCalendar.TwoDigitYearMax%2A> is set to 1429, the 100-year range is from 1330 through 1429. Therefore, a 2-digit value of 30 is interpreted as 1330, while a 2-digit value of 29 is interpreted as 1429.  \n  \n If the <xref:System.Globalization.UmAlQuraCalendar.TwoDigitYearMax%2A> property is the special value 99, the <xref:System.Globalization.UmAlQuraCalendar.ToFourDigitYear%2A> method ignores the settings in the regional and language options in Control Panel and returns the `year` parameter unchanged.  \n  \n <xref:System.Globalization.UmAlQuraCalendar.ToFourDigitYear%2A> supports either a two-digit year or a four-digit year. Passing a two-digit year value (less than 100) causes the method to convert the value to a four-digit value according to the <xref:System.Globalization.UmAlQuraCalendar.TwoDigitYearMax%2A> value representing the appropriate century. If the application supplies a four-digit year value that is within the supported calendar range to <xref:System.Globalization.UmAlQuraCalendar.ToFourDigitYear%2A>, the method returns the actual input value. If the application supplies a four-digit value that is outside the supported calendar range, or if it supplies a negative value, the method throws an exception."
@@ -1705,7 +1706,8 @@ items:
     description: <code>year</code> is outside the range supported by this calendar.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1722,7 +1724,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1738,9 +1741,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.TwoDigitYearMax
   commentId: P:System.Globalization.UmAlQuraCalendar.TwoDigitYearMax
   id: TwoDigitYearMax
@@ -1749,12 +1749,13 @@ items:
   - csharp
   name: TwoDigitYearMax
   nameWithType: UmAlQuraCalendar.TwoDigitYearMax
-  fullName: System.Globalization.UmAlQuraCalendar.TwoDigitYearMax
+  fullName: UmAlQuraCalendar.TwoDigitYearMax
   type: Property
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets or sets the last year of a 100-year range that can be represented by a 2-digit year.
   remarks: "This property allows a 2-digit year to be properly translated to a 4-digit year. For example, if this property is set to 1429, the 100-year range is from 1330 through 1429. Therefore, a 2-digit value of 30 is interpreted as 1330, while a 2-digit value of 29 is interpreted as 1429.  \n  \n The initial value of this property is derived from the settings in the regional and language options portion of Control Panel. However, that information can change during the life of the <xref:System.AppDomain>. The <xref:System.Globalization.UmAlQuraCalendar> class does not detect changes in the system settings automatically.  \n  \n The special value 99 causes the <xref:System.Globalization.UmAlQuraCalendar.ToFourDigitYear%2A> method to ignore the system settings and return the specified year unchanged."
@@ -1773,7 +1774,8 @@ items:
     description: In a set operation, the Um Al Qura calendar year value is less than 1318 but not 99, or is greater than 1450.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1790,7 +1792,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1806,9 +1809,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.UmAlQuraCalendar.UmAlQuraEra
   commentId: F:System.Globalization.UmAlQuraCalendar.UmAlQuraEra
   id: UmAlQuraEra
@@ -1817,11 +1817,12 @@ items:
   - csharp
   name: UmAlQuraEra
   nameWithType: UmAlQuraCalendar.UmAlQuraEra
-  fullName: System.Globalization.UmAlQuraCalendar.UmAlQuraEra
+  fullName: UmAlQuraCalendar.UmAlQuraEra
   type: Field
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Represents the current era. This field is constant.
   remarks: "The value of the <xref:System.Globalization.UmAlQuraCalendar.UmAlQuraEra> field is 1.  \n  \n The Um Al Qura calendar recognizes one era: A.H. (Latin \"Anno Hegirae\", which means \"the year of the migration,\" in reference to the migration of Muhammad (PBUH) from Mecca)."
@@ -1832,6 +1833,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1844,6 +1846,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1856,9 +1859,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/UmAlQuraCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.Globalization.Calendar
   parent: System.Globalization
@@ -1889,13 +1889,13 @@ references:
   isExternal: false
   name: UmAlQuraCalendar()
   nameWithType: UmAlQuraCalendar.UmAlQuraCalendar()
-  fullName: System.Globalization.UmAlQuraCalendar.UmAlQuraCalendar()
+  fullName: UmAlQuraCalendar.UmAlQuraCalendar()
 - uid: System.Globalization.UmAlQuraCalendar.AddMonths(System.DateTime,System.Int32)
   parent: System.Globalization.UmAlQuraCalendar
   isExternal: false
   name: AddMonths(DateTime, Int32)
   nameWithType: UmAlQuraCalendar.AddMonths(DateTime, Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.AddMonths(DateTime, Int32)
+  fullName: UmAlQuraCalendar.AddMonths(DateTime, Int32)
 - uid: System.DateTime
   parent: System
   isExternal: false
@@ -1913,13 +1913,13 @@ references:
   isExternal: false
   name: AddYears(DateTime, Int32)
   nameWithType: UmAlQuraCalendar.AddYears(DateTime, Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.AddYears(DateTime, Int32)
+  fullName: UmAlQuraCalendar.AddYears(DateTime, Int32)
 - uid: System.Globalization.UmAlQuraCalendar.AlgorithmType
   parent: System.Globalization.UmAlQuraCalendar
   isExternal: false
   name: AlgorithmType
   nameWithType: UmAlQuraCalendar.AlgorithmType
-  fullName: System.Globalization.UmAlQuraCalendar.AlgorithmType
+  fullName: UmAlQuraCalendar.AlgorithmType
 - uid: System.Globalization.CalendarAlgorithmType
   parent: System.Globalization
   isExternal: false
@@ -1931,13 +1931,13 @@ references:
   isExternal: false
   name: DaysInYearBeforeMinSupportedYear
   nameWithType: UmAlQuraCalendar.DaysInYearBeforeMinSupportedYear
-  fullName: System.Globalization.UmAlQuraCalendar.DaysInYearBeforeMinSupportedYear
+  fullName: UmAlQuraCalendar.DaysInYearBeforeMinSupportedYear
 - uid: System.Globalization.UmAlQuraCalendar.Eras
   parent: System.Globalization.UmAlQuraCalendar
   isExternal: false
   name: Eras
   nameWithType: UmAlQuraCalendar.Eras
-  fullName: System.Globalization.UmAlQuraCalendar.Eras
+  fullName: UmAlQuraCalendar.Eras
 - uid: System.Int32[]
   parent: System
   isExternal: false
@@ -1957,13 +1957,13 @@ references:
   isExternal: false
   name: GetDayOfMonth(DateTime)
   nameWithType: UmAlQuraCalendar.GetDayOfMonth(DateTime)
-  fullName: System.Globalization.UmAlQuraCalendar.GetDayOfMonth(DateTime)
+  fullName: UmAlQuraCalendar.GetDayOfMonth(DateTime)
 - uid: System.Globalization.UmAlQuraCalendar.GetDayOfWeek(System.DateTime)
   parent: System.Globalization.UmAlQuraCalendar
   isExternal: false
   name: GetDayOfWeek(DateTime)
   nameWithType: UmAlQuraCalendar.GetDayOfWeek(DateTime)
-  fullName: System.Globalization.UmAlQuraCalendar.GetDayOfWeek(DateTime)
+  fullName: UmAlQuraCalendar.GetDayOfWeek(DateTime)
 - uid: System.DayOfWeek
   parent: System
   isExternal: false
@@ -1975,55 +1975,55 @@ references:
   isExternal: false
   name: GetDayOfYear(DateTime)
   nameWithType: UmAlQuraCalendar.GetDayOfYear(DateTime)
-  fullName: System.Globalization.UmAlQuraCalendar.GetDayOfYear(DateTime)
+  fullName: UmAlQuraCalendar.GetDayOfYear(DateTime)
 - uid: System.Globalization.UmAlQuraCalendar.GetDaysInMonth(System.Int32,System.Int32,System.Int32)
   parent: System.Globalization.UmAlQuraCalendar
   isExternal: false
   name: GetDaysInMonth(Int32, Int32, Int32)
   nameWithType: UmAlQuraCalendar.GetDaysInMonth(Int32, Int32, Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.GetDaysInMonth(Int32, Int32, Int32)
+  fullName: UmAlQuraCalendar.GetDaysInMonth(Int32, Int32, Int32)
 - uid: System.Globalization.UmAlQuraCalendar.GetDaysInYear(System.Int32,System.Int32)
   parent: System.Globalization.UmAlQuraCalendar
   isExternal: false
   name: GetDaysInYear(Int32, Int32)
   nameWithType: UmAlQuraCalendar.GetDaysInYear(Int32, Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.GetDaysInYear(Int32, Int32)
+  fullName: UmAlQuraCalendar.GetDaysInYear(Int32, Int32)
 - uid: System.Globalization.UmAlQuraCalendar.GetEra(System.DateTime)
   parent: System.Globalization.UmAlQuraCalendar
   isExternal: false
   name: GetEra(DateTime)
   nameWithType: UmAlQuraCalendar.GetEra(DateTime)
-  fullName: System.Globalization.UmAlQuraCalendar.GetEra(DateTime)
+  fullName: UmAlQuraCalendar.GetEra(DateTime)
 - uid: System.Globalization.UmAlQuraCalendar.GetLeapMonth(System.Int32,System.Int32)
   parent: System.Globalization.UmAlQuraCalendar
   isExternal: false
   name: GetLeapMonth(Int32, Int32)
   nameWithType: UmAlQuraCalendar.GetLeapMonth(Int32, Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.GetLeapMonth(Int32, Int32)
+  fullName: UmAlQuraCalendar.GetLeapMonth(Int32, Int32)
 - uid: System.Globalization.UmAlQuraCalendar.GetMonth(System.DateTime)
   parent: System.Globalization.UmAlQuraCalendar
   isExternal: false
   name: GetMonth(DateTime)
   nameWithType: UmAlQuraCalendar.GetMonth(DateTime)
-  fullName: System.Globalization.UmAlQuraCalendar.GetMonth(DateTime)
+  fullName: UmAlQuraCalendar.GetMonth(DateTime)
 - uid: System.Globalization.UmAlQuraCalendar.GetMonthsInYear(System.Int32,System.Int32)
   parent: System.Globalization.UmAlQuraCalendar
   isExternal: false
   name: GetMonthsInYear(Int32, Int32)
   nameWithType: UmAlQuraCalendar.GetMonthsInYear(Int32, Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.GetMonthsInYear(Int32, Int32)
+  fullName: UmAlQuraCalendar.GetMonthsInYear(Int32, Int32)
 - uid: System.Globalization.UmAlQuraCalendar.GetYear(System.DateTime)
   parent: System.Globalization.UmAlQuraCalendar
   isExternal: false
   name: GetYear(DateTime)
   nameWithType: UmAlQuraCalendar.GetYear(DateTime)
-  fullName: System.Globalization.UmAlQuraCalendar.GetYear(DateTime)
+  fullName: UmAlQuraCalendar.GetYear(DateTime)
 - uid: System.Globalization.UmAlQuraCalendar.IsLeapDay(System.Int32,System.Int32,System.Int32,System.Int32)
   parent: System.Globalization.UmAlQuraCalendar
   isExternal: false
   name: IsLeapDay(Int32, Int32, Int32, Int32)
   nameWithType: UmAlQuraCalendar.IsLeapDay(Int32, Int32, Int32, Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.IsLeapDay(Int32, Int32, Int32, Int32)
+  fullName: UmAlQuraCalendar.IsLeapDay(Int32, Int32, Int32, Int32)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -2035,58 +2035,59 @@ references:
   isExternal: false
   name: IsLeapMonth(Int32, Int32, Int32)
   nameWithType: UmAlQuraCalendar.IsLeapMonth(Int32, Int32, Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.IsLeapMonth(Int32, Int32, Int32)
+  fullName: UmAlQuraCalendar.IsLeapMonth(Int32, Int32, Int32)
 - uid: System.Globalization.UmAlQuraCalendar.IsLeapYear(System.Int32,System.Int32)
   parent: System.Globalization.UmAlQuraCalendar
   isExternal: false
   name: IsLeapYear(Int32, Int32)
   nameWithType: UmAlQuraCalendar.IsLeapYear(Int32, Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.IsLeapYear(Int32, Int32)
+  fullName: UmAlQuraCalendar.IsLeapYear(Int32, Int32)
 - uid: System.Globalization.UmAlQuraCalendar.MaxSupportedDateTime
   parent: System.Globalization.UmAlQuraCalendar
   isExternal: false
   name: MaxSupportedDateTime
   nameWithType: UmAlQuraCalendar.MaxSupportedDateTime
-  fullName: System.Globalization.UmAlQuraCalendar.MaxSupportedDateTime
+  fullName: UmAlQuraCalendar.MaxSupportedDateTime
 - uid: System.Globalization.UmAlQuraCalendar.MinSupportedDateTime
   parent: System.Globalization.UmAlQuraCalendar
   isExternal: false
   name: MinSupportedDateTime
   nameWithType: UmAlQuraCalendar.MinSupportedDateTime
-  fullName: System.Globalization.UmAlQuraCalendar.MinSupportedDateTime
+  fullName: UmAlQuraCalendar.MinSupportedDateTime
 - uid: System.Globalization.UmAlQuraCalendar.ToDateTime(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
   parent: System.Globalization.UmAlQuraCalendar
   isExternal: false
   name: ToDateTime(Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32)
   nameWithType: UmAlQuraCalendar.ToDateTime(Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.ToDateTime(Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32)
+  fullName: UmAlQuraCalendar.ToDateTime(Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32)
 - uid: System.Globalization.UmAlQuraCalendar.ToFourDigitYear(System.Int32)
   parent: System.Globalization.UmAlQuraCalendar
   isExternal: false
   name: ToFourDigitYear(Int32)
   nameWithType: UmAlQuraCalendar.ToFourDigitYear(Int32)
-  fullName: System.Globalization.UmAlQuraCalendar.ToFourDigitYear(Int32)
+  fullName: UmAlQuraCalendar.ToFourDigitYear(Int32)
 - uid: System.Globalization.UmAlQuraCalendar.TwoDigitYearMax
   parent: System.Globalization.UmAlQuraCalendar
   isExternal: false
   name: TwoDigitYearMax
   nameWithType: UmAlQuraCalendar.TwoDigitYearMax
-  fullName: System.Globalization.UmAlQuraCalendar.TwoDigitYearMax
+  fullName: UmAlQuraCalendar.TwoDigitYearMax
 - uid: System.Globalization.UmAlQuraCalendar.UmAlQuraEra
   parent: System.Globalization.UmAlQuraCalendar
   isExternal: false
   name: UmAlQuraEra
   nameWithType: UmAlQuraCalendar.UmAlQuraEra
-  fullName: System.Globalization.UmAlQuraCalendar.UmAlQuraEra
+  fullName: UmAlQuraCalendar.UmAlQuraEra
 - uid: System.Globalization.UmAlQuraCalendar.#ctor*
   parent: System.Globalization.UmAlQuraCalendar
   isExternal: false
   name: UmAlQuraCalendar
   nameWithType: UmAlQuraCalendar.UmAlQuraCalendar
-  fullName: System.Globalization.UmAlQuraCalendar.UmAlQuraCalendar
+  fullName: UmAlQuraCalendar.UmAlQuraCalendar
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2107,10 +2108,11 @@ references:
   isExternal: false
   name: AddMonths
   nameWithType: UmAlQuraCalendar.AddMonths
-  fullName: System.Globalization.UmAlQuraCalendar.AddMonths
+  fullName: UmAlQuraCalendar.AddMonths
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2131,10 +2133,11 @@ references:
   isExternal: false
   name: AddYears
   nameWithType: UmAlQuraCalendar.AddYears
-  fullName: System.Globalization.UmAlQuraCalendar.AddYears
+  fullName: UmAlQuraCalendar.AddYears
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2155,8 +2158,9 @@ references:
   isExternal: false
   name: AlgorithmType
   nameWithType: UmAlQuraCalendar.AlgorithmType
-  fullName: System.Globalization.UmAlQuraCalendar.AlgorithmType
+  fullName: UmAlQuraCalendar.AlgorithmType
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2174,8 +2178,9 @@ references:
   isExternal: false
   name: DaysInYearBeforeMinSupportedYear
   nameWithType: UmAlQuraCalendar.DaysInYearBeforeMinSupportedYear
-  fullName: System.Globalization.UmAlQuraCalendar.DaysInYearBeforeMinSupportedYear
+  fullName: UmAlQuraCalendar.DaysInYearBeforeMinSupportedYear
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2193,10 +2198,11 @@ references:
   isExternal: false
   name: Eras
   nameWithType: UmAlQuraCalendar.Eras
-  fullName: System.Globalization.UmAlQuraCalendar.Eras
+  fullName: UmAlQuraCalendar.Eras
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2217,10 +2223,11 @@ references:
   isExternal: false
   name: GetDayOfMonth
   nameWithType: UmAlQuraCalendar.GetDayOfMonth
-  fullName: System.Globalization.UmAlQuraCalendar.GetDayOfMonth
+  fullName: UmAlQuraCalendar.GetDayOfMonth
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2241,10 +2248,11 @@ references:
   isExternal: false
   name: GetDayOfWeek
   nameWithType: UmAlQuraCalendar.GetDayOfWeek
-  fullName: System.Globalization.UmAlQuraCalendar.GetDayOfWeek
+  fullName: UmAlQuraCalendar.GetDayOfWeek
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2265,10 +2273,11 @@ references:
   isExternal: false
   name: GetDayOfYear
   nameWithType: UmAlQuraCalendar.GetDayOfYear
-  fullName: System.Globalization.UmAlQuraCalendar.GetDayOfYear
+  fullName: UmAlQuraCalendar.GetDayOfYear
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2289,10 +2298,11 @@ references:
   isExternal: false
   name: GetDaysInMonth
   nameWithType: UmAlQuraCalendar.GetDaysInMonth
-  fullName: System.Globalization.UmAlQuraCalendar.GetDaysInMonth
+  fullName: UmAlQuraCalendar.GetDaysInMonth
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2313,10 +2323,11 @@ references:
   isExternal: false
   name: GetDaysInYear
   nameWithType: UmAlQuraCalendar.GetDaysInYear
-  fullName: System.Globalization.UmAlQuraCalendar.GetDaysInYear
+  fullName: UmAlQuraCalendar.GetDaysInYear
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2337,10 +2348,11 @@ references:
   isExternal: false
   name: GetEra
   nameWithType: UmAlQuraCalendar.GetEra
-  fullName: System.Globalization.UmAlQuraCalendar.GetEra
+  fullName: UmAlQuraCalendar.GetEra
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2361,10 +2373,11 @@ references:
   isExternal: false
   name: GetLeapMonth
   nameWithType: UmAlQuraCalendar.GetLeapMonth
-  fullName: System.Globalization.UmAlQuraCalendar.GetLeapMonth
+  fullName: UmAlQuraCalendar.GetLeapMonth
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2385,10 +2398,11 @@ references:
   isExternal: false
   name: GetMonth
   nameWithType: UmAlQuraCalendar.GetMonth
-  fullName: System.Globalization.UmAlQuraCalendar.GetMonth
+  fullName: UmAlQuraCalendar.GetMonth
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2409,10 +2423,11 @@ references:
   isExternal: false
   name: GetMonthsInYear
   nameWithType: UmAlQuraCalendar.GetMonthsInYear
-  fullName: System.Globalization.UmAlQuraCalendar.GetMonthsInYear
+  fullName: UmAlQuraCalendar.GetMonthsInYear
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2433,10 +2448,11 @@ references:
   isExternal: false
   name: GetYear
   nameWithType: UmAlQuraCalendar.GetYear
-  fullName: System.Globalization.UmAlQuraCalendar.GetYear
+  fullName: UmAlQuraCalendar.GetYear
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2457,10 +2473,11 @@ references:
   isExternal: false
   name: IsLeapDay
   nameWithType: UmAlQuraCalendar.IsLeapDay
-  fullName: System.Globalization.UmAlQuraCalendar.IsLeapDay
+  fullName: UmAlQuraCalendar.IsLeapDay
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2481,10 +2498,11 @@ references:
   isExternal: false
   name: IsLeapMonth
   nameWithType: UmAlQuraCalendar.IsLeapMonth
-  fullName: System.Globalization.UmAlQuraCalendar.IsLeapMonth
+  fullName: UmAlQuraCalendar.IsLeapMonth
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2505,10 +2523,11 @@ references:
   isExternal: false
   name: IsLeapYear
   nameWithType: UmAlQuraCalendar.IsLeapYear
-  fullName: System.Globalization.UmAlQuraCalendar.IsLeapYear
+  fullName: UmAlQuraCalendar.IsLeapYear
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2529,10 +2548,11 @@ references:
   isExternal: false
   name: MaxSupportedDateTime
   nameWithType: UmAlQuraCalendar.MaxSupportedDateTime
-  fullName: System.Globalization.UmAlQuraCalendar.MaxSupportedDateTime
+  fullName: UmAlQuraCalendar.MaxSupportedDateTime
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2553,10 +2573,11 @@ references:
   isExternal: false
   name: MinSupportedDateTime
   nameWithType: UmAlQuraCalendar.MinSupportedDateTime
-  fullName: System.Globalization.UmAlQuraCalendar.MinSupportedDateTime
+  fullName: UmAlQuraCalendar.MinSupportedDateTime
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2577,10 +2598,11 @@ references:
   isExternal: false
   name: ToDateTime
   nameWithType: UmAlQuraCalendar.ToDateTime
-  fullName: System.Globalization.UmAlQuraCalendar.ToDateTime
+  fullName: UmAlQuraCalendar.ToDateTime
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2601,10 +2623,11 @@ references:
   isExternal: false
   name: ToFourDigitYear
   nameWithType: UmAlQuraCalendar.ToFourDigitYear
-  fullName: System.Globalization.UmAlQuraCalendar.ToFourDigitYear
+  fullName: UmAlQuraCalendar.ToFourDigitYear
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2625,10 +2648,11 @@ references:
   isExternal: false
   name: TwoDigitYearMax
   nameWithType: UmAlQuraCalendar.TwoDigitYearMax
-  fullName: System.Globalization.UmAlQuraCalendar.TwoDigitYearMax
+  fullName: UmAlQuraCalendar.TwoDigitYearMax
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

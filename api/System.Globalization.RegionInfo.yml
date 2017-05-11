@@ -33,6 +33,7 @@ items:
   - System.Globalization
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Contains information about the country/region.
   remarks: "Unlike the <xref:System.Globalization.CultureInfo> class, the <xref:System.Globalization.RegionInfo> class does not represent user preferences and does not depend on the user's language or culture.  \n  \n## Names Associated with a RegionInfo Object  \n The name of a <xref:System.Globalization.RegionInfo> object is one of the two-letter codes defined in ISO 3166 for country/region. Case is not significant. The <xref:System.Globalization.RegionInfo.Name%2A>, <xref:System.Globalization.RegionInfo.TwoLetterISORegionName%2A>, and <xref:System.Globalization.RegionInfo.ThreeLetterISORegionName%2A> properties return the appropriate codes in uppercase. For the current list of <xref:System.Globalization.RegionInfo> names, see [English country names and code elements](http://go.microsoft.com/fwlink/?LinkId=190591) on the ISO website.  \n  \n## Instantiating a RegionInfo Object  \n To instantiate a <xref:System.Globalization.RegionInfo> object, you pass the <xref:System.Globalization.RegionInfo.%23ctor%28System.String%29> constructor either a two-letter region name, such as \"US\" for the United States, or the name of a specific culture, such as \"en-US\" for English (United States). However, we recommend that you use a specific culture name instead of a two-letter region name, because a <xref:System.Globalization.RegionInfo> object is not completely language-independent. Several <xref:System.Globalization.RegionInfo> properties, including <xref:System.Globalization.RegionInfo.DisplayName%2A>, <xref:System.Globalization.RegionInfo.NativeName%2A>, and <xref:System.Globalization.RegionInfo.CurrencyNativeName%2A>, depend on culture names.  \n  \n The following example illustrates the difference in <xref:System.Globalization.RegionInfo> property values for three objects that represent Belgium. The first is instantiated from a region name (BE) only, while the second and third are instantiated from culture names (fr-BE for French (Belgium) and and nl-BE for Dutch (Belgium), respectively). The example uses reflection to retrieve the property values of each <xref:System.Globalization.RegionInfo> object.  \n  \n [!code-csharp[System.Globalization.RegionInfo#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Globalization.RegionInfo/CS/propertyvalues1.cs#2)]\n [!code-vb[System.Globalization.RegionInfo#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Globalization.RegionInfo/VB/propertyvalues1.vb#2)]  \n  \n In scenarios such as the following, use culture names instead of country/region names when you instantiate a <xref:System.Globalization.RegionInfo> object:  \n  \n-   When the language name is of primary importance. For example, for the es-US culture name, you'll probably want your application to display \"Estados Unidos\" instead of \"United States\". Using the country/region name (US) alone yields \"United States\" regardless of the language, so you should work with the culture name instead.  \n  \n-   When script differences must be considered. For example, the country/region AZ deals with Azerbaijani cultures that have the names az-Latn-AZ and az-Cyrl-AZ, and the Latin and Cyrillic scripts can be very different for this country/region.  \n  \n-   When maintenance of detail is important. The values returned by <xref:System.Globalization.RegionInfo> members can differ depending on whether the <xref:System.Globalization.RegionInfo> object was instantiated by using a culture name or a region name. For example, the following table lists the differences in return values when a <xref:System.Globalization.RegionInfo> object is instantiated by using the \"US\" region, the \"en-US\" culture, and the \"es-US\" culture.  \n  \n    |Member|\"US\"|\"en-US\"|\"es-US\"|  \n    |------------|----------|--------------|--------------|  \n    |<xref:System.Globalization.RegionInfo.CurrencyNativeName%2A>|US Dollar|US Dollar|Dólar de EE.UU.|  \n    |<xref:System.Globalization.RegionInfo.Name%2A>|US|en-US|es-US|  \n    |<xref:System.Globalization.RegionInfo.NativeName%2A>|United States|United States|Estados Unidos|  \n    |<xref:System.Globalization.RegionInfo.ToString%2A>|US|en-US|es-US|"
@@ -55,7 +56,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -75,7 +77,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -94,9 +97,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/RegionInfo.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.RegionInfo.#ctor(System.Int32)
   commentId: M:System.Globalization.RegionInfo.#ctor(System.Int32)
   id: '#ctor(System.Int32)'
@@ -105,11 +105,12 @@ items:
   - csharp
   name: RegionInfo(Int32)
   nameWithType: RegionInfo.RegionInfo(Int32)
-  fullName: System.Globalization.RegionInfo.RegionInfo(Int32)
+  fullName: RegionInfo.RegionInfo(Int32)
   type: Constructor
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Initializes a new instance of the <xref href="System.Globalization.RegionInfo"></xref> class based on the country/region associated with the specified culture identifier.
   remarks: "<xref:System.Globalization.RegionInfo.%23ctor%28System.String%29> is the recommended constructor for instantiating a <xref:System.Globalization.RegionInfo> object. Unlike the <xref:System.Globalization.RegionInfo.%23ctor%28System.Int32%29> constructor that requires a numeric culture identifier as a parameter, its parameter is a more readable culture name or country code.  \n  \n The culture identifier is mapped to the corresponding National Language Support (NLS) locale identifier. Detailed culture information appears in the [National Language Support (NLS) API Reference](http://go.microsoft.com/fwlink/?LinkId=200048) at the Go Global Developer Center.  \n  \n The value of the <xref:System.Globalization.RegionInfo.Name%2A> property of the new <xref:System.Globalization.RegionInfo> object instantiated by calling this constructor is the ISO 3166 2-letter code for the country/region, not the combined language and country/region code. For example, if a <xref:System.Globalization.RegionInfo> object is instantiated with the culture identifier 0x0409 for the English (United States) culture, the value of the <xref:System.Globalization.RegionInfo.Name%2A> property is \"US\". In contrast, if a <xref:System.Globalization.RegionInfo> object is instantiated with the combined language and country/region code en-US for the English (United States) culture, the value of the <xref:System.Globalization.RegionInfo.Name%2A> property is \"en-US\"."
@@ -127,6 +128,7 @@ items:
     commentId: T:System.ArgumentException
     description: <code>culture</code> specifies either an invariant, custom, or neutral culture.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -139,6 +141,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -151,9 +154,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/RegionInfo.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.RegionInfo.#ctor(System.String)
   commentId: M:System.Globalization.RegionInfo.#ctor(System.String)
   id: '#ctor(System.String)'
@@ -162,12 +162,13 @@ items:
   - csharp
   name: RegionInfo(String)
   nameWithType: RegionInfo.RegionInfo(String)
-  fullName: System.Globalization.RegionInfo.RegionInfo(String)
+  fullName: RegionInfo.RegionInfo(String)
   type: Constructor
   assemblies:
   - System.Globalization
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Initializes a new instance of the <xref href="System.Globalization.RegionInfo"></xref> class based on the country/region or specific culture, specified by name.
   remarks: "The `name` parameter is either one of the codes defined for country/region, or a specific, custom, or Windows-only culture name. Case is not significant. However, the <xref:System.Globalization.RegionInfo.Name%2A>, the <xref:System.Globalization.RegionInfo.TwoLetterISORegionName%2A>, and the <xref:System.Globalization.RegionInfo.ThreeLetterISORegionName%2A> properties return the specified code or culture name in uppercase.  \n  \n The predefined <xref:System.Globalization.RegionInfo> names are listed in [Country names and code elements](http://go.microsoft.com/fwlink/?LinkId=190591) on the ISO website.  \n  \n You should provide the name of a specific culture rather than just a country/region name in the `name` parameter. For example, en-US for English (United States) or es-US for Spanish (United States) is preferable to US because properties such as <xref:System.Globalization.RegionInfo.NativeName%2A> and <xref:System.Globalization.RegionInfo.CurrencyNativeName%2A> reflect a specific language. az-Latn-AZ or az-Cyrl-AZ is preferable to AZ because properties such as <xref:System.Globalization.RegionInfo.NativeName%2A>, <xref:System.Globalization.RegionInfo.CurrencyNativeName%2A>, and <xref:System.Globalization.RegionInfo.CurrencySymbol%2A> reflect a specific script.  The predefined culture names are listed in the [National Language Support (NLS) API Reference](http://go.microsoft.com/fwlink/?LinkId=200048) at the Go Global Developer Center. Note that a call to this constructor throws an <xref:System.ArgumentException> if `name` is a neutral culture (such as en for English)."
@@ -189,7 +190,8 @@ items:
     description: <code>name</code> is not a valid country/region name or specific culture name.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -209,7 +211,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -228,9 +231,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/RegionInfo.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.RegionInfo.CurrencyEnglishName
   commentId: P:System.Globalization.RegionInfo.CurrencyEnglishName
   id: CurrencyEnglishName
@@ -239,11 +239,12 @@ items:
   - csharp
   name: CurrencyEnglishName
   nameWithType: RegionInfo.CurrencyEnglishName
-  fullName: System.Globalization.RegionInfo.CurrencyEnglishName
+  fullName: RegionInfo.CurrencyEnglishName
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets the name, in English, of the currency used in the country/region.
   remarks: ''
@@ -262,6 +263,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -274,6 +276,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -286,9 +289,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/RegionInfo.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.RegionInfo.CurrencyNativeName
   commentId: P:System.Globalization.RegionInfo.CurrencyNativeName
   id: CurrencyNativeName
@@ -297,11 +297,12 @@ items:
   - csharp
   name: CurrencyNativeName
   nameWithType: RegionInfo.CurrencyNativeName
-  fullName: System.Globalization.RegionInfo.CurrencyNativeName
+  fullName: RegionInfo.CurrencyNativeName
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets the name of the currency used in the country/region, formatted in the native language of the country/region.
   remarks: "If the current <xref:System.Globalization.RegionInfo> object is created with a specific culture and more than one language is used in the corresponding country/region, the <xref:System.Globalization.RegionInfo.CurrencyNativeName%2A> property retrieves the currency name associated with the specific culture.  \n  \n The value of this property depends on the language that is associated with a particular country/region. Therefore, if you intend to use the <xref:System.Globalization.RegionInfo.CurrencyNativeName%2A> property, you should instantiate the <xref:System.Globalization.RegionInfo> object by passing the <xref:System.Globalization.RegionInfo.%23ctor%28System.String%29> constructor a combined language and country/region code. For example, if a <xref:System.Globalization.RegionInfo> object is instantiated with a combined language and country/region code of \"en-CA\" for English (Canada), the value of its <xref:System.Globalization.RegionInfo.CurrencyNativeName%2A> property is \"Canadian Dollar\". If it is instantiated with a combined language and country/region code of \"fr-CA\" for French (Canada), the value of its <xref:System.Globalization.RegionInfo.CurrencyNativeName%2A> property is \"Dollar canadien\". Therefore, creating the `RegionInfo` object with only a country/region name (\"CA\" in this case) is not specific enough to distinguish the appropriate native currency name."
@@ -320,6 +321,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -332,6 +334,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -344,9 +347,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/RegionInfo.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.RegionInfo.CurrencySymbol
   commentId: P:System.Globalization.RegionInfo.CurrencySymbol
   id: CurrencySymbol
@@ -355,12 +355,13 @@ items:
   - csharp
   name: CurrencySymbol
   nameWithType: RegionInfo.CurrencySymbol
-  fullName: System.Globalization.RegionInfo.CurrencySymbol
+  fullName: RegionInfo.CurrencySymbol
   type: Property
   assemblies:
   - System.Globalization
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets the currency symbol associated with the country/region.
   remarks: "For example, the currency symbol for the United States is \"$\".  \n  \n If the current <xref:System.Globalization.RegionInfo> object is created with a specific culture and more than one language is used in the corresponding country/region, the <xref:System.Globalization.RegionInfo.CurrencySymbol%2A> property returns the currency symbol associated with the specific culture."
@@ -375,7 +376,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -395,7 +397,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -414,9 +417,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/RegionInfo.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.RegionInfo.CurrentRegion
   commentId: P:System.Globalization.RegionInfo.CurrentRegion
   id: CurrentRegion
@@ -425,12 +425,13 @@ items:
   - csharp
   name: CurrentRegion
   nameWithType: RegionInfo.CurrentRegion
-  fullName: System.Globalization.RegionInfo.CurrentRegion
+  fullName: RegionInfo.CurrentRegion
   type: Property
   assemblies:
   - System.Globalization
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets the <xref href="System.Globalization.RegionInfo"></xref> that represents the country/region used by the current thread.
   remarks: The value of this property is based on the culture selected through the regional and language options portion of Control Panel. However, that information can change during the life of the <xref:System.AppDomain>. The <xref:System.Globalization.RegionInfo> class does not automatically detect changes in the system settings, but the <xref:System.Globalization.RegionInfo.CurrentRegion%2A> property is updated when you call the <xref:System.Globalization.CultureInfo.ClearCachedData%2A> method.
@@ -443,7 +444,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -463,7 +465,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -482,9 +485,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/RegionInfo.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.RegionInfo.DisplayName
   commentId: P:System.Globalization.RegionInfo.DisplayName
   id: DisplayName
@@ -493,12 +493,13 @@ items:
   - csharp
   name: DisplayName
   nameWithType: RegionInfo.DisplayName
-  fullName: System.Globalization.RegionInfo.DisplayName
+  fullName: RegionInfo.DisplayName
   type: Property
   assemblies:
   - System.Globalization
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets the full name of the country/region in the language of the localized version of .NET Framework.
   remarks: "The <xref:System.Globalization.RegionInfo.DisplayName%2A> property displays the country/region name in the language of the localized version of .NET Framework. For example, the <xref:System.Globalization.RegionInfo.DisplayName%2A> property displays the country/region in English on the English version of the .NET Framework, and in Spanish on the Spanish version of the .NET Framework.  \n  \n The value of the <xref:System.Globalization.RegionInfo.DisplayName%2A> property is taken from the resource files in the language of the current user interface culture, represented by <xref:System.Globalization.CultureInfo.CurrentUICulture%2A>. Custom regions or those synthesized from the operating system might not have resource information, in which case the value for <xref:System.Globalization.RegionInfo.DisplayName%2A> is the same as the value of the <xref:System.Globalization.RegionInfo.NativeName%2A> property."
@@ -513,7 +514,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -533,7 +535,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -552,9 +555,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/RegionInfo.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.RegionInfo.EnglishName
   commentId: P:System.Globalization.RegionInfo.EnglishName
   id: EnglishName
@@ -563,12 +563,13 @@ items:
   - csharp
   name: EnglishName
   nameWithType: RegionInfo.EnglishName
-  fullName: System.Globalization.RegionInfo.EnglishName
+  fullName: RegionInfo.EnglishName
   type: Property
   assemblies:
   - System.Globalization
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets the full name of the country/region in English.
   remarks: For example, a <xref:System.Globalization.RegionInfo> object created for the English (United States) culture displays "United States".
@@ -583,7 +584,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -603,7 +605,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -622,9 +625,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/RegionInfo.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.RegionInfo.Equals(System.Object)
   commentId: M:System.Globalization.RegionInfo.Equals(System.Object)
   id: Equals(System.Object)
@@ -633,12 +633,13 @@ items:
   - csharp
   name: Equals(Object)
   nameWithType: RegionInfo.Equals(Object)
-  fullName: System.Globalization.RegionInfo.Equals(Object)
+  fullName: RegionInfo.Equals(Object)
   type: Method
   assemblies:
   - System.Globalization
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Determines whether the specified object is the same instance as the current <xref href="System.Globalization.RegionInfo"></xref>.
   remarks: This method overrides <xref:System.Object.Equals%2A?displayProperty=fullName>.
@@ -657,7 +658,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -677,7 +679,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -696,9 +699,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/RegionInfo.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.RegionInfo.GeoId
   commentId: P:System.Globalization.RegionInfo.GeoId
   id: GeoId
@@ -707,11 +707,12 @@ items:
   - csharp
   name: GeoId
   nameWithType: RegionInfo.GeoId
-  fullName: System.Globalization.RegionInfo.GeoId
+  fullName: RegionInfo.GeoId
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets a unique identification number for a geographical region, country, city, or location.
   remarks: "The application should use the <xref:System.Globalization.RegionInfo.GeoId%2A> property to provide culture-specific services to customers. For example, the <xref:System.Globalization.RegionInfo.GeoId%2A> property can be used as a key to access a database record that contains specific information about a country/region.  \n  \n This property value corresponds to the Windows `GetUserGeoID` function. For a list of geographical identifiers, see [Table of Geographical Locations](http://go.microsoft.com/fwlink/?LinkId=191287) in the MSDN Library."
@@ -730,6 +731,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -742,6 +744,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -754,9 +757,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/RegionInfo.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.RegionInfo.GetHashCode
   commentId: M:System.Globalization.RegionInfo.GetHashCode
   id: GetHashCode
@@ -765,12 +765,13 @@ items:
   - csharp
   name: GetHashCode()
   nameWithType: RegionInfo.GetHashCode()
-  fullName: System.Globalization.RegionInfo.GetHashCode()
+  fullName: RegionInfo.GetHashCode()
   type: Method
   assemblies:
   - System.Globalization
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Serves as a hash function for the current <xref href="System.Globalization.RegionInfo"></xref>, suitable for hashing algorithms and data structures, such as a hash table.
   remarks: "This method overrides <xref:System.Object.GetHashCode%2A?displayProperty=fullName>.  \n  \n This method generates the same hash code for two objects that are equal according to the <xref:System.Globalization.RegionInfo.Equals%2A> method."
@@ -784,7 +785,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -804,7 +806,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -823,9 +826,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/RegionInfo.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.RegionInfo.IsMetric
   commentId: P:System.Globalization.RegionInfo.IsMetric
   id: IsMetric
@@ -834,12 +834,13 @@ items:
   - csharp
   name: IsMetric
   nameWithType: RegionInfo.IsMetric
-  fullName: System.Globalization.RegionInfo.IsMetric
+  fullName: RegionInfo.IsMetric
   type: Property
   assemblies:
   - System.Globalization
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets a value indicating whether the country/region uses the metric system for measurements.
   remarks: ''
@@ -854,7 +855,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -874,7 +876,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -893,9 +896,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/RegionInfo.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.RegionInfo.ISOCurrencySymbol
   commentId: P:System.Globalization.RegionInfo.ISOCurrencySymbol
   id: ISOCurrencySymbol
@@ -904,12 +904,13 @@ items:
   - csharp
   name: ISOCurrencySymbol
   nameWithType: RegionInfo.ISOCurrencySymbol
-  fullName: System.Globalization.RegionInfo.ISOCurrencySymbol
+  fullName: RegionInfo.ISOCurrencySymbol
   type: Property
   assemblies:
   - System.Globalization
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets the three-character ISO 4217 currency symbol associated with the country/region.
   remarks: "The following example lists some of the ISO 4217 currency symbols returned by the <xref:System.Globalization.RegionInfo.ISOCurrencySymbol%2A> property.  \n  \n|Country/region|Currency name|ISO 4217 currency symbol|  \n|---------------------|-------------------|------------------------------|  \n|Albania|Albanian Lek|ALL|  \n|Algeria|Algerian Dinar|DZD|  \n|Argentina|Argentine Peso|ARS|  \n|Armenia|Armenian Dram|AMD|  \n|Australia|Australian Dollar|AUD|  \n|Austria|Euro|EUR|  \n|Azerbaijan|Azerbaijanian Manat|AZN|  \n|Bahrain|Bahraini Dinar|BHD|  \n|Belarus|Belarussian Ruble|BYR|  \n|Belgium|Euro|EUR|  \n|Belize|Belize Dollar|BZD|  \n|Bolivarian Republic of Venezuela|Venezuelan Bolivar|VEF|  \n|Bolivia|Boliviano|BOB|  \n|Brazil|Real|BRL|  \n|Brunei|Brunei Dollar|BND|  \n|Bulgaria|Bulgarian Lev|BGN|  \n|Canada|Canadian Dollar|CAD|  \n|Caribbean|US Dollar|USD|  \n|Chile|Chilean Peso|CLP|  \n|Colombia|Colombian Peso|COP|  \n|Costa Rica|Costa Rican Colon|CRC|  \n|Croatia|Croatian Kuna|HRK|  \n|Czech Republic|Czech Koruna|CZK|  \n|Denmark|Danish Krone|DKK|  \n|Dominican Republic|Dominican Peso|DOP|  \n|Ecuador|US Dollar|USD|  \n|Egypt|Egyptian Pound|EGP|  \n|El Salvador|U.S. Dollar|USD|  \n|Estonia|Estonian Kroon|EEK|  \n|Ethiopia|Ethiopian Birr|ETB|  \n|Faroe Islands|Danish Krone|DKK|  \n|Finland|Euro|EUR|  \n|France|Euro|EUR|  \n|Georgia|Lari|GEL|  \n|Germany|Euro|EUR|  \n|Greece|Euro|EUR|  \n|Guatemala|Guatemalan Quetzal|GTQ|  \n|Honduras|Honduran Lempira|HNL|  \n|Hong Kong SAR|Hong Kong Dollar|HKD|  \n|Hungary|Hungarian Forint|HUF|  \n|Iceland|Icelandic Krona|ISK|  \n|India|Indian Rupee|INR|  \n|Indonesia|Indonesian Rupiah|IDR|  \n|Iran|Iranian Rial|IRR|  \n|Iraq|Iraqi Dinar|IQD|  \n|Ireland|Euro|EUR|  \n|Islamic Republic of Pakistan|Pakistan Rupee|PKR|  \n|Israel|Israeli New Shekel|ILS|  \n|Italy|Euro|EUR|  \n|Jamaica|Jamaican Dollar|JMD|  \n|Japan|Japanese Yen|JPY|  \n|Jordan|Jordanian Dinar|JOD|  \n|Kazakhstan|Tenge|KZT|  \n|Kenya|Kenyan Shilling|KES|  \n|Korea|Korean Won|KRW|  \n|Kuwait|Kuwaiti Dinar|KWD|  \n|Kyrgyzstan|som|KGS|  \n|Latvia|Latvian Lats|LVL|  \n|Lebanon|Lebanese Pound|LBP|  \n|Libya|Libyan Dinar|LYD|  \n|Liechtenstein|Swiss Franc|CHF|  \n|Lithuania|Lithuanian Litas|LTL|  \n|Luxembourg|Euro|EUR|  \n|Macao SAR|Macao Pataca|MOP|  \n|Macedonia (FYROM)|Macedonian Denar|MKD|  \n|Malaysia|Malaysian Ringgit|MYR|  \n|Maldives|Rufiyaa|MVR|  \n|Mexico|Mexican Peso|MXN|  \n|Mongolia|Tugrik|MNT|  \n|Morocco|Moroccan Dirham|MAD|  \n|Netherlands|Euro|EUR|  \n|New Zealand|New Zealand Dollar|NZD|  \n|Nicaragua|Nicaraguan Cordoba Oro|NIO|  \n|Norway|Norwegian Krone|NOK|  \n|Oman|Omani Rial|OMR|  \n|Panama|Panamanian Balboa|PAB|  \n|Paraguay|Paraguay Guarani|PYG|  \n|People's Republic of China|PRC Renminbi|CNY|  \n|Peru|Peruvian Nuevo Sol|PEN|  \n|Philippines|Philippine Peso|PHP|  \n|Poland|Polish Zloty|PLN|  \n|Portugal|Euro|EUR|  \n|Principality of Monaco|Euro|EUR|  \n|Puerto Rico|US Dollar|USD|  \n|Qatar|Qatari Rial|QAR|  \n|Romania|Romanian Leu|RON|  \n|Russia|Russian Ruble|RUB|  \n|Saudi Arabia|Saudi Riyal|SAR|  \n|Serbia|Serbian Dinar|RSD|  \n|Singapore|Singapore Dollar|SGD|  \n|Slovakia|Euro|EUR|  \n|Slovenia|Euro|EUR|  \n|South Africa|South African Rand|ZAR|  \n|Spain|Euro|EUR|  \n|Sweden|Swedish Krona|SEK|  \n|Switzerland|Swiss Franc|CHF|  \n|Syria|Syrian Pound|SYP|  \n|Taiwan|New Taiwan Dollar|TWD|  \n|Thailand|Thai Baht|THB|  \n|Trinidad and Tobago|Trinidad Dollar|TTD|  \n|Tunisia|Tunisian Dinar|TND|  \n|Turkey|Turkish Lira|TRY|  \n|Ukraine|Ukrainian Hryvnia|UAH|  \n|United Arab Emirates|UAE Dirham|AED|  \n|United Kingdom|UK Pound Sterling|GBP|  \n|United States|US Dollar|USD|  \n|Uruguay|Peso Uruguayo|UYU|  \n|Uzbekistan|Uzbekistan Som|UZS|  \n|Vietnam|Vietnamese Dong|VND|  \n|Yemen|Yemeni Rial|YER|  \n|Zimbabwe|Zimbabwe Dollar|ZWL|"
@@ -924,7 +925,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -944,7 +946,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -963,9 +966,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/RegionInfo.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.RegionInfo.Name
   commentId: P:System.Globalization.RegionInfo.Name
   id: Name
@@ -974,12 +974,13 @@ items:
   - csharp
   name: Name
   nameWithType: RegionInfo.Name
-  fullName: System.Globalization.RegionInfo.Name
+  fullName: RegionInfo.Name
   type: Property
   assemblies:
   - System.Globalization
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets the name or ISO 3166 two-letter country/region code for the current <xref href="System.Globalization.RegionInfo"></xref> object.
   remarks: "If the current <xref:System.Globalization.RegionInfo> object is created with the <xref:System.Globalization.RegionInfo.%23ctor%28System.Int32%29?displayProperty=fullName> constructor that takes a culture identifier parameter, the <xref:System.Globalization.RegionInfo.Name%2A> property value is one of the two-letter codes defined in ISO 3166 for the country/region and is formatted in uppercase. For example, the two-letter code for the United States is \"US\".  \n  \n If the current <xref:System.Globalization.RegionInfo> object is created with the <xref:System.Globalization.RegionInfo.%23ctor%28System.String%29?displayProperty=fullName> constructor and is passed a full culture name such as \"en-US\", the <xref:System.Globalization.RegionInfo.Name%2A> property value is a full culture name and not just the region name."
@@ -994,7 +995,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1014,7 +1016,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1033,9 +1036,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/RegionInfo.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.RegionInfo.NativeName
   commentId: P:System.Globalization.RegionInfo.NativeName
   id: NativeName
@@ -1044,12 +1044,13 @@ items:
   - csharp
   name: NativeName
   nameWithType: RegionInfo.NativeName
-  fullName: System.Globalization.RegionInfo.NativeName
+  fullName: RegionInfo.NativeName
   type: Property
   assemblies:
   - System.Globalization
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets the name of a country/region formatted in the native language of the country/region.
   remarks: "> [!NOTE]\n>  The <xref:System.Globalization.RegionInfo.NativeName%2A> property retrieves a full culture name if the `RegionInfo` object is constructed using a full culture name.  \n  \n We recommend that you use the culture name—for example, \"en-US\" for English (United States)—to access the <xref:System.Globalization.RegionInfo.NativeName%2A> property. The string used for this property depends on the language associated with the country/region. For example, the culture names en-US for English (United States) and es-US for Spanish (United States) can retrieve different values on Windows Vista. Therefore, creating the `RegionInfo` object with only a country/region name of US is not specific enough to distinguish the appropriate string."
@@ -1069,7 +1070,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1089,7 +1091,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1108,9 +1111,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/RegionInfo.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.RegionInfo.ThreeLetterISORegionName
   commentId: P:System.Globalization.RegionInfo.ThreeLetterISORegionName
   id: ThreeLetterISORegionName
@@ -1119,11 +1119,12 @@ items:
   - csharp
   name: ThreeLetterISORegionName
   nameWithType: RegionInfo.ThreeLetterISORegionName
-  fullName: System.Globalization.RegionInfo.ThreeLetterISORegionName
+  fullName: RegionInfo.ThreeLetterISORegionName
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets the three-letter code defined in ISO 3166 for the country/region.
   remarks: "The <xref:System.Globalization.RegionInfo.ThreeLetterISORegionName%2A> property contains the three-letter code defined in ISO 3166 for this country/region. For example, the three-letter code for United States is \"USA\".  \n  \n Case is not significant. However, the <xref:System.Globalization.RegionInfo.Name%2A>, the <xref:System.Globalization.RegionInfo.TwoLetterISORegionName%2A>, and the <xref:System.Globalization.RegionInfo.ThreeLetterISORegionName%2A> properties return the appropriate code in uppercase."
@@ -1137,6 +1138,7 @@ items:
   overload: System.Globalization.RegionInfo.ThreeLetterISORegionName*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1149,6 +1151,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1161,9 +1164,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/RegionInfo.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.RegionInfo.ThreeLetterWindowsRegionName
   commentId: P:System.Globalization.RegionInfo.ThreeLetterWindowsRegionName
   id: ThreeLetterWindowsRegionName
@@ -1172,11 +1172,12 @@ items:
   - csharp
   name: ThreeLetterWindowsRegionName
   nameWithType: RegionInfo.ThreeLetterWindowsRegionName
-  fullName: System.Globalization.RegionInfo.ThreeLetterWindowsRegionName
+  fullName: RegionInfo.ThreeLetterWindowsRegionName
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets the three-letter code assigned by Windows to the country/region represented by this <xref href="System.Globalization.RegionInfo"></xref>.
   remarks: For example, the three-letter code for United States is "USA".
@@ -1190,6 +1191,7 @@ items:
   overload: System.Globalization.RegionInfo.ThreeLetterWindowsRegionName*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1202,6 +1204,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1214,9 +1217,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/RegionInfo.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.RegionInfo.ToString
   commentId: M:System.Globalization.RegionInfo.ToString
   id: ToString
@@ -1225,12 +1225,13 @@ items:
   - csharp
   name: ToString()
   nameWithType: RegionInfo.ToString()
-  fullName: System.Globalization.RegionInfo.ToString()
+  fullName: RegionInfo.ToString()
   type: Method
   assemblies:
   - System.Globalization
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Returns a string containing the culture name or ISO 3166 two-letter country/region codes specified for the current <xref href="System.Globalization.RegionInfo"></xref>.
   remarks: "This method overrides <xref:System.Object.ToString%2A?displayProperty=fullName>.  \n  \n This method returns the value of the <xref:System.Globalization.RegionInfo.Name%2A> property.  \n  \n Case is not significant. However, the <xref:System.Globalization.RegionInfo.Name%2A>, the <xref:System.Globalization.RegionInfo.TwoLetterISORegionName%2A>, and the <xref:System.Globalization.RegionInfo.ThreeLetterISORegionName%2A> properties return the appropriate code in uppercase.  \n  \n The predefined <xref:System.Globalization.RegionInfo> names are listed in the <xref:System.Globalization.RegionInfo> class topic."
@@ -1244,7 +1245,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1264,7 +1266,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1283,9 +1286,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/RegionInfo.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.RegionInfo.TwoLetterISORegionName
   commentId: P:System.Globalization.RegionInfo.TwoLetterISORegionName
   id: TwoLetterISORegionName
@@ -1294,12 +1294,13 @@ items:
   - csharp
   name: TwoLetterISORegionName
   nameWithType: RegionInfo.TwoLetterISORegionName
-  fullName: System.Globalization.RegionInfo.TwoLetterISORegionName
+  fullName: RegionInfo.TwoLetterISORegionName
   type: Property
   assemblies:
   - System.Globalization
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets the two-letter code defined in ISO 3166 for the country/region.
   remarks: "The <xref:System.Globalization.RegionInfo> name is one of the two-letter codes defined in ISO 3166 for country/region. For example, the two-letter code for United States is \"US\".  \n  \n> [!IMPORTANT]\n>  In some cases, the <xref:System.Globalization.RegionInfo.TwoLetterISORegionName%2A> property may have more than two characters. For example, the value of the <xref:System.Globalization.RegionInfo.TwoLetterISORegionName%2A> property for the Caribbean region is \"029\".  \n  \n Case is not significant. However, the <xref:System.Globalization.RegionInfo.Name%2A>, the <xref:System.Globalization.RegionInfo.TwoLetterISORegionName%2A>, and the <xref:System.Globalization.RegionInfo.ThreeLetterISORegionName%2A> properties return the appropriate code in uppercase.  \n  \n> [!WARNING]\n>  If you want to persist a <xref:System.Globalization.RegionInfo> object or communicate it between processes, you should instantiate it by using a full culture name rather than a two-letter ISO region code. Because <xref:System.Globalization.RegionInfo> properties depend on script and language, instantiating a <xref:System.Globalization.RegionInfo> object by using only a region code loses context and data.  \n  \n The predefined <xref:System.Globalization.RegionInfo> names are listed in [English country names and code elements](http://go.microsoft.com/fwlink/?LinkId=190591) on the ISO website."
@@ -1314,7 +1315,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1334,7 +1336,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1353,9 +1356,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/RegionInfo.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -1380,7 +1380,7 @@ references:
   isExternal: false
   name: RegionInfo(Int32)
   nameWithType: RegionInfo.RegionInfo(Int32)
-  fullName: System.Globalization.RegionInfo.RegionInfo(Int32)
+  fullName: RegionInfo.RegionInfo(Int32)
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -1392,7 +1392,7 @@ references:
   isExternal: false
   name: RegionInfo(String)
   nameWithType: RegionInfo.RegionInfo(String)
-  fullName: System.Globalization.RegionInfo.RegionInfo(String)
+  fullName: RegionInfo.RegionInfo(String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -1404,25 +1404,25 @@ references:
   isExternal: false
   name: CurrencyEnglishName
   nameWithType: RegionInfo.CurrencyEnglishName
-  fullName: System.Globalization.RegionInfo.CurrencyEnglishName
+  fullName: RegionInfo.CurrencyEnglishName
 - uid: System.Globalization.RegionInfo.CurrencyNativeName
   parent: System.Globalization.RegionInfo
   isExternal: false
   name: CurrencyNativeName
   nameWithType: RegionInfo.CurrencyNativeName
-  fullName: System.Globalization.RegionInfo.CurrencyNativeName
+  fullName: RegionInfo.CurrencyNativeName
 - uid: System.Globalization.RegionInfo.CurrencySymbol
   parent: System.Globalization.RegionInfo
   isExternal: false
   name: CurrencySymbol
   nameWithType: RegionInfo.CurrencySymbol
-  fullName: System.Globalization.RegionInfo.CurrencySymbol
+  fullName: RegionInfo.CurrencySymbol
 - uid: System.Globalization.RegionInfo.CurrentRegion
   parent: System.Globalization.RegionInfo
   isExternal: false
   name: CurrentRegion
   nameWithType: RegionInfo.CurrentRegion
-  fullName: System.Globalization.RegionInfo.CurrentRegion
+  fullName: RegionInfo.CurrentRegion
 - uid: System.Globalization.RegionInfo
   parent: System.Globalization
   isExternal: false
@@ -1434,19 +1434,19 @@ references:
   isExternal: false
   name: DisplayName
   nameWithType: RegionInfo.DisplayName
-  fullName: System.Globalization.RegionInfo.DisplayName
+  fullName: RegionInfo.DisplayName
 - uid: System.Globalization.RegionInfo.EnglishName
   parent: System.Globalization.RegionInfo
   isExternal: false
   name: EnglishName
   nameWithType: RegionInfo.EnglishName
-  fullName: System.Globalization.RegionInfo.EnglishName
+  fullName: RegionInfo.EnglishName
 - uid: System.Globalization.RegionInfo.Equals(System.Object)
   parent: System.Globalization.RegionInfo
   isExternal: false
   name: Equals(Object)
   nameWithType: RegionInfo.Equals(Object)
-  fullName: System.Globalization.RegionInfo.Equals(Object)
+  fullName: RegionInfo.Equals(Object)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -1458,68 +1458,69 @@ references:
   isExternal: false
   name: GeoId
   nameWithType: RegionInfo.GeoId
-  fullName: System.Globalization.RegionInfo.GeoId
+  fullName: RegionInfo.GeoId
 - uid: System.Globalization.RegionInfo.GetHashCode
   parent: System.Globalization.RegionInfo
   isExternal: false
   name: GetHashCode()
   nameWithType: RegionInfo.GetHashCode()
-  fullName: System.Globalization.RegionInfo.GetHashCode()
+  fullName: RegionInfo.GetHashCode()
 - uid: System.Globalization.RegionInfo.IsMetric
   parent: System.Globalization.RegionInfo
   isExternal: false
   name: IsMetric
   nameWithType: RegionInfo.IsMetric
-  fullName: System.Globalization.RegionInfo.IsMetric
+  fullName: RegionInfo.IsMetric
 - uid: System.Globalization.RegionInfo.ISOCurrencySymbol
   parent: System.Globalization.RegionInfo
   isExternal: false
   name: ISOCurrencySymbol
   nameWithType: RegionInfo.ISOCurrencySymbol
-  fullName: System.Globalization.RegionInfo.ISOCurrencySymbol
+  fullName: RegionInfo.ISOCurrencySymbol
 - uid: System.Globalization.RegionInfo.Name
   parent: System.Globalization.RegionInfo
   isExternal: false
   name: Name
   nameWithType: RegionInfo.Name
-  fullName: System.Globalization.RegionInfo.Name
+  fullName: RegionInfo.Name
 - uid: System.Globalization.RegionInfo.NativeName
   parent: System.Globalization.RegionInfo
   isExternal: false
   name: NativeName
   nameWithType: RegionInfo.NativeName
-  fullName: System.Globalization.RegionInfo.NativeName
+  fullName: RegionInfo.NativeName
 - uid: System.Globalization.RegionInfo.ThreeLetterISORegionName
   parent: System.Globalization.RegionInfo
   isExternal: false
   name: ThreeLetterISORegionName
   nameWithType: RegionInfo.ThreeLetterISORegionName
-  fullName: System.Globalization.RegionInfo.ThreeLetterISORegionName
+  fullName: RegionInfo.ThreeLetterISORegionName
 - uid: System.Globalization.RegionInfo.ThreeLetterWindowsRegionName
   parent: System.Globalization.RegionInfo
   isExternal: false
   name: ThreeLetterWindowsRegionName
   nameWithType: RegionInfo.ThreeLetterWindowsRegionName
-  fullName: System.Globalization.RegionInfo.ThreeLetterWindowsRegionName
+  fullName: RegionInfo.ThreeLetterWindowsRegionName
 - uid: System.Globalization.RegionInfo.ToString
   parent: System.Globalization.RegionInfo
   isExternal: false
   name: ToString()
   nameWithType: RegionInfo.ToString()
-  fullName: System.Globalization.RegionInfo.ToString()
+  fullName: RegionInfo.ToString()
 - uid: System.Globalization.RegionInfo.TwoLetterISORegionName
   parent: System.Globalization.RegionInfo
   isExternal: false
   name: TwoLetterISORegionName
   nameWithType: RegionInfo.TwoLetterISORegionName
-  fullName: System.Globalization.RegionInfo.TwoLetterISORegionName
+  fullName: RegionInfo.TwoLetterISORegionName
 - uid: System.Globalization.RegionInfo.#ctor*
   parent: System.Globalization.RegionInfo
   isExternal: false
   name: RegionInfo
   nameWithType: RegionInfo.RegionInfo
-  fullName: System.Globalization.RegionInfo.RegionInfo
+  fullName: RegionInfo.RegionInfo
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1532,7 +1533,7 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
   - netstandard-1.0
   - netstandard-1.1
   - netstandard-1.2
@@ -1545,8 +1546,9 @@ references:
   isExternal: false
   name: CurrencyEnglishName
   nameWithType: RegionInfo.CurrencyEnglishName
-  fullName: System.Globalization.RegionInfo.CurrencyEnglishName
+  fullName: RegionInfo.CurrencyEnglishName
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1564,8 +1566,9 @@ references:
   isExternal: false
   name: CurrencyNativeName
   nameWithType: RegionInfo.CurrencyNativeName
-  fullName: System.Globalization.RegionInfo.CurrencyNativeName
+  fullName: RegionInfo.CurrencyNativeName
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1583,10 +1586,11 @@ references:
   isExternal: false
   name: CurrencySymbol
   nameWithType: RegionInfo.CurrencySymbol
-  fullName: System.Globalization.RegionInfo.CurrencySymbol
+  fullName: RegionInfo.CurrencySymbol
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1610,10 +1614,11 @@ references:
   isExternal: false
   name: CurrentRegion
   nameWithType: RegionInfo.CurrentRegion
-  fullName: System.Globalization.RegionInfo.CurrentRegion
+  fullName: RegionInfo.CurrentRegion
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1637,10 +1642,11 @@ references:
   isExternal: false
   name: DisplayName
   nameWithType: RegionInfo.DisplayName
-  fullName: System.Globalization.RegionInfo.DisplayName
+  fullName: RegionInfo.DisplayName
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1664,10 +1670,11 @@ references:
   isExternal: false
   name: EnglishName
   nameWithType: RegionInfo.EnglishName
-  fullName: System.Globalization.RegionInfo.EnglishName
+  fullName: RegionInfo.EnglishName
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1691,10 +1698,11 @@ references:
   isExternal: false
   name: Equals
   nameWithType: RegionInfo.Equals
-  fullName: System.Globalization.RegionInfo.Equals
+  fullName: RegionInfo.Equals
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1718,8 +1726,9 @@ references:
   isExternal: false
   name: GeoId
   nameWithType: RegionInfo.GeoId
-  fullName: System.Globalization.RegionInfo.GeoId
+  fullName: RegionInfo.GeoId
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1737,10 +1746,11 @@ references:
   isExternal: false
   name: GetHashCode
   nameWithType: RegionInfo.GetHashCode
-  fullName: System.Globalization.RegionInfo.GetHashCode
+  fullName: RegionInfo.GetHashCode
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1764,10 +1774,11 @@ references:
   isExternal: false
   name: IsMetric
   nameWithType: RegionInfo.IsMetric
-  fullName: System.Globalization.RegionInfo.IsMetric
+  fullName: RegionInfo.IsMetric
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1791,10 +1802,11 @@ references:
   isExternal: false
   name: ISOCurrencySymbol
   nameWithType: RegionInfo.ISOCurrencySymbol
-  fullName: System.Globalization.RegionInfo.ISOCurrencySymbol
+  fullName: RegionInfo.ISOCurrencySymbol
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1818,10 +1830,11 @@ references:
   isExternal: false
   name: Name
   nameWithType: RegionInfo.Name
-  fullName: System.Globalization.RegionInfo.Name
+  fullName: RegionInfo.Name
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1845,10 +1858,11 @@ references:
   isExternal: false
   name: NativeName
   nameWithType: RegionInfo.NativeName
-  fullName: System.Globalization.RegionInfo.NativeName
+  fullName: RegionInfo.NativeName
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1872,8 +1886,9 @@ references:
   isExternal: false
   name: ThreeLetterISORegionName
   nameWithType: RegionInfo.ThreeLetterISORegionName
-  fullName: System.Globalization.RegionInfo.ThreeLetterISORegionName
+  fullName: RegionInfo.ThreeLetterISORegionName
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1891,8 +1906,9 @@ references:
   isExternal: false
   name: ThreeLetterWindowsRegionName
   nameWithType: RegionInfo.ThreeLetterWindowsRegionName
-  fullName: System.Globalization.RegionInfo.ThreeLetterWindowsRegionName
+  fullName: RegionInfo.ThreeLetterWindowsRegionName
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1910,10 +1926,11 @@ references:
   isExternal: false
   name: ToString
   nameWithType: RegionInfo.ToString
-  fullName: System.Globalization.RegionInfo.ToString
+  fullName: RegionInfo.ToString
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1937,10 +1954,11 @@ references:
   isExternal: false
   name: TwoLetterISORegionName
   nameWithType: RegionInfo.TwoLetterISORegionName
-  fullName: System.Globalization.RegionInfo.TwoLetterISORegionName
+  fullName: RegionInfo.TwoLetterISORegionName
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

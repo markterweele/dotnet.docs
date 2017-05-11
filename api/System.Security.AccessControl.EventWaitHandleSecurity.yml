@@ -34,7 +34,7 @@ items:
   summary: Represents the Windows access control security applied to a named system wait handle. This class cannot be inherited.
   remarks: "An <xref:System.Security.AccessControl.EventWaitHandleSecurity> object specifies access rights for a named system wait handle, and also specifies the way access attempts are audited. Access rights to the wait handle are expressed as rules, with each access rule represented by an <xref:System.Security.AccessControl.EventWaitHandleAccessRule> object. Each auditing rule is represented by an <xref:System.Security.AccessControl.EventWaitHandleAuditRule> object.  \n  \n This mirrors the underlying Windows security system, in which each securable object has at most one discretionary access control list (DACL) that controls access to the secured object, and at most one system access control list (SACL) that specifies which access attempts are audited. The DACL and SACL are ordered lists of access control entries (ACE) that specify access and auditing for users and groups. An <xref:System.Security.AccessControl.EventWaitHandleAccessRule> or <xref:System.Security.AccessControl.EventWaitHandleAuditRule> object might represent more than one ACE.  \n  \n> [!NOTE]\n>  An <xref:System.Threading.EventWaitHandle> object can represent a local wait handle or a named system wait handle. Windows access control security is meaningful only for named system wait handles.  \n  \n The <xref:System.Security.AccessControl.EventWaitHandleSecurity>, <xref:System.Security.AccessControl.EventWaitHandleAccessRule>, and <xref:System.Security.AccessControl.EventWaitHandleAuditRule> classes hide the implementation details of ACLs and ACEs. They allow you to ignore the seventeen different ACE types and the complexity of correctly maintaining inheritance and propagation of access rights. These objects are also designed to prevent the following common access control errors:  \n  \n-   Creating a security descriptor with a null DACL. A null reference to a DACL allows any user to add access rules to an object, potentially creating a denial-of-service attack. A new <xref:System.Security.AccessControl.EventWaitHandleSecurity> object always starts with an empty DACL, which denies all access for all users.  \n  \n-   Violating the canonical ordering of ACEs. If the ACE list in the DACL is not kept in the canonical order, users might inadvertently be given access to the secured object. For example, denied access rights must always appear before allowed access rights. <xref:System.Security.AccessControl.EventWaitHandleSecurity> objects maintain the correct order internally.  \n  \n-   Manipulating security descriptor flags, which should be under resource manager control only.  \n  \n-   Creating invalid combinations of ACE flags.  \n  \n-   Manipulating inherited ACEs. Inheritance and propagation are handled by the resource manager, in response to changes you make to access and audit rules.  \n  \n-   Inserting meaningless ACEs into ACLs.  \n  \n The only capabilities not supported by the .NET security objects are dangerous activities that should be avoided by the majority of application developers, such as the following:  \n  \n-   Low-level tasks that are normally performed by the resource manager.  \n  \n-   Adding or removing access control entries in ways that do not maintain the canonical ordering.  \n  \n To modify Windows access control security for a named wait handle, use the <xref:System.Threading.EventWaitHandle.GetAccessControl%2A?displayProperty=fullName> method to get the <xref:System.Security.AccessControl.EventWaitHandleSecurity> object. Modify the security object by adding and removing rules, and then use the <xref:System.Threading.EventWaitHandle.SetAccessControl%2A?displayProperty=fullName> method to reattach it.  \n  \n> [!IMPORTANT]\n>  Changes you make to an <xref:System.Security.AccessControl.EventWaitHandleSecurity> object do not affect the access levels of the named wait handle until you call the <xref:System.Threading.EventWaitHandle.SetAccessControl%2A?displayProperty=fullName> method to assign the altered security object to the named wait handle.  \n  \n To copy access control security from one wait handle to another, use the <xref:System.Threading.EventWaitHandle.GetAccessControl%2A?displayProperty=fullName> method to get an <xref:System.Security.AccessControl.EventWaitHandleSecurity> object representing the access and audit rules for the first wait handle, and then use the <xref:System.Threading.EventWaitHandle.SetAccessControl%2A?displayProperty=fullName> method, or a constructor that accepts an <xref:System.Security.AccessControl.EventWaitHandleSecurity> object, to assign those rules to the second wait handle.  \n  \n Users with an investment in the security descriptor definition language (SDDL) can use the <xref:System.Security.AccessControl.ObjectSecurity.SetSecurityDescriptorSddlForm%2A> method to set access rules for a named wait handle, and the <xref:System.Security.AccessControl.ObjectSecurity.GetSecurityDescriptorSddlForm%2A> method to obtain a string that represents the access rules in SDDL format. This is not recommended for new development."
   example:
-  - "The following code example demonstrates the separation between <xref:System.Security.AccessControl.AccessControlType> rules and <xref:System.Security.AccessControl.AccessControlType> rules, and shows the combination of rights in compatible rules. The example creates an <xref:System.Security.AccessControl.EventWaitHandleSecurity> object, adds rules that allow and deny various rights for the current user, and displays the resulting pair of rules. The example then allows new rights for the current user and displays the result, showing that the new rights are merged with the existing <xref:System.Security.AccessControl.AccessControlType> rule.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.EventWaitHandle> object. Examples that attach security objects can be found in<xref:System.Threading.EventWaitHandle.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.EventWaitHandle.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule/VB/source.vb#1)]"
+  - "The following code example demonstrates the separation between <xref:System.Security.AccessControl.AccessControlType.Allow> rules and <xref:System.Security.AccessControl.AccessControlType.Deny> rules, and shows the combination of rights in compatible rules. The example creates an <xref:System.Security.AccessControl.EventWaitHandleSecurity> object, adds rules that allow and deny various rights for the current user, and displays the resulting pair of rules. The example then allows new rights for the current user and displays the result, showing that the new rights are merged with the existing <xref:System.Security.AccessControl.AccessControlType.Allow> rule.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.EventWaitHandle> object. Examples that attach security objects can be found in<xref:System.Threading.EventWaitHandle.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.EventWaitHandle.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule/VB/source.vb#1)]"
   syntax:
     content: 'public sealed class EventWaitHandleSecurity : System.Security.AccessControl.NativeObjectSecurity'
   inheritance:
@@ -104,7 +104,8 @@ items:
   - System.Security.AccessControl.ObjectSecurity.WriteUnlock
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -117,7 +118,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -129,9 +131,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/EventWaitHandleSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.#ctor
   commentId: M:System.Security.AccessControl.EventWaitHandleSecurity.#ctor
   id: '#ctor'
@@ -140,7 +139,7 @@ items:
   - csharp
   name: EventWaitHandleSecurity()
   nameWithType: EventWaitHandleSecurity.EventWaitHandleSecurity()
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.EventWaitHandleSecurity()
+  fullName: EventWaitHandleSecurity.EventWaitHandleSecurity()
   type: Constructor
   assemblies:
   - System.Threading.AccessControl
@@ -158,7 +157,8 @@ items:
     description: This class is not supported on Windows 98 or Windows Millennium Edition.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -171,7 +171,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -183,9 +184,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/EventWaitHandleSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.AccessRightType
   commentId: P:System.Security.AccessControl.EventWaitHandleSecurity.AccessRightType
   id: AccessRightType
@@ -194,7 +192,7 @@ items:
   - csharp
   name: AccessRightType
   nameWithType: EventWaitHandleSecurity.AccessRightType
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.AccessRightType
+  fullName: EventWaitHandleSecurity.AccessRightType
   type: Property
   assemblies:
   - System.Threading.AccessControl
@@ -211,7 +209,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -224,7 +223,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -236,9 +236,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/EventWaitHandleSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.AccessRuleFactory(System.Security.Principal.IdentityReference,System.Int32,System.Boolean,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AccessControlType)
   commentId: M:System.Security.AccessControl.EventWaitHandleSecurity.AccessRuleFactory(System.Security.Principal.IdentityReference,System.Int32,System.Boolean,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AccessControlType)
   id: AccessRuleFactory(System.Security.Principal.IdentityReference,System.Int32,System.Boolean,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AccessControlType)
@@ -247,7 +244,7 @@ items:
   - csharp
   name: AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
   nameWithType: EventWaitHandleSecurity.AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
+  fullName: EventWaitHandleSecurity.AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -292,7 +289,8 @@ items:
     description: <code>identityReference</code> is neither of type <xref href="System.Security.Principal.SecurityIdentifier"></xref>, nor of a type such as <xref href="System.Security.Principal.NTAccount"></xref> that can be converted to type <xref href="System.Security.Principal.SecurityIdentifier"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -305,7 +303,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -317,9 +316,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/EventWaitHandleSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.AccessRuleType
   commentId: P:System.Security.AccessControl.EventWaitHandleSecurity.AccessRuleType
   id: AccessRuleType
@@ -328,7 +324,7 @@ items:
   - csharp
   name: AccessRuleType
   nameWithType: EventWaitHandleSecurity.AccessRuleType
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.AccessRuleType
+  fullName: EventWaitHandleSecurity.AccessRuleType
   type: Property
   assemblies:
   - System.Threading.AccessControl
@@ -345,7 +341,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -358,7 +355,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -370,9 +368,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/EventWaitHandleSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule(System.Security.AccessControl.EventWaitHandleAccessRule)
   commentId: M:System.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule(System.Security.AccessControl.EventWaitHandleAccessRule)
   id: AddAccessRule(System.Security.AccessControl.EventWaitHandleAccessRule)
@@ -381,7 +376,7 @@ items:
   - csharp
   name: AddAccessRule(EventWaitHandleAccessRule)
   nameWithType: EventWaitHandleSecurity.AddAccessRule(EventWaitHandleAccessRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule(EventWaitHandleAccessRule)
+  fullName: EventWaitHandleSecurity.AddAccessRule(EventWaitHandleAccessRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -390,7 +385,7 @@ items:
   summary: Searches for a matching access control rule with which the new rule can be merged. If none are found, adds the new rule.
   remarks: The <xref:System.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule%2A> method searches for rules with the same user or group and the same <xref:System.Security.AccessControl.AccessControlType> as `rule`. If none are found, `rule` is added. If a matching rule is found, the rights in `rule` are merged with the existing rule.
   example:
-  - "The following code example demonstrates the separation between <xref:System.Security.AccessControl.AccessControlType> rules and <xref:System.Security.AccessControl.AccessControlType> rules, and shows the combination of rights in compatible rules. The example creates an <xref:System.Security.AccessControl.EventWaitHandleSecurity> object, adds rules that allow and deny various rights for the current user, and displays the resulting pair of rules. The example then allows new rights for the current user and displays the result, showing that the new rights are merged with the existing <xref:System.Security.AccessControl.AccessControlType> rule.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.EventWaitHandle> object. Examples that attach security objects can be found in <xref:System.Threading.EventWaitHandle.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.EventWaitHandle.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule/VB/source.vb#1)]"
+  - "The following code example demonstrates the separation between <xref:System.Security.AccessControl.AccessControlType.Allow> rules and <xref:System.Security.AccessControl.AccessControlType.Deny> rules, and shows the combination of rights in compatible rules. The example creates an <xref:System.Security.AccessControl.EventWaitHandleSecurity> object, adds rules that allow and deny various rights for the current user, and displays the resulting pair of rules. The example then allows new rights for the current user and displays the result, showing that the new rights are merged with the existing <xref:System.Security.AccessControl.AccessControlType.Allow> rule.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.EventWaitHandle> object. Examples that attach security objects can be found in <xref:System.Threading.EventWaitHandle.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.EventWaitHandle.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule/VB/source.vb#1)]"
   syntax:
     content: public void AddAccessRule (System.Security.AccessControl.EventWaitHandleAccessRule rule);
     parameters:
@@ -404,7 +399,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -417,7 +413,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -429,9 +426,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/EventWaitHandleSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.AddAuditRule(System.Security.AccessControl.EventWaitHandleAuditRule)
   commentId: M:System.Security.AccessControl.EventWaitHandleSecurity.AddAuditRule(System.Security.AccessControl.EventWaitHandleAuditRule)
   id: AddAuditRule(System.Security.AccessControl.EventWaitHandleAuditRule)
@@ -440,7 +434,7 @@ items:
   - csharp
   name: AddAuditRule(EventWaitHandleAuditRule)
   nameWithType: EventWaitHandleSecurity.AddAuditRule(EventWaitHandleAuditRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.AddAuditRule(EventWaitHandleAuditRule)
+  fullName: EventWaitHandleSecurity.AddAuditRule(EventWaitHandleAuditRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -461,7 +455,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -474,7 +469,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -486,9 +482,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/EventWaitHandleSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.AuditRuleFactory(System.Security.Principal.IdentityReference,System.Int32,System.Boolean,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AuditFlags)
   commentId: M:System.Security.AccessControl.EventWaitHandleSecurity.AuditRuleFactory(System.Security.Principal.IdentityReference,System.Int32,System.Boolean,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AuditFlags)
   id: AuditRuleFactory(System.Security.Principal.IdentityReference,System.Int32,System.Boolean,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AuditFlags)
@@ -497,7 +490,7 @@ items:
   - csharp
   name: AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
   nameWithType: EventWaitHandleSecurity.AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
+  fullName: EventWaitHandleSecurity.AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -542,7 +535,8 @@ items:
     description: <code>identityReference</code> is neither of type <xref href="System.Security.Principal.SecurityIdentifier"></xref>, nor of a type such as <xref href="System.Security.Principal.NTAccount"></xref> that can be converted to type <xref href="System.Security.Principal.SecurityIdentifier"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -555,7 +549,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -567,9 +562,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/EventWaitHandleSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.AuditRuleType
   commentId: P:System.Security.AccessControl.EventWaitHandleSecurity.AuditRuleType
   id: AuditRuleType
@@ -578,7 +570,7 @@ items:
   - csharp
   name: AuditRuleType
   nameWithType: EventWaitHandleSecurity.AuditRuleType
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.AuditRuleType
+  fullName: EventWaitHandleSecurity.AuditRuleType
   type: Property
   assemblies:
   - System.Threading.AccessControl
@@ -595,7 +587,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -608,7 +601,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -620,9 +614,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/EventWaitHandleSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRule(System.Security.AccessControl.EventWaitHandleAccessRule)
   commentId: M:System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRule(System.Security.AccessControl.EventWaitHandleAccessRule)
   id: RemoveAccessRule(System.Security.AccessControl.EventWaitHandleAccessRule)
@@ -631,7 +622,7 @@ items:
   - csharp
   name: RemoveAccessRule(EventWaitHandleAccessRule)
   nameWithType: EventWaitHandleSecurity.RemoveAccessRule(EventWaitHandleAccessRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRule(EventWaitHandleAccessRule)
+  fullName: EventWaitHandleSecurity.RemoveAccessRule(EventWaitHandleAccessRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -640,7 +631,7 @@ items:
   summary: Searches for an access control rule with the same user and <xref href="System.Security.AccessControl.AccessControlType"></xref> (allow or deny) as the specified access rule, and with compatible inheritance and propagation flags; if such a rule is found, the rights contained in the specified access rule are removed from it.
   remarks: "The current <xref:System.Security.AccessControl.EventWaitHandleSecurity> is searched for a rule that has the same user and the same <xref:System.Security.AccessControl.AccessControlType> value as `rule`. If no such rule is found, no action is taken, and the method returns `false`. If matching rules are found, their inheritance and compatibility flags are checked for compatibility with the flags specified in `rule`. If no compatible rule is found, no action is taken, and the method returns `false`. If a rule with compatible flags is found, the rights specified in `rule` are removed from the compatible rule, and the method returns `true`. If `rule` specifies rights not contained in the compatible rule, no action is taken with respect to those rights. If all rights are removed from the compatible rule, the entire rule is removed from the current <xref:System.Security.AccessControl.EventWaitHandleSecurity> object.  \n  \n> [!IMPORTANT]\n>  Although you can specify inheritance and propagation flags for event access rules, by creating them with the <xref:System.Security.AccessControl.EventWaitHandleSecurity.AccessRuleFactory%2A> method, this is not recommended. Inheritance and propagation have no meaning for named events, and they make the maintenance of access rules more complicated."
   example:
-  - "The following code example demonstrates the use of the <xref:System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRule%2A> method to remove rights from an <xref:System.Security.AccessControl.AccessControlType> rule in an <xref:System.Security.AccessControl.EventWaitHandleSecurity> object. It also shows that other rights in `rule` are ignored.  \n  \n The example creates an <xref:System.Security.AccessControl.EventWaitHandleSecurity> object and adds rules that allow and deny various rights for the current user. The rights allowed include <xref:System.Security.AccessControl.EventWaitHandleRights>, <xref:System.Security.AccessControl.EventWaitHandleRights>, and <xref:System.Security.AccessControl.EventWaitHandleRights>. The example then creates a new rule for the current user, including <xref:System.Security.AccessControl.EventWaitHandleRights> and <xref:System.Security.AccessControl.EventWaitHandleRights> rights, and uses that rule with the <xref:System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRule%2A> method to remove <xref:System.Security.AccessControl.EventWaitHandleRights> from the <xref:System.Security.AccessControl.AccessControlType> rule in the <xref:System.Security.AccessControl.EventWaitHandleSecurity> object. The <xref:System.Security.AccessControl.EventWaitHandleRights> right in `rule` is ignored.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.EventWaitHandle> object. Examples that attach security objects can be found in <xref:System.Threading.EventWaitHandle.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.EventWaitHandle.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRule/VB/source.vb#1)]"
+  - "The following code example demonstrates the use of the <xref:System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRule%2A> method to remove rights from an <xref:System.Security.AccessControl.AccessControlType.Allow> rule in an <xref:System.Security.AccessControl.EventWaitHandleSecurity> object. It also shows that other rights in `rule` are ignored.  \n  \n The example creates an <xref:System.Security.AccessControl.EventWaitHandleSecurity> object and adds rules that allow and deny various rights for the current user. The rights allowed include <xref:System.Security.AccessControl.EventWaitHandleRights.Modify>, <xref:System.Security.AccessControl.EventWaitHandleRights.ReadPermissions>, and <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize>. The example then creates a new rule for the current user, including <xref:System.Security.AccessControl.EventWaitHandleRights.ReadPermissions> and <xref:System.Security.AccessControl.EventWaitHandleRights.TakeOwnership> rights, and uses that rule with the <xref:System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRule%2A> method to remove <xref:System.Security.AccessControl.EventWaitHandleRights.ReadPermissions> from the <xref:System.Security.AccessControl.AccessControlType.Allow> rule in the <xref:System.Security.AccessControl.EventWaitHandleSecurity> object. The <xref:System.Security.AccessControl.EventWaitHandleRights.TakeOwnership> right in `rule` is ignored.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.EventWaitHandle> object. Examples that attach security objects can be found in <xref:System.Threading.EventWaitHandle.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.EventWaitHandle.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRule/VB/source.vb#1)]"
   syntax:
     content: public bool RemoveAccessRule (System.Security.AccessControl.EventWaitHandleAccessRule rule);
     parameters:
@@ -657,7 +648,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -670,7 +662,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -682,9 +675,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/EventWaitHandleSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleAll(System.Security.AccessControl.EventWaitHandleAccessRule)
   commentId: M:System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleAll(System.Security.AccessControl.EventWaitHandleAccessRule)
   id: RemoveAccessRuleAll(System.Security.AccessControl.EventWaitHandleAccessRule)
@@ -693,7 +683,7 @@ items:
   - csharp
   name: RemoveAccessRuleAll(EventWaitHandleAccessRule)
   nameWithType: EventWaitHandleSecurity.RemoveAccessRuleAll(EventWaitHandleAccessRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleAll(EventWaitHandleAccessRule)
+  fullName: EventWaitHandleSecurity.RemoveAccessRuleAll(EventWaitHandleAccessRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -702,7 +692,7 @@ items:
   summary: Searches for all access control rules with the same user and <xref href="System.Security.AccessControl.AccessControlType"></xref> (allow or deny) as the specified rule and, if found, removes them.
   remarks: The current <xref:System.Security.AccessControl.EventWaitHandleSecurity> is searched for rules that have the same user and the same <xref:System.Security.AccessControl.AccessControlType> value as `rule`. Any rights specified by `rule` are ignored when performing this search. All matching rules are removed. If no matching rules are found, no action is taken.
   example:
-  - "The following code example shows that the <xref:System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleAll%2A> method removes all rules that match user and <xref:System.Security.AccessControl.AccessControlType>, ignoring rights.  \n  \n The example creates an <xref:System.Security.AccessControl.EventWaitHandleSecurity> object, adds rules that allow and deny various rights for the current user, and then merges additional rights into the <xref:System.Security.AccessControl.AccessControlType> rule. The example then creates a new rule that allows the current user to take ownership, and uses that rule to remove the <xref:System.Security.AccessControl.AccessControlType> rule from the <xref:System.Security.AccessControl.EventWaitHandleSecurity> object.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.EventWaitHandle> object. Examples that attach security objects can be found in <xref:System.Threading.EventWaitHandle.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.EventWaitHandle.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleAll#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleAll/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleAll#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleAll/VB/source.vb#1)]"
+  - "The following code example shows that the <xref:System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleAll%2A> method removes all rules that match user and <xref:System.Security.AccessControl.AccessControlType>, ignoring rights.  \n  \n The example creates an <xref:System.Security.AccessControl.EventWaitHandleSecurity> object, adds rules that allow and deny various rights for the current user, and then merges additional rights into the <xref:System.Security.AccessControl.AccessControlType.Allow> rule. The example then creates a new rule that allows the current user to take ownership, and uses that rule to remove the <xref:System.Security.AccessControl.AccessControlType.Allow> rule from the <xref:System.Security.AccessControl.EventWaitHandleSecurity> object.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.EventWaitHandle> object. Examples that attach security objects can be found in <xref:System.Threading.EventWaitHandle.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.EventWaitHandle.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleAll#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleAll/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleAll#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleAll/VB/source.vb#1)]"
   syntax:
     content: public void RemoveAccessRuleAll (System.Security.AccessControl.EventWaitHandleAccessRule rule);
     parameters:
@@ -716,7 +706,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -729,7 +720,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -741,9 +733,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/EventWaitHandleSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleSpecific(System.Security.AccessControl.EventWaitHandleAccessRule)
   commentId: M:System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleSpecific(System.Security.AccessControl.EventWaitHandleAccessRule)
   id: RemoveAccessRuleSpecific(System.Security.AccessControl.EventWaitHandleAccessRule)
@@ -752,7 +741,7 @@ items:
   - csharp
   name: RemoveAccessRuleSpecific(EventWaitHandleAccessRule)
   nameWithType: EventWaitHandleSecurity.RemoveAccessRuleSpecific(EventWaitHandleAccessRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleSpecific(EventWaitHandleAccessRule)
+  fullName: EventWaitHandleSecurity.RemoveAccessRuleSpecific(EventWaitHandleAccessRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -761,7 +750,7 @@ items:
   summary: Searches for an access control rule that exactly matches the specified rule and, if found, removes it.
   remarks: "The rule is removed only if it exactly matches `rule` in all details, including flags. Other rules with the same user and <xref:System.Security.AccessControl.AccessControlType> are not affected.  \n  \n> [!IMPORTANT]\n>  A rule represents one or more underlying access control entries (ACE), and these entries are split or combined as necessary when you modify the access security rules for a user. Thus, a rule might no longer exist in the specific form it had when it was added, and in that case the <xref:System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleSpecific%2A> method cannot remove it."
   example:
-  - "The following code example shows that the <xref:System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleSpecific%2A> method requires an exact match in order to remove a rule, and that rules to allow and deny rights are independent of each other.  \n  \n The example creates an <xref:System.Security.AccessControl.EventWaitHandleSecurity> object, adds rules that allow and deny various rights for the current user, and then merges additional rights into the <xref:System.Security.AccessControl.AccessControlType> access rule. The example then passes the original <xref:System.Security.AccessControl.AccessControlType> rule to the <xref:System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleSpecific%2A> method, and displays the results, showing that nothing is deleted. The example then constructs a rule that matches the <xref:System.Security.AccessControl.AccessControlType> rule in the <xref:System.Security.AccessControl.EventWaitHandleSecurity> object, and successfully uses the <xref:System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleSpecific%2A> method to remove the rule.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.EventWaitHandle> object. Examples that attach security objects can be found in <xref:System.Threading.EventWaitHandle.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.EventWaitHandle.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleSpecific#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleSpecific/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleSpecific#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleSpecific/VB/source.vb#1)]"
+  - "The following code example shows that the <xref:System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleSpecific%2A> method requires an exact match in order to remove a rule, and that rules to allow and deny rights are independent of each other.  \n  \n The example creates an <xref:System.Security.AccessControl.EventWaitHandleSecurity> object, adds rules that allow and deny various rights for the current user, and then merges additional rights into the <xref:System.Security.AccessControl.AccessControlType.Allow> access rule. The example then passes the original <xref:System.Security.AccessControl.AccessControlType.Allow> rule to the <xref:System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleSpecific%2A> method, and displays the results, showing that nothing is deleted. The example then constructs a rule that matches the <xref:System.Security.AccessControl.AccessControlType.Allow> rule in the <xref:System.Security.AccessControl.EventWaitHandleSecurity> object, and successfully uses the <xref:System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleSpecific%2A> method to remove the rule.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.EventWaitHandle> object. Examples that attach security objects can be found in <xref:System.Threading.EventWaitHandle.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.EventWaitHandle.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleSpecific#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleSpecific/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleSpecific#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleSpecific/VB/source.vb#1)]"
   syntax:
     content: public void RemoveAccessRuleSpecific (System.Security.AccessControl.EventWaitHandleAccessRule rule);
     parameters:
@@ -775,7 +764,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -788,7 +778,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -800,9 +791,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/EventWaitHandleSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAuditRule(System.Security.AccessControl.EventWaitHandleAuditRule)
   commentId: M:System.Security.AccessControl.EventWaitHandleSecurity.RemoveAuditRule(System.Security.AccessControl.EventWaitHandleAuditRule)
   id: RemoveAuditRule(System.Security.AccessControl.EventWaitHandleAuditRule)
@@ -811,7 +799,7 @@ items:
   - csharp
   name: RemoveAuditRule(EventWaitHandleAuditRule)
   nameWithType: EventWaitHandleSecurity.RemoveAuditRule(EventWaitHandleAuditRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAuditRule(EventWaitHandleAuditRule)
+  fullName: EventWaitHandleSecurity.RemoveAuditRule(EventWaitHandleAuditRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -835,7 +823,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -848,7 +837,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -860,9 +850,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/EventWaitHandleSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAuditRuleAll(System.Security.AccessControl.EventWaitHandleAuditRule)
   commentId: M:System.Security.AccessControl.EventWaitHandleSecurity.RemoveAuditRuleAll(System.Security.AccessControl.EventWaitHandleAuditRule)
   id: RemoveAuditRuleAll(System.Security.AccessControl.EventWaitHandleAuditRule)
@@ -871,7 +858,7 @@ items:
   - csharp
   name: RemoveAuditRuleAll(EventWaitHandleAuditRule)
   nameWithType: EventWaitHandleSecurity.RemoveAuditRuleAll(EventWaitHandleAuditRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAuditRuleAll(EventWaitHandleAuditRule)
+  fullName: EventWaitHandleSecurity.RemoveAuditRuleAll(EventWaitHandleAuditRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -892,7 +879,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -905,7 +893,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -917,9 +906,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/EventWaitHandleSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAuditRuleSpecific(System.Security.AccessControl.EventWaitHandleAuditRule)
   commentId: M:System.Security.AccessControl.EventWaitHandleSecurity.RemoveAuditRuleSpecific(System.Security.AccessControl.EventWaitHandleAuditRule)
   id: RemoveAuditRuleSpecific(System.Security.AccessControl.EventWaitHandleAuditRule)
@@ -928,7 +914,7 @@ items:
   - csharp
   name: RemoveAuditRuleSpecific(EventWaitHandleAuditRule)
   nameWithType: EventWaitHandleSecurity.RemoveAuditRuleSpecific(EventWaitHandleAuditRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAuditRuleSpecific(EventWaitHandleAuditRule)
+  fullName: EventWaitHandleSecurity.RemoveAuditRuleSpecific(EventWaitHandleAuditRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -949,7 +935,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -962,7 +949,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -974,9 +962,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/EventWaitHandleSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.ResetAccessRule(System.Security.AccessControl.EventWaitHandleAccessRule)
   commentId: M:System.Security.AccessControl.EventWaitHandleSecurity.ResetAccessRule(System.Security.AccessControl.EventWaitHandleAccessRule)
   id: ResetAccessRule(System.Security.AccessControl.EventWaitHandleAccessRule)
@@ -985,7 +970,7 @@ items:
   - csharp
   name: ResetAccessRule(EventWaitHandleAccessRule)
   nameWithType: EventWaitHandleSecurity.ResetAccessRule(EventWaitHandleAccessRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.ResetAccessRule(EventWaitHandleAccessRule)
+  fullName: EventWaitHandleSecurity.ResetAccessRule(EventWaitHandleAccessRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -1008,7 +993,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1021,7 +1007,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1033,9 +1020,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/EventWaitHandleSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.SetAccessRule(System.Security.AccessControl.EventWaitHandleAccessRule)
   commentId: M:System.Security.AccessControl.EventWaitHandleSecurity.SetAccessRule(System.Security.AccessControl.EventWaitHandleAccessRule)
   id: SetAccessRule(System.Security.AccessControl.EventWaitHandleAccessRule)
@@ -1044,16 +1028,16 @@ items:
   - csharp
   name: SetAccessRule(EventWaitHandleAccessRule)
   nameWithType: EventWaitHandleSecurity.SetAccessRule(EventWaitHandleAccessRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.SetAccessRule(EventWaitHandleAccessRule)
+  fullName: EventWaitHandleSecurity.SetAccessRule(EventWaitHandleAccessRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
   - mscorlib
   namespace: System.Security.AccessControl
   summary: Removes all access control rules with the same user and <xref href="System.Security.AccessControl.AccessControlType"></xref> (allow or deny) as the specified rule, and then adds the specified rule.
-  remarks: "If the specified rule has <xref:System.Security.AccessControl.AccessControlType>, the effect of this method is to remove all <xref:System.Security.AccessControl.AccessControlType> rules for the specified user, replacing them with the specified rule. If the specified rule has <xref:System.Security.AccessControl.AccessControlType>, all <xref:System.Security.AccessControl.AccessControlType> rules for the specified user are replaced with the specified rule.  \n  \n If there are no rules whose user and <xref:System.Security.AccessControl.AccessControlType> match the specified rule, `rule` is added."
+  remarks: "If the specified rule has <xref:System.Security.AccessControl.AccessControlType.Allow>, the effect of this method is to remove all <xref:System.Security.AccessControl.AccessControlType.Allow> rules for the specified user, replacing them with the specified rule. If the specified rule has <xref:System.Security.AccessControl.AccessControlType.Deny>, all <xref:System.Security.AccessControl.AccessControlType.Deny> rules for the specified user are replaced with the specified rule.  \n  \n If there are no rules whose user and <xref:System.Security.AccessControl.AccessControlType> match the specified rule, `rule` is added."
   example:
-  - "The following code example shows how the <xref:System.Security.AccessControl.EventWaitHandleSecurity.SetAccessRule%2A> method removes all rules that match both the user and the <xref:System.Security.AccessControl.AccessControlType> of `rule`, replacing them with `rule`.  \n  \n The example creates an <xref:System.Security.AccessControl.EventWaitHandleSecurity> object and adds rules that allow and deny various rights for the current user. The example then creates a new rule that allows the current user full control, and uses the <xref:System.Security.AccessControl.EventWaitHandleSecurity.SetAccessRule%2A> method to replace the existing <xref:System.Security.AccessControl.AccessControlType> rule with the new rule. The rule that denies access is not affected.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.EventWaitHandle> object. Examples that attach security objects can be found in <xref:System.Threading.EventWaitHandle.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.EventWaitHandle.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.EventWaitHandleSecurity.SetAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.SetAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.EventWaitHandleSecurity.SetAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.SetAccessRule/VB/source.vb#1)]"
+  - "The following code example shows how the <xref:System.Security.AccessControl.EventWaitHandleSecurity.SetAccessRule%2A> method removes all rules that match both the user and the <xref:System.Security.AccessControl.AccessControlType> of `rule`, replacing them with `rule`.  \n  \n The example creates an <xref:System.Security.AccessControl.EventWaitHandleSecurity> object and adds rules that allow and deny various rights for the current user. The example then creates a new rule that allows the current user full control, and uses the <xref:System.Security.AccessControl.EventWaitHandleSecurity.SetAccessRule%2A> method to replace the existing <xref:System.Security.AccessControl.AccessControlType.Allow> rule with the new rule. The rule that denies access is not affected.  \n  \n> [!NOTE]\n>  This example does not attach the security object to a <xref:System.Threading.EventWaitHandle> object. Examples that attach security objects can be found in <xref:System.Threading.EventWaitHandle.GetAccessControl%2A?displayProperty=fullName> and <xref:System.Threading.EventWaitHandle.SetAccessControl%2A?displayProperty=fullName>.  \n  \n [!code-csharp[System.Security.AccessControl.EventWaitHandleSecurity.SetAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.SetAccessRule/CS/source.cs#1)]\n [!code-vb[System.Security.AccessControl.EventWaitHandleSecurity.SetAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.EventWaitHandleSecurity.SetAccessRule/VB/source.vb#1)]"
   syntax:
     content: public void SetAccessRule (System.Security.AccessControl.EventWaitHandleAccessRule rule);
     parameters:
@@ -1067,7 +1051,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1080,7 +1065,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1092,9 +1078,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/EventWaitHandleSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.SetAuditRule(System.Security.AccessControl.EventWaitHandleAuditRule)
   commentId: M:System.Security.AccessControl.EventWaitHandleSecurity.SetAuditRule(System.Security.AccessControl.EventWaitHandleAuditRule)
   id: SetAuditRule(System.Security.AccessControl.EventWaitHandleAuditRule)
@@ -1103,7 +1086,7 @@ items:
   - csharp
   name: SetAuditRule(EventWaitHandleAuditRule)
   nameWithType: EventWaitHandleSecurity.SetAuditRule(EventWaitHandleAuditRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.SetAuditRule(EventWaitHandleAuditRule)
+  fullName: EventWaitHandleSecurity.SetAuditRule(EventWaitHandleAuditRule)
   type: Method
   assemblies:
   - System.Threading.AccessControl
@@ -1124,7 +1107,8 @@ items:
     description: <code>rule</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1137,7 +1121,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1149,9 +1134,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/EventWaitHandleSecurity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Security.AccessControl.NativeObjectSecurity
   parent: System.Security.AccessControl
@@ -1188,13 +1170,13 @@ references:
   isExternal: false
   name: EventWaitHandleSecurity()
   nameWithType: EventWaitHandleSecurity.EventWaitHandleSecurity()
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.EventWaitHandleSecurity()
+  fullName: EventWaitHandleSecurity.EventWaitHandleSecurity()
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.AccessRightType
   parent: System.Security.AccessControl.EventWaitHandleSecurity
   isExternal: false
   name: AccessRightType
   nameWithType: EventWaitHandleSecurity.AccessRightType
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.AccessRightType
+  fullName: EventWaitHandleSecurity.AccessRightType
 - uid: System.Type
   parent: System
   isExternal: false
@@ -1206,7 +1188,7 @@ references:
   isExternal: false
   name: AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
   nameWithType: EventWaitHandleSecurity.AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
+  fullName: EventWaitHandleSecurity.AccessRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AccessControlType)
 - uid: System.Security.AccessControl.AccessRule
   parent: System.Security.AccessControl
   isExternal: false
@@ -1254,13 +1236,13 @@ references:
   isExternal: false
   name: AccessRuleType
   nameWithType: EventWaitHandleSecurity.AccessRuleType
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.AccessRuleType
+  fullName: EventWaitHandleSecurity.AccessRuleType
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule(System.Security.AccessControl.EventWaitHandleAccessRule)
   parent: System.Security.AccessControl.EventWaitHandleSecurity
   isExternal: false
   name: AddAccessRule(EventWaitHandleAccessRule)
   nameWithType: EventWaitHandleSecurity.AddAccessRule(EventWaitHandleAccessRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule(EventWaitHandleAccessRule)
+  fullName: EventWaitHandleSecurity.AddAccessRule(EventWaitHandleAccessRule)
 - uid: System.Security.AccessControl.EventWaitHandleAccessRule
   parent: System.Security.AccessControl
   isExternal: false
@@ -1272,7 +1254,7 @@ references:
   isExternal: false
   name: AddAuditRule(EventWaitHandleAuditRule)
   nameWithType: EventWaitHandleSecurity.AddAuditRule(EventWaitHandleAuditRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.AddAuditRule(EventWaitHandleAuditRule)
+  fullName: EventWaitHandleSecurity.AddAuditRule(EventWaitHandleAuditRule)
 - uid: System.Security.AccessControl.EventWaitHandleAuditRule
   parent: System.Security.AccessControl
   isExternal: false
@@ -1284,7 +1266,7 @@ references:
   isExternal: false
   name: AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
   nameWithType: EventWaitHandleSecurity.AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
+  fullName: EventWaitHandleSecurity.AuditRuleFactory(IdentityReference, Int32, Boolean, InheritanceFlags, PropagationFlags, AuditFlags)
 - uid: System.Security.AccessControl.AuditRule
   parent: System.Security.AccessControl
   isExternal: false
@@ -1302,70 +1284,71 @@ references:
   isExternal: false
   name: AuditRuleType
   nameWithType: EventWaitHandleSecurity.AuditRuleType
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.AuditRuleType
+  fullName: EventWaitHandleSecurity.AuditRuleType
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRule(System.Security.AccessControl.EventWaitHandleAccessRule)
   parent: System.Security.AccessControl.EventWaitHandleSecurity
   isExternal: false
   name: RemoveAccessRule(EventWaitHandleAccessRule)
   nameWithType: EventWaitHandleSecurity.RemoveAccessRule(EventWaitHandleAccessRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRule(EventWaitHandleAccessRule)
+  fullName: EventWaitHandleSecurity.RemoveAccessRule(EventWaitHandleAccessRule)
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleAll(System.Security.AccessControl.EventWaitHandleAccessRule)
   parent: System.Security.AccessControl.EventWaitHandleSecurity
   isExternal: false
   name: RemoveAccessRuleAll(EventWaitHandleAccessRule)
   nameWithType: EventWaitHandleSecurity.RemoveAccessRuleAll(EventWaitHandleAccessRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleAll(EventWaitHandleAccessRule)
+  fullName: EventWaitHandleSecurity.RemoveAccessRuleAll(EventWaitHandleAccessRule)
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleSpecific(System.Security.AccessControl.EventWaitHandleAccessRule)
   parent: System.Security.AccessControl.EventWaitHandleSecurity
   isExternal: false
   name: RemoveAccessRuleSpecific(EventWaitHandleAccessRule)
   nameWithType: EventWaitHandleSecurity.RemoveAccessRuleSpecific(EventWaitHandleAccessRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleSpecific(EventWaitHandleAccessRule)
+  fullName: EventWaitHandleSecurity.RemoveAccessRuleSpecific(EventWaitHandleAccessRule)
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAuditRule(System.Security.AccessControl.EventWaitHandleAuditRule)
   parent: System.Security.AccessControl.EventWaitHandleSecurity
   isExternal: false
   name: RemoveAuditRule(EventWaitHandleAuditRule)
   nameWithType: EventWaitHandleSecurity.RemoveAuditRule(EventWaitHandleAuditRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAuditRule(EventWaitHandleAuditRule)
+  fullName: EventWaitHandleSecurity.RemoveAuditRule(EventWaitHandleAuditRule)
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAuditRuleAll(System.Security.AccessControl.EventWaitHandleAuditRule)
   parent: System.Security.AccessControl.EventWaitHandleSecurity
   isExternal: false
   name: RemoveAuditRuleAll(EventWaitHandleAuditRule)
   nameWithType: EventWaitHandleSecurity.RemoveAuditRuleAll(EventWaitHandleAuditRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAuditRuleAll(EventWaitHandleAuditRule)
+  fullName: EventWaitHandleSecurity.RemoveAuditRuleAll(EventWaitHandleAuditRule)
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAuditRuleSpecific(System.Security.AccessControl.EventWaitHandleAuditRule)
   parent: System.Security.AccessControl.EventWaitHandleSecurity
   isExternal: false
   name: RemoveAuditRuleSpecific(EventWaitHandleAuditRule)
   nameWithType: EventWaitHandleSecurity.RemoveAuditRuleSpecific(EventWaitHandleAuditRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAuditRuleSpecific(EventWaitHandleAuditRule)
+  fullName: EventWaitHandleSecurity.RemoveAuditRuleSpecific(EventWaitHandleAuditRule)
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.ResetAccessRule(System.Security.AccessControl.EventWaitHandleAccessRule)
   parent: System.Security.AccessControl.EventWaitHandleSecurity
   isExternal: false
   name: ResetAccessRule(EventWaitHandleAccessRule)
   nameWithType: EventWaitHandleSecurity.ResetAccessRule(EventWaitHandleAccessRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.ResetAccessRule(EventWaitHandleAccessRule)
+  fullName: EventWaitHandleSecurity.ResetAccessRule(EventWaitHandleAccessRule)
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.SetAccessRule(System.Security.AccessControl.EventWaitHandleAccessRule)
   parent: System.Security.AccessControl.EventWaitHandleSecurity
   isExternal: false
   name: SetAccessRule(EventWaitHandleAccessRule)
   nameWithType: EventWaitHandleSecurity.SetAccessRule(EventWaitHandleAccessRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.SetAccessRule(EventWaitHandleAccessRule)
+  fullName: EventWaitHandleSecurity.SetAccessRule(EventWaitHandleAccessRule)
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.SetAuditRule(System.Security.AccessControl.EventWaitHandleAuditRule)
   parent: System.Security.AccessControl.EventWaitHandleSecurity
   isExternal: false
   name: SetAuditRule(EventWaitHandleAuditRule)
   nameWithType: EventWaitHandleSecurity.SetAuditRule(EventWaitHandleAuditRule)
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.SetAuditRule(EventWaitHandleAuditRule)
+  fullName: EventWaitHandleSecurity.SetAuditRule(EventWaitHandleAuditRule)
 - uid: System.Security.AccessControl.EventWaitHandleSecurity.#ctor*
   parent: System.Security.AccessControl.EventWaitHandleSecurity
   isExternal: false
   name: EventWaitHandleSecurity
   nameWithType: EventWaitHandleSecurity.EventWaitHandleSecurity
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.EventWaitHandleSecurity
+  fullName: EventWaitHandleSecurity.EventWaitHandleSecurity
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1382,10 +1365,11 @@ references:
   isExternal: false
   name: AccessRightType
   nameWithType: EventWaitHandleSecurity.AccessRightType
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.AccessRightType
+  fullName: EventWaitHandleSecurity.AccessRightType
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1402,10 +1386,11 @@ references:
   isExternal: false
   name: AccessRuleFactory
   nameWithType: EventWaitHandleSecurity.AccessRuleFactory
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.AccessRuleFactory
+  fullName: EventWaitHandleSecurity.AccessRuleFactory
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1422,10 +1407,11 @@ references:
   isExternal: false
   name: AccessRuleType
   nameWithType: EventWaitHandleSecurity.AccessRuleType
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.AccessRuleType
+  fullName: EventWaitHandleSecurity.AccessRuleType
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1442,10 +1428,11 @@ references:
   isExternal: false
   name: AddAccessRule
   nameWithType: EventWaitHandleSecurity.AddAccessRule
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.AddAccessRule
+  fullName: EventWaitHandleSecurity.AddAccessRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1462,10 +1449,11 @@ references:
   isExternal: false
   name: AddAuditRule
   nameWithType: EventWaitHandleSecurity.AddAuditRule
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.AddAuditRule
+  fullName: EventWaitHandleSecurity.AddAuditRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1482,10 +1470,11 @@ references:
   isExternal: false
   name: AuditRuleFactory
   nameWithType: EventWaitHandleSecurity.AuditRuleFactory
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.AuditRuleFactory
+  fullName: EventWaitHandleSecurity.AuditRuleFactory
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1502,10 +1491,11 @@ references:
   isExternal: false
   name: AuditRuleType
   nameWithType: EventWaitHandleSecurity.AuditRuleType
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.AuditRuleType
+  fullName: EventWaitHandleSecurity.AuditRuleType
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1522,10 +1512,11 @@ references:
   isExternal: false
   name: RemoveAccessRule
   nameWithType: EventWaitHandleSecurity.RemoveAccessRule
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRule
+  fullName: EventWaitHandleSecurity.RemoveAccessRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1542,10 +1533,11 @@ references:
   isExternal: false
   name: RemoveAccessRuleAll
   nameWithType: EventWaitHandleSecurity.RemoveAccessRuleAll
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleAll
+  fullName: EventWaitHandleSecurity.RemoveAccessRuleAll
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1562,10 +1554,11 @@ references:
   isExternal: false
   name: RemoveAccessRuleSpecific
   nameWithType: EventWaitHandleSecurity.RemoveAccessRuleSpecific
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAccessRuleSpecific
+  fullName: EventWaitHandleSecurity.RemoveAccessRuleSpecific
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1582,10 +1575,11 @@ references:
   isExternal: false
   name: RemoveAuditRule
   nameWithType: EventWaitHandleSecurity.RemoveAuditRule
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAuditRule
+  fullName: EventWaitHandleSecurity.RemoveAuditRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1602,10 +1596,11 @@ references:
   isExternal: false
   name: RemoveAuditRuleAll
   nameWithType: EventWaitHandleSecurity.RemoveAuditRuleAll
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAuditRuleAll
+  fullName: EventWaitHandleSecurity.RemoveAuditRuleAll
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1622,10 +1617,11 @@ references:
   isExternal: false
   name: RemoveAuditRuleSpecific
   nameWithType: EventWaitHandleSecurity.RemoveAuditRuleSpecific
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.RemoveAuditRuleSpecific
+  fullName: EventWaitHandleSecurity.RemoveAuditRuleSpecific
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1642,10 +1638,11 @@ references:
   isExternal: false
   name: ResetAccessRule
   nameWithType: EventWaitHandleSecurity.ResetAccessRule
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.ResetAccessRule
+  fullName: EventWaitHandleSecurity.ResetAccessRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1662,10 +1659,11 @@ references:
   isExternal: false
   name: SetAccessRule
   nameWithType: EventWaitHandleSecurity.SetAccessRule
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.SetAccessRule
+  fullName: EventWaitHandleSecurity.SetAccessRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1682,10 +1680,11 @@ references:
   isExternal: false
   name: SetAuditRule
   nameWithType: EventWaitHandleSecurity.SetAuditRule
-  fullName: System.Security.AccessControl.EventWaitHandleSecurity.SetAuditRule
+  fullName: EventWaitHandleSecurity.SetAuditRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

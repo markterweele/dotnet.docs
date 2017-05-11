@@ -21,9 +21,10 @@ items:
   type: Class
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Represents the identity of a software publisher. This class cannot be inherited.
-  remarks: "> [!IMPORTANT]\n>  Starting with the [!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)], identity permissions are not used.  \n>   \n>  In the .NET Framework versions 1.0 and 1.1, identity permissions cannot have an <xref:System.Security.Permissions.PermissionState> permission state value. Starting with the .NET Framework version 2.0, identity permissions can have any permission state value. This means that in 2.0 and later versions, identity permissions have the same behavior as permissions that implement the <xref:System.Security.Permissions.IUnrestrictedPermission> interface. That is, a demand for an identity always succeeds, regardless of the identity of the assembly, if the assembly has been granted full trust.  \n>   \n>  In the .NET Framework versions 1.0 and 1.1, demands on the identity permissions are effective, even when the calling assembly is fully trusted. That is, although the calling assembly has full trust, a demand for an identity permission fails if the assembly does not meet the demanded criteria. Starting with the .NET Framework version 2.0, demands for identity permissions are ineffective if the calling assembly has full trust. This assures consistency for all permissions, eliminating the treatment of identity permissions as a special case.  \n  \n> [!NOTE]\n>  By default, code access security does not check for <xref:System.Security.Policy.Publisher> evidence. Unless your computer has a custom code group based on the <xref:System.Security.Policy.PublisherMembershipCondition> class, you can improve performance by bypassing Authenticode signature verification. This is accomplished by configuring the runtime to not provide <xref:System.Security.Policy.Publisher> evidence for code access security. For more information about how to configure this option and which applications can use it, see the  element."
+  remarks: "> [!IMPORTANT]\n>  Starting with the [!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)], identity permissions are not used.  \n>   \n>  In the .NET Framework versions 1.0 and 1.1, identity permissions cannot have an <xref:System.Security.Permissions.PermissionState.Unrestricted> permission state value. Starting with the .NET Framework version 2.0, identity permissions can have any permission state value. This means that in 2.0 and later versions, identity permissions have the same behavior as permissions that implement the <xref:System.Security.Permissions.IUnrestrictedPermission> interface. That is, a demand for an identity always succeeds, regardless of the identity of the assembly, if the assembly has been granted full trust.  \n>   \n>  In the .NET Framework versions 1.0 and 1.1, demands on the identity permissions are effective, even when the calling assembly is fully trusted. That is, although the calling assembly has full trust, a demand for an identity permission fails if the assembly does not meet the demanded criteria. Starting with the .NET Framework version 2.0, demands for identity permissions are ineffective if the calling assembly has full trust. This assures consistency for all permissions, eliminating the treatment of identity permissions as a special case.  \n  \n> [!NOTE]\n>  By default, code access security does not check for <xref:System.Security.Policy.Publisher> evidence. Unless your computer has a custom code group based on the <xref:System.Security.Policy.PublisherMembershipCondition> class, you can improve performance by bypassing Authenticode signature verification. This is accomplished by configuring the runtime to not provide <xref:System.Security.Policy.Publisher> evidence for code access security. For more information about how to configure this option and which applications can use it, see the  element."
   syntax:
     content: >-
       [System.Runtime.InteropServices.ComVisible(true)]
@@ -57,6 +58,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -68,6 +70,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -79,9 +82,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PublisherIdentityPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PublisherIdentityPermission.#ctor(System.Security.Cryptography.X509Certificates.X509Certificate)
   commentId: M:System.Security.Permissions.PublisherIdentityPermission.#ctor(System.Security.Cryptography.X509Certificates.X509Certificate)
   id: '#ctor(System.Security.Cryptography.X509Certificates.X509Certificate)'
@@ -90,10 +90,11 @@ items:
   - csharp
   name: PublisherIdentityPermission(X509Certificate)
   nameWithType: PublisherIdentityPermission.PublisherIdentityPermission(X509Certificate)
-  fullName: System.Security.Permissions.PublisherIdentityPermission.PublisherIdentityPermission(X509Certificate)
+  fullName: PublisherIdentityPermission.PublisherIdentityPermission(X509Certificate)
   type: Constructor
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Initializes a new instance of the <xref href="System.Security.Permissions.PublisherIdentityPermission"></xref> class with the specified Authenticode X.509v3 certificate.
   remarks: The X.509 certificate defines the identity of the specified software publisher, as established by Authenticode code signing.
@@ -112,6 +113,7 @@ items:
     commentId: T:System.ArgumentException
     description: The <code>certificate</code> parameter is not a valid certificate.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -123,6 +125,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -134,9 +137,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PublisherIdentityPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PublisherIdentityPermission.#ctor(System.Security.Permissions.PermissionState)
   commentId: M:System.Security.Permissions.PublisherIdentityPermission.#ctor(System.Security.Permissions.PermissionState)
   id: '#ctor(System.Security.Permissions.PermissionState)'
@@ -145,13 +145,14 @@ items:
   - csharp
   name: PublisherIdentityPermission(PermissionState)
   nameWithType: PublisherIdentityPermission.PublisherIdentityPermission(PermissionState)
-  fullName: System.Security.Permissions.PublisherIdentityPermission.PublisherIdentityPermission(PermissionState)
+  fullName: PublisherIdentityPermission.PublisherIdentityPermission(PermissionState)
   type: Constructor
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Initializes a new instance of the <xref href="System.Security.Permissions.PublisherIdentityPermission"></xref> class with the specified <xref href="System.Security.Permissions.PermissionState"></xref>.
-  remarks: "Creates either a fully restricted (`None`) or `Unrestricted` permission.  \n  \n> [!NOTE]\n>  In the .NET Framework versions 1.0 and 1.1, identity permissions cannot have an <xref:System.Security.Permissions.PermissionState> permission state value. Starting with the .NET Framework version 2.0, identity permissions can have any permission state value. This means that in 2.0 and later versions, identity permissions have the same behavior as permissions that implement the <xref:System.Security.Permissions.IUnrestrictedPermission> interface. That is, a demand for an identity always succeeds, regardless of the identity of the assembly, if the assembly has been granted full trust.  \n  \n In the .NET Framework versions 1.0 and 1.1, demands on the identity permissions are effective, even when the calling assembly is fully trusted. That is, although the calling assembly has full trust, a demand for an identity permission fails if the assembly does not meet the demanded criteria. Starting with the .NET Framework version 2.0, demands for identity permissions are ineffective if the calling assembly has full trust. This assures consistency for all permissions, eliminating the treatment of identity permissions as a special case."
+  remarks: "Creates either a fully restricted (`None`) or `Unrestricted` permission.  \n  \n> [!NOTE]\n>  In the .NET Framework versions 1.0 and 1.1, identity permissions cannot have an <xref:System.Security.Permissions.PermissionState.Unrestricted> permission state value. Starting with the .NET Framework version 2.0, identity permissions can have any permission state value. This means that in 2.0 and later versions, identity permissions have the same behavior as permissions that implement the <xref:System.Security.Permissions.IUnrestrictedPermission> interface. That is, a demand for an identity always succeeds, regardless of the identity of the assembly, if the assembly has been granted full trust.  \n  \n In the .NET Framework versions 1.0 and 1.1, demands on the identity permissions are effective, even when the calling assembly is fully trusted. That is, although the calling assembly has full trust, a demand for an identity permission fails if the assembly does not meet the demanded criteria. Starting with the .NET Framework version 2.0, demands for identity permissions are ineffective if the calling assembly has full trust. This assures consistency for all permissions, eliminating the treatment of identity permissions as a special case."
   example:
   - "The following example shows how to use the <xref:System.Security.Permissions.PublisherIdentityPermission.%23ctor%28System.Security.Permissions.PermissionState%29?displayProperty=fullName> constructor.  \n  \n [!code-cpp[System.Security.Permissions.PublisherIdentityPermission#7](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Permissions.PublisherIdentityPermission/CPP/publisheridentitypermission.cpp#7)]\n [!code-csharp[System.Security.Permissions.PublisherIdentityPermission#7](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Permissions.PublisherIdentityPermission/CS/publisheridentitypermission.cs#7)]\n [!code-vb[System.Security.Permissions.PublisherIdentityPermission#7](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Permissions.PublisherIdentityPermission/VB/publisheridentitypermission.vb#7)]"
   syntax:
@@ -166,6 +167,7 @@ items:
     commentId: T:System.ArgumentException
     description: The <code>state</code> parameter is not a valid value of <xref href="System.Security.Permissions.PermissionState"></xref>.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -177,6 +179,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -188,9 +191,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PublisherIdentityPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PublisherIdentityPermission.Certificate
   commentId: P:System.Security.Permissions.PublisherIdentityPermission.Certificate
   id: Certificate
@@ -199,10 +199,11 @@ items:
   - csharp
   name: Certificate
   nameWithType: PublisherIdentityPermission.Certificate
-  fullName: System.Security.Permissions.PublisherIdentityPermission.Certificate
+  fullName: PublisherIdentityPermission.Certificate
   type: Property
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Gets or sets an Authenticode X.509v3 certificate that represents the identity of the software publisher.
   syntax:
@@ -222,6 +223,7 @@ items:
     commentId: T:System.NotSupportedException
     description: The property cannot be set because the identity is ambiguous.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -233,6 +235,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -244,9 +247,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PublisherIdentityPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PublisherIdentityPermission.Copy
   commentId: M:System.Security.Permissions.PublisherIdentityPermission.Copy
   id: Copy
@@ -255,10 +255,11 @@ items:
   - csharp
   name: Copy()
   nameWithType: PublisherIdentityPermission.Copy()
-  fullName: System.Security.Permissions.PublisherIdentityPermission.Copy()
+  fullName: PublisherIdentityPermission.Copy()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Creates and returns an identical copy of the current permission.
   remarks: A copy of a permission represents the same access to resources as the original permission.
@@ -271,6 +272,7 @@ items:
   overload: System.Security.Permissions.PublisherIdentityPermission.Copy*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -282,6 +284,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -293,9 +296,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PublisherIdentityPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PublisherIdentityPermission.FromXml(System.Security.SecurityElement)
   commentId: M:System.Security.Permissions.PublisherIdentityPermission.FromXml(System.Security.SecurityElement)
   id: FromXml(System.Security.SecurityElement)
@@ -304,10 +304,11 @@ items:
   - csharp
   name: FromXml(SecurityElement)
   nameWithType: PublisherIdentityPermission.FromXml(SecurityElement)
-  fullName: System.Security.Permissions.PublisherIdentityPermission.FromXml(SecurityElement)
+  fullName: PublisherIdentityPermission.FromXml(SecurityElement)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Reconstructs a permission with a specified state from an XML encoding.
   syntax:
@@ -325,6 +326,7 @@ items:
     commentId: T:System.ArgumentException
     description: "The <code>esd</code> parameter is not a valid permission element.  \n  \n -or-  \n  \n The <code>esd</code> parameter's version number is not valid."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -336,6 +338,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -347,9 +350,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PublisherIdentityPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PublisherIdentityPermission.Intersect(System.Security.IPermission)
   commentId: M:System.Security.Permissions.PublisherIdentityPermission.Intersect(System.Security.IPermission)
   id: Intersect(System.Security.IPermission)
@@ -358,10 +358,11 @@ items:
   - csharp
   name: Intersect(IPermission)
   nameWithType: PublisherIdentityPermission.Intersect(IPermission)
-  fullName: System.Security.Permissions.PublisherIdentityPermission.Intersect(IPermission)
+  fullName: PublisherIdentityPermission.Intersect(IPermission)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Creates and returns a permission that is the intersection of the current permission and the specified permission.
   remarks: "The intersection of two permissions is a permission that describes the set of operations they both describe in common. Only a demand that passes both original permissions will pass the intersection.  \n  \n <xref:System.Security.Permissions.PublisherIdentityPermission> only supports set operations (<xref:System.Security.Permissions.PublisherIdentityPermission.IsSubsetOf%2A>, <xref:System.Security.Permissions.PublisherIdentityPermission.Intersect%2A>, and <xref:System.Security.Permissions.PublisherIdentityPermission.Union%2A>) when the current permission is equal to the specified permission."
@@ -380,6 +381,7 @@ items:
     commentId: T:System.ArgumentException
     description: The <code>target</code> parameter is not `null` and is not of the same type as the current permission.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -391,6 +393,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -402,9 +405,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PublisherIdentityPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PublisherIdentityPermission.IsSubsetOf(System.Security.IPermission)
   commentId: M:System.Security.Permissions.PublisherIdentityPermission.IsSubsetOf(System.Security.IPermission)
   id: IsSubsetOf(System.Security.IPermission)
@@ -413,10 +413,11 @@ items:
   - csharp
   name: IsSubsetOf(IPermission)
   nameWithType: PublisherIdentityPermission.IsSubsetOf(IPermission)
-  fullName: System.Security.Permissions.PublisherIdentityPermission.IsSubsetOf(IPermission)
+  fullName: PublisherIdentityPermission.IsSubsetOf(IPermission)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Determines whether the current permission is a subset of the specified permission.
   remarks: "The current permission is a subset of the specified permission if the two permissions are equal. If this method returns `true`, the current permission represents the same access to the protected resource as the specified permission.  \n  \n <xref:System.Security.Permissions.PublisherIdentityPermission> supports set operations (<xref:System.Security.Permissions.PublisherIdentityPermission.IsSubsetOf%2A>, <xref:System.Security.Permissions.PublisherIdentityPermission.Intersect%2A>, and <xref:System.Security.Permissions.PublisherIdentityPermission.Union%2A>) only when the current permission is equal to the specified permission."
@@ -435,6 +436,7 @@ items:
     commentId: T:System.ArgumentException
     description: The <code>target</code> parameter is not `null` and is not of the same type as the current permission.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -446,6 +448,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -457,9 +460,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PublisherIdentityPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PublisherIdentityPermission.ToXml
   commentId: M:System.Security.Permissions.PublisherIdentityPermission.ToXml
   id: ToXml
@@ -468,10 +468,11 @@ items:
   - csharp
   name: ToXml()
   nameWithType: PublisherIdentityPermission.ToXml()
-  fullName: System.Security.Permissions.PublisherIdentityPermission.ToXml()
+  fullName: PublisherIdentityPermission.ToXml()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Creates an XML encoding of the permission and its current state.
   syntax:
@@ -483,6 +484,7 @@ items:
   overload: System.Security.Permissions.PublisherIdentityPermission.ToXml*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -494,6 +496,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -505,9 +508,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PublisherIdentityPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.PublisherIdentityPermission.Union(System.Security.IPermission)
   commentId: M:System.Security.Permissions.PublisherIdentityPermission.Union(System.Security.IPermission)
   id: Union(System.Security.IPermission)
@@ -516,10 +516,11 @@ items:
   - csharp
   name: Union(IPermission)
   nameWithType: PublisherIdentityPermission.Union(IPermission)
-  fullName: System.Security.Permissions.PublisherIdentityPermission.Union(IPermission)
+  fullName: PublisherIdentityPermission.Union(IPermission)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Creates a permission that is the union of the current permission and the specified permission.
   remarks: "The result of a call to the <xref:System.Security.Permissions.PublisherIdentityPermission.Union%2A> method is a permission that represents all the operations represented by both the current permission and the specified permission. Any demand that passes either permission passes their union.  \n  \n The <xref:System.Security.Permissions.PublisherIdentityPermission> class only supports set operations (<xref:System.Security.Permissions.PublisherIdentityPermission.IsSubsetOf%2A>, <xref:System.Security.Permissions.PublisherIdentityPermission.Intersect%2A>, and <xref:System.Security.Permissions.PublisherIdentityPermission.Union%2A>) when the current permission is equal to the specified permission."
@@ -538,6 +539,7 @@ items:
     commentId: T:System.ArgumentException
     description: "The <code>target</code> parameter is not `null` and is not of the same type as the current permission.  \n  \n -or-  \n  \n The two permissions are not equal."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -549,6 +551,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -560,9 +563,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/PublisherIdentityPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Security.CodeAccessPermission
   parent: System.Security
@@ -593,7 +593,7 @@ references:
   isExternal: false
   name: PublisherIdentityPermission(X509Certificate)
   nameWithType: PublisherIdentityPermission.PublisherIdentityPermission(X509Certificate)
-  fullName: System.Security.Permissions.PublisherIdentityPermission.PublisherIdentityPermission(X509Certificate)
+  fullName: PublisherIdentityPermission.PublisherIdentityPermission(X509Certificate)
 - uid: System.Security.Cryptography.X509Certificates.X509Certificate
   parent: System.Security.Cryptography.X509Certificates
   isExternal: false
@@ -605,7 +605,7 @@ references:
   isExternal: false
   name: PublisherIdentityPermission(PermissionState)
   nameWithType: PublisherIdentityPermission.PublisherIdentityPermission(PermissionState)
-  fullName: System.Security.Permissions.PublisherIdentityPermission.PublisherIdentityPermission(PermissionState)
+  fullName: PublisherIdentityPermission.PublisherIdentityPermission(PermissionState)
 - uid: System.Security.Permissions.PermissionState
   parent: System.Security.Permissions
   isExternal: false
@@ -617,13 +617,13 @@ references:
   isExternal: false
   name: Certificate
   nameWithType: PublisherIdentityPermission.Certificate
-  fullName: System.Security.Permissions.PublisherIdentityPermission.Certificate
+  fullName: PublisherIdentityPermission.Certificate
 - uid: System.Security.Permissions.PublisherIdentityPermission.Copy
   parent: System.Security.Permissions.PublisherIdentityPermission
   isExternal: false
   name: Copy()
   nameWithType: PublisherIdentityPermission.Copy()
-  fullName: System.Security.Permissions.PublisherIdentityPermission.Copy()
+  fullName: PublisherIdentityPermission.Copy()
 - uid: System.Security.IPermission
   parent: System.Security
   isExternal: false
@@ -635,7 +635,7 @@ references:
   isExternal: false
   name: FromXml(SecurityElement)
   nameWithType: PublisherIdentityPermission.FromXml(SecurityElement)
-  fullName: System.Security.Permissions.PublisherIdentityPermission.FromXml(SecurityElement)
+  fullName: PublisherIdentityPermission.FromXml(SecurityElement)
 - uid: System.Security.SecurityElement
   parent: System.Security
   isExternal: false
@@ -647,13 +647,13 @@ references:
   isExternal: false
   name: Intersect(IPermission)
   nameWithType: PublisherIdentityPermission.Intersect(IPermission)
-  fullName: System.Security.Permissions.PublisherIdentityPermission.Intersect(IPermission)
+  fullName: PublisherIdentityPermission.Intersect(IPermission)
 - uid: System.Security.Permissions.PublisherIdentityPermission.IsSubsetOf(System.Security.IPermission)
   parent: System.Security.Permissions.PublisherIdentityPermission
   isExternal: false
   name: IsSubsetOf(IPermission)
   nameWithType: PublisherIdentityPermission.IsSubsetOf(IPermission)
-  fullName: System.Security.Permissions.PublisherIdentityPermission.IsSubsetOf(IPermission)
+  fullName: PublisherIdentityPermission.IsSubsetOf(IPermission)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -665,20 +665,21 @@ references:
   isExternal: false
   name: ToXml()
   nameWithType: PublisherIdentityPermission.ToXml()
-  fullName: System.Security.Permissions.PublisherIdentityPermission.ToXml()
+  fullName: PublisherIdentityPermission.ToXml()
 - uid: System.Security.Permissions.PublisherIdentityPermission.Union(System.Security.IPermission)
   parent: System.Security.Permissions.PublisherIdentityPermission
   isExternal: false
   name: Union(IPermission)
   nameWithType: PublisherIdentityPermission.Union(IPermission)
-  fullName: System.Security.Permissions.PublisherIdentityPermission.Union(IPermission)
+  fullName: PublisherIdentityPermission.Union(IPermission)
 - uid: System.Security.Permissions.PublisherIdentityPermission.#ctor*
   parent: System.Security.Permissions.PublisherIdentityPermission
   isExternal: false
   name: PublisherIdentityPermission
   nameWithType: PublisherIdentityPermission.PublisherIdentityPermission
-  fullName: System.Security.Permissions.PublisherIdentityPermission.PublisherIdentityPermission
+  fullName: PublisherIdentityPermission.PublisherIdentityPermission
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -695,8 +696,9 @@ references:
   isExternal: false
   name: Certificate
   nameWithType: PublisherIdentityPermission.Certificate
-  fullName: System.Security.Permissions.PublisherIdentityPermission.Certificate
+  fullName: PublisherIdentityPermission.Certificate
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -713,8 +715,9 @@ references:
   isExternal: false
   name: Copy
   nameWithType: PublisherIdentityPermission.Copy
-  fullName: System.Security.Permissions.PublisherIdentityPermission.Copy
+  fullName: PublisherIdentityPermission.Copy
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -731,8 +734,9 @@ references:
   isExternal: false
   name: FromXml
   nameWithType: PublisherIdentityPermission.FromXml
-  fullName: System.Security.Permissions.PublisherIdentityPermission.FromXml
+  fullName: PublisherIdentityPermission.FromXml
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -749,8 +753,9 @@ references:
   isExternal: false
   name: Intersect
   nameWithType: PublisherIdentityPermission.Intersect
-  fullName: System.Security.Permissions.PublisherIdentityPermission.Intersect
+  fullName: PublisherIdentityPermission.Intersect
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -767,8 +772,9 @@ references:
   isExternal: false
   name: IsSubsetOf
   nameWithType: PublisherIdentityPermission.IsSubsetOf
-  fullName: System.Security.Permissions.PublisherIdentityPermission.IsSubsetOf
+  fullName: PublisherIdentityPermission.IsSubsetOf
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -785,8 +791,9 @@ references:
   isExternal: false
   name: ToXml
   nameWithType: PublisherIdentityPermission.ToXml
-  fullName: System.Security.Permissions.PublisherIdentityPermission.ToXml
+  fullName: PublisherIdentityPermission.ToXml
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -803,8 +810,9 @@ references:
   isExternal: false
   name: Union
   nameWithType: PublisherIdentityPermission.Union
-  fullName: System.Security.Permissions.PublisherIdentityPermission.Union
+  fullName: PublisherIdentityPermission.Union
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

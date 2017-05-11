@@ -47,7 +47,7 @@ items:
   - System.Web
   namespace: System.Web.Security
   summary: Manages storage of membership information for an ASP.NET application in Active Directory and Active Directory Application Mode servers.
-  remarks: "This class is used by the <xref:System.Web.Security.Membership> and <xref:System.Web.Security.MembershipUser> classes to provide membership services for an ASP.NET application using an Active Directory (AD) or Active Directory Application Mode (ADAM) server.  \n  \n> [!NOTE]\n>  Using an ADAM server requires specific configuration. For more information, see the ADAM Configuration section below.  \n  \n> [!IMPORTANT]\n>  The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance works only in the full-trust policy default configuration of ASP.NET. In order to use the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance at any partial-trust level, either you must make changes to the appropriate trust policy file for your application or you must create a \"sandbox\" assembly that is deployed in the GAC.  \n>   \n>  The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class requires unrestricted <xref:System.DirectoryServices.DirectoryServicesPermission> permission to run. This permission is not added to any of the partial-trust policy files supplied with ASP.NET. Although adding the <xref:System.DirectoryServices.DirectoryServicesPermission> permission to a partial-trust policy file will enable use of the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class, doing so makes the <xref:System.DirectoryServices> namespace classes available to any code running in your ASP.NET pages. This option is not recommended for any Web servers that need to run in a secure, locked-down mode.  \n>   \n>  As an alternative, you can create a \"sandbox\" assembly that calls the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class. This assembly can contain either a wrapper class that forwards method calls to the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class or a class that derives from the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class. In either case, the wrapper class must assert unrestricted <xref:System.DirectoryServices.DirectoryServicesPermission> permission. Deploy the sandbox assembly in the GAC and mark the assembly with the <xref:System.Security.AllowPartiallyTrustedCallersAttribute> (APTCA) attribute. This will enable your partially trusted ASP.NET code to call your wrapper class, and since the wrapper class internally asserts the unrestricted <xref:System.DirectoryServices.DirectoryServicesPermission> permission, your wrapper class will be able to successfully call the provider  \n  \n You must create a [connectionStrings Element (ASP.NET Settings Schema)](http://msdn.microsoft.com/en-us/b6ffbb2e-a4d1-410e-8f7e-9755e92c65de) entry in the Web.config file that identifies the Active Directory server, Active Directory domain, or ADAM application partition to use. The provider will only operate at domain scope, or in a subscope within a domain. The following table lists allowed connection strings and the scope used.  \n  \n|Connection string|Scope|  \n|-----------------------|-----------|  \n|LDAP://\\<domain or server>:[port]<br /><br /> Port number is optional for ADAM and not needed for Active Directory.|The provider runs against the specified domain or server. With AD, user creation and deletion is done in the default users container. All other operations, including any search methods, will be rooted at the default naming context for the domain.<br /><br /> If the connection string specifies an Active Directory domain rather than a specific server and the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset%2A> property is `true`, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance will always connect to the server with the PDC role for the domain to ensure that password changes take effect and are available when the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.ValidateUser%2A> method is called.<br /><br /> This connection string is not allowed when using ADAM, and will throw a <xref:System.NotSupportedException>.|  \n|LDAP://\\<domain or server>:[port]/\\<container dn><br /><br /> Port number is optional for ADAM and not needed for Active Directory.|The provider runs against the specified domain or server. User creation and deletion is only done in the specified container. All other operations, including any search methods, perform subtree searches rooted at the container.<br /><br /> For ADAM servers, the container specifies the root of an application partition, or a container within an application partition.<br /><br /> We recommend that the connection string define a specific container to improve performance.|  \n  \n The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance maps directory attributes to <xref:System.Web.Security.ActiveDirectoryMembershipUser> properties. Default attributes are used if no attribute mapping is done in the Web.config file. For more information on attribute mappings, see the individual properties in the <xref:System.Web.Security.ActiveDirectoryMembershipUser> class documentation.  \n  \n The following table lists the <xref:System.Web.Security.ActiveDirectoryMembershipUser> properties and their default attribute mappings.  \n  \n> [!IMPORTANT]\n>  The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class does not explicitly check that provider attributes are not mapped to core attributes of the user object in the directory. You must ensure that sensitive information from the directory is not exposed through mapped attributes.  \n  \n|Property|Default directory attribute|Can be mapped?|  \n|--------------|---------------------------------|--------------------|  \n|<xref:System.Web.Security.ActiveDirectoryMembershipUser.ProviderUserKey%2A>|securityIdentifier|No|  \n|<xref:System.Web.Security.MembershipUser.UserName%2A>|userPrincipalName|Yes, but must be either userPrincipalName or sAMAccountName|  \n|<xref:System.Web.Security.ActiveDirectoryMembershipUser.Comment%2A>|comment|No|  \n|<xref:System.Web.Security.MembershipUser.CreationDate%2A>|whenCreated|No|  \n|<xref:System.Web.Security.ActiveDirectoryMembershipUser.Email%2A>|mail|Yes, but must be a single-valued attribute of type Unicode String.|  \n|<xref:System.Web.Security.ActiveDirectoryMembershipUser.LastActivityDate%2A>|n/a|Not supported by <xref:System.Web.Security.ActiveDirectoryMembershipProvider>.|  \n|<xref:System.Web.Security.ActiveDirectoryMembershipUser.LastLoginDate%2A>|n/a|Not supported by <xref:System.Web.Security.ActiveDirectoryMembershipProvider>.|  \n|<xref:System.Web.Security.MembershipUser.LastPasswordChangedDate%2A>|pwdLastSet|No|  \n|<xref:System.Web.Security.MembershipUser.PasswordQuestion%2A>|none|Yes, but must be a single-valued attribute of type Unicode String.|  \n|<xref:System.Web.Security.ActiveDirectoryMembershipUser.IsApproved%2A>|User-Account-Control (AD)<br /><br /> mDS-UserAccountDisabled (ADAM)|No|  \n|<xref:System.Web.Security.MembershipUser.IsLockedOut%2A>|computed from lockoutTime and the AD lockout duration (AD on Windows 2000)<br /><br /> msDS-User-Account-Control-Computed (AD on Windows Server 2003)<br /><br /> msDS-User-Account-Control-Computed (ADAM)|No|  \n|<xref:System.Web.Security.MembershipUser.LastLockoutDate%2A>|If user is locked out due to too many bad password attempts, the lockout time attribute is returned.<br /><br /> If user is locked out due to too many bad password answer attempts, the value stored in the attribute defined by `attributeMapFailedPasswordAnswerLockoutTime` is returned.<br /><br /> If user is locked out due to both a bad password and too many bad password attempts, the most recent date/time value is returned.<br /><br /> If the account is not locked out, return 1/1/1754 for SQL compatibility.|No|  \n  \n When both the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.RequiresQuestionAndAnswer%2A> and <xref:System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset%2A> properties are `true`, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class supports password-reset security by requiring the user to answer a predetermined question. To support the question and answer, you must set the following configuration attributes using the [add Element for providers for membership (ASP.NET Settings Schema)](http://msdn.microsoft.com/en-us/8423ec7f-a06d-4606-977e-a46400b2fc18) in the application configuration file.  \n  \n|Configuration attribute|Attribute type|  \n|-----------------------------|--------------------|  \n|`attributeMapPasswordQuestion`|Must be a single-valued attribute of type Unicode String.|  \n|`attributeMapPasswordAnswer`|Must be a single-valued attribute of type Unicode String.|  \n|`attributeMapFailedPasswordAnswerCount`|Must be a single-valued attribute of type Integer.|  \n|`attributeMapFailedPasswordAnswerTime`|Must be a single-valued attribute of type Large Integer/Interval.|  \n|`attributeMapFailedPasswordAnswerLockoutTime`|Must be a single-valued attribute of type Large Integer/Interval.|  \n  \n For more information on using password-reset security, see the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.RequiresQuestionAndAnswer%2A> property.  \n  \n## Active Directory connections  \n When the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class is used to connect to an Active Directory or an Active Directory Application Mode (ADAM) server, the `connectionProtection` attribute that is set using the [add Element for providers for membership (ASP.NET Settings Schema)](http://msdn.microsoft.com/en-us/8423ec7f-a06d-4606-977e-a46400b2fc18) in the application configuration file may restrict the types of operations the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class can perform over the connection. The `connectionProtection` attribute also determines the methods the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance will use to create the connection to the Active Directory or ADAM server.  \n  \n The following table shows the effect of the `connectionProtection` attribute when connecting to an Active Directory.  \n  \n|`connectionProtection` setting|Effect|  \n|------------------------------------|------------|  \n|<xref:System.Web.Security.ActiveDirectoryConnectionProtection>|The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class will connect to an Active Directory, with these restrictions.<br /><br /> -   Any method that sets a password will fail. Active Directory requires a secure connection when changing passwords.<br />-   You must explicitly set the `connectionUsername` and `connectionPassword` attributes using the [add Element for providers for membership (ASP.NET Settings Schema)](http://msdn.microsoft.com/en-us/8423ec7f-a06d-4606-977e-a46400b2fc18) in the application configuration file; otherwise, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance will throw a <xref:System.Configuration.Provider.ProviderException> exception.|  \n|`Secure`|The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class will attempt to connect to Active Directory using SSL. If SSL fails, a second attempt to connect to Active Directory using sign-and-seal will be made. If both attempts fail, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance will throw a <xref:System.Configuration.Provider.ProviderException> exception.<br /><br /> Both process credentials and explicit credentials are supported.|  \n  \n The following table shows the effect of the `connectionProtection` attribute when connecting to an ADAM server.  \n  \n|`connectionProtection` setting|Effect|  \n|------------------------------------|------------|  \n|<xref:System.Web.Security.ActiveDirectoryConnectionProtection>|The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class will connect to an ADAM server, with this restriction.<br /><br /> -   Any method that sets passwords will fail unless you explicitly configure the ADAM server to allow passwords to be sent and changed over an insecure connection.<br /><br /> Both process credentials and explicit credentials are supported.|  \n|`Secure`|The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class will attempt to connect to the ADAM server using SSL. If a connection cannot be made, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance will throw a <xref:System.Configuration.Provider.ProviderException> exception.<br /><br /> Both process credentials and explicit credentials are supported.|  \n  \n## ADAM Configuration  \n When using an ADAM server, the ADAM instance must contain a schema that defines the `User` class. You can import the `User` class with an LDIF import of the `MS-User.ldf` file available in the ADAM install directory.  \n  \n The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class will work with an ADAM server configured to use the default network ports. The following table shows the defaults expected for the ADAM server.  \n  \n|connectionProtection setting|Expected ADAM port|  \n|----------------------------------|------------------------|  \n|<xref:System.Web.Security.ActiveDirectoryConnectionProtection>|389|  \n|`Secure`|636|  \n  \n If your ADAM server is not using the default ports, see article Q817583, \"Active Directory Services does not request secure authorization over an SSL connection,\" in the [Microsoft Knowledge Base](http://go.microsoft.com/fwlink/?linkid=37115)."
+  remarks: "This class is used by the <xref:System.Web.Security.Membership> and <xref:System.Web.Security.MembershipUser> classes to provide membership services for an ASP.NET application using an Active Directory (AD) or Active Directory Application Mode (ADAM) server.  \n  \n> [!NOTE]\n>  Using an ADAM server requires specific configuration. For more information, see the ADAM Configuration section below.  \n  \n> [!IMPORTANT]\n>  The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance works only in the full-trust policy default configuration of ASP.NET. In order to use the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance at any partial-trust level, either you must make changes to the appropriate trust policy file for your application or you must create a \"sandbox\" assembly that is deployed in the GAC.  \n>   \n>  The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class requires unrestricted <xref:System.DirectoryServices.DirectoryServicesPermission> permission to run. This permission is not added to any of the partial-trust policy files supplied with ASP.NET. Although adding the <xref:System.DirectoryServices.DirectoryServicesPermission> permission to a partial-trust policy file will enable use of the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class, doing so makes the <xref:System.DirectoryServices> namespace classes available to any code running in your ASP.NET pages. This option is not recommended for any Web servers that need to run in a secure, locked-down mode.  \n>   \n>  As an alternative, you can create a \"sandbox\" assembly that calls the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class. This assembly can contain either a wrapper class that forwards method calls to the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class or a class that derives from the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class. In either case, the wrapper class must assert unrestricted <xref:System.DirectoryServices.DirectoryServicesPermission> permission. Deploy the sandbox assembly in the GAC and mark the assembly with the <xref:System.Security.AllowPartiallyTrustedCallersAttribute> (APTCA) attribute. This will enable your partially trusted ASP.NET code to call your wrapper class, and since the wrapper class internally asserts the unrestricted <xref:System.DirectoryServices.DirectoryServicesPermission> permission, your wrapper class will be able to successfully call the provider  \n  \n You must create a [connectionStrings Element (ASP.NET Settings Schema)](http://msdn.microsoft.com/en-us/b6ffbb2e-a4d1-410e-8f7e-9755e92c65de) entry in the Web.config file that identifies the Active Directory server, Active Directory domain, or ADAM application partition to use. The provider will only operate at domain scope, or in a subscope within a domain. The following table lists allowed connection strings and the scope used.  \n  \n|Connection string|Scope|  \n|-----------------------|-----------|  \n|LDAP://\\<domain or server>:[port]<br /><br /> Port number is optional for ADAM and not needed for Active Directory.|The provider runs against the specified domain or server. With AD, user creation and deletion is done in the default users container. All other operations, including any search methods, will be rooted at the default naming context for the domain.<br /><br /> If the connection string specifies an Active Directory domain rather than a specific server and the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset%2A> property is `true`, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance will always connect to the server with the PDC role for the domain to ensure that password changes take effect and are available when the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.ValidateUser%2A> method is called.<br /><br /> This connection string is not allowed when using ADAM, and will throw a <xref:System.NotSupportedException>.|  \n|LDAP://\\<domain or server>:[port]/\\<container dn><br /><br /> Port number is optional for ADAM and not needed for Active Directory.|The provider runs against the specified domain or server. User creation and deletion is only done in the specified container. All other operations, including any search methods, perform subtree searches rooted at the container.<br /><br /> For ADAM servers, the container specifies the root of an application partition, or a container within an application partition.<br /><br /> We recommend that the connection string define a specific container to improve performance.|  \n  \n The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance maps directory attributes to <xref:System.Web.Security.ActiveDirectoryMembershipUser> properties. Default attributes are used if no attribute mapping is done in the Web.config file. For more information on attribute mappings, see the individual properties in the <xref:System.Web.Security.ActiveDirectoryMembershipUser> class documentation.  \n  \n The following table lists the <xref:System.Web.Security.ActiveDirectoryMembershipUser> properties and their default attribute mappings.  \n  \n> [!IMPORTANT]\n>  The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class does not explicitly check that provider attributes are not mapped to core attributes of the user object in the directory. You must ensure that sensitive information from the directory is not exposed through mapped attributes.  \n  \n|Property|Default directory attribute|Can be mapped?|  \n|--------------|---------------------------------|--------------------|  \n|<xref:System.Web.Security.ActiveDirectoryMembershipUser.ProviderUserKey%2A>|securityIdentifier|No|  \n|<xref:System.Web.Security.MembershipUser.UserName%2A>|userPrincipalName|Yes, but must be either userPrincipalName or sAMAccountName|  \n|<xref:System.Web.Security.ActiveDirectoryMembershipUser.Comment%2A>|comment|No|  \n|<xref:System.Web.Security.MembershipUser.CreationDate%2A>|whenCreated|No|  \n|<xref:System.Web.Security.ActiveDirectoryMembershipUser.Email%2A>|mail|Yes, but must be a single-valued attribute of type Unicode String.|  \n|<xref:System.Web.Security.ActiveDirectoryMembershipUser.LastActivityDate%2A>|n/a|Not supported by <xref:System.Web.Security.ActiveDirectoryMembershipProvider>.|  \n|<xref:System.Web.Security.ActiveDirectoryMembershipUser.LastLoginDate%2A>|n/a|Not supported by <xref:System.Web.Security.ActiveDirectoryMembershipProvider>.|  \n|<xref:System.Web.Security.MembershipUser.LastPasswordChangedDate%2A>|pwdLastSet|No|  \n|<xref:System.Web.Security.MembershipUser.PasswordQuestion%2A>|none|Yes, but must be a single-valued attribute of type Unicode String.|  \n|<xref:System.Web.Security.ActiveDirectoryMembershipUser.IsApproved%2A>|User-Account-Control (AD)<br /><br /> mDS-UserAccountDisabled (ADAM)|No|  \n|<xref:System.Web.Security.MembershipUser.IsLockedOut%2A>|computed from lockoutTime and the AD lockout duration (AD on Windows 2000)<br /><br /> msDS-User-Account-Control-Computed (AD on Windows Server 2003)<br /><br /> msDS-User-Account-Control-Computed (ADAM)|No|  \n|<xref:System.Web.Security.MembershipUser.LastLockoutDate%2A>|If user is locked out due to too many bad password attempts, the lockout time attribute is returned.<br /><br /> If user is locked out due to too many bad password answer attempts, the value stored in the attribute defined by `attributeMapFailedPasswordAnswerLockoutTime` is returned.<br /><br /> If user is locked out due to both a bad password and too many bad password attempts, the most recent date/time value is returned.<br /><br /> If the account is not locked out, return 1/1/1754 for SQL compatibility.|No|  \n  \n When both the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.RequiresQuestionAndAnswer%2A> and <xref:System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset%2A> properties are `true`, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class supports password-reset security by requiring the user to answer a predetermined question. To support the question and answer, you must set the following configuration attributes using the [add Element for providers for membership (ASP.NET Settings Schema)](http://msdn.microsoft.com/en-us/8423ec7f-a06d-4606-977e-a46400b2fc18) in the application configuration file.  \n  \n|Configuration attribute|Attribute type|  \n|-----------------------------|--------------------|  \n|`attributeMapPasswordQuestion`|Must be a single-valued attribute of type Unicode String.|  \n|`attributeMapPasswordAnswer`|Must be a single-valued attribute of type Unicode String.|  \n|`attributeMapFailedPasswordAnswerCount`|Must be a single-valued attribute of type Integer.|  \n|`attributeMapFailedPasswordAnswerTime`|Must be a single-valued attribute of type Large Integer/Interval.|  \n|`attributeMapFailedPasswordAnswerLockoutTime`|Must be a single-valued attribute of type Large Integer/Interval.|  \n  \n For more information on using password-reset security, see the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.RequiresQuestionAndAnswer%2A> property.  \n  \n## Active Directory connections  \n When the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class is used to connect to an Active Directory or an Active Directory Application Mode (ADAM) server, the `connectionProtection` attribute that is set using the [add Element for providers for membership (ASP.NET Settings Schema)](http://msdn.microsoft.com/en-us/8423ec7f-a06d-4606-977e-a46400b2fc18) in the application configuration file may restrict the types of operations the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class can perform over the connection. The `connectionProtection` attribute also determines the methods the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance will use to create the connection to the Active Directory or ADAM server.  \n  \n The following table shows the effect of the `connectionProtection` attribute when connecting to an Active Directory.  \n  \n|`connectionProtection` setting|Effect|  \n|------------------------------------|------------|  \n|<xref:System.Web.Security.ActiveDirectoryConnectionProtection.None>|The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class will connect to an Active Directory, with these restrictions.<br /><br /> -   Any method that sets a password will fail. Active Directory requires a secure connection when changing passwords.<br />-   You must explicitly set the `connectionUsername` and `connectionPassword` attributes using the [add Element for providers for membership (ASP.NET Settings Schema)](http://msdn.microsoft.com/en-us/8423ec7f-a06d-4606-977e-a46400b2fc18) in the application configuration file; otherwise, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance will throw a <xref:System.Configuration.Provider.ProviderException> exception.|  \n|`Secure`|The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class will attempt to connect to Active Directory using SSL. If SSL fails, a second attempt to connect to Active Directory using sign-and-seal will be made. If both attempts fail, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance will throw a <xref:System.Configuration.Provider.ProviderException> exception.<br /><br /> Both process credentials and explicit credentials are supported.|  \n  \n The following table shows the effect of the `connectionProtection` attribute when connecting to an ADAM server.  \n  \n|`connectionProtection` setting|Effect|  \n|------------------------------------|------------|  \n|<xref:System.Web.Security.ActiveDirectoryConnectionProtection.None>|The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class will connect to an ADAM server, with this restriction.<br /><br /> -   Any method that sets passwords will fail unless you explicitly configure the ADAM server to allow passwords to be sent and changed over an insecure connection.<br /><br /> Both process credentials and explicit credentials are supported.|  \n|`Secure`|The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class will attempt to connect to the ADAM server using SSL. If a connection cannot be made, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance will throw a <xref:System.Configuration.Provider.ProviderException> exception.<br /><br /> Both process credentials and explicit credentials are supported.|  \n  \n## ADAM Configuration  \n When using an ADAM server, the ADAM instance must contain a schema that defines the `User` class. You can import the `User` class with an LDIF import of the `MS-User.ldf` file available in the ADAM install directory.  \n  \n The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class will work with an ADAM server configured to use the default network ports. The following table shows the defaults expected for the ADAM server.  \n  \n|connectionProtection setting|Expected ADAM port|  \n|----------------------------------|------------------------|  \n|<xref:System.Web.Security.ActiveDirectoryConnectionProtection.None>|389|  \n|`Secure`|636|  \n  \n If your ADAM server is not using the default ports, see article Q817583, \"Active Directory Services does not request secure authorization over an SSL connection,\" in the [Microsoft Knowledge Base](http://go.microsoft.com/fwlink/?linkid=37115)."
   example:
   - "The following code examples show the Web.config file for an ASP.NET application configured to use an <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance. The first example uses the default mappings for Active Directory attributes, and does not support password-reset security with question-and-answer nor the ability to call search methods. The second example shows all the attribute settings allowed for an <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance.  \n  \n The first example is a simple configuration file using default mappings for Active Directory attributes.  \n  \n```  \n<configuration>  \n  <connectionStrings>  \n    <add name=\"ADService\" connectionString=\"LDAP://ldapServer/\" />  \n  </connectionStrings>  \n  <system.web>  \n    <membership defaultProvider=\"AspNetActiveDirectoryMembershipProvider\">  \n      <providers>  \n        <add name=\"AspNetActiveDirectoryMembershipProvider\"   \n          type=\"System.Web.Security.ActiveDirectoryMembershipProvider,   \n          System.Web, Version=2.0.3600, Culture=neutral,   \n          PublicKeyToken=b03f5f7f11d50a3a\" />  \n      </providers>  \n    </membership>  \n  </system.web>  \n</configuration>  \n```  \n  \n This example shows all of the attribute settings that are available for an instance of <xref:System.Web.Security.ActiveDirectoryMembershipProvider>.  \n  \n```  \n<configuration>  \n  <connectionStrings>  \n    <add name=\"ADService\" connectionString=\"LDAP://ldapServer/\" />  \n  </connectionStrings>  \n  <system.web>  \n    <membership  \n      defaultProvider=\"AspNetActiveDirectoryMembershipProvider\">  \n      <providers>  \n        <add name=\"AspNetActiveDirectoryMembershipProvider\"  \n          type=\"System.Web.Security.ActiveDirectoryMembershipProvider,  \n          System.Web, Version=1.0.3600, Culture=neutral,  \n          PublicKeyToken=b03f5f7f11d50a3a\"  \n          connectionStringName=\"ADService\"  \n          connectionUsername=\"UserWithAppropriateRights\"  \n          connectionPassword=\"PasswordForUser\"  \n          connectionProtection=\"Secure\"  \n          enablePasswordReset=\"true\"  \n          enableSearchMethods=\"true\"  \n          requiresQuestionAndAnswer=\"true\"  \n          applicationName=\"/\"  \n          description=\"Default AD connection\"  \n          requiresUniqueEmail=\"false\"  \n          clientSearchTimeout=\"30\"  \n          serverSearchTimeout=\"30\"  \n          timeoutUnit=\"Minutes\"  \n          attributeMapPasswordQuestion=\"department\"  \n          attributeMapPasswordAnswer=\"division\"  \n          attributeMapFailedPasswordAnswerCount=\"singleIntAttribute\"  \n         attributeMapFailedPasswordAnswerTime=\"singleLargeIntAttribute\"  \n         attributeMapFailedPasswordAnswerLockoutTime=\"singleLargeIntAttribute\"  \n          attributeMapEmail = \"mail\"  \n          attributeMapUsername = \"userPrincipalName\"  \n          maxInvalidPasswordAttempts = \"5\"  \n          passwordAttemptWindow = \"10\"  \n          passwordAnswerAttemptLockoutDuration = \"30\"  \n          minRequiredPasswordLength=\"7\"  \n          minRequiredNonalphanumericCharacters=\"1\"  \n          passwordStrengthRegularExpression=\"  \n          @\\\"(?=.{6,})(?=(.*\\d){1,})(?=(.*\\W){1,})\" />  \n        />  \n      </providers>  \n    </membership>  \n  </system.web>  \n</configuration>  \n```  \n  \n `clientSearchTimeout` and `serverSearchTimeout` default to minutes. To change the units, set the `timeoutUnit` attribute value to one of \"Days\", \"Hours\", \"Minutes\", \"Seconds\", or \"Milliseconds\". If the attribute is not specified, the default is \"Minutes\"."
   syntax:
@@ -89,9 +89,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.#ctor
   commentId: M:System.Web.Security.ActiveDirectoryMembershipProvider.#ctor
   id: '#ctor'
@@ -100,7 +97,7 @@ items:
   - csharp
   name: ActiveDirectoryMembershipProvider()
   nameWithType: ActiveDirectoryMembershipProvider.ActiveDirectoryMembershipProvider()
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.ActiveDirectoryMembershipProvider()
+  fullName: ActiveDirectoryMembershipProvider.ActiveDirectoryMembershipProvider()
   type: Constructor
   assemblies:
   - System.Web
@@ -129,9 +126,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.ApplicationName
   commentId: P:System.Web.Security.ActiveDirectoryMembershipProvider.ApplicationName
   id: ApplicationName
@@ -140,7 +134,7 @@ items:
   - csharp
   name: ApplicationName
   nameWithType: ActiveDirectoryMembershipProvider.ApplicationName
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.ApplicationName
+  fullName: ActiveDirectoryMembershipProvider.ApplicationName
   type: Property
   assemblies:
   - System.Web
@@ -177,9 +171,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.ChangePassword(System.String,System.String,System.String)
   commentId: M:System.Web.Security.ActiveDirectoryMembershipProvider.ChangePassword(System.String,System.String,System.String)
   id: ChangePassword(System.String,System.String,System.String)
@@ -188,13 +179,13 @@ items:
   - csharp
   name: ChangePassword(String, String, String)
   nameWithType: ActiveDirectoryMembershipProvider.ChangePassword(String, String, String)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.ChangePassword(String, String, String)
+  fullName: ActiveDirectoryMembershipProvider.ChangePassword(String, String, String)
   type: Method
   assemblies:
   - System.Web
   namespace: System.Web.Security
   summary: Changes the password for the specified user.
-  remarks: "The <xref:System.Web.Security.ActiveDirectoryMembershipProvider.ChangePassword%2A> method is used to update the user's password in the Active Directory data store. Regardless of the credentials that the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance is configured to use, the provider connects to the Active Directory server using the `username` and `oldPassword` parameters as the connection credentials.  \n  \n If the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset%2A> property is `true`, the user cannot change his or her password if the account was previously locked because the user made too many attempts to answer the password question. The user will need to wait the number of minutes specified in the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.PasswordAnswerAttemptLockoutDuration%2A> property before changing the password.  \n  \n If the password change succeeds and the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset%2A> property is `true`, then the user's bad password answer tracking counters are reset.  \n  \n The provider finds the user instance to update by performing a subtree search for the user name starting at the search point specified in the connection string. See the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class topic for more information about connection strings.  \n  \n To change passwords on an Active Directory server the `connectionProtection` attribute must be set to <xref:System.Web.Security.ActiveDirectoryConnectionProtection>.  \n  \n When using an ADAM server, the `connectionProtection` attribute can be set to <xref:System.Web.Security.ActiveDirectoryConnectionProtection>, but only if you explicitly configure the ADAM server to allow password change over unsecured connections."
+  remarks: "The <xref:System.Web.Security.ActiveDirectoryMembershipProvider.ChangePassword%2A> method is used to update the user's password in the Active Directory data store. Regardless of the credentials that the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance is configured to use, the provider connects to the Active Directory server using the `username` and `oldPassword` parameters as the connection credentials.  \n  \n If the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset%2A> property is `true`, the user cannot change his or her password if the account was previously locked because the user made too many attempts to answer the password question. The user will need to wait the number of minutes specified in the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.PasswordAnswerAttemptLockoutDuration%2A> property before changing the password.  \n  \n If the password change succeeds and the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset%2A> property is `true`, then the user's bad password answer tracking counters are reset.  \n  \n The provider finds the user instance to update by performing a subtree search for the user name starting at the search point specified in the connection string. See the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class topic for more information about connection strings.  \n  \n To change passwords on an Active Directory server the `connectionProtection` attribute must be set to <xref:System.Web.Security.ActiveDirectoryConnectionProtection.SignAndSeal>.  \n  \n When using an ADAM server, the `connectionProtection` attribute can be set to <xref:System.Web.Security.ActiveDirectoryConnectionProtection.None>, but only if you explicitly configure the ADAM server to allow password change over unsecured connections."
   syntax:
     content: public override bool ChangePassword (string username, string oldPassword, string newPassword);
     parameters:
@@ -247,9 +238,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.ChangePasswordQuestionAndAnswer(System.String,System.String,System.String,System.String)
   commentId: M:System.Web.Security.ActiveDirectoryMembershipProvider.ChangePasswordQuestionAndAnswer(System.String,System.String,System.String,System.String)
   id: ChangePasswordQuestionAndAnswer(System.String,System.String,System.String,System.String)
@@ -258,7 +246,7 @@ items:
   - csharp
   name: ChangePasswordQuestionAndAnswer(String, String, String, String)
   nameWithType: ActiveDirectoryMembershipProvider.ChangePasswordQuestionAndAnswer(String, String, String, String)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.ChangePasswordQuestionAndAnswer(String, String, String, String)
+  fullName: ActiveDirectoryMembershipProvider.ChangePasswordQuestionAndAnswer(String, String, String, String)
   type: Method
   assemblies:
   - System.Web
@@ -317,9 +305,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.CreateUser(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Object,System.Web.Security.MembershipCreateStatus@)
   commentId: M:System.Web.Security.ActiveDirectoryMembershipProvider.CreateUser(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Object,System.Web.Security.MembershipCreateStatus@)
   id: CreateUser(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Object,System.Web.Security.MembershipCreateStatus@)
@@ -328,13 +313,13 @@ items:
   - csharp
   name: CreateUser(String, String, String, String, String, Boolean, Object, MembershipCreateStatus)
   nameWithType: ActiveDirectoryMembershipProvider.CreateUser(String, String, String, String, String, Boolean, Object, MembershipCreateStatus)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.CreateUser(String, String, String, String, String, Boolean, Object, MembershipCreateStatus)
+  fullName: ActiveDirectoryMembershipProvider.CreateUser(String, String, String, String, String, Boolean, Object, MembershipCreateStatus)
   type: Method
   assemblies:
   - System.Web
   namespace: System.Web.Security
   summary: Adds a new user to the Active Directory data store.
-  remarks: "The <xref:System.Web.Security.ActiveDirectoryMembershipProvider.CreateUser%2A> method is called by the <xref:System.Web.Security.Membership> class to create a new user in the Active Directory data store.  \n  \n For both Active Directory and Active Directory Application Mode (ADAM) servers, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class requires that the instance class in the directory be `user`. Alternative user classes such as `inetOrgPerson` are not supported.  \n  \n When using an Active Directory server and the user name is mapped to the `userPrincipalName` attribute, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class will automatically generate a random 20-character user name for the `sAMAccountName` parameter on your behalf.  \n  \n Parameters default to the following maximum lengths.  \n  \n|Parameter|Maximum length|  \n|---------------|--------------------|  \n|`username`|64 characters if using the `userPrincipalName` attribute. If using the `sAMAccountName` attribute, the common restriction is 20 characters or less.|  \n|`password`|128 characters.|  \n|`email`|256 characters.|  \n|`passwordQuestion`|256 characters.|  \n|`passwordAnswer`|128 characters before and after encrypting.|  \n  \n The <xref:System.Web.Security.ActiveDirectoryMembershipUser.Comment%2A> property on the returned <xref:System.Web.Security.ActiveDirectoryMembershipUser> instance is limited to 1024 characters.  \n  \n If the directory schema has been modified by reducing the maximum allowable lengths for these attributes, these lengths will take precedence.  \n  \n Before creating the user, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class will make sure the user name is unique. If the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance is configured to require unique e-mail addresses, it will also make sure the e-mail address is unique.  \n  \n In an Active Directory user-name uniqueness is enforced by performing a GC search when the user name is mapped to `userPrincipalName`. If `sAMAccountName` is used, then the directory will automatically enforce uniqueness of the `sAMAccountName` across the Active Directory domain.  \n  \n An ADAM server will automatically enforce user name uniqueness of the `userPrincipalName` across all application partitions.  \n  \n Uniqueness of the e-mail address is enforced by performing a subtree search for a duplicate e-mail address starting at the root of the container in which users are created. This is either the default user container (if connected to an Active Directory and no container was specified in the connection string) or the container specified in the connection string.  \n  \n The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class creates the user directly in the user container specified in the connection string. See the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class topic for more information about connection strings.  \n  \n For passwords to be set on an Active Directory server, the `connectionProtection` attribute must be set to <xref:System.Web.Security.ActiveDirectoryConnectionProtection>.  \n  \n When an ADAM server is being used, the `connectionProtection` attribute can be set to <xref:System.Web.Security.ActiveDirectoryConnectionProtection>, but only if you explicitly configure the ADAM server to allow password changes over unsecured connections.  \n  \n Leading and trailing spaces are trimmed from all string parameter values except `password`.  \n  \n> [!IMPORTANT]\n>  You cannot create new users unless the credentials used to connect to the Active Directory server have either Domain Administrator rights (not recommended) or the \"create child instance,\" \"delete child instance,\" and \"set password\" access rights. The \"delete child instance\" access right is required because creating a user is a multi-step process, and if any step of user creation fails, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class will delete the user instance rather than leave a partially constructed user instance in the directory."
+  remarks: "The <xref:System.Web.Security.ActiveDirectoryMembershipProvider.CreateUser%2A> method is called by the <xref:System.Web.Security.Membership> class to create a new user in the Active Directory data store.  \n  \n For both Active Directory and Active Directory Application Mode (ADAM) servers, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class requires that the instance class in the directory be `user`. Alternative user classes such as `inetOrgPerson` are not supported.  \n  \n When using an Active Directory server and the user name is mapped to the `userPrincipalName` attribute, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class will automatically generate a random 20-character user name for the `sAMAccountName` parameter on your behalf.  \n  \n Parameters default to the following maximum lengths.  \n  \n|Parameter|Maximum length|  \n|---------------|--------------------|  \n|`username`|64 characters if using the `userPrincipalName` attribute. If using the `sAMAccountName` attribute, the common restriction is 20 characters or less.|  \n|`password`|128 characters.|  \n|`email`|256 characters.|  \n|`passwordQuestion`|256 characters.|  \n|`passwordAnswer`|128 characters before and after encrypting.|  \n  \n The <xref:System.Web.Security.ActiveDirectoryMembershipUser.Comment%2A> property on the returned <xref:System.Web.Security.ActiveDirectoryMembershipUser> instance is limited to 1024 characters.  \n  \n If the directory schema has been modified by reducing the maximum allowable lengths for these attributes, these lengths will take precedence.  \n  \n Before creating the user, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class will make sure the user name is unique. If the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance is configured to require unique e-mail addresses, it will also make sure the e-mail address is unique.  \n  \n In an Active Directory user-name uniqueness is enforced by performing a GC search when the user name is mapped to `userPrincipalName`. If `sAMAccountName` is used, then the directory will automatically enforce uniqueness of the `sAMAccountName` across the Active Directory domain.  \n  \n An ADAM server will automatically enforce user name uniqueness of the `userPrincipalName` across all application partitions.  \n  \n Uniqueness of the e-mail address is enforced by performing a subtree search for a duplicate e-mail address starting at the root of the container in which users are created. This is either the default user container (if connected to an Active Directory and no container was specified in the connection string) or the container specified in the connection string.  \n  \n The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class creates the user directly in the user container specified in the connection string. See the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class topic for more information about connection strings.  \n  \n For passwords to be set on an Active Directory server, the `connectionProtection` attribute must be set to <xref:System.Web.Security.ActiveDirectoryConnectionProtection.SignAndSeal>.  \n  \n When an ADAM server is being used, the `connectionProtection` attribute can be set to <xref:System.Web.Security.ActiveDirectoryConnectionProtection.None>, but only if you explicitly configure the ADAM server to allow password changes over unsecured connections.  \n  \n Leading and trailing spaces are trimmed from all string parameter values except `password`.  \n  \n> [!IMPORTANT]\n>  You cannot create new users unless the credentials used to connect to the Active Directory server have either Domain Administrator rights (not recommended) or the \"create child instance,\" \"delete child instance,\" and \"set password\" access rights. The \"delete child instance\" access right is required because creating a user is a multi-step process, and if any step of user creation fails, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class will delete the user instance rather than leave a partially constructed user instance in the directory."
   syntax:
     content: public override System.Web.Security.MembershipUser CreateUser (string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out System.Web.Security.MembershipCreateStatus status);
     parameters:
@@ -399,9 +384,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.CurrentConnectionProtection
   commentId: P:System.Web.Security.ActiveDirectoryMembershipProvider.CurrentConnectionProtection
   id: CurrentConnectionProtection
@@ -410,13 +392,13 @@ items:
   - csharp
   name: CurrentConnectionProtection
   nameWithType: ActiveDirectoryMembershipProvider.CurrentConnectionProtection
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.CurrentConnectionProtection
+  fullName: ActiveDirectoryMembershipProvider.CurrentConnectionProtection
   type: Property
   assemblies:
   - System.Web
   namespace: System.Web.Security
   summary: Gets the current level of security being used to protect communications with the server.
-  remarks: "The <xref:System.Web.Security.ActiveDirectoryMembershipProvider.CurrentConnectionProtection%2A> property indicates the current level of security that the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance is configured to use. The <xref:System.Web.Security.ActiveDirectoryMembershipProvider.CurrentConnectionProtection%2A> property is based on the `connnectionProtection` attribute set with the [add Element for providers for membership (ASP.NET Settings Schema)](http://msdn.microsoft.com/en-us/8423ec7f-a06d-4606-977e-a46400b2fc18) in the application configuration file.  \n  \n The `connectionProtection` attribute can only be set to <xref:System.Web.Security.ActiveDirectoryConnectionProtection> or <xref:System.Web.Security.ActiveDirectoryConnectionProtection> in the configuration file.  \n  \n See the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class topic for more information about connection strings."
+  remarks: "The <xref:System.Web.Security.ActiveDirectoryMembershipProvider.CurrentConnectionProtection%2A> property indicates the current level of security that the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance is configured to use. The <xref:System.Web.Security.ActiveDirectoryMembershipProvider.CurrentConnectionProtection%2A> property is based on the `connnectionProtection` attribute set with the [add Element for providers for membership (ASP.NET Settings Schema)](http://msdn.microsoft.com/en-us/8423ec7f-a06d-4606-977e-a46400b2fc18) in the application configuration file.  \n  \n The `connectionProtection` attribute can only be set to <xref:System.Web.Security.ActiveDirectoryConnectionProtection.None> or <xref:System.Web.Security.ActiveDirectoryConnectionProtection.SignAndSeal> in the configuration file.  \n  \n See the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class topic for more information about connection strings."
   example:
   - "The following code example shows a Web.config entry that configures an <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance to use the SSL security protocol to connect to an Active Directory server.  \n  \n```  \n<configuration>  \n  <connectionStrings>  \n    <add name=\"ADService\" connectionString=\"LDAP://ldapServer/\" />  \n  </connectionStrings>  \n  <system.web>  \n    <membership defaultProvider=\"AspNetActiveDirectoryMembershipProvider\">  \n      <providers>  \n        <add name=\"AspNetActiveDirectoryMembershipProvider\"   \n          type=\"System.Web.Security.ActiveDirectoryMembershipProvider,   \n          System.Web, Version=2.0.3600, Culture=neutral,  \n          PublicKeyToken=b03f5f7f11d50a3a\"  \n          connectionProtection=\"SignAndSeal\" />  \n      </providers>  \n    </membership>  \n  </system.web>  \n</configuration>  \n```"
   syntax:
@@ -446,9 +428,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.DeleteUser(System.String,System.Boolean)
   commentId: M:System.Web.Security.ActiveDirectoryMembershipProvider.DeleteUser(System.String,System.Boolean)
   id: DeleteUser(System.String,System.Boolean)
@@ -457,7 +436,7 @@ items:
   - csharp
   name: DeleteUser(String, Boolean)
   nameWithType: ActiveDirectoryMembershipProvider.DeleteUser(String, Boolean)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.DeleteUser(String, Boolean)
+  fullName: ActiveDirectoryMembershipProvider.DeleteUser(String, Boolean)
   type: Method
   assemblies:
   - System.Web
@@ -507,9 +486,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset
   commentId: P:System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset
   id: EnablePasswordReset
@@ -518,7 +494,7 @@ items:
   - csharp
   name: EnablePasswordReset
   nameWithType: ActiveDirectoryMembershipProvider.EnablePasswordReset
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset
+  fullName: ActiveDirectoryMembershipProvider.EnablePasswordReset
   type: Property
   assemblies:
   - System.Web
@@ -554,9 +530,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordRetrieval
   commentId: P:System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordRetrieval
   id: EnablePasswordRetrieval
@@ -565,7 +538,7 @@ items:
   - csharp
   name: EnablePasswordRetrieval
   nameWithType: ActiveDirectoryMembershipProvider.EnablePasswordRetrieval
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordRetrieval
+  fullName: ActiveDirectoryMembershipProvider.EnablePasswordRetrieval
   type: Property
   assemblies:
   - System.Web
@@ -599,9 +572,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.EnableSearchMethods
   commentId: P:System.Web.Security.ActiveDirectoryMembershipProvider.EnableSearchMethods
   id: EnableSearchMethods
@@ -610,7 +580,7 @@ items:
   - csharp
   name: EnableSearchMethods
   nameWithType: ActiveDirectoryMembershipProvider.EnableSearchMethods
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.EnableSearchMethods
+  fullName: ActiveDirectoryMembershipProvider.EnableSearchMethods
   type: Property
   assemblies:
   - System.Web
@@ -646,9 +616,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.FindUsersByEmail(System.String,System.Int32,System.Int32,System.Int32@)
   commentId: M:System.Web.Security.ActiveDirectoryMembershipProvider.FindUsersByEmail(System.String,System.Int32,System.Int32,System.Int32@)
   id: FindUsersByEmail(System.String,System.Int32,System.Int32,System.Int32@)
@@ -657,7 +624,7 @@ items:
   - csharp
   name: FindUsersByEmail(String, Int32, Int32, Int32)
   nameWithType: ActiveDirectoryMembershipProvider.FindUsersByEmail(String, Int32, Int32, Int32)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.FindUsersByEmail(String, Int32, Int32, Int32)
+  fullName: ActiveDirectoryMembershipProvider.FindUsersByEmail(String, Int32, Int32, Int32)
   type: Method
   assemblies:
   - System.Web
@@ -710,9 +677,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.FindUsersByName(System.String,System.Int32,System.Int32,System.Int32@)
   commentId: M:System.Web.Security.ActiveDirectoryMembershipProvider.FindUsersByName(System.String,System.Int32,System.Int32,System.Int32@)
   id: FindUsersByName(System.String,System.Int32,System.Int32,System.Int32@)
@@ -721,7 +685,7 @@ items:
   - csharp
   name: FindUsersByName(String, Int32, Int32, Int32)
   nameWithType: ActiveDirectoryMembershipProvider.FindUsersByName(String, Int32, Int32, Int32)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.FindUsersByName(String, Int32, Int32, Int32)
+  fullName: ActiveDirectoryMembershipProvider.FindUsersByName(String, Int32, Int32, Int32)
   type: Method
   assemblies:
   - System.Web
@@ -777,9 +741,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.GeneratePassword
   commentId: M:System.Web.Security.ActiveDirectoryMembershipProvider.GeneratePassword
   id: GeneratePassword
@@ -788,7 +749,7 @@ items:
   - csharp
   name: GeneratePassword()
   nameWithType: ActiveDirectoryMembershipProvider.GeneratePassword()
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.GeneratePassword()
+  fullName: ActiveDirectoryMembershipProvider.GeneratePassword()
   type: Method
   assemblies:
   - System.Web
@@ -820,9 +781,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.GetAllUsers(System.Int32,System.Int32,System.Int32@)
   commentId: M:System.Web.Security.ActiveDirectoryMembershipProvider.GetAllUsers(System.Int32,System.Int32,System.Int32@)
   id: GetAllUsers(System.Int32,System.Int32,System.Int32@)
@@ -831,7 +789,7 @@ items:
   - csharp
   name: GetAllUsers(Int32, Int32, Int32)
   nameWithType: ActiveDirectoryMembershipProvider.GetAllUsers(Int32, Int32, Int32)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.GetAllUsers(Int32, Int32, Int32)
+  fullName: ActiveDirectoryMembershipProvider.GetAllUsers(Int32, Int32, Int32)
   type: Method
   assemblies:
   - System.Web
@@ -881,9 +839,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.GetNumberOfUsersOnline
   commentId: M:System.Web.Security.ActiveDirectoryMembershipProvider.GetNumberOfUsersOnline
   id: GetNumberOfUsersOnline
@@ -892,7 +847,7 @@ items:
   - csharp
   name: GetNumberOfUsersOnline()
   nameWithType: ActiveDirectoryMembershipProvider.GetNumberOfUsersOnline()
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.GetNumberOfUsersOnline()
+  fullName: ActiveDirectoryMembershipProvider.GetNumberOfUsersOnline()
   type: Method
   assemblies:
   - System.Web
@@ -927,9 +882,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.GetPassword(System.String,System.String)
   commentId: M:System.Web.Security.ActiveDirectoryMembershipProvider.GetPassword(System.String,System.String)
   id: GetPassword(System.String,System.String)
@@ -938,7 +890,7 @@ items:
   - csharp
   name: GetPassword(String, String)
   nameWithType: ActiveDirectoryMembershipProvider.GetPassword(String, String)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.GetPassword(String, String)
+  fullName: ActiveDirectoryMembershipProvider.GetPassword(String, String)
   type: Method
   assemblies:
   - System.Web
@@ -979,9 +931,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.GetUser(System.String,System.Boolean)
   commentId: M:System.Web.Security.ActiveDirectoryMembershipProvider.GetUser(System.String,System.Boolean)
   id: GetUser(System.String,System.Boolean)
@@ -990,7 +939,7 @@ items:
   - csharp
   name: GetUser(String, Boolean)
   nameWithType: ActiveDirectoryMembershipProvider.GetUser(String, Boolean)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.GetUser(String, Boolean)
+  fullName: ActiveDirectoryMembershipProvider.GetUser(String, Boolean)
   type: Method
   assemblies:
   - System.Web
@@ -1037,9 +986,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.GetUser(System.Object,System.Boolean)
   commentId: M:System.Web.Security.ActiveDirectoryMembershipProvider.GetUser(System.Object,System.Boolean)
   id: GetUser(System.Object,System.Boolean)
@@ -1048,7 +994,7 @@ items:
   - csharp
   name: GetUser(Object, Boolean)
   nameWithType: ActiveDirectoryMembershipProvider.GetUser(Object, Boolean)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.GetUser(Object, Boolean)
+  fullName: ActiveDirectoryMembershipProvider.GetUser(Object, Boolean)
   type: Method
   assemblies:
   - System.Web
@@ -1095,9 +1041,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.GetUserNameByEmail(System.String)
   commentId: M:System.Web.Security.ActiveDirectoryMembershipProvider.GetUserNameByEmail(System.String)
   id: GetUserNameByEmail(System.String)
@@ -1106,7 +1049,7 @@ items:
   - csharp
   name: GetUserNameByEmail(String)
   nameWithType: ActiveDirectoryMembershipProvider.GetUserNameByEmail(String)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.GetUserNameByEmail(String)
+  fullName: ActiveDirectoryMembershipProvider.GetUserNameByEmail(String)
   type: Method
   assemblies:
   - System.Web
@@ -1150,9 +1093,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)
   commentId: M:System.Web.Security.ActiveDirectoryMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)
   id: Initialize(System.String,System.Collections.Specialized.NameValueCollection)
@@ -1161,7 +1101,7 @@ items:
   - csharp
   name: Initialize(String, NameValueCollection)
   nameWithType: ActiveDirectoryMembershipProvider.Initialize(String, NameValueCollection)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.Initialize(String, NameValueCollection)
+  fullName: ActiveDirectoryMembershipProvider.Initialize(String, NameValueCollection)
   type: Method
   assemblies:
   - System.Web
@@ -1208,9 +1148,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.MaxInvalidPasswordAttempts
   commentId: P:System.Web.Security.ActiveDirectoryMembershipProvider.MaxInvalidPasswordAttempts
   id: MaxInvalidPasswordAttempts
@@ -1219,7 +1156,7 @@ items:
   - csharp
   name: MaxInvalidPasswordAttempts
   nameWithType: ActiveDirectoryMembershipProvider.MaxInvalidPasswordAttempts
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.MaxInvalidPasswordAttempts
+  fullName: ActiveDirectoryMembershipProvider.MaxInvalidPasswordAttempts
   type: Property
   assemblies:
   - System.Web
@@ -1255,9 +1192,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.MinRequiredNonAlphanumericCharacters
   commentId: P:System.Web.Security.ActiveDirectoryMembershipProvider.MinRequiredNonAlphanumericCharacters
   id: MinRequiredNonAlphanumericCharacters
@@ -1266,7 +1200,7 @@ items:
   - csharp
   name: MinRequiredNonAlphanumericCharacters
   nameWithType: ActiveDirectoryMembershipProvider.MinRequiredNonAlphanumericCharacters
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.MinRequiredNonAlphanumericCharacters
+  fullName: ActiveDirectoryMembershipProvider.MinRequiredNonAlphanumericCharacters
   type: Property
   assemblies:
   - System.Web
@@ -1302,9 +1236,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.MinRequiredPasswordLength
   commentId: P:System.Web.Security.ActiveDirectoryMembershipProvider.MinRequiredPasswordLength
   id: MinRequiredPasswordLength
@@ -1313,7 +1244,7 @@ items:
   - csharp
   name: MinRequiredPasswordLength
   nameWithType: ActiveDirectoryMembershipProvider.MinRequiredPasswordLength
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.MinRequiredPasswordLength
+  fullName: ActiveDirectoryMembershipProvider.MinRequiredPasswordLength
   type: Property
   assemblies:
   - System.Web
@@ -1349,9 +1280,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.PasswordAnswerAttemptLockoutDuration
   commentId: P:System.Web.Security.ActiveDirectoryMembershipProvider.PasswordAnswerAttemptLockoutDuration
   id: PasswordAnswerAttemptLockoutDuration
@@ -1360,7 +1288,7 @@ items:
   - csharp
   name: PasswordAnswerAttemptLockoutDuration
   nameWithType: ActiveDirectoryMembershipProvider.PasswordAnswerAttemptLockoutDuration
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.PasswordAnswerAttemptLockoutDuration
+  fullName: ActiveDirectoryMembershipProvider.PasswordAnswerAttemptLockoutDuration
   type: Property
   assemblies:
   - System.Web
@@ -1396,9 +1324,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.PasswordAttemptWindow
   commentId: P:System.Web.Security.ActiveDirectoryMembershipProvider.PasswordAttemptWindow
   id: PasswordAttemptWindow
@@ -1407,7 +1332,7 @@ items:
   - csharp
   name: PasswordAttemptWindow
   nameWithType: ActiveDirectoryMembershipProvider.PasswordAttemptWindow
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.PasswordAttemptWindow
+  fullName: ActiveDirectoryMembershipProvider.PasswordAttemptWindow
   type: Property
   assemblies:
   - System.Web
@@ -1443,9 +1368,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.PasswordFormat
   commentId: P:System.Web.Security.ActiveDirectoryMembershipProvider.PasswordFormat
   id: PasswordFormat
@@ -1454,7 +1376,7 @@ items:
   - csharp
   name: PasswordFormat
   nameWithType: ActiveDirectoryMembershipProvider.PasswordFormat
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.PasswordFormat
+  fullName: ActiveDirectoryMembershipProvider.PasswordFormat
   type: Property
   assemblies:
   - System.Web
@@ -1485,9 +1407,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.PasswordStrengthRegularExpression
   commentId: P:System.Web.Security.ActiveDirectoryMembershipProvider.PasswordStrengthRegularExpression
   id: PasswordStrengthRegularExpression
@@ -1496,7 +1415,7 @@ items:
   - csharp
   name: PasswordStrengthRegularExpression
   nameWithType: ActiveDirectoryMembershipProvider.PasswordStrengthRegularExpression
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.PasswordStrengthRegularExpression
+  fullName: ActiveDirectoryMembershipProvider.PasswordStrengthRegularExpression
   type: Property
   assemblies:
   - System.Web
@@ -1532,9 +1451,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.RequiresQuestionAndAnswer
   commentId: P:System.Web.Security.ActiveDirectoryMembershipProvider.RequiresQuestionAndAnswer
   id: RequiresQuestionAndAnswer
@@ -1543,7 +1459,7 @@ items:
   - csharp
   name: RequiresQuestionAndAnswer
   nameWithType: ActiveDirectoryMembershipProvider.RequiresQuestionAndAnswer
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.RequiresQuestionAndAnswer
+  fullName: ActiveDirectoryMembershipProvider.RequiresQuestionAndAnswer
   type: Property
   assemblies:
   - System.Web
@@ -1579,9 +1495,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.RequiresUniqueEmail
   commentId: P:System.Web.Security.ActiveDirectoryMembershipProvider.RequiresUniqueEmail
   id: RequiresUniqueEmail
@@ -1590,7 +1503,7 @@ items:
   - csharp
   name: RequiresUniqueEmail
   nameWithType: ActiveDirectoryMembershipProvider.RequiresUniqueEmail
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.RequiresUniqueEmail
+  fullName: ActiveDirectoryMembershipProvider.RequiresUniqueEmail
   type: Property
   assemblies:
   - System.Web
@@ -1626,9 +1539,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.ResetPassword(System.String,System.String)
   commentId: M:System.Web.Security.ActiveDirectoryMembershipProvider.ResetPassword(System.String,System.String)
   id: ResetPassword(System.String,System.String)
@@ -1637,13 +1547,13 @@ items:
   - csharp
   name: ResetPassword(String, String)
   nameWithType: ActiveDirectoryMembershipProvider.ResetPassword(String, String)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.ResetPassword(String, String)
+  fullName: ActiveDirectoryMembershipProvider.ResetPassword(String, String)
   type: Method
   assemblies:
   - System.Web
   namespace: System.Web.Security
   summary: Resets a user's password to a new, automatically generated password.
-  remarks: "The method is called by the <xref:System.Web.Security.Membership> class to reset the password for a user in the Active Directory data store to a new randomly generated value. The new password is returned.  \n  \n> [!NOTE]\n>  The random password created by the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.ResetPassword%2A> method is not guaranteed to pass the regular expression in the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.PasswordStrengthRegularExpression%2A> property. However, the random password will meet the criteria established by the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.MinRequiredPasswordLength%2A> and <xref:System.Web.Security.ActiveDirectoryMembershipProvider.MinRequiredNonAlphanumericCharacters%2A> properties.  \n  \n If an incorrect answer is supplied to the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.ResetPassword%2A> method, the internal counter that tracks invalid password-answer attempts is incremented by one. This can result in the user being unable to log on until the lock status is cleared by a call to the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.UnlockUser%2A> method. If the correct password answer is supplied and the user is not currently locked out, then the internal counter that tracks invalid password attempts is reset to zero. For more information, see the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.MaxInvalidPasswordAttempts%2A> and <xref:System.Web.Security.ActiveDirectoryMembershipProvider.PasswordAttemptWindow%2A> properties.  \n  \n Leading and trailing spaces are trimmed from all parameter values.  \n  \n You can call the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.ResetPassword%2A> method directly by first obtaining a reference to the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance from the <xref:System.Web.Security.Membership.Provider%2A?displayProperty=fullName> property.  \n  \n The provider uses a subtree search starting at the search point specified in the connection string. See the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class topic for more information about connection strings.  \n  \n To set passwords on an Active Directory server, the `connectionProtection` attribute must be set to <xref:System.Web.Security.ActiveDirectoryConnectionProtection>.  \n  \n When using an ADAM server, the `connectionProtection` attribute can be set to <xref:System.Web.Security.ActiveDirectoryConnectionProtection>, but only if you explicitly configure the ADAM server to allow password changes over unsecured connections.  \n  \n> [!IMPORTANT]\n>  You cannot reset passwords unless the credentials used to connect to the Active Directory server have either Domain Administrator rights (not recommended) or the \"reset password\" access right.  \n  \n To reset a password, all of the following conditions must be true:  \n  \n-   The <xref:System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset%2A> property must be set to `true`.  \n  \n-   The Active Directory schema must be modified to contain attributes for storing the password question and answer, and the three tracking fields for password answer changes.  \n  \n-   The `attributeMapPasswordQuestion`, `attributeMapPasswordAnswer`, `attributMapFailedPasswordAnswerCount`, `attributeMapFailedPasswordAnswerTime`, and `attributeMapFailedPasswordAnswerLockedTime` attributes must be set in the application configuration file.  \n  \n-   The <xref:System.Web.Security.ActiveDirectoryMembershipProvider.RequiresQuestionAndAnswer%2A> property must be set to `true`.  \n  \n-   The security context for connecting to the Active Directory data store (either the process account or the explicit credentials) must have sufficient privileges to change passwords. The credentials used to connect to the Active Directory server have either Domain Administrator rights (not recommended) or the \"reset password\" access right.  \n  \n> [!NOTE]\n>  Security policies set on the Active Directory server may make it impossible for the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.ResetPassword%2A> method to generate a password that satisfies the policies. The default implementation of the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.GeneratePassword%2A> method will generate passwords that satisfy the default password policies on domain controllers running Windows Server 2003 SP1. If the password cannot be reset due to security policies on the Active Directory server, a <xref:System.Configuration.Provider.ProviderException> is thrown."
+  remarks: "The method is called by the <xref:System.Web.Security.Membership> class to reset the password for a user in the Active Directory data store to a new randomly generated value. The new password is returned.  \n  \n> [!NOTE]\n>  The random password created by the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.ResetPassword%2A> method is not guaranteed to pass the regular expression in the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.PasswordStrengthRegularExpression%2A> property. However, the random password will meet the criteria established by the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.MinRequiredPasswordLength%2A> and <xref:System.Web.Security.ActiveDirectoryMembershipProvider.MinRequiredNonAlphanumericCharacters%2A> properties.  \n  \n If an incorrect answer is supplied to the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.ResetPassword%2A> method, the internal counter that tracks invalid password-answer attempts is incremented by one. This can result in the user being unable to log on until the lock status is cleared by a call to the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.UnlockUser%2A> method. If the correct password answer is supplied and the user is not currently locked out, then the internal counter that tracks invalid password attempts is reset to zero. For more information, see the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.MaxInvalidPasswordAttempts%2A> and <xref:System.Web.Security.ActiveDirectoryMembershipProvider.PasswordAttemptWindow%2A> properties.  \n  \n Leading and trailing spaces are trimmed from all parameter values.  \n  \n You can call the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.ResetPassword%2A> method directly by first obtaining a reference to the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance from the <xref:System.Web.Security.Membership.Provider%2A?displayProperty=fullName> property.  \n  \n The provider uses a subtree search starting at the search point specified in the connection string. See the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class topic for more information about connection strings.  \n  \n To set passwords on an Active Directory server, the `connectionProtection` attribute must be set to <xref:System.Web.Security.ActiveDirectoryConnectionProtection.SignAndSeal>.  \n  \n When using an ADAM server, the `connectionProtection` attribute can be set to <xref:System.Web.Security.ActiveDirectoryConnectionProtection.None>, but only if you explicitly configure the ADAM server to allow password changes over unsecured connections.  \n  \n> [!IMPORTANT]\n>  You cannot reset passwords unless the credentials used to connect to the Active Directory server have either Domain Administrator rights (not recommended) or the \"reset password\" access right.  \n  \n To reset a password, all of the following conditions must be true:  \n  \n-   The <xref:System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset%2A> property must be set to `true`.  \n  \n-   The Active Directory schema must be modified to contain attributes for storing the password question and answer, and the three tracking fields for password answer changes.  \n  \n-   The `attributeMapPasswordQuestion`, `attributeMapPasswordAnswer`, `attributMapFailedPasswordAnswerCount`, `attributeMapFailedPasswordAnswerTime`, and `attributeMapFailedPasswordAnswerLockedTime` attributes must be set in the application configuration file.  \n  \n-   The <xref:System.Web.Security.ActiveDirectoryMembershipProvider.RequiresQuestionAndAnswer%2A> property must be set to `true`.  \n  \n-   The security context for connecting to the Active Directory data store (either the process account or the explicit credentials) must have sufficient privileges to change passwords. The credentials used to connect to the Active Directory server have either Domain Administrator rights (not recommended) or the \"reset password\" access right.  \n  \n> [!NOTE]\n>  Security policies set on the Active Directory server may make it impossible for the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.ResetPassword%2A> method to generate a password that satisfies the policies. The default implementation of the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.GeneratePassword%2A> method will generate passwords that satisfy the default password policies on domain controllers running Windows Server 2003 SP1. If the password cannot be reset due to security policies on the Active Directory server, a <xref:System.Configuration.Provider.ProviderException> is thrown."
   syntax:
     content: public override string ResetPassword (string username, string passwordAnswer);
     parameters:
@@ -1696,9 +1606,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.UnlockUser(System.String)
   commentId: M:System.Web.Security.ActiveDirectoryMembershipProvider.UnlockUser(System.String)
   id: UnlockUser(System.String)
@@ -1707,7 +1614,7 @@ items:
   - csharp
   name: UnlockUser(String)
   nameWithType: ActiveDirectoryMembershipProvider.UnlockUser(String)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.UnlockUser(String)
+  fullName: ActiveDirectoryMembershipProvider.UnlockUser(String)
   type: Method
   assemblies:
   - System.Web
@@ -1751,9 +1658,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.UpdateUser(System.Web.Security.MembershipUser)
   commentId: M:System.Web.Security.ActiveDirectoryMembershipProvider.UpdateUser(System.Web.Security.MembershipUser)
   id: UpdateUser(System.Web.Security.MembershipUser)
@@ -1762,7 +1666,7 @@ items:
   - csharp
   name: UpdateUser(MembershipUser)
   nameWithType: ActiveDirectoryMembershipProvider.UpdateUser(MembershipUser)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.UpdateUser(MembershipUser)
+  fullName: ActiveDirectoryMembershipProvider.UpdateUser(MembershipUser)
   type: Method
   assemblies:
   - System.Web
@@ -1806,9 +1710,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.ValidateUser(System.String,System.String)
   commentId: M:System.Web.Security.ActiveDirectoryMembershipProvider.ValidateUser(System.String,System.String)
   id: ValidateUser(System.String,System.String)
@@ -1817,13 +1718,13 @@ items:
   - csharp
   name: ValidateUser(String, String)
   nameWithType: ActiveDirectoryMembershipProvider.ValidateUser(String, String)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.ValidateUser(String, String)
+  fullName: ActiveDirectoryMembershipProvider.ValidateUser(String, String)
   type: Method
   assemblies:
   - System.Web
   namespace: System.Web.Security
   summary: Verifies that the specified user name and password exist in the Active Directory data store.
-  remarks: "This method is called by the <xref:System.Web.Security.Membership> class to validate user credentials against the Active Directory data store.  \n  \n If the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset%2A> property is `true` and the supplied credentials are valid, the user's tracking counters for bad password answers are reset.  \n  \n The <xref:System.Web.Security.ActiveDirectoryMembershipProvider.ValidateUser%2A> method may return `false` when the correct credentials are supplied, under the following circumstances:  \n  \n1.  The user account was locked out by the directory server because of too many failed logon attempts. The user will not be able to log on until the directory's lockout duration passes.  \n  \n2.  If the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset%2A> property is `true`, the user account will be locked if the user supplied a bad password answer too many times. The user's account will unlock after the time specified in the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.PasswordAnswerAttemptLockoutDuration%2A> property has passed.  \n  \n3.  The user must exist in the container specified in the connection string. Valid credentials are supplied for a user account located in a different container or in a different domain. The user must exist in the container specified in the connection string.  \n  \n When validating a user, the provider validates the credentials by connecting to the Active Directory data store using the specified user name and password, not the credentials configured in the application configuration file.  \n  \n However, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance will connect to the directory using the configured credentials for the following reasons.  \n  \n-   To confirm that a user exists within the search scope as determined by the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance's connection string. The provider uses a subtree search starting at the search point specified in the connection string to determine whether a user exists. The user must exist in the specified container. Credentials that are valid outside the connection string's specified container will not be validated. See the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class topic for more information about connection strings.  \n  \n-   If the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset%2A> property is `true`, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance will use the configured credentials to load the user instance to check whether the user has been locked out because he or she has made too many failed attempts to change the password answer.  \n  \n> [!IMPORTANT]\n>  Connecting to an Active Directory domain controller with the \"Guest\" account enabled is a potential security threat. All validation attempts made on an Active Directory domain controller with the \"Guest\" account enabled will succeed. To improve security when using an Active Directory domain controller, you should disable the \"Guest\" account on the domain controller.  \n  \n The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance will attempt a concurrent bind against Active Directory when one of the following conditions is met:  \n  \n-   The <xref:System.Web.Security.ActiveDirectoryMembershipProvider.CurrentConnectionProtection%2A> property is set to <xref:System.Web.Security.ActiveDirectoryConnectionProtection>.  \n  \n-   The <xref:System.Web.Security.ActiveDirectoryMembershipProvider.CurrentConnectionProtection%2A> property is set to <xref:System.Web.Security.ActiveDirectoryConnectionProtection> and SSL is chosen by the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance to secure the connection.  \n  \n In addition, for a concurrent bind to be made, the following conditions must be true:  \n  \n-   The directory server must be running on Windows Server 2003.  \n  \n-   The operating system of the Web server running the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance must support concurrent binds (for example, Windows Server 2003).  \n  \n When a concurrent bind is used, the last logon date for the user is not updated in the directory; therefore, the <xref:System.Web.Security.ActiveDirectoryMembershipUser.LastLoginDate%2A> property cannot be relied on.  \n  \n Leading and trailing spaces are trimmed from the `username` parameter."
+  remarks: "This method is called by the <xref:System.Web.Security.Membership> class to validate user credentials against the Active Directory data store.  \n  \n If the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset%2A> property is `true` and the supplied credentials are valid, the user's tracking counters for bad password answers are reset.  \n  \n The <xref:System.Web.Security.ActiveDirectoryMembershipProvider.ValidateUser%2A> method may return `false` when the correct credentials are supplied, under the following circumstances:  \n  \n1.  The user account was locked out by the directory server because of too many failed logon attempts. The user will not be able to log on until the directory's lockout duration passes.  \n  \n2.  If the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset%2A> property is `true`, the user account will be locked if the user supplied a bad password answer too many times. The user's account will unlock after the time specified in the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.PasswordAnswerAttemptLockoutDuration%2A> property has passed.  \n  \n3.  The user must exist in the container specified in the connection string. Valid credentials are supplied for a user account located in a different container or in a different domain. The user must exist in the container specified in the connection string.  \n  \n When validating a user, the provider validates the credentials by connecting to the Active Directory data store using the specified user name and password, not the credentials configured in the application configuration file.  \n  \n However, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance will connect to the directory using the configured credentials for the following reasons.  \n  \n-   To confirm that a user exists within the search scope as determined by the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance's connection string. The provider uses a subtree search starting at the search point specified in the connection string to determine whether a user exists. The user must exist in the specified container. Credentials that are valid outside the connection string's specified container will not be validated. See the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> class topic for more information about connection strings.  \n  \n-   If the <xref:System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset%2A> property is `true`, the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance will use the configured credentials to load the user instance to check whether the user has been locked out because he or she has made too many failed attempts to change the password answer.  \n  \n> [!IMPORTANT]\n>  Connecting to an Active Directory domain controller with the \"Guest\" account enabled is a potential security threat. All validation attempts made on an Active Directory domain controller with the \"Guest\" account enabled will succeed. To improve security when using an Active Directory domain controller, you should disable the \"Guest\" account on the domain controller.  \n  \n The <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance will attempt a concurrent bind against Active Directory when one of the following conditions is met:  \n  \n-   The <xref:System.Web.Security.ActiveDirectoryMembershipProvider.CurrentConnectionProtection%2A> property is set to <xref:System.Web.Security.ActiveDirectoryConnectionProtection.None>.  \n  \n-   The <xref:System.Web.Security.ActiveDirectoryMembershipProvider.CurrentConnectionProtection%2A> property is set to <xref:System.Web.Security.ActiveDirectoryConnectionProtection.SignAndSeal> and SSL is chosen by the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance to secure the connection.  \n  \n In addition, for a concurrent bind to be made, the following conditions must be true:  \n  \n-   The directory server must be running on Windows Server 2003.  \n  \n-   The operating system of the Web server running the <xref:System.Web.Security.ActiveDirectoryMembershipProvider> instance must support concurrent binds (for example, Windows Server 2003).  \n  \n When a concurrent bind is used, the last logon date for the user is not updated in the directory; therefore, the <xref:System.Web.Security.ActiveDirectoryMembershipUser.LastLoginDate%2A> property cannot be relied on.  \n  \n Leading and trailing spaces are trimmed from the `username` parameter."
   syntax:
     content: public override bool ValidateUser (string username, string password);
     parameters:
@@ -1858,9 +1759,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/ActiveDirectoryMembershipProvider.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 references:
 - uid: System.Web.Security.MembershipProvider
   parent: System.Web.Security
@@ -1927,13 +1825,13 @@ references:
   isExternal: false
   name: ActiveDirectoryMembershipProvider()
   nameWithType: ActiveDirectoryMembershipProvider.ActiveDirectoryMembershipProvider()
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.ActiveDirectoryMembershipProvider()
+  fullName: ActiveDirectoryMembershipProvider.ActiveDirectoryMembershipProvider()
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.ApplicationName
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: ApplicationName
   nameWithType: ActiveDirectoryMembershipProvider.ApplicationName
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.ApplicationName
+  fullName: ActiveDirectoryMembershipProvider.ApplicationName
 - uid: System.String
   parent: System
   isExternal: false
@@ -1945,7 +1843,7 @@ references:
   isExternal: false
   name: ChangePassword(String, String, String)
   nameWithType: ActiveDirectoryMembershipProvider.ChangePassword(String, String, String)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.ChangePassword(String, String, String)
+  fullName: ActiveDirectoryMembershipProvider.ChangePassword(String, String, String)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -1957,13 +1855,13 @@ references:
   isExternal: false
   name: ChangePasswordQuestionAndAnswer(String, String, String, String)
   nameWithType: ActiveDirectoryMembershipProvider.ChangePasswordQuestionAndAnswer(String, String, String, String)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.ChangePasswordQuestionAndAnswer(String, String, String, String)
+  fullName: ActiveDirectoryMembershipProvider.ChangePasswordQuestionAndAnswer(String, String, String, String)
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.CreateUser(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Object,System.Web.Security.MembershipCreateStatus@)
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: CreateUser(String, String, String, String, String, Boolean, Object, MembershipCreateStatus)
   nameWithType: ActiveDirectoryMembershipProvider.CreateUser(String, String, String, String, String, Boolean, Object, MembershipCreateStatus)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.CreateUser(String, String, String, String, String, Boolean, Object, MembershipCreateStatus)
+  fullName: ActiveDirectoryMembershipProvider.CreateUser(String, String, String, String, String, Boolean, Object, MembershipCreateStatus)
 - uid: System.Web.Security.MembershipUser
   parent: System.Web.Security
   isExternal: false
@@ -1987,7 +1885,7 @@ references:
   isExternal: false
   name: CurrentConnectionProtection
   nameWithType: ActiveDirectoryMembershipProvider.CurrentConnectionProtection
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.CurrentConnectionProtection
+  fullName: ActiveDirectoryMembershipProvider.CurrentConnectionProtection
 - uid: System.Web.Security.ActiveDirectoryConnectionProtection
   parent: System.Web.Security
   isExternal: false
@@ -1999,31 +1897,31 @@ references:
   isExternal: false
   name: DeleteUser(String, Boolean)
   nameWithType: ActiveDirectoryMembershipProvider.DeleteUser(String, Boolean)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.DeleteUser(String, Boolean)
+  fullName: ActiveDirectoryMembershipProvider.DeleteUser(String, Boolean)
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: EnablePasswordReset
   nameWithType: ActiveDirectoryMembershipProvider.EnablePasswordReset
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset
+  fullName: ActiveDirectoryMembershipProvider.EnablePasswordReset
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordRetrieval
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: EnablePasswordRetrieval
   nameWithType: ActiveDirectoryMembershipProvider.EnablePasswordRetrieval
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordRetrieval
+  fullName: ActiveDirectoryMembershipProvider.EnablePasswordRetrieval
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.EnableSearchMethods
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: EnableSearchMethods
   nameWithType: ActiveDirectoryMembershipProvider.EnableSearchMethods
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.EnableSearchMethods
+  fullName: ActiveDirectoryMembershipProvider.EnableSearchMethods
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.FindUsersByEmail(System.String,System.Int32,System.Int32,System.Int32@)
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: FindUsersByEmail(String, Int32, Int32, Int32)
   nameWithType: ActiveDirectoryMembershipProvider.FindUsersByEmail(String, Int32, Int32, Int32)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.FindUsersByEmail(String, Int32, Int32, Int32)
+  fullName: ActiveDirectoryMembershipProvider.FindUsersByEmail(String, Int32, Int32, Int32)
 - uid: System.Web.Security.MembershipUserCollection
   parent: System.Web.Security
   isExternal: false
@@ -2041,55 +1939,55 @@ references:
   isExternal: false
   name: FindUsersByName(String, Int32, Int32, Int32)
   nameWithType: ActiveDirectoryMembershipProvider.FindUsersByName(String, Int32, Int32, Int32)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.FindUsersByName(String, Int32, Int32, Int32)
+  fullName: ActiveDirectoryMembershipProvider.FindUsersByName(String, Int32, Int32, Int32)
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.GeneratePassword
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: GeneratePassword()
   nameWithType: ActiveDirectoryMembershipProvider.GeneratePassword()
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.GeneratePassword()
+  fullName: ActiveDirectoryMembershipProvider.GeneratePassword()
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.GetAllUsers(System.Int32,System.Int32,System.Int32@)
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: GetAllUsers(Int32, Int32, Int32)
   nameWithType: ActiveDirectoryMembershipProvider.GetAllUsers(Int32, Int32, Int32)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.GetAllUsers(Int32, Int32, Int32)
+  fullName: ActiveDirectoryMembershipProvider.GetAllUsers(Int32, Int32, Int32)
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.GetNumberOfUsersOnline
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: GetNumberOfUsersOnline()
   nameWithType: ActiveDirectoryMembershipProvider.GetNumberOfUsersOnline()
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.GetNumberOfUsersOnline()
+  fullName: ActiveDirectoryMembershipProvider.GetNumberOfUsersOnline()
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.GetPassword(System.String,System.String)
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: GetPassword(String, String)
   nameWithType: ActiveDirectoryMembershipProvider.GetPassword(String, String)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.GetPassword(String, String)
+  fullName: ActiveDirectoryMembershipProvider.GetPassword(String, String)
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.GetUser(System.String,System.Boolean)
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: GetUser(String, Boolean)
   nameWithType: ActiveDirectoryMembershipProvider.GetUser(String, Boolean)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.GetUser(String, Boolean)
+  fullName: ActiveDirectoryMembershipProvider.GetUser(String, Boolean)
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.GetUser(System.Object,System.Boolean)
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: GetUser(Object, Boolean)
   nameWithType: ActiveDirectoryMembershipProvider.GetUser(Object, Boolean)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.GetUser(Object, Boolean)
+  fullName: ActiveDirectoryMembershipProvider.GetUser(Object, Boolean)
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.GetUserNameByEmail(System.String)
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: GetUserNameByEmail(String)
   nameWithType: ActiveDirectoryMembershipProvider.GetUserNameByEmail(String)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.GetUserNameByEmail(String)
+  fullName: ActiveDirectoryMembershipProvider.GetUserNameByEmail(String)
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: Initialize(String, NameValueCollection)
   nameWithType: ActiveDirectoryMembershipProvider.Initialize(String, NameValueCollection)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.Initialize(String, NameValueCollection)
+  fullName: ActiveDirectoryMembershipProvider.Initialize(String, NameValueCollection)
 - uid: System.Collections.Specialized.NameValueCollection
   parent: System.Collections.Specialized
   isExternal: false
@@ -2101,37 +1999,37 @@ references:
   isExternal: false
   name: MaxInvalidPasswordAttempts
   nameWithType: ActiveDirectoryMembershipProvider.MaxInvalidPasswordAttempts
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.MaxInvalidPasswordAttempts
+  fullName: ActiveDirectoryMembershipProvider.MaxInvalidPasswordAttempts
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.MinRequiredNonAlphanumericCharacters
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: MinRequiredNonAlphanumericCharacters
   nameWithType: ActiveDirectoryMembershipProvider.MinRequiredNonAlphanumericCharacters
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.MinRequiredNonAlphanumericCharacters
+  fullName: ActiveDirectoryMembershipProvider.MinRequiredNonAlphanumericCharacters
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.MinRequiredPasswordLength
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: MinRequiredPasswordLength
   nameWithType: ActiveDirectoryMembershipProvider.MinRequiredPasswordLength
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.MinRequiredPasswordLength
+  fullName: ActiveDirectoryMembershipProvider.MinRequiredPasswordLength
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.PasswordAnswerAttemptLockoutDuration
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: PasswordAnswerAttemptLockoutDuration
   nameWithType: ActiveDirectoryMembershipProvider.PasswordAnswerAttemptLockoutDuration
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.PasswordAnswerAttemptLockoutDuration
+  fullName: ActiveDirectoryMembershipProvider.PasswordAnswerAttemptLockoutDuration
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.PasswordAttemptWindow
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: PasswordAttemptWindow
   nameWithType: ActiveDirectoryMembershipProvider.PasswordAttemptWindow
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.PasswordAttemptWindow
+  fullName: ActiveDirectoryMembershipProvider.PasswordAttemptWindow
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.PasswordFormat
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: PasswordFormat
   nameWithType: ActiveDirectoryMembershipProvider.PasswordFormat
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.PasswordFormat
+  fullName: ActiveDirectoryMembershipProvider.PasswordFormat
 - uid: System.Web.Security.MembershipPasswordFormat
   parent: System.Web.Security
   isExternal: false
@@ -2143,49 +2041,49 @@ references:
   isExternal: false
   name: PasswordStrengthRegularExpression
   nameWithType: ActiveDirectoryMembershipProvider.PasswordStrengthRegularExpression
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.PasswordStrengthRegularExpression
+  fullName: ActiveDirectoryMembershipProvider.PasswordStrengthRegularExpression
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.RequiresQuestionAndAnswer
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: RequiresQuestionAndAnswer
   nameWithType: ActiveDirectoryMembershipProvider.RequiresQuestionAndAnswer
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.RequiresQuestionAndAnswer
+  fullName: ActiveDirectoryMembershipProvider.RequiresQuestionAndAnswer
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.RequiresUniqueEmail
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: RequiresUniqueEmail
   nameWithType: ActiveDirectoryMembershipProvider.RequiresUniqueEmail
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.RequiresUniqueEmail
+  fullName: ActiveDirectoryMembershipProvider.RequiresUniqueEmail
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.ResetPassword(System.String,System.String)
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: ResetPassword(String, String)
   nameWithType: ActiveDirectoryMembershipProvider.ResetPassword(String, String)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.ResetPassword(String, String)
+  fullName: ActiveDirectoryMembershipProvider.ResetPassword(String, String)
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.UnlockUser(System.String)
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: UnlockUser(String)
   nameWithType: ActiveDirectoryMembershipProvider.UnlockUser(String)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.UnlockUser(String)
+  fullName: ActiveDirectoryMembershipProvider.UnlockUser(String)
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.UpdateUser(System.Web.Security.MembershipUser)
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: UpdateUser(MembershipUser)
   nameWithType: ActiveDirectoryMembershipProvider.UpdateUser(MembershipUser)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.UpdateUser(MembershipUser)
+  fullName: ActiveDirectoryMembershipProvider.UpdateUser(MembershipUser)
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.ValidateUser(System.String,System.String)
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: ValidateUser(String, String)
   nameWithType: ActiveDirectoryMembershipProvider.ValidateUser(String, String)
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.ValidateUser(String, String)
+  fullName: ActiveDirectoryMembershipProvider.ValidateUser(String, String)
 - uid: System.Web.Security.ActiveDirectoryMembershipProvider.#ctor*
   parent: System.Web.Security.ActiveDirectoryMembershipProvider
   isExternal: false
   name: ActiveDirectoryMembershipProvider
   nameWithType: ActiveDirectoryMembershipProvider.ActiveDirectoryMembershipProvider
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.ActiveDirectoryMembershipProvider
+  fullName: ActiveDirectoryMembershipProvider.ActiveDirectoryMembershipProvider
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2200,7 +2098,7 @@ references:
   isExternal: false
   name: ApplicationName
   nameWithType: ActiveDirectoryMembershipProvider.ApplicationName
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.ApplicationName
+  fullName: ActiveDirectoryMembershipProvider.ApplicationName
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2215,7 +2113,7 @@ references:
   isExternal: false
   name: ChangePassword
   nameWithType: ActiveDirectoryMembershipProvider.ChangePassword
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.ChangePassword
+  fullName: ActiveDirectoryMembershipProvider.ChangePassword
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2230,7 +2128,7 @@ references:
   isExternal: false
   name: ChangePasswordQuestionAndAnswer
   nameWithType: ActiveDirectoryMembershipProvider.ChangePasswordQuestionAndAnswer
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.ChangePasswordQuestionAndAnswer
+  fullName: ActiveDirectoryMembershipProvider.ChangePasswordQuestionAndAnswer
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2245,7 +2143,7 @@ references:
   isExternal: false
   name: CreateUser
   nameWithType: ActiveDirectoryMembershipProvider.CreateUser
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.CreateUser
+  fullName: ActiveDirectoryMembershipProvider.CreateUser
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2260,7 +2158,7 @@ references:
   isExternal: false
   name: CurrentConnectionProtection
   nameWithType: ActiveDirectoryMembershipProvider.CurrentConnectionProtection
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.CurrentConnectionProtection
+  fullName: ActiveDirectoryMembershipProvider.CurrentConnectionProtection
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2275,7 +2173,7 @@ references:
   isExternal: false
   name: DeleteUser
   nameWithType: ActiveDirectoryMembershipProvider.DeleteUser
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.DeleteUser
+  fullName: ActiveDirectoryMembershipProvider.DeleteUser
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2290,7 +2188,7 @@ references:
   isExternal: false
   name: EnablePasswordReset
   nameWithType: ActiveDirectoryMembershipProvider.EnablePasswordReset
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordReset
+  fullName: ActiveDirectoryMembershipProvider.EnablePasswordReset
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2305,7 +2203,7 @@ references:
   isExternal: false
   name: EnablePasswordRetrieval
   nameWithType: ActiveDirectoryMembershipProvider.EnablePasswordRetrieval
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.EnablePasswordRetrieval
+  fullName: ActiveDirectoryMembershipProvider.EnablePasswordRetrieval
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2320,7 +2218,7 @@ references:
   isExternal: false
   name: EnableSearchMethods
   nameWithType: ActiveDirectoryMembershipProvider.EnableSearchMethods
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.EnableSearchMethods
+  fullName: ActiveDirectoryMembershipProvider.EnableSearchMethods
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2335,7 +2233,7 @@ references:
   isExternal: false
   name: FindUsersByEmail
   nameWithType: ActiveDirectoryMembershipProvider.FindUsersByEmail
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.FindUsersByEmail
+  fullName: ActiveDirectoryMembershipProvider.FindUsersByEmail
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2350,7 +2248,7 @@ references:
   isExternal: false
   name: FindUsersByName
   nameWithType: ActiveDirectoryMembershipProvider.FindUsersByName
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.FindUsersByName
+  fullName: ActiveDirectoryMembershipProvider.FindUsersByName
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2365,7 +2263,7 @@ references:
   isExternal: false
   name: GeneratePassword
   nameWithType: ActiveDirectoryMembershipProvider.GeneratePassword
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.GeneratePassword
+  fullName: ActiveDirectoryMembershipProvider.GeneratePassword
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2380,7 +2278,7 @@ references:
   isExternal: false
   name: GetAllUsers
   nameWithType: ActiveDirectoryMembershipProvider.GetAllUsers
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.GetAllUsers
+  fullName: ActiveDirectoryMembershipProvider.GetAllUsers
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2395,7 +2293,7 @@ references:
   isExternal: false
   name: GetNumberOfUsersOnline
   nameWithType: ActiveDirectoryMembershipProvider.GetNumberOfUsersOnline
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.GetNumberOfUsersOnline
+  fullName: ActiveDirectoryMembershipProvider.GetNumberOfUsersOnline
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2410,7 +2308,7 @@ references:
   isExternal: false
   name: GetPassword
   nameWithType: ActiveDirectoryMembershipProvider.GetPassword
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.GetPassword
+  fullName: ActiveDirectoryMembershipProvider.GetPassword
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2425,7 +2323,7 @@ references:
   isExternal: false
   name: GetUser
   nameWithType: ActiveDirectoryMembershipProvider.GetUser
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.GetUser
+  fullName: ActiveDirectoryMembershipProvider.GetUser
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2440,7 +2338,7 @@ references:
   isExternal: false
   name: GetUserNameByEmail
   nameWithType: ActiveDirectoryMembershipProvider.GetUserNameByEmail
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.GetUserNameByEmail
+  fullName: ActiveDirectoryMembershipProvider.GetUserNameByEmail
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2455,7 +2353,7 @@ references:
   isExternal: false
   name: Initialize
   nameWithType: ActiveDirectoryMembershipProvider.Initialize
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.Initialize
+  fullName: ActiveDirectoryMembershipProvider.Initialize
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2470,7 +2368,7 @@ references:
   isExternal: false
   name: MaxInvalidPasswordAttempts
   nameWithType: ActiveDirectoryMembershipProvider.MaxInvalidPasswordAttempts
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.MaxInvalidPasswordAttempts
+  fullName: ActiveDirectoryMembershipProvider.MaxInvalidPasswordAttempts
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2485,7 +2383,7 @@ references:
   isExternal: false
   name: MinRequiredNonAlphanumericCharacters
   nameWithType: ActiveDirectoryMembershipProvider.MinRequiredNonAlphanumericCharacters
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.MinRequiredNonAlphanumericCharacters
+  fullName: ActiveDirectoryMembershipProvider.MinRequiredNonAlphanumericCharacters
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2500,7 +2398,7 @@ references:
   isExternal: false
   name: MinRequiredPasswordLength
   nameWithType: ActiveDirectoryMembershipProvider.MinRequiredPasswordLength
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.MinRequiredPasswordLength
+  fullName: ActiveDirectoryMembershipProvider.MinRequiredPasswordLength
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2515,7 +2413,7 @@ references:
   isExternal: false
   name: PasswordAnswerAttemptLockoutDuration
   nameWithType: ActiveDirectoryMembershipProvider.PasswordAnswerAttemptLockoutDuration
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.PasswordAnswerAttemptLockoutDuration
+  fullName: ActiveDirectoryMembershipProvider.PasswordAnswerAttemptLockoutDuration
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2530,7 +2428,7 @@ references:
   isExternal: false
   name: PasswordAttemptWindow
   nameWithType: ActiveDirectoryMembershipProvider.PasswordAttemptWindow
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.PasswordAttemptWindow
+  fullName: ActiveDirectoryMembershipProvider.PasswordAttemptWindow
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2545,7 +2443,7 @@ references:
   isExternal: false
   name: PasswordFormat
   nameWithType: ActiveDirectoryMembershipProvider.PasswordFormat
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.PasswordFormat
+  fullName: ActiveDirectoryMembershipProvider.PasswordFormat
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2560,7 +2458,7 @@ references:
   isExternal: false
   name: PasswordStrengthRegularExpression
   nameWithType: ActiveDirectoryMembershipProvider.PasswordStrengthRegularExpression
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.PasswordStrengthRegularExpression
+  fullName: ActiveDirectoryMembershipProvider.PasswordStrengthRegularExpression
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2575,7 +2473,7 @@ references:
   isExternal: false
   name: RequiresQuestionAndAnswer
   nameWithType: ActiveDirectoryMembershipProvider.RequiresQuestionAndAnswer
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.RequiresQuestionAndAnswer
+  fullName: ActiveDirectoryMembershipProvider.RequiresQuestionAndAnswer
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2590,7 +2488,7 @@ references:
   isExternal: false
   name: RequiresUniqueEmail
   nameWithType: ActiveDirectoryMembershipProvider.RequiresUniqueEmail
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.RequiresUniqueEmail
+  fullName: ActiveDirectoryMembershipProvider.RequiresUniqueEmail
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2605,7 +2503,7 @@ references:
   isExternal: false
   name: ResetPassword
   nameWithType: ActiveDirectoryMembershipProvider.ResetPassword
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.ResetPassword
+  fullName: ActiveDirectoryMembershipProvider.ResetPassword
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2620,7 +2518,7 @@ references:
   isExternal: false
   name: UnlockUser
   nameWithType: ActiveDirectoryMembershipProvider.UnlockUser
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.UnlockUser
+  fullName: ActiveDirectoryMembershipProvider.UnlockUser
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2635,7 +2533,7 @@ references:
   isExternal: false
   name: UpdateUser
   nameWithType: ActiveDirectoryMembershipProvider.UpdateUser
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.UpdateUser
+  fullName: ActiveDirectoryMembershipProvider.UpdateUser
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2650,7 +2548,7 @@ references:
   isExternal: false
   name: ValidateUser
   nameWithType: ActiveDirectoryMembershipProvider.ValidateUser
-  fullName: System.Web.Security.ActiveDirectoryMembershipProvider.ValidateUser
+  fullName: ActiveDirectoryMembershipProvider.ValidateUser
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

@@ -54,8 +54,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Speech.Recognition/RecognizedWordUnit.xml
-  ms.author: kbridge
-  manager: ghogen
 - uid: System.Speech.Recognition.RecognizedWordUnit.#ctor(System.String,System.Single,System.String,System.String,System.Speech.Recognition.DisplayAttributes,System.TimeSpan,System.TimeSpan)
   commentId: M:System.Speech.Recognition.RecognizedWordUnit.#ctor(System.String,System.Single,System.String,System.String,System.Speech.Recognition.DisplayAttributes,System.TimeSpan,System.TimeSpan)
   id: '#ctor(System.String,System.Single,System.String,System.String,System.Speech.Recognition.DisplayAttributes,System.TimeSpan,System.TimeSpan)'
@@ -64,13 +62,13 @@ items:
   - csharp
   name: RecognizedWordUnit(String, Single, String, String, DisplayAttributes, TimeSpan, TimeSpan)
   nameWithType: RecognizedWordUnit.RecognizedWordUnit(String, Single, String, String, DisplayAttributes, TimeSpan, TimeSpan)
-  fullName: System.Speech.Recognition.RecognizedWordUnit.RecognizedWordUnit(String, Single, String, String, DisplayAttributes, TimeSpan, TimeSpan)
+  fullName: RecognizedWordUnit.RecognizedWordUnit(String, Single, String, String, DisplayAttributes, TimeSpan, TimeSpan)
   type: Constructor
   assemblies:
   - System.Speech
   namespace: System.Speech.Recognition
   summary: Initializes a new instance of the <xref href="System.Speech.Recognition.RecognizedWordUnit"></xref> class.
-  remarks: "If `text` or `pronunciation` are `null`, \"\", or <xref:System.String> and the <xref:System.Speech.Recognition.RecognizedWordUnit> is used in a recognition operation, the recognition engine will generate appropriate values in any output <xref:System.Speech.Recognition.RecognizedWordUnit> instance.  \n  \n Direct construction of <xref:System.Speech.Recognition.RecognizedWordUnit> instances is typically used only when emulating recognition operations using the <xref:System.Speech.Recognition.SpeechRecognitionEngine.EmulateRecognize%2A> or <xref:System.Speech.Recognition.SpeechRecognitionEngine.EmulateRecognizeAsync%2A> methods of the <xref:System.Speech.Recognition.SpeechRecognitionEngine> class and the <xref:System.Speech.Recognition.SpeechRecognizer.EmulateRecognize%2A> or <xref:System.Speech.Recognition.SpeechRecognizer.EmulateRecognizeAsync%2A> methods of the <xref:System.Speech.Recognition.SpeechRecognizer> class.  \n  \n For actual applications, do not directly construct <xref:System.Speech.Recognition.RecognizedWordUnit>, rather obtain it through the <xref:System.Speech.Recognition.RecognizedPhrase.Words%2A> property on the <xref:System.Speech.Recognition.RecognizedPhrase> object."
+  remarks: "If `text` or `pronunciation` are `null`, \"\", or <xref:System.String.Empty> and the <xref:System.Speech.Recognition.RecognizedWordUnit> is used in a recognition operation, the recognition engine will generate appropriate values in any output <xref:System.Speech.Recognition.RecognizedWordUnit> instance.  \n  \n Direct construction of <xref:System.Speech.Recognition.RecognizedWordUnit> instances is typically used only when emulating recognition operations using the <xref:System.Speech.Recognition.SpeechRecognitionEngine.EmulateRecognize%2A> or <xref:System.Speech.Recognition.SpeechRecognitionEngine.EmulateRecognizeAsync%2A> methods of the <xref:System.Speech.Recognition.SpeechRecognitionEngine> class and the <xref:System.Speech.Recognition.SpeechRecognizer.EmulateRecognize%2A> or <xref:System.Speech.Recognition.SpeechRecognizer.EmulateRecognizeAsync%2A> methods of the <xref:System.Speech.Recognition.SpeechRecognizer> class.  \n  \n For actual applications, do not directly construct <xref:System.Speech.Recognition.RecognizedWordUnit>, rather obtain it through the <xref:System.Speech.Recognition.RecognizedPhrase.Words%2A> property on the <xref:System.Speech.Recognition.RecognizedPhrase> object."
   example:
   - "The following example is a somewhat contrived test of emulation, where new words are generated from the input and passed to the emulator, and then verified.  \n  \n```csharp  \nprivate void _emulateAndVerify_Click(object sender, EventArgs e)   \n{  \n  char[] delimiterChars = { ' ', ',', '.', ':', ';', '\\t' };  \n  string text = _emulateTextBox.Text;  \n  string[] words = text.Split(delimiterChars);  \n  \n  RecognizedWordUnit[] InputWordUnits = new RecognizedWordUnit[words.Length];  \n  for (int i = 0; i < words.Length; i++)   \n  {  \n    InputWordUnits[i] = new RecognizedWordUnit(  \n        \"\",   \n        0,   \n        \"\",  \n        words[i].ToLower(),   \n        DisplayAttributes.OneTrailingSpace,   \n        new TimeSpan(),   \n        new TimeSpan());  \n  }  \n  \n  RecognitionResult rec = _recognizer.EmulateRecognize(  \n        InputWordUnits,   \n        System.Globalization.CompareOptions.IgnoreCase);  \n  if (rec == null)   \n  {  \n    MessageBox.Show(String.Format(\"Recognition emulation for {0} failed.\\n\", text));  \n  }   \n  else if (InputWordUnits.Length != rec.Words.Count)   \n  {  \n    MessageBox.Show(  \n       String.Format(\"Length mismatch: Input was {0} words, Recognition has {1} words.\\n}\"));  \n  }   \n  else   \n  {  \n    for (int i = 0; i < InputWordUnits.Length; i++)   \n    {  \n  \n      if (rec.Words[i].LexicalForm.ToLower() != InputWordUnits[i].LexicalForm.ToLower())   \n      {  \n        MessageBox.Show(  \n          String.Format(\"Input word {0} \\\"{1}\\\" not found. Recognition output is {2}\",  \n          i, InputWordUnits[i].LexicalForm, rec.Words[i].LexicalForm));  \n        continue;  \n      }  \n    }  \n  }  \n}  \n```"
   syntax:
@@ -116,8 +114,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Speech.Recognition/RecognizedWordUnit.xml
-  ms.author: kbridge
-  manager: ghogen
 - uid: System.Speech.Recognition.RecognizedWordUnit.Confidence
   commentId: P:System.Speech.Recognition.RecognizedWordUnit.Confidence
   id: Confidence
@@ -126,7 +122,7 @@ items:
   - csharp
   name: Confidence
   nameWithType: RecognizedWordUnit.Confidence
-  fullName: System.Speech.Recognition.RecognizedWordUnit.Confidence
+  fullName: RecognizedWordUnit.Confidence
   type: Property
   assemblies:
   - System.Speech
@@ -157,8 +153,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Speech.Recognition/RecognizedWordUnit.xml
-  ms.author: kbridge
-  manager: ghogen
 - uid: System.Speech.Recognition.RecognizedWordUnit.DisplayAttributes
   commentId: P:System.Speech.Recognition.RecognizedWordUnit.DisplayAttributes
   id: DisplayAttributes
@@ -167,7 +161,7 @@ items:
   - csharp
   name: DisplayAttributes
   nameWithType: RecognizedWordUnit.DisplayAttributes
-  fullName: System.Speech.Recognition.RecognizedWordUnit.DisplayAttributes
+  fullName: RecognizedWordUnit.DisplayAttributes
   type: Property
   assemblies:
   - System.Speech
@@ -200,8 +194,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Speech.Recognition/RecognizedWordUnit.xml
-  ms.author: kbridge
-  manager: ghogen
 - uid: System.Speech.Recognition.RecognizedWordUnit.LexicalForm
   commentId: P:System.Speech.Recognition.RecognizedWordUnit.LexicalForm
   id: LexicalForm
@@ -210,7 +202,7 @@ items:
   - csharp
   name: LexicalForm
   nameWithType: RecognizedWordUnit.LexicalForm
-  fullName: System.Speech.Recognition.RecognizedWordUnit.LexicalForm
+  fullName: RecognizedWordUnit.LexicalForm
   type: Property
   assemblies:
   - System.Speech
@@ -243,8 +235,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Speech.Recognition/RecognizedWordUnit.xml
-  ms.author: kbridge
-  manager: ghogen
 - uid: System.Speech.Recognition.RecognizedWordUnit.Pronunciation
   commentId: P:System.Speech.Recognition.RecognizedWordUnit.Pronunciation
   id: Pronunciation
@@ -253,7 +243,7 @@ items:
   - csharp
   name: Pronunciation
   nameWithType: RecognizedWordUnit.Pronunciation
-  fullName: System.Speech.Recognition.RecognizedWordUnit.Pronunciation
+  fullName: RecognizedWordUnit.Pronunciation
   type: Property
   assemblies:
   - System.Speech
@@ -286,8 +276,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Speech.Recognition/RecognizedWordUnit.xml
-  ms.author: kbridge
-  manager: ghogen
 - uid: System.Speech.Recognition.RecognizedWordUnit.Text
   commentId: P:System.Speech.Recognition.RecognizedWordUnit.Text
   id: Text
@@ -296,7 +284,7 @@ items:
   - csharp
   name: Text
   nameWithType: RecognizedWordUnit.Text
-  fullName: System.Speech.Recognition.RecognizedWordUnit.Text
+  fullName: RecognizedWordUnit.Text
   type: Property
   assemblies:
   - System.Speech
@@ -329,8 +317,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Speech.Recognition/RecognizedWordUnit.xml
-  ms.author: kbridge
-  manager: ghogen
 references:
 - uid: System.Object
   parent: System
@@ -343,7 +329,7 @@ references:
   isExternal: false
   name: RecognizedWordUnit(String, Single, String, String, DisplayAttributes, TimeSpan, TimeSpan)
   nameWithType: RecognizedWordUnit.RecognizedWordUnit(String, Single, String, String, DisplayAttributes, TimeSpan, TimeSpan)
-  fullName: System.Speech.Recognition.RecognizedWordUnit.RecognizedWordUnit(String, Single, String, String, DisplayAttributes, TimeSpan, TimeSpan)
+  fullName: RecognizedWordUnit.RecognizedWordUnit(String, Single, String, String, DisplayAttributes, TimeSpan, TimeSpan)
 - uid: System.String
   parent: System
   isExternal: false
@@ -373,37 +359,37 @@ references:
   isExternal: false
   name: Confidence
   nameWithType: RecognizedWordUnit.Confidence
-  fullName: System.Speech.Recognition.RecognizedWordUnit.Confidence
+  fullName: RecognizedWordUnit.Confidence
 - uid: System.Speech.Recognition.RecognizedWordUnit.DisplayAttributes
   parent: System.Speech.Recognition.RecognizedWordUnit
   isExternal: false
   name: DisplayAttributes
   nameWithType: RecognizedWordUnit.DisplayAttributes
-  fullName: System.Speech.Recognition.RecognizedWordUnit.DisplayAttributes
+  fullName: RecognizedWordUnit.DisplayAttributes
 - uid: System.Speech.Recognition.RecognizedWordUnit.LexicalForm
   parent: System.Speech.Recognition.RecognizedWordUnit
   isExternal: false
   name: LexicalForm
   nameWithType: RecognizedWordUnit.LexicalForm
-  fullName: System.Speech.Recognition.RecognizedWordUnit.LexicalForm
+  fullName: RecognizedWordUnit.LexicalForm
 - uid: System.Speech.Recognition.RecognizedWordUnit.Pronunciation
   parent: System.Speech.Recognition.RecognizedWordUnit
   isExternal: false
   name: Pronunciation
   nameWithType: RecognizedWordUnit.Pronunciation
-  fullName: System.Speech.Recognition.RecognizedWordUnit.Pronunciation
+  fullName: RecognizedWordUnit.Pronunciation
 - uid: System.Speech.Recognition.RecognizedWordUnit.Text
   parent: System.Speech.Recognition.RecognizedWordUnit
   isExternal: false
   name: Text
   nameWithType: RecognizedWordUnit.Text
-  fullName: System.Speech.Recognition.RecognizedWordUnit.Text
+  fullName: RecognizedWordUnit.Text
 - uid: System.Speech.Recognition.RecognizedWordUnit.#ctor*
   parent: System.Speech.Recognition.RecognizedWordUnit
   isExternal: false
   name: RecognizedWordUnit
   nameWithType: RecognizedWordUnit.RecognizedWordUnit
-  fullName: System.Speech.Recognition.RecognizedWordUnit.RecognizedWordUnit
+  fullName: RecognizedWordUnit.RecognizedWordUnit
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -418,7 +404,7 @@ references:
   isExternal: false
   name: Confidence
   nameWithType: RecognizedWordUnit.Confidence
-  fullName: System.Speech.Recognition.RecognizedWordUnit.Confidence
+  fullName: RecognizedWordUnit.Confidence
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -433,7 +419,7 @@ references:
   isExternal: false
   name: DisplayAttributes
   nameWithType: RecognizedWordUnit.DisplayAttributes
-  fullName: System.Speech.Recognition.RecognizedWordUnit.DisplayAttributes
+  fullName: RecognizedWordUnit.DisplayAttributes
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -448,7 +434,7 @@ references:
   isExternal: false
   name: LexicalForm
   nameWithType: RecognizedWordUnit.LexicalForm
-  fullName: System.Speech.Recognition.RecognizedWordUnit.LexicalForm
+  fullName: RecognizedWordUnit.LexicalForm
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -463,7 +449,7 @@ references:
   isExternal: false
   name: Pronunciation
   nameWithType: RecognizedWordUnit.Pronunciation
-  fullName: System.Speech.Recognition.RecognizedWordUnit.Pronunciation
+  fullName: RecognizedWordUnit.Pronunciation
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -478,7 +464,7 @@ references:
   isExternal: false
   name: Text
   nameWithType: RecognizedWordUnit.Text
-  fullName: System.Speech.Recognition.RecognizedWordUnit.Text
+  fullName: RecognizedWordUnit.Text
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

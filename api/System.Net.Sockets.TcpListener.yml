@@ -38,7 +38,7 @@ items:
   - netstandard
   namespace: System.Net.Sockets
   summary: Listens for connections from TCP network clients.
-  remarks: "The <xref:System.Net.Sockets.TcpListener> class provides simple methods that listen for and accept incoming connection requests in blocking synchronous mode. You can use either a <xref:System.Net.Sockets.TcpClient> or a <xref:System.Net.Sockets.Socket> to connect with a <xref:System.Net.Sockets.TcpListener>. Create a <xref:System.Net.Sockets.TcpListener> using an <xref:System.Net.IPEndPoint>, a Local IP address and port number, or just a port number. Specify <xref:System.Net.IPAddress.Any> for the local IP address and 0 for the local port number if you want the underlying service provider to assign those values for you. If you choose to do this, you can use the <xref:System.Net.Sockets.TcpListener.LocalEndpoint%2A> property to identify the assigned information, after the socket has connected.  \n  \n Use the <xref:System.Net.Sockets.TcpListener.Start%2A> method to begin listening for incoming connection requests. <xref:System.Net.Sockets.TcpListener.Start%2A> will queue incoming connections until you either call the <xref:System.Net.Sockets.TcpListener.Stop%2A> method or it has queued <xref:System.Net.Sockets.SocketOptionName>. Use either <xref:System.Net.Sockets.TcpListener.AcceptSocket%2A> or <xref:System.Net.Sockets.TcpListener.AcceptTcpClient%2A> to pull a connection from the incoming connection request queue. These two methods will block. If you want to avoid blocking, you can use the <xref:System.Net.Sockets.TcpListener.Pending%2A> method first to determine if connection requests are available in the queue.  \n  \n Call the <xref:System.Net.Sockets.TcpListener.Stop%2A> method to close the <xref:System.Net.Sockets.TcpListener>.  \n  \n> [!NOTE]\n>  The <xref:System.Net.Sockets.TcpListener.Stop%2A> method does not close any accepted connections. You are responsible for closing these separately."
+  remarks: "The <xref:System.Net.Sockets.TcpListener> class provides simple methods that listen for and accept incoming connection requests in blocking synchronous mode. You can use either a <xref:System.Net.Sockets.TcpClient> or a <xref:System.Net.Sockets.Socket> to connect with a <xref:System.Net.Sockets.TcpListener>. Create a <xref:System.Net.Sockets.TcpListener> using an <xref:System.Net.IPEndPoint>, a Local IP address and port number, or just a port number. Specify <xref:System.Net.IPAddress.Any> for the local IP address and 0 for the local port number if you want the underlying service provider to assign those values for you. If you choose to do this, you can use the <xref:System.Net.Sockets.TcpListener.LocalEndpoint%2A> property to identify the assigned information, after the socket has connected.  \n  \n Use the <xref:System.Net.Sockets.TcpListener.Start%2A> method to begin listening for incoming connection requests. <xref:System.Net.Sockets.TcpListener.Start%2A> will queue incoming connections until you either call the <xref:System.Net.Sockets.TcpListener.Stop%2A> method or it has queued <xref:System.Net.Sockets.SocketOptionName.MaxConnections>. Use either <xref:System.Net.Sockets.TcpListener.AcceptSocket%2A> or <xref:System.Net.Sockets.TcpListener.AcceptTcpClient%2A> to pull a connection from the incoming connection request queue. These two methods will block. If you want to avoid blocking, you can use the <xref:System.Net.Sockets.TcpListener.Pending%2A> method first to determine if connection requests are available in the queue.  \n  \n Call the <xref:System.Net.Sockets.TcpListener.Stop%2A> method to close the <xref:System.Net.Sockets.TcpListener>.  \n  \n> [!NOTE]\n>  The <xref:System.Net.Sockets.TcpListener.Stop%2A> method does not close any accepted connections. You are responsible for closing these separately."
   example:
   - "The following code example creates a <xref:System.Net.Sockets.TcpListener>.  \n  \n [!code-cpp[System.Net.Sockets.TcpListener#1](~/samples/snippets/cpp/VS_Snippets_Remoting/System.Net.Sockets.TcpListener/CPP/tcpserver.cpp#1)]\n [!code-csharp[System.Net.Sockets.TcpListener#1](~/samples/snippets/csharp/VS_Snippets_Remoting/System.Net.Sockets.TcpListener/CS/tcpserver.cs#1)]\n [!code-vb[System.Net.Sockets.TcpListener#1](~/samples/snippets/visualbasic/VS_Snippets_Remoting/System.Net.Sockets.TcpListener/VB/tcpserver.vb#1)]  \n  \n See <xref:System.Net.Sockets.TcpClient> for a client example."
   syntax:
@@ -56,7 +56,8 @@ items:
   - System.Object.ToString
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -73,7 +74,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -89,8 +91,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Sockets.TcpListener.#ctor(System.Int32)
   commentId: M:System.Net.Sockets.TcpListener.#ctor(System.Int32)
   id: '#ctor(System.Int32)'
@@ -99,11 +99,12 @@ items:
   - csharp
   name: TcpListener(Int32)
   nameWithType: TcpListener.TcpListener(Int32)
-  fullName: System.Net.Sockets.TcpListener.TcpListener(Int32)
+  fullName: TcpListener.TcpListener(Int32)
   type: Constructor
   assemblies:
   - System
   - netstandard
+  - System.Net.Sockets
   namespace: System.Net.Sockets
   summary: Initializes a new instance of the <xref href="System.Net.Sockets.TcpListener"></xref> class that listens on the specified port.
   remarks: "This constructor is obsolete. Use the <xref:System.Net.Sockets.TcpListener.%23ctor%28System.Net.IPAddress%2CSystem.Int32%29?displayProperty=fullName> or <xref:System.Net.Sockets.TcpListener.%23ctor%28System.Net.IPEndPoint%29?displayProperty=fullName> constructors.  \n  \n This constructor allows you to specify the port number on which to listen for incoming connection attempts. With this constructor, the underlying service provider assigns the most appropriate network address. If you do not care which local port is used, you can specify 0 for the port number. In this case, the service provider will assign an available port number between 1024 and 5000. If you use this approach, you can discover what local network address and port number has been assigned by using the <xref:System.Net.Sockets.TcpListener.LocalEndpoint%2A> property.  \n  \n Call the <xref:System.Net.Sockets.TcpListener.Start%2A> method to begin listening for incoming connection attempts."
@@ -126,6 +127,7 @@ items:
   attributes:
   - type: System.ObsoleteAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -138,6 +140,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -150,8 +153,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Sockets.TcpListener.#ctor(System.Net.IPEndPoint)
   commentId: M:System.Net.Sockets.TcpListener.#ctor(System.Net.IPEndPoint)
   id: '#ctor(System.Net.IPEndPoint)'
@@ -160,7 +161,7 @@ items:
   - csharp
   name: TcpListener(IPEndPoint)
   nameWithType: TcpListener.TcpListener(IPEndPoint)
-  fullName: System.Net.Sockets.TcpListener.TcpListener(IPEndPoint)
+  fullName: TcpListener.TcpListener(IPEndPoint)
   type: Constructor
   assemblies:
   - System.Net.Sockets
@@ -184,7 +185,8 @@ items:
     description: <code>localEP</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -201,7 +203,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -217,8 +220,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Sockets.TcpListener.#ctor(System.Net.IPAddress,System.Int32)
   commentId: M:System.Net.Sockets.TcpListener.#ctor(System.Net.IPAddress,System.Int32)
   id: '#ctor(System.Net.IPAddress,System.Int32)'
@@ -227,7 +228,7 @@ items:
   - csharp
   name: TcpListener(IPAddress, Int32)
   nameWithType: TcpListener.TcpListener(IPAddress, Int32)
-  fullName: System.Net.Sockets.TcpListener.TcpListener(IPAddress, Int32)
+  fullName: TcpListener.TcpListener(IPAddress, Int32)
   type: Constructor
   assemblies:
   - System.Net.Sockets
@@ -257,7 +258,8 @@ items:
     description: <code>port</code> is not between <xref href="System.Net.IPEndPoint.MinPort"></xref> and <xref href="System.Net.IPEndPoint.MaxPort"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -274,7 +276,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -290,8 +293,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Sockets.TcpListener.AcceptSocket
   commentId: M:System.Net.Sockets.TcpListener.AcceptSocket
   id: AcceptSocket
@@ -300,11 +301,12 @@ items:
   - csharp
   name: AcceptSocket()
   nameWithType: TcpListener.AcceptSocket()
-  fullName: System.Net.Sockets.TcpListener.AcceptSocket()
+  fullName: TcpListener.AcceptSocket()
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Sockets
   namespace: System.Net.Sockets
   summary: Accepts a pending connection request.
   remarks: "<xref:System.Net.Sockets.TcpListener.AcceptSocket%2A> is a blocking method that returns a <xref:System.Net.Sockets.Socket> that you can use to send and receive data. If you want to avoid blocking, use the <xref:System.Net.Sockets.TcpListener.Pending%2A> method to determine if connection requests are available in the incoming connection queue.  \n  \n The <xref:System.Net.Sockets.Socket> returned is initialized with the IP address and port number of the remote host. You can use any of the <xref:System.Net.Sockets.Socket.Send%2A> and <xref:System.Net.Sockets.Socket.Receive%2A> methods available in the <xref:System.Net.Sockets.Socket> class to communicate with the remote host. When you are finished using the <xref:System.Net.Sockets.Socket>, be sure to call its <xref:System.Net.Sockets.Socket.Close%2A> method. If your application is relatively simple, consider using the <xref:System.Net.Sockets.TcpListener.AcceptTcpClient%2A> method rather than the <xref:System.Net.Sockets.TcpListener.AcceptSocket%2A> method. <xref:System.Net.Sockets.TcpClient> provides you with simple methods for sending and receiving data over a network in blocking synchronous mode.  \n  \n> [!NOTE]\n>  This member outputs trace information when you enable network tracing in your application. For more information, see [Network Tracing in the .NET Framework](~/docs/framework/network-programming/network-tracing.md)."
@@ -322,6 +324,7 @@ items:
     commentId: T:System.InvalidOperationException
     description: The listener has not been started with a call to <xref href="System.Net.Sockets.TcpListener.Start"></xref>.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -334,6 +337,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -346,8 +350,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Sockets.TcpListener.AcceptSocketAsync
   commentId: M:System.Net.Sockets.TcpListener.AcceptSocketAsync
   id: AcceptSocketAsync
@@ -356,7 +358,7 @@ items:
   - csharp
   name: AcceptSocketAsync()
   nameWithType: TcpListener.AcceptSocketAsync()
-  fullName: System.Net.Sockets.TcpListener.AcceptSocketAsync()
+  fullName: TcpListener.AcceptSocketAsync()
   type: Method
   assemblies:
   - System.Net.Sockets
@@ -378,7 +380,8 @@ items:
     description: The listener has not been started with a call to <xref href="System.Net.Sockets.TcpListener.Start"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -395,7 +398,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -411,8 +415,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Sockets.TcpListener.AcceptTcpClient
   commentId: M:System.Net.Sockets.TcpListener.AcceptTcpClient
   id: AcceptTcpClient
@@ -421,11 +423,12 @@ items:
   - csharp
   name: AcceptTcpClient()
   nameWithType: TcpListener.AcceptTcpClient()
-  fullName: System.Net.Sockets.TcpListener.AcceptTcpClient()
+  fullName: TcpListener.AcceptTcpClient()
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Sockets
   namespace: System.Net.Sockets
   summary: Accepts a pending connection request.
   remarks: "<xref:System.Net.Sockets.TcpListener.AcceptTcpClient%2A> is a blocking method that returns a <xref:System.Net.Sockets.TcpClient> that you can use to send and receive data. Use the <xref:System.Net.Sockets.TcpListener.Pending%2A> method to determine if connection requests are available in the incoming connection queue if you want to avoid blocking.  \n  \n Use the <xref:System.Net.Sockets.TcpClient.GetStream%2A?displayProperty=fullName> method to obtain the underlying <xref:System.Net.Sockets.NetworkStream> of the returned <xref:System.Net.Sockets.TcpClient>. The <xref:System.Net.Sockets.NetworkStream> will provide you with methods for sending and receiving with the remote host. When you are through with the <xref:System.Net.Sockets.TcpClient>, be sure to call its <xref:System.Net.Sockets.TcpClient.Close%2A> method. If you want greater flexibility than a <xref:System.Net.Sockets.TcpClient> offers, consider using <xref:System.Net.Sockets.TcpListener.AcceptSocket%2A>.  \n  \n> [!NOTE]\n>  This member outputs trace information when you enable network tracing in your application. For more information, see [Network Tracing in the .NET Framework](~/docs/framework/network-programming/network-tracing.md)."
@@ -446,6 +449,7 @@ items:
     commentId: T:System.Net.Sockets.SocketException
     description: Use the <xref href="System.Net.Sockets.SocketException.ErrorCode"></xref> property to obtain the specific error code. When you have obtained this code, you can refer to the Windows Sockets version 2 API error code documentation in MSDN for a detailed description of the error.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -458,6 +462,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -470,8 +475,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Sockets.TcpListener.AcceptTcpClientAsync
   commentId: M:System.Net.Sockets.TcpListener.AcceptTcpClientAsync
   id: AcceptTcpClientAsync
@@ -480,7 +483,7 @@ items:
   - csharp
   name: AcceptTcpClientAsync()
   nameWithType: TcpListener.AcceptTcpClientAsync()
-  fullName: System.Net.Sockets.TcpListener.AcceptTcpClientAsync()
+  fullName: TcpListener.AcceptTcpClientAsync()
   type: Method
   assemblies:
   - System.Net.Sockets
@@ -505,7 +508,8 @@ items:
     description: Use the <xref href="System.Net.Sockets.SocketException.ErrorCode"></xref> property to obtain the specific error code. When you have obtained this code, you can refer to the Windows Sockets version 2 API error code documentation in MSDN for a detailed description of the error.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -522,7 +526,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -538,8 +543,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Sockets.TcpListener.Active
   commentId: P:System.Net.Sockets.TcpListener.Active
   id: Active
@@ -548,7 +551,7 @@ items:
   - csharp
   name: Active
   nameWithType: TcpListener.Active
-  fullName: System.Net.Sockets.TcpListener.Active
+  fullName: TcpListener.Active
   type: Property
   assemblies:
   - System.Net.Sockets
@@ -566,7 +569,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -583,7 +587,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -599,8 +604,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Sockets.TcpListener.AllowNatTraversal(System.Boolean)
   commentId: M:System.Net.Sockets.TcpListener.AllowNatTraversal(System.Boolean)
   id: AllowNatTraversal(System.Boolean)
@@ -609,14 +612,15 @@ items:
   - csharp
   name: AllowNatTraversal(Boolean)
   nameWithType: TcpListener.AllowNatTraversal(Boolean)
-  fullName: System.Net.Sockets.TcpListener.AllowNatTraversal(Boolean)
+  fullName: TcpListener.AllowNatTraversal(Boolean)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Sockets
   namespace: System.Net.Sockets
   summary: Enables or disables Network Address Translation (NAT) traversal on a <xref href="System.Net.Sockets.TcpListener"></xref> instance.
-  remarks: "The <xref:System.Net.Sockets.TcpListener.AllowNatTraversal%2A> method is used to enable or disable NAT traversal for a <xref:System.Net.Sockets.TcpListener> instance. NAT traversal may be provided using Teredo, 6to4, or an ISATAP tunnel.  \n  \n When the `allowed` parameter is false, the <xref:System.Net.Sockets.SocketOptionName> option on the associated socket is set to <xref:System.Net.Sockets.IPProtectionLevel>. This explicitly disables NAT traversal for a <xref:System.Net.Sockets.TcpListener> instance.  \n  \n When the `allowed` parameter is true, the <xref:System.Net.Sockets.SocketOptionName> option on the associated socket is set to <xref:System.Net.Sockets.IPProtectionLevel>. This may allow NAT traversal for a <xref:System.Net.Sockets.TcpListener> depending on firewall rules in place on the system.  \n  \n The <xref:System.Net.Sockets.TcpListener.AllowNatTraversal%2A> method must be invoked prior to calling the <xref:System.Net.Sockets.TcpListener.Start%2A> method to begin listening for incoming connection requests (before the socket is bound). If <xref:System.Net.Sockets.TcpListener.AllowNatTraversal%2A> method is called after the <xref:System.Net.Sockets.TcpListener.Start%2A> method, then an <xref:System.InvalidOperationException> will be thrown.  \n  \n A Teredo address is an IPv6 address with the prefix of 2001::/32. Teredo addresses can be returned through normal DNS name resolution or enumerated as an IPv6 address assigned to a local interface."
+  remarks: "The <xref:System.Net.Sockets.TcpListener.AllowNatTraversal%2A> method is used to enable or disable NAT traversal for a <xref:System.Net.Sockets.TcpListener> instance. NAT traversal may be provided using Teredo, 6to4, or an ISATAP tunnel.  \n  \n When the `allowed` parameter is false, the <xref:System.Net.Sockets.SocketOptionName.IPProtectionLevel> option on the associated socket is set to <xref:System.Net.Sockets.IPProtectionLevel.EdgeRestricted>. This explicitly disables NAT traversal for a <xref:System.Net.Sockets.TcpListener> instance.  \n  \n When the `allowed` parameter is true, the <xref:System.Net.Sockets.SocketOptionName.IPProtectionLevel> option on the associated socket is set to <xref:System.Net.Sockets.IPProtectionLevel.Unrestricted>. This may allow NAT traversal for a <xref:System.Net.Sockets.TcpListener> depending on firewall rules in place on the system.  \n  \n The <xref:System.Net.Sockets.TcpListener.AllowNatTraversal%2A> method must be invoked prior to calling the <xref:System.Net.Sockets.TcpListener.Start%2A> method to begin listening for incoming connection requests (before the socket is bound). If <xref:System.Net.Sockets.TcpListener.AllowNatTraversal%2A> method is called after the <xref:System.Net.Sockets.TcpListener.Start%2A> method, then an <xref:System.InvalidOperationException> will be thrown.  \n  \n A Teredo address is an IPv6 address with the prefix of 2001::/32. Teredo addresses can be returned through normal DNS name resolution or enumerated as an IPv6 address assigned to a local interface."
   syntax:
     content: public void AllowNatTraversal (bool allowed);
     parameters:
@@ -629,6 +633,7 @@ items:
     commentId: T:System.InvalidOperationException
     description: The <xref href="System.Net.Sockets.TcpListener.AllowNatTraversal(System.Boolean)"></xref> method was called after calling the <xref href="System.Net.Sockets.TcpListener.Start"></xref> method
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -641,6 +646,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -653,8 +659,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Sockets.TcpListener.BeginAcceptSocket(System.AsyncCallback,System.Object)
   commentId: M:System.Net.Sockets.TcpListener.BeginAcceptSocket(System.AsyncCallback,System.Object)
   id: BeginAcceptSocket(System.AsyncCallback,System.Object)
@@ -663,11 +667,12 @@ items:
   - csharp
   name: BeginAcceptSocket(AsyncCallback, Object)
   nameWithType: TcpListener.BeginAcceptSocket(AsyncCallback, Object)
-  fullName: System.Net.Sockets.TcpListener.BeginAcceptSocket(AsyncCallback, Object)
+  fullName: TcpListener.BeginAcceptSocket(AsyncCallback, Object)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Sockets
   namespace: System.Net.Sockets
   summary: Begins an asynchronous operation to accept an incoming connection attempt.
   remarks: "The asynchronous <xref:System.Net.Sockets.TcpListener.BeginAcceptSocket%2A> operation must be completed by calling the <xref:System.Net.Sockets.TcpListener.EndAcceptSocket%2A> method. Typically, the method is invoked by the `callback` delegate.  \n  \n This method does not block until the operation completes. To block until the operation completes, use the <xref:System.Net.Sockets.TcpListener.AcceptSocket%2A> method.  \n  \n For detailed information about using the asynchronous programming model, see [Calling Synchronous Methods Asynchronously](~/docs/standard/asynchronous-programming-patterns/calling-synchronous-methods-asynchronously.md).  \n  \n> [!NOTE]\n>  You can call the <xref:System.Net.Sockets.Socket.RemoteEndPoint%2A> property of the returned <xref:System.Net.Sockets.Socket> to identify the remote host's network address and port number.  \n  \n> [!NOTE]\n>  If you receive a <xref:System.Net.Sockets.SocketException>, use the <xref:System.Net.Sockets.SocketException.ErrorCode%2A?displayProperty=fullName> property to obtain the specific error code and refer to the Windows Sockets version 2 API error code documentation in the MSDN library at [http://msdn.microsoft.com/library/](http://msdn.microsoft.com/library/) for a detailed description of the error.  \n  \n> [!NOTE]\n>  This member outputs trace information when you enable network tracing in your application. For more information, see [Network Tracing in the .NET Framework](~/docs/framework/network-programming/network-tracing.md)."
@@ -689,11 +694,12 @@ items:
   exceptions:
   - type: System.Net.Sockets.SocketException
     commentId: T:System.Net.Sockets.SocketException
-    description: An error occurred while attempting to access the socket. See the Remarks section for more information.
+    description: An error occurred while attempting to access the socket.
   - type: System.ObjectDisposedException
     commentId: T:System.ObjectDisposedException
     description: The <xref href="System.Net.Sockets.Socket"></xref> has been closed.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -706,6 +712,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -718,8 +725,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Sockets.TcpListener.BeginAcceptTcpClient(System.AsyncCallback,System.Object)
   commentId: M:System.Net.Sockets.TcpListener.BeginAcceptTcpClient(System.AsyncCallback,System.Object)
   id: BeginAcceptTcpClient(System.AsyncCallback,System.Object)
@@ -728,11 +733,12 @@ items:
   - csharp
   name: BeginAcceptTcpClient(AsyncCallback, Object)
   nameWithType: TcpListener.BeginAcceptTcpClient(AsyncCallback, Object)
-  fullName: System.Net.Sockets.TcpListener.BeginAcceptTcpClient(AsyncCallback, Object)
+  fullName: TcpListener.BeginAcceptTcpClient(AsyncCallback, Object)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Sockets
   namespace: System.Net.Sockets
   summary: Begins an asynchronous operation to accept an incoming connection attempt.
   remarks: "The asynchronous <xref:System.Net.Sockets.TcpListener.BeginAcceptTcpClient%2A> operation must be completed by calling the <xref:System.Net.Sockets.TcpListener.EndAcceptTcpClient%2A> method. Typically, the method is invoked by the `callback` delegate.  \n  \n This method does not block until the operation completes. To block until the operation completes, use the <xref:System.Net.Sockets.TcpListener.AcceptTcpClient%2A> method.  \n  \n For detailed information about using the asynchronous programming model, see [Calling Synchronous Methods Asynchronously](~/docs/standard/asynchronous-programming-patterns/calling-synchronous-methods-asynchronously.md).  \n  \n> [!NOTE]\n>  If you receive a <xref:System.Net.Sockets.SocketException>, use the <xref:System.Net.Sockets.SocketException.ErrorCode%2A?displayProperty=fullName> property to obtain the specific error code and refer to the Windows Sockets version 2 API error code documentation in the MSDN library at [http://msdn.microsoft.com/library/](http://msdn.microsoft.com/library/) for a detailed description of the error.  \n  \n> [!NOTE]\n>  This member outputs trace information when you enable network tracing in your application. For more information, see [Network Tracing in the .NET Framework](~/docs/framework/network-programming/network-tracing.md)."
@@ -754,11 +760,12 @@ items:
   exceptions:
   - type: System.Net.Sockets.SocketException
     commentId: T:System.Net.Sockets.SocketException
-    description: An error occurred while attempting to access the socket. See the Remarks section for more information.
+    description: An error occurred while attempting to access the socket.
   - type: System.ObjectDisposedException
     commentId: T:System.ObjectDisposedException
     description: The <xref href="System.Net.Sockets.Socket"></xref> has been closed.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -771,6 +778,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -783,8 +791,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Sockets.TcpListener.Create(System.Int32)
   commentId: M:System.Net.Sockets.TcpListener.Create(System.Int32)
   id: Create(System.Int32)
@@ -793,11 +799,12 @@ items:
   - csharp
   name: Create(Int32)
   nameWithType: TcpListener.Create(Int32)
-  fullName: System.Net.Sockets.TcpListener.Create(Int32)
+  fullName: TcpListener.Create(Int32)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Sockets
   namespace: System.Net.Sockets
   summary: Creates a new <xref href="System.Net.Sockets.TcpListener"></xref> instance to listen on the specified port.
   syntax:
@@ -812,6 +819,7 @@ items:
   overload: System.Net.Sockets.TcpListener.Create*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -824,6 +832,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -836,8 +845,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Sockets.TcpListener.EndAcceptSocket(System.IAsyncResult)
   commentId: M:System.Net.Sockets.TcpListener.EndAcceptSocket(System.IAsyncResult)
   id: EndAcceptSocket(System.IAsyncResult)
@@ -846,11 +853,12 @@ items:
   - csharp
   name: EndAcceptSocket(IAsyncResult)
   nameWithType: TcpListener.EndAcceptSocket(IAsyncResult)
-  fullName: System.Net.Sockets.TcpListener.EndAcceptSocket(IAsyncResult)
+  fullName: TcpListener.EndAcceptSocket(IAsyncResult)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Sockets
   namespace: System.Net.Sockets
   summary: Asynchronously accepts an incoming connection attempt and creates a new <xref href="System.Net.Sockets.Socket"></xref> to handle remote host communication.
   remarks: "This method blocks until the operation is complete. To perform this operation synchronously, use the <xref:System.Net.Sockets.TcpListener.AcceptSocket%2A> method.  \n  \n> [!NOTE]\n>  You can call the <xref:System.Net.Sockets.Socket.RemoteEndPoint%2A> property of the returned <xref:System.Net.Sockets.Socket> to identify the remote host's network address and port number.  \n  \n> [!NOTE]\n>  If you receive a <xref:System.Net.Sockets.SocketException>, use the <xref:System.Net.Sockets.SocketException.ErrorCode%2A?displayProperty=fullName> property to obtain the specific error code and refer to the Windows Sockets version 2 API error code documentation in the MSDN library at [http://msdn.microsoft.com/library/](http://msdn.microsoft.com/library/) for a detailed description of the error.  \n  \n> [!NOTE]\n>  This member outputs trace information when you enable network tracing in your application. For more information, see [Network Tracing in the .NET Framework](~/docs/framework/network-programming/network-tracing.md)."
@@ -881,8 +889,9 @@ items:
     description: The <xref href="System.Net.Sockets.TcpListener.EndAcceptSocket(System.IAsyncResult)"></xref> method was previously called.
   - type: System.Net.Sockets.SocketException
     commentId: T:System.Net.Sockets.SocketException
-    description: An error occurred while attempting to access the <xref href="System.Net.Sockets.Socket"></xref>. See the Remarks section for more information.
+    description: An error occurred while attempting to access the <xref href="System.Net.Sockets.Socket"></xref>.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -895,6 +904,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -907,8 +917,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Sockets.TcpListener.EndAcceptTcpClient(System.IAsyncResult)
   commentId: M:System.Net.Sockets.TcpListener.EndAcceptTcpClient(System.IAsyncResult)
   id: EndAcceptTcpClient(System.IAsyncResult)
@@ -917,11 +925,12 @@ items:
   - csharp
   name: EndAcceptTcpClient(IAsyncResult)
   nameWithType: TcpListener.EndAcceptTcpClient(IAsyncResult)
-  fullName: System.Net.Sockets.TcpListener.EndAcceptTcpClient(IAsyncResult)
+  fullName: TcpListener.EndAcceptTcpClient(IAsyncResult)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Sockets
   namespace: System.Net.Sockets
   summary: Asynchronously accepts an incoming connection attempt and creates a new <xref href="System.Net.Sockets.TcpClient"></xref> to handle remote host communication.
   remarks: "This method blocks until the operation is complete. To perform this operation synchronously, use the <xref:System.Net.Sockets.TcpListener.AcceptTcpClient%2A> method.  \n  \n> [!NOTE]\n>  You can call the <xref:System.Net.Sockets.Socket.RemoteEndPoint%2A> property of the underlying socket (<xref:System.Net.Sockets.TcpClient.Client%2A>) to identify the remote host's network address and port number.  \n  \n> [!NOTE]\n>  If you receive a <xref:System.Net.Sockets.SocketException>, use the <xref:System.Net.Sockets.SocketException.ErrorCode%2A?displayProperty=fullName> property to obtain the specific error code and refer to the Windows Sockets version 2 API error code documentation in the MSDN library at [http://msdn.microsoft.com/library/](http://msdn.microsoft.com/library/) for a detailed description of the error.  \n  \n> [!NOTE]\n>  This member outputs trace information when you enable network tracing in your application. For more information, see [Network Tracing in the .NET Framework](~/docs/framework/network-programming/network-tracing.md)."
@@ -939,6 +948,7 @@ items:
   overload: System.Net.Sockets.TcpListener.EndAcceptTcpClient*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -951,6 +961,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -963,8 +974,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Sockets.TcpListener.ExclusiveAddressUse
   commentId: P:System.Net.Sockets.TcpListener.ExclusiveAddressUse
   id: ExclusiveAddressUse
@@ -973,7 +982,7 @@ items:
   - csharp
   name: ExclusiveAddressUse
   nameWithType: TcpListener.ExclusiveAddressUse
-  fullName: System.Net.Sockets.TcpListener.ExclusiveAddressUse
+  fullName: TcpListener.ExclusiveAddressUse
   type: Property
   assemblies:
   - System.Net.Sockets
@@ -1002,7 +1011,8 @@ items:
     description: The underlying <xref href="System.Net.Sockets.Socket"></xref> has been closed.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1019,7 +1029,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1035,8 +1046,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Sockets.TcpListener.Finalize
   commentId: M:System.Net.Sockets.TcpListener.Finalize
   id: Finalize
@@ -1045,7 +1054,7 @@ items:
   - csharp
   name: Finalize()
   nameWithType: TcpListener.Finalize()
-  fullName: System.Net.Sockets.TcpListener.Finalize()
+  fullName: TcpListener.Finalize()
   type: Method
   assemblies:
   - System
@@ -1072,7 +1081,7 @@ items:
   - csharp
   name: LocalEndpoint
   nameWithType: TcpListener.LocalEndpoint
-  fullName: System.Net.Sockets.TcpListener.LocalEndpoint
+  fullName: TcpListener.LocalEndpoint
   type: Property
   assemblies:
   - System.Net.Sockets
@@ -1092,7 +1101,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1109,7 +1119,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1125,8 +1136,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Sockets.TcpListener.Pending
   commentId: M:System.Net.Sockets.TcpListener.Pending
   id: Pending
@@ -1135,7 +1144,7 @@ items:
   - csharp
   name: Pending()
   nameWithType: TcpListener.Pending()
-  fullName: System.Net.Sockets.TcpListener.Pending()
+  fullName: TcpListener.Pending()
   type: Method
   assemblies:
   - System.Net.Sockets
@@ -1159,7 +1168,8 @@ items:
     description: The listener has not been started with a call to <xref href="System.Net.Sockets.TcpListener.Start"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1176,7 +1186,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1192,8 +1203,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Sockets.TcpListener.Server
   commentId: P:System.Net.Sockets.TcpListener.Server
   id: Server
@@ -1202,7 +1211,7 @@ items:
   - csharp
   name: Server
   nameWithType: TcpListener.Server
-  fullName: System.Net.Sockets.TcpListener.Server
+  fullName: TcpListener.Server
   type: Property
   assemblies:
   - System.Net.Sockets
@@ -1212,7 +1221,7 @@ items:
   summary: Gets the underlying network <xref href="System.Net.Sockets.Socket"></xref>.
   remarks: "<xref:System.Net.Sockets.TcpListener> creates a <xref:System.Net.Sockets.Socket> to listen for incoming client connection requests. Classes deriving from <xref:System.Net.Sockets.TcpListener> can use this property to get this <xref:System.Net.Sockets.Socket>. Use the underlying <xref:System.Net.Sockets.Socket> returned by the <xref:System.Net.Sockets.TcpListener.Server%2A> property if you require access beyond that which <xref:System.Net.Sockets.TcpListener> provides.  \n  \n> [!NOTE]\n>  The <xref:System.Net.Sockets.TcpListener.Server%2A> property only returns the <xref:System.Net.Sockets.Socket> used to listen for incoming client connection requests. Use the <xref:System.Net.Sockets.TcpListener.AcceptSocket%2A> method to accept a pending connection request and obtain a <xref:System.Net.Sockets.Socket> for sending and receiving data. You can also use the <xref:System.Net.Sockets.TcpListener.AcceptTcpClient%2A> method to accept a pending connection request and obtain a <xref:System.Net.Sockets.TcpClient> for sending and receiving data."
   example:
-  - "The following code example demonstrates the use of the <xref:System.Net.Sockets.TcpListener.Server%2A> property. The underlying <xref:System.Net.Sockets.Socket> is retrieved and the <xref:System.Net.Sockets.SocketOptionName><xref:System.Net.Sockets.Socket> option is configured to time out after 10 seconds if data still remains in the network buffer after the connection is closed.  \n  \n [!code-csharp[TcpListenerProtectedMembers1#1](~/samples/snippets/csharp/VS_Snippets_Remoting/TcpListenerProtectedMembers1/CS/source.cs#1)]\n [!code-vb[TcpListenerProtectedMembers1#1](~/samples/snippets/visualbasic/VS_Snippets_Remoting/TcpListenerProtectedMembers1/VB/source.vb#1)]"
+  - "The following code example demonstrates the use of the <xref:System.Net.Sockets.TcpListener.Server%2A> property. The underlying <xref:System.Net.Sockets.Socket> is retrieved and the <xref:System.Net.Sockets.SocketOptionName.Linger><xref:System.Net.Sockets.Socket> option is configured to time out after 10 seconds if data still remains in the network buffer after the connection is closed.  \n  \n [!code-csharp[TcpListenerProtectedMembers1#1](~/samples/snippets/csharp/VS_Snippets_Remoting/TcpListenerProtectedMembers1/CS/source.cs#1)]\n [!code-vb[TcpListenerProtectedMembers1#1](~/samples/snippets/visualbasic/VS_Snippets_Remoting/TcpListenerProtectedMembers1/VB/source.vb#1)]"
   syntax:
     content: public System.Net.Sockets.Socket Server { get; }
     return:
@@ -1222,7 +1231,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1239,7 +1249,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1255,8 +1266,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Sockets.TcpListener.Start
   commentId: M:System.Net.Sockets.TcpListener.Start
   id: Start
@@ -1265,7 +1274,7 @@ items:
   - csharp
   name: Start()
   nameWithType: TcpListener.Start()
-  fullName: System.Net.Sockets.TcpListener.Start()
+  fullName: TcpListener.Start()
   type: Method
   assemblies:
   - System.Net.Sockets
@@ -1286,7 +1295,8 @@ items:
     description: Use the <xref href="System.Net.Sockets.SocketException.ErrorCode"></xref> property to obtain the specific error code. When you have obtained this code, you can refer to the Windows Sockets version 2 API error code documentation in MSDN for a detailed description of the error.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1303,7 +1313,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1319,8 +1330,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Sockets.TcpListener.Start(System.Int32)
   commentId: M:System.Net.Sockets.TcpListener.Start(System.Int32)
   id: Start(System.Int32)
@@ -1329,7 +1338,7 @@ items:
   - csharp
   name: Start(Int32)
   nameWithType: TcpListener.Start(Int32)
-  fullName: System.Net.Sockets.TcpListener.Start(Int32)
+  fullName: TcpListener.Start(Int32)
   type: Method
   assemblies:
   - System.Net.Sockets
@@ -1350,7 +1359,7 @@ items:
   exceptions:
   - type: System.Net.Sockets.SocketException
     commentId: T:System.Net.Sockets.SocketException
-    description: An error occurred while accessing the socket. See the Remarks section for more information.
+    description: An error occurred while accessing the socket.
   - type: System.ArgumentOutOfRangeException
     commentId: T:System.ArgumentOutOfRangeException
     description: The<code> backlog</code> parameter is less than zero or exceeds the maximum number of permitted connections.
@@ -1359,7 +1368,8 @@ items:
     description: The underlying <xref href="System.Net.Sockets.Socket"></xref> is null.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1376,7 +1386,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1392,8 +1403,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Sockets.TcpListener.Stop
   commentId: M:System.Net.Sockets.TcpListener.Stop
   id: Stop
@@ -1402,7 +1411,7 @@ items:
   - csharp
   name: Stop()
   nameWithType: TcpListener.Stop()
-  fullName: System.Net.Sockets.TcpListener.Stop()
+  fullName: TcpListener.Stop()
   type: Method
   assemblies:
   - System.Net.Sockets
@@ -1423,7 +1432,8 @@ items:
     description: Use the <xref href="System.Net.Sockets.SocketException.ErrorCode"></xref> property to obtain the specific error code. When you have obtained this code, you can refer to the Windows Sockets version 2 API error code documentation in MSDN for a detailed description of the error.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1440,7 +1450,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1456,8 +1467,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Sockets/TcpListener.xml
-  ms.author: bobdel
-  manager: markl
 references:
 - uid: System.Object
   parent: System
@@ -1506,7 +1515,7 @@ references:
   isExternal: false
   name: TcpListener(Int32)
   nameWithType: TcpListener.TcpListener(Int32)
-  fullName: System.Net.Sockets.TcpListener.TcpListener(Int32)
+  fullName: TcpListener.TcpListener(Int32)
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -1518,7 +1527,7 @@ references:
   isExternal: false
   name: TcpListener(IPEndPoint)
   nameWithType: TcpListener.TcpListener(IPEndPoint)
-  fullName: System.Net.Sockets.TcpListener.TcpListener(IPEndPoint)
+  fullName: TcpListener.TcpListener(IPEndPoint)
 - uid: System.Net.IPEndPoint
   parent: System.Net
   isExternal: false
@@ -1530,7 +1539,7 @@ references:
   isExternal: false
   name: TcpListener(IPAddress, Int32)
   nameWithType: TcpListener.TcpListener(IPAddress, Int32)
-  fullName: System.Net.Sockets.TcpListener.TcpListener(IPAddress, Int32)
+  fullName: TcpListener.TcpListener(IPAddress, Int32)
 - uid: System.Net.IPAddress
   parent: System.Net
   isExternal: false
@@ -1542,7 +1551,7 @@ references:
   isExternal: false
   name: AcceptSocket()
   nameWithType: TcpListener.AcceptSocket()
-  fullName: System.Net.Sockets.TcpListener.AcceptSocket()
+  fullName: TcpListener.AcceptSocket()
 - uid: System.Net.Sockets.Socket
   parent: System.Net.Sockets
   isExternal: false
@@ -1554,7 +1563,7 @@ references:
   isExternal: false
   name: AcceptSocketAsync()
   nameWithType: TcpListener.AcceptSocketAsync()
-  fullName: System.Net.Sockets.TcpListener.AcceptSocketAsync()
+  fullName: TcpListener.AcceptSocketAsync()
 - uid: System.Threading.Tasks.Task`1
   name: Task<TResult>
   nameWithType: Task<TResult>
@@ -1585,7 +1594,7 @@ references:
   isExternal: false
   name: AcceptTcpClient()
   nameWithType: TcpListener.AcceptTcpClient()
-  fullName: System.Net.Sockets.TcpListener.AcceptTcpClient()
+  fullName: TcpListener.AcceptTcpClient()
 - uid: System.Net.Sockets.TcpClient
   parent: System.Net.Sockets
   isExternal: false
@@ -1597,7 +1606,7 @@ references:
   isExternal: false
   name: AcceptTcpClientAsync()
   nameWithType: TcpListener.AcceptTcpClientAsync()
-  fullName: System.Net.Sockets.TcpListener.AcceptTcpClientAsync()
+  fullName: TcpListener.AcceptTcpClientAsync()
 - uid: System.Threading.Tasks.Task{System.Net.Sockets.TcpClient}
   parent: System.Threading.Tasks
   isExternal: false
@@ -1624,7 +1633,7 @@ references:
   isExternal: false
   name: Active
   nameWithType: TcpListener.Active
-  fullName: System.Net.Sockets.TcpListener.Active
+  fullName: TcpListener.Active
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -1636,13 +1645,13 @@ references:
   isExternal: false
   name: AllowNatTraversal(Boolean)
   nameWithType: TcpListener.AllowNatTraversal(Boolean)
-  fullName: System.Net.Sockets.TcpListener.AllowNatTraversal(Boolean)
+  fullName: TcpListener.AllowNatTraversal(Boolean)
 - uid: System.Net.Sockets.TcpListener.BeginAcceptSocket(System.AsyncCallback,System.Object)
   parent: System.Net.Sockets.TcpListener
   isExternal: false
   name: BeginAcceptSocket(AsyncCallback, Object)
   nameWithType: TcpListener.BeginAcceptSocket(AsyncCallback, Object)
-  fullName: System.Net.Sockets.TcpListener.BeginAcceptSocket(AsyncCallback, Object)
+  fullName: TcpListener.BeginAcceptSocket(AsyncCallback, Object)
 - uid: System.IAsyncResult
   parent: System
   isExternal: false
@@ -1660,13 +1669,13 @@ references:
   isExternal: false
   name: BeginAcceptTcpClient(AsyncCallback, Object)
   nameWithType: TcpListener.BeginAcceptTcpClient(AsyncCallback, Object)
-  fullName: System.Net.Sockets.TcpListener.BeginAcceptTcpClient(AsyncCallback, Object)
+  fullName: TcpListener.BeginAcceptTcpClient(AsyncCallback, Object)
 - uid: System.Net.Sockets.TcpListener.Create(System.Int32)
   parent: System.Net.Sockets.TcpListener
   isExternal: false
   name: Create(Int32)
   nameWithType: TcpListener.Create(Int32)
-  fullName: System.Net.Sockets.TcpListener.Create(Int32)
+  fullName: TcpListener.Create(Int32)
 - uid: System.Net.Sockets.TcpListener
   parent: System.Net.Sockets
   isExternal: false
@@ -1678,31 +1687,31 @@ references:
   isExternal: false
   name: EndAcceptSocket(IAsyncResult)
   nameWithType: TcpListener.EndAcceptSocket(IAsyncResult)
-  fullName: System.Net.Sockets.TcpListener.EndAcceptSocket(IAsyncResult)
+  fullName: TcpListener.EndAcceptSocket(IAsyncResult)
 - uid: System.Net.Sockets.TcpListener.EndAcceptTcpClient(System.IAsyncResult)
   parent: System.Net.Sockets.TcpListener
   isExternal: false
   name: EndAcceptTcpClient(IAsyncResult)
   nameWithType: TcpListener.EndAcceptTcpClient(IAsyncResult)
-  fullName: System.Net.Sockets.TcpListener.EndAcceptTcpClient(IAsyncResult)
+  fullName: TcpListener.EndAcceptTcpClient(IAsyncResult)
 - uid: System.Net.Sockets.TcpListener.ExclusiveAddressUse
   parent: System.Net.Sockets.TcpListener
   isExternal: false
   name: ExclusiveAddressUse
   nameWithType: TcpListener.ExclusiveAddressUse
-  fullName: System.Net.Sockets.TcpListener.ExclusiveAddressUse
+  fullName: TcpListener.ExclusiveAddressUse
 - uid: System.Net.Sockets.TcpListener.Finalize
   parent: System.Net.Sockets.TcpListener
   isExternal: false
   name: Finalize()
   nameWithType: TcpListener.Finalize()
-  fullName: System.Net.Sockets.TcpListener.Finalize()
+  fullName: TcpListener.Finalize()
 - uid: System.Net.Sockets.TcpListener.LocalEndpoint
   parent: System.Net.Sockets.TcpListener
   isExternal: false
   name: LocalEndpoint
   nameWithType: TcpListener.LocalEndpoint
-  fullName: System.Net.Sockets.TcpListener.LocalEndpoint
+  fullName: TcpListener.LocalEndpoint
 - uid: System.Net.EndPoint
   parent: System.Net
   isExternal: false
@@ -1714,38 +1723,39 @@ references:
   isExternal: false
   name: Pending()
   nameWithType: TcpListener.Pending()
-  fullName: System.Net.Sockets.TcpListener.Pending()
+  fullName: TcpListener.Pending()
 - uid: System.Net.Sockets.TcpListener.Server
   parent: System.Net.Sockets.TcpListener
   isExternal: false
   name: Server
   nameWithType: TcpListener.Server
-  fullName: System.Net.Sockets.TcpListener.Server
+  fullName: TcpListener.Server
 - uid: System.Net.Sockets.TcpListener.Start
   parent: System.Net.Sockets.TcpListener
   isExternal: false
   name: Start()
   nameWithType: TcpListener.Start()
-  fullName: System.Net.Sockets.TcpListener.Start()
+  fullName: TcpListener.Start()
 - uid: System.Net.Sockets.TcpListener.Start(System.Int32)
   parent: System.Net.Sockets.TcpListener
   isExternal: false
   name: Start(Int32)
   nameWithType: TcpListener.Start(Int32)
-  fullName: System.Net.Sockets.TcpListener.Start(Int32)
+  fullName: TcpListener.Start(Int32)
 - uid: System.Net.Sockets.TcpListener.Stop
   parent: System.Net.Sockets.TcpListener
   isExternal: false
   name: Stop()
   nameWithType: TcpListener.Stop()
-  fullName: System.Net.Sockets.TcpListener.Stop()
+  fullName: TcpListener.Stop()
 - uid: System.Net.Sockets.TcpListener.#ctor*
   parent: System.Net.Sockets.TcpListener
   isExternal: false
   name: TcpListener
   nameWithType: TcpListener.TcpListener
-  fullName: System.Net.Sockets.TcpListener.TcpListener
+  fullName: TcpListener.TcpListener
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1758,7 +1768,7 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
   - netstandard-1.3
   - netstandard-1.4
   - netstandard-1.6
@@ -1768,8 +1778,9 @@ references:
   isExternal: false
   name: AcceptSocket
   nameWithType: TcpListener.AcceptSocket
-  fullName: System.Net.Sockets.TcpListener.AcceptSocket
+  fullName: TcpListener.AcceptSocket
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1787,10 +1798,11 @@ references:
   isExternal: false
   name: AcceptSocketAsync
   nameWithType: TcpListener.AcceptSocketAsync
-  fullName: System.Net.Sockets.TcpListener.AcceptSocketAsync
+  fullName: TcpListener.AcceptSocketAsync
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1811,8 +1823,9 @@ references:
   isExternal: false
   name: AcceptTcpClient
   nameWithType: TcpListener.AcceptTcpClient
-  fullName: System.Net.Sockets.TcpListener.AcceptTcpClient
+  fullName: TcpListener.AcceptTcpClient
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1830,10 +1843,11 @@ references:
   isExternal: false
   name: AcceptTcpClientAsync
   nameWithType: TcpListener.AcceptTcpClientAsync
-  fullName: System.Net.Sockets.TcpListener.AcceptTcpClientAsync
+  fullName: TcpListener.AcceptTcpClientAsync
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1854,10 +1868,11 @@ references:
   isExternal: false
   name: Active
   nameWithType: TcpListener.Active
-  fullName: System.Net.Sockets.TcpListener.Active
+  fullName: TcpListener.Active
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1878,8 +1893,9 @@ references:
   isExternal: false
   name: AllowNatTraversal
   nameWithType: TcpListener.AllowNatTraversal
-  fullName: System.Net.Sockets.TcpListener.AllowNatTraversal
+  fullName: TcpListener.AllowNatTraversal
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1897,8 +1913,9 @@ references:
   isExternal: false
   name: BeginAcceptSocket
   nameWithType: TcpListener.BeginAcceptSocket
-  fullName: System.Net.Sockets.TcpListener.BeginAcceptSocket
+  fullName: TcpListener.BeginAcceptSocket
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1916,8 +1933,9 @@ references:
   isExternal: false
   name: BeginAcceptTcpClient
   nameWithType: TcpListener.BeginAcceptTcpClient
-  fullName: System.Net.Sockets.TcpListener.BeginAcceptTcpClient
+  fullName: TcpListener.BeginAcceptTcpClient
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1935,8 +1953,9 @@ references:
   isExternal: false
   name: Create
   nameWithType: TcpListener.Create
-  fullName: System.Net.Sockets.TcpListener.Create
+  fullName: TcpListener.Create
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1954,8 +1973,9 @@ references:
   isExternal: false
   name: EndAcceptSocket
   nameWithType: TcpListener.EndAcceptSocket
-  fullName: System.Net.Sockets.TcpListener.EndAcceptSocket
+  fullName: TcpListener.EndAcceptSocket
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1973,8 +1993,9 @@ references:
   isExternal: false
   name: EndAcceptTcpClient
   nameWithType: TcpListener.EndAcceptTcpClient
-  fullName: System.Net.Sockets.TcpListener.EndAcceptTcpClient
+  fullName: TcpListener.EndAcceptTcpClient
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1992,10 +2013,11 @@ references:
   isExternal: false
   name: ExclusiveAddressUse
   nameWithType: TcpListener.ExclusiveAddressUse
-  fullName: System.Net.Sockets.TcpListener.ExclusiveAddressUse
+  fullName: TcpListener.ExclusiveAddressUse
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2016,7 +2038,7 @@ references:
   isExternal: false
   name: Finalize
   nameWithType: TcpListener.Finalize
-  fullName: System.Net.Sockets.TcpListener.Finalize
+  fullName: TcpListener.Finalize
   monikers:
   - xamarinandroid-7.1
   - xamarinios-10.8
@@ -2027,10 +2049,11 @@ references:
   isExternal: false
   name: LocalEndpoint
   nameWithType: TcpListener.LocalEndpoint
-  fullName: System.Net.Sockets.TcpListener.LocalEndpoint
+  fullName: TcpListener.LocalEndpoint
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2051,10 +2074,11 @@ references:
   isExternal: false
   name: Pending
   nameWithType: TcpListener.Pending
-  fullName: System.Net.Sockets.TcpListener.Pending
+  fullName: TcpListener.Pending
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2075,10 +2099,11 @@ references:
   isExternal: false
   name: Server
   nameWithType: TcpListener.Server
-  fullName: System.Net.Sockets.TcpListener.Server
+  fullName: TcpListener.Server
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2099,10 +2124,11 @@ references:
   isExternal: false
   name: Start
   nameWithType: TcpListener.Start
-  fullName: System.Net.Sockets.TcpListener.Start
+  fullName: TcpListener.Start
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2123,10 +2149,11 @@ references:
   isExternal: false
   name: Stop
   nameWithType: TcpListener.Stop
-  fullName: System.Net.Sockets.TcpListener.Stop
+  fullName: TcpListener.Stop
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

@@ -40,7 +40,7 @@ items:
   - System.ServiceProcess
   namespace: System.ServiceProcess
   summary: Provides a base class for a service that will exist as part of a service application. <xref href="System.ServiceProcess.ServiceBase"></xref> must be derived from when creating a new service class.
-  remarks: "Derive from <xref:System.ServiceProcess.ServiceBase> when defining your service class in a service application. Any useful service overrides the [OnStart(String\\<xref:System.ServiceProcess.ServiceBase.OnStart%2A> and <xref:System.ServiceProcess.ServiceBase.OnStop%2A> methods. For additional functionality, you can override <xref:System.ServiceProcess.ServiceBase.OnPause%2A> and <xref:System.ServiceProcess.ServiceBase.OnContinue%2A> with specific behavior in response to changes in the service state.  \n  \n A service is a long-running executable that does not support a user interface, and which might not run under the logged-on user account. The service can run without any user being logged on to the computer.  \n  \n By default, services run under the System account, which is not the same as the Administrator account. You cannot change the rights of the System account. Alternatively, you can use a <xref:System.ServiceProcess.ServiceProcessInstaller> to specify a user account under which the service will run.  \n  \n An executable can contain more than one service but must contain a separate <xref:System.ServiceProcess.ServiceInstaller> for each service. The <xref:System.ServiceProcess.ServiceInstaller> instance registers the service with the system. The installer also associates each service with an event log that you can use to record service commands. The `main()` function in the executable defines which services should run. The current working directory of the service is the system directory, not the directory in which the executable is located.  \n  \n When you start a service, the system locates the executable and runs the <xref:System.ServiceProcess.ServiceBase.OnStart%2A> method for that service, contained within the executable. However, running the service is not the same as running the executable. The executable only loads the service. The service is accessed (for example, started and stopped) through the Service Control Manager.  \n  \n The executable calls the <xref:System.ServiceProcess.ServiceBase> derived class's constructor the first time you call Start on the service. The <xref:System.ServiceProcess.ServiceBase.OnStart%2A> command-handling method is called immediately after the constructor executes. The constructor is not executed again after the first time the service has been loaded, so it is necessary to separate the processing performed by the constructor from that performed by <xref:System.ServiceProcess.ServiceBase.OnStart%2A>. Any resources that can be released by <xref:System.ServiceProcess.ServiceBase.OnStop%2A> should be created in <xref:System.ServiceProcess.ServiceBase.OnStart%2A>. Creating resources in the constructor prevents them from being created properly if the service is started again after <xref:System.ServiceProcess.ServiceBase.OnStop%2A> has released the resources.  \n  \n The Service Control Manager (SCM) provides a way to interact with the service. You can use the SCM to pass Start, Stop, Pause, Continue, or custom commands into the service. The SCM uses the values of <xref:System.ServiceProcess.ServiceBase.CanStop%2A> and <xref:System.ServiceProcess.ServiceBase.CanPauseAndContinue%2A> to determine whether the service accepts Stop, Pause, or Continue commands. Stop, Pause, and Continue are enabled in the SCM's context menus only if the corresponding property <xref:System.ServiceProcess.ServiceBase.CanStop%2A> or <xref:System.ServiceProcess.ServiceBase.CanPauseAndContinue%2A> is `true` in the service class. If enabled, the command is passed to the service, and <xref:System.ServiceProcess.ServiceBase.OnStop%2A>, <xref:System.ServiceProcess.ServiceBase.OnPause%2A>, or <xref:System.ServiceProcess.ServiceBase.OnContinue%2A> is called. If <xref:System.ServiceProcess.ServiceBase.CanStop%2A>, <xref:System.ServiceProcess.ServiceBase.CanShutdown%2A>, or <xref:System.ServiceProcess.ServiceBase.CanPauseAndContinue%2A> is `false`, the corresponding command-handling method (such as <xref:System.ServiceProcess.ServiceBase.OnStop%2A>) will not be processed, even if you have implemented the method.  \n  \n You can use the <xref:System.ServiceProcess.ServiceController> class to do programmatically what the SCM does using a user interface. You can automate the tasks available in the console. If <xref:System.ServiceProcess.ServiceBase.CanStop%2A>, <xref:System.ServiceProcess.ServiceBase.CanShutdown%2A>, or <xref:System.ServiceProcess.ServiceBase.CanPauseAndContinue%2A> is `true` but you have not implemented a corresponding command-handling method (such as <xref:System.ServiceProcess.ServiceBase.OnStop%2A>) the system throws an exception and ignores the command.  \n  \n You do not have to implement <xref:System.ServiceProcess.ServiceBase.OnStart%2A>, <xref:System.ServiceProcess.ServiceBase.OnStop%2A>, or any other method in <xref:System.ServiceProcess.ServiceBase>. However, the service's behavior is described in <xref:System.ServiceProcess.ServiceBase.OnStart%2A>, so at minimum, this member should be overridden. The `main()` function of the executable registers the service in the executable with the Service Control Manager by calling the <xref:System.ServiceProcess.ServiceBase.Run%2A> method. The <xref:System.ServiceProcess.ServiceBase.ServiceName%2A> property of the <xref:System.ServiceProcess.ServiceBase> object passed to the <xref:System.ServiceProcess.ServiceBase.Run%2A> method must match the <xref:System.ServiceProcess.ServiceInstaller.ServiceName%2A> property of the service installer for that service.  \n  \n You can use `InstallUtil.exe` to install services on your system.  \n  \n> [!NOTE]\n>  You can specify a log other than the Application event log to receive notification of service calls, but neither the <xref:System.ServiceProcess.ServiceBase.AutoLog%2A> nor the <xref:System.ServiceProcess.ServiceBase.EventLog%2A> property can write to a custom log. Set <xref:System.ServiceProcess.ServiceBase.AutoLog%2A> to `false` if you do not want to use automatic logging."
+  remarks: "Derive from <xref:System.ServiceProcess.ServiceBase> when defining your service class in a service application. Any useful service overrides the <xref:System.ServiceProcess.ServiceBase.OnStart%2A> and <xref:System.ServiceProcess.ServiceBase.OnStop%2A> methods. For additional functionality, you can override <xref:System.ServiceProcess.ServiceBase.OnPause%2A> and <xref:System.ServiceProcess.ServiceBase.OnContinue%2A> with specific behavior in response to changes in the service state.  \n  \n A service is a long-running executable that does not support a user interface, and which might not run under the logged-on user account. The service can run without any user being logged on to the computer.  \n  \n By default, services run under the System account, which is not the same as the Administrator account. You cannot change the rights of the System account. Alternatively, you can use a <xref:System.ServiceProcess.ServiceProcessInstaller> to specify a user account under which the service will run.  \n  \n An executable can contain more than one service but must contain a separate <xref:System.ServiceProcess.ServiceInstaller> for each service. The <xref:System.ServiceProcess.ServiceInstaller> instance registers the service with the system. The installer also associates each service with an event log that you can use to record service commands. The `main()` function in the executable defines which services should run. The current working directory of the service is the system directory, not the directory in which the executable is located.  \n  \n When you start a service, the system locates the executable and runs the <xref:System.ServiceProcess.ServiceBase.OnStart%2A> method for that service, contained within the executable. However, running the service is not the same as running the executable. The executable only loads the service. The service is accessed (for example, started and stopped) through the Service Control Manager.  \n  \n The executable calls the <xref:System.ServiceProcess.ServiceBase> derived class's constructor the first time you call Start on the service. The <xref:System.ServiceProcess.ServiceBase.OnStart%2A> command-handling method is called immediately after the constructor executes. The constructor is not executed again after the first time the service has been loaded, so it is necessary to separate the processing performed by the constructor from that performed by <xref:System.ServiceProcess.ServiceBase.OnStart%2A>. Any resources that can be released by <xref:System.ServiceProcess.ServiceBase.OnStop%2A> should be created in <xref:System.ServiceProcess.ServiceBase.OnStart%2A>. Creating resources in the constructor prevents them from being created properly if the service is started again after <xref:System.ServiceProcess.ServiceBase.OnStop%2A> has released the resources.  \n  \n The Service Control Manager (SCM) provides a way to interact with the service. You can use the SCM to pass Start, Stop, Pause, Continue, or custom commands into the service. The SCM uses the values of <xref:System.ServiceProcess.ServiceBase.CanStop%2A> and <xref:System.ServiceProcess.ServiceBase.CanPauseAndContinue%2A> to determine whether the service accepts Stop, Pause, or Continue commands. Stop, Pause, and Continue are enabled in the SCM's context menus only if the corresponding property <xref:System.ServiceProcess.ServiceBase.CanStop%2A> or <xref:System.ServiceProcess.ServiceBase.CanPauseAndContinue%2A> is `true` in the service class. If enabled, the command is passed to the service, and <xref:System.ServiceProcess.ServiceBase.OnStop%2A>, <xref:System.ServiceProcess.ServiceBase.OnPause%2A>, or <xref:System.ServiceProcess.ServiceBase.OnContinue%2A> is called. If <xref:System.ServiceProcess.ServiceBase.CanStop%2A>, <xref:System.ServiceProcess.ServiceBase.CanShutdown%2A>, or <xref:System.ServiceProcess.ServiceBase.CanPauseAndContinue%2A> is `false`, the corresponding command-handling method (such as <xref:System.ServiceProcess.ServiceBase.OnStop%2A>) will not be processed, even if you have implemented the method.  \n  \n You can use the <xref:System.ServiceProcess.ServiceController> class to do programmatically what the SCM does using a user interface. You can automate the tasks available in the console. If <xref:System.ServiceProcess.ServiceBase.CanStop%2A>, <xref:System.ServiceProcess.ServiceBase.CanShutdown%2A>, or <xref:System.ServiceProcess.ServiceBase.CanPauseAndContinue%2A> is `true` but you have not implemented a corresponding command-handling method (such as <xref:System.ServiceProcess.ServiceBase.OnStop%2A>) the system throws an exception and ignores the command.  \n  \n You do not have to implement <xref:System.ServiceProcess.ServiceBase.OnStart%2A>, <xref:System.ServiceProcess.ServiceBase.OnStop%2A>, or any other method in <xref:System.ServiceProcess.ServiceBase>. However, the service's behavior is described in <xref:System.ServiceProcess.ServiceBase.OnStart%2A>, so at minimum, this member should be overridden. The `main()` function of the executable registers the service in the executable with the Service Control Manager by calling the <xref:System.ServiceProcess.ServiceBase.Run%2A> method. The <xref:System.ServiceProcess.ServiceBase.ServiceName%2A> property of the <xref:System.ServiceProcess.ServiceBase> object passed to the <xref:System.ServiceProcess.ServiceBase.Run%2A> method must match the <xref:System.ServiceProcess.ServiceInstaller.ServiceName%2A> property of the service installer for that service.  \n  \n You can use `InstallUtil.exe` to install services on your system.  \n  \n> [!NOTE]\n>  You can specify a log other than the Application event log to receive notification of service calls, but neither the <xref:System.ServiceProcess.ServiceBase.AutoLog%2A> nor the <xref:System.ServiceProcess.ServiceBase.EventLog%2A> property can write to a custom log. Set <xref:System.ServiceProcess.ServiceBase.AutoLog%2A> to `false` if you do not want to use automatic logging."
   syntax:
     content: 'public class ServiceBase : System.ComponentModel.Component'
   inheritance:
@@ -86,9 +86,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.#ctor
   commentId: M:System.ServiceProcess.ServiceBase.#ctor
   id: '#ctor'
@@ -97,7 +94,7 @@ items:
   - csharp
   name: ServiceBase()
   nameWithType: ServiceBase.ServiceBase()
-  fullName: System.ServiceProcess.ServiceBase.ServiceBase()
+  fullName: ServiceBase.ServiceBase()
   type: Constructor
   assemblies:
   - System.ServiceProcess
@@ -126,9 +123,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.AutoLog
   commentId: P:System.ServiceProcess.ServiceBase.AutoLog
   id: AutoLog
@@ -137,7 +131,7 @@ items:
   - csharp
   name: AutoLog
   nameWithType: ServiceBase.AutoLog
-  fullName: System.ServiceProcess.ServiceBase.AutoLog
+  fullName: ServiceBase.AutoLog
   type: Property
   assemblies:
   - System.ServiceProcess
@@ -173,9 +167,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.CanHandlePowerEvent
   commentId: P:System.ServiceProcess.ServiceBase.CanHandlePowerEvent
   id: CanHandlePowerEvent
@@ -184,7 +175,7 @@ items:
   - csharp
   name: CanHandlePowerEvent
   nameWithType: ServiceBase.CanHandlePowerEvent
-  fullName: System.ServiceProcess.ServiceBase.CanHandlePowerEvent
+  fullName: ServiceBase.CanHandlePowerEvent
   type: Property
   assemblies:
   - System.ServiceProcess
@@ -219,9 +210,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.CanHandleSessionChangeEvent
   commentId: P:System.ServiceProcess.ServiceBase.CanHandleSessionChangeEvent
   id: CanHandleSessionChangeEvent
@@ -230,7 +218,7 @@ items:
   - csharp
   name: CanHandleSessionChangeEvent
   nameWithType: ServiceBase.CanHandleSessionChangeEvent
-  fullName: System.ServiceProcess.ServiceBase.CanHandleSessionChangeEvent
+  fullName: ServiceBase.CanHandleSessionChangeEvent
   type: Property
   assemblies:
   - System.ServiceProcess
@@ -268,9 +256,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.CanPauseAndContinue
   commentId: P:System.ServiceProcess.ServiceBase.CanPauseAndContinue
   id: CanPauseAndContinue
@@ -279,7 +264,7 @@ items:
   - csharp
   name: CanPauseAndContinue
   nameWithType: ServiceBase.CanPauseAndContinue
-  fullName: System.ServiceProcess.ServiceBase.CanPauseAndContinue
+  fullName: ServiceBase.CanPauseAndContinue
   type: Property
   assemblies:
   - System.ServiceProcess
@@ -314,9 +299,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.CanShutdown
   commentId: P:System.ServiceProcess.ServiceBase.CanShutdown
   id: CanShutdown
@@ -325,7 +307,7 @@ items:
   - csharp
   name: CanShutdown
   nameWithType: ServiceBase.CanShutdown
-  fullName: System.ServiceProcess.ServiceBase.CanShutdown
+  fullName: ServiceBase.CanShutdown
   type: Property
   assemblies:
   - System.ServiceProcess
@@ -360,9 +342,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.CanStop
   commentId: P:System.ServiceProcess.ServiceBase.CanStop
   id: CanStop
@@ -371,7 +350,7 @@ items:
   - csharp
   name: CanStop
   nameWithType: ServiceBase.CanStop
-  fullName: System.ServiceProcess.ServiceBase.CanStop
+  fullName: ServiceBase.CanStop
   type: Property
   assemblies:
   - System.ServiceProcess
@@ -406,9 +385,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.Dispose(System.Boolean)
   commentId: M:System.ServiceProcess.ServiceBase.Dispose(System.Boolean)
   id: Dispose(System.Boolean)
@@ -417,7 +393,7 @@ items:
   - csharp
   name: Dispose(Boolean)
   nameWithType: ServiceBase.Dispose(Boolean)
-  fullName: System.ServiceProcess.ServiceBase.Dispose(Boolean)
+  fullName: ServiceBase.Dispose(Boolean)
   type: Method
   assemblies:
   - System.ServiceProcess
@@ -449,9 +425,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.EventLog
   commentId: P:System.ServiceProcess.ServiceBase.EventLog
   id: EventLog
@@ -460,7 +433,7 @@ items:
   - csharp
   name: EventLog
   nameWithType: ServiceBase.EventLog
-  fullName: System.ServiceProcess.ServiceBase.EventLog
+  fullName: ServiceBase.EventLog
   type: Property
   assemblies:
   - System.ServiceProcess
@@ -496,9 +469,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.ExitCode
   commentId: P:System.ServiceProcess.ServiceBase.ExitCode
   id: ExitCode
@@ -507,7 +477,7 @@ items:
   - csharp
   name: ExitCode
   nameWithType: ServiceBase.ExitCode
-  fullName: System.ServiceProcess.ServiceBase.ExitCode
+  fullName: ServiceBase.ExitCode
   type: Property
   assemblies:
   - System.ServiceProcess
@@ -543,9 +513,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.MaxNameLength
   commentId: F:System.ServiceProcess.ServiceBase.MaxNameLength
   id: MaxNameLength
@@ -554,7 +521,7 @@ items:
   - csharp
   name: MaxNameLength
   nameWithType: ServiceBase.MaxNameLength
-  fullName: System.ServiceProcess.ServiceBase.MaxNameLength
+  fullName: ServiceBase.MaxNameLength
   type: Field
   assemblies:
   - System.ServiceProcess
@@ -584,9 +551,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.OnContinue
   commentId: M:System.ServiceProcess.ServiceBase.OnContinue
   id: OnContinue
@@ -595,7 +559,7 @@ items:
   - csharp
   name: OnContinue()
   nameWithType: ServiceBase.OnContinue()
-  fullName: System.ServiceProcess.ServiceBase.OnContinue()
+  fullName: ServiceBase.OnContinue()
   type: Method
   assemblies:
   - System.ServiceProcess
@@ -624,9 +588,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.OnCustomCommand(System.Int32)
   commentId: M:System.ServiceProcess.ServiceBase.OnCustomCommand(System.Int32)
   id: OnCustomCommand(System.Int32)
@@ -635,7 +596,7 @@ items:
   - csharp
   name: OnCustomCommand(Int32)
   nameWithType: ServiceBase.OnCustomCommand(Int32)
-  fullName: System.ServiceProcess.ServiceBase.OnCustomCommand(Int32)
+  fullName: ServiceBase.OnCustomCommand(Int32)
   type: Method
   assemblies:
   - System.ServiceProcess
@@ -667,9 +628,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.OnPause
   commentId: M:System.ServiceProcess.ServiceBase.OnPause
   id: OnPause
@@ -678,7 +636,7 @@ items:
   - csharp
   name: OnPause()
   nameWithType: ServiceBase.OnPause()
-  fullName: System.ServiceProcess.ServiceBase.OnPause()
+  fullName: ServiceBase.OnPause()
   type: Method
   assemblies:
   - System.ServiceProcess
@@ -707,9 +665,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.OnPowerEvent(System.ServiceProcess.PowerBroadcastStatus)
   commentId: M:System.ServiceProcess.ServiceBase.OnPowerEvent(System.ServiceProcess.PowerBroadcastStatus)
   id: OnPowerEvent(System.ServiceProcess.PowerBroadcastStatus)
@@ -718,7 +673,7 @@ items:
   - csharp
   name: OnPowerEvent(PowerBroadcastStatus)
   nameWithType: ServiceBase.OnPowerEvent(PowerBroadcastStatus)
-  fullName: System.ServiceProcess.ServiceBase.OnPowerEvent(PowerBroadcastStatus)
+  fullName: ServiceBase.OnPowerEvent(PowerBroadcastStatus)
   type: Method
   assemblies:
   - System.ServiceProcess
@@ -753,9 +708,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.OnSessionChange(System.ServiceProcess.SessionChangeDescription)
   commentId: M:System.ServiceProcess.ServiceBase.OnSessionChange(System.ServiceProcess.SessionChangeDescription)
   id: OnSessionChange(System.ServiceProcess.SessionChangeDescription)
@@ -764,7 +716,7 @@ items:
   - csharp
   name: OnSessionChange(SessionChangeDescription)
   nameWithType: ServiceBase.OnSessionChange(SessionChangeDescription)
-  fullName: System.ServiceProcess.ServiceBase.OnSessionChange(SessionChangeDescription)
+  fullName: ServiceBase.OnSessionChange(SessionChangeDescription)
   type: Method
   assemblies:
   - System.ServiceProcess
@@ -796,9 +748,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.OnShutdown
   commentId: M:System.ServiceProcess.ServiceBase.OnShutdown
   id: OnShutdown
@@ -807,7 +756,7 @@ items:
   - csharp
   name: OnShutdown()
   nameWithType: ServiceBase.OnShutdown()
-  fullName: System.ServiceProcess.ServiceBase.OnShutdown()
+  fullName: ServiceBase.OnShutdown()
   type: Method
   assemblies:
   - System.ServiceProcess
@@ -836,9 +785,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.OnStart(System.String[])
   commentId: M:System.ServiceProcess.ServiceBase.OnStart(System.String[])
   id: OnStart(System.String[])
@@ -847,13 +793,13 @@ items:
   - csharp
   name: OnStart(String[])
   nameWithType: ServiceBase.OnStart(String[])
-  fullName: System.ServiceProcess.ServiceBase.OnStart(String[])
+  fullName: ServiceBase.OnStart(String[])
   type: Method
   assemblies:
   - System.ServiceProcess
   namespace: System.ServiceProcess
   summary: When implemented in a derived class, executes when a Start command is sent to the service by the Service Control Manager (SCM) or when the operating system starts (for a service that starts automatically). Specifies actions to take when the service starts.
-  remarks: "Use <xref:System.ServiceProcess.ServiceBase.OnStart%2A> to specify the processing that occurs when the service receives a Start command. <xref:System.ServiceProcess.ServiceBase.OnStart%2A> is the method in which you specify the behavior of the service. <xref:System.ServiceProcess.ServiceBase.OnStart%2A> can take arguments as a way to pass data, but this usage is rare.  \n  \n> [!CAUTION]\n>  Do not use the constructor to perform processing that should be in <xref:System.ServiceProcess.ServiceBase.OnStart%2A>. Use <xref:System.ServiceProcess.ServiceBase.OnStart%2A> to handle all initialization of your service. The constructor is called when the application's executable runs, not when the service runs. The executable runs before <xref:System.ServiceProcess.ServiceBase.OnStart%2A>. When you continue, for example, the constructor is not called again because the SCM already holds the object in memory. If <xref:System.ServiceProcess.ServiceBase.OnStop%2A> releases resources allocated in the constructor rather than in <xref:System.ServiceProcess.ServiceBase.OnStart%2A>, the needed resources would not be created again the second time the service is called.  \n  \n Services can be set to start automatically when the computer reboots by setting the <xref:System.ServiceProcess.ServiceInstaller.StartType%2A> on the service's installer to <xref:System.ServiceProcess.ServiceStartMode>. In such a situation, <xref:System.ServiceProcess.ServiceBase.OnStart%2A> would be called at system startup.  \n  \n <xref:System.ServiceProcess.ServiceBase.OnStart%2A> is expected to be overridden in the derived class. For the service to be useful, <xref:System.ServiceProcess.ServiceBase.OnStart%2A> and <xref:System.ServiceProcess.ServiceBase.OnStop%2A> should both be implemented in your service class.  \n  \n Process initialization arguments for the service in the <xref:System.ServiceProcess.ServiceBase.OnStart%2A> method, not in the Main method. The arguments in the `args` parameter array can be set manually in the properties window for the service in the Services console. The arguments entered in the console are not saved; they are passed to the service on a one-time basis when the service is started from the control panel. Arguments that must be present when the service is automatically started can be placed in the ImagePath string value for the service's registry key (HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\\\*\\<service name>*). You can obtain the arguments from the registry using the <xref:System.Environment.GetCommandLineArgs%2A> method, for example:  `string[] imagePathArgs = Environment.GetCommandLineArgs();`."
+  remarks: "Use <xref:System.ServiceProcess.ServiceBase.OnStart%2A> to specify the processing that occurs when the service receives a Start command. <xref:System.ServiceProcess.ServiceBase.OnStart%2A> is the method in which you specify the behavior of the service. <xref:System.ServiceProcess.ServiceBase.OnStart%2A> can take arguments as a way to pass data, but this usage is rare.  \n  \n> [!CAUTION]\n>  Do not use the constructor to perform processing that should be in <xref:System.ServiceProcess.ServiceBase.OnStart%2A>. Use <xref:System.ServiceProcess.ServiceBase.OnStart%2A> to handle all initialization of your service. The constructor is called when the application's executable runs, not when the service runs. The executable runs before <xref:System.ServiceProcess.ServiceBase.OnStart%2A>. When you continue, for example, the constructor is not called again because the SCM already holds the object in memory. If <xref:System.ServiceProcess.ServiceBase.OnStop%2A> releases resources allocated in the constructor rather than in <xref:System.ServiceProcess.ServiceBase.OnStart%2A>, the needed resources would not be created again the second time the service is called.  \n  \n Services can be set to start automatically when the computer reboots by setting the <xref:System.ServiceProcess.ServiceInstaller.StartType%2A> on the service's installer to <xref:System.ServiceProcess.ServiceStartMode.Automatic>. In such a situation, <xref:System.ServiceProcess.ServiceBase.OnStart%2A> would be called at system startup.  \n  \n <xref:System.ServiceProcess.ServiceBase.OnStart%2A> is expected to be overridden in the derived class. For the service to be useful, <xref:System.ServiceProcess.ServiceBase.OnStart%2A> and <xref:System.ServiceProcess.ServiceBase.OnStop%2A> should both be implemented in your service class.  \n  \n Process initialization arguments for the service in the <xref:System.ServiceProcess.ServiceBase.OnStart%2A> method, not in the Main method. The arguments in the `args` parameter array can be set manually in the properties window for the service in the Services console. The arguments entered in the console are not saved; they are passed to the service on a one-time basis when the service is started from the control panel. Arguments that must be present when the service is automatically started can be placed in the ImagePath string value for the service's registry key (HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\\\*\\<service name>*). You can obtain the arguments from the registry using the <xref:System.Environment.GetCommandLineArgs%2A> method, for example:  `string[] imagePathArgs = Environment.GetCommandLineArgs();`."
   syntax:
     content: protected virtual void OnStart (string[] args);
     parameters:
@@ -879,9 +825,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.OnStop
   commentId: M:System.ServiceProcess.ServiceBase.OnStop
   id: OnStop
@@ -890,7 +833,7 @@ items:
   - csharp
   name: OnStop()
   nameWithType: ServiceBase.OnStop()
-  fullName: System.ServiceProcess.ServiceBase.OnStop()
+  fullName: ServiceBase.OnStop()
   type: Method
   assemblies:
   - System.ServiceProcess
@@ -919,9 +862,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.RequestAdditionalTime(System.Int32)
   commentId: M:System.ServiceProcess.ServiceBase.RequestAdditionalTime(System.Int32)
   id: RequestAdditionalTime(System.Int32)
@@ -930,7 +870,7 @@ items:
   - csharp
   name: RequestAdditionalTime(Int32)
   nameWithType: ServiceBase.RequestAdditionalTime(Int32)
-  fullName: System.ServiceProcess.ServiceBase.RequestAdditionalTime(Int32)
+  fullName: ServiceBase.RequestAdditionalTime(Int32)
   type: Method
   assemblies:
   - System.ServiceProcess
@@ -970,9 +910,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.Run(System.ServiceProcess.ServiceBase)
   commentId: M:System.ServiceProcess.ServiceBase.Run(System.ServiceProcess.ServiceBase)
   id: Run(System.ServiceProcess.ServiceBase)
@@ -981,7 +918,7 @@ items:
   - csharp
   name: Run(ServiceBase)
   nameWithType: ServiceBase.Run(ServiceBase)
-  fullName: System.ServiceProcess.ServiceBase.Run(ServiceBase)
+  fullName: ServiceBase.Run(ServiceBase)
   type: Method
   assemblies:
   - System.ServiceProcess
@@ -1016,9 +953,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.Run(System.ServiceProcess.ServiceBase[])
   commentId: M:System.ServiceProcess.ServiceBase.Run(System.ServiceProcess.ServiceBase[])
   id: Run(System.ServiceProcess.ServiceBase[])
@@ -1027,7 +961,7 @@ items:
   - csharp
   name: Run(ServiceBase[])
   nameWithType: ServiceBase.Run(ServiceBase[])
-  fullName: System.ServiceProcess.ServiceBase.Run(ServiceBase[])
+  fullName: ServiceBase.Run(ServiceBase[])
   type: Method
   assemblies:
   - System.ServiceProcess
@@ -1062,9 +996,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.ServiceHandle
   commentId: P:System.ServiceProcess.ServiceBase.ServiceHandle
   id: ServiceHandle
@@ -1073,7 +1004,7 @@ items:
   - csharp
   name: ServiceHandle
   nameWithType: ServiceBase.ServiceHandle
-  fullName: System.ServiceProcess.ServiceBase.ServiceHandle
+  fullName: ServiceBase.ServiceHandle
   type: Property
   assemblies:
   - System.ServiceProcess
@@ -1105,9 +1036,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.ServiceMainCallback(System.Int32,System.IntPtr)
   commentId: M:System.ServiceProcess.ServiceBase.ServiceMainCallback(System.Int32,System.IntPtr)
   id: ServiceMainCallback(System.Int32,System.IntPtr)
@@ -1116,7 +1044,7 @@ items:
   - csharp
   name: ServiceMainCallback(Int32, IntPtr)
   nameWithType: ServiceBase.ServiceMainCallback(Int32, IntPtr)
-  fullName: System.ServiceProcess.ServiceBase.ServiceMainCallback(Int32, IntPtr)
+  fullName: ServiceBase.ServiceMainCallback(Int32, IntPtr)
   type: Method
   assemblies:
   - System.ServiceProcess
@@ -1155,9 +1083,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.ServiceName
   commentId: P:System.ServiceProcess.ServiceBase.ServiceName
   id: ServiceName
@@ -1166,7 +1091,7 @@ items:
   - csharp
   name: ServiceName
   nameWithType: ServiceBase.ServiceName
-  fullName: System.ServiceProcess.ServiceBase.ServiceName
+  fullName: ServiceBase.ServiceName
   type: Property
   assemblies:
   - System.ServiceProcess
@@ -1211,9 +1136,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ServiceProcess.ServiceBase.Stop
   commentId: M:System.ServiceProcess.ServiceBase.Stop
   id: Stop
@@ -1222,7 +1144,7 @@ items:
   - csharp
   name: Stop()
   nameWithType: ServiceBase.Stop()
-  fullName: System.ServiceProcess.ServiceBase.Stop()
+  fullName: ServiceBase.Stop()
   type: Method
   assemblies:
   - System.ServiceProcess
@@ -1251,9 +1173,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceProcess/ServiceBase.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.ComponentModel.Component
   parent: System.ComponentModel
@@ -1278,13 +1197,13 @@ references:
   isExternal: false
   name: ServiceBase()
   nameWithType: ServiceBase.ServiceBase()
-  fullName: System.ServiceProcess.ServiceBase.ServiceBase()
+  fullName: ServiceBase.ServiceBase()
 - uid: System.ServiceProcess.ServiceBase.AutoLog
   parent: System.ServiceProcess.ServiceBase
   isExternal: false
   name: AutoLog
   nameWithType: ServiceBase.AutoLog
-  fullName: System.ServiceProcess.ServiceBase.AutoLog
+  fullName: ServiceBase.AutoLog
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -1296,43 +1215,43 @@ references:
   isExternal: false
   name: CanHandlePowerEvent
   nameWithType: ServiceBase.CanHandlePowerEvent
-  fullName: System.ServiceProcess.ServiceBase.CanHandlePowerEvent
+  fullName: ServiceBase.CanHandlePowerEvent
 - uid: System.ServiceProcess.ServiceBase.CanHandleSessionChangeEvent
   parent: System.ServiceProcess.ServiceBase
   isExternal: false
   name: CanHandleSessionChangeEvent
   nameWithType: ServiceBase.CanHandleSessionChangeEvent
-  fullName: System.ServiceProcess.ServiceBase.CanHandleSessionChangeEvent
+  fullName: ServiceBase.CanHandleSessionChangeEvent
 - uid: System.ServiceProcess.ServiceBase.CanPauseAndContinue
   parent: System.ServiceProcess.ServiceBase
   isExternal: false
   name: CanPauseAndContinue
   nameWithType: ServiceBase.CanPauseAndContinue
-  fullName: System.ServiceProcess.ServiceBase.CanPauseAndContinue
+  fullName: ServiceBase.CanPauseAndContinue
 - uid: System.ServiceProcess.ServiceBase.CanShutdown
   parent: System.ServiceProcess.ServiceBase
   isExternal: false
   name: CanShutdown
   nameWithType: ServiceBase.CanShutdown
-  fullName: System.ServiceProcess.ServiceBase.CanShutdown
+  fullName: ServiceBase.CanShutdown
 - uid: System.ServiceProcess.ServiceBase.CanStop
   parent: System.ServiceProcess.ServiceBase
   isExternal: false
   name: CanStop
   nameWithType: ServiceBase.CanStop
-  fullName: System.ServiceProcess.ServiceBase.CanStop
+  fullName: ServiceBase.CanStop
 - uid: System.ServiceProcess.ServiceBase.Dispose(System.Boolean)
   parent: System.ServiceProcess.ServiceBase
   isExternal: false
   name: Dispose(Boolean)
   nameWithType: ServiceBase.Dispose(Boolean)
-  fullName: System.ServiceProcess.ServiceBase.Dispose(Boolean)
+  fullName: ServiceBase.Dispose(Boolean)
 - uid: System.ServiceProcess.ServiceBase.EventLog
   parent: System.ServiceProcess.ServiceBase
   isExternal: false
   name: EventLog
   nameWithType: ServiceBase.EventLog
-  fullName: System.ServiceProcess.ServiceBase.EventLog
+  fullName: ServiceBase.EventLog
 - uid: System.Diagnostics.EventLog
   parent: System.Diagnostics
   isExternal: false
@@ -1344,7 +1263,7 @@ references:
   isExternal: false
   name: ExitCode
   nameWithType: ServiceBase.ExitCode
-  fullName: System.ServiceProcess.ServiceBase.ExitCode
+  fullName: ServiceBase.ExitCode
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -1356,31 +1275,31 @@ references:
   isExternal: false
   name: MaxNameLength
   nameWithType: ServiceBase.MaxNameLength
-  fullName: System.ServiceProcess.ServiceBase.MaxNameLength
+  fullName: ServiceBase.MaxNameLength
 - uid: System.ServiceProcess.ServiceBase.OnContinue
   parent: System.ServiceProcess.ServiceBase
   isExternal: false
   name: OnContinue()
   nameWithType: ServiceBase.OnContinue()
-  fullName: System.ServiceProcess.ServiceBase.OnContinue()
+  fullName: ServiceBase.OnContinue()
 - uid: System.ServiceProcess.ServiceBase.OnCustomCommand(System.Int32)
   parent: System.ServiceProcess.ServiceBase
   isExternal: false
   name: OnCustomCommand(Int32)
   nameWithType: ServiceBase.OnCustomCommand(Int32)
-  fullName: System.ServiceProcess.ServiceBase.OnCustomCommand(Int32)
+  fullName: ServiceBase.OnCustomCommand(Int32)
 - uid: System.ServiceProcess.ServiceBase.OnPause
   parent: System.ServiceProcess.ServiceBase
   isExternal: false
   name: OnPause()
   nameWithType: ServiceBase.OnPause()
-  fullName: System.ServiceProcess.ServiceBase.OnPause()
+  fullName: ServiceBase.OnPause()
 - uid: System.ServiceProcess.ServiceBase.OnPowerEvent(System.ServiceProcess.PowerBroadcastStatus)
   parent: System.ServiceProcess.ServiceBase
   isExternal: false
   name: OnPowerEvent(PowerBroadcastStatus)
   nameWithType: ServiceBase.OnPowerEvent(PowerBroadcastStatus)
-  fullName: System.ServiceProcess.ServiceBase.OnPowerEvent(PowerBroadcastStatus)
+  fullName: ServiceBase.OnPowerEvent(PowerBroadcastStatus)
 - uid: System.ServiceProcess.PowerBroadcastStatus
   parent: System.ServiceProcess
   isExternal: false
@@ -1392,7 +1311,7 @@ references:
   isExternal: false
   name: OnSessionChange(SessionChangeDescription)
   nameWithType: ServiceBase.OnSessionChange(SessionChangeDescription)
-  fullName: System.ServiceProcess.ServiceBase.OnSessionChange(SessionChangeDescription)
+  fullName: ServiceBase.OnSessionChange(SessionChangeDescription)
 - uid: System.ServiceProcess.SessionChangeDescription
   parent: System.ServiceProcess
   isExternal: false
@@ -1404,13 +1323,13 @@ references:
   isExternal: false
   name: OnShutdown()
   nameWithType: ServiceBase.OnShutdown()
-  fullName: System.ServiceProcess.ServiceBase.OnShutdown()
+  fullName: ServiceBase.OnShutdown()
 - uid: System.ServiceProcess.ServiceBase.OnStart(System.String[])
   parent: System.ServiceProcess.ServiceBase
   isExternal: false
   name: OnStart(String[])
   nameWithType: ServiceBase.OnStart(String[])
-  fullName: System.ServiceProcess.ServiceBase.OnStart(String[])
+  fullName: ServiceBase.OnStart(String[])
 - uid: System.String
   name: String
   nameWithType: String
@@ -1434,19 +1353,19 @@ references:
   isExternal: false
   name: OnStop()
   nameWithType: ServiceBase.OnStop()
-  fullName: System.ServiceProcess.ServiceBase.OnStop()
+  fullName: ServiceBase.OnStop()
 - uid: System.ServiceProcess.ServiceBase.RequestAdditionalTime(System.Int32)
   parent: System.ServiceProcess.ServiceBase
   isExternal: false
   name: RequestAdditionalTime(Int32)
   nameWithType: ServiceBase.RequestAdditionalTime(Int32)
-  fullName: System.ServiceProcess.ServiceBase.RequestAdditionalTime(Int32)
+  fullName: ServiceBase.RequestAdditionalTime(Int32)
 - uid: System.ServiceProcess.ServiceBase.Run(System.ServiceProcess.ServiceBase)
   parent: System.ServiceProcess.ServiceBase
   isExternal: false
   name: Run(ServiceBase)
   nameWithType: ServiceBase.Run(ServiceBase)
-  fullName: System.ServiceProcess.ServiceBase.Run(ServiceBase)
+  fullName: ServiceBase.Run(ServiceBase)
 - uid: System.ServiceProcess.ServiceBase
   parent: System.ServiceProcess
   isExternal: false
@@ -1458,7 +1377,7 @@ references:
   isExternal: false
   name: Run(ServiceBase[])
   nameWithType: ServiceBase.Run(ServiceBase[])
-  fullName: System.ServiceProcess.ServiceBase.Run(ServiceBase[])
+  fullName: ServiceBase.Run(ServiceBase[])
 - uid: System.ServiceProcess.ServiceBase[]
   parent: System.ServiceProcess
   isExternal: false
@@ -1478,7 +1397,7 @@ references:
   isExternal: false
   name: ServiceHandle
   nameWithType: ServiceBase.ServiceHandle
-  fullName: System.ServiceProcess.ServiceBase.ServiceHandle
+  fullName: ServiceBase.ServiceHandle
 - uid: System.IntPtr
   parent: System
   isExternal: false
@@ -1490,25 +1409,25 @@ references:
   isExternal: false
   name: ServiceMainCallback(Int32, IntPtr)
   nameWithType: ServiceBase.ServiceMainCallback(Int32, IntPtr)
-  fullName: System.ServiceProcess.ServiceBase.ServiceMainCallback(Int32, IntPtr)
+  fullName: ServiceBase.ServiceMainCallback(Int32, IntPtr)
 - uid: System.ServiceProcess.ServiceBase.ServiceName
   parent: System.ServiceProcess.ServiceBase
   isExternal: false
   name: ServiceName
   nameWithType: ServiceBase.ServiceName
-  fullName: System.ServiceProcess.ServiceBase.ServiceName
+  fullName: ServiceBase.ServiceName
 - uid: System.ServiceProcess.ServiceBase.Stop
   parent: System.ServiceProcess.ServiceBase
   isExternal: false
   name: Stop()
   nameWithType: ServiceBase.Stop()
-  fullName: System.ServiceProcess.ServiceBase.Stop()
+  fullName: ServiceBase.Stop()
 - uid: System.ServiceProcess.ServiceBase.#ctor*
   parent: System.ServiceProcess.ServiceBase
   isExternal: false
   name: ServiceBase
   nameWithType: ServiceBase.ServiceBase
-  fullName: System.ServiceProcess.ServiceBase.ServiceBase
+  fullName: ServiceBase.ServiceBase
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1523,7 +1442,7 @@ references:
   isExternal: false
   name: AutoLog
   nameWithType: ServiceBase.AutoLog
-  fullName: System.ServiceProcess.ServiceBase.AutoLog
+  fullName: ServiceBase.AutoLog
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1538,7 +1457,7 @@ references:
   isExternal: false
   name: CanHandlePowerEvent
   nameWithType: ServiceBase.CanHandlePowerEvent
-  fullName: System.ServiceProcess.ServiceBase.CanHandlePowerEvent
+  fullName: ServiceBase.CanHandlePowerEvent
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1553,7 +1472,7 @@ references:
   isExternal: false
   name: CanHandleSessionChangeEvent
   nameWithType: ServiceBase.CanHandleSessionChangeEvent
-  fullName: System.ServiceProcess.ServiceBase.CanHandleSessionChangeEvent
+  fullName: ServiceBase.CanHandleSessionChangeEvent
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1568,7 +1487,7 @@ references:
   isExternal: false
   name: CanPauseAndContinue
   nameWithType: ServiceBase.CanPauseAndContinue
-  fullName: System.ServiceProcess.ServiceBase.CanPauseAndContinue
+  fullName: ServiceBase.CanPauseAndContinue
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1583,7 +1502,7 @@ references:
   isExternal: false
   name: CanShutdown
   nameWithType: ServiceBase.CanShutdown
-  fullName: System.ServiceProcess.ServiceBase.CanShutdown
+  fullName: ServiceBase.CanShutdown
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1598,7 +1517,7 @@ references:
   isExternal: false
   name: CanStop
   nameWithType: ServiceBase.CanStop
-  fullName: System.ServiceProcess.ServiceBase.CanStop
+  fullName: ServiceBase.CanStop
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1613,7 +1532,7 @@ references:
   isExternal: false
   name: Dispose
   nameWithType: ServiceBase.Dispose
-  fullName: System.ServiceProcess.ServiceBase.Dispose
+  fullName: ServiceBase.Dispose
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1628,7 +1547,7 @@ references:
   isExternal: false
   name: EventLog
   nameWithType: ServiceBase.EventLog
-  fullName: System.ServiceProcess.ServiceBase.EventLog
+  fullName: ServiceBase.EventLog
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1643,7 +1562,7 @@ references:
   isExternal: false
   name: ExitCode
   nameWithType: ServiceBase.ExitCode
-  fullName: System.ServiceProcess.ServiceBase.ExitCode
+  fullName: ServiceBase.ExitCode
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1658,7 +1577,7 @@ references:
   isExternal: false
   name: OnContinue
   nameWithType: ServiceBase.OnContinue
-  fullName: System.ServiceProcess.ServiceBase.OnContinue
+  fullName: ServiceBase.OnContinue
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1673,7 +1592,7 @@ references:
   isExternal: false
   name: OnCustomCommand
   nameWithType: ServiceBase.OnCustomCommand
-  fullName: System.ServiceProcess.ServiceBase.OnCustomCommand
+  fullName: ServiceBase.OnCustomCommand
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1688,7 +1607,7 @@ references:
   isExternal: false
   name: OnPause
   nameWithType: ServiceBase.OnPause
-  fullName: System.ServiceProcess.ServiceBase.OnPause
+  fullName: ServiceBase.OnPause
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1703,7 +1622,7 @@ references:
   isExternal: false
   name: OnPowerEvent
   nameWithType: ServiceBase.OnPowerEvent
-  fullName: System.ServiceProcess.ServiceBase.OnPowerEvent
+  fullName: ServiceBase.OnPowerEvent
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1718,7 +1637,7 @@ references:
   isExternal: false
   name: OnSessionChange
   nameWithType: ServiceBase.OnSessionChange
-  fullName: System.ServiceProcess.ServiceBase.OnSessionChange
+  fullName: ServiceBase.OnSessionChange
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1733,7 +1652,7 @@ references:
   isExternal: false
   name: OnShutdown
   nameWithType: ServiceBase.OnShutdown
-  fullName: System.ServiceProcess.ServiceBase.OnShutdown
+  fullName: ServiceBase.OnShutdown
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1748,7 +1667,7 @@ references:
   isExternal: false
   name: OnStart
   nameWithType: ServiceBase.OnStart
-  fullName: System.ServiceProcess.ServiceBase.OnStart
+  fullName: ServiceBase.OnStart
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1763,7 +1682,7 @@ references:
   isExternal: false
   name: OnStop
   nameWithType: ServiceBase.OnStop
-  fullName: System.ServiceProcess.ServiceBase.OnStop
+  fullName: ServiceBase.OnStop
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1778,7 +1697,7 @@ references:
   isExternal: false
   name: RequestAdditionalTime
   nameWithType: ServiceBase.RequestAdditionalTime
-  fullName: System.ServiceProcess.ServiceBase.RequestAdditionalTime
+  fullName: ServiceBase.RequestAdditionalTime
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1793,7 +1712,7 @@ references:
   isExternal: false
   name: Run
   nameWithType: ServiceBase.Run
-  fullName: System.ServiceProcess.ServiceBase.Run
+  fullName: ServiceBase.Run
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1808,7 +1727,7 @@ references:
   isExternal: false
   name: ServiceHandle
   nameWithType: ServiceBase.ServiceHandle
-  fullName: System.ServiceProcess.ServiceBase.ServiceHandle
+  fullName: ServiceBase.ServiceHandle
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1823,7 +1742,7 @@ references:
   isExternal: false
   name: ServiceMainCallback
   nameWithType: ServiceBase.ServiceMainCallback
-  fullName: System.ServiceProcess.ServiceBase.ServiceMainCallback
+  fullName: ServiceBase.ServiceMainCallback
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1838,7 +1757,7 @@ references:
   isExternal: false
   name: ServiceName
   nameWithType: ServiceBase.ServiceName
-  fullName: System.ServiceProcess.ServiceBase.ServiceName
+  fullName: ServiceBase.ServiceName
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1853,7 +1772,7 @@ references:
   isExternal: false
   name: Stop
   nameWithType: ServiceBase.Stop
-  fullName: System.ServiceProcess.ServiceBase.Stop
+  fullName: ServiceBase.Stop
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

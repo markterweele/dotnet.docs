@@ -27,6 +27,7 @@ items:
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Represents an entity declaration, such as <!ENTITY... >.
   syntax:
@@ -91,6 +92,7 @@ items:
   - System.Xml.XmlDocumentXPathExtensions.SelectSingleNode(System.Xml.XmlNode,System.String,System.Xml.XmlNamespaceManager)
   - System.Xml.XmlDocumentXPathExtensions.ToXPathNavigable(System.Xml.XmlNode)
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -103,6 +105,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -115,9 +118,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlEntity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlEntity.BaseURI
   commentId: P:System.Xml.XmlEntity.BaseURI
   id: BaseURI
@@ -126,11 +126,12 @@ items:
   - csharp
   name: BaseURI
   nameWithType: XmlEntity.BaseURI
-  fullName: System.Xml.XmlEntity.BaseURI
+  fullName: XmlEntity.BaseURI
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the base Uniform Resource Identifier (URI) of the current node.
   remarks: "A networked XML document is comprised of chunks of data aggregated using various World Wide Web Consortium (W3C) standard inclusion mechanisms and therefore contains nodes that come from different places. The `BaseURI` tells you where these nodes came from.  \n  \n The value of this property varies depending on the node type. Nodes which are children of external EntityReference nodes return the location of the entity itself. For example, consider the following XML document:  \n  \n```  \n<!DOCTYPE item [  \n<!ENTITY xyz SYSTEM \"a/b.xml\">  \n]>  \n<item num='123'>&xyz;</item>  \n```  \n  \n where the external entity `a/b.xml` contains the XML text `<test>123</test>`.  \n  \n If the document is loaded from http://server/mydata.xml, `BaseURI` returns the following:  \n  \n|NodeType|Name|BaseURI|  \n|--------------|----------|-------------|  \n|Attribute|num|http://server/mydata.xml|  \n|Document|#document|http://server/mydata.xml|  \n|DocumentType|item|http://server/mydata.xml|  \n|Entity|xyz|http://server/mydata.xml|  \n|Element|item|http://server/mydata.xml|  \n|EntityReference|xyz|http://server/mydata.xml|  \n|Element|test|http://server/a/b.xml|  \n|Text|#text|http://server/a/b.xml|  \n  \n `BaseURI` looks for entity reference boundaries, so if entities are expanded, this information is not preserved and this property returns the location of the `XmlDocument` object in all cases.  \n  \n As a second example, given the following XML document:  \n  \n```  \n<!DOCTYPE Mydata SYSTEM \"http://localhost/doctype.dtd\">  \n<baa>&xyz;</baa>  \n```  \n  \n where the document type definition (DTD) file contains the following:  \n  \n```  \n<!ENTITY xyz \"<E1>My Data</E1>\">  \n<!ELEMENT baa #PCDATA>  \n<!ATTLIST baa attr1 \"woof\">  \n```  \n  \n If the XML document is loaded from http://localhost/mydata.xml, `BaseURI` returns the following for each of the nodes:  \n  \n|NodeType|Name|BaseURI|  \n|--------------|----------|-------------|  \n|Document|#document|http://localhost/mydata.xml|  \n|DocumentType|Mydata|http://localhost/doctype.dtd|  \n|Element|baa|http://localhost/mydata.xml|  \n|Entity|xyz|http://localhost/doctype.dtd|  \n|EntityReference|xyz|http://localhost/mydata.xml|  \n|Attribute|woof|http://localhost/mydata.xml|  \n  \n> [!NOTE]\n>  The base URI of a default attribute is the same as the base URI of the element to which they belong.  \n  \n This property is a Microsoft extension to the Document Object Model (DOM)."
@@ -142,6 +143,7 @@ items:
   overload: System.Xml.XmlEntity.BaseURI*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -154,6 +156,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -166,9 +169,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlEntity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlEntity.CloneNode(System.Boolean)
   commentId: M:System.Xml.XmlEntity.CloneNode(System.Boolean)
   id: CloneNode(System.Boolean)
@@ -177,11 +177,12 @@ items:
   - csharp
   name: CloneNode(Boolean)
   nameWithType: XmlEntity.CloneNode(Boolean)
-  fullName: System.Xml.XmlEntity.CloneNode(Boolean)
+  fullName: XmlEntity.CloneNode(Boolean)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Creates a duplicate of this node. Entity nodes cannot be cloned. Calling this method on an <xref href="System.Xml.XmlEntity"></xref> object throws an exception.
   syntax:
@@ -199,6 +200,7 @@ items:
     commentId: T:System.InvalidOperationException
     description: Entity nodes cannot be cloned. Calling this method on an <xref href="System.Xml.XmlEntity"></xref> object throws an exception.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -211,6 +213,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -223,9 +226,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlEntity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlEntity.InnerText
   commentId: P:System.Xml.XmlEntity.InnerText
   id: InnerText
@@ -234,11 +234,12 @@ items:
   - csharp
   name: InnerText
   nameWithType: XmlEntity.InnerText
-  fullName: System.Xml.XmlEntity.InnerText
+  fullName: XmlEntity.InnerText
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the concatenated values of the entity node and all its children.
   remarks: "`XmlEntity` nodes are read-only. Setting this property throws an exception.  \n  \n This property is a Microsoft extension to the Document Object Model (DOM)."
@@ -253,6 +254,7 @@ items:
     commentId: T:System.InvalidOperationException
     description: Attempting to set the property.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -265,6 +267,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -277,9 +280,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlEntity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlEntity.InnerXml
   commentId: P:System.Xml.XmlEntity.InnerXml
   id: InnerXml
@@ -288,11 +288,12 @@ items:
   - csharp
   name: InnerXml
   nameWithType: XmlEntity.InnerXml
-  fullName: System.Xml.XmlEntity.InnerXml
+  fullName: XmlEntity.InnerXml
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the markup representing the children of this node.
   remarks: "`XmlEntity` nodes are read-only. Setting this property throws an exception.  \n  \n This property is a Microsoft extension to the Document Object Model (DOM)."
@@ -307,6 +308,7 @@ items:
     commentId: T:System.InvalidOperationException
     description: Attempting to set the property.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -319,6 +321,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -331,9 +334,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlEntity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlEntity.IsReadOnly
   commentId: P:System.Xml.XmlEntity.IsReadOnly
   id: IsReadOnly
@@ -342,11 +342,12 @@ items:
   - csharp
   name: IsReadOnly
   nameWithType: XmlEntity.IsReadOnly
-  fullName: System.Xml.XmlEntity.IsReadOnly
+  fullName: XmlEntity.IsReadOnly
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets a value indicating whether the node is read-only.
   remarks: A read-only node is one whose properties, attributes, or children cannot be changed. You can remove a read-only node from the tree and insert it somewhere else.
@@ -358,6 +359,7 @@ items:
   overload: System.Xml.XmlEntity.IsReadOnly*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -370,6 +372,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -382,9 +385,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlEntity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlEntity.LocalName
   commentId: P:System.Xml.XmlEntity.LocalName
   id: LocalName
@@ -393,11 +393,12 @@ items:
   - csharp
   name: LocalName
   nameWithType: XmlEntity.LocalName
-  fullName: System.Xml.XmlEntity.LocalName
+  fullName: XmlEntity.LocalName
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the name of the node without the namespace prefix.
   syntax:
@@ -408,6 +409,7 @@ items:
   overload: System.Xml.XmlEntity.LocalName*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -420,6 +422,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -432,9 +435,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlEntity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlEntity.Name
   commentId: P:System.Xml.XmlEntity.Name
   id: Name
@@ -443,11 +443,12 @@ items:
   - csharp
   name: Name
   nameWithType: XmlEntity.Name
-  fullName: System.Xml.XmlEntity.Name
+  fullName: XmlEntity.Name
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the name of the node.
   remarks: ''
@@ -461,6 +462,7 @@ items:
   overload: System.Xml.XmlEntity.Name*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -473,6 +475,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -485,9 +488,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlEntity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlEntity.NodeType
   commentId: P:System.Xml.XmlEntity.NodeType
   id: NodeType
@@ -496,11 +496,12 @@ items:
   - csharp
   name: NodeType
   nameWithType: XmlEntity.NodeType
-  fullName: System.Xml.XmlEntity.NodeType
+  fullName: XmlEntity.NodeType
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the type of the node.
   remarks: ''
@@ -514,6 +515,7 @@ items:
   overload: System.Xml.XmlEntity.NodeType*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -526,6 +528,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -538,9 +541,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlEntity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlEntity.NotationName
   commentId: P:System.Xml.XmlEntity.NotationName
   id: NotationName
@@ -549,11 +549,12 @@ items:
   - csharp
   name: NotationName
   nameWithType: XmlEntity.NotationName
-  fullName: System.Xml.XmlEntity.NotationName
+  fullName: XmlEntity.NotationName
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the name of the optional NDATA attribute on the entity declaration.
   remarks: ''
@@ -567,6 +568,7 @@ items:
   overload: System.Xml.XmlEntity.NotationName*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -579,6 +581,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -591,9 +594,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlEntity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlEntity.OuterXml
   commentId: P:System.Xml.XmlEntity.OuterXml
   id: OuterXml
@@ -602,11 +602,12 @@ items:
   - csharp
   name: OuterXml
   nameWithType: XmlEntity.OuterXml
-  fullName: System.Xml.XmlEntity.OuterXml
+  fullName: XmlEntity.OuterXml
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the markup representing this node and all its children.
   remarks: This property is a Microsoft extension to the Document Object Model (DOM).
@@ -618,6 +619,7 @@ items:
   overload: System.Xml.XmlEntity.OuterXml*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -630,6 +632,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -642,9 +645,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlEntity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlEntity.PublicId
   commentId: P:System.Xml.XmlEntity.PublicId
   id: PublicId
@@ -653,11 +653,12 @@ items:
   - csharp
   name: PublicId
   nameWithType: XmlEntity.PublicId
-  fullName: System.Xml.XmlEntity.PublicId
+  fullName: XmlEntity.PublicId
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the value of the public identifier on the entity declaration.
   remarks: ''
@@ -671,6 +672,7 @@ items:
   overload: System.Xml.XmlEntity.PublicId*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -683,6 +685,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -695,9 +698,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlEntity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlEntity.SystemId
   commentId: P:System.Xml.XmlEntity.SystemId
   id: SystemId
@@ -706,11 +706,12 @@ items:
   - csharp
   name: SystemId
   nameWithType: XmlEntity.SystemId
-  fullName: System.Xml.XmlEntity.SystemId
+  fullName: XmlEntity.SystemId
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the value of the system identifier on the entity declaration.
   remarks: ''
@@ -724,6 +725,7 @@ items:
   overload: System.Xml.XmlEntity.SystemId*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -736,6 +738,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -748,9 +751,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlEntity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlEntity.WriteContentTo(System.Xml.XmlWriter)
   commentId: M:System.Xml.XmlEntity.WriteContentTo(System.Xml.XmlWriter)
   id: WriteContentTo(System.Xml.XmlWriter)
@@ -759,11 +759,12 @@ items:
   - csharp
   name: WriteContentTo(XmlWriter)
   nameWithType: XmlEntity.WriteContentTo(XmlWriter)
-  fullName: System.Xml.XmlEntity.WriteContentTo(XmlWriter)
+  fullName: XmlEntity.WriteContentTo(XmlWriter)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Saves all the children of the node to the specified <xref href="System.Xml.XmlWriter"></xref>. For `XmlEntity` nodes, this method has no effect.
   remarks: This method is a Microsoft extension to the Document Object Model (DOM).
@@ -776,6 +777,7 @@ items:
   overload: System.Xml.XmlEntity.WriteContentTo*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -788,6 +790,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -800,9 +803,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlEntity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlEntity.WriteTo(System.Xml.XmlWriter)
   commentId: M:System.Xml.XmlEntity.WriteTo(System.Xml.XmlWriter)
   id: WriteTo(System.Xml.XmlWriter)
@@ -811,11 +811,12 @@ items:
   - csharp
   name: WriteTo(XmlWriter)
   nameWithType: XmlEntity.WriteTo(XmlWriter)
-  fullName: System.Xml.XmlEntity.WriteTo(XmlWriter)
+  fullName: XmlEntity.WriteTo(XmlWriter)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Saves the node to the specified <xref href="System.Xml.XmlWriter"></xref>. For `XmlEntity` nodes, this method has no effect.
   remarks: This method is a Microsoft extension to the Document Object Model (DOM).
@@ -828,6 +829,7 @@ items:
   overload: System.Xml.XmlEntity.WriteTo*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -840,6 +842,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -852,9 +855,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlEntity.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Xml.XmlNode
   parent: System.Xml
@@ -873,7 +873,7 @@ references:
   isExternal: false
   name: BaseURI
   nameWithType: XmlEntity.BaseURI
-  fullName: System.Xml.XmlEntity.BaseURI
+  fullName: XmlEntity.BaseURI
 - uid: System.String
   parent: System
   isExternal: false
@@ -885,7 +885,7 @@ references:
   isExternal: false
   name: CloneNode(Boolean)
   nameWithType: XmlEntity.CloneNode(Boolean)
-  fullName: System.Xml.XmlEntity.CloneNode(Boolean)
+  fullName: XmlEntity.CloneNode(Boolean)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -897,37 +897,37 @@ references:
   isExternal: false
   name: InnerText
   nameWithType: XmlEntity.InnerText
-  fullName: System.Xml.XmlEntity.InnerText
+  fullName: XmlEntity.InnerText
 - uid: System.Xml.XmlEntity.InnerXml
   parent: System.Xml.XmlEntity
   isExternal: false
   name: InnerXml
   nameWithType: XmlEntity.InnerXml
-  fullName: System.Xml.XmlEntity.InnerXml
+  fullName: XmlEntity.InnerXml
 - uid: System.Xml.XmlEntity.IsReadOnly
   parent: System.Xml.XmlEntity
   isExternal: false
   name: IsReadOnly
   nameWithType: XmlEntity.IsReadOnly
-  fullName: System.Xml.XmlEntity.IsReadOnly
+  fullName: XmlEntity.IsReadOnly
 - uid: System.Xml.XmlEntity.LocalName
   parent: System.Xml.XmlEntity
   isExternal: false
   name: LocalName
   nameWithType: XmlEntity.LocalName
-  fullName: System.Xml.XmlEntity.LocalName
+  fullName: XmlEntity.LocalName
 - uid: System.Xml.XmlEntity.Name
   parent: System.Xml.XmlEntity
   isExternal: false
   name: Name
   nameWithType: XmlEntity.Name
-  fullName: System.Xml.XmlEntity.Name
+  fullName: XmlEntity.Name
 - uid: System.Xml.XmlEntity.NodeType
   parent: System.Xml.XmlEntity
   isExternal: false
   name: NodeType
   nameWithType: XmlEntity.NodeType
-  fullName: System.Xml.XmlEntity.NodeType
+  fullName: XmlEntity.NodeType
 - uid: System.Xml.XmlNodeType
   parent: System.Xml
   isExternal: false
@@ -939,31 +939,31 @@ references:
   isExternal: false
   name: NotationName
   nameWithType: XmlEntity.NotationName
-  fullName: System.Xml.XmlEntity.NotationName
+  fullName: XmlEntity.NotationName
 - uid: System.Xml.XmlEntity.OuterXml
   parent: System.Xml.XmlEntity
   isExternal: false
   name: OuterXml
   nameWithType: XmlEntity.OuterXml
-  fullName: System.Xml.XmlEntity.OuterXml
+  fullName: XmlEntity.OuterXml
 - uid: System.Xml.XmlEntity.PublicId
   parent: System.Xml.XmlEntity
   isExternal: false
   name: PublicId
   nameWithType: XmlEntity.PublicId
-  fullName: System.Xml.XmlEntity.PublicId
+  fullName: XmlEntity.PublicId
 - uid: System.Xml.XmlEntity.SystemId
   parent: System.Xml.XmlEntity
   isExternal: false
   name: SystemId
   nameWithType: XmlEntity.SystemId
-  fullName: System.Xml.XmlEntity.SystemId
+  fullName: XmlEntity.SystemId
 - uid: System.Xml.XmlEntity.WriteContentTo(System.Xml.XmlWriter)
   parent: System.Xml.XmlEntity
   isExternal: false
   name: WriteContentTo(XmlWriter)
   nameWithType: XmlEntity.WriteContentTo(XmlWriter)
-  fullName: System.Xml.XmlEntity.WriteContentTo(XmlWriter)
+  fullName: XmlEntity.WriteContentTo(XmlWriter)
 - uid: System.Xml.XmlWriter
   parent: System.Xml
   isExternal: false
@@ -975,14 +975,15 @@ references:
   isExternal: false
   name: WriteTo(XmlWriter)
   nameWithType: XmlEntity.WriteTo(XmlWriter)
-  fullName: System.Xml.XmlEntity.WriteTo(XmlWriter)
+  fullName: XmlEntity.WriteTo(XmlWriter)
 - uid: System.Xml.XmlEntity.BaseURI*
   parent: System.Xml.XmlEntity
   isExternal: false
   name: BaseURI
   nameWithType: XmlEntity.BaseURI
-  fullName: System.Xml.XmlEntity.BaseURI
+  fullName: XmlEntity.BaseURI
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1000,8 +1001,9 @@ references:
   isExternal: false
   name: CloneNode
   nameWithType: XmlEntity.CloneNode
-  fullName: System.Xml.XmlEntity.CloneNode
+  fullName: XmlEntity.CloneNode
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1019,8 +1021,9 @@ references:
   isExternal: false
   name: InnerText
   nameWithType: XmlEntity.InnerText
-  fullName: System.Xml.XmlEntity.InnerText
+  fullName: XmlEntity.InnerText
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1038,8 +1041,9 @@ references:
   isExternal: false
   name: InnerXml
   nameWithType: XmlEntity.InnerXml
-  fullName: System.Xml.XmlEntity.InnerXml
+  fullName: XmlEntity.InnerXml
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1057,8 +1061,9 @@ references:
   isExternal: false
   name: IsReadOnly
   nameWithType: XmlEntity.IsReadOnly
-  fullName: System.Xml.XmlEntity.IsReadOnly
+  fullName: XmlEntity.IsReadOnly
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1076,8 +1081,9 @@ references:
   isExternal: false
   name: LocalName
   nameWithType: XmlEntity.LocalName
-  fullName: System.Xml.XmlEntity.LocalName
+  fullName: XmlEntity.LocalName
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1095,8 +1101,9 @@ references:
   isExternal: false
   name: Name
   nameWithType: XmlEntity.Name
-  fullName: System.Xml.XmlEntity.Name
+  fullName: XmlEntity.Name
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1114,8 +1121,9 @@ references:
   isExternal: false
   name: NodeType
   nameWithType: XmlEntity.NodeType
-  fullName: System.Xml.XmlEntity.NodeType
+  fullName: XmlEntity.NodeType
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1133,8 +1141,9 @@ references:
   isExternal: false
   name: NotationName
   nameWithType: XmlEntity.NotationName
-  fullName: System.Xml.XmlEntity.NotationName
+  fullName: XmlEntity.NotationName
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1152,8 +1161,9 @@ references:
   isExternal: false
   name: OuterXml
   nameWithType: XmlEntity.OuterXml
-  fullName: System.Xml.XmlEntity.OuterXml
+  fullName: XmlEntity.OuterXml
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1171,8 +1181,9 @@ references:
   isExternal: false
   name: PublicId
   nameWithType: XmlEntity.PublicId
-  fullName: System.Xml.XmlEntity.PublicId
+  fullName: XmlEntity.PublicId
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1190,8 +1201,9 @@ references:
   isExternal: false
   name: SystemId
   nameWithType: XmlEntity.SystemId
-  fullName: System.Xml.XmlEntity.SystemId
+  fullName: XmlEntity.SystemId
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1209,8 +1221,9 @@ references:
   isExternal: false
   name: WriteContentTo
   nameWithType: XmlEntity.WriteContentTo
-  fullName: System.Xml.XmlEntity.WriteContentTo
+  fullName: XmlEntity.WriteContentTo
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1228,8 +1241,9 @@ references:
   isExternal: false
   name: WriteTo
   nameWithType: XmlEntity.WriteTo
-  fullName: System.Xml.XmlEntity.WriteTo
+  fullName: XmlEntity.WriteTo
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1247,58 +1261,58 @@ references:
   isExternal: false
   name: Cast<TResult>(IEnumerable)
   nameWithType: Enumerable.Cast<TResult>(IEnumerable)
-  fullName: System.Linq.Enumerable.Cast<TResult>(IEnumerable)
+  fullName: Enumerable.Cast<TResult>(IEnumerable)
 - uid: System.Linq.Enumerable.OfType``1(System.Collections.IEnumerable)
   parent: System.Linq.Enumerable
   isExternal: false
   name: OfType<TResult>(IEnumerable)
   nameWithType: Enumerable.OfType<TResult>(IEnumerable)
-  fullName: System.Linq.Enumerable.OfType<TResult>(IEnumerable)
+  fullName: Enumerable.OfType<TResult>(IEnumerable)
 - uid: System.Linq.ParallelEnumerable.AsParallel(System.Collections.IEnumerable)
   parent: System.Linq.ParallelEnumerable
   isExternal: false
   name: AsParallel(IEnumerable)
   nameWithType: ParallelEnumerable.AsParallel(IEnumerable)
-  fullName: System.Linq.ParallelEnumerable.AsParallel(IEnumerable)
+  fullName: ParallelEnumerable.AsParallel(IEnumerable)
 - uid: System.Linq.Queryable.AsQueryable(System.Collections.IEnumerable)
   parent: System.Linq.Queryable
   isExternal: false
   name: AsQueryable(IEnumerable)
   nameWithType: Queryable.AsQueryable(IEnumerable)
-  fullName: System.Linq.Queryable.AsQueryable(IEnumerable)
+  fullName: Queryable.AsQueryable(IEnumerable)
 - uid: System.Xml.XmlDocumentXPathExtensions.CreateNavigator(System.Xml.XmlNode)
   parent: System.Xml.XmlDocumentXPathExtensions
   isExternal: false
   name: CreateNavigator(XmlNode)
   nameWithType: XmlDocumentXPathExtensions.CreateNavigator(XmlNode)
-  fullName: System.Xml.XmlDocumentXPathExtensions.CreateNavigator(XmlNode)
+  fullName: XmlDocumentXPathExtensions.CreateNavigator(XmlNode)
 - uid: System.Xml.XmlDocumentXPathExtensions.SelectNodes(System.Xml.XmlNode,System.String)
   parent: System.Xml.XmlDocumentXPathExtensions
   isExternal: false
   name: SelectNodes(XmlNode, String)
   nameWithType: XmlDocumentXPathExtensions.SelectNodes(XmlNode, String)
-  fullName: System.Xml.XmlDocumentXPathExtensions.SelectNodes(XmlNode, String)
+  fullName: XmlDocumentXPathExtensions.SelectNodes(XmlNode, String)
 - uid: System.Xml.XmlDocumentXPathExtensions.SelectNodes(System.Xml.XmlNode,System.String,System.Xml.XmlNamespaceManager)
   parent: System.Xml.XmlDocumentXPathExtensions
   isExternal: false
   name: SelectNodes(XmlNode, String, XmlNamespaceManager)
   nameWithType: XmlDocumentXPathExtensions.SelectNodes(XmlNode, String, XmlNamespaceManager)
-  fullName: System.Xml.XmlDocumentXPathExtensions.SelectNodes(XmlNode, String, XmlNamespaceManager)
+  fullName: XmlDocumentXPathExtensions.SelectNodes(XmlNode, String, XmlNamespaceManager)
 - uid: System.Xml.XmlDocumentXPathExtensions.SelectSingleNode(System.Xml.XmlNode,System.String)
   parent: System.Xml.XmlDocumentXPathExtensions
   isExternal: false
   name: SelectSingleNode(XmlNode, String)
   nameWithType: XmlDocumentXPathExtensions.SelectSingleNode(XmlNode, String)
-  fullName: System.Xml.XmlDocumentXPathExtensions.SelectSingleNode(XmlNode, String)
+  fullName: XmlDocumentXPathExtensions.SelectSingleNode(XmlNode, String)
 - uid: System.Xml.XmlDocumentXPathExtensions.SelectSingleNode(System.Xml.XmlNode,System.String,System.Xml.XmlNamespaceManager)
   parent: System.Xml.XmlDocumentXPathExtensions
   isExternal: false
   name: SelectSingleNode(XmlNode, String, XmlNamespaceManager)
   nameWithType: XmlDocumentXPathExtensions.SelectSingleNode(XmlNode, String, XmlNamespaceManager)
-  fullName: System.Xml.XmlDocumentXPathExtensions.SelectSingleNode(XmlNode, String, XmlNamespaceManager)
+  fullName: XmlDocumentXPathExtensions.SelectSingleNode(XmlNode, String, XmlNamespaceManager)
 - uid: System.Xml.XmlDocumentXPathExtensions.ToXPathNavigable(System.Xml.XmlNode)
   parent: System.Xml.XmlDocumentXPathExtensions
   isExternal: false
   name: ToXPathNavigable(XmlNode)
   nameWithType: XmlDocumentXPathExtensions.ToXPathNavigable(XmlNode)
-  fullName: System.Xml.XmlDocumentXPathExtensions.ToXPathNavigable(XmlNode)
+  fullName: XmlDocumentXPathExtensions.ToXPathNavigable(XmlNode)

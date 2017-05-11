@@ -66,6 +66,7 @@ items:
   type: Class
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Provides a wrapper on a core XML signature object to facilitate creating XML signatures.
   remarks: "The <xref:System.Security.Cryptography.Xml.SignedXml> class is the .NET Framework implementation of the World Wide Web Consortium (W3C) [XML Signature Syntax and Processing Specification](http://www.w3.org/TR/xmldsig-core/), also known as XMLDSIG (XML Digital Signature).  XMLDSIG is a standards-based, interoperable way to sign and verify all or part of an XML document or other data that is addressable from a Uniform Resource Identifier (URI).  \n  \n Use the <xref:System.Security.Cryptography.Xml.SignedXml> class whenever you need to share signed XML data between applications or organizations in a standard way.  Any data signed using this class can be verified by any conforming implementation of the W3C specification for XMLDSIG.  \n  \n The <xref:System.Security.Cryptography.Xml.SignedXml> class allows you to create the following three kinds of XML digital signatures:  \n  \n|Signature Type|Description|  \n|--------------------|-----------------|  \n|Enveloped signature|The signature is contained within the XML element being signed.|  \n|Enveloping signature|The signed XML is contained within the <`Signature`> element.|  \n|Internal detached signature|The signature and signed XML are in the same document, but neither element contains the other.|  \n  \n There is also a fourth kind of signature called an external detached signature which is when the data and signature are in separate XML documents. External detached signatures are not supported by the <xref:System.Security.Cryptography.Xml.SignedXml> class.  \n  \n## The structure of an  XML Signature  \n XMLDSIG creates a <`Signature`> element, which contains a digital signature of an XML document or other data that is addressable from a URI.  The <`Signature`> element can optionally contain information about where to find a key that will verify the signature and which cryptographic algorithm was used for signing. The basic structure is as follows:  \n  \n```xml  \n  \n<Signature xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\">  \n    <SignedInfo>  \n      <CanonicalizationMethod Algorithm=\"http://www.w3.org/TR/2001/REC-xml-c14n-20010315\"/>  \n      <SignatureMethod Algorithm=\"http://www.w3.org/2000/09/xmldsig#rsa-sha1\"/>  \n      <Reference URI=\"\">  \n        <Transforms>  \n          <Transform Algorithm=\"http://www.w3.org/2000/09/xmldsig#enveloped-signature\"/>  \n        </Transforms>  \n        <DigestMethod Algorithm=\"http://www.w3.org/2000/09/xmldsig#sha1\"/>  \n        <DigestValue>Base64EncodedValue==</DigestValue>  \n      </Reference>  \n    </SignedInfo>  \n    <SignatureValue>AnotherBase64EncodedValue===</SignatureValue>  \n  </Signature>  \n  \n```  \n  \n The main parts of this structure are:  \n  \n The <`CanonicalizationMethod`> element  \n Specifies the rules for rewriting the `Signature` element from XML/text into bytes for signature validation. The default value in the .NET Framework is http://www.w3.org/TR/2001/REC-xml-c14n-20010315, which identifies a trustworthy algorithm. This element is represented by the <xref:System.Security.Cryptography.Xml.SignedInfo.CanonicalizationMethod%2A?displayProperty=fullName> property.  \n  \n The <`SignatureMethod`> element  \n Specifies the algorithm used for signature generation and validation, which was applied to the <`Signature`> element to produce the value in <`SignatureValue`>. In the example above, the value http://www.w3.org/2000/09/xmldsig#rsa-sha1 identifies an RSA PKCS1 SHA-1 signature. This element is represented by the <xref:System.Security.Cryptography.Xml.SignedXml.SignatureMethod%2A> property.  \n  \n The <`SignatureValue`> element  \n Specifies the cryptographic signature for the <`Signature`> element. If this signature does not verify, then some portion of the <`Signature`> block was tampered with, and the document is considered invalid. As long as the <`CanonicalizationMethod`> value is trustworthy, this value is highly resistant to tampering. This element is represented by the <xref:System.Security.Cryptography.Xml.SignedXml.SignatureValue%2A> property.  \n  \n The `URI` attribute of the <`Reference`> element  \n Specifies a data object using a URI reference. This attribute is represented by the <xref:System.Security.Cryptography.Xml.Reference.Uri%2A?displayProperty=fullName> property.  \n  \n-   Not specifying the `URI` attribute, that is, setting the  <xref:System.Security.Cryptography.Xml.Reference.Uri%2A?displayProperty=fullName> property to `null`, means that the receiving application is expected to know the identity of the object. In most cases, a `null` URI will result in an exception being thrown. Do not use a `null` URI, unless your application is interoperating with a protocol which requires it.  \n  \n-   Setting the `URI` attribute to an empty string indicates that the root element of the document is being signed, a form of enveloped signature.  \n  \n-   If the value of `URI` attribute starts with #, then the value must resolve to an element in the current document. This form can be used with any of the supported signature types (enveloped signature, enveloping signature or internal detached signature).  \n  \n-   Anything else is considered an external resource detached signature and is not supported by the <xref:System.Security.Cryptography.Xml.SignedXml> class.  \n  \n The <`Transforms`> element  \n Contains an ordered list of <`Transform`> elements that describe how the signer obtained the data object that was digested. A transform algorithm is similar to the canonicalization method, but instead of rewriting the <`Signature`> element, it rewrites the content identified by the `URI` attribute of the <`Reference`> element. The <`Transforms`> element is represented by the <xref:System.Security.Cryptography.Xml.TransformChain> class.  \n  \n-   Each transform algorithm is defined as taking either XML (an XPath node-set) or bytes as input. If the format of the current data differs from the transform input requirements, conversion rules are applied.  \n  \n-   Each transform algorithm is defined as producing either XML or bytes as the output.  \n  \n-   If the output of the last transform algorithm is not defined in bytes (or no transforms were specified), then the canonicalization method http://www.w3.org/TR/2001/REC-xml-c14n-20010315 is used as an implicit transform (even if a different algorithm was specified in the <`CanonicalizationMethod`> element).  \n  \n-   A value of http://www.w3.org/2000/09/xmldsig#enveloped-signature for the transform algorithm encodes a rule which is interpreted as remove the <`Signature`> element from the document. Otherwise, a verifier of an enveloped signature will digest the document, including the signature, but the signer would have digested the document before the signature was applied, leading to different answers.  \n  \n The <`DigestMethod`> element  \n Identifies the digest (cryptographic hash) method to apply on the transformed content identified by the `URI` attribute of the <`Reference`> element. This is represented by the <xref:System.Security.Cryptography.Xml.Reference.DigestMethod%2A?displayProperty=fullName> property.  \n  \n## Choosing a canonicalization method  \n Unless interoperating with a specification which requires the use of a different value, we recommend that you use the default canonicalization method in the .NET Framework which is the XML-C14N 1.0 algorithm, whose value is http://www.w3.org/TR/2001/REC-xml-c14n-20010315. The XML-C14N 1.0 algorithm is required to be supported by all implementations of XMLDSIG, particularly as it is an implicit final transform to apply.  \n  \n There are versions of canonicalization algorithms which support preserving comments. Comment-preserving canonicalization methods are not recommended because they violate the \"sign what is seen\" principle. That is, the comments in a <`Signature`> element will not alter the processing logic for how the signature is performed, merely what the signature value is. When combined with a weak signature algorithm, allowing the comments to be included gives an attacker unnecessary freedom to force a hash collision, making a tampered document appear legitimate.  In the .NET Framework, only built-in canonicalizers are supported by default. To support additional or custom canonicalizers, see the <xref:System.Security.Cryptography.Xml.SignedXml.SafeCanonicalizationMethods%2A> property. If the document uses a canonicalization method that is not in the collection represented by the <xref:System.Security.Cryptography.Xml.SignedXml.SafeCanonicalizationMethods%2A> property, then the <xref:System.Security.Cryptography.Xml.SignedXml.CheckSignature%2A> method will return `false`.  \n  \n> [!NOTE]\n>  An extremely defensive application can remove any values it does not expect signers to use from the <xref:System.Security.Cryptography.Xml.SignedXml.SafeCanonicalizationMethods%2A> collection.  \n  \n## Are the Reference values safe from tampering?  \n Yes, the <`Reference`> values are safe from tampering.  The .NET framework verifies the <`SignatureValue`> computation before processing any of the <`Reference`> values and their associated transforms, and will abort early to avoid potentially malicious processing instructions.  \n  \n## Choosing the elements to sign  \n We recommend that you use the value of \"\" for the `URI` attribute (or set the <xref:System.Security.Cryptography.Xml.Reference.Uri%2A> property to an empty string), if possible. This means the whole document is considered for the digest computation, which means the whole document is protected from tampering.  \n  \n It is very common to see `URI` values in the form of anchors such as #foo, referring to an element whose ID attribute is \"foo\". Unfortunately, it is easy for this to be tampered with because this includes only the content of the target element, not the context. Abusing this distinction is known as XML Signature Wrapping (XSW).  \n  \n If your application considers comments to be semantic (which is not common when dealing with XML), then you should use \"#xpointer(/)\" instead of \"\", and \"#xpointer(id('foo'))\" instead of \"#foo\". The #xpointer versions are interpreted as including comments, while the shortname forms are excluding comments.  \n  \n If you need to accept documents which are only partially protected and you want to ensure that you are reading the same content that the signature protected, use the <xref:System.Security.Cryptography.Xml.SignedXml.GetIdElement%2A> method.  \n  \n## Security considerations about the KeyInfo element  \n The data in the optional <`KeyInfo`> element (that is, the <xref:System.Security.Cryptography.Xml.SignedXml.KeyInfo%2A> property), which contains a key to validate the signature,  should not be trusted.  \n  \n In particular, when the <xref:System.Security.Cryptography.Xml.SignedXml.KeyInfo%2A> value represents a bare RSA, DSA or ECDSA public key,  the document could have been tampered with, despite the <xref:System.Security.Cryptography.Xml.SignedXml.CheckSignature%2A> method reporting that the signature is valid.  This can happen because the entity doing the tampering just has to generate a new key and re-sign the tampered document with that new key. So, unless your application verifies that the public key is an expected value, the document should be treated as if it were tampered with. This requires that your application examine the public key embedded within the document and verify it against a list of known values for the document context. For example, if the document could be understood to be issued by a known user, you'd check the key against a list of known keys used by that user.  \n  \n You can also verify the key after processing the document by using the <xref:System.Security.Cryptography.Xml.SignedXml.CheckSignatureReturningKey%2A> method, instead of using the <xref:System.Security.Cryptography.Xml.SignedXml.CheckSignature%2A> method. But, for the optimal security, you should verify the key beforehand.  \n  \n Alternately, consider trying the user's registered public keys, rather than reading what's in the <`KeyInfo`> element.  \n  \n## Security considerations about the X509Data element  \n The optional <`X509Data`> element is a child of the <`KeyInfo`> element and contains one or more X509 certificates or identifiers for X509 certificates. The data in the <`X509Data`> element should also not be inherently trusted.  \n  \n When verifying a document with the embedded <`X509Data`> element, the .NET Framework verifies only that the data resolves to an X509 certificate whose public key can be successfully used to validate the document signature. Unlike calling the <xref:System.Security.Cryptography.Xml.SignedXml.CheckSignature%2A> method with the `verifySignatureOnly` parameter set to `false`, no revocation check is performed, no chain trust is checked, and no expiration is verified. Even if your application extracts the certificate itself and passes it to the <xref:System.Security.Cryptography.Xml.SignedXml.CheckSignature%2A> method with the `verifySignatureOnly` parameter set to `false`, that is still not sufficient validation to prevent document tampering. The certificate still needs to be verified as being appropriate for the document being signed.  \n  \n Using an embedded signing certificate can provide useful key rotation strategies, whether in the <`X509Data`> section or in the document content. When using this approach an application should extract the certificate manually and perform validation similar to:  \n  \n-   The certificate was issued directly or via a chain by a Certificate Authority (CA) whose public certificate is embedded in the application.  \n  \n     Using the OS-provided trust list without additional checks, such as a known subject name, is not sufficient to prevent tampering in <xref:System.Security.Cryptography.Xml.SignedXml>.  \n  \n-   The certificate is verified to have not been expired at the time of document signing (or “now” for near real-time document processing).  \n  \n-   For long-lived certificates issued by a CA which supports revocation, verify the certificate was not revoked.  \n  \n-   The certificate subject is verified as being appropriate to the current document.  \n  \n## Choosing the transform algorithm  \n If you are interoperating with a specification which has dictated specific values (such as XrML), then you need to follow the specification.  If you have an enveloped signature (such as when signing the whole document), then you need to use http://www.w3.org/2000/09/xmldsig#enveloped-signature (represented by the <xref:System.Security.Cryptography.Xml.XmlDsigEnvelopedSignatureTransform> class). You can specify the implicit XML-C14N transform as well, but it's not necessary.  For an enveloping or detached signature, no transforms are required. The implicit XML-C14N transform takes care of everything.  \n  \n With the security updated introduced by the [Microsoft Security Bulletin MS16-035](https://technet.microsoft.com/en-us/library/security/ms16-035.aspx), the .NET Framework has restricted what transforms can be used in document verification by default, with untrusted transforms causing <xref:System.Security.Cryptography.Xml.SignedXml.CheckSignature%2A> to always return `false`. In particular, transforms which require additional input (specified as child elements in the XML) are no longer allowed due to their susceptibility of abuse by malicious users. The W3C advises avoiding the XPath and XSLT transforms, which are the two main transforms affected by these restrictions.  \n  \n## The problem with external references  \n If an application does not verify that external references seem appropriate for the current context, they can be abused in ways that provide for many security vulnerabilities (including Denial of Service, Distributed Reflection Denial of Service, Information Disclosure, Signature Bypass, and Remote Code Execution). Even if an application were to validate the external reference URI, there would remain a problem of the resource being loaded twice: once when your application reads it, and once when <xref:System.Security.Cryptography.Xml.SignedXml> reads it. Since there’s no guarantee that the application read and document verify steps have the same content, the signature does not provide trustworthiness.  \n  \n Given the risks of external references, <xref:System.Security.Cryptography.Xml.SignedXml> will throw an exception when an external reference is encountered.  For more information about this issue, see [KB article 3148821](https://support.microsoft.com/en-us/kb/3148821)."
@@ -85,6 +86,7 @@ items:
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -94,6 +96,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -103,9 +106,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.#ctor
   commentId: M:System.Security.Cryptography.Xml.SignedXml.#ctor
   id: '#ctor'
@@ -114,10 +114,11 @@ items:
   - csharp
   name: SignedXml()
   nameWithType: SignedXml.SignedXml()
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignedXml()
+  fullName: SignedXml.SignedXml()
   type: Constructor
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Initializes a new instance of the <xref href="System.Security.Cryptography.Xml.SignedXml"></xref> class.
   remarks: ''
@@ -129,6 +130,7 @@ items:
   overload: System.Security.Cryptography.Xml.SignedXml.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -138,6 +140,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -147,9 +150,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.#ctor(System.Xml.XmlDocument)
   commentId: M:System.Security.Cryptography.Xml.SignedXml.#ctor(System.Xml.XmlDocument)
   id: '#ctor(System.Xml.XmlDocument)'
@@ -158,10 +158,11 @@ items:
   - csharp
   name: SignedXml(XmlDocument)
   nameWithType: SignedXml.SignedXml(XmlDocument)
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignedXml(XmlDocument)
+  fullName: SignedXml.SignedXml(XmlDocument)
   type: Constructor
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Initializes a new instance of the <xref href="System.Security.Cryptography.Xml.SignedXml"></xref> class from the specified XML document.
   remarks: ''
@@ -179,6 +180,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: "The <code>document</code> parameter is `null`.  \n  \n -or-  \n  \n The <code>document</code> parameter contains a null <xref href=\"System.Xml.XmlDocument.DocumentElement\"></xref> property."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -188,6 +190,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -197,9 +200,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.#ctor(System.Xml.XmlElement)
   commentId: M:System.Security.Cryptography.Xml.SignedXml.#ctor(System.Xml.XmlElement)
   id: '#ctor(System.Xml.XmlElement)'
@@ -208,10 +208,11 @@ items:
   - csharp
   name: SignedXml(XmlElement)
   nameWithType: SignedXml.SignedXml(XmlElement)
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignedXml(XmlElement)
+  fullName: SignedXml.SignedXml(XmlElement)
   type: Constructor
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Initializes a new instance of the <xref href="System.Security.Cryptography.Xml.SignedXml"></xref> class from the specified <xref href="System.Xml.XmlElement"></xref> object.
   syntax:
@@ -226,6 +227,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: The <code>elem</code> parameter is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -235,6 +237,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -244,9 +247,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.AddObject(System.Security.Cryptography.Xml.DataObject)
   commentId: M:System.Security.Cryptography.Xml.SignedXml.AddObject(System.Security.Cryptography.Xml.DataObject)
   id: AddObject(System.Security.Cryptography.Xml.DataObject)
@@ -255,10 +255,11 @@ items:
   - csharp
   name: AddObject(DataObject)
   nameWithType: SignedXml.AddObject(DataObject)
-  fullName: System.Security.Cryptography.Xml.SignedXml.AddObject(DataObject)
+  fullName: SignedXml.AddObject(DataObject)
   type: Method
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Adds a <xref href="System.Security.Cryptography.Xml.DataObject"></xref> object to the list of objects to be signed.
   remarks: "The <xref:System.Security.Cryptography.Xml.SignedXml.AddObject%2A> method adds an <`Object`> element that represents an object to be signed to the <`Signature`> element of an XML digital signature.  \n  \n The <xref:System.Security.Cryptography.Xml.SignedXml.AddObject%2A> method internally calls the <xref:System.Security.Cryptography.Xml.Signature.AddObject%2A> method of the <xref:System.Security.Cryptography.Xml.Signature> object encapsulated by the <xref:System.Security.Cryptography.Xml.SignedXml> object.  You can also add a <xref:System.Security.Cryptography.Xml.DataObject> object by directly calling the <xref:System.Security.Cryptography.Xml.Signature.AddObject%2A> method from the <xref:System.Security.Cryptography.Xml.SignedXml.Signature%2A> property.  \n  \n For more information about XML digital signatures, see the XMLDSIG specification available at www.w3.org/TR/xmldsig-core/."
@@ -273,6 +274,7 @@ items:
   overload: System.Security.Cryptography.Xml.SignedXml.AddObject*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -282,6 +284,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -291,9 +294,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.AddReference(System.Security.Cryptography.Xml.Reference)
   commentId: M:System.Security.Cryptography.Xml.SignedXml.AddReference(System.Security.Cryptography.Xml.Reference)
   id: AddReference(System.Security.Cryptography.Xml.Reference)
@@ -302,10 +302,11 @@ items:
   - csharp
   name: AddReference(Reference)
   nameWithType: SignedXml.AddReference(Reference)
-  fullName: System.Security.Cryptography.Xml.SignedXml.AddReference(Reference)
+  fullName: SignedXml.AddReference(Reference)
   type: Method
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Adds a <xref href="System.Security.Cryptography.Xml.Reference"></xref> object to the <xref href="System.Security.Cryptography.Xml.SignedXml"></xref> object that describes a digest method, digest value, and transform to use for creating an XML digital signature.
   remarks: "The <xref:System.Security.Cryptography.Xml.SignedXml.AddReference%2A> method adds a <`Reference`> element to the <xref:System.Security.Cryptography.Xml.SignedXml> object that describes a digest method, digest value, and transform to use for creating an XML digital signature.  The <`Reference`> element is a subelement of the <`SignedInfo`> element.  \n  \n The <xref:System.Security.Cryptography.Xml.SignedXml.AddReference%2A> method internally calls the <xref:System.Security.Cryptography.Xml.SignedInfo.AddReference%2A> method of the <xref:System.Security.Cryptography.Xml.SignedInfo> object encapsulated by the <xref:System.Security.Cryptography.Xml.SignedXml> object.  You can also add a <xref:System.Security.Cryptography.Xml.Reference> object by directly calling the <xref:System.Security.Cryptography.Xml.SignedInfo.AddReference%2A> method from the <xref:System.Security.Cryptography.Xml.SignedXml.SignedInfo%2A> property.  \n  \n For more information about XML digital signatures, see the XMLDSIG specification available at www.w3.org/TR/xmldsig-core/."
@@ -320,6 +321,7 @@ items:
   overload: System.Security.Cryptography.Xml.SignedXml.AddReference*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -329,6 +331,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -338,9 +341,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.CheckSignature
   commentId: M:System.Security.Cryptography.Xml.SignedXml.CheckSignature
   id: CheckSignature
@@ -349,10 +349,11 @@ items:
   - csharp
   name: CheckSignature()
   nameWithType: SignedXml.CheckSignature()
-  fullName: System.Security.Cryptography.Xml.SignedXml.CheckSignature()
+  fullName: SignedXml.CheckSignature()
   type: Method
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Determines whether the <xref href="System.Security.Cryptography.Xml.SignedXml.Signature"></xref> property verifies using the public key in the signature.
   remarks: "This method also computes the digest of the references and the value of the signature.  \n  \n If an XML document was signed with an X.509 signature, the <xref:System.Security.Cryptography.Xml.SignedXml.CheckSignature%2A> method will search the \"AddressBook\" store for certificates suitable for the verification. For example, if the certificate is referenced by a Subject Key Identifier (SKI), the <xref:System.Security.Cryptography.Xml.SignedXml.CheckSignature%2A> method will select certificates with this SKI and try them one after another until it can verify the certificate."
@@ -370,6 +371,7 @@ items:
     commentId: T:System.Security.Cryptography.CryptographicException
     description: "The <xref href=\"System.Security.Cryptography.AsymmetricAlgorithm.SignatureAlgorithm\"></xref> property of the public key in the signature does not match the <xref href=\"System.Security.Cryptography.Xml.SignedXml.SignatureMethod\"></xref> property.  \n  \n -or-  \n  \n The signature description could not be created.  \n  \n -or  \n  \n The hash algorithm could not be created."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -379,6 +381,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -388,9 +391,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.CheckSignature(System.Security.Cryptography.AsymmetricAlgorithm)
   commentId: M:System.Security.Cryptography.Xml.SignedXml.CheckSignature(System.Security.Cryptography.AsymmetricAlgorithm)
   id: CheckSignature(System.Security.Cryptography.AsymmetricAlgorithm)
@@ -399,10 +399,11 @@ items:
   - csharp
   name: CheckSignature(AsymmetricAlgorithm)
   nameWithType: SignedXml.CheckSignature(AsymmetricAlgorithm)
-  fullName: System.Security.Cryptography.Xml.SignedXml.CheckSignature(AsymmetricAlgorithm)
+  fullName: SignedXml.CheckSignature(AsymmetricAlgorithm)
   type: Method
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Determines whether the <xref href="System.Security.Cryptography.Xml.SignedXml.Signature"></xref> property verifies for the specified key.
   remarks: ''
@@ -426,6 +427,7 @@ items:
     commentId: T:System.Security.Cryptography.CryptographicException
     description: "The <xref href=\"System.Security.Cryptography.AsymmetricAlgorithm.SignatureAlgorithm\"></xref> property of the <code>key</code> parameter does not match the <xref href=\"System.Security.Cryptography.Xml.SignedXml.SignatureMethod\"></xref> property.  \n  \n -or-  \n  \n The signature description could not be created.  \n  \n -or  \n  \n The hash algorithm could not be created."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -435,6 +437,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -444,9 +447,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.CheckSignature(System.Security.Cryptography.KeyedHashAlgorithm)
   commentId: M:System.Security.Cryptography.Xml.SignedXml.CheckSignature(System.Security.Cryptography.KeyedHashAlgorithm)
   id: CheckSignature(System.Security.Cryptography.KeyedHashAlgorithm)
@@ -455,10 +455,11 @@ items:
   - csharp
   name: CheckSignature(KeyedHashAlgorithm)
   nameWithType: SignedXml.CheckSignature(KeyedHashAlgorithm)
-  fullName: System.Security.Cryptography.Xml.SignedXml.CheckSignature(KeyedHashAlgorithm)
+  fullName: SignedXml.CheckSignature(KeyedHashAlgorithm)
   type: Method
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Determines whether the <xref href="System.Security.Cryptography.Xml.SignedXml.Signature"></xref> property verifies for the specified message authentication code (MAC) algorithm.
   remarks: ''
@@ -482,6 +483,7 @@ items:
     commentId: T:System.Security.Cryptography.CryptographicException
     description: "The <xref href=\"System.Security.Cryptography.HashAlgorithm.HashSize\"></xref> property of the specified <xref href=\"System.Security.Cryptography.KeyedHashAlgorithm\"></xref> object is not valid.  \n  \n -or-  \n  \n The <xref href=\"System.Security.Cryptography.Xml.SignedXml.Signature\"></xref> property is `null`.  \n  \n -or-  \n  \n The cryptographic transform used to check the signature could not be created."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -491,6 +493,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -500,9 +503,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.CheckSignature(System.Security.Cryptography.X509Certificates.X509Certificate2,System.Boolean)
   commentId: M:System.Security.Cryptography.Xml.SignedXml.CheckSignature(System.Security.Cryptography.X509Certificates.X509Certificate2,System.Boolean)
   id: CheckSignature(System.Security.Cryptography.X509Certificates.X509Certificate2,System.Boolean)
@@ -511,10 +511,11 @@ items:
   - csharp
   name: CheckSignature(X509Certificate2, Boolean)
   nameWithType: SignedXml.CheckSignature(X509Certificate2, Boolean)
-  fullName: System.Security.Cryptography.Xml.SignedXml.CheckSignature(X509Certificate2, Boolean)
+  fullName: SignedXml.CheckSignature(X509Certificate2, Boolean)
   type: Method
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Determines whether the <xref href="System.Security.Cryptography.Xml.SignedXml.Signature"></xref> property verifies for the specified <xref href="System.Security.Cryptography.X509Certificates.X509Certificate2"></xref> object and, optionally, whether the certificate is valid.
   remarks: "In version 1.1 of the .NET Framework, the X.509 certificate is not verified.  In version 2.0 and later, the X.509 certificate is verified.  \n  \n In version 2.0 and later of the .NET Framework, the <xref:System.Security.Cryptography.Xml.SignedXml.CheckSignature%2A> method will search the \"AddressBook\" store for certificates suitable for the verification. For example, if the certificate is referenced by a Subject Key Identifier (SKI), the <xref:System.Security.Cryptography.Xml.SignedXml.CheckSignature%2A> method will select certificates with this SKI and try them one after another until it can verify the certificate."
@@ -546,6 +547,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -555,6 +557,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -564,9 +567,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.CheckSignatureReturningKey(System.Security.Cryptography.AsymmetricAlgorithm@)
   commentId: M:System.Security.Cryptography.Xml.SignedXml.CheckSignatureReturningKey(System.Security.Cryptography.AsymmetricAlgorithm@)
   id: CheckSignatureReturningKey(System.Security.Cryptography.AsymmetricAlgorithm@)
@@ -575,10 +575,11 @@ items:
   - csharp
   name: CheckSignatureReturningKey(AsymmetricAlgorithm)
   nameWithType: SignedXml.CheckSignatureReturningKey(AsymmetricAlgorithm)
-  fullName: System.Security.Cryptography.Xml.SignedXml.CheckSignatureReturningKey(AsymmetricAlgorithm)
+  fullName: SignedXml.CheckSignatureReturningKey(AsymmetricAlgorithm)
   type: Method
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Determines whether the <xref href="System.Security.Cryptography.Xml.SignedXml.Signature"></xref> property verifies using the public key in the signature.
   remarks: ''
@@ -602,6 +603,7 @@ items:
     commentId: T:System.Security.Cryptography.CryptographicException
     description: "The <xref href=\"System.Security.Cryptography.AsymmetricAlgorithm.SignatureAlgorithm\"></xref> property of the public key in the signature does not match the <xref href=\"System.Security.Cryptography.Xml.SignedXml.SignatureMethod\"></xref> property.  \n  \n -or-  \n  \n The signature description could not be created.  \n  \n -or  \n  \n The hash algorithm could not be created."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -611,6 +613,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -620,9 +623,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.ComputeSignature
   commentId: M:System.Security.Cryptography.Xml.SignedXml.ComputeSignature
   id: ComputeSignature
@@ -631,10 +631,11 @@ items:
   - csharp
   name: ComputeSignature()
   nameWithType: SignedXml.ComputeSignature()
-  fullName: System.Security.Cryptography.Xml.SignedXml.ComputeSignature()
+  fullName: SignedXml.ComputeSignature()
   type: Method
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Computes an XML digital signature.
   remarks: "The <xref:System.Security.Cryptography.Xml.SignedXml.ComputeSignature%2A> method creates an XML digital signature and constructs many of the XML elements needed.  \n  \n You must set the data to be signed and the <xref:System.Security.Cryptography.Xml.SignedXml.SigningKey%2A> property before calling this method."
@@ -649,6 +650,7 @@ items:
     commentId: T:System.Security.Cryptography.CryptographicException
     description: "The <xref href=\"System.Security.Cryptography.Xml.SignedXml.SigningKey\"></xref> property is `null`.  \n  \n -or-  \n  \n The <xref href=\"System.Security.Cryptography.Xml.SignedXml.SigningKey\"></xref> property is not a <xref href=\"System.Security.Cryptography.DSA\"></xref> object or <xref href=\"System.Security.Cryptography.RSA\"></xref> object.  \n  \n -or-  \n  \n The key could not be loaded."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -658,6 +660,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -667,9 +670,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.ComputeSignature(System.Security.Cryptography.KeyedHashAlgorithm)
   commentId: M:System.Security.Cryptography.Xml.SignedXml.ComputeSignature(System.Security.Cryptography.KeyedHashAlgorithm)
   id: ComputeSignature(System.Security.Cryptography.KeyedHashAlgorithm)
@@ -678,10 +678,11 @@ items:
   - csharp
   name: ComputeSignature(KeyedHashAlgorithm)
   nameWithType: SignedXml.ComputeSignature(KeyedHashAlgorithm)
-  fullName: System.Security.Cryptography.Xml.SignedXml.ComputeSignature(KeyedHashAlgorithm)
+  fullName: SignedXml.ComputeSignature(KeyedHashAlgorithm)
   type: Method
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Computes an XML digital signature using the specified message authentication code (MAC) algorithm.
   remarks: "The <xref:System.Security.Cryptography.Xml.SignedXml.ComputeSignature%2A> method creates an XML digital signature using the specified MAC algorithm and constructs many of the XML elements needed.  \n  \n You must set the data to be signed before calling this method."
@@ -702,6 +703,7 @@ items:
     commentId: T:System.Security.Cryptography.CryptographicException
     description: "The <xref href=\"System.Security.Cryptography.KeyedHashAlgorithm\"></xref> object specified by the <code>macAlg</code> parameter is not an instance of <xref href=\"System.Security.Cryptography.HMACSHA1\"></xref>.  \n  \n -or-  \n  \n The <xref href=\"System.Security.Cryptography.HashAlgorithm.HashSize\"></xref> property of the specified <xref href=\"System.Security.Cryptography.KeyedHashAlgorithm\"></xref> object is not valid.  \n  \n -or-  \n  \n The cryptographic transform used to check the signature could not be created."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -711,6 +713,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -720,9 +723,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.EncryptedXml
   commentId: P:System.Security.Cryptography.Xml.SignedXml.EncryptedXml
   id: EncryptedXml
@@ -731,10 +731,11 @@ items:
   - csharp
   name: EncryptedXml
   nameWithType: SignedXml.EncryptedXml
-  fullName: System.Security.Cryptography.Xml.SignedXml.EncryptedXml
+  fullName: SignedXml.EncryptedXml
   type: Property
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Gets or sets an <xref href="System.Security.Cryptography.Xml.EncryptedXml"></xref> object that defines the XML encryption processing rules.
   syntax:
@@ -750,6 +751,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -759,6 +761,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -768,9 +771,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.GetIdElement(System.Xml.XmlDocument,System.String)
   commentId: M:System.Security.Cryptography.Xml.SignedXml.GetIdElement(System.Xml.XmlDocument,System.String)
   id: GetIdElement(System.Xml.XmlDocument,System.String)
@@ -779,10 +779,11 @@ items:
   - csharp
   name: GetIdElement(XmlDocument, String)
   nameWithType: SignedXml.GetIdElement(XmlDocument, String)
-  fullName: System.Security.Cryptography.Xml.SignedXml.GetIdElement(XmlDocument, String)
+  fullName: SignedXml.GetIdElement(XmlDocument, String)
   type: Method
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Returns the <xref href="System.Xml.XmlElement"></xref> object with the specified ID from the specified <xref href="System.Xml.XmlDocument"></xref> object.
   syntax:
@@ -800,6 +801,7 @@ items:
   overload: System.Security.Cryptography.Xml.SignedXml.GetIdElement*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -809,6 +811,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -818,9 +821,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.GetPublicKey
   commentId: M:System.Security.Cryptography.Xml.SignedXml.GetPublicKey
   id: GetPublicKey
@@ -829,10 +829,11 @@ items:
   - csharp
   name: GetPublicKey()
   nameWithType: SignedXml.GetPublicKey()
-  fullName: System.Security.Cryptography.Xml.SignedXml.GetPublicKey()
+  fullName: SignedXml.GetPublicKey()
   type: Method
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Returns the public key of a signature.
   remarks: "The <xref:System.Security.Cryptography.Xml.SignedXml.GetPublicKey%2A> method returns an <xref:System.Security.Cryptography.AsymmetricAlgorithm> object that contains a public key that can be used to verify an XML digital signature.  \n  \n The key must be either a <xref:System.Security.Cryptography.DSA> or an <xref:System.Security.Cryptography.RSA> key."
@@ -848,6 +849,7 @@ items:
     commentId: T:System.Security.Cryptography.CryptographicException
     description: The <xref href="System.Security.Cryptography.Xml.SignedXml.KeyInfo"></xref> property is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -857,6 +859,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -866,9 +869,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.GetXml
   commentId: M:System.Security.Cryptography.Xml.SignedXml.GetXml
   id: GetXml
@@ -877,10 +877,11 @@ items:
   - csharp
   name: GetXml()
   nameWithType: SignedXml.GetXml()
-  fullName: System.Security.Cryptography.Xml.SignedXml.GetXml()
+  fullName: SignedXml.GetXml()
   type: Method
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Returns the XML representation of a <xref href="System.Security.Cryptography.Xml.SignedXml"></xref> object.
   syntax:
@@ -895,6 +896,7 @@ items:
     commentId: T:System.Security.Cryptography.CryptographicException
     description: "The <xref href=\"System.Security.Cryptography.Xml.SignedXml.SignedInfo\"></xref> property is `null`.  \n  \n -or-  \n  \n The <xref href=\"System.Security.Cryptography.Xml.SignedXml.SignatureValue\"></xref> property is `null`."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -904,6 +906,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -913,9 +916,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.KeyInfo
   commentId: P:System.Security.Cryptography.Xml.SignedXml.KeyInfo
   id: KeyInfo
@@ -924,10 +924,11 @@ items:
   - csharp
   name: KeyInfo
   nameWithType: SignedXml.KeyInfo
-  fullName: System.Security.Cryptography.Xml.SignedXml.KeyInfo
+  fullName: SignedXml.KeyInfo
   type: Property
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Gets or sets the <xref href="System.Security.Cryptography.Xml.KeyInfo"></xref> object of the current <xref href="System.Security.Cryptography.Xml.SignedXml"></xref> object.
   remarks: "The <xref:System.Security.Cryptography.Xml.SignedXml.KeyInfo%2A> property represents the <`KeyInfo`> element of an XML digital signature using a <xref:System.Security.Cryptography.Xml.KeyInfo> object contained within the property.  The <`KeyInfo`> element is a subelement of the <`Signature`> element.  \n  \n Use the <xref:System.Security.Cryptography.Xml.SignedXml.KeyInfo%2A> property to embed key-related information intended to help identify the key necessary for validating an XML document.  \n  \n For more information about the `<KeyInfo>` element, see the XMLDSIG specification, which is available at www.w3.org/TR/xmldsig-core/."
@@ -941,6 +942,7 @@ items:
   overload: System.Security.Cryptography.Xml.SignedXml.KeyInfo*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -950,6 +952,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -959,9 +962,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.LoadXml(System.Xml.XmlElement)
   commentId: M:System.Security.Cryptography.Xml.SignedXml.LoadXml(System.Xml.XmlElement)
   id: LoadXml(System.Xml.XmlElement)
@@ -970,10 +970,11 @@ items:
   - csharp
   name: LoadXml(XmlElement)
   nameWithType: SignedXml.LoadXml(XmlElement)
-  fullName: System.Security.Cryptography.Xml.SignedXml.LoadXml(XmlElement)
+  fullName: SignedXml.LoadXml(XmlElement)
   type: Method
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Loads a <xref href="System.Security.Cryptography.Xml.SignedXml"></xref> state from an XML element.
   remarks: ''
@@ -994,6 +995,7 @@ items:
     commentId: T:System.Security.Cryptography.CryptographicException
     description: "The <code>value</code> parameter does not contain a valid <xref href=\"System.Security.Cryptography.Xml.SignedXml.SignatureValue\"></xref> property.  \n  \n -or-  \n  \n The <code>value</code> parameter does not contain a valid <xref href=\"System.Security.Cryptography.Xml.SignedXml.SignedInfo\"></xref> property."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1003,6 +1005,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1012,9 +1015,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.m_signature
   commentId: F:System.Security.Cryptography.Xml.SignedXml.m_signature
   id: m_signature
@@ -1023,10 +1023,11 @@ items:
   - csharp
   name: m_signature
   nameWithType: SignedXml.m_signature
-  fullName: System.Security.Cryptography.Xml.SignedXml.m_signature
+  fullName: SignedXml.m_signature
   type: Field
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Represents the <xref href="System.Security.Cryptography.Xml.Signature"></xref> object of the current <xref href="System.Security.Cryptography.Xml.SignedXml"></xref> object.
   syntax:
@@ -1036,6 +1037,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1045,6 +1047,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1054,9 +1057,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.m_strSigningKeyName
   commentId: F:System.Security.Cryptography.Xml.SignedXml.m_strSigningKeyName
   id: m_strSigningKeyName
@@ -1065,10 +1065,11 @@ items:
   - csharp
   name: m_strSigningKeyName
   nameWithType: SignedXml.m_strSigningKeyName
-  fullName: System.Security.Cryptography.Xml.SignedXml.m_strSigningKeyName
+  fullName: SignedXml.m_strSigningKeyName
   type: Field
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Represents the name of the installed key to be used for signing the <xref href="System.Security.Cryptography.Xml.SignedXml"></xref> object.
   syntax:
@@ -1078,6 +1079,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1087,6 +1089,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1096,9 +1099,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.Resolver
   commentId: P:System.Security.Cryptography.Xml.SignedXml.Resolver
   id: Resolver
@@ -1107,10 +1107,11 @@ items:
   - csharp
   name: Resolver
   nameWithType: SignedXml.Resolver
-  fullName: System.Security.Cryptography.Xml.SignedXml.Resolver
+  fullName: SignedXml.Resolver
   type: Property
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Sets the current <xref href="System.Xml.XmlResolver"></xref> object.
   remarks: The <xref:System.Xml.XmlResolver> class resolves external XML resources named by a Uniform Resource Identifier (URI). If you do not trust the source of the XML file, you might not want to allow the XML file to access computer resources named by the URI. You can use the <xref:System.Security.Cryptography.Xml.SignedXml.Resolver%2A> property to control the level of access that XML files have to computer resources by specifying different <xref:System.Xml.XmlResolver> objects. If you do not want to allow any access, you can set this property to `null` (`Nothing` in Visual Basic).
@@ -1127,6 +1128,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1136,6 +1138,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1145,9 +1148,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.SafeCanonicalizationMethods
   commentId: P:System.Security.Cryptography.Xml.SignedXml.SafeCanonicalizationMethods
   id: SafeCanonicalizationMethods
@@ -1156,10 +1156,11 @@ items:
   - csharp
   name: SafeCanonicalizationMethods
   nameWithType: SignedXml.SafeCanonicalizationMethods
-  fullName: System.Security.Cryptography.Xml.SignedXml.SafeCanonicalizationMethods
+  fullName: SignedXml.SafeCanonicalizationMethods
   type: Property
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: "[Supported in the .NET Framework 4.5.1 and later versions]  \n  \n Gets the names of methods whose canonicalization algorithms are explicitly allowed."
   remarks: Canonicalization methods convert an XML document to its canonical form. For more information about canonical XML, see [Canonical XML](http://www.w3.org/TR/xml-c14n) on the W3C website.
@@ -1171,6 +1172,7 @@ items:
   overload: System.Security.Cryptography.Xml.SignedXml.SafeCanonicalizationMethods*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.6.1
@@ -1178,6 +1180,7 @@ items:
   - netframework-4.6
   - netframework-4.7
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.6.1
@@ -1185,9 +1188,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.Signature
   commentId: P:System.Security.Cryptography.Xml.SignedXml.Signature
   id: Signature
@@ -1196,10 +1196,11 @@ items:
   - csharp
   name: Signature
   nameWithType: SignedXml.Signature
-  fullName: System.Security.Cryptography.Xml.SignedXml.Signature
+  fullName: SignedXml.Signature
   type: Property
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Gets the <xref href="System.Security.Cryptography.Xml.Signature"></xref> object of the current <xref href="System.Security.Cryptography.Xml.SignedXml"></xref> object.
   remarks: "The <xref:System.Security.Cryptography.Xml.SignedXml.Signature%2A> property represents the <`Signature`> element of an XML digital signature using a <xref:System.Security.Cryptography.Xml.Signature> object contained within the property.  The <`Signature`> element is the root element used for XML digital signature creation and verification.  \n  \n Use the <xref:System.Security.Cryptography.Xml.SignedXml.Signature%2A> property to retrieve the <xref:System.Security.Cryptography.Xml.Signature> object used by the <xref:System.Security.Cryptography.Xml.SignedXml> object.  \n  \n For more information about the `<Signature>` element, see the XMLDSIG specification, which is available at www.w3.org/TR/xmldsig-core/."
@@ -1213,6 +1214,7 @@ items:
   overload: System.Security.Cryptography.Xml.SignedXml.Signature*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1222,6 +1224,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1231,9 +1234,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.SignatureFormatValidator
   commentId: P:System.Security.Cryptography.Xml.SignedXml.SignatureFormatValidator
   id: SignatureFormatValidator
@@ -1242,10 +1242,11 @@ items:
   - csharp
   name: SignatureFormatValidator
   nameWithType: SignedXml.SignatureFormatValidator
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignatureFormatValidator
+  fullName: SignedXml.SignatureFormatValidator
   type: Property
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Gets a delegate that will be called to validate the format (not the cryptographic security) of an XML signature.
   remarks: "This method can be used to ensure that only certain transforms are used, or that the signature uses a certain hash algorithm, and so on.  \n  \n Setting the property to `null` removes all signature format validation from the <xref:System.Security.Cryptography.Xml.SignedXml> object.  \n  \n You can also read the object's current delegate and chain to it if you want.  \n  \n If you are setting up a format validator, the delegate you supply will receive as an input parameter the <xref:System.Security.Cryptography.Xml.SignedXml> object being verified and returns a Boolean value – `true` if the format is acceptable, `false` if it is not. If the delegate returns `false` for any reason, the <xref:System.Security.Cryptography.Xml.SignedXml> object will report that the XML signature is not valid."
@@ -1257,6 +1258,7 @@ items:
   overload: System.Security.Cryptography.Xml.SignedXml.SignatureFormatValidator*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1265,6 +1267,7 @@ items:
   - netframework-4.6
   - netframework-4.7
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1273,9 +1276,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.SignatureLength
   commentId: P:System.Security.Cryptography.Xml.SignedXml.SignatureLength
   id: SignatureLength
@@ -1284,10 +1284,11 @@ items:
   - csharp
   name: SignatureLength
   nameWithType: SignedXml.SignatureLength
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignatureLength
+  fullName: SignedXml.SignatureLength
   type: Property
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Gets the length of the signature for the current <xref href="System.Security.Cryptography.Xml.SignedXml"></xref> object.
   syntax:
@@ -1298,6 +1299,7 @@ items:
   overload: System.Security.Cryptography.Xml.SignedXml.SignatureLength*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1307,6 +1309,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1316,9 +1319,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.SignatureMethod
   commentId: P:System.Security.Cryptography.Xml.SignedXml.SignatureMethod
   id: SignatureMethod
@@ -1327,10 +1327,11 @@ items:
   - csharp
   name: SignatureMethod
   nameWithType: SignedXml.SignatureMethod
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignatureMethod
+  fullName: SignedXml.SignatureMethod
   type: Property
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Gets the signature method of the current <xref href="System.Security.Cryptography.Xml.SignedXml"></xref> object.
   remarks: "The <xref:System.Security.Cryptography.Xml.SignedXml.SignatureMethod%2A> property represents the <`SignatureMethod`> element of an XML digital signature using a Uniform Resource Identifier (URI) string contained within the property. The <`SignatureMethod`> element is a subelement of the <`SignedInfo`> element.  \n  \n Use the <xref:System.Security.Cryptography.Xml.SignedXml.SignatureMethod%2A> property to retrieve the <`SignatureMethod`> URI used by the <xref:System.Security.Cryptography.Xml.SignedXml> object. This property is read only. For more information about programmatically specifying a URI for the <`SignatureMethod`> element, see the <xref:System.Security.Cryptography.Xml.SignedInfo.SignatureMethod%2A> property.  \n  \n For more information about the `<SignatureMethod>` element, see the XMLDSIG specification, which is available at www.w3.org/TR/xmldsig-core/."
@@ -1342,6 +1343,7 @@ items:
   overload: System.Security.Cryptography.Xml.SignedXml.SignatureMethod*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1351,6 +1353,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1360,9 +1363,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.SignatureValue
   commentId: P:System.Security.Cryptography.Xml.SignedXml.SignatureValue
   id: SignatureValue
@@ -1371,10 +1371,11 @@ items:
   - csharp
   name: SignatureValue
   nameWithType: SignedXml.SignatureValue
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignatureValue
+  fullName: SignedXml.SignatureValue
   type: Property
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Gets the signature value of the current <xref href="System.Security.Cryptography.Xml.SignedXml"></xref> object.
   remarks: "The <xref:System.Security.Cryptography.Xml.SignedXml.SignatureValue%2A> property represents the <`SignatureValue`> element of an XML digital signature using an array of bytes contained within the property.  The <`SignatureValue`> element is a subelement of the <`Signature>` element.  \n  \n Use the <xref:System.Security.Cryptography.Xml.SignedXml.SignatureValue%2A> property to retrieve the value of the XML digital signature.  This property is automatically populated when you make a successful call to the <xref:System.Security.Cryptography.Xml.SignedXml.ComputeSignature%2A> method.  \n  \n For more information about the `<SignatureValue>` element, see the XMLDSIG specification, which is available at www.w3.org/TR/xmldsig-core/."
@@ -1386,6 +1387,7 @@ items:
   overload: System.Security.Cryptography.Xml.SignedXml.SignatureValue*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1395,6 +1397,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1404,9 +1407,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.SignedInfo
   commentId: P:System.Security.Cryptography.Xml.SignedXml.SignedInfo
   id: SignedInfo
@@ -1415,10 +1415,11 @@ items:
   - csharp
   name: SignedInfo
   nameWithType: SignedXml.SignedInfo
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignedInfo
+  fullName: SignedXml.SignedInfo
   type: Property
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Gets the <xref href="System.Security.Cryptography.Xml.SignedInfo"></xref> object of the current <xref href="System.Security.Cryptography.Xml.SignedXml"></xref> object.
   remarks: "The <xref:System.Security.Cryptography.Xml.SignedXml.SignedInfo%2A> property represents the <`SignedInfo`> element of an XML digital signature using an array of bytes contained within the property.  The <`SignedInfo`> element is a subelement of the <`Signature>` element.  \n  \n Use the <xref:System.Security.Cryptography.Xml.SignedXml.SignedInfo%2A> property to retrieve the <xref:System.Security.Cryptography.Xml.SignedInfo> object that is used by the <xref:System.Security.Cryptography.Xml.SignedXml> object to create an XML digital signature.  \n  \n For more information about the `<SignedInfo>` element, see the XMLDSIG specification, which is available at www.w3.org/TR/xmldsig-core/."
@@ -1430,6 +1431,7 @@ items:
   overload: System.Security.Cryptography.Xml.SignedXml.SignedInfo*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1439,6 +1441,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1448,9 +1451,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.SigningKey
   commentId: P:System.Security.Cryptography.Xml.SignedXml.SigningKey
   id: SigningKey
@@ -1459,10 +1459,11 @@ items:
   - csharp
   name: SigningKey
   nameWithType: SignedXml.SigningKey
-  fullName: System.Security.Cryptography.Xml.SignedXml.SigningKey
+  fullName: SignedXml.SigningKey
   type: Property
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Gets or sets the asymmetric algorithm key used for signing a <xref href="System.Security.Cryptography.Xml.SignedXml"></xref> object.
   remarks: Use the <xref:System.Security.Cryptography.Xml.SignedXml.SigningKey%2A> property to specify the asymmetric key you want to use to create an XML digital signature.
@@ -1476,6 +1477,7 @@ items:
   overload: System.Security.Cryptography.Xml.SignedXml.SigningKey*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1485,6 +1487,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1494,9 +1497,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.SigningKeyName
   commentId: P:System.Security.Cryptography.Xml.SignedXml.SigningKeyName
   id: SigningKeyName
@@ -1505,10 +1505,11 @@ items:
   - csharp
   name: SigningKeyName
   nameWithType: SignedXml.SigningKeyName
-  fullName: System.Security.Cryptography.Xml.SignedXml.SigningKeyName
+  fullName: SignedXml.SigningKeyName
   type: Property
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Gets or sets the name of the installed key to be used for signing the <xref href="System.Security.Cryptography.Xml.SignedXml"></xref> object.
   syntax:
@@ -1519,6 +1520,7 @@ items:
   overload: System.Security.Cryptography.Xml.SignedXml.SigningKeyName*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1528,6 +1530,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1537,9 +1540,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDecryptionTransformUrl
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDecryptionTransformUrl
   id: XmlDecryptionTransformUrl
@@ -1548,10 +1548,11 @@ items:
   - csharp
   name: XmlDecryptionTransformUrl
   nameWithType: SignedXml.XmlDecryptionTransformUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDecryptionTransformUrl
+  fullName: SignedXml.XmlDecryptionTransformUrl
   type: Field
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Represents the Uniform Resource Identifier (URI) for the XML mode decryption transformation. This field is constant.
   remarks: "The value of the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDecryptionTransformUrl> field is \"http://www.w3.org/2002/07/decrypt#XML\".  \n  \n Use this field to conveniently supply a value to one of the URI attributes of an element used for XMLDSIG.  \n  \n For more information, see the World Wide Web Consortium (W3C) specification at http://www.w3.org/2002/07/decrypt#XML."
@@ -1562,6 +1563,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1571,6 +1573,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1580,9 +1583,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigBase64TransformUrl
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigBase64TransformUrl
   id: XmlDsigBase64TransformUrl
@@ -1591,10 +1591,11 @@ items:
   - csharp
   name: XmlDsigBase64TransformUrl
   nameWithType: SignedXml.XmlDsigBase64TransformUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigBase64TransformUrl
+  fullName: SignedXml.XmlDsigBase64TransformUrl
   type: Field
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Represents the Uniform Resource Identifier (URI) for the base 64 transformation. This field is constant.
   remarks: "The value of the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigBase64TransformUrl> field is \"http://www.w3.org/2000/09/xmldsig#base64\".  \n  \n Use this field to conveniently supply a value to one of the URI attributes of an element used for XMLDSIG.  \n  \n The <xref:System.Security.Cryptography.Xml.XmlDsigBase64Transform> class implements the transform described by the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigBase64TransformUrl> field.  \n  \n For more information, see the World Wide Web Consortium (W3C) specification at http://www.w3.org/2000/09/xmldsig#base64."
@@ -1607,6 +1608,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1616,6 +1618,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1625,9 +1628,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigC14NTransformUrl
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigC14NTransformUrl
   id: XmlDsigC14NTransformUrl
@@ -1636,10 +1636,11 @@ items:
   - csharp
   name: XmlDsigC14NTransformUrl
   nameWithType: SignedXml.XmlDsigC14NTransformUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigC14NTransformUrl
+  fullName: SignedXml.XmlDsigC14NTransformUrl
   type: Field
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Represents the Uniform Resource Identifier (URI) for the Canonical XML transformation. This field is constant.
   remarks: "The value of the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigC14NTransformUrl> field is \"http://www.w3.org/TR/2001/REC-xml-c14n-20010315\".  \n  \n Use this field to conveniently supply a value to one of the URI attributes of an element used for XMLDSIG.  \n  \n The <xref:System.Security.Cryptography.Xml.XmlDsigC14NTransform> class implements the transform described by the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigC14NTransformUrl> field.  \n  \n For more information, see the World Wide Web Consortium (W3C) specification at http://www.w3.org/TR/2001/REC-xml-c14n-20010315.  \n  \n This field has the same value as the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigCanonicalizationUrl> field."
@@ -1652,6 +1653,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1661,6 +1663,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1670,9 +1673,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigC14NWithCommentsTransformUrl
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigC14NWithCommentsTransformUrl
   id: XmlDsigC14NWithCommentsTransformUrl
@@ -1681,10 +1681,11 @@ items:
   - csharp
   name: XmlDsigC14NWithCommentsTransformUrl
   nameWithType: SignedXml.XmlDsigC14NWithCommentsTransformUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigC14NWithCommentsTransformUrl
+  fullName: SignedXml.XmlDsigC14NWithCommentsTransformUrl
   type: Field
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Represents the Uniform Resource Identifier (URI) for the Canonical XML transformation, with comments. This field is constant.
   remarks: "The value of the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigC14NWithCommentsTransformUrl> field is \"http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments \".  \n  \n Use this field to conveniently supply a value to one of the URI attributes of an element used for XMLDSIG.  \n  \n The <xref:System.Security.Cryptography.Xml.XmlDsigC14NWithCommentsTransform> class implements the transform described by the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigC14NWithCommentsTransformUrl> field.  \n  \n For more information, see the World Wide Web Consortium (W3C) specification at http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments.  \n  \n This field has the same value as the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigCanonicalizationWithCommentsUrl> field."
@@ -1695,6 +1696,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1704,6 +1706,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1713,9 +1716,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigCanonicalizationUrl
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigCanonicalizationUrl
   id: XmlDsigCanonicalizationUrl
@@ -1724,10 +1724,11 @@ items:
   - csharp
   name: XmlDsigCanonicalizationUrl
   nameWithType: SignedXml.XmlDsigCanonicalizationUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigCanonicalizationUrl
+  fullName: SignedXml.XmlDsigCanonicalizationUrl
   type: Field
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Represents the Uniform Resource Identifier (URI) for the standard canonicalization algorithm for XML digital signatures. This field is constant.
   remarks: "The value of the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigCanonicalizationUrl> field is \"http://www.w3.org/TR/2001/REC-xml-c14n-20010315\".  \n  \n Use this field to conveniently supply a value to one of the URI attributes of an element used for XMLDSIG.  \n  \n The <xref:System.Security.Cryptography.Xml.XmlDsigC14NTransform> class implements the transform described by the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigCanonicalizationUrl> field.  \n  \n For more information, see the World Wide Web Consortium (W3C) specification at http://www.w3.org/TR/2001/REC-xml-c14n-20010315.  \n  \n This field has the same value as the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigC14NTransformUrl> field."
@@ -1738,6 +1739,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1747,6 +1749,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1756,9 +1759,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigCanonicalizationWithCommentsUrl
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigCanonicalizationWithCommentsUrl
   id: XmlDsigCanonicalizationWithCommentsUrl
@@ -1767,10 +1767,11 @@ items:
   - csharp
   name: XmlDsigCanonicalizationWithCommentsUrl
   nameWithType: SignedXml.XmlDsigCanonicalizationWithCommentsUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigCanonicalizationWithCommentsUrl
+  fullName: SignedXml.XmlDsigCanonicalizationWithCommentsUrl
   type: Field
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Represents the Uniform Resource Identifier (URI) for the standard canonicalization algorithm for XML digital signatures and includes comments. This field is constant.
   remarks: "The value of the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigCanonicalizationWithCommentsUrl> field is \"http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments\".  \n  \n Use this field to conveniently supply a value to one of the URI attributes of an element used for XMLDSIG.  \n  \n The <xref:System.Security.Cryptography.Xml.XmlDsigC14NWithCommentsTransform> class implements the transform described by the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigCanonicalizationWithCommentsUrl> field.  \n  \n For more information, see the World Wide Web Consortium (W3C) specification at http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments.  \n  \n This field has the same value as the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigC14NWithCommentsTransformUrl> field."
@@ -1781,6 +1782,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1790,6 +1792,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1799,9 +1802,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigDSAUrl
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigDSAUrl
   id: XmlDsigDSAUrl
@@ -1810,10 +1810,11 @@ items:
   - csharp
   name: XmlDsigDSAUrl
   nameWithType: SignedXml.XmlDsigDSAUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigDSAUrl
+  fullName: SignedXml.XmlDsigDSAUrl
   type: Field
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Represents the Uniform Resource Identifier (URI) for the standard <xref href="System.Security.Cryptography.DSA"></xref> algorithm for XML digital signatures. This field is constant.
   remarks: "The value of the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigDSAUrl> field is \"http://www.w3.org/2000/09/xmldsig#dsa-sha1\".  \n  \n Use this field to conveniently supply a value to one of the URI attributes of an element used for XMLDSIG.  \n  \n For more information, see the World Wide Web Consortium (W3C) specification at http://www.w3.org/2000/09/xmldsig#dsa-sha1."
@@ -1824,6 +1825,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1833,6 +1835,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1842,9 +1845,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigEnvelopedSignatureTransformUrl
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigEnvelopedSignatureTransformUrl
   id: XmlDsigEnvelopedSignatureTransformUrl
@@ -1853,10 +1853,11 @@ items:
   - csharp
   name: XmlDsigEnvelopedSignatureTransformUrl
   nameWithType: SignedXml.XmlDsigEnvelopedSignatureTransformUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigEnvelopedSignatureTransformUrl
+  fullName: SignedXml.XmlDsigEnvelopedSignatureTransformUrl
   type: Field
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Represents the Uniform Resource Identifier (URI) for enveloped signature transformation. This field is constant.
   remarks: "The value of the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigEnvelopedSignatureTransformUrl> field is \"http://www.w3.org/2000/09/xmldsig#enveloped-signature\".  \n  \n Use this field to conveniently supply a value to one of the URI attributes of an element used for XMLDSIG.  \n  \n The <xref:System.Security.Cryptography.Xml.XmlDsigEnvelopedSignatureTransform> class implements the transform described by the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigEnvelopedSignatureTransformUrl> field.  \n  \n For more information, see the World Wide Web Consortium (W3C) specification at http://www.w3.org/2000/09/xmldsig#enveloped-signature."
@@ -1869,6 +1870,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1878,6 +1880,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1887,9 +1890,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigExcC14NTransformUrl
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigExcC14NTransformUrl
   id: XmlDsigExcC14NTransformUrl
@@ -1898,10 +1898,11 @@ items:
   - csharp
   name: XmlDsigExcC14NTransformUrl
   nameWithType: SignedXml.XmlDsigExcC14NTransformUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigExcC14NTransformUrl
+  fullName: SignedXml.XmlDsigExcC14NTransformUrl
   type: Field
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Represents the Uniform Resource Identifier (URI) for exclusive XML canonicalization. This field is constant.
   remarks: "The value of the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigExcC14NTransformUrl> field is \"http://www.w3.org/2001/10/xml-exc-c14n#\".  \n  \n Use this field to conveniently supply a value to one of the URI attributes of an element used for XMLDSIG.  \n  \n The <xref:System.Security.Cryptography.Xml.XmlDsigExcC14NTransform> class implements the transform described by the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigExcC14NTransformUrl> field.  \n  \n For more information, see the World Wide Web Consortium (W3C) specification at http://www.w3.org/2001/10/xml-exc-c14n#."
@@ -1914,6 +1915,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1923,6 +1925,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1932,9 +1935,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigExcC14NWithCommentsTransformUrl
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigExcC14NWithCommentsTransformUrl
   id: XmlDsigExcC14NWithCommentsTransformUrl
@@ -1943,10 +1943,11 @@ items:
   - csharp
   name: XmlDsigExcC14NWithCommentsTransformUrl
   nameWithType: SignedXml.XmlDsigExcC14NWithCommentsTransformUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigExcC14NWithCommentsTransformUrl
+  fullName: SignedXml.XmlDsigExcC14NWithCommentsTransformUrl
   type: Field
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Represents the Uniform Resource Identifier (URI) for exclusive XML canonicalization, with comments. This field is constant.
   remarks: "The value of the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigExcC14NWithCommentsTransformUrl> field is \"http://www.w3.org/2001/10/xml-exc-c14n#WithComments\".  \n  \n Use this field to conveniently supply a value to one of the URI attributes of an element used for XMLDSIG.  \n  \n The <xref:System.Security.Cryptography.Xml.XmlDsigExcC14NWithCommentsTransform> class implements the transform described by the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigExcC14NWithCommentsTransformUrl> field.  \n  \n For more information, see the World Wide Web Consortium (W3C) specification at http://www.w3.org/2001/10/xml-exc-c14n#WithComments."
@@ -1959,6 +1960,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1968,6 +1970,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1977,9 +1980,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigHMACSHA1Url
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigHMACSHA1Url
   id: XmlDsigHMACSHA1Url
@@ -1988,10 +1988,11 @@ items:
   - csharp
   name: XmlDsigHMACSHA1Url
   nameWithType: SignedXml.XmlDsigHMACSHA1Url
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigHMACSHA1Url
+  fullName: SignedXml.XmlDsigHMACSHA1Url
   type: Field
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Represents the Uniform Resource Identifier (URI) for the standard <xref href="System.Security.Cryptography.HMACSHA1"></xref> algorithm for XML digital signatures. This field is constant.
   remarks: "The value of the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigHMACSHA1Url> field is \"http://www.w3.org/2000/09/xmldsig#hmac-sha1\".  \n  \n Use this field to conveniently supply a value to one of the URI attributes of an element used for XMLDSIG.  \n  \n For more information, see the World Wide Web Consortium (W3C) specification at http://www.w3.org/2000/09/xmldsig#hmac-sha1."
@@ -2002,6 +2003,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2011,6 +2013,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2020,9 +2023,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigMinimalCanonicalizationUrl
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigMinimalCanonicalizationUrl
   id: XmlDsigMinimalCanonicalizationUrl
@@ -2031,10 +2031,11 @@ items:
   - csharp
   name: XmlDsigMinimalCanonicalizationUrl
   nameWithType: SignedXml.XmlDsigMinimalCanonicalizationUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigMinimalCanonicalizationUrl
+  fullName: SignedXml.XmlDsigMinimalCanonicalizationUrl
   type: Field
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Represents the Uniform Resource Identifier (URI) for the standard minimal canonicalization algorithm for XML digital signatures. This field is constant.
   remarks: "The value of the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigMinimalCanonicalizationUrl> field is \"http://www.w3.org/2000/09/xmldsig#minimal\".  \n  \n Use this field to conveniently supply a value to one of the URI attributes of an element used for XMLDSIG.  \n  \n For more information, see the World Wide Web Consortium (W3C) specification at http://www.w3.org/2000/09/xmldsig#minimal."
@@ -2045,6 +2046,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2054,6 +2056,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2063,9 +2066,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigNamespaceUrl
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigNamespaceUrl
   id: XmlDsigNamespaceUrl
@@ -2074,10 +2074,11 @@ items:
   - csharp
   name: XmlDsigNamespaceUrl
   nameWithType: SignedXml.XmlDsigNamespaceUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigNamespaceUrl
+  fullName: SignedXml.XmlDsigNamespaceUrl
   type: Field
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Represents the Uniform Resource Identifier (URI) for the standard namespace for XML digital signatures. This field is constant.
   remarks: "The value of the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigNamespaceUrl> field is \"http://www.w3.org/2000/09/xmldsig#\".  \n  \n Use this field to conveniently supply a value to one of the URI attributes of an element used for XMLDSIG.  \n  \n For more information, see the World Wide Web Consortium (W3C) specification at http://www.w3.org/2000/09/xmldsig#."
@@ -2088,6 +2089,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2097,6 +2099,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2106,9 +2109,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigRSASHA1Url
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigRSASHA1Url
   id: XmlDsigRSASHA1Url
@@ -2117,10 +2117,11 @@ items:
   - csharp
   name: XmlDsigRSASHA1Url
   nameWithType: SignedXml.XmlDsigRSASHA1Url
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigRSASHA1Url
+  fullName: SignedXml.XmlDsigRSASHA1Url
   type: Field
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Represents the Uniform Resource Identifier (URI) for the standard <xref href="System.Security.Cryptography.RSA"></xref> signature method for XML digital signatures. This field is constant.
   remarks: "The value of the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigRSASHA1Url> field is \"http://www.w3.org/2000/09/xmldsig#rsa-sha1\".  \n  \n Use this field to conveniently supply a value to one of the URI attributes of an element used for XMLDSIG.  \n  \n For more information, see the World Wide Web Consortium (W3C) specification at http://www.w3.org/2000/09/xmldsig#rsa-sha1."
@@ -2131,6 +2132,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2140,6 +2142,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2149,9 +2152,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigRSASHA256Url
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigRSASHA256Url
   id: XmlDsigRSASHA256Url
@@ -2160,7 +2160,7 @@ items:
   - csharp
   name: XmlDsigRSASHA256Url
   nameWithType: SignedXml.XmlDsigRSASHA256Url
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigRSASHA256Url
+  fullName: SignedXml.XmlDsigRSASHA256Url
   type: Field
   assemblies:
   - System.Security
@@ -2180,9 +2180,6 @@ items:
   - netframework-4.6.2
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigRSASHA384Url
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigRSASHA384Url
   id: XmlDsigRSASHA384Url
@@ -2191,7 +2188,7 @@ items:
   - csharp
   name: XmlDsigRSASHA384Url
   nameWithType: SignedXml.XmlDsigRSASHA384Url
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigRSASHA384Url
+  fullName: SignedXml.XmlDsigRSASHA384Url
   type: Field
   assemblies:
   - System.Security
@@ -2211,9 +2208,6 @@ items:
   - netframework-4.6.2
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigRSASHA512Url
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigRSASHA512Url
   id: XmlDsigRSASHA512Url
@@ -2222,7 +2216,7 @@ items:
   - csharp
   name: XmlDsigRSASHA512Url
   nameWithType: SignedXml.XmlDsigRSASHA512Url
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigRSASHA512Url
+  fullName: SignedXml.XmlDsigRSASHA512Url
   type: Field
   assemblies:
   - System.Security
@@ -2242,9 +2236,6 @@ items:
   - netframework-4.6.2
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigSHA1Url
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigSHA1Url
   id: XmlDsigSHA1Url
@@ -2253,10 +2244,11 @@ items:
   - csharp
   name: XmlDsigSHA1Url
   nameWithType: SignedXml.XmlDsigSHA1Url
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigSHA1Url
+  fullName: SignedXml.XmlDsigSHA1Url
   type: Field
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Represents the Uniform Resource Identifier (URI) for the standard <xref href="System.Security.Cryptography.SHA1"></xref> digest method for XML digital signatures. This field is constant.
   remarks: "The value of the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigSHA1Url> field is \"http://www.w3.org/2000/09/xmldsig#sha1\".  \n  \n Use this field to conveniently supply a value to one of the URI attributes of an element used for XMLDSIG.  \n  \n For more information, see the World Wide Web Consortium (W3C) specification at http://www.w3.org/2000/09/xmldsig#sha1."
@@ -2267,6 +2259,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2276,6 +2269,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2285,9 +2279,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigSHA256Url
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigSHA256Url
   id: XmlDsigSHA256Url
@@ -2296,7 +2287,7 @@ items:
   - csharp
   name: XmlDsigSHA256Url
   nameWithType: SignedXml.XmlDsigSHA256Url
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigSHA256Url
+  fullName: SignedXml.XmlDsigSHA256Url
   type: Field
   assemblies:
   - System.Security
@@ -2316,9 +2307,6 @@ items:
   - netframework-4.6.2
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigSHA384Url
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigSHA384Url
   id: XmlDsigSHA384Url
@@ -2327,7 +2315,7 @@ items:
   - csharp
   name: XmlDsigSHA384Url
   nameWithType: SignedXml.XmlDsigSHA384Url
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigSHA384Url
+  fullName: SignedXml.XmlDsigSHA384Url
   type: Field
   assemblies:
   - System.Security
@@ -2347,9 +2335,6 @@ items:
   - netframework-4.6.2
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigSHA512Url
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigSHA512Url
   id: XmlDsigSHA512Url
@@ -2358,7 +2343,7 @@ items:
   - csharp
   name: XmlDsigSHA512Url
   nameWithType: SignedXml.XmlDsigSHA512Url
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigSHA512Url
+  fullName: SignedXml.XmlDsigSHA512Url
   type: Field
   assemblies:
   - System.Security
@@ -2378,9 +2363,6 @@ items:
   - netframework-4.6.2
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigXPathTransformUrl
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigXPathTransformUrl
   id: XmlDsigXPathTransformUrl
@@ -2389,10 +2371,11 @@ items:
   - csharp
   name: XmlDsigXPathTransformUrl
   nameWithType: SignedXml.XmlDsigXPathTransformUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigXPathTransformUrl
+  fullName: SignedXml.XmlDsigXPathTransformUrl
   type: Field
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Represents the Uniform Resource Identifier (URI) for the XML Path Language (XPath). This field is constant.
   remarks: "The value of the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigXPathTransformUrl> field is \"http://www.w3.org/TR/1999/REC-xpath-19991116\".  \n  \n Use this field to conveniently supply a value to one of the URI attributes of an element used for XMLDSIG.  \n  \n The <xref:System.Security.Cryptography.Xml.XmlDsigXPathTransform> class implements the transform described by the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigXPathTransformUrl> field.  \n  \n For more information, see the World Wide Web Consortium (W3C) specification at http://www.w3.org/TR/1999/REC-xpath-19991116."
@@ -2405,6 +2388,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2414,6 +2398,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2423,9 +2408,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigXsltTransformUrl
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlDsigXsltTransformUrl
   id: XmlDsigXsltTransformUrl
@@ -2434,10 +2416,11 @@ items:
   - csharp
   name: XmlDsigXsltTransformUrl
   nameWithType: SignedXml.XmlDsigXsltTransformUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigXsltTransformUrl
+  fullName: SignedXml.XmlDsigXsltTransformUrl
   type: Field
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Represents the Uniform Resource Identifier (URI) for XSLT transformations. This field is constant.
   remarks: "The value of the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigXsltTransformUrl> field is \"http://www.w3.org/TR/1999/REC-xslt-19991116\".  \n  \n Use this field to conveniently supply a value to one of the URI attributes of an element used for XMLDSIG.  \n  \n The <xref:System.Security.Cryptography.Xml.XmlDsigXsltTransform> class implements the transform described by the <xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigXsltTransformUrl> field.  \n  \n For more information, see the World Wide Web Consortium (W3C) specification at http://www.w3.org/TR/1999/REC-xslt-19991116."
@@ -2450,6 +2433,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2459,6 +2443,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2468,9 +2453,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlLicenseTransformUrl
   commentId: F:System.Security.Cryptography.Xml.SignedXml.XmlLicenseTransformUrl
   id: XmlLicenseTransformUrl
@@ -2479,10 +2461,11 @@ items:
   - csharp
   name: XmlLicenseTransformUrl
   nameWithType: SignedXml.XmlLicenseTransformUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlLicenseTransformUrl
+  fullName: SignedXml.XmlLicenseTransformUrl
   type: Field
   assemblies:
   - System.Security
+  - System.Security.Cryptography.Xml
   namespace: System.Security.Cryptography.Xml
   summary: Represents the Uniform Resource Identifier (URI) for the license transform algorithm used to normalize XrML licenses for signatures.
   remarks: "The value of the <xref:System.Security.Cryptography.Xml.SignedXml.XmlLicenseTransformUrl> field is \"urn:mpeg:mpeg21:2003:01-REL-R-NS:licenseTransform\"  \n  \n Use this field to conveniently supply a value to one of the URI attributes of an element used for XMLDSIG.  \n  \n The <xref:System.Security.Cryptography.Xml.XmlLicenseTransform> class implements the transform described by the <xref:System.Security.Cryptography.Xml.SignedXml.XmlLicenseTransformUrl> field."
@@ -2493,6 +2476,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2502,6 +2486,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2511,9 +2496,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography.Xml/SignedXml.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -2538,13 +2520,13 @@ references:
   isExternal: false
   name: SignedXml()
   nameWithType: SignedXml.SignedXml()
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignedXml()
+  fullName: SignedXml.SignedXml()
 - uid: System.Security.Cryptography.Xml.SignedXml.#ctor(System.Xml.XmlDocument)
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: SignedXml(XmlDocument)
   nameWithType: SignedXml.SignedXml(XmlDocument)
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignedXml(XmlDocument)
+  fullName: SignedXml.SignedXml(XmlDocument)
 - uid: System.Xml.XmlDocument
   parent: System.Xml
   isExternal: false
@@ -2556,7 +2538,7 @@ references:
   isExternal: false
   name: SignedXml(XmlElement)
   nameWithType: SignedXml.SignedXml(XmlElement)
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignedXml(XmlElement)
+  fullName: SignedXml.SignedXml(XmlElement)
 - uid: System.Xml.XmlElement
   parent: System.Xml
   isExternal: false
@@ -2568,7 +2550,7 @@ references:
   isExternal: false
   name: AddObject(DataObject)
   nameWithType: SignedXml.AddObject(DataObject)
-  fullName: System.Security.Cryptography.Xml.SignedXml.AddObject(DataObject)
+  fullName: SignedXml.AddObject(DataObject)
 - uid: System.Security.Cryptography.Xml.DataObject
   parent: System.Security.Cryptography.Xml
   isExternal: false
@@ -2580,7 +2562,7 @@ references:
   isExternal: false
   name: AddReference(Reference)
   nameWithType: SignedXml.AddReference(Reference)
-  fullName: System.Security.Cryptography.Xml.SignedXml.AddReference(Reference)
+  fullName: SignedXml.AddReference(Reference)
 - uid: System.Security.Cryptography.Xml.Reference
   parent: System.Security.Cryptography.Xml
   isExternal: false
@@ -2592,7 +2574,7 @@ references:
   isExternal: false
   name: CheckSignature()
   nameWithType: SignedXml.CheckSignature()
-  fullName: System.Security.Cryptography.Xml.SignedXml.CheckSignature()
+  fullName: SignedXml.CheckSignature()
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -2604,7 +2586,7 @@ references:
   isExternal: false
   name: CheckSignature(AsymmetricAlgorithm)
   nameWithType: SignedXml.CheckSignature(AsymmetricAlgorithm)
-  fullName: System.Security.Cryptography.Xml.SignedXml.CheckSignature(AsymmetricAlgorithm)
+  fullName: SignedXml.CheckSignature(AsymmetricAlgorithm)
 - uid: System.Security.Cryptography.AsymmetricAlgorithm
   parent: System.Security.Cryptography
   isExternal: false
@@ -2616,7 +2598,7 @@ references:
   isExternal: false
   name: CheckSignature(KeyedHashAlgorithm)
   nameWithType: SignedXml.CheckSignature(KeyedHashAlgorithm)
-  fullName: System.Security.Cryptography.Xml.SignedXml.CheckSignature(KeyedHashAlgorithm)
+  fullName: SignedXml.CheckSignature(KeyedHashAlgorithm)
 - uid: System.Security.Cryptography.KeyedHashAlgorithm
   parent: System.Security.Cryptography
   isExternal: false
@@ -2628,7 +2610,7 @@ references:
   isExternal: false
   name: CheckSignature(X509Certificate2, Boolean)
   nameWithType: SignedXml.CheckSignature(X509Certificate2, Boolean)
-  fullName: System.Security.Cryptography.Xml.SignedXml.CheckSignature(X509Certificate2, Boolean)
+  fullName: SignedXml.CheckSignature(X509Certificate2, Boolean)
 - uid: System.Security.Cryptography.X509Certificates.X509Certificate2
   parent: System.Security.Cryptography.X509Certificates
   isExternal: false
@@ -2640,25 +2622,25 @@ references:
   isExternal: false
   name: CheckSignatureReturningKey(AsymmetricAlgorithm)
   nameWithType: SignedXml.CheckSignatureReturningKey(AsymmetricAlgorithm)
-  fullName: System.Security.Cryptography.Xml.SignedXml.CheckSignatureReturningKey(AsymmetricAlgorithm)
+  fullName: SignedXml.CheckSignatureReturningKey(AsymmetricAlgorithm)
 - uid: System.Security.Cryptography.Xml.SignedXml.ComputeSignature
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: ComputeSignature()
   nameWithType: SignedXml.ComputeSignature()
-  fullName: System.Security.Cryptography.Xml.SignedXml.ComputeSignature()
+  fullName: SignedXml.ComputeSignature()
 - uid: System.Security.Cryptography.Xml.SignedXml.ComputeSignature(System.Security.Cryptography.KeyedHashAlgorithm)
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: ComputeSignature(KeyedHashAlgorithm)
   nameWithType: SignedXml.ComputeSignature(KeyedHashAlgorithm)
-  fullName: System.Security.Cryptography.Xml.SignedXml.ComputeSignature(KeyedHashAlgorithm)
+  fullName: SignedXml.ComputeSignature(KeyedHashAlgorithm)
 - uid: System.Security.Cryptography.Xml.SignedXml.EncryptedXml
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: EncryptedXml
   nameWithType: SignedXml.EncryptedXml
-  fullName: System.Security.Cryptography.Xml.SignedXml.EncryptedXml
+  fullName: SignedXml.EncryptedXml
 - uid: System.Security.Cryptography.Xml.EncryptedXml
   parent: System.Security.Cryptography.Xml
   isExternal: false
@@ -2670,7 +2652,7 @@ references:
   isExternal: false
   name: GetIdElement(XmlDocument, String)
   nameWithType: SignedXml.GetIdElement(XmlDocument, String)
-  fullName: System.Security.Cryptography.Xml.SignedXml.GetIdElement(XmlDocument, String)
+  fullName: SignedXml.GetIdElement(XmlDocument, String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -2682,19 +2664,19 @@ references:
   isExternal: false
   name: GetPublicKey()
   nameWithType: SignedXml.GetPublicKey()
-  fullName: System.Security.Cryptography.Xml.SignedXml.GetPublicKey()
+  fullName: SignedXml.GetPublicKey()
 - uid: System.Security.Cryptography.Xml.SignedXml.GetXml
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: GetXml()
   nameWithType: SignedXml.GetXml()
-  fullName: System.Security.Cryptography.Xml.SignedXml.GetXml()
+  fullName: SignedXml.GetXml()
 - uid: System.Security.Cryptography.Xml.SignedXml.KeyInfo
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: KeyInfo
   nameWithType: SignedXml.KeyInfo
-  fullName: System.Security.Cryptography.Xml.SignedXml.KeyInfo
+  fullName: SignedXml.KeyInfo
 - uid: System.Security.Cryptography.Xml.KeyInfo
   parent: System.Security.Cryptography.Xml
   isExternal: false
@@ -2706,13 +2688,13 @@ references:
   isExternal: false
   name: LoadXml(XmlElement)
   nameWithType: SignedXml.LoadXml(XmlElement)
-  fullName: System.Security.Cryptography.Xml.SignedXml.LoadXml(XmlElement)
+  fullName: SignedXml.LoadXml(XmlElement)
 - uid: System.Security.Cryptography.Xml.SignedXml.m_signature
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: m_signature
   nameWithType: SignedXml.m_signature
-  fullName: System.Security.Cryptography.Xml.SignedXml.m_signature
+  fullName: SignedXml.m_signature
 - uid: System.Security.Cryptography.Xml.Signature
   parent: System.Security.Cryptography.Xml
   isExternal: false
@@ -2724,13 +2706,13 @@ references:
   isExternal: false
   name: m_strSigningKeyName
   nameWithType: SignedXml.m_strSigningKeyName
-  fullName: System.Security.Cryptography.Xml.SignedXml.m_strSigningKeyName
+  fullName: SignedXml.m_strSigningKeyName
 - uid: System.Security.Cryptography.Xml.SignedXml.Resolver
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: Resolver
   nameWithType: SignedXml.Resolver
-  fullName: System.Security.Cryptography.Xml.SignedXml.Resolver
+  fullName: SignedXml.Resolver
 - uid: System.Xml.XmlResolver
   parent: System.Xml
   isExternal: false
@@ -2742,7 +2724,7 @@ references:
   isExternal: false
   name: SafeCanonicalizationMethods
   nameWithType: SignedXml.SafeCanonicalizationMethods
-  fullName: System.Security.Cryptography.Xml.SignedXml.SafeCanonicalizationMethods
+  fullName: SignedXml.SafeCanonicalizationMethods
 - uid: System.Collections.ObjectModel.Collection`1
   name: Collection<T>
   nameWithType: Collection<T>
@@ -2773,13 +2755,13 @@ references:
   isExternal: false
   name: Signature
   nameWithType: SignedXml.Signature
-  fullName: System.Security.Cryptography.Xml.SignedXml.Signature
+  fullName: SignedXml.Signature
 - uid: System.Security.Cryptography.Xml.SignedXml.SignatureFormatValidator
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: SignatureFormatValidator
   nameWithType: SignedXml.SignatureFormatValidator
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignatureFormatValidator
+  fullName: SignedXml.SignatureFormatValidator
 - uid: System.Func`2
   name: Func<T,TResult>
   nameWithType: Func<T,TResult>
@@ -2821,19 +2803,19 @@ references:
   isExternal: false
   name: SignatureLength
   nameWithType: SignedXml.SignatureLength
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignatureLength
+  fullName: SignedXml.SignatureLength
 - uid: System.Security.Cryptography.Xml.SignedXml.SignatureMethod
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: SignatureMethod
   nameWithType: SignedXml.SignatureMethod
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignatureMethod
+  fullName: SignedXml.SignatureMethod
 - uid: System.Security.Cryptography.Xml.SignedXml.SignatureValue
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: SignatureValue
   nameWithType: SignedXml.SignatureValue
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignatureValue
+  fullName: SignedXml.SignatureValue
 - uid: System.Byte
   name: Byte
   nameWithType: Byte
@@ -2857,7 +2839,7 @@ references:
   isExternal: false
   name: SignedInfo
   nameWithType: SignedXml.SignedInfo
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignedInfo
+  fullName: SignedXml.SignedInfo
 - uid: System.Security.Cryptography.Xml.SignedInfo
   parent: System.Security.Cryptography.Xml
   isExternal: false
@@ -2869,164 +2851,165 @@ references:
   isExternal: false
   name: SigningKey
   nameWithType: SignedXml.SigningKey
-  fullName: System.Security.Cryptography.Xml.SignedXml.SigningKey
+  fullName: SignedXml.SigningKey
 - uid: System.Security.Cryptography.Xml.SignedXml.SigningKeyName
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: SigningKeyName
   nameWithType: SignedXml.SigningKeyName
-  fullName: System.Security.Cryptography.Xml.SignedXml.SigningKeyName
+  fullName: SignedXml.SigningKeyName
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDecryptionTransformUrl
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDecryptionTransformUrl
   nameWithType: SignedXml.XmlDecryptionTransformUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDecryptionTransformUrl
+  fullName: SignedXml.XmlDecryptionTransformUrl
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigBase64TransformUrl
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigBase64TransformUrl
   nameWithType: SignedXml.XmlDsigBase64TransformUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigBase64TransformUrl
+  fullName: SignedXml.XmlDsigBase64TransformUrl
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigC14NTransformUrl
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigC14NTransformUrl
   nameWithType: SignedXml.XmlDsigC14NTransformUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigC14NTransformUrl
+  fullName: SignedXml.XmlDsigC14NTransformUrl
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigC14NWithCommentsTransformUrl
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigC14NWithCommentsTransformUrl
   nameWithType: SignedXml.XmlDsigC14NWithCommentsTransformUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigC14NWithCommentsTransformUrl
+  fullName: SignedXml.XmlDsigC14NWithCommentsTransformUrl
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigCanonicalizationUrl
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigCanonicalizationUrl
   nameWithType: SignedXml.XmlDsigCanonicalizationUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigCanonicalizationUrl
+  fullName: SignedXml.XmlDsigCanonicalizationUrl
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigCanonicalizationWithCommentsUrl
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigCanonicalizationWithCommentsUrl
   nameWithType: SignedXml.XmlDsigCanonicalizationWithCommentsUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigCanonicalizationWithCommentsUrl
+  fullName: SignedXml.XmlDsigCanonicalizationWithCommentsUrl
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigDSAUrl
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigDSAUrl
   nameWithType: SignedXml.XmlDsigDSAUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigDSAUrl
+  fullName: SignedXml.XmlDsigDSAUrl
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigEnvelopedSignatureTransformUrl
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigEnvelopedSignatureTransformUrl
   nameWithType: SignedXml.XmlDsigEnvelopedSignatureTransformUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigEnvelopedSignatureTransformUrl
+  fullName: SignedXml.XmlDsigEnvelopedSignatureTransformUrl
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigExcC14NTransformUrl
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigExcC14NTransformUrl
   nameWithType: SignedXml.XmlDsigExcC14NTransformUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigExcC14NTransformUrl
+  fullName: SignedXml.XmlDsigExcC14NTransformUrl
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigExcC14NWithCommentsTransformUrl
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigExcC14NWithCommentsTransformUrl
   nameWithType: SignedXml.XmlDsigExcC14NWithCommentsTransformUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigExcC14NWithCommentsTransformUrl
+  fullName: SignedXml.XmlDsigExcC14NWithCommentsTransformUrl
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigHMACSHA1Url
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigHMACSHA1Url
   nameWithType: SignedXml.XmlDsigHMACSHA1Url
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigHMACSHA1Url
+  fullName: SignedXml.XmlDsigHMACSHA1Url
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigMinimalCanonicalizationUrl
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigMinimalCanonicalizationUrl
   nameWithType: SignedXml.XmlDsigMinimalCanonicalizationUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigMinimalCanonicalizationUrl
+  fullName: SignedXml.XmlDsigMinimalCanonicalizationUrl
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigNamespaceUrl
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigNamespaceUrl
   nameWithType: SignedXml.XmlDsigNamespaceUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigNamespaceUrl
+  fullName: SignedXml.XmlDsigNamespaceUrl
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigRSASHA1Url
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigRSASHA1Url
   nameWithType: SignedXml.XmlDsigRSASHA1Url
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigRSASHA1Url
+  fullName: SignedXml.XmlDsigRSASHA1Url
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigRSASHA256Url
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigRSASHA256Url
   nameWithType: SignedXml.XmlDsigRSASHA256Url
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigRSASHA256Url
+  fullName: SignedXml.XmlDsigRSASHA256Url
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigRSASHA384Url
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigRSASHA384Url
   nameWithType: SignedXml.XmlDsigRSASHA384Url
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigRSASHA384Url
+  fullName: SignedXml.XmlDsigRSASHA384Url
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigRSASHA512Url
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigRSASHA512Url
   nameWithType: SignedXml.XmlDsigRSASHA512Url
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigRSASHA512Url
+  fullName: SignedXml.XmlDsigRSASHA512Url
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigSHA1Url
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigSHA1Url
   nameWithType: SignedXml.XmlDsigSHA1Url
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigSHA1Url
+  fullName: SignedXml.XmlDsigSHA1Url
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigSHA256Url
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigSHA256Url
   nameWithType: SignedXml.XmlDsigSHA256Url
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigSHA256Url
+  fullName: SignedXml.XmlDsigSHA256Url
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigSHA384Url
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigSHA384Url
   nameWithType: SignedXml.XmlDsigSHA384Url
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigSHA384Url
+  fullName: SignedXml.XmlDsigSHA384Url
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigSHA512Url
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigSHA512Url
   nameWithType: SignedXml.XmlDsigSHA512Url
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigSHA512Url
+  fullName: SignedXml.XmlDsigSHA512Url
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigXPathTransformUrl
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigXPathTransformUrl
   nameWithType: SignedXml.XmlDsigXPathTransformUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigXPathTransformUrl
+  fullName: SignedXml.XmlDsigXPathTransformUrl
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlDsigXsltTransformUrl
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlDsigXsltTransformUrl
   nameWithType: SignedXml.XmlDsigXsltTransformUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlDsigXsltTransformUrl
+  fullName: SignedXml.XmlDsigXsltTransformUrl
 - uid: System.Security.Cryptography.Xml.SignedXml.XmlLicenseTransformUrl
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: XmlLicenseTransformUrl
   nameWithType: SignedXml.XmlLicenseTransformUrl
-  fullName: System.Security.Cryptography.Xml.SignedXml.XmlLicenseTransformUrl
+  fullName: SignedXml.XmlLicenseTransformUrl
 - uid: System.Security.Cryptography.Xml.SignedXml.#ctor*
   parent: System.Security.Cryptography.Xml.SignedXml
   isExternal: false
   name: SignedXml
   nameWithType: SignedXml.SignedXml
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignedXml
+  fullName: SignedXml.SignedXml
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3041,8 +3024,9 @@ references:
   isExternal: false
   name: AddObject
   nameWithType: SignedXml.AddObject
-  fullName: System.Security.Cryptography.Xml.SignedXml.AddObject
+  fullName: SignedXml.AddObject
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3057,8 +3041,9 @@ references:
   isExternal: false
   name: AddReference
   nameWithType: SignedXml.AddReference
-  fullName: System.Security.Cryptography.Xml.SignedXml.AddReference
+  fullName: SignedXml.AddReference
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3073,8 +3058,9 @@ references:
   isExternal: false
   name: CheckSignature
   nameWithType: SignedXml.CheckSignature
-  fullName: System.Security.Cryptography.Xml.SignedXml.CheckSignature
+  fullName: SignedXml.CheckSignature
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3089,8 +3075,9 @@ references:
   isExternal: false
   name: CheckSignatureReturningKey
   nameWithType: SignedXml.CheckSignatureReturningKey
-  fullName: System.Security.Cryptography.Xml.SignedXml.CheckSignatureReturningKey
+  fullName: SignedXml.CheckSignatureReturningKey
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3105,8 +3092,9 @@ references:
   isExternal: false
   name: ComputeSignature
   nameWithType: SignedXml.ComputeSignature
-  fullName: System.Security.Cryptography.Xml.SignedXml.ComputeSignature
+  fullName: SignedXml.ComputeSignature
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3121,8 +3109,9 @@ references:
   isExternal: false
   name: EncryptedXml
   nameWithType: SignedXml.EncryptedXml
-  fullName: System.Security.Cryptography.Xml.SignedXml.EncryptedXml
+  fullName: SignedXml.EncryptedXml
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3137,8 +3126,9 @@ references:
   isExternal: false
   name: GetIdElement
   nameWithType: SignedXml.GetIdElement
-  fullName: System.Security.Cryptography.Xml.SignedXml.GetIdElement
+  fullName: SignedXml.GetIdElement
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3153,8 +3143,9 @@ references:
   isExternal: false
   name: GetPublicKey
   nameWithType: SignedXml.GetPublicKey
-  fullName: System.Security.Cryptography.Xml.SignedXml.GetPublicKey
+  fullName: SignedXml.GetPublicKey
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3169,8 +3160,9 @@ references:
   isExternal: false
   name: GetXml
   nameWithType: SignedXml.GetXml
-  fullName: System.Security.Cryptography.Xml.SignedXml.GetXml
+  fullName: SignedXml.GetXml
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3185,8 +3177,9 @@ references:
   isExternal: false
   name: KeyInfo
   nameWithType: SignedXml.KeyInfo
-  fullName: System.Security.Cryptography.Xml.SignedXml.KeyInfo
+  fullName: SignedXml.KeyInfo
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3201,8 +3194,9 @@ references:
   isExternal: false
   name: LoadXml
   nameWithType: SignedXml.LoadXml
-  fullName: System.Security.Cryptography.Xml.SignedXml.LoadXml
+  fullName: SignedXml.LoadXml
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3217,8 +3211,9 @@ references:
   isExternal: false
   name: Resolver
   nameWithType: SignedXml.Resolver
-  fullName: System.Security.Cryptography.Xml.SignedXml.Resolver
+  fullName: SignedXml.Resolver
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3233,8 +3228,9 @@ references:
   isExternal: false
   name: SafeCanonicalizationMethods
   nameWithType: SignedXml.SafeCanonicalizationMethods
-  fullName: System.Security.Cryptography.Xml.SignedXml.SafeCanonicalizationMethods
+  fullName: SignedXml.SafeCanonicalizationMethods
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.6.1
@@ -3247,8 +3243,9 @@ references:
   isExternal: false
   name: Signature
   nameWithType: SignedXml.Signature
-  fullName: System.Security.Cryptography.Xml.SignedXml.Signature
+  fullName: SignedXml.Signature
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3263,8 +3260,9 @@ references:
   isExternal: false
   name: SignatureFormatValidator
   nameWithType: SignedXml.SignatureFormatValidator
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignatureFormatValidator
+  fullName: SignedXml.SignatureFormatValidator
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3278,8 +3276,9 @@ references:
   isExternal: false
   name: SignatureLength
   nameWithType: SignedXml.SignatureLength
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignatureLength
+  fullName: SignedXml.SignatureLength
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3294,8 +3293,9 @@ references:
   isExternal: false
   name: SignatureMethod
   nameWithType: SignedXml.SignatureMethod
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignatureMethod
+  fullName: SignedXml.SignatureMethod
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3310,8 +3310,9 @@ references:
   isExternal: false
   name: SignatureValue
   nameWithType: SignedXml.SignatureValue
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignatureValue
+  fullName: SignedXml.SignatureValue
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3326,8 +3327,9 @@ references:
   isExternal: false
   name: SignedInfo
   nameWithType: SignedXml.SignedInfo
-  fullName: System.Security.Cryptography.Xml.SignedXml.SignedInfo
+  fullName: SignedXml.SignedInfo
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3342,8 +3344,9 @@ references:
   isExternal: false
   name: SigningKey
   nameWithType: SignedXml.SigningKey
-  fullName: System.Security.Cryptography.Xml.SignedXml.SigningKey
+  fullName: SignedXml.SigningKey
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3358,8 +3361,9 @@ references:
   isExternal: false
   name: SigningKeyName
   nameWithType: SignedXml.SigningKeyName
-  fullName: System.Security.Cryptography.Xml.SignedXml.SigningKeyName
+  fullName: SignedXml.SigningKeyName
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

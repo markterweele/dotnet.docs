@@ -52,7 +52,7 @@ items:
   - mscorlib
   namespace: System.Reflection.Emit
   summary: Defines and represents a dynamic method that can be compiled, executed, and discarded. Discarded methods are available for garbage collection.
-  remarks: "You can use the <xref:System.Reflection.Emit.DynamicMethod> class to generate and execute a method at run time, without having to generate a dynamic assembly and a dynamic type to contain the method. The executable code created by the just-in-time (JIT) compiler is reclaimed when the <xref:System.Reflection.Emit.DynamicMethod> object is reclaimed. Dynamic methods are the most efficient way to generate and execute small amounts of code.  \n  \n A dynamic method can be anonymously hosted, or it can belogically associated with a module or with a type.  \n  \n-   If the dynamic method is anonymously hosted, it is located in a system-provided assembly, and therefore is isolated from other code. By default, it does not have access to any non-public data. An anonymously hosted dynamic method can have restricted ability to skip the JIT compiler's visibility checks, if it has been granted <xref:System.Security.Permissions.ReflectionPermission> with the <xref:System.Security.Permissions.ReflectionPermissionFlag?displayProperty=fullName> flag. The trust level of the assembly whose non-public members are accessed by the dynamic method must be equal to, or a subset of, the trust level of the call stack that emitted the dynamic method. For more information about anonymously hosted dynamic methods, see [Walkthrough: Emitting Code in Partial Trust Scenarios](~/docs/framework/reflection-and-codedom/walkthrough-emitting-code-in-partial-trust-scenarios.md).  \n  \n-   If the dynamic method is associated with a module that you specify, the dynamic method is effectively global to that module. It can access all types in the module and all `internal` (`Friend` in Visual Basic) members of the types. You can associate a dynamic method with any module, regardless of whether you created the module, provided that a demand for <xref:System.Security.Permissions.ReflectionPermission> with the <xref:System.Security.Permissions.ReflectionPermissionFlag> flag can be satisfied by the call stack that includes your code. If the <xref:System.Security.Permissions.ReflectionPermissionFlag?displayProperty=fullName> flag is included in the grant, the dynamic method can skip the JIT compiler's visibility checks and access the private data of all types declared in the module or in any other module in any assembly.  \n  \n    > [!NOTE]\n    >  When you specify the module with which a dynamic method is associated, that module must not be in the system-provided assembly that is used for anonymous hosting.  \n  \n-   If the dynamic method is associated with a type that you specify, it has access to all members of the type, regardless of access level. In addition, JIT visibility checks can be skipped. This gives the dynamic method access to the private data of other types declared in the same module or in any other module in any assembly. You can associate a dynamic method with any type, but your code must be granted <xref:System.Security.Permissions.ReflectionPermission> with both the <xref:System.Security.Permissions.ReflectionPermissionFlag> and <xref:System.Security.Permissions.ReflectionPermissionFlag> flags.  \n  \n The following table shows which types and members are accessible to an anonymously hosted dynamic method, with and without JIT visibility checks, depending on whether <xref:System.Security.Permissions.ReflectionPermission> with the <xref:System.Security.Permissions.ReflectionPermissionFlag> flag is granted.  \n  \n||Without <xref:System.Security.Permissions.ReflectionPermissionFlag>|With <xref:System.Security.Permissions.ReflectionPermissionFlag>|  \n|-|-|-|  \n|Without skipping JIT visibility checks|Public members of public types in any assembly.|Public members of public types in any assembly.|  \n|Skipping JIT visibility checks, with restrictions|Public members of public types in any assembly.|All members of all types, only in assemblies whose trust levels are equal to or less than the trust level of the assembly that emitted the dynamic method.|  \n  \n> [!NOTE]\n>  Prior to the [!INCLUDE[net_v20sp1_long](~/includes/net-v20sp1-long-md.md)], emitting code required <xref:System.Security.Permissions.ReflectionPermission> with the <xref:System.Security.Permissions.ReflectionPermissionFlag?displayProperty=fullName> flag. This permission is included by default in the FullTrust and LocalIntranet named permission sets, but not in the Internet permission set. Therefore, in earlier versions of the [!INCLUDE[dnprdnshort](~/includes/dnprdnshort-md.md)] a library can be used with Internet permissions only if it has the <xref:System.Security.SecurityCriticalAttribute> attribute and also executes an <xref:System.Security.PermissionSet.Assert%2A> for <xref:System.Security.Permissions.ReflectionPermissionFlag>. Such libraries require careful security review because coding errors could result in security holes. The [!INCLUDE[net_v20SP1_short](~/includes/net-v20sp1-short-md.md)] allows code to be emitted in partial trust scenarios without issuing any security demands, because generating code is not inherently a privileged operation. That is, the generated code has no more permissions than the assembly that emits it. This allows libraries that emit code to be security transparent and removes the need to assert <xref:System.Security.Permissions.ReflectionPermissionFlag>, which simplifies the task of writing a secure library. To use this feature, your application should target the [!INCLUDE[net_v35_long](~/includes/net-v35-long-md.md)] or later.  \n  \n The following table shows which types and members are accessible to a dynamic method that is associated with a module or with a type in a module.  \n  \n||Associated with module|Associated with type|  \n|-|-|-|  \n|Without skipping JIT visibility checks|Public and internal members of public, internal, and private types in the module.<br /><br /> Public members of public types in any assembly.|All members of the associated type. Public and internal members of all the other types in the module.<br /><br /> Public members of public types in any assembly.|  \n|Skipping JIT visibility checks|All members of all types in any assembly.|All members of all types in any assembly.|  \n  \n A dynamic method that is associated with a module has the permissions of that module. A dynamic method that is associated with a type has the permissions of the module containing that type.  \n  \n Dynamic methods and their parameters do not have to be named, but you can specify names to assist in debugging. Custom attributes are not supported on dynamic methods or their parameters.  \n  \n Although dynamic methods are `static` methods (`Shared` methods in Visual Basic), the relaxed rules for delegate binding introduced in the [!INCLUDE[dnprdnlong](~/includes/dnprdnlong-md.md)] allow a dynamic method to be bound to an object, so that it acts like an instance method when called using that delegate instance. An example that demonstrates this is provided for the <xref:System.Reflection.Emit.DynamicMethod.CreateDelegate%28System.Type%2CSystem.Object%29> method overload.  \n  \n> [!NOTE]\n>  In the [!INCLUDE[dnprdnlong](~/includes/dnprdnlong-md.md)], dynamic methods do not support symbol information, that is, local variable names and line-number mapping. This limitation might be removed in a future version. You can use <xref:System.Reflection.Emit.AssemblyBuilder> during development to simplify debugging the generated Microsoft intermediate language (MSIL), and then switch to dynamic methods during final deployment, because the <xref:System.Reflection.Emit.ILGenerator> calls are the same in both cases.  \n  \n## Verification  \n The following list summarizes the conditions under which dynamic methods can contain unverifiable code. (For example, a dynamic method is unverifiable if its <xref:System.Reflection.Emit.DynamicMethod.InitLocals%2A> property is set to `false`.)  \n  \n-   A dynamic method that is associated with a security-critical assembly is also security-critical, and can skip verification. For example, an assembly without security attributes that is run as a desktop application is treated as security-critical by the runtime. If you associate a dynamic method with the assembly, the dynamic method can contain unverifiable code.  \n  \n-   If a dynamic method that contains unverifiable code is associated with an assembly that has level 1 transparency, the just-in-time (JIT) compiler injects a security demand. The demand succeeds only if the dynamic method is executed by fully trusted code. See [Security-Transparent Code, Level 1](../Topic/Security-Transparent%20Code,%20Level%201.md).  \n  \n-   If a dynamic method that contains unverifiable code is associated with an assembly that has level 2 transparency (such as mscorlib.dll), it throws an exception (injected by the JIT compiler) instead of making a security demand. See [Security-Transparent Code, Level 2](../Topic/Security-Transparent%20Code,%20Level%202.md).  \n  \n-   An anonymously hosted dynamic method that contains unverifiable code always throws an exception. It can never skip verification, even if it is created and executed by fully trusted code.  \n  \n The exception that is thrown for unverifiable code varies depending on the way the dynamic method is invoked. If you invoke a dynamic method by using a delegate returned from the <xref:System.Reflection.Emit.DynamicMethod.CreateDelegate%2A> method, a <xref:System.Security.VerificationException> is thrown. If you invoke the dynamic method by using the <xref:System.Reflection.Emit.DynamicMethod.Invoke%2A> method, a <xref:System.Reflection.TargetInvocationException> is thrown with an inner <xref:System.Security.VerificationException>."
+  remarks: "You can use the <xref:System.Reflection.Emit.DynamicMethod> class to generate and execute a method at run time, without having to generate a dynamic assembly and a dynamic type to contain the method. The executable code created by the just-in-time (JIT) compiler is reclaimed when the <xref:System.Reflection.Emit.DynamicMethod> object is reclaimed. Dynamic methods are the most efficient way to generate and execute small amounts of code.  \n  \n A dynamic method can be anonymously hosted, or it can belogically associated with a module or with a type.  \n  \n-   If the dynamic method is anonymously hosted, it is located in a system-provided assembly, and therefore is isolated from other code. By default, it does not have access to any non-public data. An anonymously hosted dynamic method can have restricted ability to skip the JIT compiler's visibility checks, if it has been granted <xref:System.Security.Permissions.ReflectionPermission> with the <xref:System.Security.Permissions.ReflectionPermissionFlag?displayProperty=fullName> flag. The trust level of the assembly whose non-public members are accessed by the dynamic method must be equal to, or a subset of, the trust level of the call stack that emitted the dynamic method. For more information about anonymously hosted dynamic methods, see [Walkthrough: Emitting Code in Partial Trust Scenarios](~/docs/framework/reflection-and-codedom/walkthrough-emitting-code-in-partial-trust-scenarios.md).  \n  \n-   If the dynamic method is associated with a module that you specify, the dynamic method is effectively global to that module. It can access all types in the module and all `internal` (`Friend` in Visual Basic) members of the types. You can associate a dynamic method with any module, regardless of whether you created the module, provided that a demand for <xref:System.Security.Permissions.ReflectionPermission> with the <xref:System.Security.Permissions.ReflectionPermissionFlag.RestrictedMemberAccess> flag can be satisfied by the call stack that includes your code. If the <xref:System.Security.Permissions.ReflectionPermissionFlag?displayProperty=fullName> flag is included in the grant, the dynamic method can skip the JIT compiler's visibility checks and access the private data of all types declared in the module or in any other module in any assembly.  \n  \n    > [!NOTE]\n    >  When you specify the module with which a dynamic method is associated, that module must not be in the system-provided assembly that is used for anonymous hosting.  \n  \n-   If the dynamic method is associated with a type that you specify, it has access to all members of the type, regardless of access level. In addition, JIT visibility checks can be skipped. This gives the dynamic method access to the private data of other types declared in the same module or in any other module in any assembly. You can associate a dynamic method with any type, but your code must be granted <xref:System.Security.Permissions.ReflectionPermission> with both the <xref:System.Security.Permissions.ReflectionPermissionFlag.RestrictedMemberAccess> and <xref:System.Security.Permissions.ReflectionPermissionFlag.MemberAccess> flags.  \n  \n The following table shows which types and members are accessible to an anonymously hosted dynamic method, with and without JIT visibility checks, depending on whether <xref:System.Security.Permissions.ReflectionPermission> with the <xref:System.Security.Permissions.ReflectionPermissionFlag.RestrictedMemberAccess> flag is granted.  \n  \n||Without <xref:System.Security.Permissions.ReflectionPermissionFlag.RestrictedMemberAccess>|With <xref:System.Security.Permissions.ReflectionPermissionFlag.RestrictedMemberAccess>|  \n|-|-|-|  \n|Without skipping JIT visibility checks|Public members of public types in any assembly.|Public members of public types in any assembly.|  \n|Skipping JIT visibility checks, with restrictions|Public members of public types in any assembly.|All members of all types, only in assemblies whose trust levels are equal to or less than the trust level of the assembly that emitted the dynamic method.|  \n  \n> [!NOTE]\n>  Prior to the [!INCLUDE[net_v20sp1_long](~/includes/net-v20sp1-long-md.md)], emitting code required <xref:System.Security.Permissions.ReflectionPermission> with the <xref:System.Security.Permissions.ReflectionPermissionFlag?displayProperty=fullName> flag. This permission is included by default in the FullTrust and LocalIntranet named permission sets, but not in the Internet permission set. Therefore, in earlier versions of the [!INCLUDE[dnprdnshort](~/includes/dnprdnshort-md.md)] a library can be used with Internet permissions only if it has the <xref:System.Security.SecurityCriticalAttribute> attribute and also executes an <xref:System.Security.PermissionSet.Assert%2A> for <xref:System.Security.Permissions.ReflectionPermissionFlag.ReflectionEmit>. Such libraries require careful security review because coding errors could result in security holes. The [!INCLUDE[net_v20SP1_short](~/includes/net-v20sp1-short-md.md)] allows code to be emitted in partial trust scenarios without issuing any security demands, because generating code is not inherently a privileged operation. That is, the generated code has no more permissions than the assembly that emits it. This allows libraries that emit code to be security transparent and removes the need to assert <xref:System.Security.Permissions.ReflectionPermissionFlag.ReflectionEmit>, which simplifies the task of writing a secure library. To use this feature, your application should target the [!INCLUDE[net_v35_long](~/includes/net-v35-long-md.md)] or later.  \n  \n The following table shows which types and members are accessible to a dynamic method that is associated with a module or with a type in a module.  \n  \n||Associated with module|Associated with type|  \n|-|-|-|  \n|Without skipping JIT visibility checks|Public and internal members of public, internal, and private types in the module.<br /><br /> Public members of public types in any assembly.|All members of the associated type. Public and internal members of all the other types in the module.<br /><br /> Public members of public types in any assembly.|  \n|Skipping JIT visibility checks|All members of all types in any assembly.|All members of all types in any assembly.|  \n  \n A dynamic method that is associated with a module has the permissions of that module. A dynamic method that is associated with a type has the permissions of the module containing that type.  \n  \n Dynamic methods and their parameters do not have to be named, but you can specify names to assist in debugging. Custom attributes are not supported on dynamic methods or their parameters.  \n  \n Although dynamic methods are `static` methods (`Shared` methods in Visual Basic), the relaxed rules for delegate binding introduced in the [!INCLUDE[dnprdnlong](~/includes/dnprdnlong-md.md)] allow a dynamic method to be bound to an object, so that it acts like an instance method when called using that delegate instance. An example that demonstrates this is provided for the <xref:System.Reflection.Emit.DynamicMethod.CreateDelegate%28System.Type%2CSystem.Object%29> method overload.  \n  \n> [!NOTE]\n>  In the [!INCLUDE[dnprdnlong](~/includes/dnprdnlong-md.md)], dynamic methods do not support symbol information, that is, local variable names and line-number mapping. This limitation might be removed in a future version. You can use <xref:System.Reflection.Emit.AssemblyBuilder> during development to simplify debugging the generated Microsoft intermediate language (MSIL), and then switch to dynamic methods during final deployment, because the <xref:System.Reflection.Emit.ILGenerator> calls are the same in both cases.  \n  \n## Verification  \n The following list summarizes the conditions under which dynamic methods can contain unverifiable code. (For example, a dynamic method is unverifiable if its <xref:System.Reflection.Emit.DynamicMethod.InitLocals%2A> property is set to `false`.)  \n  \n-   A dynamic method that is associated with a security-critical assembly is also security-critical, and can skip verification. For example, an assembly without security attributes that is run as a desktop application is treated as security-critical by the runtime. If you associate a dynamic method with the assembly, the dynamic method can contain unverifiable code.  \n  \n-   If a dynamic method that contains unverifiable code is associated with an assembly that has level 1 transparency, the just-in-time (JIT) compiler injects a security demand. The demand succeeds only if the dynamic method is executed by fully trusted code. See [Security-Transparent Code, Level 1](~/docs/framework/misc/security-transparent-code-level-1.md).  \n  \n-   If a dynamic method that contains unverifiable code is associated with an assembly that has level 2 transparency (such as mscorlib.dll), it throws an exception (injected by the JIT compiler) instead of making a security demand. See [Security-Transparent Code, Level 2](~/docs/framework/misc/security-transparent-code-level-2.md).  \n  \n-   An anonymously hosted dynamic method that contains unverifiable code always throws an exception. It can never skip verification, even if it is created and executed by fully trusted code.  \n  \n The exception that is thrown for unverifiable code varies depending on the way the dynamic method is invoked. If you invoke a dynamic method by using a delegate returned from the <xref:System.Reflection.Emit.DynamicMethod.CreateDelegate%2A> method, a <xref:System.Security.VerificationException> is thrown. If you invoke the dynamic method by using the <xref:System.Reflection.Emit.DynamicMethod.Invoke%2A> method, a <xref:System.Reflection.TargetInvocationException> is thrown with an inner <xref:System.Security.VerificationException>."
   example:
   - "The following code example creates a dynamic method that takes two parameters. The example emits a simple function body that prints the first parameter to the console, and the example uses the second parameter as the return value of the method. The example completes the method by creating a delegate, invokes the delegate with different parameters, and finally invokes the dynamic method using the <xref:System.Reflection.Emit.DynamicMethod.Invoke%2A> method.  \n  \n [!code-cpp[Reflection.DynamicMethod.All#1](~/samples/snippets/cpp/VS_Snippets_CLR/Reflection.DynamicMethod.All/cpp/source.cpp#1)]\n [!code-csharp[Reflection.DynamicMethod.All#1](~/samples/snippets/csharp/VS_Snippets_CLR/Reflection.DynamicMethod.All/CS/source.cs#1)]\n [!code-vb[Reflection.DynamicMethod.All#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/Reflection.DynamicMethod.All/VB/source.vb#1)]"
   syntax:
@@ -159,7 +159,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -171,7 +172,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -182,9 +184,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.#ctor(System.String,System.Type,System.Type[])
   commentId: M:System.Reflection.Emit.DynamicMethod.#ctor(System.String,System.Type,System.Type[])
   id: '#ctor(System.String,System.Type,System.Type[])'
@@ -193,14 +192,14 @@ items:
   - csharp
   name: DynamicMethod(String, Type, Type[])
   nameWithType: DynamicMethod.DynamicMethod(String, Type, Type[])
-  fullName: System.Reflection.Emit.DynamicMethod.DynamicMethod(String, Type, Type[])
+  fullName: DynamicMethod.DynamicMethod(String, Type, Type[])
   type: Constructor
   assemblies:
   - System.Reflection.Emit.Lightweight
   - mscorlib
   namespace: System.Reflection.Emit
   summary: Initializes an anonymously hosted dynamic method, specifying the method name, return type, and parameter types.
-  remarks: "The dynamic method that is created by this constructor is associated with an anonymous assembly instead of an existing type or module. The anonymous assembly exists only to provide a sandbox environment for dynamic methods, that is, to isolate them from other code. This environment makes it safe for the dynamic method to be emitted and executed by partially trusted code.  \n  \n This constructor specifies that just-in-time (JIT) visibility checks will be enforced for the Microsoft intermediate language (MSIL) of the dynamic method. That is, the code in the dynamic method has access to public methods of public classes. Exceptions are thrown if the method tries to access types or members that are `private`, `protected`, or `internal` (`Friend` in Visual Basic). To create a dynamic method that has restricted ability to skip JIT visibility checks, use the [DynamicMethod(String, Type, Type\\<xref:System.Reflection.Emit.DynamicMethod.%23ctor%28System.String%2CSystem.Type%2CSystem.Type%5B%5D%2CSystem.Boolean%29> constructor.  \n  \n When an anonymously hosted dynamic method is constructed, the call stack of the emitting assembly is included. When the method is invoked, the permissions of the emitting assembly are used instead of the permissions of the actual caller. Thus, the dynamic method cannot execute at a higher level of privilege than that of the assembly that emitted it, even if it is passed to and executed by an assembly that has a higher trust level.  \n  \n This constructor specifies the method attributes <xref:System.Reflection.MethodAttributes?displayProperty=fullName> and <xref:System.Reflection.MethodAttributes?displayProperty=fullName>, and the calling convention <xref:System.Reflection.CallingConventions?displayProperty=fullName>.  \n  \n> [!NOTE]\n>  This constructor was introduced in the [!INCLUDE[net_v35_long](~/includes/net-v35-long-md.md)] or later."
+  remarks: "The dynamic method that is created by this constructor is associated with an anonymous assembly instead of an existing type or module. The anonymous assembly exists only to provide a sandbox environment for dynamic methods, that is, to isolate them from other code. This environment makes it safe for the dynamic method to be emitted and executed by partially trusted code.  \n  \n This constructor specifies that just-in-time (JIT) visibility checks will be enforced for the Microsoft intermediate language (MSIL) of the dynamic method. That is, the code in the dynamic method has access to public methods of public classes. Exceptions are thrown if the method tries to access types or members that are `private`, `protected`, or `internal` (`Friend` in Visual Basic). To create a dynamic method that has restricted ability to skip JIT visibility checks, use the <xref:System.Reflection.Emit.DynamicMethod.%23ctor%28System.String%2CSystem.Type%2CSystem.Type%5B%5D%2CSystem.Boolean%29> constructor.  \n  \n When an anonymously hosted dynamic method is constructed, the call stack of the emitting assembly is included. When the method is invoked, the permissions of the emitting assembly are used instead of the permissions of the actual caller. Thus, the dynamic method cannot execute at a higher level of privilege than that of the assembly that emitted it, even if it is passed to and executed by an assembly that has a higher trust level.  \n  \n This constructor specifies the method attributes <xref:System.Reflection.MethodAttributes?displayProperty=fullName> and <xref:System.Reflection.MethodAttributes?displayProperty=fullName>, and the calling convention <xref:System.Reflection.CallingConventions?displayProperty=fullName>.  \n  \n> [!NOTE]\n>  This constructor was introduced in the [!INCLUDE[net_v35_long](~/includes/net-v35-long-md.md)] or later."
   syntax:
     content: public DynamicMethod (string name, Type returnType, Type[] parameterTypes);
     parameters:
@@ -226,7 +225,8 @@ items:
     description: <code>returnType</code> is a type for which <xref href="System.Type.IsByRef"></xref> returns `true`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -238,7 +238,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -249,9 +250,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.#ctor(System.String,System.Type,System.Type[],System.Boolean)
   commentId: M:System.Reflection.Emit.DynamicMethod.#ctor(System.String,System.Type,System.Type[],System.Boolean)
   id: '#ctor(System.String,System.Type,System.Type[],System.Boolean)'
@@ -260,7 +258,7 @@ items:
   - csharp
   name: DynamicMethod(String, Type, Type[], Boolean)
   nameWithType: DynamicMethod.DynamicMethod(String, Type, Type[], Boolean)
-  fullName: System.Reflection.Emit.DynamicMethod.DynamicMethod(String, Type, Type[], Boolean)
+  fullName: DynamicMethod.DynamicMethod(String, Type, Type[], Boolean)
   type: Constructor
   assemblies:
   - System.Reflection.Emit.Lightweight
@@ -296,7 +294,8 @@ items:
     description: <code>returnType</code> is a type for which <xref href="System.Type.IsByRef"></xref> returns `true`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -308,7 +307,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -319,9 +319,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.#ctor(System.String,System.Type,System.Type[],System.Reflection.Module)
   commentId: M:System.Reflection.Emit.DynamicMethod.#ctor(System.String,System.Type,System.Type[],System.Reflection.Module)
   id: '#ctor(System.String,System.Type,System.Type[],System.Reflection.Module)'
@@ -330,7 +327,7 @@ items:
   - csharp
   name: DynamicMethod(String, Type, Type[], Module)
   nameWithType: DynamicMethod.DynamicMethod(String, Type, Type[], Module)
-  fullName: System.Reflection.Emit.DynamicMethod.DynamicMethod(String, Type, Type[], Module)
+  fullName: DynamicMethod.DynamicMethod(String, Type, Type[], Module)
   type: Constructor
   assemblies:
   - System.Reflection.Emit.Lightweight
@@ -339,7 +336,7 @@ items:
   summary: Creates a dynamic method that is global to a module, specifying the method name, return type, parameter types, and module.
   remarks: "This constructor specifies method attributes <xref:System.Reflection.MethodAttributes?displayProperty=fullName> and <xref:System.Reflection.MethodAttributes?displayProperty=fullName>, calling convention <xref:System.Reflection.CallingConventions?displayProperty=fullName>, and does not skip just-in-time (JIT) visibility checks.  \n  \n The dynamic method created with this constructor has access to public and `internal` (`Friend` in Visual Basic) members of all the types contained in module `m`.  \n  \n> [!NOTE]\n>  For backward compatibility, this constructor demands <xref:System.Security.Permissions.SecurityPermission> with the <xref:System.Security.Permissions.SecurityPermissionFlag?displayProperty=fullName> flag if the following conditions are both true: `m` is a module other than the calling module, and the demand for <xref:System.Security.Permissions.ReflectionPermission> with the <xref:System.Security.Permissions.ReflectionPermissionFlag?displayProperty=fullName> flag has failed. If the demand for <xref:System.Security.Permissions.SecurityPermission> succeeds, the operation is allowed.  \n  \n> [!NOTE]\n>  Starting with the [!INCLUDE[net_v20sp1_long](~/includes/net-v20sp1-long-md.md)], this member no longer requires <xref:System.Security.Permissions.ReflectionPermission> with the <xref:System.Security.Permissions.ReflectionPermissionFlag?displayProperty=fullName> flag. (See [Security Issues in Reflection Emit](~/docs/framework/reflection-and-codedom/security-issues-in-reflection-emit.md).) To use this functionality, your application should target the [!INCLUDE[net_v35_long](~/includes/net-v35-long-md.md)] or later."
   example:
-  - "The following code example creates a dynamic method that takes two parameters. The example emits a simple function body that prints the first parameter to the console, and the example uses the second parameter as the return value of the method. The example completes the method by creating a delegate, invokes the delegate with different parameters, and finally invokes the dynamic method using the [Invoke(Object, BindingFlags, Binder, Object\\<xref:System.Reflection.Emit.DynamicMethod.Invoke%28System.Object%2CSystem.Reflection.BindingFlags%2CSystem.Reflection.Binder%2CSystem.Object%5B%5D%2CSystem.Globalization.CultureInfo%29> method.  \n  \n [!code-cpp[Reflection.DynamicMethod.ctor1#1](~/samples/snippets/cpp/VS_Snippets_CLR/Reflection.DynamicMethod.ctor1/cpp/source.cpp#1)]\n [!code-csharp[Reflection.DynamicMethod.ctor1#1](~/samples/snippets/csharp/VS_Snippets_CLR/Reflection.DynamicMethod.ctor1/CS/source.cs#1)]\n [!code-vb[Reflection.DynamicMethod.ctor1#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/Reflection.DynamicMethod.ctor1/VB/source.vb#1)]"
+  - "The following code example creates a dynamic method that takes two parameters. The example emits a simple function body that prints the first parameter to the console, and the example uses the second parameter as the return value of the method. The example completes the method by creating a delegate, invokes the delegate with different parameters, and finally invokes the dynamic method using the <xref:System.Reflection.Emit.DynamicMethod.Invoke%28System.Object%2CSystem.Reflection.BindingFlags%2CSystem.Reflection.Binder%2CSystem.Object%5B%5D%2CSystem.Globalization.CultureInfo%29> method.  \n  \n [!code-cpp[Reflection.DynamicMethod.ctor1#1](~/samples/snippets/cpp/VS_Snippets_CLR/Reflection.DynamicMethod.ctor1/cpp/source.cpp#1)]\n [!code-csharp[Reflection.DynamicMethod.ctor1#1](~/samples/snippets/csharp/VS_Snippets_CLR/Reflection.DynamicMethod.ctor1/CS/source.cs#1)]\n [!code-vb[Reflection.DynamicMethod.ctor1#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/Reflection.DynamicMethod.ctor1/VB/source.vb#1)]"
   syntax:
     content: public DynamicMethod (string name, Type returnType, Type[] parameterTypes, System.Reflection.Module m);
     parameters:
@@ -368,7 +365,8 @@ items:
     description: <code>returnType</code> is a type for which <xref href="System.Type.IsByRef"></xref> returns `true`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -380,7 +378,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -391,9 +390,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.#ctor(System.String,System.Type,System.Type[],System.Type)
   commentId: M:System.Reflection.Emit.DynamicMethod.#ctor(System.String,System.Type,System.Type[],System.Type)
   id: '#ctor(System.String,System.Type,System.Type[],System.Type)'
@@ -402,7 +398,7 @@ items:
   - csharp
   name: DynamicMethod(String, Type, Type[], Type)
   nameWithType: DynamicMethod.DynamicMethod(String, Type, Type[], Type)
-  fullName: System.Reflection.Emit.DynamicMethod.DynamicMethod(String, Type, Type[], Type)
+  fullName: DynamicMethod.DynamicMethod(String, Type, Type[], Type)
   type: Constructor
   assemblies:
   - System.Reflection.Emit.Lightweight
@@ -440,7 +436,8 @@ items:
     description: <code>returnType</code> is `null`, or is a type for which <xref href="System.Type.IsByRef"></xref> returns `true`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -452,7 +449,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -463,9 +461,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.#ctor(System.String,System.Type,System.Type[],System.Reflection.Module,System.Boolean)
   commentId: M:System.Reflection.Emit.DynamicMethod.#ctor(System.String,System.Type,System.Type[],System.Reflection.Module,System.Boolean)
   id: '#ctor(System.String,System.Type,System.Type[],System.Reflection.Module,System.Boolean)'
@@ -474,7 +469,7 @@ items:
   - csharp
   name: DynamicMethod(String, Type, Type[], Module, Boolean)
   nameWithType: DynamicMethod.DynamicMethod(String, Type, Type[], Module, Boolean)
-  fullName: System.Reflection.Emit.DynamicMethod.DynamicMethod(String, Type, Type[], Module, Boolean)
+  fullName: DynamicMethod.DynamicMethod(String, Type, Type[], Module, Boolean)
   type: Constructor
   assemblies:
   - System.Reflection.Emit.Lightweight
@@ -513,7 +508,8 @@ items:
     description: <code>returnType</code> is a type for which <xref href="System.Type.IsByRef"></xref> returns `true`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -525,7 +521,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -536,9 +533,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.#ctor(System.String,System.Type,System.Type[],System.Type,System.Boolean)
   commentId: M:System.Reflection.Emit.DynamicMethod.#ctor(System.String,System.Type,System.Type[],System.Type,System.Boolean)
   id: '#ctor(System.String,System.Type,System.Type[],System.Type,System.Boolean)'
@@ -547,7 +541,7 @@ items:
   - csharp
   name: DynamicMethod(String, Type, Type[], Type, Boolean)
   nameWithType: DynamicMethod.DynamicMethod(String, Type, Type[], Type, Boolean)
-  fullName: System.Reflection.Emit.DynamicMethod.DynamicMethod(String, Type, Type[], Type, Boolean)
+  fullName: DynamicMethod.DynamicMethod(String, Type, Type[], Type, Boolean)
   type: Constructor
   assemblies:
   - System.Reflection.Emit.Lightweight
@@ -586,7 +580,8 @@ items:
     description: <code>returnType</code> is `null`, or is a type for which <xref href="System.Type.IsByRef"></xref> returns `true`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -598,7 +593,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -609,9 +605,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.#ctor(System.String,System.Reflection.MethodAttributes,System.Reflection.CallingConventions,System.Type,System.Type[],System.Reflection.Module,System.Boolean)
   commentId: M:System.Reflection.Emit.DynamicMethod.#ctor(System.String,System.Reflection.MethodAttributes,System.Reflection.CallingConventions,System.Type,System.Type[],System.Reflection.Module,System.Boolean)
   id: '#ctor(System.String,System.Reflection.MethodAttributes,System.Reflection.CallingConventions,System.Type,System.Type[],System.Reflection.Module,System.Boolean)'
@@ -620,7 +613,7 @@ items:
   - csharp
   name: DynamicMethod(String, MethodAttributes, CallingConventions, Type, Type[], Module, Boolean)
   nameWithType: DynamicMethod.DynamicMethod(String, MethodAttributes, CallingConventions, Type, Type[], Module, Boolean)
-  fullName: System.Reflection.Emit.DynamicMethod.DynamicMethod(String, MethodAttributes, CallingConventions, Type, Type[], Module, Boolean)
+  fullName: DynamicMethod.DynamicMethod(String, MethodAttributes, CallingConventions, Type, Type[], Module, Boolean)
   type: Constructor
   assemblies:
   - System.Reflection.Emit.Lightweight
@@ -665,7 +658,8 @@ items:
     description: "<code>attributes</code> is a combination of flags other than <xref href=\"System.Reflection.MethodAttributes.Public\"></xref> and <xref href=\"System.Reflection.MethodAttributes.Static\"></xref>.  \n  \n -or-  \n  \n <code>callingConvention</code> is not <xref href=\"System.Reflection.CallingConventions.Standard\"></xref>.  \n  \n -or-  \n  \n <code>returnType</code> is a type for which <xref href=\"System.Type.IsByRef\"></xref> returns `true`."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -677,7 +671,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -688,9 +683,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.#ctor(System.String,System.Reflection.MethodAttributes,System.Reflection.CallingConventions,System.Type,System.Type[],System.Type,System.Boolean)
   commentId: M:System.Reflection.Emit.DynamicMethod.#ctor(System.String,System.Reflection.MethodAttributes,System.Reflection.CallingConventions,System.Type,System.Type[],System.Type,System.Boolean)
   id: '#ctor(System.String,System.Reflection.MethodAttributes,System.Reflection.CallingConventions,System.Type,System.Type[],System.Type,System.Boolean)'
@@ -699,7 +691,7 @@ items:
   - csharp
   name: DynamicMethod(String, MethodAttributes, CallingConventions, Type, Type[], Type, Boolean)
   nameWithType: DynamicMethod.DynamicMethod(String, MethodAttributes, CallingConventions, Type, Type[], Type, Boolean)
-  fullName: System.Reflection.Emit.DynamicMethod.DynamicMethod(String, MethodAttributes, CallingConventions, Type, Type[], Type, Boolean)
+  fullName: DynamicMethod.DynamicMethod(String, MethodAttributes, CallingConventions, Type, Type[], Type, Boolean)
   type: Constructor
   assemblies:
   - System.Reflection.Emit.Lightweight
@@ -744,7 +736,8 @@ items:
     description: "<code>attributes</code> is a combination of flags other than <xref href=\"System.Reflection.MethodAttributes.Public\"></xref> and <xref href=\"System.Reflection.MethodAttributes.Static\"></xref>.  \n  \n -or-  \n  \n <code>callingConvention</code> is not <xref href=\"System.Reflection.CallingConventions.Standard\"></xref>.  \n  \n -or-  \n  \n <code>returnType</code> is a type for which <xref href=\"System.Type.IsByRef\"></xref> returns `true`."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -756,7 +749,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -767,9 +761,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.Attributes
   commentId: P:System.Reflection.Emit.DynamicMethod.Attributes
   id: Attributes
@@ -778,14 +769,14 @@ items:
   - csharp
   name: Attributes
   nameWithType: DynamicMethod.Attributes
-  fullName: System.Reflection.Emit.DynamicMethod.Attributes
+  fullName: DynamicMethod.Attributes
   type: Property
   assemblies:
   - System.Reflection.Emit.Lightweight
   - mscorlib
   namespace: System.Reflection.Emit
   summary: Gets the attributes specified when the dynamic method was created.
-  remarks: Currently, the method attributes for a dynamic method are always <xref:System.Reflection.MethodAttributes> and <xref:System.Reflection.MethodAttributes>.
+  remarks: Currently, the method attributes for a dynamic method are always <xref:System.Reflection.MethodAttributes.Public> and <xref:System.Reflection.MethodAttributes.Static>.
   example:
   - "The following code example displays the method attributes of a dynamic method. This code example is part of a larger example provided for the <xref:System.Reflection.Emit.DynamicMethod> class.  \n  \n [!code-cpp[Reflection.DynamicMethod.All#21](~/samples/snippets/cpp/VS_Snippets_CLR/Reflection.DynamicMethod.All/cpp/source.cpp#21)]\n [!code-csharp[Reflection.DynamicMethod.All#21](~/samples/snippets/csharp/VS_Snippets_CLR/Reflection.DynamicMethod.All/CS/source.cs#21)]\n [!code-vb[Reflection.DynamicMethod.All#21](~/samples/snippets/visualbasic/VS_Snippets_CLR/Reflection.DynamicMethod.All/VB/source.vb#21)]"
   syntax:
@@ -797,7 +788,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -809,7 +801,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -820,9 +813,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.CallingConvention
   commentId: P:System.Reflection.Emit.DynamicMethod.CallingConvention
   id: CallingConvention
@@ -831,14 +821,14 @@ items:
   - csharp
   name: CallingConvention
   nameWithType: DynamicMethod.CallingConvention
-  fullName: System.Reflection.Emit.DynamicMethod.CallingConvention
+  fullName: DynamicMethod.CallingConvention
   type: Property
   assemblies:
   - System.Reflection.Emit.Lightweight
   - mscorlib
   namespace: System.Reflection.Emit
   summary: Gets the calling convention specified when the dynamic method was created.
-  remarks: Currently, the calling convention for a dynamic method is always <xref:System.Reflection.CallingConventions>.
+  remarks: Currently, the calling convention for a dynamic method is always <xref:System.Reflection.CallingConventions.Standard>.
   example:
   - "The following code example displays the calling convention of a dynamic method. This code example is part of a larger example provided for the <xref:System.Reflection.Emit.DynamicMethod> class.  \n  \n [!code-cpp[Reflection.DynamicMethod.All#22](~/samples/snippets/cpp/VS_Snippets_CLR/Reflection.DynamicMethod.All/cpp/source.cpp#22)]\n [!code-csharp[Reflection.DynamicMethod.All#22](~/samples/snippets/csharp/VS_Snippets_CLR/Reflection.DynamicMethod.All/CS/source.cs#22)]\n [!code-vb[Reflection.DynamicMethod.All#22](~/samples/snippets/visualbasic/VS_Snippets_CLR/Reflection.DynamicMethod.All/VB/source.vb#22)]"
   syntax:
@@ -850,7 +840,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -862,7 +853,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -873,9 +865,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.CreateDelegate(System.Type)
   commentId: M:System.Reflection.Emit.DynamicMethod.CreateDelegate(System.Type)
   id: CreateDelegate(System.Type)
@@ -884,7 +873,7 @@ items:
   - csharp
   name: CreateDelegate(Type)
   nameWithType: DynamicMethod.CreateDelegate(Type)
-  fullName: System.Reflection.Emit.DynamicMethod.CreateDelegate(Type)
+  fullName: DynamicMethod.CreateDelegate(Type)
   type: Method
   assemblies:
   - System.Reflection.Emit.Lightweight
@@ -918,7 +907,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -930,7 +920,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -941,9 +932,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.CreateDelegate(System.Type,System.Object)
   commentId: M:System.Reflection.Emit.DynamicMethod.CreateDelegate(System.Type,System.Object)
   id: CreateDelegate(System.Type,System.Object)
@@ -952,7 +940,7 @@ items:
   - csharp
   name: CreateDelegate(Type, Object)
   nameWithType: DynamicMethod.CreateDelegate(Type, Object)
-  fullName: System.Reflection.Emit.DynamicMethod.CreateDelegate(Type, Object)
+  fullName: DynamicMethod.CreateDelegate(Type, Object)
   type: Method
   assemblies:
   - System.Reflection.Emit.Lightweight
@@ -989,7 +977,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1001,7 +990,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1012,9 +1002,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.DeclaringType
   commentId: P:System.Reflection.Emit.DynamicMethod.DeclaringType
   id: DeclaringType
@@ -1023,7 +1010,7 @@ items:
   - csharp
   name: DeclaringType
   nameWithType: DynamicMethod.DeclaringType
-  fullName: System.Reflection.Emit.DynamicMethod.DeclaringType
+  fullName: DynamicMethod.DeclaringType
   type: Property
   assemblies:
   - System.Reflection.Emit.Lightweight
@@ -1042,7 +1029,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1054,7 +1042,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1065,9 +1054,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.DefineParameter(System.Int32,System.Reflection.ParameterAttributes,System.String)
   commentId: M:System.Reflection.Emit.DynamicMethod.DefineParameter(System.Int32,System.Reflection.ParameterAttributes,System.String)
   id: DefineParameter(System.Int32,System.Reflection.ParameterAttributes,System.String)
@@ -1076,7 +1062,7 @@ items:
   - csharp
   name: DefineParameter(Int32, ParameterAttributes, String)
   nameWithType: DynamicMethod.DefineParameter(Int32, ParameterAttributes, String)
-  fullName: System.Reflection.Emit.DynamicMethod.DefineParameter(Int32, ParameterAttributes, String)
+  fullName: DynamicMethod.DefineParameter(Int32, ParameterAttributes, String)
   type: Method
   assemblies:
   - mscorlib
@@ -1126,9 +1112,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.GetBaseDefinition
   commentId: M:System.Reflection.Emit.DynamicMethod.GetBaseDefinition
   id: GetBaseDefinition
@@ -1137,10 +1120,11 @@ items:
   - csharp
   name: GetBaseDefinition()
   nameWithType: DynamicMethod.GetBaseDefinition()
-  fullName: System.Reflection.Emit.DynamicMethod.GetBaseDefinition()
+  fullName: DynamicMethod.GetBaseDefinition()
   type: Method
   assemblies:
   - mscorlib
+  - System.Reflection.Emit.Lightweight
   namespace: System.Reflection.Emit
   summary: Returns the base implementation for the method.
   remarks: This method always returns the current `DynamicMethod` object.
@@ -1153,6 +1137,7 @@ items:
   overload: System.Reflection.Emit.DynamicMethod.GetBaseDefinition*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1163,6 +1148,7 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1173,9 +1159,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.GetCustomAttributes(System.Boolean)
   commentId: M:System.Reflection.Emit.DynamicMethod.GetCustomAttributes(System.Boolean)
   id: GetCustomAttributes(System.Boolean)
@@ -1184,10 +1167,11 @@ items:
   - csharp
   name: GetCustomAttributes(Boolean)
   nameWithType: DynamicMethod.GetCustomAttributes(Boolean)
-  fullName: System.Reflection.Emit.DynamicMethod.GetCustomAttributes(Boolean)
+  fullName: DynamicMethod.GetCustomAttributes(Boolean)
   type: Method
   assemblies:
   - mscorlib
+  - System.Reflection.Emit.Lightweight
   namespace: System.Reflection.Emit
   summary: Returns all the custom attributes defined for the method.
   remarks: "For dynamic methods, specifying `true` for `inherit` has no effect, because the method is not declared in a type.  \n  \n> [!NOTE]\n>  Custom attributes are not currently supported on dynamic methods. The only attribute returned is <xref:System.Runtime.CompilerServices.MethodImplAttribute>; you can get the method implementation flags more easily using the <xref:System.Reflection.Emit.DynamicMethod.GetMethodImplementationFlags%2A> method."
@@ -1196,13 +1180,14 @@ items:
     parameters:
     - id: inherit
       type: System.Boolean
-      description: '`true` to search the method''s inheritance chain to find the custom attributes; `false` to check only the current method.'
+      description: "`true` to search the method's inheritance chain to find the custom attributes; `false` to check only the current method."
     return:
       type: System.Object[]
       description: An array of objects representing all the custom attributes of the method.
   overload: System.Reflection.Emit.DynamicMethod.GetCustomAttributes*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1213,6 +1198,7 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1223,9 +1209,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.GetCustomAttributes(System.Type,System.Boolean)
   commentId: M:System.Reflection.Emit.DynamicMethod.GetCustomAttributes(System.Type,System.Boolean)
   id: GetCustomAttributes(System.Type,System.Boolean)
@@ -1234,10 +1217,11 @@ items:
   - csharp
   name: GetCustomAttributes(Type, Boolean)
   nameWithType: DynamicMethod.GetCustomAttributes(Type, Boolean)
-  fullName: System.Reflection.Emit.DynamicMethod.GetCustomAttributes(Type, Boolean)
+  fullName: DynamicMethod.GetCustomAttributes(Type, Boolean)
   type: Method
   assemblies:
   - mscorlib
+  - System.Reflection.Emit.Lightweight
   namespace: System.Reflection.Emit
   summary: Returns the custom attributes of the specified type that have been applied to the method.
   remarks: "For dynamic methods, specifying `true` for `inherit` has no effect, because the method is not declared in a type.  \n  \n> [!NOTE]\n>  Custom attributes are not currently supported on dynamic methods. The only attribute returned is <xref:System.Runtime.CompilerServices.MethodImplAttribute>; you can get the method implementation flags more easily using the <xref:System.Reflection.Emit.DynamicMethod.GetMethodImplementationFlags%2A> method."
@@ -1249,7 +1233,7 @@ items:
       description: A <xref href="System.Type"></xref> representing the type of custom attribute to return.
     - id: inherit
       type: System.Boolean
-      description: '`true` to search the method''s inheritance chain to find the custom attributes; `false` to check only the current method.'
+      description: "`true` to search the method's inheritance chain to find the custom attributes; `false` to check only the current method."
     return:
       type: System.Object[]
       description: An array of objects representing the attributes of the method that are of type <code>attributeType</code> or derive from type <code>attributeType</code>.
@@ -1259,6 +1243,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: <code>attributeType</code> is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1269,6 +1254,7 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1279,9 +1265,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.GetDynamicILInfo
   commentId: M:System.Reflection.Emit.DynamicMethod.GetDynamicILInfo
   id: GetDynamicILInfo
@@ -1290,7 +1273,7 @@ items:
   - csharp
   name: GetDynamicILInfo()
   nameWithType: DynamicMethod.GetDynamicILInfo()
-  fullName: System.Reflection.Emit.DynamicMethod.GetDynamicILInfo()
+  fullName: DynamicMethod.GetDynamicILInfo()
   type: Method
   assemblies:
   - mscorlib
@@ -1326,9 +1309,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.GetILGenerator(System.Int32)
   commentId: M:System.Reflection.Emit.DynamicMethod.GetILGenerator(System.Int32)
   id: GetILGenerator(System.Int32)
@@ -1337,7 +1317,7 @@ items:
   - csharp
   name: GetILGenerator(Int32)
   nameWithType: DynamicMethod.GetILGenerator(Int32)
-  fullName: System.Reflection.Emit.DynamicMethod.GetILGenerator(Int32)
+  fullName: DynamicMethod.GetILGenerator(Int32)
   type: Method
   assemblies:
   - System.Reflection.Emit.Lightweight
@@ -1360,7 +1340,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1372,7 +1353,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1383,9 +1365,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.GetILGenerator
   commentId: M:System.Reflection.Emit.DynamicMethod.GetILGenerator
   id: GetILGenerator
@@ -1394,7 +1373,7 @@ items:
   - csharp
   name: GetILGenerator()
   nameWithType: DynamicMethod.GetILGenerator()
-  fullName: System.Reflection.Emit.DynamicMethod.GetILGenerator()
+  fullName: DynamicMethod.GetILGenerator()
   type: Method
   assemblies:
   - System.Reflection.Emit.Lightweight
@@ -1414,7 +1393,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1426,7 +1406,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1437,9 +1418,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.GetMethodImplementationFlags
   commentId: M:System.Reflection.Emit.DynamicMethod.GetMethodImplementationFlags
   id: GetMethodImplementationFlags
@@ -1448,13 +1426,14 @@ items:
   - csharp
   name: GetMethodImplementationFlags()
   nameWithType: DynamicMethod.GetMethodImplementationFlags()
-  fullName: System.Reflection.Emit.DynamicMethod.GetMethodImplementationFlags()
+  fullName: DynamicMethod.GetMethodImplementationFlags()
   type: Method
   assemblies:
   - mscorlib
+  - System.Reflection.Emit.Lightweight
   namespace: System.Reflection.Emit
   summary: Returns the implementation flags for the method.
-  remarks: Currently, method implementation attributes for dynamic methods are always <xref:System.Reflection.MethodImplAttributes> and <xref:System.Reflection.MethodImplAttributes>.
+  remarks: Currently, method implementation attributes for dynamic methods are always <xref:System.Reflection.MethodImplAttributes.IL> and <xref:System.Reflection.MethodImplAttributes.NoInlining>.
   syntax:
     content: public override System.Reflection.MethodImplAttributes GetMethodImplementationFlags ();
     parameters: []
@@ -1464,6 +1443,7 @@ items:
   overload: System.Reflection.Emit.DynamicMethod.GetMethodImplementationFlags*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1474,6 +1454,7 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1484,9 +1465,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.GetParameters
   commentId: M:System.Reflection.Emit.DynamicMethod.GetParameters
   id: GetParameters
@@ -1495,7 +1473,7 @@ items:
   - csharp
   name: GetParameters()
   nameWithType: DynamicMethod.GetParameters()
-  fullName: System.Reflection.Emit.DynamicMethod.GetParameters()
+  fullName: DynamicMethod.GetParameters()
   type: Method
   assemblies:
   - System.Reflection.Emit.Lightweight
@@ -1515,7 +1493,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1527,7 +1506,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1538,9 +1518,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.InitLocals
   commentId: P:System.Reflection.Emit.DynamicMethod.InitLocals
   id: InitLocals
@@ -1549,7 +1526,7 @@ items:
   - csharp
   name: InitLocals
   nameWithType: DynamicMethod.InitLocals
-  fullName: System.Reflection.Emit.DynamicMethod.InitLocals
+  fullName: DynamicMethod.InitLocals
   type: Property
   assemblies:
   - System.Reflection.Emit.Lightweight
@@ -1568,7 +1545,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1580,7 +1558,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1591,9 +1570,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.Invoke(System.Object,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object[],System.Globalization.CultureInfo)
   commentId: M:System.Reflection.Emit.DynamicMethod.Invoke(System.Object,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object[],System.Globalization.CultureInfo)
   id: Invoke(System.Object,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object[],System.Globalization.CultureInfo)
@@ -1602,13 +1578,14 @@ items:
   - csharp
   name: Invoke(Object, BindingFlags, Binder, Object[], CultureInfo)
   nameWithType: DynamicMethod.Invoke(Object, BindingFlags, Binder, Object[], CultureInfo)
-  fullName: System.Reflection.Emit.DynamicMethod.Invoke(Object, BindingFlags, Binder, Object[], CultureInfo)
+  fullName: DynamicMethod.Invoke(Object, BindingFlags, Binder, Object[], CultureInfo)
   type: Method
   assemblies:
   - mscorlib
+  - System.Reflection.Emit.Lightweight
   namespace: System.Reflection.Emit
   summary: Invokes the dynamic method using the specified parameters, under the constraints of the specified binder, with the specified culture information.
-  remarks: "In addition to the listed exceptions, the calling code should be prepared to catch any exceptions thrown by the dynamic method.  \n  \n Executing a dynamic method with a delegate created by the <xref:System.Reflection.Emit.DynamicMethod.CreateDelegate%2A> method is more efficient than executing it with the [Invoke Method (Object, BindingFlags, Binder, Object\\<xref:System.Reflection.Emit.DynamicMethod.Invoke%2A> method.  \n  \n Calling the [Invoke Method (Object, BindingFlags, Binder, Object\\<xref:System.Reflection.Emit.DynamicMethod.Invoke%2A> method or the <xref:System.Reflection.Emit.DynamicMethod.CreateDelegate%2A> method completes the dynamic method. Any further attempt to alter the dynamic method, such as modifying parameter definitions or emitting more Microsoft intermediate language (MSIL), is ignored; no exception is thrown.  \n  \n All dynamic methods are static, so the `obj` parameter is always ignored. To treat a dynamic method as if it were an instance method, use the <xref:System.Reflection.Emit.DynamicMethod.CreateDelegate%28System.Type%2CSystem.Object%29> overload that takes an object instance.  \n  \n If the dynamic method has no parameters, the value of `parameters` should be `null`. Otherwise the number, type, and order of elements in the parameters array should be identical to the number, type, and order of parameters of the dynamic method.  \n  \n> [!NOTE]\n>  This method overload is called by the [Invoke(Object, Object\\<xref:System.Reflection.MethodBase.Invoke%28System.Object%2CSystem.Object%5B%5D%29> method overload inherited from the <xref:System.Reflection.MethodBase> class, so the preceding remarks apply to both overloads.  \n  \n This method does not demand permissions directly, but invoking the dynamic method can result in security demands, depending on the method. For example, no demands are made for anonymously hosted dynamic methods that are created with the `restrictedSkipVisibility` parameter set to `false`. On the other hand, if you create a method with `restrictedSkipVisibility` set to `true` so it can access a hidden member of a target assembly, the method will cause a demand for the permissions of the target assembly plus <xref:System.Security.Permissions.ReflectionPermission> with the <xref:System.Security.Permissions.ReflectionPermissionFlag?displayProperty=fullName> flag.  \n  \n> [!NOTE]\n>  Prior to the [!INCLUDE[net_v20sp1_long](~/includes/net-v20sp1-long-md.md)], this method required <xref:System.Security.Permissions.ReflectionPermission> with the <xref:System.Security.Permissions.ReflectionPermissionFlag> flag."
+  remarks: "In addition to the listed exceptions, the calling code should be prepared to catch any exceptions thrown by the dynamic method.  \n  \n Executing a dynamic method with a delegate created by the <xref:System.Reflection.Emit.DynamicMethod.CreateDelegate%2A> method is more efficient than executing it with the <xref:System.Reflection.Emit.DynamicMethod.Invoke%2A> method.  \n  \n Calling the <xref:System.Reflection.Emit.DynamicMethod.Invoke%2A> method or the <xref:System.Reflection.Emit.DynamicMethod.CreateDelegate%2A> method completes the dynamic method. Any further attempt to alter the dynamic method, such as modifying parameter definitions or emitting more Microsoft intermediate language (MSIL), is ignored; no exception is thrown.  \n  \n All dynamic methods are static, so the `obj` parameter is always ignored. To treat a dynamic method as if it were an instance method, use the <xref:System.Reflection.Emit.DynamicMethod.CreateDelegate%28System.Type%2CSystem.Object%29> overload that takes an object instance.  \n  \n If the dynamic method has no parameters, the value of `parameters` should be `null`. Otherwise the number, type, and order of elements in the parameters array should be identical to the number, type, and order of parameters of the dynamic method.  \n  \n> [!NOTE]\n>  This method overload is called by the <xref:System.Reflection.MethodBase.Invoke%28System.Object%2CSystem.Object%5B%5D%29> method overload inherited from the <xref:System.Reflection.MethodBase> class, so the preceding remarks apply to both overloads.  \n  \n This method does not demand permissions directly, but invoking the dynamic method can result in security demands, depending on the method. For example, no demands are made for anonymously hosted dynamic methods that are created with the `restrictedSkipVisibility` parameter set to `false`. On the other hand, if you create a method with `restrictedSkipVisibility` set to `true` so it can access a hidden member of a target assembly, the method will cause a demand for the permissions of the target assembly plus <xref:System.Security.Permissions.ReflectionPermission> with the <xref:System.Security.Permissions.ReflectionPermissionFlag?displayProperty=fullName> flag.  \n  \n> [!NOTE]\n>  Prior to the [!INCLUDE[net_v20sp1_long](~/includes/net-v20sp1-long-md.md)], this method required <xref:System.Security.Permissions.ReflectionPermission> with the <xref:System.Security.Permissions.ReflectionPermissionFlag.MemberAccess> flag."
   example:
   - "The following code example invokes a dynamic method with exact binding, using the US-English culture. This code example is part of a larger example provided for the <xref:System.Reflection.Emit.DynamicMethod> class.  \n  \n [!code-cpp[Reflection.DynamicMethod.All#4](~/samples/snippets/cpp/VS_Snippets_CLR/Reflection.DynamicMethod.All/cpp/source.cpp#4)]\n [!code-csharp[Reflection.DynamicMethod.All#4](~/samples/snippets/csharp/VS_Snippets_CLR/Reflection.DynamicMethod.All/CS/source.cs#4)]\n [!code-vb[Reflection.DynamicMethod.All#4](~/samples/snippets/visualbasic/VS_Snippets_CLR/Reflection.DynamicMethod.All/VB/source.vb#4)]"
   syntax:
@@ -1647,6 +1624,7 @@ items:
     commentId: T:System.Reflection.TargetInvocationException
     description: "The dynamic method is associated with a module, is not anonymously hosted, and was constructed with <code>skipVisibility</code> set to `false`, but the dynamic method accesses members that are not `public` or `internal` (`Friend` in Visual Basic).  \n  \n -or-  \n  \n The dynamic method is anonymously hosted and was constructed with <code>skipVisibility</code> set to `false`, but it accesses members that are not `public`.  \n  \n -or-  \n  \n The dynamic method contains unverifiable code. See the \"Verification\" section in Remarks for <xref href=\"System.Reflection.Emit.DynamicMethod\"></xref>."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1657,6 +1635,7 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1667,9 +1646,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.IsDefined(System.Type,System.Boolean)
   commentId: M:System.Reflection.Emit.DynamicMethod.IsDefined(System.Type,System.Boolean)
   id: IsDefined(System.Type,System.Boolean)
@@ -1678,10 +1654,11 @@ items:
   - csharp
   name: IsDefined(Type, Boolean)
   nameWithType: DynamicMethod.IsDefined(Type, Boolean)
-  fullName: System.Reflection.Emit.DynamicMethod.IsDefined(Type, Boolean)
+  fullName: DynamicMethod.IsDefined(Type, Boolean)
   type: Method
   assemblies:
   - mscorlib
+  - System.Reflection.Emit.Lightweight
   namespace: System.Reflection.Emit
   summary: Indicates whether the specified custom attribute type is defined.
   remarks: "For dynamic methods, specifying `true` for `inherit` has no effect. Dynamic methods have no inheritance chain.  \n  \n> [!NOTE]\n>  Custom attributes are not currently supported on dynamic methods."
@@ -1693,13 +1670,14 @@ items:
       description: A <xref href="System.Type"></xref> representing the type of custom attribute to search for.
     - id: inherit
       type: System.Boolean
-      description: '`true` to search the method''s inheritance chain to find the custom attributes; `false` to check only the current method.'
+      description: "`true` to search the method's inheritance chain to find the custom attributes; `false` to check only the current method."
     return:
       type: System.Boolean
       description: '`true` if the specified custom attribute type is defined; otherwise, `false`.'
   overload: System.Reflection.Emit.DynamicMethod.IsDefined*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1710,6 +1688,7 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1720,9 +1699,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.IsSecurityCritical
   commentId: P:System.Reflection.Emit.DynamicMethod.IsSecurityCritical
   id: IsSecurityCritical
@@ -1731,13 +1707,13 @@ items:
   - csharp
   name: IsSecurityCritical
   nameWithType: DynamicMethod.IsSecurityCritical
-  fullName: System.Reflection.Emit.DynamicMethod.IsSecurityCritical
+  fullName: DynamicMethod.IsSecurityCritical
   type: Property
   assemblies:
   - mscorlib
   namespace: System.Reflection.Emit
   summary: Gets a value that indicates whether the current dynamic method is security-critical or security-safe-critical, and therefore can perform critical operations.
-  remarks: "The <xref:System.Reflection.Emit.DynamicMethod.IsSecurityCritical%2A>, <xref:System.Reflection.Emit.DynamicMethod.IsSecuritySafeCritical%2A>, and <xref:System.Reflection.Emit.DynamicMethod.IsSecurityTransparent%2A> properties report the transparency level of the dynamic method as determined by the common language runtime (CLR). The combinations of these properties are shown in the following table:  \n  \n|Security level|IsSecurityCritical|IsSecuritySafeCritical|IsSecurityTransparent|  \n|--------------------|------------------------|----------------------------|---------------------------|  \n|Critical|`true`|`false`|`false`|  \n|Safe critical|`true`|`true`|`false`|  \n|Transparent|`false`|`false`|`true`|  \n  \n Using these properties is much simpler than examining the security annotations of an assembly and its types, checking the current trust level, and attempting to duplicate the runtime's rules.  \n  \n The transparency of a dynamic method depends on the module it is associated with. If the dynamic method is associated with a type rather than a module, its transparency depends on the module that contains the type. Dynamic methods do not have security annotations, so they are assigned the default transparency for the associated module.  \n  \n-   Anonymously hosted dynamic methods are always transparent, because the system-provided module that contains them is transparent.  \n  \n-   The transparency of a dynamic method that is associated with a trusted assembly (that is, a strong-named assembly that is installed in the global assembly cache) is described in the following table.  \n  \n    |Assembly annotation|Level 1 transparency|Level 2 transparency|  \n    |-------------------------|--------------------------|--------------------------|  \n    |Fully transparent|Transparent|Transparent|  \n    |Fully critical|Critical|Critical|  \n    |Mixed transparency|Transparent|Transparent|  \n    |Security-agnostic|Safe-critical|Critical|  \n  \n     For example, if you associate a dynamic method with a type that is in mscorlib.dll, which has level 2 mixed transparency, the dynamic method is transparent and cannot execute critical code. For information about transparency levels, see [Security-Transparent Code, Level 1](../Topic/Security-Transparent%20Code,%20Level%201.md) and [Security-Transparent Code, Level 2](../Topic/Security-Transparent%20Code,%20Level%202.md).  \n  \n    > [!NOTE]\n    >  Associating a dynamic method with a module in a trusted level 1 assembly that is security-agnostic, such as System.dll, does not permit elevation of trust. If the grant set of the code that calls the dynamic method does not include the grant set of System.dll (that is, full trust), <xref:System.Security.SecurityException> is thrown when the dynamic method is called.  \n  \n-   The transparency of a dynamic method that is associated with a partially trusted assembly depends on how the assembly is loaded. If the assembly is loaded with partial trust (for example, into a sandboxed application domain), the runtime ignores the security annotations of the assembly. The assembly and all its types and members, including dynamic methods, are treated as transparent. The runtime pays attention to security annotations only if the partial-trust assembly is loaded with full trust (for example, into the default application domain of a desktop application). In that case, the runtime assigns the dynamic method the default transparency for methods according to the assembly's annotations.  \n  \n For more information about reflection emit and transparency, see [Security Issues in Reflection Emit](~/docs/framework/reflection-and-codedom/security-issues-in-reflection-emit.md). For information about transparency, see [Security Changes](~/docs/framework/security/security-changes.md)."
+  remarks: "The <xref:System.Reflection.Emit.DynamicMethod.IsSecurityCritical%2A>, <xref:System.Reflection.Emit.DynamicMethod.IsSecuritySafeCritical%2A>, and <xref:System.Reflection.Emit.DynamicMethod.IsSecurityTransparent%2A> properties report the transparency level of the dynamic method as determined by the common language runtime (CLR). The combinations of these properties are shown in the following table:  \n  \n|Security level|IsSecurityCritical|IsSecuritySafeCritical|IsSecurityTransparent|  \n|--------------------|------------------------|----------------------------|---------------------------|  \n|Critical|`true`|`false`|`false`|  \n|Safe critical|`true`|`true`|`false`|  \n|Transparent|`false`|`false`|`true`|  \n  \n Using these properties is much simpler than examining the security annotations of an assembly and its types, checking the current trust level, and attempting to duplicate the runtime's rules.  \n  \n The transparency of a dynamic method depends on the module it is associated with. If the dynamic method is associated with a type rather than a module, its transparency depends on the module that contains the type. Dynamic methods do not have security annotations, so they are assigned the default transparency for the associated module.  \n  \n-   Anonymously hosted dynamic methods are always transparent, because the system-provided module that contains them is transparent.  \n  \n-   The transparency of a dynamic method that is associated with a trusted assembly (that is, a strong-named assembly that is installed in the global assembly cache) is described in the following table.  \n  \n    |Assembly annotation|Level 1 transparency|Level 2 transparency|  \n    |-------------------------|--------------------------|--------------------------|  \n    |Fully transparent|Transparent|Transparent|  \n    |Fully critical|Critical|Critical|  \n    |Mixed transparency|Transparent|Transparent|  \n    |Security-agnostic|Safe-critical|Critical|  \n  \n     For example, if you associate a dynamic method with a type that is in mscorlib.dll, which has level 2 mixed transparency, the dynamic method is transparent and cannot execute critical code. For information about transparency levels, see [Security-Transparent Code, Level 1](~/docs/framework/misc/security-transparent-code-level-1.md) and [Security-Transparent Code, Level 2](~/docs/framework/misc/security-transparent-code-level-2.md).  \n  \n    > [!NOTE]\n    >  Associating a dynamic method with a module in a trusted level 1 assembly that is security-agnostic, such as System.dll, does not permit elevation of trust. If the grant set of the code that calls the dynamic method does not include the grant set of System.dll (that is, full trust), <xref:System.Security.SecurityException> is thrown when the dynamic method is called.  \n  \n-   The transparency of a dynamic method that is associated with a partially trusted assembly depends on how the assembly is loaded. If the assembly is loaded with partial trust (for example, into a sandboxed application domain), the runtime ignores the security annotations of the assembly. The assembly and all its types and members, including dynamic methods, are treated as transparent. The runtime pays attention to security annotations only if the partial-trust assembly is loaded with full trust (for example, into the default application domain of a desktop application). In that case, the runtime assigns the dynamic method the default transparency for methods according to the assembly's annotations.  \n  \n For more information about reflection emit and transparency, see [Security Issues in Reflection Emit](~/docs/framework/reflection-and-codedom/security-issues-in-reflection-emit.md). For information about transparency, see [Security Changes](~/docs/framework/security/security-changes.md)."
   syntax:
     content: >-
       [get: System.Security.SecuritySafeCritical]
@@ -1770,9 +1746,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.IsSecuritySafeCritical
   commentId: P:System.Reflection.Emit.DynamicMethod.IsSecuritySafeCritical
   id: IsSecuritySafeCritical
@@ -1781,13 +1754,13 @@ items:
   - csharp
   name: IsSecuritySafeCritical
   nameWithType: DynamicMethod.IsSecuritySafeCritical
-  fullName: System.Reflection.Emit.DynamicMethod.IsSecuritySafeCritical
+  fullName: DynamicMethod.IsSecuritySafeCritical
   type: Property
   assemblies:
   - mscorlib
   namespace: System.Reflection.Emit
   summary: Gets a value that indicates whether the current dynamic method is security-safe-critical at the current trust level; that is, whether it can perform critical operations and can be accessed by transparent code.
-  remarks: "The <xref:System.Reflection.Emit.DynamicMethod.IsSecurityCritical%2A>, <xref:System.Reflection.Emit.DynamicMethod.IsSecuritySafeCritical%2A>, and <xref:System.Reflection.Emit.DynamicMethod.IsSecurityTransparent%2A> properties report the transparency level of the dynamic method as determined by the common language runtime (CLR). The combinations of these properties are shown in the following table:  \n  \n|Security level|IsSecurityCritical|IsSecuritySafeCritical|IsSecurityTransparent|  \n|--------------------|------------------------|----------------------------|---------------------------|  \n|Critical|`true`|`false`|`false`|  \n|Safe critical|`true`|`true`|`false`|  \n|Transparent|`false`|`false`|`true`|  \n  \n Using these properties is much simpler than examining the security annotations of an assembly and its types, checking the current trust level, and attempting to duplicate the runtime's rules.  \n  \n The transparency of a dynamic method depends on the module it is associated with. If the dynamic method is associated with a type rather than a module, its transparency depends on the module that contains the type. Dynamic methods do not have security annotations, so they are assigned the default transparency for the associated module.  \n  \n-   Anonymously hosted dynamic methods are always transparent, because the system-provided module that contains them is transparent.  \n  \n-   The transparency of a dynamic method that is associated with a trusted assembly (that is, a strong-named assembly that is installed in the global assembly cache) is described in the following table.  \n  \n    |Assembly annotation|Level 1 transparency|Level 2 transparency|  \n    |-------------------------|--------------------------|--------------------------|  \n    |Fully transparent|Transparent|Transparent|  \n    |Fully critical|Critical|Critical|  \n    |Mixed transparency|Transparent|Transparent|  \n    |Security-agnostic|Safe-critical|Critical|  \n  \n     For example, if you associate a dynamic method with a type that is in mscorlib.dll, which has level 2 mixed transparency, the dynamic method is transparent and cannot execute critical code. For information about transparency levels, see [Security-Transparent Code, Level 1](../Topic/Security-Transparent%20Code,%20Level%201.md) and [Security-Transparent Code, Level 2](../Topic/Security-Transparent%20Code,%20Level%202.md).  \n  \n    > [!NOTE]\n    >  Associating a dynamic method with a module in a trusted level 1 assembly that is security-agnostic, such as System.dll, does not permit elevation of trust. If the grant set of the code that calls the dynamic method does not include the grant set of System.dll (that is, full trust), <xref:System.Security.SecurityException> is thrown when the dynamic method is called.  \n  \n-   The transparency of a dynamic method that is associated with a partially trusted assembly depends on how the assembly is loaded. If the assembly is loaded with partial trust (for example, into a sandboxed application domain), the runtime ignores the security annotations of the assembly. The assembly and all its types and members, including dynamic methods, are treated as transparent. The runtime pays attention to security annotations only if the partial-trust assembly is loaded with full trust (for example, into the default application domain of a desktop application). In that case, the runtime assigns the dynamic method the default transparency for methods according to the assembly's annotations.  \n  \n For more information about reflection emit and transparency, see [Security Issues in Reflection Emit](~/docs/framework/reflection-and-codedom/security-issues-in-reflection-emit.md). For information about transparency, see [Security Changes](~/docs/framework/security/security-changes.md)."
+  remarks: "The <xref:System.Reflection.Emit.DynamicMethod.IsSecurityCritical%2A>, <xref:System.Reflection.Emit.DynamicMethod.IsSecuritySafeCritical%2A>, and <xref:System.Reflection.Emit.DynamicMethod.IsSecurityTransparent%2A> properties report the transparency level of the dynamic method as determined by the common language runtime (CLR). The combinations of these properties are shown in the following table:  \n  \n|Security level|IsSecurityCritical|IsSecuritySafeCritical|IsSecurityTransparent|  \n|--------------------|------------------------|----------------------------|---------------------------|  \n|Critical|`true`|`false`|`false`|  \n|Safe critical|`true`|`true`|`false`|  \n|Transparent|`false`|`false`|`true`|  \n  \n Using these properties is much simpler than examining the security annotations of an assembly and its types, checking the current trust level, and attempting to duplicate the runtime's rules.  \n  \n The transparency of a dynamic method depends on the module it is associated with. If the dynamic method is associated with a type rather than a module, its transparency depends on the module that contains the type. Dynamic methods do not have security annotations, so they are assigned the default transparency for the associated module.  \n  \n-   Anonymously hosted dynamic methods are always transparent, because the system-provided module that contains them is transparent.  \n  \n-   The transparency of a dynamic method that is associated with a trusted assembly (that is, a strong-named assembly that is installed in the global assembly cache) is described in the following table.  \n  \n    |Assembly annotation|Level 1 transparency|Level 2 transparency|  \n    |-------------------------|--------------------------|--------------------------|  \n    |Fully transparent|Transparent|Transparent|  \n    |Fully critical|Critical|Critical|  \n    |Mixed transparency|Transparent|Transparent|  \n    |Security-agnostic|Safe-critical|Critical|  \n  \n     For example, if you associate a dynamic method with a type that is in mscorlib.dll, which has level 2 mixed transparency, the dynamic method is transparent and cannot execute critical code. For information about transparency levels, see [Security-Transparent Code, Level 1](~/docs/framework/misc/security-transparent-code-level-1.md) and [Security-Transparent Code, Level 2](~/docs/framework/misc/security-transparent-code-level-2.md).  \n  \n    > [!NOTE]\n    >  Associating a dynamic method with a module in a trusted level 1 assembly that is security-agnostic, such as System.dll, does not permit elevation of trust. If the grant set of the code that calls the dynamic method does not include the grant set of System.dll (that is, full trust), <xref:System.Security.SecurityException> is thrown when the dynamic method is called.  \n  \n-   The transparency of a dynamic method that is associated with a partially trusted assembly depends on how the assembly is loaded. If the assembly is loaded with partial trust (for example, into a sandboxed application domain), the runtime ignores the security annotations of the assembly. The assembly and all its types and members, including dynamic methods, are treated as transparent. The runtime pays attention to security annotations only if the partial-trust assembly is loaded with full trust (for example, into the default application domain of a desktop application). In that case, the runtime assigns the dynamic method the default transparency for methods according to the assembly's annotations.  \n  \n For more information about reflection emit and transparency, see [Security Issues in Reflection Emit](~/docs/framework/reflection-and-codedom/security-issues-in-reflection-emit.md). For information about transparency, see [Security Changes](~/docs/framework/security/security-changes.md)."
   syntax:
     content: >-
       [get: System.Security.SecuritySafeCritical]
@@ -1820,9 +1793,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.IsSecurityTransparent
   commentId: P:System.Reflection.Emit.DynamicMethod.IsSecurityTransparent
   id: IsSecurityTransparent
@@ -1831,13 +1801,13 @@ items:
   - csharp
   name: IsSecurityTransparent
   nameWithType: DynamicMethod.IsSecurityTransparent
-  fullName: System.Reflection.Emit.DynamicMethod.IsSecurityTransparent
+  fullName: DynamicMethod.IsSecurityTransparent
   type: Property
   assemblies:
   - mscorlib
   namespace: System.Reflection.Emit
   summary: Gets a value that indicates whether the current dynamic method is transparent at the current trust level, and therefore cannot perform critical operations.
-  remarks: "The <xref:System.Reflection.Emit.DynamicMethod.IsSecurityCritical%2A>, <xref:System.Reflection.Emit.DynamicMethod.IsSecuritySafeCritical%2A>, and <xref:System.Reflection.Emit.DynamicMethod.IsSecurityTransparent%2A> properties report the transparency level of the dynamic method as determined by the common language runtime (CLR). The combinations of these properties are shown in the following table:  \n  \n|Security level|IsSecurityCritical|IsSecuritySafeCritical|IsSecurityTransparent|  \n|--------------------|------------------------|----------------------------|---------------------------|  \n|Critical|`true`|`false`|`false`|  \n|Safe critical|`true`|`true`|`false`|  \n|Transparent|`false`|`false`|`true`|  \n  \n Using these properties is much simpler than examining the security annotations of an assembly and its types, checking the current trust level, and attempting to duplicate the runtime's rules.  \n  \n The transparency of a dynamic method depends on the module it is associated with. If the dynamic method is associated with a type rather than a module, its transparency depends on the module that contains the type. Dynamic methods do not have security annotations, so they are assigned the default transparency for the associated module.  \n  \n-   Anonymously hosted dynamic methods are always transparent, because the system-provided module that contains them is transparent.  \n  \n-   The transparency of a dynamic method that is associated with a trusted assembly (that is, a strong-named assembly that is installed in the global assembly cache) is described in the following table.  \n  \n    |Assembly annotation|Level 1 transparency|Level 2 transparency|  \n    |-------------------------|--------------------------|--------------------------|  \n    |Fully transparent|Transparent|Transparent|  \n    |Fully critical|Critical|Critical|  \n    |Mixed transparency|Transparent|Transparent|  \n    |Security-agnostic|Safe-critical|Critical|  \n  \n     For example, if you associate a dynamic method with a type that is in mscorlib.dll, which has level 2 mixed transparency, the dynamic method is transparent and cannot execute critical code. For information about transparency levels, see [Security-Transparent Code, Level 1](../Topic/Security-Transparent%20Code,%20Level%201.md) and [Security-Transparent Code, Level 2](../Topic/Security-Transparent%20Code,%20Level%202.md).  \n  \n    > [!NOTE]\n    >  Associating a dynamic method with a module in a trusted level 1 assembly that is security-agnostic, such as System.dll, does not permit elevation of trust. If the grant set of the code that calls the dynamic method does not include the grant set of System.dll (that is, full trust), <xref:System.Security.SecurityException> is thrown when the dynamic method is called.  \n  \n-   The transparency of a dynamic method that is associated with a partially trusted assembly depends on how the assembly is loaded. If the assembly is loaded with partial trust (for example, into a sandboxed application domain), the runtime ignores the security annotations of the assembly. The assembly and all its types and members, including dynamic methods, are treated as transparent. The runtime pays attention to security annotations only if the partial-trust assembly is loaded with full trust (for example, into the default application domain of a desktop application). In that case, the runtime assigns the dynamic method the default transparency for methods according to the assembly's annotations.  \n  \n For more information about reflection emit and transparency, see [Security Issues in Reflection Emit](~/docs/framework/reflection-and-codedom/security-issues-in-reflection-emit.md). For information about transparency, see [Security Changes](~/docs/framework/security/security-changes.md)."
+  remarks: "The <xref:System.Reflection.Emit.DynamicMethod.IsSecurityCritical%2A>, <xref:System.Reflection.Emit.DynamicMethod.IsSecuritySafeCritical%2A>, and <xref:System.Reflection.Emit.DynamicMethod.IsSecurityTransparent%2A> properties report the transparency level of the dynamic method as determined by the common language runtime (CLR). The combinations of these properties are shown in the following table:  \n  \n|Security level|IsSecurityCritical|IsSecuritySafeCritical|IsSecurityTransparent|  \n|--------------------|------------------------|----------------------------|---------------------------|  \n|Critical|`true`|`false`|`false`|  \n|Safe critical|`true`|`true`|`false`|  \n|Transparent|`false`|`false`|`true`|  \n  \n Using these properties is much simpler than examining the security annotations of an assembly and its types, checking the current trust level, and attempting to duplicate the runtime's rules.  \n  \n The transparency of a dynamic method depends on the module it is associated with. If the dynamic method is associated with a type rather than a module, its transparency depends on the module that contains the type. Dynamic methods do not have security annotations, so they are assigned the default transparency for the associated module.  \n  \n-   Anonymously hosted dynamic methods are always transparent, because the system-provided module that contains them is transparent.  \n  \n-   The transparency of a dynamic method that is associated with a trusted assembly (that is, a strong-named assembly that is installed in the global assembly cache) is described in the following table.  \n  \n    |Assembly annotation|Level 1 transparency|Level 2 transparency|  \n    |-------------------------|--------------------------|--------------------------|  \n    |Fully transparent|Transparent|Transparent|  \n    |Fully critical|Critical|Critical|  \n    |Mixed transparency|Transparent|Transparent|  \n    |Security-agnostic|Safe-critical|Critical|  \n  \n     For example, if you associate a dynamic method with a type that is in mscorlib.dll, which has level 2 mixed transparency, the dynamic method is transparent and cannot execute critical code. For information about transparency levels, see [Security-Transparent Code, Level 1](~/docs/framework/misc/security-transparent-code-level-1.md) and [Security-Transparent Code, Level 2](~/docs/framework/misc/security-transparent-code-level-2.md).  \n  \n    > [!NOTE]\n    >  Associating a dynamic method with a module in a trusted level 1 assembly that is security-agnostic, such as System.dll, does not permit elevation of trust. If the grant set of the code that calls the dynamic method does not include the grant set of System.dll (that is, full trust), <xref:System.Security.SecurityException> is thrown when the dynamic method is called.  \n  \n-   The transparency of a dynamic method that is associated with a partially trusted assembly depends on how the assembly is loaded. If the assembly is loaded with partial trust (for example, into a sandboxed application domain), the runtime ignores the security annotations of the assembly. The assembly and all its types and members, including dynamic methods, are treated as transparent. The runtime pays attention to security annotations only if the partial-trust assembly is loaded with full trust (for example, into the default application domain of a desktop application). In that case, the runtime assigns the dynamic method the default transparency for methods according to the assembly's annotations.  \n  \n For more information about reflection emit and transparency, see [Security Issues in Reflection Emit](~/docs/framework/reflection-and-codedom/security-issues-in-reflection-emit.md). For information about transparency, see [Security Changes](~/docs/framework/security/security-changes.md)."
   syntax:
     content: >-
       [get: System.Security.SecuritySafeCritical]
@@ -1870,9 +1840,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.MethodHandle
   commentId: P:System.Reflection.Emit.DynamicMethod.MethodHandle
   id: MethodHandle
@@ -1881,10 +1848,11 @@ items:
   - csharp
   name: MethodHandle
   nameWithType: DynamicMethod.MethodHandle
-  fullName: System.Reflection.Emit.DynamicMethod.MethodHandle
+  fullName: DynamicMethod.MethodHandle
   type: Property
   assemblies:
   - mscorlib
+  - System.Reflection.Emit.Lightweight
   namespace: System.Reflection.Emit
   summary: Not supported for dynamic methods.
   syntax:
@@ -1898,6 +1866,7 @@ items:
     commentId: T:System.InvalidOperationException
     description: Not allowed for dynamic methods.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1908,6 +1877,7 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1918,9 +1888,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.MethodImplementationFlags
   commentId: P:System.Reflection.Emit.DynamicMethod.MethodImplementationFlags
   id: MethodImplementationFlags
@@ -1929,7 +1896,7 @@ items:
   - csharp
   name: MethodImplementationFlags
   nameWithType: DynamicMethod.MethodImplementationFlags
-  fullName: System.Reflection.Emit.DynamicMethod.MethodImplementationFlags
+  fullName: DynamicMethod.MethodImplementationFlags
   type: Property
   assemblies:
   - System.Reflection.Emit.Lightweight
@@ -1943,10 +1910,10 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
 - uid: System.Reflection.Emit.DynamicMethod.Module
   commentId: P:System.Reflection.Emit.DynamicMethod.Module
@@ -1956,7 +1923,7 @@ items:
   - csharp
   name: Module
   nameWithType: DynamicMethod.Module
-  fullName: System.Reflection.Emit.DynamicMethod.Module
+  fullName: DynamicMethod.Module
   type: Property
   assemblies:
   - mscorlib
@@ -1993,9 +1960,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.Name
   commentId: P:System.Reflection.Emit.DynamicMethod.Name
   id: Name
@@ -2004,7 +1968,7 @@ items:
   - csharp
   name: Name
   nameWithType: DynamicMethod.Name
-  fullName: System.Reflection.Emit.DynamicMethod.Name
+  fullName: DynamicMethod.Name
   type: Property
   assemblies:
   - System.Reflection.Emit.Lightweight
@@ -2026,7 +1990,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2038,7 +2003,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2049,9 +2015,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.ReflectedType
   commentId: P:System.Reflection.Emit.DynamicMethod.ReflectedType
   id: ReflectedType
@@ -2060,10 +2023,11 @@ items:
   - csharp
   name: ReflectedType
   nameWithType: DynamicMethod.ReflectedType
-  fullName: System.Reflection.Emit.DynamicMethod.ReflectedType
+  fullName: DynamicMethod.ReflectedType
   type: Property
   assemblies:
   - mscorlib
+  - System.Reflection.Emit.Lightweight
   namespace: System.Reflection.Emit
   summary: Gets the class that was used in reflection to obtain the method.
   remarks: This property always returns `null` for dynamic methods.
@@ -2077,6 +2041,7 @@ items:
   overload: System.Reflection.Emit.DynamicMethod.ReflectedType*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2087,6 +2052,7 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2097,9 +2063,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.ReturnParameter
   commentId: P:System.Reflection.Emit.DynamicMethod.ReturnParameter
   id: ReturnParameter
@@ -2108,7 +2071,7 @@ items:
   - csharp
   name: ReturnParameter
   nameWithType: DynamicMethod.ReturnParameter
-  fullName: System.Reflection.Emit.DynamicMethod.ReturnParameter
+  fullName: DynamicMethod.ReturnParameter
   type: Property
   assemblies:
   - System.Reflection.Emit.Lightweight
@@ -2125,7 +2088,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2137,7 +2101,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2148,9 +2113,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.ReturnType
   commentId: P:System.Reflection.Emit.DynamicMethod.ReturnType
   id: ReturnType
@@ -2159,7 +2121,7 @@ items:
   - csharp
   name: ReturnType
   nameWithType: DynamicMethod.ReturnType
-  fullName: System.Reflection.Emit.DynamicMethod.ReturnType
+  fullName: DynamicMethod.ReturnType
   type: Property
   assemblies:
   - System.Reflection.Emit.Lightweight
@@ -2178,7 +2140,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2190,7 +2153,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2201,9 +2165,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.ReturnTypeCustomAttributes
   commentId: P:System.Reflection.Emit.DynamicMethod.ReturnTypeCustomAttributes
   id: ReturnTypeCustomAttributes
@@ -2212,10 +2173,11 @@ items:
   - csharp
   name: ReturnTypeCustomAttributes
   nameWithType: DynamicMethod.ReturnTypeCustomAttributes
-  fullName: System.Reflection.Emit.DynamicMethod.ReturnTypeCustomAttributes
+  fullName: DynamicMethod.ReturnTypeCustomAttributes
   type: Property
   assemblies:
   - mscorlib
+  - System.Reflection.Emit.Lightweight
   namespace: System.Reflection.Emit
   summary: Gets the custom attributes of the return type for the dynamic method.
   remarks: Custom attributes are not supported on the return type of a dynamic method, so the array of custom attributes returned by the <xref:System.Reflection.ICustomAttributeProvider.GetCustomAttributes%2A> method is always empty.
@@ -2229,6 +2191,7 @@ items:
   overload: System.Reflection.Emit.DynamicMethod.ReturnTypeCustomAttributes*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2239,6 +2202,7 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2249,9 +2213,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.Emit.DynamicMethod.ToString
   commentId: M:System.Reflection.Emit.DynamicMethod.ToString
   id: ToString
@@ -2260,7 +2221,7 @@ items:
   - csharp
   name: ToString()
   nameWithType: DynamicMethod.ToString()
-  fullName: System.Reflection.Emit.DynamicMethod.ToString()
+  fullName: DynamicMethod.ToString()
   type: Method
   assemblies:
   - System.Reflection.Emit.Lightweight
@@ -2280,7 +2241,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2292,7 +2254,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2303,9 +2266,6 @@ items:
   - xamarinandroid-7.1
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.Reflection.MethodInfo
   parent: System.Reflection
@@ -2360,7 +2320,7 @@ references:
   isExternal: false
   name: DynamicMethod(String, Type, Type[])
   nameWithType: DynamicMethod.DynamicMethod(String, Type, Type[])
-  fullName: System.Reflection.Emit.DynamicMethod.DynamicMethod(String, Type, Type[])
+  fullName: DynamicMethod.DynamicMethod(String, Type, Type[])
 - uid: System.String
   parent: System
   isExternal: false
@@ -2392,7 +2352,7 @@ references:
   isExternal: false
   name: DynamicMethod(String, Type, Type[], Boolean)
   nameWithType: DynamicMethod.DynamicMethod(String, Type, Type[], Boolean)
-  fullName: System.Reflection.Emit.DynamicMethod.DynamicMethod(String, Type, Type[], Boolean)
+  fullName: DynamicMethod.DynamicMethod(String, Type, Type[], Boolean)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -2404,7 +2364,7 @@ references:
   isExternal: false
   name: DynamicMethod(String, Type, Type[], Module)
   nameWithType: DynamicMethod.DynamicMethod(String, Type, Type[], Module)
-  fullName: System.Reflection.Emit.DynamicMethod.DynamicMethod(String, Type, Type[], Module)
+  fullName: DynamicMethod.DynamicMethod(String, Type, Type[], Module)
 - uid: System.Reflection.Module
   parent: System.Reflection
   isExternal: false
@@ -2416,25 +2376,25 @@ references:
   isExternal: false
   name: DynamicMethod(String, Type, Type[], Type)
   nameWithType: DynamicMethod.DynamicMethod(String, Type, Type[], Type)
-  fullName: System.Reflection.Emit.DynamicMethod.DynamicMethod(String, Type, Type[], Type)
+  fullName: DynamicMethod.DynamicMethod(String, Type, Type[], Type)
 - uid: System.Reflection.Emit.DynamicMethod.#ctor(System.String,System.Type,System.Type[],System.Reflection.Module,System.Boolean)
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: DynamicMethod(String, Type, Type[], Module, Boolean)
   nameWithType: DynamicMethod.DynamicMethod(String, Type, Type[], Module, Boolean)
-  fullName: System.Reflection.Emit.DynamicMethod.DynamicMethod(String, Type, Type[], Module, Boolean)
+  fullName: DynamicMethod.DynamicMethod(String, Type, Type[], Module, Boolean)
 - uid: System.Reflection.Emit.DynamicMethod.#ctor(System.String,System.Type,System.Type[],System.Type,System.Boolean)
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: DynamicMethod(String, Type, Type[], Type, Boolean)
   nameWithType: DynamicMethod.DynamicMethod(String, Type, Type[], Type, Boolean)
-  fullName: System.Reflection.Emit.DynamicMethod.DynamicMethod(String, Type, Type[], Type, Boolean)
+  fullName: DynamicMethod.DynamicMethod(String, Type, Type[], Type, Boolean)
 - uid: System.Reflection.Emit.DynamicMethod.#ctor(System.String,System.Reflection.MethodAttributes,System.Reflection.CallingConventions,System.Type,System.Type[],System.Reflection.Module,System.Boolean)
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: DynamicMethod(String, MethodAttributes, CallingConventions, Type, Type[], Module, Boolean)
   nameWithType: DynamicMethod.DynamicMethod(String, MethodAttributes, CallingConventions, Type, Type[], Module, Boolean)
-  fullName: System.Reflection.Emit.DynamicMethod.DynamicMethod(String, MethodAttributes, CallingConventions, Type, Type[], Module, Boolean)
+  fullName: DynamicMethod.DynamicMethod(String, MethodAttributes, CallingConventions, Type, Type[], Module, Boolean)
 - uid: System.Reflection.MethodAttributes
   parent: System.Reflection
   isExternal: false
@@ -2452,25 +2412,25 @@ references:
   isExternal: false
   name: DynamicMethod(String, MethodAttributes, CallingConventions, Type, Type[], Type, Boolean)
   nameWithType: DynamicMethod.DynamicMethod(String, MethodAttributes, CallingConventions, Type, Type[], Type, Boolean)
-  fullName: System.Reflection.Emit.DynamicMethod.DynamicMethod(String, MethodAttributes, CallingConventions, Type, Type[], Type, Boolean)
+  fullName: DynamicMethod.DynamicMethod(String, MethodAttributes, CallingConventions, Type, Type[], Type, Boolean)
 - uid: System.Reflection.Emit.DynamicMethod.Attributes
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: Attributes
   nameWithType: DynamicMethod.Attributes
-  fullName: System.Reflection.Emit.DynamicMethod.Attributes
+  fullName: DynamicMethod.Attributes
 - uid: System.Reflection.Emit.DynamicMethod.CallingConvention
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: CallingConvention
   nameWithType: DynamicMethod.CallingConvention
-  fullName: System.Reflection.Emit.DynamicMethod.CallingConvention
+  fullName: DynamicMethod.CallingConvention
 - uid: System.Reflection.Emit.DynamicMethod.CreateDelegate(System.Type)
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: CreateDelegate(Type)
   nameWithType: DynamicMethod.CreateDelegate(Type)
-  fullName: System.Reflection.Emit.DynamicMethod.CreateDelegate(Type)
+  fullName: DynamicMethod.CreateDelegate(Type)
 - uid: System.Delegate
   parent: System
   isExternal: false
@@ -2482,7 +2442,7 @@ references:
   isExternal: false
   name: CreateDelegate(Type, Object)
   nameWithType: DynamicMethod.CreateDelegate(Type, Object)
-  fullName: System.Reflection.Emit.DynamicMethod.CreateDelegate(Type, Object)
+  fullName: DynamicMethod.CreateDelegate(Type, Object)
 - uid: System.Object
   parent: System
   isExternal: false
@@ -2494,13 +2454,13 @@ references:
   isExternal: false
   name: DeclaringType
   nameWithType: DynamicMethod.DeclaringType
-  fullName: System.Reflection.Emit.DynamicMethod.DeclaringType
+  fullName: DynamicMethod.DeclaringType
 - uid: System.Reflection.Emit.DynamicMethod.DefineParameter(System.Int32,System.Reflection.ParameterAttributes,System.String)
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: DefineParameter(Int32, ParameterAttributes, String)
   nameWithType: DynamicMethod.DefineParameter(Int32, ParameterAttributes, String)
-  fullName: System.Reflection.Emit.DynamicMethod.DefineParameter(Int32, ParameterAttributes, String)
+  fullName: DynamicMethod.DefineParameter(Int32, ParameterAttributes, String)
 - uid: System.Reflection.Emit.ParameterBuilder
   parent: System.Reflection.Emit
   isExternal: false
@@ -2524,13 +2484,13 @@ references:
   isExternal: false
   name: GetBaseDefinition()
   nameWithType: DynamicMethod.GetBaseDefinition()
-  fullName: System.Reflection.Emit.DynamicMethod.GetBaseDefinition()
+  fullName: DynamicMethod.GetBaseDefinition()
 - uid: System.Reflection.Emit.DynamicMethod.GetCustomAttributes(System.Boolean)
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: GetCustomAttributes(Boolean)
   nameWithType: DynamicMethod.GetCustomAttributes(Boolean)
-  fullName: System.Reflection.Emit.DynamicMethod.GetCustomAttributes(Boolean)
+  fullName: DynamicMethod.GetCustomAttributes(Boolean)
 - uid: System.Object[]
   parent: System
   isExternal: false
@@ -2550,13 +2510,13 @@ references:
   isExternal: false
   name: GetCustomAttributes(Type, Boolean)
   nameWithType: DynamicMethod.GetCustomAttributes(Type, Boolean)
-  fullName: System.Reflection.Emit.DynamicMethod.GetCustomAttributes(Type, Boolean)
+  fullName: DynamicMethod.GetCustomAttributes(Type, Boolean)
 - uid: System.Reflection.Emit.DynamicMethod.GetDynamicILInfo
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: GetDynamicILInfo()
   nameWithType: DynamicMethod.GetDynamicILInfo()
-  fullName: System.Reflection.Emit.DynamicMethod.GetDynamicILInfo()
+  fullName: DynamicMethod.GetDynamicILInfo()
 - uid: System.Reflection.Emit.DynamicILInfo
   parent: System.Reflection.Emit
   isExternal: false
@@ -2568,7 +2528,7 @@ references:
   isExternal: false
   name: GetILGenerator(Int32)
   nameWithType: DynamicMethod.GetILGenerator(Int32)
-  fullName: System.Reflection.Emit.DynamicMethod.GetILGenerator(Int32)
+  fullName: DynamicMethod.GetILGenerator(Int32)
 - uid: System.Reflection.Emit.ILGenerator
   parent: System.Reflection.Emit
   isExternal: false
@@ -2580,13 +2540,13 @@ references:
   isExternal: false
   name: GetILGenerator()
   nameWithType: DynamicMethod.GetILGenerator()
-  fullName: System.Reflection.Emit.DynamicMethod.GetILGenerator()
+  fullName: DynamicMethod.GetILGenerator()
 - uid: System.Reflection.Emit.DynamicMethod.GetMethodImplementationFlags
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: GetMethodImplementationFlags()
   nameWithType: DynamicMethod.GetMethodImplementationFlags()
-  fullName: System.Reflection.Emit.DynamicMethod.GetMethodImplementationFlags()
+  fullName: DynamicMethod.GetMethodImplementationFlags()
 - uid: System.Reflection.MethodImplAttributes
   parent: System.Reflection
   isExternal: false
@@ -2598,7 +2558,7 @@ references:
   isExternal: false
   name: GetParameters()
   nameWithType: DynamicMethod.GetParameters()
-  fullName: System.Reflection.Emit.DynamicMethod.GetParameters()
+  fullName: DynamicMethod.GetParameters()
 - uid: System.Reflection.ParameterInfo
   name: ParameterInfo
   nameWithType: ParameterInfo
@@ -2622,13 +2582,13 @@ references:
   isExternal: false
   name: InitLocals
   nameWithType: DynamicMethod.InitLocals
-  fullName: System.Reflection.Emit.DynamicMethod.InitLocals
+  fullName: DynamicMethod.InitLocals
 - uid: System.Reflection.Emit.DynamicMethod.Invoke(System.Object,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object[],System.Globalization.CultureInfo)
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: Invoke(Object, BindingFlags, Binder, Object[], CultureInfo)
   nameWithType: DynamicMethod.Invoke(Object, BindingFlags, Binder, Object[], CultureInfo)
-  fullName: System.Reflection.Emit.DynamicMethod.Invoke(Object, BindingFlags, Binder, Object[], CultureInfo)
+  fullName: DynamicMethod.Invoke(Object, BindingFlags, Binder, Object[], CultureInfo)
 - uid: System.Reflection.BindingFlags
   parent: System.Reflection
   isExternal: false
@@ -2652,31 +2612,31 @@ references:
   isExternal: false
   name: IsDefined(Type, Boolean)
   nameWithType: DynamicMethod.IsDefined(Type, Boolean)
-  fullName: System.Reflection.Emit.DynamicMethod.IsDefined(Type, Boolean)
+  fullName: DynamicMethod.IsDefined(Type, Boolean)
 - uid: System.Reflection.Emit.DynamicMethod.IsSecurityCritical
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: IsSecurityCritical
   nameWithType: DynamicMethod.IsSecurityCritical
-  fullName: System.Reflection.Emit.DynamicMethod.IsSecurityCritical
+  fullName: DynamicMethod.IsSecurityCritical
 - uid: System.Reflection.Emit.DynamicMethod.IsSecuritySafeCritical
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: IsSecuritySafeCritical
   nameWithType: DynamicMethod.IsSecuritySafeCritical
-  fullName: System.Reflection.Emit.DynamicMethod.IsSecuritySafeCritical
+  fullName: DynamicMethod.IsSecuritySafeCritical
 - uid: System.Reflection.Emit.DynamicMethod.IsSecurityTransparent
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: IsSecurityTransparent
   nameWithType: DynamicMethod.IsSecurityTransparent
-  fullName: System.Reflection.Emit.DynamicMethod.IsSecurityTransparent
+  fullName: DynamicMethod.IsSecurityTransparent
 - uid: System.Reflection.Emit.DynamicMethod.MethodHandle
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: MethodHandle
   nameWithType: DynamicMethod.MethodHandle
-  fullName: System.Reflection.Emit.DynamicMethod.MethodHandle
+  fullName: DynamicMethod.MethodHandle
 - uid: System.RuntimeMethodHandle
   parent: System
   isExternal: false
@@ -2688,43 +2648,43 @@ references:
   isExternal: false
   name: MethodImplementationFlags
   nameWithType: DynamicMethod.MethodImplementationFlags
-  fullName: System.Reflection.Emit.DynamicMethod.MethodImplementationFlags
+  fullName: DynamicMethod.MethodImplementationFlags
 - uid: System.Reflection.Emit.DynamicMethod.Module
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: Module
   nameWithType: DynamicMethod.Module
-  fullName: System.Reflection.Emit.DynamicMethod.Module
+  fullName: DynamicMethod.Module
 - uid: System.Reflection.Emit.DynamicMethod.Name
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: Name
   nameWithType: DynamicMethod.Name
-  fullName: System.Reflection.Emit.DynamicMethod.Name
+  fullName: DynamicMethod.Name
 - uid: System.Reflection.Emit.DynamicMethod.ReflectedType
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: ReflectedType
   nameWithType: DynamicMethod.ReflectedType
-  fullName: System.Reflection.Emit.DynamicMethod.ReflectedType
+  fullName: DynamicMethod.ReflectedType
 - uid: System.Reflection.Emit.DynamicMethod.ReturnParameter
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: ReturnParameter
   nameWithType: DynamicMethod.ReturnParameter
-  fullName: System.Reflection.Emit.DynamicMethod.ReturnParameter
+  fullName: DynamicMethod.ReturnParameter
 - uid: System.Reflection.Emit.DynamicMethod.ReturnType
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: ReturnType
   nameWithType: DynamicMethod.ReturnType
-  fullName: System.Reflection.Emit.DynamicMethod.ReturnType
+  fullName: DynamicMethod.ReturnType
 - uid: System.Reflection.Emit.DynamicMethod.ReturnTypeCustomAttributes
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: ReturnTypeCustomAttributes
   nameWithType: DynamicMethod.ReturnTypeCustomAttributes
-  fullName: System.Reflection.Emit.DynamicMethod.ReturnTypeCustomAttributes
+  fullName: DynamicMethod.ReturnTypeCustomAttributes
 - uid: System.Reflection.ICustomAttributeProvider
   parent: System.Reflection
   isExternal: false
@@ -2736,16 +2696,17 @@ references:
   isExternal: false
   name: ToString()
   nameWithType: DynamicMethod.ToString()
-  fullName: System.Reflection.Emit.DynamicMethod.ToString()
+  fullName: DynamicMethod.ToString()
 - uid: System.Reflection.Emit.DynamicMethod.#ctor*
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: DynamicMethod
   nameWithType: DynamicMethod.DynamicMethod
-  fullName: System.Reflection.Emit.DynamicMethod.DynamicMethod
+  fullName: DynamicMethod.DynamicMethod
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2761,10 +2722,11 @@ references:
   isExternal: false
   name: Attributes
   nameWithType: DynamicMethod.Attributes
-  fullName: System.Reflection.Emit.DynamicMethod.Attributes
+  fullName: DynamicMethod.Attributes
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2780,10 +2742,11 @@ references:
   isExternal: false
   name: CallingConvention
   nameWithType: DynamicMethod.CallingConvention
-  fullName: System.Reflection.Emit.DynamicMethod.CallingConvention
+  fullName: DynamicMethod.CallingConvention
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2799,10 +2762,11 @@ references:
   isExternal: false
   name: CreateDelegate
   nameWithType: DynamicMethod.CreateDelegate
-  fullName: System.Reflection.Emit.DynamicMethod.CreateDelegate
+  fullName: DynamicMethod.CreateDelegate
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2818,10 +2782,11 @@ references:
   isExternal: false
   name: DeclaringType
   nameWithType: DynamicMethod.DeclaringType
-  fullName: System.Reflection.Emit.DynamicMethod.DeclaringType
+  fullName: DynamicMethod.DeclaringType
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2837,7 +2802,7 @@ references:
   isExternal: false
   name: DefineParameter
   nameWithType: DynamicMethod.DefineParameter
-  fullName: System.Reflection.Emit.DynamicMethod.DefineParameter
+  fullName: DynamicMethod.DefineParameter
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2854,8 +2819,9 @@ references:
   isExternal: false
   name: GetBaseDefinition
   nameWithType: DynamicMethod.GetBaseDefinition
-  fullName: System.Reflection.Emit.DynamicMethod.GetBaseDefinition
+  fullName: DynamicMethod.GetBaseDefinition
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2871,8 +2837,9 @@ references:
   isExternal: false
   name: GetCustomAttributes
   nameWithType: DynamicMethod.GetCustomAttributes
-  fullName: System.Reflection.Emit.DynamicMethod.GetCustomAttributes
+  fullName: DynamicMethod.GetCustomAttributes
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2888,7 +2855,7 @@ references:
   isExternal: false
   name: GetDynamicILInfo
   nameWithType: DynamicMethod.GetDynamicILInfo
-  fullName: System.Reflection.Emit.DynamicMethod.GetDynamicILInfo
+  fullName: DynamicMethod.GetDynamicILInfo
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2905,10 +2872,11 @@ references:
   isExternal: false
   name: GetILGenerator
   nameWithType: DynamicMethod.GetILGenerator
-  fullName: System.Reflection.Emit.DynamicMethod.GetILGenerator
+  fullName: DynamicMethod.GetILGenerator
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2924,8 +2892,9 @@ references:
   isExternal: false
   name: GetMethodImplementationFlags
   nameWithType: DynamicMethod.GetMethodImplementationFlags
-  fullName: System.Reflection.Emit.DynamicMethod.GetMethodImplementationFlags
+  fullName: DynamicMethod.GetMethodImplementationFlags
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2941,10 +2910,11 @@ references:
   isExternal: false
   name: GetParameters
   nameWithType: DynamicMethod.GetParameters
-  fullName: System.Reflection.Emit.DynamicMethod.GetParameters
+  fullName: DynamicMethod.GetParameters
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2960,10 +2930,11 @@ references:
   isExternal: false
   name: InitLocals
   nameWithType: DynamicMethod.InitLocals
-  fullName: System.Reflection.Emit.DynamicMethod.InitLocals
+  fullName: DynamicMethod.InitLocals
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2979,8 +2950,9 @@ references:
   isExternal: false
   name: Invoke
   nameWithType: DynamicMethod.Invoke
-  fullName: System.Reflection.Emit.DynamicMethod.Invoke
+  fullName: DynamicMethod.Invoke
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2996,8 +2968,9 @@ references:
   isExternal: false
   name: IsDefined
   nameWithType: DynamicMethod.IsDefined
-  fullName: System.Reflection.Emit.DynamicMethod.IsDefined
+  fullName: DynamicMethod.IsDefined
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3013,7 +2986,7 @@ references:
   isExternal: false
   name: IsSecurityCritical
   nameWithType: DynamicMethod.IsSecurityCritical
-  fullName: System.Reflection.Emit.DynamicMethod.IsSecurityCritical
+  fullName: DynamicMethod.IsSecurityCritical
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3028,7 +3001,7 @@ references:
   isExternal: false
   name: IsSecuritySafeCritical
   nameWithType: DynamicMethod.IsSecuritySafeCritical
-  fullName: System.Reflection.Emit.DynamicMethod.IsSecuritySafeCritical
+  fullName: DynamicMethod.IsSecuritySafeCritical
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3043,7 +3016,7 @@ references:
   isExternal: false
   name: IsSecurityTransparent
   nameWithType: DynamicMethod.IsSecurityTransparent
-  fullName: System.Reflection.Emit.DynamicMethod.IsSecurityTransparent
+  fullName: DynamicMethod.IsSecurityTransparent
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3058,8 +3031,9 @@ references:
   isExternal: false
   name: MethodHandle
   nameWithType: DynamicMethod.MethodHandle
-  fullName: System.Reflection.Emit.DynamicMethod.MethodHandle
+  fullName: DynamicMethod.MethodHandle
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3075,17 +3049,17 @@ references:
   isExternal: false
   name: MethodImplementationFlags
   nameWithType: DynamicMethod.MethodImplementationFlags
-  fullName: System.Reflection.Emit.DynamicMethod.MethodImplementationFlags
+  fullName: DynamicMethod.MethodImplementationFlags
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection.Emit/DynamicMethod.xml
 - uid: System.Reflection.Emit.DynamicMethod.Module*
   parent: System.Reflection.Emit.DynamicMethod
   isExternal: false
   name: Module
   nameWithType: DynamicMethod.Module
-  fullName: System.Reflection.Emit.DynamicMethod.Module
+  fullName: DynamicMethod.Module
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3102,10 +3076,11 @@ references:
   isExternal: false
   name: Name
   nameWithType: DynamicMethod.Name
-  fullName: System.Reflection.Emit.DynamicMethod.Name
+  fullName: DynamicMethod.Name
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3121,8 +3096,9 @@ references:
   isExternal: false
   name: ReflectedType
   nameWithType: DynamicMethod.ReflectedType
-  fullName: System.Reflection.Emit.DynamicMethod.ReflectedType
+  fullName: DynamicMethod.ReflectedType
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3138,10 +3114,11 @@ references:
   isExternal: false
   name: ReturnParameter
   nameWithType: DynamicMethod.ReturnParameter
-  fullName: System.Reflection.Emit.DynamicMethod.ReturnParameter
+  fullName: DynamicMethod.ReturnParameter
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3157,10 +3134,11 @@ references:
   isExternal: false
   name: ReturnType
   nameWithType: DynamicMethod.ReturnType
-  fullName: System.Reflection.Emit.DynamicMethod.ReturnType
+  fullName: DynamicMethod.ReturnType
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3176,8 +3154,9 @@ references:
   isExternal: false
   name: ReturnTypeCustomAttributes
   nameWithType: DynamicMethod.ReturnTypeCustomAttributes
-  fullName: System.Reflection.Emit.DynamicMethod.ReturnTypeCustomAttributes
+  fullName: DynamicMethod.ReturnTypeCustomAttributes
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3193,10 +3172,11 @@ references:
   isExternal: false
   name: ToString
   nameWithType: DynamicMethod.ToString
-  fullName: System.Reflection.Emit.DynamicMethod.ToString
+  fullName: DynamicMethod.ToString
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3212,94 +3192,94 @@ references:
   isExternal: false
   name: GetCustomAttribute(MemberInfo, Type)
   nameWithType: CustomAttributeExtensions.GetCustomAttribute(MemberInfo, Type)
-  fullName: System.Reflection.CustomAttributeExtensions.GetCustomAttribute(MemberInfo, Type)
+  fullName: CustomAttributeExtensions.GetCustomAttribute(MemberInfo, Type)
 - uid: System.Reflection.CustomAttributeExtensions.GetCustomAttribute(System.Reflection.MemberInfo,System.Type,System.Boolean)
   parent: System.Reflection.CustomAttributeExtensions
   isExternal: false
   name: GetCustomAttribute(MemberInfo, Type, Boolean)
   nameWithType: CustomAttributeExtensions.GetCustomAttribute(MemberInfo, Type, Boolean)
-  fullName: System.Reflection.CustomAttributeExtensions.GetCustomAttribute(MemberInfo, Type, Boolean)
+  fullName: CustomAttributeExtensions.GetCustomAttribute(MemberInfo, Type, Boolean)
 - uid: System.Reflection.CustomAttributeExtensions.GetCustomAttribute``1(System.Reflection.MemberInfo)
   parent: System.Reflection.CustomAttributeExtensions
   isExternal: false
   name: GetCustomAttribute<T>(MemberInfo)
   nameWithType: CustomAttributeExtensions.GetCustomAttribute<T>(MemberInfo)
-  fullName: System.Reflection.CustomAttributeExtensions.GetCustomAttribute<T>(MemberInfo)
+  fullName: CustomAttributeExtensions.GetCustomAttribute<T>(MemberInfo)
 - uid: System.Reflection.CustomAttributeExtensions.GetCustomAttribute``1(System.Reflection.MemberInfo,System.Boolean)
   parent: System.Reflection.CustomAttributeExtensions
   isExternal: false
   name: GetCustomAttribute<T>(MemberInfo, Boolean)
   nameWithType: CustomAttributeExtensions.GetCustomAttribute<T>(MemberInfo, Boolean)
-  fullName: System.Reflection.CustomAttributeExtensions.GetCustomAttribute<T>(MemberInfo, Boolean)
+  fullName: CustomAttributeExtensions.GetCustomAttribute<T>(MemberInfo, Boolean)
 - uid: System.Reflection.CustomAttributeExtensions.GetCustomAttributes(System.Reflection.MemberInfo)
   parent: System.Reflection.CustomAttributeExtensions
   isExternal: false
   name: GetCustomAttributes(MemberInfo)
   nameWithType: CustomAttributeExtensions.GetCustomAttributes(MemberInfo)
-  fullName: System.Reflection.CustomAttributeExtensions.GetCustomAttributes(MemberInfo)
+  fullName: CustomAttributeExtensions.GetCustomAttributes(MemberInfo)
 - uid: System.Reflection.CustomAttributeExtensions.GetCustomAttributes(System.Reflection.MemberInfo,System.Boolean)
   parent: System.Reflection.CustomAttributeExtensions
   isExternal: false
   name: GetCustomAttributes(MemberInfo, Boolean)
   nameWithType: CustomAttributeExtensions.GetCustomAttributes(MemberInfo, Boolean)
-  fullName: System.Reflection.CustomAttributeExtensions.GetCustomAttributes(MemberInfo, Boolean)
+  fullName: CustomAttributeExtensions.GetCustomAttributes(MemberInfo, Boolean)
 - uid: System.Reflection.CustomAttributeExtensions.GetCustomAttributes(System.Reflection.MemberInfo,System.Type)
   parent: System.Reflection.CustomAttributeExtensions
   isExternal: false
   name: GetCustomAttributes(MemberInfo, Type)
   nameWithType: CustomAttributeExtensions.GetCustomAttributes(MemberInfo, Type)
-  fullName: System.Reflection.CustomAttributeExtensions.GetCustomAttributes(MemberInfo, Type)
+  fullName: CustomAttributeExtensions.GetCustomAttributes(MemberInfo, Type)
 - uid: System.Reflection.CustomAttributeExtensions.GetCustomAttributes(System.Reflection.MemberInfo,System.Type,System.Boolean)
   parent: System.Reflection.CustomAttributeExtensions
   isExternal: false
   name: GetCustomAttributes(MemberInfo, Type, Boolean)
   nameWithType: CustomAttributeExtensions.GetCustomAttributes(MemberInfo, Type, Boolean)
-  fullName: System.Reflection.CustomAttributeExtensions.GetCustomAttributes(MemberInfo, Type, Boolean)
+  fullName: CustomAttributeExtensions.GetCustomAttributes(MemberInfo, Type, Boolean)
 - uid: System.Reflection.CustomAttributeExtensions.GetCustomAttributes``1(System.Reflection.MemberInfo)
   parent: System.Reflection.CustomAttributeExtensions
   isExternal: false
   name: GetCustomAttributes<T>(MemberInfo)
   nameWithType: CustomAttributeExtensions.GetCustomAttributes<T>(MemberInfo)
-  fullName: System.Reflection.CustomAttributeExtensions.GetCustomAttributes<T>(MemberInfo)
+  fullName: CustomAttributeExtensions.GetCustomAttributes<T>(MemberInfo)
 - uid: System.Reflection.CustomAttributeExtensions.GetCustomAttributes``1(System.Reflection.MemberInfo,System.Boolean)
   parent: System.Reflection.CustomAttributeExtensions
   isExternal: false
   name: GetCustomAttributes<T>(MemberInfo, Boolean)
   nameWithType: CustomAttributeExtensions.GetCustomAttributes<T>(MemberInfo, Boolean)
-  fullName: System.Reflection.CustomAttributeExtensions.GetCustomAttributes<T>(MemberInfo, Boolean)
+  fullName: CustomAttributeExtensions.GetCustomAttributes<T>(MemberInfo, Boolean)
 - uid: System.Reflection.CustomAttributeExtensions.IsDefined(System.Reflection.MemberInfo,System.Type)
   parent: System.Reflection.CustomAttributeExtensions
   isExternal: false
   name: IsDefined(MemberInfo, Type)
   nameWithType: CustomAttributeExtensions.IsDefined(MemberInfo, Type)
-  fullName: System.Reflection.CustomAttributeExtensions.IsDefined(MemberInfo, Type)
+  fullName: CustomAttributeExtensions.IsDefined(MemberInfo, Type)
 - uid: System.Reflection.CustomAttributeExtensions.IsDefined(System.Reflection.MemberInfo,System.Type,System.Boolean)
   parent: System.Reflection.CustomAttributeExtensions
   isExternal: false
   name: IsDefined(MemberInfo, Type, Boolean)
   nameWithType: CustomAttributeExtensions.IsDefined(MemberInfo, Type, Boolean)
-  fullName: System.Reflection.CustomAttributeExtensions.IsDefined(MemberInfo, Type, Boolean)
+  fullName: CustomAttributeExtensions.IsDefined(MemberInfo, Type, Boolean)
 - uid: System.Reflection.MemberInfoExtensions.GetMetadataToken(System.Reflection.MemberInfo)
   parent: System.Reflection.MemberInfoExtensions
   isExternal: false
   name: GetMetadataToken(MemberInfo)
   nameWithType: MemberInfoExtensions.GetMetadataToken(MemberInfo)
-  fullName: System.Reflection.MemberInfoExtensions.GetMetadataToken(MemberInfo)
+  fullName: MemberInfoExtensions.GetMetadataToken(MemberInfo)
 - uid: System.Reflection.MemberInfoExtensions.HasMetadataToken(System.Reflection.MemberInfo)
   parent: System.Reflection.MemberInfoExtensions
   isExternal: false
   name: HasMetadataToken(MemberInfo)
   nameWithType: MemberInfoExtensions.HasMetadataToken(MemberInfo)
-  fullName: System.Reflection.MemberInfoExtensions.HasMetadataToken(MemberInfo)
+  fullName: MemberInfoExtensions.HasMetadataToken(MemberInfo)
 - uid: System.Reflection.MethodInfoExtensions.GetBaseDefinition(System.Reflection.MethodInfo)
   parent: System.Reflection.MethodInfoExtensions
   isExternal: false
   name: GetBaseDefinition(MethodInfo)
   nameWithType: MethodInfoExtensions.GetBaseDefinition(MethodInfo)
-  fullName: System.Reflection.MethodInfoExtensions.GetBaseDefinition(MethodInfo)
+  fullName: MethodInfoExtensions.GetBaseDefinition(MethodInfo)
 - uid: System.Reflection.RuntimeReflectionExtensions.GetRuntimeBaseDefinition(System.Reflection.MethodInfo)
   parent: System.Reflection.RuntimeReflectionExtensions
   isExternal: false
   name: GetRuntimeBaseDefinition(MethodInfo)
   nameWithType: RuntimeReflectionExtensions.GetRuntimeBaseDefinition(MethodInfo)
-  fullName: System.Reflection.RuntimeReflectionExtensions.GetRuntimeBaseDefinition(MethodInfo)
+  fullName: RuntimeReflectionExtensions.GetRuntimeBaseDefinition(MethodInfo)

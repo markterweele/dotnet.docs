@@ -20,6 +20,7 @@ items:
   assemblies:
   - System
   - netstandard
+  - System.ComponentModel.TypeConverter
   namespace: System.ComponentModel.Design.Serialization
   summary: Provides a stack object that can be used by a serializer to make information available to nested serializers.
   remarks: "Some serializers require information about the context of an object to correctly persist their state. The <xref:System.ComponentModel.Design.Serialization.ContextStack> class enables a serializer to set data about the context of an object that is being serialized to a stack where another serializer can access it. The value of the <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.Context%2A> property is provided by an <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager> to share information of use to some serializers.  \n  \n A context stack is useful because the process of serializing a design document can be deeply nested, and objects at each level of nesting may require context information to correctly persist the state of the object. A serializer can set a context object to the stack before invoking a nested serializer. Each object set to the stack should be removed by the serializer that set it after a call to a nested serializer returns.  \n  \n Typically, the objects on the stack contain information about the context of the current object that is being serialized. A parent serializer adds context information to the stack about the next object to be serialized, calls an appropriate serializer and, when the serializer finishes executing on the object, removes the context information from the stack. It is up to the implementation of each serializer to determine what objects get pushed on this stack.  \n  \n As an example, an object with a property named `Enabled` has a data type of <xref:System.Boolean>. If a serializer writes this value to a data stream, it might need to include the context or type of property it is writing. The serializer does not have this information, however, because it is only instructed to write the <xref:System.Boolean> value. To provide this information to the serializer, the parent serializer can push a <xref:System.ComponentModel.PropertyDescriptor> that points to the `Enabled` property on the context stack."
@@ -39,6 +40,7 @@ items:
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -51,6 +53,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -63,9 +66,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Design.Serialization/ContextStack.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.ComponentModel.Design.Serialization.ContextStack.#ctor
   commentId: M:System.ComponentModel.Design.Serialization.ContextStack.#ctor
   id: '#ctor'
@@ -74,11 +74,12 @@ items:
   - csharp
   name: ContextStack()
   nameWithType: ContextStack.ContextStack()
-  fullName: System.ComponentModel.Design.Serialization.ContextStack.ContextStack()
+  fullName: ContextStack.ContextStack()
   type: Constructor
   assemblies:
   - System
   - netstandard
+  - System.ComponentModel.TypeConverter
   namespace: System.ComponentModel.Design.Serialization
   summary: Initializes a new instance of the <xref href="System.ComponentModel.Design.Serialization.ContextStack"></xref> class.
   remarks: ''
@@ -90,6 +91,7 @@ items:
   overload: System.ComponentModel.Design.Serialization.ContextStack.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -102,6 +104,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -114,9 +117,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Design.Serialization/ContextStack.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.ComponentModel.Design.Serialization.ContextStack.Append(System.Object)
   commentId: M:System.ComponentModel.Design.Serialization.ContextStack.Append(System.Object)
   id: Append(System.Object)
@@ -125,11 +125,12 @@ items:
   - csharp
   name: Append(Object)
   nameWithType: ContextStack.Append(Object)
-  fullName: System.ComponentModel.Design.Serialization.ContextStack.Append(Object)
+  fullName: ContextStack.Append(Object)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.ComponentModel.TypeConverter
   namespace: System.ComponentModel.Design.Serialization
   summary: Appends an object to the end of the stack, rather than pushing it onto the top of the stack.
   remarks: This method allows a serializer to communicate with other serializers by adding contextual data objects that do not have to be removed in order. There is no way to remove an object that was appended to the end of the stack without removing all other objects.
@@ -145,6 +146,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: <code>context</code> is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -157,6 +159,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -169,9 +172,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Design.Serialization/ContextStack.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.ComponentModel.Design.Serialization.ContextStack.Current
   commentId: P:System.ComponentModel.Design.Serialization.ContextStack.Current
   id: Current
@@ -180,11 +180,12 @@ items:
   - csharp
   name: Current
   nameWithType: ContextStack.Current
-  fullName: System.ComponentModel.Design.Serialization.ContextStack.Current
+  fullName: ContextStack.Current
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.ComponentModel.TypeConverter
   namespace: System.ComponentModel.Design.Serialization
   summary: Gets the current object on the stack.
   remarks: The current object is the object at the top of the stack, or the object last added to the stack.
@@ -196,6 +197,7 @@ items:
   overload: System.ComponentModel.Design.Serialization.ContextStack.Current*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -208,6 +210,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -220,9 +223,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Design.Serialization/ContextStack.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.ComponentModel.Design.Serialization.ContextStack.Item(System.Int32)
   commentId: P:System.ComponentModel.Design.Serialization.ContextStack.Item(System.Int32)
   id: Item(System.Int32)
@@ -231,11 +231,12 @@ items:
   - csharp
   name: Item(Int32)
   nameWithType: ContextStack.Item(Int32)
-  fullName: System.ComponentModel.Design.Serialization.ContextStack.Item(Int32)
+  fullName: ContextStack.Item(Int32)
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.ComponentModel.TypeConverter
   namespace: System.ComponentModel.Design.Serialization
   summary: Gets the object on the stack at the specified level.
   syntax:
@@ -253,6 +254,7 @@ items:
     commentId: T:System.ArgumentOutOfRangeException
     description: <code>level</code> is less than 0.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -265,6 +267,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -277,9 +280,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Design.Serialization/ContextStack.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.ComponentModel.Design.Serialization.ContextStack.Item(System.Type)
   commentId: P:System.ComponentModel.Design.Serialization.ContextStack.Item(System.Type)
   id: Item(System.Type)
@@ -288,11 +288,12 @@ items:
   - csharp
   name: Item(Type)
   nameWithType: ContextStack.Item(Type)
-  fullName: System.ComponentModel.Design.Serialization.ContextStack.Item(Type)
+  fullName: ContextStack.Item(Type)
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.ComponentModel.TypeConverter
   namespace: System.ComponentModel.Design.Serialization
   summary: Gets the first object on the stack that inherits from or implements the specified type.
   remarks: A check is made on each level of the stack, searching for an object that implements or inherits `type`. If a match is found, it is returned.
@@ -311,6 +312,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: <code>type</code> is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -323,6 +325,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -335,9 +338,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Design.Serialization/ContextStack.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.ComponentModel.Design.Serialization.ContextStack.Pop
   commentId: M:System.ComponentModel.Design.Serialization.ContextStack.Pop
   id: Pop
@@ -346,11 +346,12 @@ items:
   - csharp
   name: Pop()
   nameWithType: ContextStack.Pop()
-  fullName: System.ComponentModel.Design.Serialization.ContextStack.Pop()
+  fullName: ContextStack.Pop()
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.ComponentModel.TypeConverter
   namespace: System.ComponentModel.Design.Serialization
   summary: Removes the current object off of the stack, returning its value.
   remarks: ''
@@ -365,6 +366,7 @@ items:
   overload: System.ComponentModel.Design.Serialization.ContextStack.Pop*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -377,6 +379,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -389,9 +392,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Design.Serialization/ContextStack.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.ComponentModel.Design.Serialization.ContextStack.Push(System.Object)
   commentId: M:System.ComponentModel.Design.Serialization.ContextStack.Push(System.Object)
   id: Push(System.Object)
@@ -400,11 +400,12 @@ items:
   - csharp
   name: Push(Object)
   nameWithType: ContextStack.Push(Object)
-  fullName: System.ComponentModel.Design.Serialization.ContextStack.Push(Object)
+  fullName: ContextStack.Push(Object)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.ComponentModel.TypeConverter
   namespace: System.ComponentModel.Design.Serialization
   summary: Pushes, or places, the specified object onto the stack.
   remarks: ''
@@ -422,6 +423,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: <code>context</code> is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -434,6 +436,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -446,9 +449,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Design.Serialization/ContextStack.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -473,25 +473,25 @@ references:
   isExternal: false
   name: ContextStack()
   nameWithType: ContextStack.ContextStack()
-  fullName: System.ComponentModel.Design.Serialization.ContextStack.ContextStack()
+  fullName: ContextStack.ContextStack()
 - uid: System.ComponentModel.Design.Serialization.ContextStack.Append(System.Object)
   parent: System.ComponentModel.Design.Serialization.ContextStack
   isExternal: false
   name: Append(Object)
   nameWithType: ContextStack.Append(Object)
-  fullName: System.ComponentModel.Design.Serialization.ContextStack.Append(Object)
+  fullName: ContextStack.Append(Object)
 - uid: System.ComponentModel.Design.Serialization.ContextStack.Current
   parent: System.ComponentModel.Design.Serialization.ContextStack
   isExternal: false
   name: Current
   nameWithType: ContextStack.Current
-  fullName: System.ComponentModel.Design.Serialization.ContextStack.Current
+  fullName: ContextStack.Current
 - uid: System.ComponentModel.Design.Serialization.ContextStack.Item(System.Int32)
   parent: System.ComponentModel.Design.Serialization.ContextStack
   isExternal: false
   name: Item(Int32)
   nameWithType: ContextStack.Item(Int32)
-  fullName: System.ComponentModel.Design.Serialization.ContextStack.Item(Int32)
+  fullName: ContextStack.Item(Int32)
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -503,7 +503,7 @@ references:
   isExternal: false
   name: Item(Type)
   nameWithType: ContextStack.Item(Type)
-  fullName: System.ComponentModel.Design.Serialization.ContextStack.Item(Type)
+  fullName: ContextStack.Item(Type)
 - uid: System.Type
   parent: System
   isExternal: false
@@ -515,20 +515,21 @@ references:
   isExternal: false
   name: Pop()
   nameWithType: ContextStack.Pop()
-  fullName: System.ComponentModel.Design.Serialization.ContextStack.Pop()
+  fullName: ContextStack.Pop()
 - uid: System.ComponentModel.Design.Serialization.ContextStack.Push(System.Object)
   parent: System.ComponentModel.Design.Serialization.ContextStack
   isExternal: false
   name: Push(Object)
   nameWithType: ContextStack.Push(Object)
-  fullName: System.ComponentModel.Design.Serialization.ContextStack.Push(Object)
+  fullName: ContextStack.Push(Object)
 - uid: System.ComponentModel.Design.Serialization.ContextStack.#ctor*
   parent: System.ComponentModel.Design.Serialization.ContextStack
   isExternal: false
   name: ContextStack
   nameWithType: ContextStack.ContextStack
-  fullName: System.ComponentModel.Design.Serialization.ContextStack.ContextStack
+  fullName: ContextStack.ContextStack
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -546,8 +547,9 @@ references:
   isExternal: false
   name: Append
   nameWithType: ContextStack.Append
-  fullName: System.ComponentModel.Design.Serialization.ContextStack.Append
+  fullName: ContextStack.Append
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -565,8 +567,9 @@ references:
   isExternal: false
   name: Current
   nameWithType: ContextStack.Current
-  fullName: System.ComponentModel.Design.Serialization.ContextStack.Current
+  fullName: ContextStack.Current
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -584,8 +587,9 @@ references:
   isExternal: false
   name: Item
   nameWithType: ContextStack.Item
-  fullName: System.ComponentModel.Design.Serialization.ContextStack.Item
+  fullName: ContextStack.Item
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -603,8 +607,9 @@ references:
   isExternal: false
   name: Pop
   nameWithType: ContextStack.Pop
-  fullName: System.ComponentModel.Design.Serialization.ContextStack.Pop
+  fullName: ContextStack.Pop
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -622,8 +627,9 @@ references:
   isExternal: false
   name: Push
   nameWithType: ContextStack.Push
-  fullName: System.ComponentModel.Design.Serialization.ContextStack.Push
+  fullName: ContextStack.Push
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

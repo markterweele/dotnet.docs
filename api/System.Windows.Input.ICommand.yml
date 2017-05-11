@@ -22,11 +22,15 @@ items:
   remarks: "<xref:System.Windows.Input.RoutedCommand> and <xref:System.Windows.Input.RoutedUICommand> are two implementations of the <xref:System.Windows.Input.ICommand> interface in [!INCLUDE[TLA#tla_winclient](~/includes/tlasharptla-winclient-md.md)].  \n  \n## ICommand in Windows Runtime apps  \n The <xref:System.Windows.Input.ICommand> interface is the code contract for commands that are written in .NET for Windows Runtime apps. These commands provide the commanding behavior for UI elements such as a Windows Runtime XAML `Button` and in particular an `AppBarButton`. If you're defining commands for Windows Runtime apps you use basically the same techniques you'd use for defining commands for a .NET app. Implement the command by defining a class that implements <xref:System.Windows.Input.ICommand> and specifically implement the <xref:System.Windows.Input.ICommand.Execute%2A> method.  \n  \n XAML for Windows Runtime does not support x`:Static`, so don't attempt to use the `x:Static` markup extension if the command is used from Windows Runtime XAML. Also, the Windows Runtime does not have any predefined command libraries, so the XAML syntax shown here doesn't really apply for the case where you're implementing the interface and defining the command for Windows Runtime usage.  \n  \n<a name=\"xamlTextUsage_ICommand\"></a>   \n## XAML Attribute Usage  \n \\<*object property*=\"*predefinedCommandName*\"/>  \n  \n \\- or -  \n  \n \\<*object property*=\"*predefinedCommandName.predefinedCommandName*\"/>  \n  \n \\- or -  \n  \n \\<*object property*=\"{ *customClassName.customCommandName*}\"/>  \n  \n<a name=\"xamlValues_ICommand\"></a>   \n## XAML Values  \n *predefinedClassName*  \n One of the predefined command classes.  \n  \n *predefinedCommandName*  \n One of the predefined commands.  \n  \n *customClassName*  \n A custom class that contains the custom command. Custom classes generally require an `xlmns` prefix mapping; see [XAML Namespaces and Namespace Mapping for WPF XAML](~/docs/framework/wpf/advanced/xaml-namespaces-and-namespace-mapping-for-wpf-xaml.md).  \n  \n *customCommandName*  \n A custom command."
   syntax:
     content: public interface ICommand
+  derivedClasses:
+  - Microsoft.Windows.Input.IPreviewCommand
+  - System.Windows.Input.RoutedCommand
   implements: []
   attributes: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -46,7 +50,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -65,9 +70,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Input/ICommand.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Input.ICommand.CanExecute(System.Object)
   commentId: M:System.Windows.Input.ICommand.CanExecute(System.Object)
   id: CanExecute(System.Object)
@@ -76,7 +78,7 @@ items:
   - csharp
   name: CanExecute(Object)
   nameWithType: ICommand.CanExecute(Object)
-  fullName: System.Windows.Input.ICommand.CanExecute(Object)
+  fullName: ICommand.CanExecute(Object)
   type: Method
   assemblies:
   - System.ObjectModel
@@ -98,7 +100,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -118,7 +121,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -137,9 +141,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Input/ICommand.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Input.ICommand.CanExecuteChanged
   commentId: E:System.Windows.Input.ICommand.CanExecuteChanged
   id: CanExecuteChanged
@@ -148,7 +149,7 @@ items:
   - csharp
   name: CanExecuteChanged
   nameWithType: ICommand.CanExecuteChanged
-  fullName: System.Windows.Input.ICommand.CanExecuteChanged
+  fullName: ICommand.CanExecuteChanged
   type: Event
   assemblies:
   - System.ObjectModel
@@ -165,7 +166,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -185,7 +187,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -204,9 +207,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Input/ICommand.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Input.ICommand.Execute(System.Object)
   commentId: M:System.Windows.Input.ICommand.Execute(System.Object)
   id: Execute(System.Object)
@@ -215,7 +215,7 @@ items:
   - csharp
   name: Execute(Object)
   nameWithType: ICommand.Execute(Object)
-  fullName: System.Windows.Input.ICommand.Execute(Object)
+  fullName: ICommand.Execute(Object)
   type: Method
   assemblies:
   - System.ObjectModel
@@ -233,7 +233,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -253,7 +254,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -272,16 +274,13 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Input/ICommand.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 references:
 - uid: System.Windows.Input.ICommand.CanExecute(System.Object)
   parent: System.Windows.Input.ICommand
   isExternal: false
   name: CanExecute(Object)
   nameWithType: ICommand.CanExecute(Object)
-  fullName: System.Windows.Input.ICommand.CanExecute(Object)
+  fullName: ICommand.CanExecute(Object)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -299,7 +298,7 @@ references:
   isExternal: false
   name: CanExecuteChanged
   nameWithType: ICommand.CanExecuteChanged
-  fullName: System.Windows.Input.ICommand.CanExecuteChanged
+  fullName: ICommand.CanExecuteChanged
 - uid: System.EventHandler
   parent: System
   isExternal: false
@@ -311,16 +310,17 @@ references:
   isExternal: false
   name: Execute(Object)
   nameWithType: ICommand.Execute(Object)
-  fullName: System.Windows.Input.ICommand.Execute(Object)
+  fullName: ICommand.Execute(Object)
 - uid: System.Windows.Input.ICommand.CanExecute*
   parent: System.Windows.Input.ICommand
   isExternal: false
   name: CanExecute
   nameWithType: ICommand.CanExecute
-  fullName: System.Windows.Input.ICommand.CanExecute
+  fullName: ICommand.CanExecute
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -344,10 +344,11 @@ references:
   isExternal: false
   name: Execute
   nameWithType: ICommand.Execute
-  fullName: System.Windows.Input.ICommand.Execute
+  fullName: ICommand.Execute
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

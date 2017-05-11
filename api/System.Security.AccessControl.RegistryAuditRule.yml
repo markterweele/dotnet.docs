@@ -16,6 +16,7 @@ items:
   assemblies:
   - Microsoft.Win32.Registry.AccessControl
   - mscorlib
+  - Microsoft.Win32.Registry
   namespace: System.Security.AccessControl
   summary: Represents a set of access rights to be audited for a user or group. This class cannot be inherited.
   remarks: "The <xref:System.Security.AccessControl.RegistryAuditRule> class is one of a set of classes that the .NET Framework provides for managing Windows access control security on registry keys. For an overview of these classes and their relationship to the underlying Windows access control structures, see <xref:System.Security.AccessControl.RegistrySecurity>.  \n  \n> [!NOTE]\n>  Windows access control security can only be applied to registry keys. It cannot be applied to individual key/value pairs stored in a key.  \n  \n To get a list of the audit rules currently applied to a registry key, use the <xref:Microsoft.Win32.RegistryKey.GetAccessControl%2A?displayProperty=fullName> method to get a <xref:System.Security.AccessControl.RegistrySecurity> object, and then use its <xref:System.Security.AccessControl.CommonObjectSecurity.GetAuditRules%2A> method to obtain a collection of <xref:System.Security.AccessControl.RegistryAuditRule> objects.  \n  \n <xref:System.Security.AccessControl.RegistryAuditRule> objects do not map one-to-one with access control entries in the underlying discretionary access control list (DACL). When you get the set of all audit rules for a registry key, the set contains the minimum number of rules currently required to express all the access control entries.  \n  \n> [!NOTE]\n>  The underlying access control entries change as you apply and remove rules. The information in rules is merged if possible, to maintain the smallest number of access control entries. Thus, when you read the current list of rules, it might not look exactly like the list of all the rules you have added.  \n  \n Use <xref:System.Security.AccessControl.RegistryAuditRule> objects to specify access rights to be audited for a user or group. To apply a rule to a registry key, use the <xref:Microsoft.Win32.RegistryKey.GetAccessControl%2A?displayProperty=fullName> method to get the <xref:System.Security.AccessControl.RegistrySecurity> object. Modify the <xref:System.Security.AccessControl.RegistrySecurity> object by using its methods to add the rule, and then use the <xref:Microsoft.Win32.RegistryKey.SetAccessControl%2A?displayProperty=fullName> method to reattach the security object.  \n  \n> [!IMPORTANT]\n>  Changes you make to a <xref:System.Security.AccessControl.RegistrySecurity> object do not affect the access levels of the registry key until you call the <xref:Microsoft.Win32.RegistryKey.SetAccessControl%2A?displayProperty=fullName> method to assign the altered security object to the registry key.  \n  \n <xref:System.Security.AccessControl.RegistryAuditRule> objects are immutable. Security for a registry key is modified by using the methods of the <xref:System.Security.AccessControl.RegistrySecurity> class to add or remove rules; as you do this, the underlying access control entries are modified."
@@ -42,7 +43,8 @@ items:
   - System.Security.AccessControl.AuthorizationRule.PropagationFlags
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -55,7 +57,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -67,9 +70,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/RegistryAuditRule.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.RegistryAuditRule.#ctor(System.Security.Principal.IdentityReference,System.Security.AccessControl.RegistryRights,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AuditFlags)
   commentId: M:System.Security.AccessControl.RegistryAuditRule.#ctor(System.Security.Principal.IdentityReference,System.Security.AccessControl.RegistryRights,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AuditFlags)
   id: '#ctor(System.Security.Principal.IdentityReference,System.Security.AccessControl.RegistryRights,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AuditFlags)'
@@ -78,14 +78,15 @@ items:
   - csharp
   name: RegistryAuditRule(IdentityReference, RegistryRights, InheritanceFlags, PropagationFlags, AuditFlags)
   nameWithType: RegistryAuditRule.RegistryAuditRule(IdentityReference, RegistryRights, InheritanceFlags, PropagationFlags, AuditFlags)
-  fullName: System.Security.AccessControl.RegistryAuditRule.RegistryAuditRule(IdentityReference, RegistryRights, InheritanceFlags, PropagationFlags, AuditFlags)
+  fullName: RegistryAuditRule.RegistryAuditRule(IdentityReference, RegistryRights, InheritanceFlags, PropagationFlags, AuditFlags)
   type: Constructor
   assemblies:
   - Microsoft.Win32.Registry.AccessControl
   - mscorlib
+  - Microsoft.Win32.Registry
   namespace: System.Security.AccessControl
   summary: Initializes a new instance of the <xref href="System.Security.AccessControl.RegistryAuditRule"></xref> class, specifying the user or group to audit, the rights to audit, whether to take inheritance into account, and whether to audit success, failure, or both.
-  remarks: "All registry keys are containers, so the only inheritance flag that is meaningful for registry keys is the <xref:System.Security.AccessControl.InheritanceFlags?displayProperty=fullName> flag. If this flag is not specified, the propagation flags are ignored, and only the immediate key is affected. If the flag is present, the rule is propagated as shown in the following table. The table assumes there is a subkey S with child subkey CS and grandchild subkey GS. That is, the path for the grandchild subkey is S\\CS\\GS.  \n  \n|Propagation flags|S|CS|GS|  \n|-----------------------|-------|--------|--------|  \n|<xref:System.Security.AccessControl.PropagationFlags>|X|X|X|  \n|<xref:System.Security.AccessControl.PropagationFlags>|X|X||  \n|<xref:System.Security.AccessControl.PropagationFlags>||X|X|  \n|<xref:System.Security.AccessControl.PropagationFlags>, <xref:System.Security.AccessControl.PropagationFlags>||X||  \n  \n The pattern for the grandchild subkey governs all subkeys contained by the grandchild subkey.  \n  \n For example, if the <xref:System.Security.AccessControl.InheritanceFlags> flag is specified for `inheritanceFlags` and the <xref:System.Security.AccessControl.PropagationFlags> propagation flag is specified for `propagationFlags`, this rule does not apply to the immediate subkey, but does apply to all its immediate child subkeys and to all subkeys they contain.  \n  \n> [!NOTE]\n>  Although you can specify the <xref:System.Security.AccessControl.InheritanceFlags?displayProperty=fullName> flag for `inheritanceFlags`, there is no point in doing so. For the purposes of access control, the name/value pairs in a subkey are not separate objects. The access rights to name/value pairs are controlled by the rights of the subkey. Furthermore, since all subkeys are containers (that is, they can contain other subkeys), they are not affected by the <xref:System.Security.AccessControl.InheritanceFlags> flag. Finally, specifying the <xref:System.Security.AccessControl.InheritanceFlags> flag needlessly complicates the maintenance of rules, because it interferes with the normal combination of compatible rules."
+  remarks: "All registry keys are containers, so the only inheritance flag that is meaningful for registry keys is the <xref:System.Security.AccessControl.InheritanceFlags?displayProperty=fullName> flag. If this flag is not specified, the propagation flags are ignored, and only the immediate key is affected. If the flag is present, the rule is propagated as shown in the following table. The table assumes there is a subkey S with child subkey CS and grandchild subkey GS. That is, the path for the grandchild subkey is S\\CS\\GS.  \n  \n|Propagation flags|S|CS|GS|  \n|-----------------------|-------|--------|--------|  \n|<xref:System.Security.AccessControl.PropagationFlags.None>|X|X|X|  \n|<xref:System.Security.AccessControl.PropagationFlags.NoPropagateInherit>|X|X||  \n|<xref:System.Security.AccessControl.PropagationFlags.InheritOnly>||X|X|  \n|<xref:System.Security.AccessControl.PropagationFlags.NoPropagateInherit>, <xref:System.Security.AccessControl.PropagationFlags.InheritOnly>||X||  \n  \n The pattern for the grandchild subkey governs all subkeys contained by the grandchild subkey.  \n  \n For example, if the <xref:System.Security.AccessControl.InheritanceFlags.ContainerInherit> flag is specified for `inheritanceFlags` and the <xref:System.Security.AccessControl.PropagationFlags.InheritOnly> propagation flag is specified for `propagationFlags`, this rule does not apply to the immediate subkey, but does apply to all its immediate child subkeys and to all subkeys they contain.  \n  \n> [!NOTE]\n>  Although you can specify the <xref:System.Security.AccessControl.InheritanceFlags?displayProperty=fullName> flag for `inheritanceFlags`, there is no point in doing so. For the purposes of access control, the name/value pairs in a subkey are not separate objects. The access rights to name/value pairs are controlled by the rights of the subkey. Furthermore, since all subkeys are containers (that is, they can contain other subkeys), they are not affected by the <xref:System.Security.AccessControl.InheritanceFlags.ObjectInherit> flag. Finally, specifying the <xref:System.Security.AccessControl.InheritanceFlags.ObjectInherit> flag needlessly complicates the maintenance of rules, because it interferes with the normal combination of compatible rules."
   syntax:
     content: public RegistryAuditRule (System.Security.Principal.IdentityReference identity, System.Security.AccessControl.RegistryRights registryRights, System.Security.AccessControl.InheritanceFlags inheritanceFlags, System.Security.AccessControl.PropagationFlags propagationFlags, System.Security.AccessControl.AuditFlags flags);
     parameters:
@@ -117,7 +118,8 @@ items:
     description: <code>identity</code> is neither of type <xref href="System.Security.Principal.SecurityIdentifier"></xref> nor of a type such as <xref href="System.Security.Principal.NTAccount"></xref> that can be converted to type <xref href="System.Security.Principal.SecurityIdentifier"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -130,7 +132,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -142,9 +145,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/RegistryAuditRule.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.RegistryAuditRule.#ctor(System.String,System.Security.AccessControl.RegistryRights,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AuditFlags)
   commentId: M:System.Security.AccessControl.RegistryAuditRule.#ctor(System.String,System.Security.AccessControl.RegistryRights,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AuditFlags)
   id: '#ctor(System.String,System.Security.AccessControl.RegistryRights,System.Security.AccessControl.InheritanceFlags,System.Security.AccessControl.PropagationFlags,System.Security.AccessControl.AuditFlags)'
@@ -153,14 +153,15 @@ items:
   - csharp
   name: RegistryAuditRule(String, RegistryRights, InheritanceFlags, PropagationFlags, AuditFlags)
   nameWithType: RegistryAuditRule.RegistryAuditRule(String, RegistryRights, InheritanceFlags, PropagationFlags, AuditFlags)
-  fullName: System.Security.AccessControl.RegistryAuditRule.RegistryAuditRule(String, RegistryRights, InheritanceFlags, PropagationFlags, AuditFlags)
+  fullName: RegistryAuditRule.RegistryAuditRule(String, RegistryRights, InheritanceFlags, PropagationFlags, AuditFlags)
   type: Constructor
   assemblies:
   - Microsoft.Win32.Registry.AccessControl
   - mscorlib
+  - Microsoft.Win32.Registry
   namespace: System.Security.AccessControl
   summary: Initializes a new instance of the <xref href="System.Security.AccessControl.RegistryAuditRule"></xref> class, specifying the name of the user or group to audit, the rights to audit, whether to take inheritance into account, and whether to audit success, failure, or both.
-  remarks: "All registry keys are containers, so the only inheritance flag that is meaningful for registry keys is the <xref:System.Security.AccessControl.InheritanceFlags?displayProperty=fullName> flag. If this flag is not specified, the propagation flags are ignored, and only the immediate key is affected. If the flag is present, the rule is propagated as shown in the following table. The table assumes there is a subkey S with child subkey CS and grandchild subkey GS. That is, the path for the grandchild subkey is S\\CS\\GS.  \n  \n|Propagation flags|S|CS|GS|  \n|-----------------------|-------|--------|--------|  \n|<xref:System.Security.AccessControl.PropagationFlags>|X|X|X|  \n|<xref:System.Security.AccessControl.PropagationFlags>|X|X||  \n|<xref:System.Security.AccessControl.PropagationFlags>||X|X|  \n|<xref:System.Security.AccessControl.PropagationFlags>, <xref:System.Security.AccessControl.PropagationFlags>||X||  \n  \n The pattern for the grandchild subkey governs all subkeys contained by the grandchild subkey.  \n  \n For example, if the <xref:System.Security.AccessControl.InheritanceFlags> flag is specified for `inheritanceFlags` and the <xref:System.Security.AccessControl.PropagationFlags> propagation flag is specified for `propagationFlags`, this rule does not apply to the immediate subkey, but does apply to all its immediate child subkeys and to all subkeys they contain.  \n  \n> [!NOTE]\n>  Although you can specify the <xref:System.Security.AccessControl.InheritanceFlags?displayProperty=fullName> flag for `inheritanceFlags`, there is no point in doing so. For the purposes of access control, the name/value pairs in a subkey are not separate objects. The access rights to name/value pairs are controlled by the rights of the subkey. Furthermore, since all subkeys are containers (that is, they can contain other subkeys), they are not affected by the <xref:System.Security.AccessControl.InheritanceFlags> flag. Finally, specifying the <xref:System.Security.AccessControl.InheritanceFlags> flag needlessly complicates the maintenance of rules, because it interferes with the normal combination of compatible rules.  \n  \n This constructor is equivalent to creating an <xref:System.Security.Principal.NTAccount> object, by passing `identity` to the <xref:System.Security.Principal.NTAccount.%23ctor%28System.String%29?displayProperty=fullName> constructor, and passing the newly created <xref:System.Security.Principal.NTAccount> object to the <xref:System.Security.AccessControl.RegistryAuditRule.%23ctor%28System.Security.Principal.IdentityReference%2CSystem.Security.AccessControl.RegistryRights%2CSystem.Security.AccessControl.InheritanceFlags%2CSystem.Security.AccessControl.PropagationFlags%2CSystem.Security.AccessControl.AuditFlags%29> constructor."
+  remarks: "All registry keys are containers, so the only inheritance flag that is meaningful for registry keys is the <xref:System.Security.AccessControl.InheritanceFlags?displayProperty=fullName> flag. If this flag is not specified, the propagation flags are ignored, and only the immediate key is affected. If the flag is present, the rule is propagated as shown in the following table. The table assumes there is a subkey S with child subkey CS and grandchild subkey GS. That is, the path for the grandchild subkey is S\\CS\\GS.  \n  \n|Propagation flags|S|CS|GS|  \n|-----------------------|-------|--------|--------|  \n|<xref:System.Security.AccessControl.PropagationFlags.None>|X|X|X|  \n|<xref:System.Security.AccessControl.PropagationFlags.NoPropagateInherit>|X|X||  \n|<xref:System.Security.AccessControl.PropagationFlags.InheritOnly>||X|X|  \n|<xref:System.Security.AccessControl.PropagationFlags.NoPropagateInherit>, <xref:System.Security.AccessControl.PropagationFlags.InheritOnly>||X||  \n  \n The pattern for the grandchild subkey governs all subkeys contained by the grandchild subkey.  \n  \n For example, if the <xref:System.Security.AccessControl.InheritanceFlags.ContainerInherit> flag is specified for `inheritanceFlags` and the <xref:System.Security.AccessControl.PropagationFlags.InheritOnly> propagation flag is specified for `propagationFlags`, this rule does not apply to the immediate subkey, but does apply to all its immediate child subkeys and to all subkeys they contain.  \n  \n> [!NOTE]\n>  Although you can specify the <xref:System.Security.AccessControl.InheritanceFlags?displayProperty=fullName> flag for `inheritanceFlags`, there is no point in doing so. For the purposes of access control, the name/value pairs in a subkey are not separate objects. The access rights to name/value pairs are controlled by the rights of the subkey. Furthermore, since all subkeys are containers (that is, they can contain other subkeys), they are not affected by the <xref:System.Security.AccessControl.InheritanceFlags.ObjectInherit> flag. Finally, specifying the <xref:System.Security.AccessControl.InheritanceFlags.ObjectInherit> flag needlessly complicates the maintenance of rules, because it interferes with the normal combination of compatible rules.  \n  \n This constructor is equivalent to creating an <xref:System.Security.Principal.NTAccount> object, by passing `identity` to the <xref:System.Security.Principal.NTAccount.%23ctor%28System.String%29?displayProperty=fullName> constructor, and passing the newly created <xref:System.Security.Principal.NTAccount> object to the <xref:System.Security.AccessControl.RegistryAuditRule.%23ctor%28System.Security.Principal.IdentityReference%2CSystem.Security.AccessControl.RegistryRights%2CSystem.Security.AccessControl.InheritanceFlags%2CSystem.Security.AccessControl.PropagationFlags%2CSystem.Security.AccessControl.AuditFlags%29> constructor."
   syntax:
     content: public RegistryAuditRule (string identity, System.Security.AccessControl.RegistryRights registryRights, System.Security.AccessControl.InheritanceFlags inheritanceFlags, System.Security.AccessControl.PropagationFlags propagationFlags, System.Security.AccessControl.AuditFlags flags);
     parameters:
@@ -192,7 +193,8 @@ items:
     description: "<code>identity</code> is `null`.  \n  \n -or-  \n  \n <code>identity</code> is a zero-length string.  \n  \n -or-  \n  \n <code>identity</code> is longer than 512 characters."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -205,7 +207,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -217,9 +220,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/RegistryAuditRule.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.AccessControl.RegistryAuditRule.RegistryRights
   commentId: P:System.Security.AccessControl.RegistryAuditRule.RegistryRights
   id: RegistryRights
@@ -228,11 +228,12 @@ items:
   - csharp
   name: RegistryRights
   nameWithType: RegistryAuditRule.RegistryRights
-  fullName: System.Security.AccessControl.RegistryAuditRule.RegistryRights
+  fullName: RegistryAuditRule.RegistryRights
   type: Property
   assemblies:
   - Microsoft.Win32.Registry.AccessControl
   - mscorlib
+  - Microsoft.Win32.Registry
   namespace: System.Security.AccessControl
   summary: Gets the access rights affected by the audit rule.
   remarks: <xref:System.Security.AccessControl.RegistryAuditRule> objects are immutable. You can create a new audit rule representing a different user, different rights, or a different combination of <xref:System.Security.AccessControl.AuditFlags> flags, but you cannot modify an existing audit rule.
@@ -245,7 +246,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -258,7 +260,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -270,9 +273,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.AccessControl/RegistryAuditRule.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Security.AccessControl.AuditRule
   parent: System.Security.AccessControl
@@ -303,7 +303,7 @@ references:
   isExternal: false
   name: RegistryAuditRule(IdentityReference, RegistryRights, InheritanceFlags, PropagationFlags, AuditFlags)
   nameWithType: RegistryAuditRule.RegistryAuditRule(IdentityReference, RegistryRights, InheritanceFlags, PropagationFlags, AuditFlags)
-  fullName: System.Security.AccessControl.RegistryAuditRule.RegistryAuditRule(IdentityReference, RegistryRights, InheritanceFlags, PropagationFlags, AuditFlags)
+  fullName: RegistryAuditRule.RegistryAuditRule(IdentityReference, RegistryRights, InheritanceFlags, PropagationFlags, AuditFlags)
 - uid: System.Security.Principal.IdentityReference
   parent: System.Security.Principal
   isExternal: false
@@ -339,7 +339,7 @@ references:
   isExternal: false
   name: RegistryAuditRule(String, RegistryRights, InheritanceFlags, PropagationFlags, AuditFlags)
   nameWithType: RegistryAuditRule.RegistryAuditRule(String, RegistryRights, InheritanceFlags, PropagationFlags, AuditFlags)
-  fullName: System.Security.AccessControl.RegistryAuditRule.RegistryAuditRule(String, RegistryRights, InheritanceFlags, PropagationFlags, AuditFlags)
+  fullName: RegistryAuditRule.RegistryAuditRule(String, RegistryRights, InheritanceFlags, PropagationFlags, AuditFlags)
 - uid: System.String
   parent: System
   isExternal: false
@@ -351,16 +351,17 @@ references:
   isExternal: false
   name: RegistryRights
   nameWithType: RegistryAuditRule.RegistryRights
-  fullName: System.Security.AccessControl.RegistryAuditRule.RegistryRights
+  fullName: RegistryAuditRule.RegistryRights
 - uid: System.Security.AccessControl.RegistryAuditRule.#ctor*
   parent: System.Security.AccessControl.RegistryAuditRule
   isExternal: false
   name: RegistryAuditRule
   nameWithType: RegistryAuditRule.RegistryAuditRule
-  fullName: System.Security.AccessControl.RegistryAuditRule.RegistryAuditRule
+  fullName: RegistryAuditRule.RegistryAuditRule
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -377,10 +378,11 @@ references:
   isExternal: false
   name: RegistryRights
   nameWithType: RegistryAuditRule.RegistryRights
-  fullName: System.Security.AccessControl.RegistryAuditRule.RegistryRights
+  fullName: RegistryAuditRule.RegistryRights
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

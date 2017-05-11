@@ -39,6 +39,7 @@ items:
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Represents a transaction.
   remarks: "The <xref:System.Transactions> namespace provides both an explicit programming model based on the <xref:System.Transactions.Transaction> class, as well as an implicit programming model using the <xref:System.Transactions.TransactionScope> class, in which transactions are automatically managed by the infrastructure. It is highly recommended that you use the easier implicit model for development. To get started, please see the [Implementing An Implicit Transaction Using Transaction Scope](http://msdn.microsoft.com/en-us/1ddba95e-7587-48b2-8838-708c275e7199) topic. For more information on writing a transactional application, see [Writing A Transactional Application](http://msdn.microsoft.com/en-us/4a7cc4d1-0891-4605-941f-a933b9ce5bc8).  \n  \n The <xref:System.Transactions.Transaction> class contains methods used by developers implementing resource managers for enlistment. It also provides functionalities for cloning a transaction and controlling the current transaction context. You can obtain the current transaction, if one is set, using the static <xref:System.Transactions.Transaction.Current%2A> property."
@@ -60,6 +61,7 @@ items:
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -72,6 +74,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -84,9 +87,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: ghogen
 - uid: System.Transactions.Transaction.BeginCommitInternal(System.AsyncCallback)
   commentId: M:System.Transactions.Transaction.BeginCommitInternal(System.AsyncCallback)
   id: BeginCommitInternal(System.AsyncCallback)
@@ -95,7 +95,7 @@ items:
   - csharp
   name: BeginCommitInternal(AsyncCallback)
   nameWithType: Transaction.BeginCommitInternal(AsyncCallback)
-  fullName: System.Transactions.Transaction.BeginCommitInternal(AsyncCallback)
+  fullName: Transaction.BeginCommitInternal(AsyncCallback)
   type: Method
   assemblies:
   - System.Transactions
@@ -128,11 +128,12 @@ items:
   - csharp
   name: Clone()
   nameWithType: Transaction.Clone()
-  fullName: System.Transactions.Transaction.Clone()
+  fullName: Transaction.Clone()
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Creates a clone of the transaction.
   remarks: Clones are created to pass transactions.  For example, you might not want to pass a <xref:System.Transactions.CommittableTransaction> to other applications, because you do not want others to commit your transaction.  If you try to marshal or serialize a transaction, a clone is created for you automatically.
@@ -145,6 +146,7 @@ items:
   overload: System.Transactions.Transaction.Clone*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -157,6 +159,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -169,9 +172,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: ghogen
 - uid: System.Transactions.Transaction.Current
   commentId: P:System.Transactions.Transaction.Current
   id: Current
@@ -180,11 +180,12 @@ items:
   - csharp
   name: Current
   nameWithType: Transaction.Current
-  fullName: System.Transactions.Transaction.Current
+  fullName: Transaction.Current
   type: Property
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Gets or sets the ambient transaction.
   remarks: "For more information on ambient transactions, please see the \"Managing transaction flow using TransactionScopeOption\" section of the [Implementing an Implicit Transaction using Transaction Scope](~/docs/framework/data/transactions/implementing-an-implicit-transaction-using-transaction-scope.md) topic.  \n  \n Although you can set the ambient transaction using this property, you should use the <xref:System.Transactions.TransactionScope> object to manipulate the ambient transaction whenever possible.  \n  \n This property is thread static. If you change the ambient transaction using this property inside a <xref:System.Transactions.TransactionScope> an <xref:System.InvalidOperationException> is thrown when <xref:System.Transactions.TransactionScope.Dispose%2A> is called, and the previous ambient transaction value is restored."
@@ -196,6 +197,7 @@ items:
   overload: System.Transactions.Transaction.Current*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -208,6 +210,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -220,9 +223,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: ghogen
 - uid: System.Transactions.Transaction.DependentClone(System.Transactions.DependentCloneOption)
   commentId: M:System.Transactions.Transaction.DependentClone(System.Transactions.DependentCloneOption)
   id: DependentClone(System.Transactions.DependentCloneOption)
@@ -231,14 +231,15 @@ items:
   - csharp
   name: DependentClone(DependentCloneOption)
   nameWithType: Transaction.DependentClone(DependentCloneOption)
-  fullName: System.Transactions.Transaction.DependentClone(DependentCloneOption)
+  fullName: Transaction.DependentClone(DependentCloneOption)
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Creates a dependent clone of the transaction.
-  remarks: "A dependent transaction is a transaction whose outcome depends on the outcome of the transaction from which it was cloned.  \n  \n The `cloneoption` parameter controls what kind of dependent transaction to create. If a dependent transaction is created with <xref:System.Transactions.DependentCloneOption>, it blocks the commit process of the transaction until the transaction times out, or <xref:System.Transactions.DependentTransaction.Complete%2A> is called on the <xref:System.Transactions.DependentTransaction>. If it is created with <xref:System.Transactions.DependentCloneOption>, it automatically aborts the transaction if <xref:System.Transactions.CommittableTransaction.Commit%2A> is called before <xref:System.Transactions.DependentTransaction.Complete%2A> is called on the <xref:System.Transactions.DependentTransaction>."
+  remarks: "A dependent transaction is a transaction whose outcome depends on the outcome of the transaction from which it was cloned.  \n  \n The `cloneoption` parameter controls what kind of dependent transaction to create. If a dependent transaction is created with <xref:System.Transactions.DependentCloneOption.BlockCommitUntilComplete>, it blocks the commit process of the transaction until the transaction times out, or <xref:System.Transactions.DependentTransaction.Complete%2A> is called on the <xref:System.Transactions.DependentTransaction>. If it is created with <xref:System.Transactions.DependentCloneOption.RollbackIfNotComplete>, it automatically aborts the transaction if <xref:System.Transactions.CommittableTransaction.Commit%2A> is called before <xref:System.Transactions.DependentTransaction.Complete%2A> is called on the <xref:System.Transactions.DependentTransaction>."
   example:
   - "The following example shows you how to create a dependent transaction.  \n  \n [!code-csharp[Tx_DependentTx#1](~/samples/snippets/csharp/VS_Snippets_CFX/tx_dependenttx/cs/dependenttx.cs#1)]\n [!code-vb[Tx_DependentTx#1](~/samples/snippets/visualbasic/VS_Snippets_CFX/tx_dependenttx/vb/dependenttx.vb#1)]"
   syntax:
@@ -253,6 +254,7 @@ items:
   overload: System.Transactions.Transaction.DependentClone*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -265,6 +267,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -277,9 +280,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: ghogen
 - uid: System.Transactions.Transaction.Dispose
   commentId: M:System.Transactions.Transaction.Dispose
   id: Dispose
@@ -288,11 +288,12 @@ items:
   - csharp
   name: Dispose()
   nameWithType: Transaction.Dispose()
-  fullName: System.Transactions.Transaction.Dispose()
+  fullName: Transaction.Dispose()
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Releases the resources that are held by the object.
   remarks: If you change the ambient transaction by setting <xref:System.Transactions.Transaction.Current%2A> inside a <xref:System.Transactions.TransactionScope> an <xref:System.InvalidOperationException> is thrown when <xref:System.Transactions.TransactionScope.Dispose%2A> is called, and the previous ambient transaction value is restored.
@@ -302,6 +303,7 @@ items:
   overload: System.Transactions.Transaction.Dispose*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -314,6 +316,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -326,9 +329,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: ghogen
 - uid: System.Transactions.Transaction.EndCommitInternal(System.IAsyncResult)
   commentId: M:System.Transactions.Transaction.EndCommitInternal(System.IAsyncResult)
   id: EndCommitInternal(System.IAsyncResult)
@@ -337,7 +337,7 @@ items:
   - csharp
   name: EndCommitInternal(IAsyncResult)
   nameWithType: Transaction.EndCommitInternal(IAsyncResult)
-  fullName: System.Transactions.Transaction.EndCommitInternal(IAsyncResult)
+  fullName: Transaction.EndCommitInternal(IAsyncResult)
   type: Method
   assemblies:
   - System.Transactions
@@ -367,11 +367,12 @@ items:
   - csharp
   name: EnlistDurable(Guid, IEnlistmentNotification, EnlistmentOptions)
   nameWithType: Transaction.EnlistDurable(Guid, IEnlistmentNotification, EnlistmentOptions)
-  fullName: System.Transactions.Transaction.EnlistDurable(Guid, IEnlistmentNotification, EnlistmentOptions)
+  fullName: Transaction.EnlistDurable(Guid, IEnlistmentNotification, EnlistmentOptions)
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Enlists a durable resource manager that supports two phase commit to participate in a transaction.
   remarks: "Resource managers with a durable enlistment must be able to perform recovery if they experience a failure. For more information on recovery, see [Performing Recovery](http://msdn.microsoft.com/en-us/d342c5c7-da64-4a4c-8e63-b52f4fbf2691). For more information on volatile and durable resources, as well as how to enlist a resource, see [Implementing A Resource Manager](http://msdn.microsoft.com/en-us/81509719-d579-4530-831e-42e1acdef63e).  For more information on how a resource manager responds to commit notification and prepare the commit in two-phase commit, see [Committing A Transaction In Single-Phase and Multi-Phase](http://msdn.microsoft.com/en-us/74b3cfe1-d33a-45b8-91f4-dfd6f6598c4d).  \n  \n Resource managers enlisted for participation in a transaction through this method receive two phase commit notifications that correspond to the methods defined on the <xref:System.Transactions.IEnlistmentNotification> interface."
@@ -393,6 +394,7 @@ items:
   overload: System.Transactions.Transaction.EnlistDurable*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -405,6 +407,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -417,9 +420,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: ghogen
 - uid: System.Transactions.Transaction.EnlistDurable(System.Guid,System.Transactions.ISinglePhaseNotification,System.Transactions.EnlistmentOptions)
   commentId: M:System.Transactions.Transaction.EnlistDurable(System.Guid,System.Transactions.ISinglePhaseNotification,System.Transactions.EnlistmentOptions)
   id: EnlistDurable(System.Guid,System.Transactions.ISinglePhaseNotification,System.Transactions.EnlistmentOptions)
@@ -428,11 +428,12 @@ items:
   - csharp
   name: EnlistDurable(Guid, ISinglePhaseNotification, EnlistmentOptions)
   nameWithType: Transaction.EnlistDurable(Guid, ISinglePhaseNotification, EnlistmentOptions)
-  fullName: System.Transactions.Transaction.EnlistDurable(Guid, ISinglePhaseNotification, EnlistmentOptions)
+  fullName: Transaction.EnlistDurable(Guid, ISinglePhaseNotification, EnlistmentOptions)
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Enlists a durable resource manager that supports single phase commit optimization to participate in a transaction.
   remarks: "Resource managers with a durable enlistment must be able to perform recovery if they experience a failure. For more information on recovery, see [Performing Recovery](http://msdn.microsoft.com/en-us/d342c5c7-da64-4a4c-8e63-b52f4fbf2691). For more information on volatile and durable resources, as well as how to enlist a resource, see [Implementing A Resource Manager](http://msdn.microsoft.com/en-us/81509719-d579-4530-831e-42e1acdef63e).  \n  \n You should note that even when your resource manager implementation enlists with this method, it is not guaranteed that it receives a single phase commit. The transaction manager can still send two phase commit notifications instead. For more information on the single phase commit optimization, see [Optimization Using Single Phase Commit and Promotable Single Phase Notification](http://msdn.microsoft.com/en-us/653d51d1-b4bf-4e34-9a6f-aec073f0f5bb)."
@@ -454,6 +455,7 @@ items:
   overload: System.Transactions.Transaction.EnlistDurable*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -466,6 +468,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -478,9 +481,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: ghogen
 - uid: System.Transactions.Transaction.EnlistPromotableSinglePhase(System.Transactions.IPromotableSinglePhaseNotification)
   commentId: M:System.Transactions.Transaction.EnlistPromotableSinglePhase(System.Transactions.IPromotableSinglePhaseNotification)
   id: EnlistPromotableSinglePhase(System.Transactions.IPromotableSinglePhaseNotification)
@@ -489,14 +489,15 @@ items:
   - csharp
   name: EnlistPromotableSinglePhase(IPromotableSinglePhaseNotification)
   nameWithType: Transaction.EnlistPromotableSinglePhase(IPromotableSinglePhaseNotification)
-  fullName: System.Transactions.Transaction.EnlistPromotableSinglePhase(IPromotableSinglePhaseNotification)
+  fullName: Transaction.EnlistPromotableSinglePhase(IPromotableSinglePhaseNotification)
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Enlists a resource manager that has an internal transaction using a promotable single phase enlistment (PSPE).
-  remarks: "Enlistments in a transaction are volatile; that is, they do not survive the failure of the participant. In addition, this method only suggests the transaction manager to escalate control, but the escalation itself is not guaranteed. If escalation fails, the user is not notified and the transaction is rolled back.  \n  \n The parameter `promotableSinglePhaseNotification` is used to communicate to the transaction manager the outcome of attempting to commit the resource manager's internal transaction.  If inconsistent data is reported, the transaction manager throws an exception. If an <xref:System.Transactions.TransactionStatus> outcome is reported, the transaction manager looks for the outcome notification in its own internal enlistment and ignores the reported response.  \n  \n For more information on enlistments and escalation of a transaction, please see [Transaction Management Escalation](http://msdn.microsoft.com/en-us/5b87ae58-8ccf-4b9b-9715-41e4aade89b7). For more information on PSPE, see [Optimization Using Single Phase Commit and Promotable Single Phase Notification](http://msdn.microsoft.com/en-us/653d51d1-b4bf-4e34-9a6f-aec073f0f5bb).  \n  \n **Note** This method uses <xref:System.Security.Permissions.SecurityAction> to prevent it from being called from untrusted code; however, only the immediate caller is required to possess the `FullTrust` permission set."
+  remarks: "Enlistments in a transaction are volatile; that is, they do not survive the failure of the participant. In addition, this method only suggests the transaction manager to escalate control, but the escalation itself is not guaranteed. If escalation fails, the user is not notified and the transaction is rolled back.  \n  \n The parameter `promotableSinglePhaseNotification` is used to communicate to the transaction manager the outcome of attempting to commit the resource manager's internal transaction.  If inconsistent data is reported, the transaction manager throws an exception. If an <xref:System.Transactions.TransactionStatus.InDoubt> outcome is reported, the transaction manager looks for the outcome notification in its own internal enlistment and ignores the reported response.  \n  \n For more information on enlistments and escalation of a transaction, please see [Transaction Management Escalation](http://msdn.microsoft.com/en-us/5b87ae58-8ccf-4b9b-9715-41e4aade89b7). For more information on PSPE, see [Optimization Using Single Phase Commit and Promotable Single Phase Notification](http://msdn.microsoft.com/en-us/653d51d1-b4bf-4e34-9a6f-aec073f0f5bb).  \n  \n **Note** This method uses <xref:System.Security.Permissions.SecurityAction.LinkDemand> to prevent it from being called from untrusted code; however, only the immediate caller is required to possess the `FullTrust` permission set."
   syntax:
     content: public bool EnlistPromotableSinglePhase (System.Transactions.IPromotableSinglePhaseNotification notification);
     parameters:
@@ -509,6 +510,7 @@ items:
   overload: System.Transactions.Transaction.EnlistPromotableSinglePhase*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -521,6 +523,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -533,9 +536,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: ghogen
 - uid: System.Transactions.Transaction.EnlistPromotableSinglePhase(System.Transactions.IPromotableSinglePhaseNotification,System.Guid)
   commentId: M:System.Transactions.Transaction.EnlistPromotableSinglePhase(System.Transactions.IPromotableSinglePhaseNotification,System.Guid)
   id: EnlistPromotableSinglePhase(System.Transactions.IPromotableSinglePhaseNotification,System.Guid)
@@ -544,11 +544,12 @@ items:
   - csharp
   name: EnlistPromotableSinglePhase(IPromotableSinglePhaseNotification, Guid)
   nameWithType: Transaction.EnlistPromotableSinglePhase(IPromotableSinglePhaseNotification, Guid)
-  fullName: System.Transactions.Transaction.EnlistPromotableSinglePhase(IPromotableSinglePhaseNotification, Guid)
+  fullName: Transaction.EnlistPromotableSinglePhase(IPromotableSinglePhaseNotification, Guid)
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Enlists a resource manager that has an internal transaction using a promotable single phase enlistment (PSPE).
   remarks: "If the value specified for the `promoterType` parameter is `TransactionInterop.PromoterTypeDtc`, the transaction **must** be promoted by MSDTC and the `byte[]` returned from the `IPromotableSinglePhaseNotification.Promote` method **must** be an MSDTC transaction propagation token.  \n  \n If the value specified for the `promoterType` parameter is **not**`TransactionInterop.PromoterTypeDTC`, the transaction will not be promoted by MSDTC, but rather by the caller’s implementation of `IPromotableSinglePhaseNotification`. If this call is successful, there is a set of subsequent operations on the transaction that will return a `TransactionPromotionException`. These operations are:  \n  \n-   `Transaction.EnlistDurable`  \n  \n-   `TransactionInterop.GetDtcTransaction`  \n  \n-   `TransactionInterop.GetExportCookie`  \n  \n-   `TransctionInterop.GetTransmitterPropagationToken`  \n  \n-   Serialization of a Transaction object"
@@ -567,6 +568,7 @@ items:
   overload: System.Transactions.Transaction.EnlistPromotableSinglePhase*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.7
@@ -575,6 +577,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.7
@@ -583,8 +586,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  ms.author: sdanie
-  manager: ghogen
 - uid: System.Transactions.Transaction.EnlistVolatile(System.Transactions.IEnlistmentNotification,System.Transactions.EnlistmentOptions)
   commentId: M:System.Transactions.Transaction.EnlistVolatile(System.Transactions.IEnlistmentNotification,System.Transactions.EnlistmentOptions)
   id: EnlistVolatile(System.Transactions.IEnlistmentNotification,System.Transactions.EnlistmentOptions)
@@ -593,11 +594,12 @@ items:
   - csharp
   name: EnlistVolatile(IEnlistmentNotification, EnlistmentOptions)
   nameWithType: Transaction.EnlistVolatile(IEnlistmentNotification, EnlistmentOptions)
-  fullName: System.Transactions.Transaction.EnlistVolatile(IEnlistmentNotification, EnlistmentOptions)
+  fullName: Transaction.EnlistVolatile(IEnlistmentNotification, EnlistmentOptions)
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Enlists a volatile resource manager that supports two phase commit to participate in a transaction.
   remarks: "Volatile resource managers cannot recovery from failure to complete a transaction in which they were participating. To obtain a durable enlistment in a transaction, use the <xref:System.Transactions.Transaction.EnlistDurable%2A> method.  \n  \n Resource managers enlisted for participation in a transaction through this method receive two phase commit notifications that correspond to the methods defined on the <xref:System.Transactions.IEnlistmentNotification> interface."
@@ -618,6 +620,7 @@ items:
   overload: System.Transactions.Transaction.EnlistVolatile*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -630,6 +633,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -642,9 +646,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: ghogen
 - uid: System.Transactions.Transaction.EnlistVolatile(System.Transactions.ISinglePhaseNotification,System.Transactions.EnlistmentOptions)
   commentId: M:System.Transactions.Transaction.EnlistVolatile(System.Transactions.ISinglePhaseNotification,System.Transactions.EnlistmentOptions)
   id: EnlistVolatile(System.Transactions.ISinglePhaseNotification,System.Transactions.EnlistmentOptions)
@@ -653,11 +654,12 @@ items:
   - csharp
   name: EnlistVolatile(ISinglePhaseNotification, EnlistmentOptions)
   nameWithType: Transaction.EnlistVolatile(ISinglePhaseNotification, EnlistmentOptions)
-  fullName: System.Transactions.Transaction.EnlistVolatile(ISinglePhaseNotification, EnlistmentOptions)
+  fullName: Transaction.EnlistVolatile(ISinglePhaseNotification, EnlistmentOptions)
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Enlists a volatile resource manager that supports single phase commit optimization to participate in a transaction.
   remarks: "Volatile resource managers cannot recovery from failure to complete a transaction in which they were participating. To obtain a durable enlistment in a transaction, use the <xref:System.Transactions.Transaction.EnlistDurable%2A> method. For more information on volatile and durable resources, as well as how to enlist a resource, see [Implementing A Resource Manager](http://msdn.microsoft.com/en-us/81509719-d579-4530-831e-42e1acdef63e). For more information on how a resource manager responds to commit notification and prepare the commit, see [Committing A Transaction In Single-Phase and Multi-Phase](http://msdn.microsoft.com/en-us/74b3cfe1-d33a-45b8-91f4-dfd6f6598c4d).  \n  \n You should note that even when your resource manager implementation enlists with this method, it is not guaranteed that it receives a single phase commit. The transaction manager can still send two phase commit notifications instead. For more information on the single phase commit optimization, see [Optimization Using Single Phase Commit and Promotable Single Phase Notification](http://msdn.microsoft.com/en-us/653d51d1-b4bf-4e34-9a6f-aec073f0f5bb)."
@@ -676,6 +678,7 @@ items:
   overload: System.Transactions.Transaction.EnlistVolatile*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -688,6 +691,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -700,9 +704,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: ghogen
 - uid: System.Transactions.Transaction.Equals(System.Object)
   commentId: M:System.Transactions.Transaction.Equals(System.Object)
   id: Equals(System.Object)
@@ -711,11 +712,12 @@ items:
   - csharp
   name: Equals(Object)
   nameWithType: Transaction.Equals(Object)
-  fullName: System.Transactions.Transaction.Equals(Object)
+  fullName: Transaction.Equals(Object)
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Determines whether this transaction and the specified object are equal.
   syntax:
@@ -730,6 +732,7 @@ items:
   overload: System.Transactions.Transaction.Equals*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -742,6 +745,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -754,9 +758,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: ghogen
 - uid: System.Transactions.Transaction.GetHashCode
   commentId: M:System.Transactions.Transaction.GetHashCode
   id: GetHashCode
@@ -765,11 +766,12 @@ items:
   - csharp
   name: GetHashCode()
   nameWithType: Transaction.GetHashCode()
-  fullName: System.Transactions.Transaction.GetHashCode()
+  fullName: Transaction.GetHashCode()
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Returns the hash code for this instance.
   syntax:
@@ -781,6 +783,7 @@ items:
   overload: System.Transactions.Transaction.GetHashCode*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -793,6 +796,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -805,9 +809,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: ghogen
 - uid: System.Transactions.Transaction.GetPromotedToken
   commentId: M:System.Transactions.Transaction.GetPromotedToken
   id: GetPromotedToken
@@ -816,11 +817,12 @@ items:
   - csharp
   name: GetPromotedToken()
   nameWithType: Transaction.GetPromotedToken()
-  fullName: System.Transactions.Transaction.GetPromotedToken()
+  fullName: Transaction.GetPromotedToken()
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Gets the  <code>byte[]</code> returned by the <code>Promote</code> method when the transaction is promoted.
   remarks: "This method has the side effect of causing promotion of the transaction if it is not already promoted.  \n  \n The format of the returned `byte[]` is defined by the value of the `Transation.PromoterType` property. If the value of the `Transaction.PromoterType` property is `TransactionInterop.PromoterTypeDtc` or `Guid.Empty`, then the `byte[]` returned by this method is an MSDTC transmitter propagation token. Any other value for the `Transaction.PromoterType` property specifies a format that is defined by the caller of `Transaction.EnlistPromotableSinglePhase` that specified the property type value. In order to interpret the promoted token in this latter case, you will need to consult the documentation for the code that made the `EnlistPromotableSinglePhase` call."
@@ -833,6 +835,7 @@ items:
   overload: System.Transactions.Transaction.GetPromotedToken*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.7
@@ -841,6 +844,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.7
@@ -849,8 +853,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  ms.author: sdanie
-  manager: ghogen
 - uid: System.Transactions.Transaction.IsolationLevel
   commentId: P:System.Transactions.Transaction.IsolationLevel
   id: IsolationLevel
@@ -859,11 +861,12 @@ items:
   - csharp
   name: IsolationLevel
   nameWithType: Transaction.IsolationLevel
-  fullName: System.Transactions.Transaction.IsolationLevel
+  fullName: Transaction.IsolationLevel
   type: Property
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Gets the isolation level of the transaction.
   remarks: The isolation level of a transaction determines what level of access other transactions have to volatile data before a transaction completes. For more information about isolation levels, see the documentation for the <xref:System.Transactions.IsolationLevel> enumeration.
@@ -875,6 +878,7 @@ items:
   overload: System.Transactions.Transaction.IsolationLevel*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -887,6 +891,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -899,9 +904,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: ghogen
 - uid: System.Transactions.Transaction.op_Equality(System.Transactions.Transaction,System.Transactions.Transaction)
   commentId: M:System.Transactions.Transaction.op_Equality(System.Transactions.Transaction,System.Transactions.Transaction)
   id: op_Equality(System.Transactions.Transaction,System.Transactions.Transaction)
@@ -910,11 +912,12 @@ items:
   - csharp
   name: op_Equality(Transaction, Transaction)
   nameWithType: Transaction.op_Equality(Transaction, Transaction)
-  fullName: System.Transactions.Transaction.op_Equality(Transaction, Transaction)
+  fullName: Transaction.op_Equality(Transaction, Transaction)
   type: Operator
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Tests whether two specified <xref href="System.Transactions.Transaction"></xref> instances are equivalent.
   remarks: The equivalent method for this operator is <xref:System.Transactions.Transaction.Equals%28System.Transactions.Transaction%2CSystem.Transactions.Transaction%29?displayProperty=fullName>
@@ -933,6 +936,7 @@ items:
   overload: System.Transactions.Transaction.op_Equality*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -945,6 +949,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -957,9 +962,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: ghogen
 - uid: System.Transactions.Transaction.op_Inequality(System.Transactions.Transaction,System.Transactions.Transaction)
   commentId: M:System.Transactions.Transaction.op_Inequality(System.Transactions.Transaction,System.Transactions.Transaction)
   id: op_Inequality(System.Transactions.Transaction,System.Transactions.Transaction)
@@ -968,11 +970,12 @@ items:
   - csharp
   name: op_Inequality(Transaction, Transaction)
   nameWithType: Transaction.op_Inequality(Transaction, Transaction)
-  fullName: System.Transactions.Transaction.op_Inequality(Transaction, Transaction)
+  fullName: Transaction.op_Inequality(Transaction, Transaction)
   type: Operator
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Returns a value that indicates whether two <xref href="System.Transactions.Transaction"></xref> instances are not equal.
   remarks: The equivalent method for this operator is <xref:System.Transactions.Transaction.Compare%28System.Transactions.Transaction%2CSystem.Transactions.Transaction%29?displayProperty=fullName>
@@ -991,6 +994,7 @@ items:
   overload: System.Transactions.Transaction.op_Inequality*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1003,6 +1007,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1015,9 +1020,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: ghogen
 - uid: System.Transactions.Transaction.PromoteAndEnlistDurable(System.Guid,System.Transactions.IPromotableSinglePhaseNotification,System.Transactions.ISinglePhaseNotification,System.Transactions.EnlistmentOptions)
   commentId: M:System.Transactions.Transaction.PromoteAndEnlistDurable(System.Guid,System.Transactions.IPromotableSinglePhaseNotification,System.Transactions.ISinglePhaseNotification,System.Transactions.EnlistmentOptions)
   id: PromoteAndEnlistDurable(System.Guid,System.Transactions.IPromotableSinglePhaseNotification,System.Transactions.ISinglePhaseNotification,System.Transactions.EnlistmentOptions)
@@ -1026,11 +1028,12 @@ items:
   - csharp
   name: PromoteAndEnlistDurable(Guid, IPromotableSinglePhaseNotification, ISinglePhaseNotification, EnlistmentOptions)
   nameWithType: Transaction.PromoteAndEnlistDurable(Guid, IPromotableSinglePhaseNotification, ISinglePhaseNotification, EnlistmentOptions)
-  fullName: System.Transactions.Transaction.PromoteAndEnlistDurable(Guid, IPromotableSinglePhaseNotification, ISinglePhaseNotification, EnlistmentOptions)
+  fullName: Transaction.PromoteAndEnlistDurable(Guid, IPromotableSinglePhaseNotification, ISinglePhaseNotification, EnlistmentOptions)
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: "[Supported in the .NET Framework 4.5.2 and later versions]  \n  \n Promotes and enlists a durable resource manager that supports two phase commit to participate in a transaction."
   syntax:
@@ -1054,6 +1057,7 @@ items:
   overload: System.Transactions.Transaction.PromoteAndEnlistDurable*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.2
   - netframework-4.6.1
   - netframework-4.6.2
@@ -1064,6 +1068,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.2
   - netframework-4.6.1
   - netframework-4.6.2
@@ -1074,9 +1079,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: ghogen
 - uid: System.Transactions.Transaction.PromoterType
   commentId: P:System.Transactions.Transaction.PromoterType
   id: PromoterType
@@ -1085,11 +1087,12 @@ items:
   - csharp
   name: PromoterType
   nameWithType: Transaction.PromoterType
-  fullName: System.Transactions.Transaction.PromoterType
+  fullName: Transaction.PromoterType
   type: Property
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Uniquely identifies the format of the <code>byte[]</code> returned by the Promote method when the transaction is promoted.
   remarks: If the transaction has not yet been promoted and does not yet have a promotable single phase enlistment, the value of this property will be `Guid.Empty`. If the transaction has been or will be promoted to MSDTC, then the value of this property will be `TransactionInterop.PromoterTypeDtc`. If the transaction has been or will be promoted by a non-MSDTC promoter, the value of this property will be the value specified to an earlier call to `Transaction.EnlistPromotableSinglePhase`.
@@ -1101,6 +1104,7 @@ items:
   overload: System.Transactions.Transaction.PromoterType*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.7
@@ -1109,6 +1113,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.7
@@ -1117,8 +1122,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  ms.author: sdanie
-  manager: ghogen
 - uid: System.Transactions.Transaction.Rollback
   commentId: M:System.Transactions.Transaction.Rollback
   id: Rollback
@@ -1127,11 +1130,12 @@ items:
   - csharp
   name: Rollback()
   nameWithType: Transaction.Rollback()
-  fullName: System.Transactions.Transaction.Rollback()
+  fullName: Transaction.Rollback()
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Rolls back (aborts) the transaction.
   remarks: Any copy of a transaction object can initiate the rollback of the transaction by calling this method. Only the original transaction object, which is a <xref:System.Transactions.CommittableTransaction> object, can be used to initiate an attempt to commit the transaction. An exception is thrown when this method is called after the outcome of the transaction has already been determined.
@@ -1141,6 +1145,7 @@ items:
   overload: System.Transactions.Transaction.Rollback*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1153,6 +1158,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1165,9 +1171,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: ghogen
 - uid: System.Transactions.Transaction.Rollback(System.Exception)
   commentId: M:System.Transactions.Transaction.Rollback(System.Exception)
   id: Rollback(System.Exception)
@@ -1176,11 +1179,12 @@ items:
   - csharp
   name: Rollback(Exception)
   nameWithType: Transaction.Rollback(Exception)
-  fullName: System.Transactions.Transaction.Rollback(Exception)
+  fullName: Transaction.Rollback(Exception)
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Rolls back (aborts) the transaction.
   syntax:
@@ -1192,6 +1196,7 @@ items:
   overload: System.Transactions.Transaction.Rollback*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1204,6 +1209,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1216,9 +1222,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: ghogen
 - uid: System.Transactions.Transaction.SetDistributedTransactionIdentifier(System.Transactions.IPromotableSinglePhaseNotification,System.Guid)
   commentId: M:System.Transactions.Transaction.SetDistributedTransactionIdentifier(System.Transactions.IPromotableSinglePhaseNotification,System.Guid)
   id: SetDistributedTransactionIdentifier(System.Transactions.IPromotableSinglePhaseNotification,System.Guid)
@@ -1227,11 +1230,12 @@ items:
   - csharp
   name: SetDistributedTransactionIdentifier(IPromotableSinglePhaseNotification, Guid)
   nameWithType: Transaction.SetDistributedTransactionIdentifier(IPromotableSinglePhaseNotification, Guid)
-  fullName: System.Transactions.Transaction.SetDistributedTransactionIdentifier(IPromotableSinglePhaseNotification, Guid)
+  fullName: Transaction.SetDistributedTransactionIdentifier(IPromotableSinglePhaseNotification, Guid)
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Sets the distributed transaction identifier generated by the non-MSDTC promoter.
   remarks: "This method can only be called successfully while the `IPromotableSinglePhaseNotification.Promote` method is being processed. If this method is called at any other time, a `TransactionException` is thrown.  \n  \n The specified value of the `promotableNotification` parameter must be the same object that was originally specified to the `Transaction.EnlistPromotableSinglePhase` invocation. If this is not the case, then an `InvalidOperationException` is thrown."
@@ -1247,6 +1251,7 @@ items:
   overload: System.Transactions.Transaction.SetDistributedTransactionIdentifier*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.7
@@ -1255,6 +1260,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.7
@@ -1263,8 +1269,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  ms.author: sdanie
-  manager: ghogen
 - uid: System.Transactions.Transaction.TransactionCompleted
   commentId: E:System.Transactions.Transaction.TransactionCompleted
   id: TransactionCompleted
@@ -1273,14 +1277,15 @@ items:
   - csharp
   name: TransactionCompleted
   nameWithType: Transaction.TransactionCompleted
-  fullName: System.Transactions.Transaction.TransactionCompleted
+  fullName: Transaction.TransactionCompleted
   type: Event
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Indicates that the transaction is completed.
-  remarks: "You can register for this event instead of using a volatile enlistment to get outcome information for transactions. The parameter passed to the <xref:System.Transactions.TransactionCompletedEventHandler> delegate is a <xref:System.Transactions.Transaction> instance. You can then query the <xref:System.Transactions.Transaction.TransactionInformation%2A> property of the specific instance to get an instance of <xref:System.Transactions.TransactionInformation>, whose <xref:System.Transactions.TransactionInformation.Status%2A> property contains the status of a transaction with either the <xref:System.Transactions.TransactionStatus> or <xref:System.Transactions.TransactionStatus> value.  \n  \n **Caution** Signing up for this event negatively affects the performance of the transaction it is attached to."
+  remarks: "You can register for this event instead of using a volatile enlistment to get outcome information for transactions. The parameter passed to the <xref:System.Transactions.TransactionCompletedEventHandler> delegate is a <xref:System.Transactions.Transaction> instance. You can then query the <xref:System.Transactions.Transaction.TransactionInformation%2A> property of the specific instance to get an instance of <xref:System.Transactions.TransactionInformation>, whose <xref:System.Transactions.TransactionInformation.Status%2A> property contains the status of a transaction with either the <xref:System.Transactions.TransactionStatus.Committed> or <xref:System.Transactions.TransactionStatus.Aborted> value.  \n  \n **Caution** Signing up for this event negatively affects the performance of the transaction it is attached to."
   example:
   - "The following sample shows how an application can obtain the outcome of a transaction by subscribing to the <xref:System.Transactions.Transaction.TransactionCompleted> event.  \n  \n [!code-csharp[Tx_Outcome#1](~/samples/snippets/csharp/VS_Snippets_CFX/tx_outcome/cs/txoutcome.cs#1)]\n [!code-vb[Tx_Outcome#1](~/samples/snippets/visualbasic/VS_Snippets_CFX/tx_outcome/vb/txoutcome.vb#1)]"
   syntax:
@@ -1293,6 +1298,7 @@ items:
     commentId: T:System.ObjectDisposedException
     description: An attempt to subscribe this event on a transaction that has been disposed.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1305,6 +1311,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1317,9 +1324,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: ghogen
 - uid: System.Transactions.Transaction.TransactionInformation
   commentId: P:System.Transactions.Transaction.TransactionInformation
   id: TransactionInformation
@@ -1328,11 +1332,12 @@ items:
   - csharp
   name: TransactionInformation
   nameWithType: Transaction.TransactionInformation
-  fullName: System.Transactions.Transaction.TransactionInformation
+  fullName: Transaction.TransactionInformation
   type: Property
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Retrieves additional information about a transaction.
   syntax:
@@ -1343,6 +1348,7 @@ items:
   overload: System.Transactions.Transaction.TransactionInformation*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1355,6 +1361,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1367,9 +1374,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: ghogen
 - uid: System.Transactions.Transaction.System#Runtime#Serialization#ISerializable#GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
   commentId: M:System.Transactions.Transaction.System#Runtime#Serialization#ISerializable#GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
   id: System#Runtime#Serialization#ISerializable#GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
@@ -1379,11 +1383,12 @@ items:
   - csharp
   name: ISerializable.GetObjectData(SerializationInfo, StreamingContext)
   nameWithType: Transaction.ISerializable.GetObjectData(SerializationInfo, StreamingContext)
-  fullName: System.Transactions.Transaction.ISerializable.GetObjectData(SerializationInfo, StreamingContext)
+  fullName: Transaction.ISerializable.GetObjectData(SerializationInfo, StreamingContext)
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Gets a <xref href="System.Runtime.Serialization.SerializationInfo"></xref> with the data required to serialize this transaction.
   syntax:
@@ -1398,6 +1403,7 @@ items:
   overload: System.Transactions.Transaction.System#Runtime#Serialization#ISerializable#GetObjectData*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1410,6 +1416,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1422,9 +1429,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: ghogen
 references:
 - uid: System.Object
   parent: System
@@ -1443,7 +1447,7 @@ references:
   isExternal: false
   name: BeginCommitInternal(AsyncCallback)
   nameWithType: Transaction.BeginCommitInternal(AsyncCallback)
-  fullName: System.Transactions.Transaction.BeginCommitInternal(AsyncCallback)
+  fullName: Transaction.BeginCommitInternal(AsyncCallback)
 - uid: System.IAsyncResult
   parent: System
   isExternal: false
@@ -1461,7 +1465,7 @@ references:
   isExternal: false
   name: Clone()
   nameWithType: Transaction.Clone()
-  fullName: System.Transactions.Transaction.Clone()
+  fullName: Transaction.Clone()
 - uid: System.Transactions.Transaction
   parent: System.Transactions
   isExternal: false
@@ -1473,13 +1477,13 @@ references:
   isExternal: false
   name: Current
   nameWithType: Transaction.Current
-  fullName: System.Transactions.Transaction.Current
+  fullName: Transaction.Current
 - uid: System.Transactions.Transaction.DependentClone(System.Transactions.DependentCloneOption)
   parent: System.Transactions.Transaction
   isExternal: false
   name: DependentClone(DependentCloneOption)
   nameWithType: Transaction.DependentClone(DependentCloneOption)
-  fullName: System.Transactions.Transaction.DependentClone(DependentCloneOption)
+  fullName: Transaction.DependentClone(DependentCloneOption)
 - uid: System.Transactions.DependentTransaction
   parent: System.Transactions
   isExternal: false
@@ -1497,19 +1501,19 @@ references:
   isExternal: false
   name: Dispose()
   nameWithType: Transaction.Dispose()
-  fullName: System.Transactions.Transaction.Dispose()
+  fullName: Transaction.Dispose()
 - uid: System.Transactions.Transaction.EndCommitInternal(System.IAsyncResult)
   parent: System.Transactions.Transaction
   isExternal: false
   name: EndCommitInternal(IAsyncResult)
   nameWithType: Transaction.EndCommitInternal(IAsyncResult)
-  fullName: System.Transactions.Transaction.EndCommitInternal(IAsyncResult)
+  fullName: Transaction.EndCommitInternal(IAsyncResult)
 - uid: System.Transactions.Transaction.EnlistDurable(System.Guid,System.Transactions.IEnlistmentNotification,System.Transactions.EnlistmentOptions)
   parent: System.Transactions.Transaction
   isExternal: false
   name: EnlistDurable(Guid, IEnlistmentNotification, EnlistmentOptions)
   nameWithType: Transaction.EnlistDurable(Guid, IEnlistmentNotification, EnlistmentOptions)
-  fullName: System.Transactions.Transaction.EnlistDurable(Guid, IEnlistmentNotification, EnlistmentOptions)
+  fullName: Transaction.EnlistDurable(Guid, IEnlistmentNotification, EnlistmentOptions)
 - uid: System.Transactions.Enlistment
   parent: System.Transactions
   isExternal: false
@@ -1539,7 +1543,7 @@ references:
   isExternal: false
   name: EnlistDurable(Guid, ISinglePhaseNotification, EnlistmentOptions)
   nameWithType: Transaction.EnlistDurable(Guid, ISinglePhaseNotification, EnlistmentOptions)
-  fullName: System.Transactions.Transaction.EnlistDurable(Guid, ISinglePhaseNotification, EnlistmentOptions)
+  fullName: Transaction.EnlistDurable(Guid, ISinglePhaseNotification, EnlistmentOptions)
 - uid: System.Transactions.ISinglePhaseNotification
   parent: System.Transactions
   isExternal: false
@@ -1551,7 +1555,7 @@ references:
   isExternal: false
   name: EnlistPromotableSinglePhase(IPromotableSinglePhaseNotification)
   nameWithType: Transaction.EnlistPromotableSinglePhase(IPromotableSinglePhaseNotification)
-  fullName: System.Transactions.Transaction.EnlistPromotableSinglePhase(IPromotableSinglePhaseNotification)
+  fullName: Transaction.EnlistPromotableSinglePhase(IPromotableSinglePhaseNotification)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -1569,31 +1573,31 @@ references:
   isExternal: false
   name: EnlistPromotableSinglePhase(IPromotableSinglePhaseNotification, Guid)
   nameWithType: Transaction.EnlistPromotableSinglePhase(IPromotableSinglePhaseNotification, Guid)
-  fullName: System.Transactions.Transaction.EnlistPromotableSinglePhase(IPromotableSinglePhaseNotification, Guid)
+  fullName: Transaction.EnlistPromotableSinglePhase(IPromotableSinglePhaseNotification, Guid)
 - uid: System.Transactions.Transaction.EnlistVolatile(System.Transactions.IEnlistmentNotification,System.Transactions.EnlistmentOptions)
   parent: System.Transactions.Transaction
   isExternal: false
   name: EnlistVolatile(IEnlistmentNotification, EnlistmentOptions)
   nameWithType: Transaction.EnlistVolatile(IEnlistmentNotification, EnlistmentOptions)
-  fullName: System.Transactions.Transaction.EnlistVolatile(IEnlistmentNotification, EnlistmentOptions)
+  fullName: Transaction.EnlistVolatile(IEnlistmentNotification, EnlistmentOptions)
 - uid: System.Transactions.Transaction.EnlistVolatile(System.Transactions.ISinglePhaseNotification,System.Transactions.EnlistmentOptions)
   parent: System.Transactions.Transaction
   isExternal: false
   name: EnlistVolatile(ISinglePhaseNotification, EnlistmentOptions)
   nameWithType: Transaction.EnlistVolatile(ISinglePhaseNotification, EnlistmentOptions)
-  fullName: System.Transactions.Transaction.EnlistVolatile(ISinglePhaseNotification, EnlistmentOptions)
+  fullName: Transaction.EnlistVolatile(ISinglePhaseNotification, EnlistmentOptions)
 - uid: System.Transactions.Transaction.Equals(System.Object)
   parent: System.Transactions.Transaction
   isExternal: false
   name: Equals(Object)
   nameWithType: Transaction.Equals(Object)
-  fullName: System.Transactions.Transaction.Equals(Object)
+  fullName: Transaction.Equals(Object)
 - uid: System.Transactions.Transaction.GetHashCode
   parent: System.Transactions.Transaction
   isExternal: false
   name: GetHashCode()
   nameWithType: Transaction.GetHashCode()
-  fullName: System.Transactions.Transaction.GetHashCode()
+  fullName: Transaction.GetHashCode()
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -1605,7 +1609,7 @@ references:
   isExternal: false
   name: GetPromotedToken()
   nameWithType: Transaction.GetPromotedToken()
-  fullName: System.Transactions.Transaction.GetPromotedToken()
+  fullName: Transaction.GetPromotedToken()
 - uid: System.Byte
   name: Byte
   nameWithType: Byte
@@ -1629,7 +1633,7 @@ references:
   isExternal: false
   name: IsolationLevel
   nameWithType: Transaction.IsolationLevel
-  fullName: System.Transactions.Transaction.IsolationLevel
+  fullName: Transaction.IsolationLevel
 - uid: System.Transactions.IsolationLevel
   parent: System.Transactions
   isExternal: false
@@ -1641,37 +1645,37 @@ references:
   isExternal: false
   name: op_Equality(Transaction, Transaction)
   nameWithType: Transaction.op_Equality(Transaction, Transaction)
-  fullName: System.Transactions.Transaction.op_Equality(Transaction, Transaction)
+  fullName: Transaction.op_Equality(Transaction, Transaction)
 - uid: System.Transactions.Transaction.op_Inequality(System.Transactions.Transaction,System.Transactions.Transaction)
   parent: System.Transactions.Transaction
   isExternal: false
   name: op_Inequality(Transaction, Transaction)
   nameWithType: Transaction.op_Inequality(Transaction, Transaction)
-  fullName: System.Transactions.Transaction.op_Inequality(Transaction, Transaction)
+  fullName: Transaction.op_Inequality(Transaction, Transaction)
 - uid: System.Transactions.Transaction.PromoteAndEnlistDurable(System.Guid,System.Transactions.IPromotableSinglePhaseNotification,System.Transactions.ISinglePhaseNotification,System.Transactions.EnlistmentOptions)
   parent: System.Transactions.Transaction
   isExternal: false
   name: PromoteAndEnlistDurable(Guid, IPromotableSinglePhaseNotification, ISinglePhaseNotification, EnlistmentOptions)
   nameWithType: Transaction.PromoteAndEnlistDurable(Guid, IPromotableSinglePhaseNotification, ISinglePhaseNotification, EnlistmentOptions)
-  fullName: System.Transactions.Transaction.PromoteAndEnlistDurable(Guid, IPromotableSinglePhaseNotification, ISinglePhaseNotification, EnlistmentOptions)
+  fullName: Transaction.PromoteAndEnlistDurable(Guid, IPromotableSinglePhaseNotification, ISinglePhaseNotification, EnlistmentOptions)
 - uid: System.Transactions.Transaction.PromoterType
   parent: System.Transactions.Transaction
   isExternal: false
   name: PromoterType
   nameWithType: Transaction.PromoterType
-  fullName: System.Transactions.Transaction.PromoterType
+  fullName: Transaction.PromoterType
 - uid: System.Transactions.Transaction.Rollback
   parent: System.Transactions.Transaction
   isExternal: false
   name: Rollback()
   nameWithType: Transaction.Rollback()
-  fullName: System.Transactions.Transaction.Rollback()
+  fullName: Transaction.Rollback()
 - uid: System.Transactions.Transaction.Rollback(System.Exception)
   parent: System.Transactions.Transaction
   isExternal: false
   name: Rollback(Exception)
   nameWithType: Transaction.Rollback(Exception)
-  fullName: System.Transactions.Transaction.Rollback(Exception)
+  fullName: Transaction.Rollback(Exception)
 - uid: System.Exception
   parent: System
   isExternal: false
@@ -1683,13 +1687,13 @@ references:
   isExternal: false
   name: SetDistributedTransactionIdentifier(IPromotableSinglePhaseNotification, Guid)
   nameWithType: Transaction.SetDistributedTransactionIdentifier(IPromotableSinglePhaseNotification, Guid)
-  fullName: System.Transactions.Transaction.SetDistributedTransactionIdentifier(IPromotableSinglePhaseNotification, Guid)
+  fullName: Transaction.SetDistributedTransactionIdentifier(IPromotableSinglePhaseNotification, Guid)
 - uid: System.Transactions.Transaction.TransactionCompleted
   parent: System.Transactions.Transaction
   isExternal: false
   name: TransactionCompleted
   nameWithType: Transaction.TransactionCompleted
-  fullName: System.Transactions.Transaction.TransactionCompleted
+  fullName: Transaction.TransactionCompleted
 - uid: System.Transactions.TransactionCompletedEventHandler
   parent: System.Transactions
   isExternal: false
@@ -1701,7 +1705,7 @@ references:
   isExternal: false
   name: TransactionInformation
   nameWithType: Transaction.TransactionInformation
-  fullName: System.Transactions.Transaction.TransactionInformation
+  fullName: Transaction.TransactionInformation
 - uid: System.Transactions.TransactionInformation
   parent: System.Transactions
   isExternal: false
@@ -1713,7 +1717,7 @@ references:
   isExternal: false
   name: ISerializable.GetObjectData(SerializationInfo, StreamingContext)
   nameWithType: Transaction.ISerializable.GetObjectData(SerializationInfo, StreamingContext)
-  fullName: System.Transactions.Transaction.ISerializable.GetObjectData(SerializationInfo, StreamingContext)
+  fullName: Transaction.ISerializable.GetObjectData(SerializationInfo, StreamingContext)
 - uid: System.Runtime.Serialization.SerializationInfo
   parent: System.Runtime.Serialization
   isExternal: false
@@ -1726,13 +1730,14 @@ references:
   name: StreamingContext
   nameWithType: StreamingContext
   fullName: System.Runtime.Serialization.StreamingContext
-- uid: System.Transactions.Transaction.EnlistVolatile*
+- uid: System.Transactions.Transaction.EnlistDurable*
   parent: System.Transactions.Transaction
   isExternal: false
-  name: EnlistVolatile
-  nameWithType: Transaction.EnlistVolatile
-  fullName: System.Transactions.Transaction.EnlistVolatile
+  name: EnlistDurable
+  nameWithType: Transaction.EnlistDurable
+  fullName: Transaction.EnlistDurable
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1745,13 +1750,14 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
-- uid: System.Transactions.Transaction.EnlistDurable*
+- uid: System.Transactions.Transaction.EnlistVolatile*
   parent: System.Transactions.Transaction
   isExternal: false
-  name: EnlistDurable
-  nameWithType: Transaction.EnlistDurable
-  fullName: System.Transactions.Transaction.EnlistDurable
+  name: EnlistVolatile
+  nameWithType: Transaction.EnlistVolatile
+  fullName: Transaction.EnlistVolatile
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1769,7 +1775,7 @@ references:
   isExternal: false
   name: BeginCommitInternal
   nameWithType: Transaction.BeginCommitInternal
-  fullName: System.Transactions.Transaction.BeginCommitInternal
+  fullName: Transaction.BeginCommitInternal
   monikers:
   - xamarinandroid-7.1
   - xamarinios-10.8
@@ -1780,8 +1786,9 @@ references:
   isExternal: false
   name: Clone
   nameWithType: Transaction.Clone
-  fullName: System.Transactions.Transaction.Clone
+  fullName: Transaction.Clone
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1799,8 +1806,9 @@ references:
   isExternal: false
   name: Current
   nameWithType: Transaction.Current
-  fullName: System.Transactions.Transaction.Current
+  fullName: Transaction.Current
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1818,8 +1826,9 @@ references:
   isExternal: false
   name: DependentClone
   nameWithType: Transaction.DependentClone
-  fullName: System.Transactions.Transaction.DependentClone
+  fullName: Transaction.DependentClone
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1837,8 +1846,9 @@ references:
   isExternal: false
   name: Dispose
   nameWithType: Transaction.Dispose
-  fullName: System.Transactions.Transaction.Dispose
+  fullName: Transaction.Dispose
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1856,7 +1866,7 @@ references:
   isExternal: false
   name: EndCommitInternal
   nameWithType: Transaction.EndCommitInternal
-  fullName: System.Transactions.Transaction.EndCommitInternal
+  fullName: Transaction.EndCommitInternal
   monikers:
   - xamarinandroid-7.1
   - xamarinios-10.8
@@ -1867,8 +1877,9 @@ references:
   isExternal: false
   name: EnlistPromotableSinglePhase
   nameWithType: Transaction.EnlistPromotableSinglePhase
-  fullName: System.Transactions.Transaction.EnlistPromotableSinglePhase
+  fullName: Transaction.EnlistPromotableSinglePhase
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1886,8 +1897,9 @@ references:
   isExternal: false
   name: Equals
   nameWithType: Transaction.Equals
-  fullName: System.Transactions.Transaction.Equals
+  fullName: Transaction.Equals
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1905,8 +1917,9 @@ references:
   isExternal: false
   name: GetHashCode
   nameWithType: Transaction.GetHashCode
-  fullName: System.Transactions.Transaction.GetHashCode
+  fullName: Transaction.GetHashCode
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1924,8 +1937,9 @@ references:
   isExternal: false
   name: GetPromotedToken
   nameWithType: Transaction.GetPromotedToken
-  fullName: System.Transactions.Transaction.GetPromotedToken
+  fullName: Transaction.GetPromotedToken
   monikers:
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.7
@@ -1939,8 +1953,9 @@ references:
   isExternal: false
   name: IsolationLevel
   nameWithType: Transaction.IsolationLevel
-  fullName: System.Transactions.Transaction.IsolationLevel
+  fullName: Transaction.IsolationLevel
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1958,8 +1973,9 @@ references:
   isExternal: false
   name: op_Equality
   nameWithType: Transaction.op_Equality
-  fullName: System.Transactions.Transaction.op_Equality
+  fullName: Transaction.op_Equality
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1977,8 +1993,9 @@ references:
   isExternal: false
   name: op_Inequality
   nameWithType: Transaction.op_Inequality
-  fullName: System.Transactions.Transaction.op_Inequality
+  fullName: Transaction.op_Inequality
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1996,8 +2013,9 @@ references:
   isExternal: false
   name: PromoteAndEnlistDurable
   nameWithType: Transaction.PromoteAndEnlistDurable
-  fullName: System.Transactions.Transaction.PromoteAndEnlistDurable
+  fullName: Transaction.PromoteAndEnlistDurable
   monikers:
+  - netcore-2.0
   - netframework-4.5.2
   - netframework-4.6.1
   - netframework-4.6.2
@@ -2013,8 +2031,9 @@ references:
   isExternal: false
   name: PromoterType
   nameWithType: Transaction.PromoterType
-  fullName: System.Transactions.Transaction.PromoterType
+  fullName: Transaction.PromoterType
   monikers:
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.7
@@ -2028,8 +2047,9 @@ references:
   isExternal: false
   name: Rollback
   nameWithType: Transaction.Rollback
-  fullName: System.Transactions.Transaction.Rollback
+  fullName: Transaction.Rollback
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2047,8 +2067,9 @@ references:
   isExternal: false
   name: SetDistributedTransactionIdentifier
   nameWithType: Transaction.SetDistributedTransactionIdentifier
-  fullName: System.Transactions.Transaction.SetDistributedTransactionIdentifier
+  fullName: Transaction.SetDistributedTransactionIdentifier
   monikers:
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.7
@@ -2062,8 +2083,9 @@ references:
   isExternal: false
   name: TransactionInformation
   nameWithType: Transaction.TransactionInformation
-  fullName: System.Transactions.Transaction.TransactionInformation
+  fullName: Transaction.TransactionInformation
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2081,8 +2103,9 @@ references:
   isExternal: false
   name: System.Runtime.Serialization.ISerializable.GetObjectData
   nameWithType: Transaction.System.Runtime.Serialization.ISerializable.GetObjectData
-  fullName: System.Transactions.Transaction.System.Runtime.Serialization.ISerializable.GetObjectData
+  fullName: Transaction.System.Runtime.Serialization.ISerializable.GetObjectData
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2095,3 +2118,15 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/Transaction.xml
+- uid: System.IDisposable
+  parent: System
+  isExternal: false
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: System.Runtime.Serialization.ISerializable
+  parent: System.Runtime.Serialization
+  isExternal: false
+  name: ISerializable
+  nameWithType: ISerializable
+  fullName: System.Runtime.Serialization.ISerializable

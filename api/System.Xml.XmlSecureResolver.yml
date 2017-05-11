@@ -21,6 +21,7 @@ items:
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Helps to secure another implementation of <xref href="System.Xml.XmlResolver"></xref> by wrapping the <xref href="System.Xml.XmlResolver"></xref> object and restricting the resources that the underlying <xref href="System.Xml.XmlResolver"></xref> has access to.
   remarks: "The <xref:System.Xml.XmlUrlResolver> class is the default resolver for all classes in the <xref:System.Xml> namespace. It is used to load XML documents and to resolve external resources such as entities, DTDs or schemas, and import or include directives.  \n  \n You can override this default by specifying the <xref:System.Xml.XmlResolver> object to use. For example, if you want to restrict the resources that the underlying <xref:System.Xml.XmlResolver> can access, you can use an <xref:System.Xml.XmlSecureResolver> object.  \n  \n <xref:System.Xml.XmlSecureResolver> wraps around a concrete implementation of <xref:System.Xml.XmlResolver> and restricts the resources that the underlying <xref:System.Xml.XmlResolver> has access to. For example, <xref:System.Xml.XmlSecureResolver> has the ability to prohibit cross-domain redirection, which occurs from an embedded Uniform Resource Identifier (URI) reference.  \n  \n When you construct an <xref:System.Xml.XmlSecureResolver> object, you provide a valid <xref:System.Xml.XmlResolver> implementation along with a URL, an instance of an evidence object, or a permission set, which is used by the <xref:System.Xml.XmlSecureResolver> to determine security. Either a <xref:System.Security.PermissionSet?displayProperty=fullName> is generated or the existing one is used and <xref:System.Security.PermissionSet.PermitOnly%2A?displayProperty=fullName> is called on it to help secure the underlying <xref:System.Xml.XmlResolver>.  \n  \n> [!IMPORTANT]\n>  <xref:System.Xml.XmlSecureResolver> objects can contain sensitive information such as user credentials. You should be careful when caching <xref:System.Xml.XmlSecureResolver> objects and should not pass the <xref:System.Xml.XmlSecureResolver> object to an untrusted component.  \n  \n> [!IMPORTANT]\n>  There are differences in the security infrastructure for code running on the .NET Framework common language runtime (CLR) and for code running on the CLR that is integrated within Microsoft SQL Server 2005. This can lead to cases where code developed for the .NET Framework CLR operates differently when used on the SQL Server integrated CLR. One of these differences affects the <xref:System.Xml.XmlSecureResolver> class when you have evidence that is based on a URL (that is, when you use the <xref:System.Xml.XmlSecureResolver.CreateEvidenceForUrl%28System.String%29> method or the <xref:System.Xml.XmlSecureResolver.%23ctor%2A> constructor). The policy resolution mechanism of the SQL Server integrated CLR does not use the <xref:System.Security.Policy.Url> or <xref:System.Security.Policy.Zone> information. Instead, it grants permissions based on the GUID that the server adds when assemblies are loaded. When you use the <xref:System.Xml.XmlSecureResolver> in the SQL Server integrated CLR, provide any required evidence directly by using a specified <xref:System.Security.PermissionSet>.  \n  \n## To use a secure resolver  \n  \n1.  Create an <xref:System.Xml.XmlSecureResolver> with the correct permission set.  \n  \n2.  Create an <xref:System.Xml.XmlReaderSettings> object that uses the <xref:System.Xml.XmlSecureResolver> object.  \n  \n     [!code-csharp[XmlSecureResolver_Samples#5a](~/samples/snippets/csharp/VS_Snippets_Data/XmlSecureResolver_Samples/CS/XmlSecureResolver_ex.cs#5a)]\n     [!code-vb[XmlSecureResolver_Samples#5a](~/samples/snippets/visualbasic/VS_Snippets_Data/XmlSecureResolver_Samples/VB/XmlSecureResolver_ex.vb#5a)]  \n  \n3.  Pass  the <xref:System.Xml.XmlReaderSettings> object to the <xref:System.Xml.XmlReader.Create%2A> method when you're creating the <xref:System.Xml.XmlReader> object.  \n  \n     [!code-csharp[XmlSecureResolver_Samples#5b](~/samples/snippets/csharp/VS_Snippets_Data/XmlSecureResolver_Samples/CS/XmlSecureResolver_ex.cs#5b)]\n     [!code-vb[XmlSecureResolver_Samples#5b](~/samples/snippets/visualbasic/VS_Snippets_Data/XmlSecureResolver_Samples/VB/XmlSecureResolver_ex.vb#5b)]  \n  \n## To restrict access by using a URL  \n Use the <xref:System.Xml.XmlSecureResolver.%23ctor%28System.Xml.XmlResolver%2CSystem.String%29> constructor to create an <xref:System.Xml.XmlSecureResolver> object that is allowed to access your local intranet site only.  \n  \n [!code-csharp[XmlSecureResolver_Samples#3](~/samples/snippets/csharp/VS_Snippets_Data/XmlSecureResolver_Samples/CS/XmlSecureResolver_ex.cs#3)]\n [!code-vb[XmlSecureResolver_Samples#3](~/samples/snippets/visualbasic/VS_Snippets_Data/XmlSecureResolver_Samples/VB/XmlSecureResolver_ex.vb#3)]  \n  \n## To restrict access by using a permission set  \n  \n1.  Create a <xref:System.Net.WebPermission> object.  \n  \n     [!code-csharp[XmlSecureResolver_Samples#4a](~/samples/snippets/csharp/VS_Snippets_Data/XmlSecureResolver_Samples/CS/XmlSecureResolver_ex.cs#4a)]\n     [!code-vb[XmlSecureResolver_Samples#4a](~/samples/snippets/visualbasic/VS_Snippets_Data/XmlSecureResolver_Samples/VB/XmlSecureResolver_ex.vb#4a)]  \n  \n2.  Specify the URLs that you want to allow access to.  \n  \n     [!code-csharp[XmlSecureResolver_Samples#4b](~/samples/snippets/csharp/VS_Snippets_Data/XmlSecureResolver_Samples/CS/XmlSecureResolver_ex.cs#4b)]\n     [!code-vb[XmlSecureResolver_Samples#4b](~/samples/snippets/visualbasic/VS_Snippets_Data/XmlSecureResolver_Samples/VB/XmlSecureResolver_ex.vb#4b)]  \n  \n3.  Add the web permissions to the <xref:System.Security.PermissionSet> object.  \n  \n     [!code-csharp[XmlSecureResolver_Samples#4c](~/samples/snippets/csharp/VS_Snippets_Data/XmlSecureResolver_Samples/CS/XmlSecureResolver_ex.cs#4c)]\n     [!code-vb[XmlSecureResolver_Samples#4c](~/samples/snippets/visualbasic/VS_Snippets_Data/XmlSecureResolver_Samples/VB/XmlSecureResolver_ex.vb#4c)]  \n  \n4.  Use the <xref:System.Xml.XmlSecureResolver.%23ctor%28System.Xml.XmlResolver%2CSystem.Security.PermissionSet%29> constructor to create an <xref:System.Xml.XmlSecureResolver> object by using the permission set.  \n  \n     [!code-csharp[XmlSecureResolver_Samples#4d](~/samples/snippets/csharp/VS_Snippets_Data/XmlSecureResolver_Samples/CS/XmlSecureResolver_ex.cs#4d)]\n     [!code-vb[XmlSecureResolver_Samples#4d](~/samples/snippets/visualbasic/VS_Snippets_Data/XmlSecureResolver_Samples/VB/XmlSecureResolver_ex.vb#4d)]  \n  \n     See the <xref:System.Xml.XmlSecureResolver.%23ctor%2A> reference page for another example.  \n  \n## To restrict access by using evidence  \n You can restrict access by using the <xref:System.Xml.XmlSecureResolver.%23ctor%28System.Xml.XmlResolver%2CSystem.Security.Policy.Evidence%29> constructor and specifying <xref:System.Security.Policy.Evidence>. The <xref:System.Security.Policy.Evidence> is used to create the <xref:System.Security.PermissionSet> that is applied to the underlying <xref:System.Xml.XmlResolver>. The <xref:System.Xml.XmlSecureResolver> calls <xref:System.Security.PermissionSet.PermitOnly%2A> on the created <xref:System.Security.PermissionSet> before opening any resources.  \n  \n Here are some common scenarios and the type of evidence to provide for each:  \n  \n-   If you are working in a fully trusted environment, use your assembly to create the evidence:  \n  \n     [!code-csharp[XmlSecureResolver_Samples#1](~/samples/snippets/csharp/VS_Snippets_Data/XmlSecureResolver_Samples/CS/XmlSecureResolver_ex.cs#1)]\n     [!code-vb[XmlSecureResolver_Samples#1](~/samples/snippets/visualbasic/VS_Snippets_Data/XmlSecureResolver_Samples/VB/XmlSecureResolver_ex.vb#1)]  \n  \n-   If you are working in a semi-trusted environment, you have code or data coming from an outside source, and you know the origin of the outside source and have a verifiable URI, use the URI to create the evidence:  \n  \n     [!code-csharp[XmlSecureResolver_Samples#2](~/samples/snippets/csharp/VS_Snippets_Data/XmlSecureResolver_Samples/CS/XmlSecureResolver_ex.cs#2)]\n     [!code-vb[XmlSecureResolver_Samples#2](~/samples/snippets/visualbasic/VS_Snippets_Data/XmlSecureResolver_Samples/VB/XmlSecureResolver_ex.vb#2)]  \n  \n-   If you are working in a semi-trusted environment and you have code or data coming from an outside source, but you don't know the origin of the outside source, either:  \n  \n     Set the `evidence` parameter to `null`. This allows no access to resources.  \n  \n     -or-  \n  \n     If your application requires some access to resources, request evidence from the caller.  \n  \n## To use the secure resolver to load an XSLT style sheet  \n  \n1.  Create an <xref:System.Xml.XmlSecureResolver> with the correct permission set.  \n  \n2.  Pass the <xref:System.Xml.XmlSecureResolver> to the <xref:System.Xml.Xsl.XslCompiledTransform.Load%2A> method.  \n  \n     [!code-csharp[XmlSecureResolver_Samples#6](~/samples/snippets/csharp/VS_Snippets_Data/XmlSecureResolver_Samples/CS/XmlSecureResolver_ex.cs#6)]\n     [!code-vb[XmlSecureResolver_Samples#6](~/samples/snippets/visualbasic/VS_Snippets_Data/XmlSecureResolver_Samples/VB/XmlSecureResolver_ex.vb#6)]"
@@ -40,6 +41,7 @@ items:
   - System.Object.ToString
   - System.Xml.XmlResolver.SupportsType(System.Uri,System.Type)
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -52,6 +54,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -64,9 +67,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlSecureResolver.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlSecureResolver.#ctor(System.Xml.XmlResolver,System.Security.PermissionSet)
   commentId: M:System.Xml.XmlSecureResolver.#ctor(System.Xml.XmlResolver,System.Security.PermissionSet)
   id: '#ctor(System.Xml.XmlResolver,System.Security.PermissionSet)'
@@ -75,7 +75,7 @@ items:
   - csharp
   name: XmlSecureResolver(XmlResolver, PermissionSet)
   nameWithType: XmlSecureResolver.XmlSecureResolver(XmlResolver, PermissionSet)
-  fullName: System.Xml.XmlSecureResolver.XmlSecureResolver(XmlResolver, PermissionSet)
+  fullName: XmlSecureResolver.XmlSecureResolver(XmlResolver, PermissionSet)
   type: Constructor
   assemblies:
   - System.Xml
@@ -118,9 +118,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlSecureResolver.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlSecureResolver.#ctor(System.Xml.XmlResolver,System.Security.Policy.Evidence)
   commentId: M:System.Xml.XmlSecureResolver.#ctor(System.Xml.XmlResolver,System.Security.Policy.Evidence)
   id: '#ctor(System.Xml.XmlResolver,System.Security.Policy.Evidence)'
@@ -129,7 +126,7 @@ items:
   - csharp
   name: XmlSecureResolver(XmlResolver, Evidence)
   nameWithType: XmlSecureResolver.XmlSecureResolver(XmlResolver, Evidence)
-  fullName: System.Xml.XmlSecureResolver.XmlSecureResolver(XmlResolver, Evidence)
+  fullName: XmlSecureResolver.XmlSecureResolver(XmlResolver, Evidence)
   type: Constructor
   assemblies:
   - System.Xml
@@ -170,9 +167,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlSecureResolver.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlSecureResolver.#ctor(System.Xml.XmlResolver,System.String)
   commentId: M:System.Xml.XmlSecureResolver.#ctor(System.Xml.XmlResolver,System.String)
   id: '#ctor(System.Xml.XmlResolver,System.String)'
@@ -181,11 +175,12 @@ items:
   - csharp
   name: XmlSecureResolver(XmlResolver, String)
   nameWithType: XmlSecureResolver.XmlSecureResolver(XmlResolver, String)
-  fullName: System.Xml.XmlSecureResolver.XmlSecureResolver(XmlResolver, String)
+  fullName: XmlSecureResolver.XmlSecureResolver(XmlResolver, String)
   type: Constructor
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Initializes a new instance of the <xref href="System.Xml.XmlSecureResolver"></xref> class with the <xref href="System.Xml.XmlResolver"></xref> and URL provided.
   remarks: >-
@@ -206,6 +201,7 @@ items:
   overload: System.Xml.XmlSecureResolver.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -218,6 +214,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -230,9 +227,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlSecureResolver.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlSecureResolver.CreateEvidenceForUrl(System.String)
   commentId: M:System.Xml.XmlSecureResolver.CreateEvidenceForUrl(System.String)
   id: CreateEvidenceForUrl(System.String)
@@ -241,7 +235,7 @@ items:
   - csharp
   name: CreateEvidenceForUrl(String)
   nameWithType: XmlSecureResolver.CreateEvidenceForUrl(String)
-  fullName: System.Xml.XmlSecureResolver.CreateEvidenceForUrl(String)
+  fullName: XmlSecureResolver.CreateEvidenceForUrl(String)
   type: Method
   assemblies:
   - System.Xml
@@ -285,9 +279,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlSecureResolver.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlSecureResolver.Credentials
   commentId: P:System.Xml.XmlSecureResolver.Credentials
   id: Credentials
@@ -296,11 +287,12 @@ items:
   - csharp
   name: Credentials
   nameWithType: XmlSecureResolver.Credentials
-  fullName: System.Xml.XmlSecureResolver.Credentials
+  fullName: XmlSecureResolver.Credentials
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Sets credentials used to authenticate web requests.
   remarks: ''
@@ -314,6 +306,7 @@ items:
   overload: System.Xml.XmlSecureResolver.Credentials*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -326,6 +319,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -338,9 +332,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlSecureResolver.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlSecureResolver.GetEntity(System.Uri,System.String,System.Type)
   commentId: M:System.Xml.XmlSecureResolver.GetEntity(System.Uri,System.String,System.Type)
   id: GetEntity(System.Uri,System.String,System.Type)
@@ -349,11 +340,12 @@ items:
   - csharp
   name: GetEntity(Uri, String, Type)
   nameWithType: XmlSecureResolver.GetEntity(Uri, String, Type)
-  fullName: System.Xml.XmlSecureResolver.GetEntity(Uri, String, Type)
+  fullName: XmlSecureResolver.GetEntity(Uri, String, Type)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Maps a URI to an object that contains the actual resource. This method temporarily sets the <xref href="System.Security.PermissionSet"></xref> created in the constructor by calling <xref href="System.Security.PermissionSet.PermitOnly"></xref> before calling `GetEntity` on the underlying <xref href="System.Xml.XmlResolver"></xref> to open the resource.
   remarks: >-
@@ -390,6 +382,7 @@ items:
     commentId: T:System.Exception
     description: There is a runtime error (for example, an interrupted server connection).
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -402,6 +395,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -414,9 +408,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlSecureResolver.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlSecureResolver.GetEntityAsync(System.Uri,System.String,System.Type)
   commentId: M:System.Xml.XmlSecureResolver.GetEntityAsync(System.Uri,System.String,System.Type)
   id: GetEntityAsync(System.Uri,System.String,System.Type)
@@ -425,11 +416,12 @@ items:
   - csharp
   name: GetEntityAsync(Uri, String, Type)
   nameWithType: XmlSecureResolver.GetEntityAsync(Uri, String, Type)
-  fullName: System.Xml.XmlSecureResolver.GetEntityAsync(Uri, String, Type)
+  fullName: XmlSecureResolver.GetEntityAsync(Uri, String, Type)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Asynchronously maps a URI to an object that contains the actual resource.
   syntax:
@@ -450,6 +442,7 @@ items:
   overload: System.Xml.XmlSecureResolver.GetEntityAsync*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -462,6 +455,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -474,9 +468,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlSecureResolver.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlSecureResolver.ResolveUri(System.Uri,System.String)
   commentId: M:System.Xml.XmlSecureResolver.ResolveUri(System.Uri,System.String)
   id: ResolveUri(System.Uri,System.String)
@@ -485,11 +476,12 @@ items:
   - csharp
   name: ResolveUri(Uri, String)
   nameWithType: XmlSecureResolver.ResolveUri(Uri, String)
-  fullName: System.Xml.XmlSecureResolver.ResolveUri(Uri, String)
+  fullName: XmlSecureResolver.ResolveUri(Uri, String)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Resolves the absolute URI from the base and relative URIs by calling `ResolveUri` on the underlying <xref href="System.Xml.XmlResolver"></xref>.
   syntax:
@@ -510,6 +502,7 @@ items:
     commentId: T:System.ArgumentException
     description: <code>relativeUri</code> is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -522,6 +515,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -534,9 +528,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlSecureResolver.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Xml.XmlResolver
   parent: System.Xml
@@ -579,7 +570,7 @@ references:
   isExternal: false
   name: XmlSecureResolver(XmlResolver, PermissionSet)
   nameWithType: XmlSecureResolver.XmlSecureResolver(XmlResolver, PermissionSet)
-  fullName: System.Xml.XmlSecureResolver.XmlSecureResolver(XmlResolver, PermissionSet)
+  fullName: XmlSecureResolver.XmlSecureResolver(XmlResolver, PermissionSet)
 - uid: System.Security.PermissionSet
   parent: System.Security
   isExternal: false
@@ -591,7 +582,7 @@ references:
   isExternal: false
   name: XmlSecureResolver(XmlResolver, Evidence)
   nameWithType: XmlSecureResolver.XmlSecureResolver(XmlResolver, Evidence)
-  fullName: System.Xml.XmlSecureResolver.XmlSecureResolver(XmlResolver, Evidence)
+  fullName: XmlSecureResolver.XmlSecureResolver(XmlResolver, Evidence)
 - uid: System.Security.Policy.Evidence
   parent: System.Security.Policy
   isExternal: false
@@ -603,7 +594,7 @@ references:
   isExternal: false
   name: XmlSecureResolver(XmlResolver, String)
   nameWithType: XmlSecureResolver.XmlSecureResolver(XmlResolver, String)
-  fullName: System.Xml.XmlSecureResolver.XmlSecureResolver(XmlResolver, String)
+  fullName: XmlSecureResolver.XmlSecureResolver(XmlResolver, String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -615,13 +606,13 @@ references:
   isExternal: false
   name: CreateEvidenceForUrl(String)
   nameWithType: XmlSecureResolver.CreateEvidenceForUrl(String)
-  fullName: System.Xml.XmlSecureResolver.CreateEvidenceForUrl(String)
+  fullName: XmlSecureResolver.CreateEvidenceForUrl(String)
 - uid: System.Xml.XmlSecureResolver.Credentials
   parent: System.Xml.XmlSecureResolver
   isExternal: false
   name: Credentials
   nameWithType: XmlSecureResolver.Credentials
-  fullName: System.Xml.XmlSecureResolver.Credentials
+  fullName: XmlSecureResolver.Credentials
 - uid: System.Net.ICredentials
   parent: System.Net
   isExternal: false
@@ -633,7 +624,7 @@ references:
   isExternal: false
   name: GetEntity(Uri, String, Type)
   nameWithType: XmlSecureResolver.GetEntity(Uri, String, Type)
-  fullName: System.Xml.XmlSecureResolver.GetEntity(Uri, String, Type)
+  fullName: XmlSecureResolver.GetEntity(Uri, String, Type)
 - uid: System.Object
   parent: System
   isExternal: false
@@ -657,7 +648,7 @@ references:
   isExternal: false
   name: GetEntityAsync(Uri, String, Type)
   nameWithType: XmlSecureResolver.GetEntityAsync(Uri, String, Type)
-  fullName: System.Xml.XmlSecureResolver.GetEntityAsync(Uri, String, Type)
+  fullName: XmlSecureResolver.GetEntityAsync(Uri, String, Type)
 - uid: System.Threading.Tasks.Task`1
   name: Task<TResult>
   nameWithType: Task<TResult>
@@ -688,13 +679,13 @@ references:
   isExternal: false
   name: ResolveUri(Uri, String)
   nameWithType: XmlSecureResolver.ResolveUri(Uri, String)
-  fullName: System.Xml.XmlSecureResolver.ResolveUri(Uri, String)
+  fullName: XmlSecureResolver.ResolveUri(Uri, String)
 - uid: System.Xml.XmlSecureResolver.#ctor*
   parent: System.Xml.XmlSecureResolver
   isExternal: false
   name: XmlSecureResolver
   nameWithType: XmlSecureResolver.XmlSecureResolver
-  fullName: System.Xml.XmlSecureResolver.XmlSecureResolver
+  fullName: XmlSecureResolver.XmlSecureResolver
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -706,6 +697,7 @@ references:
   - xamarinandroid-7.1
   - xamarinios-10.8
   - xamarinmac-3.0
+  - netcore-2.0
   - netstandard-2.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlSecureResolver.xml
 - uid: System.Xml.XmlSecureResolver.CreateEvidenceForUrl*
@@ -713,7 +705,7 @@ references:
   isExternal: false
   name: CreateEvidenceForUrl
   nameWithType: XmlSecureResolver.CreateEvidenceForUrl
-  fullName: System.Xml.XmlSecureResolver.CreateEvidenceForUrl
+  fullName: XmlSecureResolver.CreateEvidenceForUrl
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -731,8 +723,9 @@ references:
   isExternal: false
   name: Credentials
   nameWithType: XmlSecureResolver.Credentials
-  fullName: System.Xml.XmlSecureResolver.Credentials
+  fullName: XmlSecureResolver.Credentials
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -750,8 +743,9 @@ references:
   isExternal: false
   name: GetEntity
   nameWithType: XmlSecureResolver.GetEntity
-  fullName: System.Xml.XmlSecureResolver.GetEntity
+  fullName: XmlSecureResolver.GetEntity
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -769,8 +763,9 @@ references:
   isExternal: false
   name: GetEntityAsync
   nameWithType: XmlSecureResolver.GetEntityAsync
-  fullName: System.Xml.XmlSecureResolver.GetEntityAsync
+  fullName: XmlSecureResolver.GetEntityAsync
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -788,8 +783,9 @@ references:
   isExternal: false
   name: ResolveUri
   nameWithType: XmlSecureResolver.ResolveUri
-  fullName: System.Xml.XmlSecureResolver.ResolveUri
+  fullName: XmlSecureResolver.ResolveUri
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

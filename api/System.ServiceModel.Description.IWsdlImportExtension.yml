@@ -19,9 +19,17 @@ items:
   summary: Implement and attach to a <xref href="System.ServiceModel.Description.WsdlImporter"></xref> object to control how the importer maps Web Services Description Language (WSDL) parts to those of a <xref href="System.Web.Services.Description.ServiceDescription"></xref> object.
   remarks: "Implement the <xref:System.ServiceModel.Description.IWsdlImportExtension> interface to control the mapping between WSDL and <xref:System.ServiceModel.Description.ServiceEndpoint> and <xref:System.ServiceModel.Description.ContractDescription> objects, especially when reading custom WSDL extensions to modify your contract or endpoint information. Then attach your custom <xref:System.ServiceModel.Description.IWsdlImportExtension> object to a <xref:System.ServiceModel.Description.WsdlImporter> either programmatically or by using an application configuration file. You can also attach your custom <xref:System.ServiceModel.Description.IWsdlImportExtension> object to the internal <xref:System.ServiceModel.Description.WsdlImporter> used by the [ServiceModel Metadata Utility Tool (Svcutil.exe)](~/docs/framework/wcf/servicemodel-metadata-utility-tool-svcutil-exe.md) using an application configuration file.  \n  \n The <xref:System.ServiceModel.Description.IWsdlImportExtension.ImportContract%2A> method is called to import a contract.  \n  \n Use the <xref:System.ServiceModel.Description.IWsdlImportExtension.BeforeImport%2A> method to modify the metadata that is then imported into <xref:System.ServiceModel.Description.ServiceEndpoint> and <xref:System.ServiceModel.Description.ContractDescription> objects."
   example:
-  - "The following code example shows the use of <xref:System.ServiceModel.Description.IWsdlImportExtension> to add an <xref:System.ServiceModel.Description.IServiceContractGenerationExtension?displayProperty=fullName> and an <xref:System.ServiceModel.Description.IOperationContractGenerationExtension?displayProperty=fullName> (the `WsdlDocumentationImporter`, in this case) to modify generated [!INCLUDE[indigo2](~/includes/indigo2-md.md)] client code at the interface and operation level.  \n  \n [!code-csharp[C_CustomWSDLExtensions#4](~/samples/snippets/csharp/VS_Snippets_CFX/c_customwsdlextensions/cs/wsdldocumentationimporter.cs#4)]  \n  \n The following code example shows how to configure the client metadata system to use the custom <xref:System.ServiceModel.Description.IWsdlImportExtension> from an application configuration file.  \n  \n <!-- TODO: review snippet reference [!code[C_CustomWSDLExtensions#9](~/samples/snippets/common/VS_Snippets_CFX/c_customwsdlextensions/common/client.exe.config#9)]  -->\n <!-- TODO: review snippet reference [!code-csharp[C_CustomWSDLExtensions#9](~/samples/snippets/csharp/VS_Snippets_CFX/c_customwsdlextensions/cs/client.exe.config#9)]  -->"
+  - "The following code example shows the use of <xref:System.ServiceModel.Description.IWsdlImportExtension> to add an <xref:System.ServiceModel.Description.IServiceContractGenerationExtension?displayProperty=fullName> and an <xref:System.ServiceModel.Description.IOperationContractGenerationExtension?displayProperty=fullName> (the `WsdlDocumentationImporter`, in this case) to modify generated [!INCLUDE[indigo2](~/includes/indigo2-md.md)] client code at the interface and operation level.  \n  \n [!code-csharp[C_CustomWSDLExtensions#4](~/samples/snippets/csharp/VS_Snippets_CFX/c_customwsdlextensions/cs/wsdldocumentationimporter.cs#4)]  \n  \n The following code example shows how to configure the client metadata system to use the custom <xref:System.ServiceModel.Description.IWsdlImportExtension> from an application configuration file.  \n  \n [!code-xml[C_CustomWSDLExtensions#9](~/samples/snippets/csharp/VS_Snippets_CFX/c_customwsdlextensions/cs/client.exe.config#9)]"
   syntax:
     content: public interface IWsdlImportExtension
+  derivedClasses:
+  - System.ServiceModel.Channels.ContextBindingElementImporter
+  - System.ServiceModel.Channels.MessageEncodingBindingElementImporter
+  - System.ServiceModel.Channels.StandardBindingImporter
+  - System.ServiceModel.Channels.TransportBindingElementImporter
+  - System.ServiceModel.Channels.UdpTransportImporter
+  - System.ServiceModel.Description.DataContractSerializerMessageContractImporter
+  - System.ServiceModel.Description.XmlSerializerMessageContractImporter
   implements: []
   version:
   - netframework-4.5.1
@@ -46,9 +54,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Description/IWsdlImportExtension.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Description.IWsdlImportExtension.BeforeImport(System.Web.Services.Description.ServiceDescriptionCollection,System.Xml.Schema.XmlSchemaSet,System.Collections.Generic.ICollection{System.Xml.XmlElement})
   commentId: M:System.ServiceModel.Description.IWsdlImportExtension.BeforeImport(System.Web.Services.Description.ServiceDescriptionCollection,System.Xml.Schema.XmlSchemaSet,System.Collections.Generic.ICollection{System.Xml.XmlElement})
   id: BeforeImport(System.Web.Services.Description.ServiceDescriptionCollection,System.Xml.Schema.XmlSchemaSet,System.Collections.Generic.ICollection{System.Xml.XmlElement})
@@ -57,7 +62,7 @@ items:
   - csharp
   name: BeforeImport(ServiceDescriptionCollection, XmlSchemaSet, ICollection<XmlElement>)
   nameWithType: IWsdlImportExtension.BeforeImport(ServiceDescriptionCollection, XmlSchemaSet, ICollection<XmlElement>)
-  fullName: System.ServiceModel.Description.IWsdlImportExtension.BeforeImport(ServiceDescriptionCollection, XmlSchemaSet, ICollection<XmlElement>)
+  fullName: IWsdlImportExtension.BeforeImport(ServiceDescriptionCollection, XmlSchemaSet, ICollection<XmlElement>)
   type: Method
   assemblies:
   - System.ServiceModel
@@ -95,9 +100,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Description/IWsdlImportExtension.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Description.IWsdlImportExtension.ImportContract(System.ServiceModel.Description.WsdlImporter,System.ServiceModel.Description.WsdlContractConversionContext)
   commentId: M:System.ServiceModel.Description.IWsdlImportExtension.ImportContract(System.ServiceModel.Description.WsdlImporter,System.ServiceModel.Description.WsdlContractConversionContext)
   id: ImportContract(System.ServiceModel.Description.WsdlImporter,System.ServiceModel.Description.WsdlContractConversionContext)
@@ -106,7 +108,7 @@ items:
   - csharp
   name: ImportContract(WsdlImporter, WsdlContractConversionContext)
   nameWithType: IWsdlImportExtension.ImportContract(WsdlImporter, WsdlContractConversionContext)
-  fullName: System.ServiceModel.Description.IWsdlImportExtension.ImportContract(WsdlImporter, WsdlContractConversionContext)
+  fullName: IWsdlImportExtension.ImportContract(WsdlImporter, WsdlContractConversionContext)
   type: Method
   assemblies:
   - System.ServiceModel
@@ -114,7 +116,7 @@ items:
   summary: Called when importing a contract.
   remarks: The <xref:System.ServiceModel.Description.IWsdlImportExtension.ImportContract%2A> method is called when a contract is being imported. You can modify the contract or insert other exporting behaviors such as <xref:System.ServiceModel.Description.IServiceContractGenerationExtension?displayProperty=fullName> and an <xref:System.ServiceModel.Description.IOperationContractGenerationExtension?displayProperty=fullName> objects to modify the code that is generated for the contract.
   example:
-  - "The following code example shows the use of <xref:System.ServiceModel.Description.IWsdlImportExtension> to add an <xref:System.ServiceModel.Description.IServiceContractGenerationExtension?displayProperty=fullName> and an <xref:System.ServiceModel.Description.IOperationContractGenerationExtension?displayProperty=fullName> (the `WsdlDocumentationImporter`, in this case) to modify generated [!INCLUDE[indigo2](~/includes/indigo2-md.md)] client code at the interface and operation level.  \n  \n [!code-csharp[C_CustomWSDLExtensions#4](~/samples/snippets/csharp/VS_Snippets_CFX/c_customwsdlextensions/cs/wsdldocumentationimporter.cs#4)]  \n  \n The following code example shows how to configure the client metadata system to use the custom <xref:System.ServiceModel.Description.IWsdlImportExtension> from an application configuration file.  \n  \n <!-- TODO: review snippet reference [!code[C_CustomWSDLExtensions#9](~/samples/snippets/common/VS_Snippets_CFX/c_customwsdlextensions/common/client.exe.config#9)]  -->\n <!-- TODO: review snippet reference [!code-csharp[C_CustomWSDLExtensions#9](~/samples/snippets/csharp/VS_Snippets_CFX/c_customwsdlextensions/cs/client.exe.config#9)]  -->"
+  - "The following code example shows the use of <xref:System.ServiceModel.Description.IWsdlImportExtension> to add an <xref:System.ServiceModel.Description.IServiceContractGenerationExtension?displayProperty=fullName> and an <xref:System.ServiceModel.Description.IOperationContractGenerationExtension?displayProperty=fullName> (the `WsdlDocumentationImporter`, in this case) to modify generated [!INCLUDE[indigo2](~/includes/indigo2-md.md)] client code at the interface and operation level.  \n  \n [!code-csharp[C_CustomWSDLExtensions#4](~/samples/snippets/csharp/VS_Snippets_CFX/c_customwsdlextensions/cs/wsdldocumentationimporter.cs#4)]  \n  \n The following code example shows how to configure the client metadata system to use the custom <xref:System.ServiceModel.Description.IWsdlImportExtension> from an application configuration file.  \n  \n [!code-xml[C_CustomWSDLExtensions#9](~/samples/snippets/csharp/VS_Snippets_CFX/c_customwsdlextensions/cs/client.exe.config#9)]"
   syntax:
     content: public void ImportContract (System.ServiceModel.Description.WsdlImporter importer, System.ServiceModel.Description.WsdlContractConversionContext context);
     parameters:
@@ -143,9 +145,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Description/IWsdlImportExtension.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Description.IWsdlImportExtension.ImportEndpoint(System.ServiceModel.Description.WsdlImporter,System.ServiceModel.Description.WsdlEndpointConversionContext)
   commentId: M:System.ServiceModel.Description.IWsdlImportExtension.ImportEndpoint(System.ServiceModel.Description.WsdlImporter,System.ServiceModel.Description.WsdlEndpointConversionContext)
   id: ImportEndpoint(System.ServiceModel.Description.WsdlImporter,System.ServiceModel.Description.WsdlEndpointConversionContext)
@@ -154,7 +153,7 @@ items:
   - csharp
   name: ImportEndpoint(WsdlImporter, WsdlEndpointConversionContext)
   nameWithType: IWsdlImportExtension.ImportEndpoint(WsdlImporter, WsdlEndpointConversionContext)
-  fullName: System.ServiceModel.Description.IWsdlImportExtension.ImportEndpoint(WsdlImporter, WsdlEndpointConversionContext)
+  fullName: IWsdlImportExtension.ImportEndpoint(WsdlImporter, WsdlEndpointConversionContext)
   type: Method
   assemblies:
   - System.ServiceModel
@@ -189,16 +188,13 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Description/IWsdlImportExtension.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 references:
 - uid: System.ServiceModel.Description.IWsdlImportExtension.BeforeImport(System.Web.Services.Description.ServiceDescriptionCollection,System.Xml.Schema.XmlSchemaSet,System.Collections.Generic.ICollection{System.Xml.XmlElement})
   parent: System.ServiceModel.Description.IWsdlImportExtension
   isExternal: false
   name: BeforeImport(ServiceDescriptionCollection, XmlSchemaSet, ICollection<XmlElement>)
   nameWithType: IWsdlImportExtension.BeforeImport(ServiceDescriptionCollection, XmlSchemaSet, ICollection<XmlElement>)
-  fullName: System.ServiceModel.Description.IWsdlImportExtension.BeforeImport(ServiceDescriptionCollection, XmlSchemaSet, ICollection<XmlElement>)
+  fullName: IWsdlImportExtension.BeforeImport(ServiceDescriptionCollection, XmlSchemaSet, ICollection<XmlElement>)
 - uid: System.Web.Services.Description.ServiceDescriptionCollection
   parent: System.Web.Services.Description
   isExternal: false
@@ -245,7 +241,7 @@ references:
   isExternal: false
   name: ImportContract(WsdlImporter, WsdlContractConversionContext)
   nameWithType: IWsdlImportExtension.ImportContract(WsdlImporter, WsdlContractConversionContext)
-  fullName: System.ServiceModel.Description.IWsdlImportExtension.ImportContract(WsdlImporter, WsdlContractConversionContext)
+  fullName: IWsdlImportExtension.ImportContract(WsdlImporter, WsdlContractConversionContext)
 - uid: System.ServiceModel.Description.WsdlImporter
   parent: System.ServiceModel.Description
   isExternal: false
@@ -263,7 +259,7 @@ references:
   isExternal: false
   name: ImportEndpoint(WsdlImporter, WsdlEndpointConversionContext)
   nameWithType: IWsdlImportExtension.ImportEndpoint(WsdlImporter, WsdlEndpointConversionContext)
-  fullName: System.ServiceModel.Description.IWsdlImportExtension.ImportEndpoint(WsdlImporter, WsdlEndpointConversionContext)
+  fullName: IWsdlImportExtension.ImportEndpoint(WsdlImporter, WsdlEndpointConversionContext)
 - uid: System.ServiceModel.Description.WsdlEndpointConversionContext
   parent: System.ServiceModel.Description
   isExternal: false
@@ -275,7 +271,7 @@ references:
   isExternal: false
   name: BeforeImport
   nameWithType: IWsdlImportExtension.BeforeImport
-  fullName: System.ServiceModel.Description.IWsdlImportExtension.BeforeImport
+  fullName: IWsdlImportExtension.BeforeImport
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -290,7 +286,7 @@ references:
   isExternal: false
   name: ImportContract
   nameWithType: IWsdlImportExtension.ImportContract
-  fullName: System.ServiceModel.Description.IWsdlImportExtension.ImportContract
+  fullName: IWsdlImportExtension.ImportContract
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -305,7 +301,7 @@ references:
   isExternal: false
   name: ImportEndpoint
   nameWithType: IWsdlImportExtension.ImportEndpoint
-  fullName: System.ServiceModel.Description.IWsdlImportExtension.ImportEndpoint
+  fullName: IWsdlImportExtension.ImportEndpoint
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

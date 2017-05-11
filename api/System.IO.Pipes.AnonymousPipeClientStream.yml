@@ -22,9 +22,9 @@ items:
   - netstandard
   namespace: System.IO.Pipes
   summary: Exposes the client side of an anonymous pipe stream, which supports both synchronous and asynchronous read and write operations.
-  remarks: "Anonymous pipes help provide safe and secure interprocess communication between child and parent processes. The <xref:System.IO.Pipes.AnonymousPipeClientStream> class enables a child process to connect to and exchange information with a parent process.  \n  \n Anonymous pipes are unnamed, one-way pipes that typically transfer data between parent and child processes. Anonymous pipes are always local; they cannot be used over a network. A <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection> is not supported because anonymous pipes are defined to be one-way.  \n  \n Anonymous pipes do not support <xref:System.IO.Pipes.PipeTransmissionMode> read modes.  \n  \n The client side of an anonymous pipe must be created from a pipe handle provided by the server side by calling the <xref:System.IO.Pipes.AnonymousPipeServerStream.GetClientHandleAsString%2A> method. The string is then passed as a parameter when creating the client process. From the client process, it is passed to the <xref:System.IO.Pipes.AnonymousPipeClientStream> constructor as the `pipeHandleAsString` parameter.  \n  \n> [!NOTE]\n>  For [!INCLUDE[winxppro](~/includes/winxppro-md.md)] and [!INCLUDE[win2kserver](~/includes/win2kserver-md.md)], a maximum of 10 pipes can simultaneously connect over the network."
+  remarks: "Anonymous pipes help provide safe and secure interprocess communication between child and parent processes. The <xref:System.IO.Pipes.AnonymousPipeClientStream> class enables a child process to connect to and exchange information with a parent process.  \n  \n Anonymous pipes are unnamed, one-way pipes that typically transfer data between parent and child processes. Anonymous pipes are always local; they cannot be used over a network. A <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.InOut> is not supported because anonymous pipes are defined to be one-way.  \n  \n Anonymous pipes do not support <xref:System.IO.Pipes.PipeTransmissionMode.Message> read modes.  \n  \n The client side of an anonymous pipe must be created from a pipe handle provided by the server side by calling the <xref:System.IO.Pipes.AnonymousPipeServerStream.GetClientHandleAsString%2A> method. The string is then passed as a parameter when creating the client process. From the client process, it is passed to the <xref:System.IO.Pipes.AnonymousPipeClientStream> constructor as the `pipeHandleAsString` parameter.  \n  \n> [!NOTE]\n>  For [!INCLUDE[winxppro](~/includes/winxppro-md.md)] and [!INCLUDE[win2kserver](~/includes/win2kserver-md.md)], a maximum of 10 pipes can simultaneously connect over the network."
   example:
-  - "The following example demonstrates a way to send a string from a parent process to a child process by using anonymous pipes. This example creates an <xref:System.IO.Pipes.AnonymousPipeServerStream> object in a parent process with a <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection>. It also creates an <xref:System.IO.Pipes.AnonymousPipeClientStream> object in a child process with a <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection>. The parent process then sends a user-supplied string to the child process. The string is displayed to the console.  \n  \n This example is for the client process, which is started by the server process. Name the resulting executable from the client code `pipeClient.exe` and copy it to the same directory as the server executable when you run this example. For the entire code example, including the code for both the pipe client and server, see [How to: Use Anonymous Pipes for Local Interprocess Communication](~/docs/standard/io/how-to-use-anonymous-pipes-for-local-interprocess-communication.md).  \n  \n [!code-cpp[System.IO.Pipes.AnonymousPipeClientStream_Sample#01](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_Sample/cpp/program.cpp#01)]\n [!code-csharp[System.IO.Pipes.AnonymousPipeClientStream_Sample#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_Sample/cs/Program.cs#01)]\n [!code-vb[System.IO.Pipes.AnonymousPipeClientStream_Sample#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_Sample/vb/program.vb#01)]"
+  - "The following example demonstrates a way to send a string from a parent process to a child process by using anonymous pipes. This example creates an <xref:System.IO.Pipes.AnonymousPipeServerStream> object in a parent process with a <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.Out>. It also creates an <xref:System.IO.Pipes.AnonymousPipeClientStream> object in a child process with a <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.In>. The parent process then sends a user-supplied string to the child process. The string is displayed to the console.  \n  \n This example is for the client process, which is started by the server process. Name the resulting executable from the client code `pipeClient.exe` and copy it to the same directory as the server executable when you run this example. For the entire code example, including the code for both the pipe client and server, see [How to: Use Anonymous Pipes for Local Interprocess Communication](~/docs/standard/io/how-to-use-anonymous-pipes-for-local-interprocess-communication.md).  \n  \n [!code-cpp[System.IO.Pipes.AnonymousPipeClientStream_Sample#01](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_Sample/cpp/program.cpp#01)]\n [!code-csharp[System.IO.Pipes.AnonymousPipeClientStream_Sample#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_Sample/cs/Program.cs#01)]\n [!code-vb[System.IO.Pipes.AnonymousPipeClientStream_Sample#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_Sample/vb/program.vb#01)]"
   syntax:
     content: 'public sealed class AnonymousPipeClientStream : System.IO.Pipes.PipeStream'
   inheritance:
@@ -96,7 +96,8 @@ items:
   - System.IO.Pipes.PipesAclExtensions.SetAccessControl(System.IO.Pipes.PipeStream,System.IO.Pipes.PipeSecurity)
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -110,7 +111,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -123,9 +125,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/AnonymousPipeClientStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.AnonymousPipeClientStream.#ctor(System.String)
   commentId: M:System.IO.Pipes.AnonymousPipeClientStream.#ctor(System.String)
   id: '#ctor(System.String)'
@@ -134,7 +133,7 @@ items:
   - csharp
   name: AnonymousPipeClientStream(String)
   nameWithType: AnonymousPipeClientStream.AnonymousPipeClientStream(String)
-  fullName: System.IO.Pipes.AnonymousPipeClientStream.AnonymousPipeClientStream(String)
+  fullName: AnonymousPipeClientStream.AnonymousPipeClientStream(String)
   type: Constructor
   assemblies:
   - System.IO.Pipes
@@ -142,7 +141,7 @@ items:
   - netstandard
   namespace: System.IO.Pipes
   summary: Initializes a new instance of the <xref href="System.IO.Pipes.AnonymousPipeClientStream"></xref> class with the specified string representation of the pipe handle.
-  remarks: For constructors without a <xref:System.IO.Pipes.PipeDirection> parameter, the default direction is <xref:System.IO.Pipes.PipeDirection>.
+  remarks: For constructors without a <xref:System.IO.Pipes.PipeDirection> parameter, the default direction is <xref:System.IO.Pipes.PipeDirection.In>.
   example:
   - "The following example demonstrates a way to send a string from a parent process to a child process by using anonymous pipes. In this example, an <xref:System.IO.Pipes.AnonymousPipeClientStream> object is created in a child process.  \n  \n [!code-csharp[System.IO.Pipes.AnonymousPipeClientStream_ctorSample1#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_ctorSample1/cs/Program.cs#01)]\n [!code-vb[System.IO.Pipes.AnonymousPipeClientStream_ctorSample1#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_ctorSample1/vb/program.vb#01)]"
   syntax:
@@ -158,7 +157,8 @@ items:
     description: <code>pipeHandleAsString</code> is not a valid pipe handle.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -172,7 +172,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -185,9 +186,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/AnonymousPipeClientStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.AnonymousPipeClientStream.#ctor(System.IO.Pipes.PipeDirection,Microsoft.Win32.SafeHandles.SafePipeHandle)
   commentId: M:System.IO.Pipes.AnonymousPipeClientStream.#ctor(System.IO.Pipes.PipeDirection,Microsoft.Win32.SafeHandles.SafePipeHandle)
   id: '#ctor(System.IO.Pipes.PipeDirection,Microsoft.Win32.SafeHandles.SafePipeHandle)'
@@ -196,7 +194,7 @@ items:
   - csharp
   name: AnonymousPipeClientStream(PipeDirection, SafePipeHandle)
   nameWithType: AnonymousPipeClientStream.AnonymousPipeClientStream(PipeDirection, SafePipeHandle)
-  fullName: System.IO.Pipes.AnonymousPipeClientStream.AnonymousPipeClientStream(PipeDirection, SafePipeHandle)
+  fullName: AnonymousPipeClientStream.AnonymousPipeClientStream(PipeDirection, SafePipeHandle)
   type: Constructor
   assemblies:
   - System.IO.Pipes
@@ -204,9 +202,9 @@ items:
   - netstandard
   namespace: System.IO.Pipes
   summary: Initializes a new instance of the <xref href="System.IO.Pipes.AnonymousPipeClientStream"></xref> class from the specified handle.
-  remarks: A <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection> is not supported because anonymous pipes are defined to be one-way.
+  remarks: A <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.InOut> is not supported because anonymous pipes are defined to be one-way.
   example:
-  - "The following example demonstrates a way to send a string from a parent process to a child process by using anonymous pipes. In this example, an <xref:System.IO.Pipes.AnonymousPipeClientStream> object is created in a child process with a <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection>.  \n  \n [!code-csharp[System.IO.Pipes.AnonymousPipeClientStream_ctorSample1#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_ctorSample1/cs/Program.cs#01)]\n [!code-vb[System.IO.Pipes.AnonymousPipeClientStream_ctorSample1#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_ctorSample1/vb/program.vb#01)]"
+  - "The following example demonstrates a way to send a string from a parent process to a child process by using anonymous pipes. In this example, an <xref:System.IO.Pipes.AnonymousPipeClientStream> object is created in a child process with a <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.In>.  \n  \n [!code-csharp[System.IO.Pipes.AnonymousPipeClientStream_ctorSample1#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_ctorSample1/cs/Program.cs#01)]\n [!code-vb[System.IO.Pipes.AnonymousPipeClientStream_ctorSample1#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_ctorSample1/vb/program.vb#01)]"
   syntax:
     content: public AnonymousPipeClientStream (System.IO.Pipes.PipeDirection direction, Microsoft.Win32.SafeHandles.SafePipeHandle safePipeHandle);
     parameters:
@@ -232,7 +230,8 @@ items:
     description: "An I/O error, such as a disk error, has occurred.  \n  \n -or-  \n  \n The stream has been closed."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -246,7 +245,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -259,9 +259,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/AnonymousPipeClientStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.AnonymousPipeClientStream.#ctor(System.IO.Pipes.PipeDirection,System.String)
   commentId: M:System.IO.Pipes.AnonymousPipeClientStream.#ctor(System.IO.Pipes.PipeDirection,System.String)
   id: '#ctor(System.IO.Pipes.PipeDirection,System.String)'
@@ -270,7 +267,7 @@ items:
   - csharp
   name: AnonymousPipeClientStream(PipeDirection, String)
   nameWithType: AnonymousPipeClientStream.AnonymousPipeClientStream(PipeDirection, String)
-  fullName: System.IO.Pipes.AnonymousPipeClientStream.AnonymousPipeClientStream(PipeDirection, String)
+  fullName: AnonymousPipeClientStream.AnonymousPipeClientStream(PipeDirection, String)
   type: Constructor
   assemblies:
   - System.IO.Pipes
@@ -278,9 +275,9 @@ items:
   - netstandard
   namespace: System.IO.Pipes
   summary: Initializes a new instance of the <xref href="System.IO.Pipes.AnonymousPipeClientStream"></xref> class with the specified pipe direction and a string representation of the pipe handle.
-  remarks: A <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection> is not supported because anonymous pipes are defined to be one-way.
+  remarks: A <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.InOut> is not supported because anonymous pipes are defined to be one-way.
   example:
-  - "The following example demonstrates a way to send a string from a parent process to a child process by using anonymous pipes. In this example, an <xref:System.IO.Pipes.AnonymousPipeClientStream> object is created in a child process with a <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection>.  \n  \n [!code-cpp[System.IO.Pipes.AnonymousPipeClientStream_Sample#01](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_Sample/cpp/program.cpp#01)]\n [!code-csharp[System.IO.Pipes.AnonymousPipeClientStream_Sample#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_Sample/cs/Program.cs#01)]\n [!code-vb[System.IO.Pipes.AnonymousPipeClientStream_Sample#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_Sample/vb/program.vb#01)]"
+  - "The following example demonstrates a way to send a string from a parent process to a child process by using anonymous pipes. In this example, an <xref:System.IO.Pipes.AnonymousPipeClientStream> object is created in a child process with a <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.In>.  \n  \n [!code-cpp[System.IO.Pipes.AnonymousPipeClientStream_Sample#01](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_Sample/cpp/program.cpp#01)]\n [!code-csharp[System.IO.Pipes.AnonymousPipeClientStream_Sample#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_Sample/cs/Program.cs#01)]\n [!code-vb[System.IO.Pipes.AnonymousPipeClientStream_Sample#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_Sample/vb/program.vb#01)]"
   syntax:
     content: public AnonymousPipeClientStream (System.IO.Pipes.PipeDirection direction, string pipeHandleAsString);
     parameters:
@@ -303,7 +300,8 @@ items:
     description: <code>direction</code> is set to <xref href="System.IO.Pipes.PipeDirection.InOut"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -317,7 +315,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -330,9 +329,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/AnonymousPipeClientStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.AnonymousPipeClientStream.Finalize
   commentId: M:System.IO.Pipes.AnonymousPipeClientStream.Finalize
   id: Finalize
@@ -341,7 +337,7 @@ items:
   - csharp
   name: Finalize()
   nameWithType: AnonymousPipeClientStream.Finalize()
-  fullName: System.IO.Pipes.AnonymousPipeClientStream.Finalize()
+  fullName: AnonymousPipeClientStream.Finalize()
   type: Method
   assemblies:
   - System.IO.Pipes
@@ -355,7 +351,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -368,7 +365,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -380,9 +378,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/AnonymousPipeClientStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.AnonymousPipeClientStream.ReadMode
   commentId: P:System.IO.Pipes.AnonymousPipeClientStream.ReadMode
   id: ReadMode
@@ -391,7 +386,7 @@ items:
   - csharp
   name: ReadMode
   nameWithType: AnonymousPipeClientStream.ReadMode
-  fullName: System.IO.Pipes.AnonymousPipeClientStream.ReadMode
+  fullName: AnonymousPipeClientStream.ReadMode
   type: Property
   assemblies:
   - System.IO.Pipes
@@ -399,9 +394,9 @@ items:
   - netstandard
   namespace: System.IO.Pipes
   summary: Sets the reading mode for the <xref href="System.IO.Pipes.AnonymousPipeClientStream"></xref> object.
-  remarks: Anonymous pipes do not support <xref:System.IO.Pipes.PipeTransmissionMode> read mode.
+  remarks: Anonymous pipes do not support <xref:System.IO.Pipes.PipeTransmissionMode.Message> read mode.
   example:
-  - "The following example demonstrates a way to send a string from a parent process to a child process by using anonymous pipes. In this example, an <xref:System.IO.Pipes.AnonymousPipeClientStream> object is created in a child process. The <xref:System.NotSupportedException> is caught when the <xref:System.IO.Pipes.AnonymousPipeClientStream.ReadMode%2A> property is set to <xref:System.IO.Pipes.PipeTransmissionMode>.  \n  \n [!code-cpp[System.IO.Pipes.AnonymousPipeClientStream_Sample#01](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_Sample/cpp/program.cpp#01)]\n [!code-csharp[System.IO.Pipes.AnonymousPipeClientStream_Sample#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_Sample/cs/Program.cs#01)]\n [!code-vb[System.IO.Pipes.AnonymousPipeClientStream_Sample#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_Sample/vb/program.vb#01)]"
+  - "The following example demonstrates a way to send a string from a parent process to a child process by using anonymous pipes. In this example, an <xref:System.IO.Pipes.AnonymousPipeClientStream> object is created in a child process. The <xref:System.NotSupportedException> is caught when the <xref:System.IO.Pipes.AnonymousPipeClientStream.ReadMode%2A> property is set to <xref:System.IO.Pipes.PipeTransmissionMode.Message>.  \n  \n [!code-cpp[System.IO.Pipes.AnonymousPipeClientStream_Sample#01](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_Sample/cpp/program.cpp#01)]\n [!code-csharp[System.IO.Pipes.AnonymousPipeClientStream_Sample#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_Sample/cs/Program.cs#01)]\n [!code-vb[System.IO.Pipes.AnonymousPipeClientStream_Sample#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_Sample/vb/program.vb#01)]"
   syntax:
     content: public override System.IO.Pipes.PipeTransmissionMode ReadMode { set; }
     return:
@@ -423,7 +418,8 @@ items:
     description: The pipe is closed.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -437,7 +433,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -450,9 +447,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/AnonymousPipeClientStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Pipes.AnonymousPipeClientStream.TransmissionMode
   commentId: P:System.IO.Pipes.AnonymousPipeClientStream.TransmissionMode
   id: TransmissionMode
@@ -461,7 +455,7 @@ items:
   - csharp
   name: TransmissionMode
   nameWithType: AnonymousPipeClientStream.TransmissionMode
-  fullName: System.IO.Pipes.AnonymousPipeClientStream.TransmissionMode
+  fullName: AnonymousPipeClientStream.TransmissionMode
   type: Property
   assemblies:
   - System.IO.Pipes
@@ -469,7 +463,7 @@ items:
   - netstandard
   namespace: System.IO.Pipes
   summary: Gets the pipe transmission mode supported by the current pipe.
-  remarks: Anonymous pipes do not support <xref:System.IO.Pipes.PipeTransmissionMode> read mode.
+  remarks: Anonymous pipes do not support <xref:System.IO.Pipes.PipeTransmissionMode.Message> read mode.
   example:
   - "The following example demonstrates a way to send a string from a parent process to a child process by using anonymous pipes. In this example, an <xref:System.IO.Pipes.AnonymousPipeClientStream> object is created in a child process and the <xref:System.IO.Pipes.AnonymousPipeClientStream.TransmissionMode%2A> is displayed to the console.  \n  \n [!code-cpp[System.IO.Pipes.AnonymousPipeClientStream_Sample#01](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_Sample/cpp/program.cpp#01)]\n [!code-csharp[System.IO.Pipes.AnonymousPipeClientStream_Sample#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_Sample/cs/Program.cs#01)]\n [!code-vb[System.IO.Pipes.AnonymousPipeClientStream_Sample#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeClientStream_Sample/vb/program.vb#01)]"
   syntax:
@@ -481,7 +475,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -495,7 +490,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -508,9 +504,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO.Pipes/AnonymousPipeClientStream.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.IO.Pipes.PipeStream
   parent: System.IO.Pipes
@@ -559,7 +552,7 @@ references:
   isExternal: false
   name: AnonymousPipeClientStream(String)
   nameWithType: AnonymousPipeClientStream.AnonymousPipeClientStream(String)
-  fullName: System.IO.Pipes.AnonymousPipeClientStream.AnonymousPipeClientStream(String)
+  fullName: AnonymousPipeClientStream.AnonymousPipeClientStream(String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -571,7 +564,7 @@ references:
   isExternal: false
   name: AnonymousPipeClientStream(PipeDirection, SafePipeHandle)
   nameWithType: AnonymousPipeClientStream.AnonymousPipeClientStream(PipeDirection, SafePipeHandle)
-  fullName: System.IO.Pipes.AnonymousPipeClientStream.AnonymousPipeClientStream(PipeDirection, SafePipeHandle)
+  fullName: AnonymousPipeClientStream.AnonymousPipeClientStream(PipeDirection, SafePipeHandle)
 - uid: System.IO.Pipes.PipeDirection
   parent: System.IO.Pipes
   isExternal: false
@@ -589,19 +582,19 @@ references:
   isExternal: false
   name: AnonymousPipeClientStream(PipeDirection, String)
   nameWithType: AnonymousPipeClientStream.AnonymousPipeClientStream(PipeDirection, String)
-  fullName: System.IO.Pipes.AnonymousPipeClientStream.AnonymousPipeClientStream(PipeDirection, String)
+  fullName: AnonymousPipeClientStream.AnonymousPipeClientStream(PipeDirection, String)
 - uid: System.IO.Pipes.AnonymousPipeClientStream.Finalize
   parent: System.IO.Pipes.AnonymousPipeClientStream
   isExternal: false
   name: Finalize()
   nameWithType: AnonymousPipeClientStream.Finalize()
-  fullName: System.IO.Pipes.AnonymousPipeClientStream.Finalize()
+  fullName: AnonymousPipeClientStream.Finalize()
 - uid: System.IO.Pipes.AnonymousPipeClientStream.ReadMode
   parent: System.IO.Pipes.AnonymousPipeClientStream
   isExternal: false
   name: ReadMode
   nameWithType: AnonymousPipeClientStream.ReadMode
-  fullName: System.IO.Pipes.AnonymousPipeClientStream.ReadMode
+  fullName: AnonymousPipeClientStream.ReadMode
 - uid: System.IO.Pipes.PipeTransmissionMode
   parent: System.IO.Pipes
   isExternal: false
@@ -613,16 +606,17 @@ references:
   isExternal: false
   name: TransmissionMode
   nameWithType: AnonymousPipeClientStream.TransmissionMode
-  fullName: System.IO.Pipes.AnonymousPipeClientStream.TransmissionMode
+  fullName: AnonymousPipeClientStream.TransmissionMode
 - uid: System.IO.Pipes.AnonymousPipeClientStream.#ctor*
   parent: System.IO.Pipes.AnonymousPipeClientStream
   isExternal: false
   name: AnonymousPipeClientStream
   nameWithType: AnonymousPipeClientStream.AnonymousPipeClientStream
-  fullName: System.IO.Pipes.AnonymousPipeClientStream.AnonymousPipeClientStream
+  fullName: AnonymousPipeClientStream.AnonymousPipeClientStream
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -640,10 +634,11 @@ references:
   isExternal: false
   name: Finalize
   nameWithType: AnonymousPipeClientStream.Finalize
-  fullName: System.IO.Pipes.AnonymousPipeClientStream.Finalize
+  fullName: AnonymousPipeClientStream.Finalize
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -660,10 +655,11 @@ references:
   isExternal: false
   name: ReadMode
   nameWithType: AnonymousPipeClientStream.ReadMode
-  fullName: System.IO.Pipes.AnonymousPipeClientStream.ReadMode
+  fullName: AnonymousPipeClientStream.ReadMode
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -681,10 +677,11 @@ references:
   isExternal: false
   name: TransmissionMode
   nameWithType: AnonymousPipeClientStream.TransmissionMode
-  fullName: System.IO.Pipes.AnonymousPipeClientStream.TransmissionMode
+  fullName: AnonymousPipeClientStream.TransmissionMode
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -702,10 +699,10 @@ references:
   isExternal: false
   name: GetAccessControl(PipeStream)
   nameWithType: PipesAclExtensions.GetAccessControl(PipeStream)
-  fullName: System.IO.Pipes.PipesAclExtensions.GetAccessControl(PipeStream)
+  fullName: PipesAclExtensions.GetAccessControl(PipeStream)
 - uid: System.IO.Pipes.PipesAclExtensions.SetAccessControl(System.IO.Pipes.PipeStream,System.IO.Pipes.PipeSecurity)
   parent: System.IO.Pipes.PipesAclExtensions
   isExternal: false
   name: SetAccessControl(PipeStream, PipeSecurity)
   nameWithType: PipesAclExtensions.SetAccessControl(PipeStream, PipeSecurity)
-  fullName: System.IO.Pipes.PipesAclExtensions.SetAccessControl(PipeStream, PipeSecurity)
+  fullName: PipesAclExtensions.SetAccessControl(PipeStream, PipeSecurity)

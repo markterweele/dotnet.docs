@@ -59,7 +59,7 @@ items:
   - PresentationFramework
   namespace: System.Windows.Controls
   summary: Frame is a content control that supports navigation.
-  remarks: "<xref:System.Windows.Controls.Frame> is a content control that provides the ability to navigate to and display content. <xref:System.Windows.Controls.Frame> can be hosted within other content, as with other controls and elements.  \n  \n> [!CAUTION]\n>  When the <xref:System.Windows.Controls.Frame> control navigates to HTML content, the <xref:System.Windows.Controls.Frame> control internally instantiates the native WebBrowser ActiveX control. WPF enables security features by applying feature controls to the WebBrowser ActiveX control. The feature controls that are applied differ for XBAPs and stand-alone applications. Some applications should apply additional feature controls to prevent malicious content from running. For more information, see the \"WebBrowser Control and Feature Controls\" section in [Security (WPF)](~/docs/framework/wpf/security-wpf.md) and [WebBrowser Control Overviews and Tutorials](http://go.microsoft.com/fwlink/?LinkId=179388).  \n  \n Content can be any type of [!INCLUDE[TLA2#tla_winfx](~/includes/tla2sharptla-winfx-md.md)] object and [!INCLUDE[TLA#tla_html](~/includes/tlasharptla-html-md.md)] files. In general, however, pages are the preferred the way to package content for navigation (see <xref:System.Windows.Controls.Page>).  \n  \n Content can be navigated to by setting the <xref:System.Windows.Controls.Frame.Source%2A> property with the [!INCLUDE[TLA2#tla_uri](~/includes/tla2sharptla-uri-md.md)] for the desired content. Additionally, content can be navigated to by using one of the following overloads of the <xref:System.Windows.Controls.Frame.Navigate%2A> method:  \n  \n-   <xref:System.Windows.Controls.Frame.Navigate%28System.Uri%29>  \n  \n-   <xref:System.Windows.Controls.Frame.Navigate%28System.Uri%2CSystem.Object%29>  \n  \n When content is navigated to by [!INCLUDE[TLA2#tla_uri](~/includes/tla2sharptla-uri-md.md)], <xref:System.Windows.Controls.Frame> returns an object that contains the content. Alternatively, content can be navigated to by using one of the <xref:System.Windows.Controls.Frame.Navigate%2A> method overloads that accepts an object:  \n  \n-   <xref:System.Windows.Controls.Frame.Navigate%28System.Object%29>  \n  \n-   <xref:System.Windows.Controls.Frame.Navigate%28System.Object%2CSystem.Object%29>  \n  \n The lifetime of a navigation can be tracked through the following events:  \n  \n-   <xref:System.Windows.Controls.Frame.Navigating>  \n  \n-   <xref:System.Windows.Controls.Frame.Navigated>  \n  \n-   <xref:System.Windows.Controls.Frame.NavigationProgress>  \n  \n-   <xref:System.Windows.Controls.Frame.NavigationFailed>  \n  \n-   <xref:System.Windows.Controls.Frame.NavigationStopped>  \n  \n-   <xref:System.Windows.Controls.Frame.LoadCompleted>  \n  \n-   <xref:System.Windows.Controls.Frame.FragmentNavigation>  \n  \n Not all events are raised each time that a navigation occurs; the set of events that are raised is determined by the type of navigation that occurs (content or content fragment) and how the navigation completes (canceled, stopped, or failed).  \n  \n The following figure illustrates the sequence in which these events will fire:  \n  \n ![Page navigation flow chart](~/add/media/navigationoverviewfigure11.png \"Page navigation flow chart\")  \n  \n During or after a navigation, <xref:System.Windows.Controls.Frame> provides information about the content that is being navigated to, including the [!INCLUDE[TLA2#tla_uri](~/includes/tla2sharptla-uri-md.md)] of the content being navigated to (<xref:System.Windows.Controls.Frame.Source%2A>), the [!INCLUDE[TLA2#tla_uri](~/includes/tla2sharptla-uri-md.md)] of the current content (<xref:System.Windows.Controls.Frame.CurrentSource%2A>), and an object that contains the content that was navigated to (<xref:System.Windows.Controls.ContentControl.Content%2A>).  \n  \n When content is navigated to, <xref:System.Windows.Controls.Frame> records the navigation as an entry in navigation history. An entry is added to back navigation history when either a new navigation occurs, by calling the <xref:System.Windows.Controls.Frame.Navigate%2A> method, or by navigating to an entry in forward navigation history, by calling <xref:System.Windows.Controls.Frame.GoForward%2A>. An entry is added to forward navigation history by navigating to an entry in back navigation history, by calling <xref:System.Windows.Controls.Frame.GoBack%2A>. <xref:System.Windows.Controls.Frame.CanGoBack%2A> and <xref:System.Windows.Controls.Frame.CanGoForward%2A> report whether there are entries in back and forward navigation history, respectively.  \n  \n The first time that one piece of content is navigated to from another piece of content, <xref:System.Windows.Controls.Frame> automatically displays a navigation [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)] that allows users to navigate back and forward through navigation history. You can configure when the navigation [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)] is shown by setting the <xref:System.Windows.Controls.Frame.NavigationUIVisibility%2A> property.  \n  \n By default, <xref:System.Windows.Controls.Frame> will use its own navigation history only if a parent navigator (<xref:System.Windows.Navigation.NavigationWindow>, <xref:System.Windows.Controls.Frame>) with its own navigation history cannot be found. This means that navigation history entries for the frame are mingled with navigation history entries for the parent navigator. To specify that a <xref:System.Windows.Controls.Frame> manages its own navigation history, set the <xref:System.Windows.Controls.Frame.JournalOwnership%2A> property to <xref:System.Windows.Navigation.JournalOwnership>.  \n  \n The most recent entry in back navigation history can be removed by calling <xref:System.Windows.Controls.Frame.RemoveBackEntry%2A>.  \n  \n <xref:System.Windows.Controls.Frame> does not store an instance of a content object in navigation history. Instead, <xref:System.Windows.Controls.Frame> creates a new instance of the content object each time it is navigated to by using navigation history. This behavior is designed to avoid excessive memory consumption when large numbers and large pieces of content are being navigated to. Consequently, the state of the content is not remembered from one navigation to the next. However, [!INCLUDE[TLA2#tla_wpf](~/includes/tla2sharptla-wpf-md.md)] provides several techniques by which you can store a state for a piece of content in navigation history.  \n  \n Using <xref:System.Windows.Controls.Frame.AddBackEntry%2A>, you can also remember multiple sets of state for a single page instance.  \n  \n## Customizing the Frame Control  \n To apply the same property settings to multiple <xref:System.Windows.Controls.Frame> controls, use the <xref:System.Windows.FrameworkElement.Style%2A> property. You can modify the default <xref:System.Windows.Controls.ControlTemplate> to give the control a unique appearance. For more information about creating a <xref:System.Windows.Controls.ControlTemplate>, see [Customizing the Appearance of an Existing Control by Creating a ControlTemplate](~/docs/framework/wpf/controls/customizing-the-appearance-of-an-existing-control.md).  To see the parts and states that are specific to the <xref:System.Windows.Controls.Frame>, see [Frame Styles and Templates](~/docs/framework/wpf/controls/frame-styles-and-templates.md).  \n  \n Dependency properties for this control might be set by the control’s default style.  If a property is set by a default style, the property might change from its default value when the control appears in the application. The default style is determined by which desktop theme is used when the application is running.  For more information, see [Default WPF Themes](http://go.microsoft.com/fwlink/?LinkID=158252).  \n  \n> [!NOTE]\n>  Setting a visual property will only have an effect if that property is both present in <xref:System.Windows.Controls.Frame> control's default template and is set by using a . You can find a list of visual properties in the \"Changing the Visual Structure of a Control\" section in [Customizing the Appearance of an Existing Control by Creating a ControlTemplate](~/docs/framework/wpf/controls/customizing-the-appearance-of-an-existing-control.md)."
+  remarks: "<xref:System.Windows.Controls.Frame> is a content control that provides the ability to navigate to and display content. <xref:System.Windows.Controls.Frame> can be hosted within other content, as with other controls and elements.  \n  \n> [!CAUTION]\n>  When the <xref:System.Windows.Controls.Frame> control navigates to HTML content, the <xref:System.Windows.Controls.Frame> control internally instantiates the native WebBrowser ActiveX control. WPF enables security features by applying feature controls to the WebBrowser ActiveX control. The feature controls that are applied differ for XBAPs and stand-alone applications. Some applications should apply additional feature controls to prevent malicious content from running. For more information, see the \"WebBrowser Control and Feature Controls\" section in [Security (WPF)](~/docs/framework/wpf/security-wpf.md) and [WebBrowser Control Overviews and Tutorials](http://go.microsoft.com/fwlink/?LinkId=179388).  \n  \n Content can be any type of [!INCLUDE[TLA2#tla_winfx](~/includes/tla2sharptla-winfx-md.md)] object and [!INCLUDE[TLA#tla_html](~/includes/tlasharptla-html-md.md)] files. In general, however, pages are the preferred the way to package content for navigation (see <xref:System.Windows.Controls.Page>).  \n  \n Content can be navigated to by setting the <xref:System.Windows.Controls.Frame.Source%2A> property with the [!INCLUDE[TLA2#tla_uri](~/includes/tla2sharptla-uri-md.md)] for the desired content. Additionally, content can be navigated to by using one of the following overloads of the <xref:System.Windows.Controls.Frame.Navigate%2A> method:  \n  \n-   <xref:System.Windows.Controls.Frame.Navigate%28System.Uri%29>  \n  \n-   <xref:System.Windows.Controls.Frame.Navigate%28System.Uri%2CSystem.Object%29>  \n  \n When content is navigated to by [!INCLUDE[TLA2#tla_uri](~/includes/tla2sharptla-uri-md.md)], <xref:System.Windows.Controls.Frame> returns an object that contains the content. Alternatively, content can be navigated to by using one of the <xref:System.Windows.Controls.Frame.Navigate%2A> method overloads that accepts an object:  \n  \n-   <xref:System.Windows.Controls.Frame.Navigate%28System.Object%29>  \n  \n-   <xref:System.Windows.Controls.Frame.Navigate%28System.Object%2CSystem.Object%29>  \n  \n The lifetime of a navigation can be tracked through the following events:  \n  \n-   <xref:System.Windows.Controls.Frame.Navigating>  \n  \n-   <xref:System.Windows.Controls.Frame.Navigated>  \n  \n-   <xref:System.Windows.Controls.Frame.NavigationProgress>  \n  \n-   <xref:System.Windows.Controls.Frame.NavigationFailed>  \n  \n-   <xref:System.Windows.Controls.Frame.NavigationStopped>  \n  \n-   <xref:System.Windows.Controls.Frame.LoadCompleted>  \n  \n-   <xref:System.Windows.Controls.Frame.FragmentNavigation>  \n  \n Not all events are raised each time that a navigation occurs; the set of events that are raised is determined by the type of navigation that occurs (content or content fragment) and how the navigation completes (canceled, stopped, or failed).  \n  \n The following figure illustrates the sequence in which these events will fire:  \n  \n ![Page navigation flow chart](~/add/media/navigationoverviewfigure11.png \"Page navigation flow chart\")  \n  \n During or after a navigation, <xref:System.Windows.Controls.Frame> provides information about the content that is being navigated to, including the [!INCLUDE[TLA2#tla_uri](~/includes/tla2sharptla-uri-md.md)] of the content being navigated to (<xref:System.Windows.Controls.Frame.Source%2A>), the [!INCLUDE[TLA2#tla_uri](~/includes/tla2sharptla-uri-md.md)] of the current content (<xref:System.Windows.Controls.Frame.CurrentSource%2A>), and an object that contains the content that was navigated to (<xref:System.Windows.Controls.ContentControl.Content%2A>).  \n  \n When content is navigated to, <xref:System.Windows.Controls.Frame> records the navigation as an entry in navigation history. An entry is added to back navigation history when either a new navigation occurs, by calling the <xref:System.Windows.Controls.Frame.Navigate%2A> method, or by navigating to an entry in forward navigation history, by calling <xref:System.Windows.Controls.Frame.GoForward%2A>. An entry is added to forward navigation history by navigating to an entry in back navigation history, by calling <xref:System.Windows.Controls.Frame.GoBack%2A>. <xref:System.Windows.Controls.Frame.CanGoBack%2A> and <xref:System.Windows.Controls.Frame.CanGoForward%2A> report whether there are entries in back and forward navigation history, respectively.  \n  \n The first time that one piece of content is navigated to from another piece of content, <xref:System.Windows.Controls.Frame> automatically displays a navigation [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)] that allows users to navigate back and forward through navigation history. You can configure when the navigation [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)] is shown by setting the <xref:System.Windows.Controls.Frame.NavigationUIVisibility%2A> property.  \n  \n By default, <xref:System.Windows.Controls.Frame> will use its own navigation history only if a parent navigator (<xref:System.Windows.Navigation.NavigationWindow>, <xref:System.Windows.Controls.Frame>) with its own navigation history cannot be found. This means that navigation history entries for the frame are mingled with navigation history entries for the parent navigator. To specify that a <xref:System.Windows.Controls.Frame> manages its own navigation history, set the <xref:System.Windows.Controls.Frame.JournalOwnership%2A> property to <xref:System.Windows.Navigation.JournalOwnership.OwnsJournal>.  \n  \n The most recent entry in back navigation history can be removed by calling <xref:System.Windows.Controls.Frame.RemoveBackEntry%2A>.  \n  \n <xref:System.Windows.Controls.Frame> does not store an instance of a content object in navigation history. Instead, <xref:System.Windows.Controls.Frame> creates a new instance of the content object each time it is navigated to by using navigation history. This behavior is designed to avoid excessive memory consumption when large numbers and large pieces of content are being navigated to. Consequently, the state of the content is not remembered from one navigation to the next. However, [!INCLUDE[TLA2#tla_wpf](~/includes/tla2sharptla-wpf-md.md)] provides several techniques by which you can store a state for a piece of content in navigation history.  \n  \n Using <xref:System.Windows.Controls.Frame.AddBackEntry%2A>, you can also remember multiple sets of state for a single page instance.  \n  \n## Customizing the Frame Control  \n To apply the same property settings to multiple <xref:System.Windows.Controls.Frame> controls, use the <xref:System.Windows.FrameworkElement.Style%2A> property. You can modify the default <xref:System.Windows.Controls.ControlTemplate> to give the control a unique appearance. For more information about creating a <xref:System.Windows.Controls.ControlTemplate>, see [Customizing the Appearance of an Existing Control by Creating a ControlTemplate](~/docs/framework/wpf/controls/customizing-the-appearance-of-an-existing-control.md).  To see the parts and states that are specific to the <xref:System.Windows.Controls.Frame>, see [Frame Styles and Templates](~/docs/framework/wpf/controls/frame-styles-and-templates.md).  \n  \n Dependency properties for this control might be set by the control’s default style.  If a property is set by a default style, the property might change from its default value when the control appears in the application. The default style is determined by which desktop theme is used when the application is running.  For more information, see [Default WPF Themes](http://go.microsoft.com/fwlink/?LinkID=158252).  \n  \n> [!NOTE]\n>  Setting a visual property will only have an effect if that property is both present in <xref:System.Windows.Controls.Frame> control's default template and is set by using a . You can find a list of visual properties in the \"Changing the Visual Structure of a Control\" section in [Customizing the Appearance of an Existing Control by Creating a ControlTemplate](~/docs/framework/wpf/controls/customizing-the-appearance-of-an-existing-control.md)."
   example:
   - "The following example shows how to create a simple <xref:System.Windows.Controls.Frame> control and specify initial source content to load from a [!INCLUDE[TLA2#tla_uri](~/includes/tla2sharptla-uri-md.md)] using the <xref:System.Windows.Controls.Frame.Source%2A> property.  \n  \n [!code-xml[FrameSnippets#SetFrameSourceXAML1](~/samples/snippets/csharp/VS_Snippets_Wpf/FrameSnippets/CS/MainWindow.xaml#setframesourcexaml1)]  \n[!code-xml[FrameSnippets#SetFrameSourceXAML2](~/samples/snippets/csharp/VS_Snippets_Wpf/FrameSnippets/CS/MainWindow.xaml#setframesourcexaml2)]  \n[!code-xml[FrameSnippets#SetFrameSourceXAML3](~/samples/snippets/csharp/VS_Snippets_Wpf/FrameSnippets/CS/MainWindow.xaml#setframesourcexaml3)]"
   syntax:
@@ -731,9 +731,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.#ctor
   commentId: M:System.Windows.Controls.Frame.#ctor
   id: '#ctor'
@@ -742,7 +739,7 @@ items:
   - csharp
   name: Frame()
   nameWithType: Frame.Frame()
-  fullName: System.Windows.Controls.Frame.Frame()
+  fullName: Frame.Frame()
   type: Constructor
   assemblies:
   - PresentationFramework
@@ -770,9 +767,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.AddBackEntry(System.Windows.Navigation.CustomContentState)
   commentId: M:System.Windows.Controls.Frame.AddBackEntry(System.Windows.Navigation.CustomContentState)
   id: AddBackEntry(System.Windows.Navigation.CustomContentState)
@@ -781,7 +775,7 @@ items:
   - csharp
   name: AddBackEntry(CustomContentState)
   nameWithType: Frame.AddBackEntry(CustomContentState)
-  fullName: System.Windows.Controls.Frame.AddBackEntry(CustomContentState)
+  fullName: Frame.AddBackEntry(CustomContentState)
   type: Method
   assemblies:
   - PresentationFramework
@@ -816,9 +810,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.AddChild(System.Object)
   commentId: M:System.Windows.Controls.Frame.AddChild(System.Object)
   id: AddChild(System.Object)
@@ -827,7 +818,7 @@ items:
   - csharp
   name: AddChild(Object)
   nameWithType: Frame.AddChild(Object)
-  fullName: System.Windows.Controls.Frame.AddChild(Object)
+  fullName: Frame.AddChild(Object)
   type: Method
   assemblies:
   - PresentationFramework
@@ -859,9 +850,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.AddText(System.String)
   commentId: M:System.Windows.Controls.Frame.AddText(System.String)
   id: AddText(System.String)
@@ -870,7 +858,7 @@ items:
   - csharp
   name: AddText(String)
   nameWithType: Frame.AddText(String)
-  fullName: System.Windows.Controls.Frame.AddText(String)
+  fullName: Frame.AddText(String)
   type: Method
   assemblies:
   - PresentationFramework
@@ -902,8 +890,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Controls.Frame.BackStack
   commentId: P:System.Windows.Controls.Frame.BackStack
   id: BackStack
@@ -912,13 +898,13 @@ items:
   - csharp
   name: BackStack
   nameWithType: Frame.BackStack
-  fullName: System.Windows.Controls.Frame.BackStack
+  fullName: Frame.BackStack
   type: Property
   assemblies:
   - PresentationFramework
   namespace: System.Windows.Controls
   summary: Returns an <xref href="System.Collections.IEnumerable"></xref> that you use to enumerate the entries in back navigation history for a <xref href="System.Windows.Controls.Frame"></xref>.
-  remarks: "The entries that are returned by <xref:System.Windows.Controls.Frame.BackStack%2A> including whole content, fragment navigations, and custom state.  \n  \n<a name=\"dependencyPropertyInfo_FrameBackStack\"></a>   \n## Dependency Property Information  \n  \n|||  \n|-|-|  \n|Identifier field|<xref:System.Windows.Controls.Frame>|  \n|Metadata properties set to `true`|None|"
+  remarks: "The entries that are returned by <xref:System.Windows.Controls.Frame.BackStack%2A> including whole content, fragment navigations, and custom state.  \n  \n<a name=\"dependencyPropertyInfo_FrameBackStack\"></a>   \n## Dependency Property Information  \n  \n|||  \n|-|-|  \n|Identifier field|<xref:System.Windows.Controls.Frame.BackStackProperty>|  \n|Metadata properties set to `true`|None|"
   syntax:
     content: public System.Collections.IEnumerable BackStack { get; }
     return:
@@ -943,9 +929,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.BackStackProperty
   commentId: F:System.Windows.Controls.Frame.BackStackProperty
   id: BackStackProperty
@@ -954,7 +937,7 @@ items:
   - csharp
   name: BackStackProperty
   nameWithType: Frame.BackStackProperty
-  fullName: System.Windows.Controls.Frame.BackStackProperty
+  fullName: Frame.BackStackProperty
   type: Field
   assemblies:
   - PresentationFramework
@@ -984,9 +967,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.BaseUri
   commentId: P:System.Windows.Controls.Frame.BaseUri
   id: BaseUri
@@ -995,7 +975,7 @@ items:
   - csharp
   name: BaseUri
   nameWithType: Frame.BaseUri
-  fullName: System.Windows.Controls.Frame.BaseUri
+  fullName: Frame.BaseUri
   type: Property
   assemblies:
   - PresentationFramework
@@ -1026,9 +1006,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.CanGoBack
   commentId: P:System.Windows.Controls.Frame.CanGoBack
   id: CanGoBack
@@ -1037,7 +1014,7 @@ items:
   - csharp
   name: CanGoBack
   nameWithType: Frame.CanGoBack
-  fullName: System.Windows.Controls.Frame.CanGoBack
+  fullName: Frame.CanGoBack
   type: Property
   assemblies:
   - PresentationFramework
@@ -1068,9 +1045,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.CanGoBackProperty
   commentId: F:System.Windows.Controls.Frame.CanGoBackProperty
   id: CanGoBackProperty
@@ -1079,7 +1053,7 @@ items:
   - csharp
   name: CanGoBackProperty
   nameWithType: Frame.CanGoBackProperty
-  fullName: System.Windows.Controls.Frame.CanGoBackProperty
+  fullName: Frame.CanGoBackProperty
   type: Field
   assemblies:
   - PresentationFramework
@@ -1109,9 +1083,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.CanGoForward
   commentId: P:System.Windows.Controls.Frame.CanGoForward
   id: CanGoForward
@@ -1120,13 +1091,13 @@ items:
   - csharp
   name: CanGoForward
   nameWithType: Frame.CanGoForward
-  fullName: System.Windows.Controls.Frame.CanGoForward
+  fullName: Frame.CanGoForward
   type: Property
   assemblies:
   - PresentationFramework
   namespace: System.Windows.Controls
   summary: Gets a value that indicates whether there is at least one entry in forward navigation history.
-  remarks: "See <xref:System.Windows.Controls.Frame.CanGoForward%2A>.  \n  \n<a name=\"dependencyPropertyInfo_FrameCanGoForward\"></a>   \n## Dependency Property Information  \n  \n|||  \n|-|-|  \n|Identifier field|<xref:System.Windows.Controls.Frame>|  \n|Metadata properties set to `true`|None|"
+  remarks: "See <xref:System.Windows.Controls.Frame.CanGoForward%2A>.  \n  \n<a name=\"dependencyPropertyInfo_FrameCanGoForward\"></a>   \n## Dependency Property Information  \n  \n|||  \n|-|-|  \n|Identifier field|<xref:System.Windows.Controls.Frame.CanGoForwardProperty>|  \n|Metadata properties set to `true`|None|"
   syntax:
     content: public bool CanGoForward { get; }
     return:
@@ -1151,9 +1122,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.CanGoForwardProperty
   commentId: F:System.Windows.Controls.Frame.CanGoForwardProperty
   id: CanGoForwardProperty
@@ -1162,7 +1130,7 @@ items:
   - csharp
   name: CanGoForwardProperty
   nameWithType: Frame.CanGoForwardProperty
-  fullName: System.Windows.Controls.Frame.CanGoForwardProperty
+  fullName: Frame.CanGoForwardProperty
   type: Field
   assemblies:
   - PresentationFramework
@@ -1192,8 +1160,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Controls.Frame.ContentRendered
   commentId: E:System.Windows.Controls.Frame.ContentRendered
   id: ContentRendered
@@ -1202,7 +1168,7 @@ items:
   - csharp
   name: ContentRendered
   nameWithType: Frame.ContentRendered
-  fullName: System.Windows.Controls.Frame.ContentRendered
+  fullName: Frame.ContentRendered
   type: Event
   assemblies:
   - PresentationFramework
@@ -1232,9 +1198,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.CurrentSource
   commentId: P:System.Windows.Controls.Frame.CurrentSource
   id: CurrentSource
@@ -1243,7 +1206,7 @@ items:
   - csharp
   name: CurrentSource
   nameWithType: Frame.CurrentSource
-  fullName: System.Windows.Controls.Frame.CurrentSource
+  fullName: Frame.CurrentSource
   type: Property
   assemblies:
   - PresentationFramework
@@ -1274,9 +1237,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.ForwardStack
   commentId: P:System.Windows.Controls.Frame.ForwardStack
   id: ForwardStack
@@ -1285,13 +1245,13 @@ items:
   - csharp
   name: ForwardStack
   nameWithType: Frame.ForwardStack
-  fullName: System.Windows.Controls.Frame.ForwardStack
+  fullName: Frame.ForwardStack
   type: Property
   assemblies:
   - PresentationFramework
   namespace: System.Windows.Controls
   summary: Gets an <xref href="System.Collections.IEnumerable"></xref> that you use to enumerate the entries in forward navigation history for a <xref href="System.Windows.Controls.Frame"></xref>.
-  remarks: "The entries that are returned by <xref:System.Windows.Controls.Frame.ForwardStack%2A> including whole content, fragment navigations, and custom state.  \n  \n<a name=\"dependencyPropertyInfo_FrameForwardStack\"></a>   \n## Dependency Property Information  \n  \n|||  \n|-|-|  \n|Identifier field|<xref:System.Windows.Controls.Frame>|  \n|Metadata properties set to `true`|None|"
+  remarks: "The entries that are returned by <xref:System.Windows.Controls.Frame.ForwardStack%2A> including whole content, fragment navigations, and custom state.  \n  \n<a name=\"dependencyPropertyInfo_FrameForwardStack\"></a>   \n## Dependency Property Information  \n  \n|||  \n|-|-|  \n|Identifier field|<xref:System.Windows.Controls.Frame.ForwardStackProperty>|  \n|Metadata properties set to `true`|None|"
   syntax:
     content: public System.Collections.IEnumerable ForwardStack { get; }
     return:
@@ -1316,9 +1276,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.ForwardStackProperty
   commentId: F:System.Windows.Controls.Frame.ForwardStackProperty
   id: ForwardStackProperty
@@ -1327,7 +1284,7 @@ items:
   - csharp
   name: ForwardStackProperty
   nameWithType: Frame.ForwardStackProperty
-  fullName: System.Windows.Controls.Frame.ForwardStackProperty
+  fullName: Frame.ForwardStackProperty
   type: Field
   assemblies:
   - PresentationFramework
@@ -1357,8 +1314,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Controls.Frame.FragmentNavigation
   commentId: E:System.Windows.Controls.Frame.FragmentNavigation
   id: FragmentNavigation
@@ -1367,7 +1322,7 @@ items:
   - csharp
   name: FragmentNavigation
   nameWithType: Frame.FragmentNavigation
-  fullName: System.Windows.Controls.Frame.FragmentNavigation
+  fullName: Frame.FragmentNavigation
   type: Event
   assemblies:
   - PresentationFramework
@@ -1397,9 +1352,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.GoBack
   commentId: M:System.Windows.Controls.Frame.GoBack
   id: GoBack
@@ -1408,7 +1360,7 @@ items:
   - csharp
   name: GoBack()
   nameWithType: Frame.GoBack()
-  fullName: System.Windows.Controls.Frame.GoBack()
+  fullName: Frame.GoBack()
   type: Method
   assemblies:
   - PresentationFramework
@@ -1440,9 +1392,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.GoForward
   commentId: M:System.Windows.Controls.Frame.GoForward
   id: GoForward
@@ -1451,7 +1400,7 @@ items:
   - csharp
   name: GoForward()
   nameWithType: Frame.GoForward()
-  fullName: System.Windows.Controls.Frame.GoForward()
+  fullName: Frame.GoForward()
   type: Method
   assemblies:
   - PresentationFramework
@@ -1483,9 +1432,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.JournalOwnership
   commentId: P:System.Windows.Controls.Frame.JournalOwnership
   id: JournalOwnership
@@ -1494,13 +1440,13 @@ items:
   - csharp
   name: JournalOwnership
   nameWithType: Frame.JournalOwnership
-  fullName: System.Windows.Controls.Frame.JournalOwnership
+  fullName: Frame.JournalOwnership
   type: Property
   assemblies:
   - PresentationFramework
   namespace: System.Windows.Controls
   summary: Gets or sets whether a <xref href="System.Windows.Controls.Frame"></xref> is responsible for managing its own navigation history, or yields navigation history management to a parent navigator (<xref href="System.Windows.Navigation.NavigationWindow"></xref>, <xref href="System.Windows.Controls.Frame"></xref>).
-  remarks: "By default, <xref:System.Windows.Controls.Frame> will use its own navigation history only if a parent navigation host (<xref:System.Windows.Navigation.NavigationWindow>, <xref:System.Windows.Controls.Frame>) with its own journal cannot be found (for example, if a <xref:System.Windows.Controls.Frame> is hosted in content that is hosted by a <xref:System.Windows.Window>). To force <xref:System.Windows.Controls.Frame> to manage its own navigation history, set <xref:System.Windows.Controls.Frame.JournalOwnership%2A> to <xref:System.Windows.Navigation.JournalOwnership>.  \n  \n<a name=\"dependencyPropertyInfo_FrameJournalOwnership\"></a>   \n## Dependency Property Information  \n  \n|||  \n|-|-|  \n|Identifier field|<xref:System.Windows.Controls.Frame.JournalOwnershipProperty>|  \n|Metadata properties set to `true`|None|"
+  remarks: "By default, <xref:System.Windows.Controls.Frame> will use its own navigation history only if a parent navigation host (<xref:System.Windows.Navigation.NavigationWindow>, <xref:System.Windows.Controls.Frame>) with its own journal cannot be found (for example, if a <xref:System.Windows.Controls.Frame> is hosted in content that is hosted by a <xref:System.Windows.Window>). To force <xref:System.Windows.Controls.Frame> to manage its own navigation history, set <xref:System.Windows.Controls.Frame.JournalOwnership%2A> to <xref:System.Windows.Navigation.JournalOwnership.OwnsJournal>.  \n  \n<a name=\"dependencyPropertyInfo_FrameJournalOwnership\"></a>   \n## Dependency Property Information  \n  \n|||  \n|-|-|  \n|Identifier field|<xref:System.Windows.Controls.Frame.JournalOwnershipProperty>|  \n|Metadata properties set to `true`|None|"
   example:
   - "The following example illustrates a <xref:System.Windows.Controls.Frame> that is configured to use its own navigation history.  \n  \n [!code-xml[FrameJournalOwnershipSnippetSample#SetJournalOwnershipProperty](~/samples/snippets/csharp/VS_Snippets_Wpf/FrameJournalOwnershipSnippetSample/CS/HomePage.xaml#setjournalownershipproperty)]"
   syntax:
@@ -1527,8 +1473,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Controls.Frame.JournalOwnershipProperty
   commentId: F:System.Windows.Controls.Frame.JournalOwnershipProperty
   id: JournalOwnershipProperty
@@ -1537,7 +1481,7 @@ items:
   - csharp
   name: JournalOwnershipProperty
   nameWithType: Frame.JournalOwnershipProperty
-  fullName: System.Windows.Controls.Frame.JournalOwnershipProperty
+  fullName: Frame.JournalOwnershipProperty
   type: Field
   assemblies:
   - PresentationFramework
@@ -1567,9 +1511,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.LoadCompleted
   commentId: E:System.Windows.Controls.Frame.LoadCompleted
   id: LoadCompleted
@@ -1578,7 +1519,7 @@ items:
   - csharp
   name: LoadCompleted
   nameWithType: Frame.LoadCompleted
-  fullName: System.Windows.Controls.Frame.LoadCompleted
+  fullName: Frame.LoadCompleted
   type: Event
   assemblies:
   - PresentationFramework
@@ -1608,8 +1549,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Controls.Frame.Navigate(System.Uri,System.Object)
   commentId: M:System.Windows.Controls.Frame.Navigate(System.Uri,System.Object)
   id: Navigate(System.Uri,System.Object)
@@ -1618,7 +1557,7 @@ items:
   - csharp
   name: Navigate(Uri, Object)
   nameWithType: Frame.Navigate(Uri, Object)
-  fullName: System.Windows.Controls.Frame.Navigate(Uri, Object)
+  fullName: Frame.Navigate(Uri, Object)
   type: Method
   assemblies:
   - PresentationFramework
@@ -1656,9 +1595,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.Navigate(System.Object,System.Object)
   commentId: M:System.Windows.Controls.Frame.Navigate(System.Object,System.Object)
   id: Navigate(System.Object,System.Object)
@@ -1667,7 +1603,7 @@ items:
   - csharp
   name: Navigate(Object, Object)
   nameWithType: Frame.Navigate(Object, Object)
-  fullName: System.Windows.Controls.Frame.Navigate(Object, Object)
+  fullName: Frame.Navigate(Object, Object)
   type: Method
   assemblies:
   - PresentationFramework
@@ -1705,9 +1641,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.Navigate(System.Uri)
   commentId: M:System.Windows.Controls.Frame.Navigate(System.Uri)
   id: Navigate(System.Uri)
@@ -1716,7 +1649,7 @@ items:
   - csharp
   name: Navigate(Uri)
   nameWithType: Frame.Navigate(Uri)
-  fullName: System.Windows.Controls.Frame.Navigate(Uri)
+  fullName: Frame.Navigate(Uri)
   type: Method
   assemblies:
   - PresentationFramework
@@ -1753,9 +1686,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.Navigate(System.Object)
   commentId: M:System.Windows.Controls.Frame.Navigate(System.Object)
   id: Navigate(System.Object)
@@ -1764,7 +1694,7 @@ items:
   - csharp
   name: Navigate(Object)
   nameWithType: Frame.Navigate(Object)
-  fullName: System.Windows.Controls.Frame.Navigate(Object)
+  fullName: Frame.Navigate(Object)
   type: Method
   assemblies:
   - PresentationFramework
@@ -1801,9 +1731,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.Navigated
   commentId: E:System.Windows.Controls.Frame.Navigated
   id: Navigated
@@ -1812,7 +1739,7 @@ items:
   - csharp
   name: Navigated
   nameWithType: Frame.Navigated
-  fullName: System.Windows.Controls.Frame.Navigated
+  fullName: Frame.Navigated
   type: Event
   assemblies:
   - PresentationFramework
@@ -1842,9 +1769,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.Navigating
   commentId: E:System.Windows.Controls.Frame.Navigating
   id: Navigating
@@ -1853,7 +1777,7 @@ items:
   - csharp
   name: Navigating
   nameWithType: Frame.Navigating
-  fullName: System.Windows.Controls.Frame.Navigating
+  fullName: Frame.Navigating
   type: Event
   assemblies:
   - PresentationFramework
@@ -1883,9 +1807,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.NavigationFailed
   commentId: E:System.Windows.Controls.Frame.NavigationFailed
   id: NavigationFailed
@@ -1894,7 +1815,7 @@ items:
   - csharp
   name: NavigationFailed
   nameWithType: Frame.NavigationFailed
-  fullName: System.Windows.Controls.Frame.NavigationFailed
+  fullName: Frame.NavigationFailed
   type: Event
   assemblies:
   - PresentationFramework
@@ -1924,9 +1845,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.NavigationProgress
   commentId: E:System.Windows.Controls.Frame.NavigationProgress
   id: NavigationProgress
@@ -1935,7 +1853,7 @@ items:
   - csharp
   name: NavigationProgress
   nameWithType: Frame.NavigationProgress
-  fullName: System.Windows.Controls.Frame.NavigationProgress
+  fullName: Frame.NavigationProgress
   type: Event
   assemblies:
   - PresentationFramework
@@ -1965,9 +1883,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.NavigationService
   commentId: P:System.Windows.Controls.Frame.NavigationService
   id: NavigationService
@@ -1976,7 +1891,7 @@ items:
   - csharp
   name: NavigationService
   nameWithType: Frame.NavigationService
-  fullName: System.Windows.Controls.Frame.NavigationService
+  fullName: Frame.NavigationService
   type: Property
   assemblies:
   - PresentationFramework
@@ -2007,9 +1922,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.NavigationStopped
   commentId: E:System.Windows.Controls.Frame.NavigationStopped
   id: NavigationStopped
@@ -2018,7 +1930,7 @@ items:
   - csharp
   name: NavigationStopped
   nameWithType: Frame.NavigationStopped
-  fullName: System.Windows.Controls.Frame.NavigationStopped
+  fullName: Frame.NavigationStopped
   type: Event
   assemblies:
   - PresentationFramework
@@ -2048,8 +1960,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Controls.Frame.NavigationUIVisibility
   commentId: P:System.Windows.Controls.Frame.NavigationUIVisibility
   id: NavigationUIVisibility
@@ -2058,15 +1968,15 @@ items:
   - csharp
   name: NavigationUIVisibility
   nameWithType: Frame.NavigationUIVisibility
-  fullName: System.Windows.Controls.Frame.NavigationUIVisibility
+  fullName: Frame.NavigationUIVisibility
   type: Property
   assemblies:
   - PresentationFramework
   namespace: System.Windows.Controls
   summary: Gets or sets when the <xref href="System.Windows.Controls.Frame"></xref> can show its navigation [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)].
-  remarks: "By default, a <xref:System.Windows.Controls.Frame> shows its navigation [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)] automatically when the first entry is added to navigation history. The navigation [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)] subsequently remains visible, with the back or forward navigation buttons becoming appropriately enabled or disabled to reflect the number of entries in back and forward navigation history.  \n  \n You can ensure that navigation [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)] is always visible by setting:  \n  \n1.  <xref:System.Windows.Navigation.NavigationUIVisibility> to <xref:System.Windows.Navigation.NavigationUIVisibility>  \n  \n2.  <xref:System.Windows.Controls.Frame.JournalOwnership%2A> to <xref:System.Windows.Navigation.JournalOwnership>  \n  \n You set <xref:System.Windows.Navigation.NavigationUIVisibility> to <xref:System.Windows.Navigation.NavigationUIVisibility> if you want to hide the navigation [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)]. This might be the case when navigation [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)] doesn’t make sense with the content you are displaying from a <xref:System.Windows.Controls.Frame>, or because you are providing your own navigation [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)].  \n  \n<a name=\"dependencyPropertyInfo_FrameJournalNavigationUIVisibility\"></a>   \n## Dependency Property Information  \n  \n|||  \n|-|-|  \n|Identifier field|<xref:System.Windows.Controls.Frame.NavigationUIVisibilityProperty>|  \n|Metadata properties set to `true`|None|"
+  remarks: "By default, a <xref:System.Windows.Controls.Frame> shows its navigation [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)] automatically when the first entry is added to navigation history. The navigation [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)] subsequently remains visible, with the back or forward navigation buttons becoming appropriately enabled or disabled to reflect the number of entries in back and forward navigation history.  \n  \n You can ensure that navigation [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)] is always visible by setting:  \n  \n1.  <xref:System.Windows.Navigation.NavigationUIVisibility> to <xref:System.Windows.Navigation.NavigationUIVisibility.Visible>  \n  \n2.  <xref:System.Windows.Controls.Frame.JournalOwnership%2A> to <xref:System.Windows.Navigation.JournalOwnership.OwnsJournal>  \n  \n You set <xref:System.Windows.Navigation.NavigationUIVisibility> to <xref:System.Windows.Navigation.NavigationUIVisibility.Hidden> if you want to hide the navigation [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)]. This might be the case when navigation [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)] doesn’t make sense with the content you are displaying from a <xref:System.Windows.Controls.Frame>, or because you are providing your own navigation [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)].  \n  \n<a name=\"dependencyPropertyInfo_FrameJournalNavigationUIVisibility\"></a>   \n## Dependency Property Information  \n  \n|||  \n|-|-|  \n|Identifier field|<xref:System.Windows.Controls.Frame.NavigationUIVisibilityProperty>|  \n|Metadata properties set to `true`|None|"
   example:
-  - "The following example demonstrates how to make sure the navigation chrome of a <xref:System.Windows.Controls.Frame> is always visible by setting <xref:System.Windows.Controls.Frame.NavigationUIVisibility%2A> to <xref:System.Windows.Navigation.NavigationUIVisibility>.  \n  \n [!code-csharp[FrameNavigationUIVisibilitySnippets#SetNavigationUIVisibility](~/samples/snippets/csharp/VS_Snippets_Wpf/FrameNavigationUIVisibilitySnippets/CSharp/Window1.xaml.cs#setnavigationuivisibility)]\n [!code-vb[FrameNavigationUIVisibilitySnippets#SetNavigationUIVisibility](~/samples/snippets/visualbasic/VS_Snippets_Wpf/FrameNavigationUIVisibilitySnippets/visualbasic/window1.xaml.vb#setnavigationuivisibility)]\n [!code-xml[FrameNavigationUIVisibilitySnippets#SetNavigationUIVisibility](~/samples/snippets/xaml/VS_Snippets_Wpf/FrameNavigationUIVisibilitySnippets/XAML/Window1.xaml#setnavigationuivisibility)]"
+  - "The following example demonstrates how to make sure the navigation chrome of a <xref:System.Windows.Controls.Frame> is always visible by setting <xref:System.Windows.Controls.Frame.NavigationUIVisibility%2A> to <xref:System.Windows.Navigation.NavigationUIVisibility.Visible>.  \n  \n [!code-csharp[FrameNavigationUIVisibilitySnippets#SetNavigationUIVisibility](~/samples/snippets/csharp/VS_Snippets_Wpf/FrameNavigationUIVisibilitySnippets/CSharp/Window1.xaml.cs#setnavigationuivisibility)]\n [!code-vb[FrameNavigationUIVisibilitySnippets#SetNavigationUIVisibility](~/samples/snippets/visualbasic/VS_Snippets_Wpf/FrameNavigationUIVisibilitySnippets/visualbasic/window1.xaml.vb#setnavigationuivisibility)]\n [!code-xml[FrameNavigationUIVisibilitySnippets#SetNavigationUIVisibility](~/samples/snippets/xaml/VS_Snippets_Wpf/FrameNavigationUIVisibilitySnippets/XAML/Window1.xaml#setnavigationuivisibility)]"
   syntax:
     content: public System.Windows.Navigation.NavigationUIVisibility NavigationUIVisibility { get; set; }
     return:
@@ -2091,9 +2001,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.NavigationUIVisibilityProperty
   commentId: F:System.Windows.Controls.Frame.NavigationUIVisibilityProperty
   id: NavigationUIVisibilityProperty
@@ -2102,7 +2009,7 @@ items:
   - csharp
   name: NavigationUIVisibilityProperty
   nameWithType: Frame.NavigationUIVisibilityProperty
-  fullName: System.Windows.Controls.Frame.NavigationUIVisibilityProperty
+  fullName: Frame.NavigationUIVisibilityProperty
   type: Field
   assemblies:
   - PresentationFramework
@@ -2132,8 +2039,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Controls.Frame.OnApplyTemplate
   commentId: M:System.Windows.Controls.Frame.OnApplyTemplate
   id: OnApplyTemplate
@@ -2142,7 +2047,7 @@ items:
   - csharp
   name: OnApplyTemplate()
   nameWithType: Frame.OnApplyTemplate()
-  fullName: System.Windows.Controls.Frame.OnApplyTemplate()
+  fullName: Frame.OnApplyTemplate()
   type: Method
   assemblies:
   - PresentationFramework
@@ -2170,9 +2075,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.OnContentRendered(System.EventArgs)
   commentId: M:System.Windows.Controls.Frame.OnContentRendered(System.EventArgs)
   id: OnContentRendered(System.EventArgs)
@@ -2181,7 +2083,7 @@ items:
   - csharp
   name: OnContentRendered(EventArgs)
   nameWithType: Frame.OnContentRendered(EventArgs)
-  fullName: System.Windows.Controls.Frame.OnContentRendered(EventArgs)
+  fullName: Frame.OnContentRendered(EventArgs)
   type: Method
   assemblies:
   - PresentationFramework
@@ -2213,9 +2115,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.OnCreateAutomationPeer
   commentId: M:System.Windows.Controls.Frame.OnCreateAutomationPeer
   id: OnCreateAutomationPeer
@@ -2224,7 +2123,7 @@ items:
   - csharp
   name: OnCreateAutomationPeer()
   nameWithType: Frame.OnCreateAutomationPeer()
-  fullName: System.Windows.Controls.Frame.OnCreateAutomationPeer()
+  fullName: Frame.OnCreateAutomationPeer()
   type: Method
   assemblies:
   - PresentationFramework
@@ -2256,8 +2155,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Controls.Frame.Refresh
   commentId: M:System.Windows.Controls.Frame.Refresh
   id: Refresh
@@ -2266,7 +2163,7 @@ items:
   - csharp
   name: Refresh()
   nameWithType: Frame.Refresh()
-  fullName: System.Windows.Controls.Frame.Refresh()
+  fullName: Frame.Refresh()
   type: Method
   assemblies:
   - PresentationFramework
@@ -2295,9 +2192,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.RemoveBackEntry
   commentId: M:System.Windows.Controls.Frame.RemoveBackEntry
   id: RemoveBackEntry
@@ -2306,7 +2200,7 @@ items:
   - csharp
   name: RemoveBackEntry()
   nameWithType: Frame.RemoveBackEntry()
-  fullName: System.Windows.Controls.Frame.RemoveBackEntry()
+  fullName: Frame.RemoveBackEntry()
   type: Method
   assemblies:
   - PresentationFramework
@@ -2338,9 +2232,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.SandboxExternalContent
   commentId: P:System.Windows.Controls.Frame.SandboxExternalContent
   id: SandboxExternalContent
@@ -2349,13 +2240,13 @@ items:
   - csharp
   name: SandboxExternalContent
   nameWithType: Frame.SandboxExternalContent
-  fullName: System.Windows.Controls.Frame.SandboxExternalContent
+  fullName: Frame.SandboxExternalContent
   type: Property
   assemblies:
   - PresentationFramework
   namespace: System.Windows.Controls
   summary: Gets or sets whether a <xref href="System.Windows.Controls.Frame"></xref> isolates external [!INCLUDE[TLA#tla_xaml](~/includes/tlasharptla-xaml-md.md)] content within a partial trust security sandbox (with the default `Internet `permission set).
-  remarks: "External content is [!INCLUDE[TLA2#tla_xaml](~/includes/tla2sharptla-xaml-md.md)] content that is not included with an application as either a resource file or a content file (see [WPF Application Resource, Content, and Data Files](../Topic/WPF%20Application%20Resource,%20Content,%20and%20Data%20Files.md)).  \n  \n When <xref:System.Windows.Controls.Frame.SandboxExternalContent%2A> is `true`, and the source for the content of the <xref:System.Windows.Controls.Frame> is an external [!INCLUDE[TLA2#tla_xaml](~/includes/tla2sharptla-xaml-md.md)] file, the content is loaded into a partial trust security sandbox that is limited to the default `Internet` permission set. The external content is subsequently loaded into a separate process. As a result, the external content becomes isolated and does not have access to application-scope resources, such as resource dictionaries (see <xref:System.Windows.ResourceDictionary>).  \n  \n> [!NOTE]\n>  <xref:System.Windows.Controls.Frame> will only contain external content when the <xref:System.Windows.Controls.Frame.Source%2A> property is set to the [!INCLUDE[TLA#tla_uri](~/includes/tlasharptla-uri-md.md)] for an external [!INCLUDE[TLA2#tla_xaml](~/includes/tla2sharptla-xaml-md.md)] file. <xref:System.Windows.Controls.Frame> content that is provided using the <xref:System.Windows.Controls.ContentControl.Content%2A> property is considered internal content and, subsequently, is not isolated.  \n  \n<a name=\"dependencyPropertyInfo_FrameSandboxExternalContent\"></a>   \n## Dependency Property Information  \n  \n|||  \n|-|-|  \n|Identifier field|<xref:System.Windows.Controls.Frame.SandboxExternalContent%2A>|  \n|Metadata properties set to `true`|None|"
+  remarks: "External content is [!INCLUDE[TLA2#tla_xaml](~/includes/tla2sharptla-xaml-md.md)] content that is not included with an application as either a resource file or a content file (see [WPF Application Resource, Content, and Data Files](~/docs/framework/wpf/app-development/wpf-application-resource-content-and-data-files.md)).  \n  \n When <xref:System.Windows.Controls.Frame.SandboxExternalContent%2A> is `true`, and the source for the content of the <xref:System.Windows.Controls.Frame> is an external [!INCLUDE[TLA2#tla_xaml](~/includes/tla2sharptla-xaml-md.md)] file, the content is loaded into a partial trust security sandbox that is limited to the default `Internet` permission set. The external content is subsequently loaded into a separate process. As a result, the external content becomes isolated and does not have access to application-scope resources, such as resource dictionaries (see <xref:System.Windows.ResourceDictionary>).  \n  \n> [!NOTE]\n>  <xref:System.Windows.Controls.Frame> will only contain external content when the <xref:System.Windows.Controls.Frame.Source%2A> property is set to the [!INCLUDE[TLA#tla_uri](~/includes/tlasharptla-uri-md.md)] for an external [!INCLUDE[TLA2#tla_xaml](~/includes/tla2sharptla-xaml-md.md)] file. <xref:System.Windows.Controls.Frame> content that is provided using the <xref:System.Windows.Controls.ContentControl.Content%2A> property is considered internal content and, subsequently, is not isolated.  \n  \n<a name=\"dependencyPropertyInfo_FrameSandboxExternalContent\"></a>   \n## Dependency Property Information  \n  \n|||  \n|-|-|  \n|Identifier field|<xref:System.Windows.Controls.Frame.SandboxExternalContent%2A>|  \n|Metadata properties set to `true`|None|"
   syntax:
     content: public bool SandboxExternalContent { get; set; }
     return:
@@ -2383,9 +2274,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.SandboxExternalContentProperty
   commentId: F:System.Windows.Controls.Frame.SandboxExternalContentProperty
   id: SandboxExternalContentProperty
@@ -2394,7 +2282,7 @@ items:
   - csharp
   name: SandboxExternalContentProperty
   nameWithType: Frame.SandboxExternalContentProperty
-  fullName: System.Windows.Controls.Frame.SandboxExternalContentProperty
+  fullName: Frame.SandboxExternalContentProperty
   type: Field
   assemblies:
   - PresentationFramework
@@ -2424,9 +2312,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.ShouldSerializeContent
   commentId: M:System.Windows.Controls.Frame.ShouldSerializeContent
   id: ShouldSerializeContent
@@ -2435,7 +2320,7 @@ items:
   - csharp
   name: ShouldSerializeContent()
   nameWithType: Frame.ShouldSerializeContent()
-  fullName: System.Windows.Controls.Frame.ShouldSerializeContent()
+  fullName: Frame.ShouldSerializeContent()
   type: Method
   assemblies:
   - PresentationFramework
@@ -2467,9 +2352,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.Source
   commentId: P:System.Windows.Controls.Frame.Source
   id: Source
@@ -2478,7 +2360,7 @@ items:
   - csharp
   name: Source
   nameWithType: Frame.Source
-  fullName: System.Windows.Controls.Frame.Source
+  fullName: Frame.Source
   type: Property
   assemblies:
   - PresentationFramework
@@ -2516,9 +2398,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.SourceProperty
   commentId: F:System.Windows.Controls.Frame.SourceProperty
   id: SourceProperty
@@ -2527,7 +2406,7 @@ items:
   - csharp
   name: SourceProperty
   nameWithType: Frame.SourceProperty
-  fullName: System.Windows.Controls.Frame.SourceProperty
+  fullName: Frame.SourceProperty
   type: Field
   assemblies:
   - PresentationFramework
@@ -2556,8 +2435,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Controls.Frame.StopLoading
   commentId: M:System.Windows.Controls.Frame.StopLoading
   id: StopLoading
@@ -2566,7 +2443,7 @@ items:
   - csharp
   name: StopLoading()
   nameWithType: Frame.StopLoading()
-  fullName: System.Windows.Controls.Frame.StopLoading()
+  fullName: Frame.StopLoading()
   type: Method
   assemblies:
   - PresentationFramework
@@ -2595,9 +2472,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Controls.Frame.System#Windows#Markup#IUriContext#BaseUri
   commentId: P:System.Windows.Controls.Frame.System#Windows#Markup#IUriContext#BaseUri
   id: System#Windows#Markup#IUriContext#BaseUri
@@ -2607,7 +2481,7 @@ items:
   - csharp
   name: IUriContext.BaseUri
   nameWithType: Frame.IUriContext.BaseUri
-  fullName: System.Windows.Controls.Frame.IUriContext.BaseUri
+  fullName: Frame.IUriContext.BaseUri
   type: Property
   assemblies:
   - PresentationFramework
@@ -2638,9 +2512,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 references:
 - uid: System.Windows.Controls.ContentControl
   parent: System.Windows.Controls
@@ -2665,13 +2536,13 @@ references:
   isExternal: false
   name: Frame()
   nameWithType: Frame.Frame()
-  fullName: System.Windows.Controls.Frame.Frame()
+  fullName: Frame.Frame()
 - uid: System.Windows.Controls.Frame.AddBackEntry(System.Windows.Navigation.CustomContentState)
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: AddBackEntry(CustomContentState)
   nameWithType: Frame.AddBackEntry(CustomContentState)
-  fullName: System.Windows.Controls.Frame.AddBackEntry(CustomContentState)
+  fullName: Frame.AddBackEntry(CustomContentState)
 - uid: System.Windows.Navigation.CustomContentState
   parent: System.Windows.Navigation
   isExternal: false
@@ -2683,7 +2554,7 @@ references:
   isExternal: false
   name: AddChild(Object)
   nameWithType: Frame.AddChild(Object)
-  fullName: System.Windows.Controls.Frame.AddChild(Object)
+  fullName: Frame.AddChild(Object)
 - uid: System.Object
   parent: System
   isExternal: false
@@ -2695,7 +2566,7 @@ references:
   isExternal: false
   name: AddText(String)
   nameWithType: Frame.AddText(String)
-  fullName: System.Windows.Controls.Frame.AddText(String)
+  fullName: Frame.AddText(String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -2707,7 +2578,7 @@ references:
   isExternal: false
   name: BackStack
   nameWithType: Frame.BackStack
-  fullName: System.Windows.Controls.Frame.BackStack
+  fullName: Frame.BackStack
 - uid: System.Collections.IEnumerable
   parent: System.Collections
   isExternal: false
@@ -2719,7 +2590,7 @@ references:
   isExternal: false
   name: BackStackProperty
   nameWithType: Frame.BackStackProperty
-  fullName: System.Windows.Controls.Frame.BackStackProperty
+  fullName: Frame.BackStackProperty
 - uid: System.Windows.DependencyProperty
   parent: System.Windows
   isExternal: false
@@ -2731,7 +2602,7 @@ references:
   isExternal: false
   name: BaseUri
   nameWithType: Frame.BaseUri
-  fullName: System.Windows.Controls.Frame.BaseUri
+  fullName: Frame.BaseUri
 - uid: System.Uri
   parent: System
   isExternal: false
@@ -2743,7 +2614,7 @@ references:
   isExternal: false
   name: CanGoBack
   nameWithType: Frame.CanGoBack
-  fullName: System.Windows.Controls.Frame.CanGoBack
+  fullName: Frame.CanGoBack
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -2755,25 +2626,25 @@ references:
   isExternal: false
   name: CanGoBackProperty
   nameWithType: Frame.CanGoBackProperty
-  fullName: System.Windows.Controls.Frame.CanGoBackProperty
+  fullName: Frame.CanGoBackProperty
 - uid: System.Windows.Controls.Frame.CanGoForward
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: CanGoForward
   nameWithType: Frame.CanGoForward
-  fullName: System.Windows.Controls.Frame.CanGoForward
+  fullName: Frame.CanGoForward
 - uid: System.Windows.Controls.Frame.CanGoForwardProperty
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: CanGoForwardProperty
   nameWithType: Frame.CanGoForwardProperty
-  fullName: System.Windows.Controls.Frame.CanGoForwardProperty
+  fullName: Frame.CanGoForwardProperty
 - uid: System.Windows.Controls.Frame.ContentRendered
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: ContentRendered
   nameWithType: Frame.ContentRendered
-  fullName: System.Windows.Controls.Frame.ContentRendered
+  fullName: Frame.ContentRendered
 - uid: System.EventHandler
   parent: System
   isExternal: false
@@ -2785,25 +2656,25 @@ references:
   isExternal: false
   name: CurrentSource
   nameWithType: Frame.CurrentSource
-  fullName: System.Windows.Controls.Frame.CurrentSource
+  fullName: Frame.CurrentSource
 - uid: System.Windows.Controls.Frame.ForwardStack
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: ForwardStack
   nameWithType: Frame.ForwardStack
-  fullName: System.Windows.Controls.Frame.ForwardStack
+  fullName: Frame.ForwardStack
 - uid: System.Windows.Controls.Frame.ForwardStackProperty
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: ForwardStackProperty
   nameWithType: Frame.ForwardStackProperty
-  fullName: System.Windows.Controls.Frame.ForwardStackProperty
+  fullName: Frame.ForwardStackProperty
 - uid: System.Windows.Controls.Frame.FragmentNavigation
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: FragmentNavigation
   nameWithType: Frame.FragmentNavigation
-  fullName: System.Windows.Controls.Frame.FragmentNavigation
+  fullName: Frame.FragmentNavigation
 - uid: System.Windows.Navigation.FragmentNavigationEventHandler
   parent: System.Windows.Navigation
   isExternal: false
@@ -2815,19 +2686,19 @@ references:
   isExternal: false
   name: GoBack()
   nameWithType: Frame.GoBack()
-  fullName: System.Windows.Controls.Frame.GoBack()
+  fullName: Frame.GoBack()
 - uid: System.Windows.Controls.Frame.GoForward
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: GoForward()
   nameWithType: Frame.GoForward()
-  fullName: System.Windows.Controls.Frame.GoForward()
+  fullName: Frame.GoForward()
 - uid: System.Windows.Controls.Frame.JournalOwnership
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: JournalOwnership
   nameWithType: Frame.JournalOwnership
-  fullName: System.Windows.Controls.Frame.JournalOwnership
+  fullName: Frame.JournalOwnership
 - uid: System.Windows.Navigation.JournalOwnership
   parent: System.Windows.Navigation
   isExternal: false
@@ -2839,13 +2710,13 @@ references:
   isExternal: false
   name: JournalOwnershipProperty
   nameWithType: Frame.JournalOwnershipProperty
-  fullName: System.Windows.Controls.Frame.JournalOwnershipProperty
+  fullName: Frame.JournalOwnershipProperty
 - uid: System.Windows.Controls.Frame.LoadCompleted
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: LoadCompleted
   nameWithType: Frame.LoadCompleted
-  fullName: System.Windows.Controls.Frame.LoadCompleted
+  fullName: Frame.LoadCompleted
 - uid: System.Windows.Navigation.LoadCompletedEventHandler
   parent: System.Windows.Navigation
   isExternal: false
@@ -2857,31 +2728,31 @@ references:
   isExternal: false
   name: Navigate(Uri, Object)
   nameWithType: Frame.Navigate(Uri, Object)
-  fullName: System.Windows.Controls.Frame.Navigate(Uri, Object)
+  fullName: Frame.Navigate(Uri, Object)
 - uid: System.Windows.Controls.Frame.Navigate(System.Object,System.Object)
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: Navigate(Object, Object)
   nameWithType: Frame.Navigate(Object, Object)
-  fullName: System.Windows.Controls.Frame.Navigate(Object, Object)
+  fullName: Frame.Navigate(Object, Object)
 - uid: System.Windows.Controls.Frame.Navigate(System.Uri)
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: Navigate(Uri)
   nameWithType: Frame.Navigate(Uri)
-  fullName: System.Windows.Controls.Frame.Navigate(Uri)
+  fullName: Frame.Navigate(Uri)
 - uid: System.Windows.Controls.Frame.Navigate(System.Object)
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: Navigate(Object)
   nameWithType: Frame.Navigate(Object)
-  fullName: System.Windows.Controls.Frame.Navigate(Object)
+  fullName: Frame.Navigate(Object)
 - uid: System.Windows.Controls.Frame.Navigated
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: Navigated
   nameWithType: Frame.Navigated
-  fullName: System.Windows.Controls.Frame.Navigated
+  fullName: Frame.Navigated
 - uid: System.Windows.Navigation.NavigatedEventHandler
   parent: System.Windows.Navigation
   isExternal: false
@@ -2893,7 +2764,7 @@ references:
   isExternal: false
   name: Navigating
   nameWithType: Frame.Navigating
-  fullName: System.Windows.Controls.Frame.Navigating
+  fullName: Frame.Navigating
 - uid: System.Windows.Navigation.NavigatingCancelEventHandler
   parent: System.Windows.Navigation
   isExternal: false
@@ -2905,7 +2776,7 @@ references:
   isExternal: false
   name: NavigationFailed
   nameWithType: Frame.NavigationFailed
-  fullName: System.Windows.Controls.Frame.NavigationFailed
+  fullName: Frame.NavigationFailed
 - uid: System.Windows.Navigation.NavigationFailedEventHandler
   parent: System.Windows.Navigation
   isExternal: false
@@ -2917,7 +2788,7 @@ references:
   isExternal: false
   name: NavigationProgress
   nameWithType: Frame.NavigationProgress
-  fullName: System.Windows.Controls.Frame.NavigationProgress
+  fullName: Frame.NavigationProgress
 - uid: System.Windows.Navigation.NavigationProgressEventHandler
   parent: System.Windows.Navigation
   isExternal: false
@@ -2929,7 +2800,7 @@ references:
   isExternal: false
   name: NavigationService
   nameWithType: Frame.NavigationService
-  fullName: System.Windows.Controls.Frame.NavigationService
+  fullName: Frame.NavigationService
 - uid: System.Windows.Navigation.NavigationService
   parent: System.Windows.Navigation
   isExternal: false
@@ -2941,7 +2812,7 @@ references:
   isExternal: false
   name: NavigationStopped
   nameWithType: Frame.NavigationStopped
-  fullName: System.Windows.Controls.Frame.NavigationStopped
+  fullName: Frame.NavigationStopped
 - uid: System.Windows.Navigation.NavigationStoppedEventHandler
   parent: System.Windows.Navigation
   isExternal: false
@@ -2953,7 +2824,7 @@ references:
   isExternal: false
   name: NavigationUIVisibility
   nameWithType: Frame.NavigationUIVisibility
-  fullName: System.Windows.Controls.Frame.NavigationUIVisibility
+  fullName: Frame.NavigationUIVisibility
 - uid: System.Windows.Navigation.NavigationUIVisibility
   parent: System.Windows.Navigation
   isExternal: false
@@ -2965,19 +2836,19 @@ references:
   isExternal: false
   name: NavigationUIVisibilityProperty
   nameWithType: Frame.NavigationUIVisibilityProperty
-  fullName: System.Windows.Controls.Frame.NavigationUIVisibilityProperty
+  fullName: Frame.NavigationUIVisibilityProperty
 - uid: System.Windows.Controls.Frame.OnApplyTemplate
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: OnApplyTemplate()
   nameWithType: Frame.OnApplyTemplate()
-  fullName: System.Windows.Controls.Frame.OnApplyTemplate()
+  fullName: Frame.OnApplyTemplate()
 - uid: System.Windows.Controls.Frame.OnContentRendered(System.EventArgs)
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: OnContentRendered(EventArgs)
   nameWithType: Frame.OnContentRendered(EventArgs)
-  fullName: System.Windows.Controls.Frame.OnContentRendered(EventArgs)
+  fullName: Frame.OnContentRendered(EventArgs)
 - uid: System.EventArgs
   parent: System
   isExternal: false
@@ -2989,7 +2860,7 @@ references:
   isExternal: false
   name: OnCreateAutomationPeer()
   nameWithType: Frame.OnCreateAutomationPeer()
-  fullName: System.Windows.Controls.Frame.OnCreateAutomationPeer()
+  fullName: Frame.OnCreateAutomationPeer()
 - uid: System.Windows.Automation.Peers.AutomationPeer
   parent: System.Windows.Automation.Peers
   isExternal: false
@@ -3001,13 +2872,13 @@ references:
   isExternal: false
   name: Refresh()
   nameWithType: Frame.Refresh()
-  fullName: System.Windows.Controls.Frame.Refresh()
+  fullName: Frame.Refresh()
 - uid: System.Windows.Controls.Frame.RemoveBackEntry
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: RemoveBackEntry()
   nameWithType: Frame.RemoveBackEntry()
-  fullName: System.Windows.Controls.Frame.RemoveBackEntry()
+  fullName: Frame.RemoveBackEntry()
 - uid: System.Windows.Navigation.JournalEntry
   parent: System.Windows.Navigation
   isExternal: false
@@ -3019,49 +2890,49 @@ references:
   isExternal: false
   name: SandboxExternalContent
   nameWithType: Frame.SandboxExternalContent
-  fullName: System.Windows.Controls.Frame.SandboxExternalContent
+  fullName: Frame.SandboxExternalContent
 - uid: System.Windows.Controls.Frame.SandboxExternalContentProperty
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: SandboxExternalContentProperty
   nameWithType: Frame.SandboxExternalContentProperty
-  fullName: System.Windows.Controls.Frame.SandboxExternalContentProperty
+  fullName: Frame.SandboxExternalContentProperty
 - uid: System.Windows.Controls.Frame.ShouldSerializeContent
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: ShouldSerializeContent()
   nameWithType: Frame.ShouldSerializeContent()
-  fullName: System.Windows.Controls.Frame.ShouldSerializeContent()
+  fullName: Frame.ShouldSerializeContent()
 - uid: System.Windows.Controls.Frame.Source
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: Source
   nameWithType: Frame.Source
-  fullName: System.Windows.Controls.Frame.Source
+  fullName: Frame.Source
 - uid: System.Windows.Controls.Frame.SourceProperty
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: SourceProperty
   nameWithType: Frame.SourceProperty
-  fullName: System.Windows.Controls.Frame.SourceProperty
+  fullName: Frame.SourceProperty
 - uid: System.Windows.Controls.Frame.StopLoading
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: StopLoading()
   nameWithType: Frame.StopLoading()
-  fullName: System.Windows.Controls.Frame.StopLoading()
+  fullName: Frame.StopLoading()
 - uid: System.Windows.Controls.Frame.System#Windows#Markup#IUriContext#BaseUri
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: IUriContext.BaseUri
   nameWithType: Frame.IUriContext.BaseUri
-  fullName: System.Windows.Controls.Frame.IUriContext.BaseUri
+  fullName: Frame.IUriContext.BaseUri
 - uid: System.Windows.Controls.Frame.#ctor*
   parent: System.Windows.Controls.Frame
   isExternal: false
   name: Frame
   nameWithType: Frame.Frame
-  fullName: System.Windows.Controls.Frame.Frame
+  fullName: Frame.Frame
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3076,7 +2947,7 @@ references:
   isExternal: false
   name: AddBackEntry
   nameWithType: Frame.AddBackEntry
-  fullName: System.Windows.Controls.Frame.AddBackEntry
+  fullName: Frame.AddBackEntry
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3091,7 +2962,7 @@ references:
   isExternal: false
   name: AddChild
   nameWithType: Frame.AddChild
-  fullName: System.Windows.Controls.Frame.AddChild
+  fullName: Frame.AddChild
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3106,7 +2977,7 @@ references:
   isExternal: false
   name: AddText
   nameWithType: Frame.AddText
-  fullName: System.Windows.Controls.Frame.AddText
+  fullName: Frame.AddText
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3121,7 +2992,7 @@ references:
   isExternal: false
   name: BackStack
   nameWithType: Frame.BackStack
-  fullName: System.Windows.Controls.Frame.BackStack
+  fullName: Frame.BackStack
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3136,7 +3007,7 @@ references:
   isExternal: false
   name: BaseUri
   nameWithType: Frame.BaseUri
-  fullName: System.Windows.Controls.Frame.BaseUri
+  fullName: Frame.BaseUri
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3151,7 +3022,7 @@ references:
   isExternal: false
   name: CanGoBack
   nameWithType: Frame.CanGoBack
-  fullName: System.Windows.Controls.Frame.CanGoBack
+  fullName: Frame.CanGoBack
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3166,7 +3037,7 @@ references:
   isExternal: false
   name: CanGoForward
   nameWithType: Frame.CanGoForward
-  fullName: System.Windows.Controls.Frame.CanGoForward
+  fullName: Frame.CanGoForward
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3181,7 +3052,7 @@ references:
   isExternal: false
   name: CurrentSource
   nameWithType: Frame.CurrentSource
-  fullName: System.Windows.Controls.Frame.CurrentSource
+  fullName: Frame.CurrentSource
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3196,7 +3067,7 @@ references:
   isExternal: false
   name: ForwardStack
   nameWithType: Frame.ForwardStack
-  fullName: System.Windows.Controls.Frame.ForwardStack
+  fullName: Frame.ForwardStack
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3211,7 +3082,7 @@ references:
   isExternal: false
   name: GoBack
   nameWithType: Frame.GoBack
-  fullName: System.Windows.Controls.Frame.GoBack
+  fullName: Frame.GoBack
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3226,7 +3097,7 @@ references:
   isExternal: false
   name: GoForward
   nameWithType: Frame.GoForward
-  fullName: System.Windows.Controls.Frame.GoForward
+  fullName: Frame.GoForward
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3241,7 +3112,7 @@ references:
   isExternal: false
   name: JournalOwnership
   nameWithType: Frame.JournalOwnership
-  fullName: System.Windows.Controls.Frame.JournalOwnership
+  fullName: Frame.JournalOwnership
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3256,7 +3127,7 @@ references:
   isExternal: false
   name: Navigate
   nameWithType: Frame.Navigate
-  fullName: System.Windows.Controls.Frame.Navigate
+  fullName: Frame.Navigate
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3271,7 +3142,7 @@ references:
   isExternal: false
   name: NavigationService
   nameWithType: Frame.NavigationService
-  fullName: System.Windows.Controls.Frame.NavigationService
+  fullName: Frame.NavigationService
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3286,7 +3157,7 @@ references:
   isExternal: false
   name: NavigationUIVisibility
   nameWithType: Frame.NavigationUIVisibility
-  fullName: System.Windows.Controls.Frame.NavigationUIVisibility
+  fullName: Frame.NavigationUIVisibility
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3301,7 +3172,7 @@ references:
   isExternal: false
   name: OnApplyTemplate
   nameWithType: Frame.OnApplyTemplate
-  fullName: System.Windows.Controls.Frame.OnApplyTemplate
+  fullName: Frame.OnApplyTemplate
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3316,7 +3187,7 @@ references:
   isExternal: false
   name: OnContentRendered
   nameWithType: Frame.OnContentRendered
-  fullName: System.Windows.Controls.Frame.OnContentRendered
+  fullName: Frame.OnContentRendered
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3331,7 +3202,7 @@ references:
   isExternal: false
   name: OnCreateAutomationPeer
   nameWithType: Frame.OnCreateAutomationPeer
-  fullName: System.Windows.Controls.Frame.OnCreateAutomationPeer
+  fullName: Frame.OnCreateAutomationPeer
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3346,7 +3217,7 @@ references:
   isExternal: false
   name: Refresh
   nameWithType: Frame.Refresh
-  fullName: System.Windows.Controls.Frame.Refresh
+  fullName: Frame.Refresh
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3361,7 +3232,7 @@ references:
   isExternal: false
   name: RemoveBackEntry
   nameWithType: Frame.RemoveBackEntry
-  fullName: System.Windows.Controls.Frame.RemoveBackEntry
+  fullName: Frame.RemoveBackEntry
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3376,7 +3247,7 @@ references:
   isExternal: false
   name: SandboxExternalContent
   nameWithType: Frame.SandboxExternalContent
-  fullName: System.Windows.Controls.Frame.SandboxExternalContent
+  fullName: Frame.SandboxExternalContent
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3391,7 +3262,7 @@ references:
   isExternal: false
   name: ShouldSerializeContent
   nameWithType: Frame.ShouldSerializeContent
-  fullName: System.Windows.Controls.Frame.ShouldSerializeContent
+  fullName: Frame.ShouldSerializeContent
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3406,7 +3277,7 @@ references:
   isExternal: false
   name: Source
   nameWithType: Frame.Source
-  fullName: System.Windows.Controls.Frame.Source
+  fullName: Frame.Source
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3421,7 +3292,7 @@ references:
   isExternal: false
   name: StopLoading
   nameWithType: Frame.StopLoading
-  fullName: System.Windows.Controls.Frame.StopLoading
+  fullName: Frame.StopLoading
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3436,7 +3307,7 @@ references:
   isExternal: false
   name: System.Windows.Markup.IUriContext.BaseUri
   nameWithType: Frame.System.Windows.Markup.IUriContext.BaseUri
-  fullName: System.Windows.Controls.Frame.System.Windows.Markup.IUriContext.BaseUri
+  fullName: Frame.System.Windows.Markup.IUriContext.BaseUri
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3446,3 +3317,15 @@ references:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Controls/Frame.xml
+- uid: System.Windows.Markup.IAddChild
+  parent: System.Windows.Markup
+  isExternal: false
+  name: IAddChild
+  nameWithType: IAddChild
+  fullName: System.Windows.Markup.IAddChild
+- uid: System.Windows.Markup.IUriContext
+  parent: System.Windows.Markup
+  isExternal: false
+  name: IUriContext
+  nameWithType: IUriContext
+  fullName: System.Windows.Markup.IUriContext

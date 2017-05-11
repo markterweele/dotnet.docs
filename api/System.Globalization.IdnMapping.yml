@@ -25,6 +25,7 @@ items:
   - System.Globalization.Extensions
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Supports the use of non-ASCII characters for Internet domain names. This class cannot be inherited.
   remarks: "An Internet domain name consists of one or more parts, called domain name labels, separated by label separators. For example, the domain name \"www.proseware.com\" consists of the labels, \"www\", \"proseware\", and \"com\", separated by periods. Standard domain names consist of designated characters in the US-ASCII (or Basic Latin) character range, from U+0021 to U+007E. To facilitate Internet usage in cultures that do not use the US-ASCII character set, the Internationalizing Domain Names in Applications (IDNA) standard was adopted in 2003 to support the inclusion of Unicode characters outside the US-ASCII character range. However, name servers and domain name resolution continue to rely on characters within the US-ASCII character range.  \n  \n The IDNA mechanism uses Punycode to map an internationalized domain name that contains Unicode characters outside the US-ASCII character range to the US-ASCII character range supported by the domain name system. The IDNA mechanism is used to convert only domain names, not data transmitted over the Internet.  \n  \n> [!IMPORTANT]\n>  In the [!INCLUDE[net_v45](~/includes/net-v45-md.md)], the <xref:System.Globalization.IdnMapping> class supports different versions of the IDNA standard, depending on the operating system in use:  \n>   \n>  -   When run on [!INCLUDE[win8](~/includes/win8-md.md)], it supports the 2008 version of the IDNA standard outlined by [RFC 5891: Internationalized Domain Names in Applications (IDNA): Protocol](http://go.microsoft.com/fwlink/?LinkId=231875).  \n> -   When run on earlier versions of the Windows operating system, it supports the 2003 version of the standard outlined by [RFC 3490: Internationalizing Domain Names in Applications (IDNA)](http://go.microsoft.com/fwlink/?LinkId=158110).  \n>   \n>  See [Unicode Technical Standard #46: IDNA Compatibility Processing](http://go.microsoft.com/fwlink/?LinkId=232459) for the differences in the way these standards handle particular sets of characters.  \n  \n The <xref:System.Globalization.IdnMapping.GetAscii%2A?displayProperty=fullName> method normalizes a domain name, converts the normalized name to a representation that consists of displayable Unicode characters in the US-ASCII code point range (U+0020 to U+007E), and prepends an ASCII-compatible encoding (ACE) prefix (\"xn--\") to each label. The <xref:System.Globalization.IdnMapping.GetUnicode%2A?displayProperty=fullName> method restores the domain name labels converted by the <xref:System.Globalization.IdnMapping.GetAscii%2A> method.  \n  \n If the string to be converted includes the label separator characters IDEOGRAPHIC FULL STOP (U+3002), FULLWIDTH FULL STOP (U+FF0E), and HALFWIDTH IDEOGRAPHIC FULL STOP (U+FF61), the <xref:System.Globalization.IdnMapping.GetAscii%2A> method converts them to the label separator FULL STOP (period, U+002E). The <xref:System.Globalization.IdnMapping.GetUnicode%2A> method, however, does not restore the original label separator character."
@@ -43,7 +44,8 @@ items:
   - System.Object.ToString
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -57,7 +59,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -70,9 +73,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/IdnMapping.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.IdnMapping.#ctor
   commentId: M:System.Globalization.IdnMapping.#ctor
   id: '#ctor'
@@ -81,12 +81,13 @@ items:
   - csharp
   name: IdnMapping()
   nameWithType: IdnMapping.IdnMapping()
-  fullName: System.Globalization.IdnMapping.IdnMapping()
+  fullName: IdnMapping.IdnMapping()
   type: Constructor
   assemblies:
   - System.Globalization.Extensions
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Initializes a new instance of the <xref href="System.Globalization.IdnMapping"></xref> class.
   remarks: The <xref:System.Globalization.IdnMapping.AllowUnassigned%2A?displayProperty=fullName> and <xref:System.Globalization.IdnMapping.UseStd3AsciiRules%2A?displayProperty=fullName> properties are initialized to `false`. A small subset of ASCII characters other than A-Z, 0-9, the hyphen (-) character (U+002D), and the period (.) character are permitted in domain names, but unassigned Unicode code points are not.
@@ -97,7 +98,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -111,7 +113,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -124,9 +127,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/IdnMapping.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.IdnMapping.AllowUnassigned
   commentId: P:System.Globalization.IdnMapping.AllowUnassigned
   id: AllowUnassigned
@@ -135,12 +135,13 @@ items:
   - csharp
   name: AllowUnassigned
   nameWithType: IdnMapping.AllowUnassigned
-  fullName: System.Globalization.IdnMapping.AllowUnassigned
+  fullName: IdnMapping.AllowUnassigned
   type: Property
   assemblies:
   - System.Globalization.Extensions
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets or sets a value that indicates whether unassigned Unicode code points are used in operations performed by members of the current <xref href="System.Globalization.IdnMapping"></xref> object.
   remarks: "A registered domain name cannot contain unassigned code points. Consequently, the default value of the <xref:System.Globalization.IdnMapping.AllowUnassigned%2A> property is `false`. The IDNA specification permits unassigned code points only in queries for matching strings (that is, in domain name lookup). For more information about the use of unassigned code points in domain names, see [RFC 3454, \"Preparation of Internationalized Strings (stringprep)\"](http://go.microsoft.com/fwlink/?LinkId=231873) and [RFC 5891, \"Internationalized Domain Names in Applications (IDNA): Protocol\"](http://go.microsoft.com/fwlink/?LinkId=231875).  \n  \n> [!IMPORTANT]\n>  If the<xref:System.Globalization.IdnMapping.AllowUnassigned%2A> property is `false`, the behavior associated with the property depends on the underlying operating system. On [!INCLUDE[win8](~/includes/win8-md.md)], the <xref:System.Globalization.IdnMapping> class conforms to IDNA 2008, which is based on the Unicode 6.0 standard. On previous versions of Windows, the <xref:System.Globalization.IdnMapping> class is based on IDNA 2003, which is based on Unicode 3.*x*. Some code points that were unassigned in IDNA 2003 have been assigned characters and are supported in IDNA 2008. For example, U+0221 was introduced in Unicode 4.0. On [!INCLUDE[win8](~/includes/win8-md.md)], it is encoded as \"xn—6la\". On previous versions of Windows, it throws an <xref:System.ArgumentException> exception."
@@ -153,7 +154,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -167,7 +169,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -180,9 +183,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/IdnMapping.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.IdnMapping.Equals(System.Object)
   commentId: M:System.Globalization.IdnMapping.Equals(System.Object)
   id: Equals(System.Object)
@@ -191,12 +191,13 @@ items:
   - csharp
   name: Equals(Object)
   nameWithType: IdnMapping.Equals(Object)
-  fullName: System.Globalization.IdnMapping.Equals(Object)
+  fullName: IdnMapping.Equals(Object)
   type: Method
   assemblies:
   - System.Globalization.Extensions
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Indicates whether a specified object and the current <xref href="System.Globalization.IdnMapping"></xref> object are equal.
   syntax:
@@ -212,7 +213,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -226,7 +228,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -239,9 +242,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/IdnMapping.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.IdnMapping.GetAscii(System.String)
   commentId: M:System.Globalization.IdnMapping.GetAscii(System.String)
   id: GetAscii(System.String)
@@ -250,12 +250,13 @@ items:
   - csharp
   name: GetAscii(String)
   nameWithType: IdnMapping.GetAscii(String)
-  fullName: System.Globalization.IdnMapping.GetAscii(String)
+  fullName: IdnMapping.GetAscii(String)
   type: Method
   assemblies:
   - System.Globalization.Extensions
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Encodes a string of domain name labels that consist of Unicode characters to a string of displayable Unicode characters in the US-ASCII character range. The string is formatted according to the IDNA standard.
   remarks: "The `unicode` parameter specifies a string of one or more labels that consist of valid Unicode characters. The labels are separated by label separators. The `unicode` parameter cannot begin with a label separator, but it can include and optionally end with a separator. The label separators are FULL STOP (period, U+002E), IDEOGRAPHIC FULL STOP (U+3002), FULLWIDTH FULL STOP (U+FF0E), and HALFWIDTH IDEOGRAPHIC FULL STOP (U+FF61). For example, the domain name \"www.adatum.com\" consists of the labels, \"www\", \"adatum\", and \"com\", separated by periods.  \n  \n A label cannot contain any of the following characters:  \n  \n-   Unicode control characters from U+0001 through U+001F, and U+007F.  \n  \n-   Unassigned Unicode characters, if the value of the <xref:System.Globalization.IdnMapping.AllowUnassigned%2A> property is `false`.  \n  \n-   Non-standard characters in the US-ASCII character range, such as the SPACE (U+0020), EXCLAMATION MARK (U+0021), and LOW LINE (U+005F) characters, if the value of the <xref:System.Globalization.IdnMapping.UseStd3AsciiRules%2A> property is `true`.  \n  \n-   Characters that are prohibited by a specific version of the IDNA standard. For more information about prohibited characters, see [RFC 3454: Preparation of Internationalized Strings (\"stringprep\")](http://go.microsoft.com/fwlink/?LinkId=231873) for IDNA 2003, and [RFC 5982: The Unicode Code Points and Internationalized Domain Names for Applications](http://go.microsoft.com/fwlink/?LinkId=231877) for IDNA 2008.  \n  \n The <xref:System.Globalization.IdnMapping.GetAscii%2A> method converts all label separators to FULL STOP (period, U+002E).  \n  \n If `unicode` contains no characters outside the US-ASCII character range and no characters within the US-ASCII character range are prohibited, the method returns `unicode` unchanged."
@@ -280,7 +281,8 @@ items:
     description: <code>unicode</code> is invalid based on the <xref href="System.Globalization.IdnMapping.AllowUnassigned"></xref> and <xref href="System.Globalization.IdnMapping.UseStd3AsciiRules"></xref> properties, and the IDNA standard.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -294,7 +296,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -307,9 +310,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/IdnMapping.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.IdnMapping.GetAscii(System.String,System.Int32)
   commentId: M:System.Globalization.IdnMapping.GetAscii(System.String,System.Int32)
   id: GetAscii(System.String,System.Int32)
@@ -318,12 +318,13 @@ items:
   - csharp
   name: GetAscii(String, Int32)
   nameWithType: IdnMapping.GetAscii(String, Int32)
-  fullName: System.Globalization.IdnMapping.GetAscii(String, Int32)
+  fullName: IdnMapping.GetAscii(String, Int32)
   type: Method
   assemblies:
   - System.Globalization.Extensions
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Encodes a substring of domain name labels that include Unicode characters outside the US-ASCII character range. The substring is converted to a string of displayable Unicode characters in the US-ASCII character range and is formatted according to the IDNA standard.
   remarks: "The `unicode` and `index` parameters define a substring with one or more labels that consist of valid Unicode characters. The labels are separated by label separators. The first character of the substring cannot begin with a label separator, but it can include and optionally end with a separator. The label separators are FULL STOP (period, U+002E), IDEOGRAPHIC FULL STOP (U+3002), FULLWIDTH FULL STOP (U+FF0E), and HALFWIDTH IDEOGRAPHIC FULL STOP (U+FF61). For example, the domain name \"www.adatum.com\" consists of the labels, \"www\", \"adatum\", and \"com\", separated by periods.  \n  \n A label cannot contain any of the following characters:  \n  \n-   Unicode control characters from U+0001 through U+001F, and U+007F.  \n  \n-   Unassigned Unicode characters, depending on the value of the <xref:System.Globalization.IdnMapping.AllowUnassigned%2A> property.  \n  \n-   Non-standard characters in the US-ASCII character range, such as the SPACE (U+0020), EXCLAMATION MARK (U+0021), and LOW LINE (U+005F) characters, depending on the value of the <xref:System.Globalization.IdnMapping.UseStd3AsciiRules%2A> property.  \n  \n-   Characters that are prohibited by a specific version of the IDNA standard. For more information about prohibited characters, see [RFC 3454: Preparation of Internationalized Strings (\"stringprep\")](http://go.microsoft.com/fwlink/?LinkId=231873) for IDNA 2003, and [RFC 5982: The Unicode Code Points and Internationalized Domain Names for Applications](http://go.microsoft.com/fwlink/?LinkId=231877) for IDNA 2008.  \n  \n The <xref:System.Globalization.IdnMapping.GetAscii%2A> method converts all label separators to FULL STOP (period, U+002E).  \n  \n If `unicode` contains no characters outside the US-ASCII character range and no characters within the US-ASCII character range are prohibited, the method returns `unicode` unchanged."
@@ -354,7 +355,8 @@ items:
     description: <code>unicode</code> is invalid based on the <xref href="System.Globalization.IdnMapping.AllowUnassigned"></xref> and <xref href="System.Globalization.IdnMapping.UseStd3AsciiRules"></xref> properties, and the IDNA standard.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -368,7 +370,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -381,9 +384,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/IdnMapping.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.IdnMapping.GetAscii(System.String,System.Int32,System.Int32)
   commentId: M:System.Globalization.IdnMapping.GetAscii(System.String,System.Int32,System.Int32)
   id: GetAscii(System.String,System.Int32,System.Int32)
@@ -392,12 +392,13 @@ items:
   - csharp
   name: GetAscii(String, Int32, Int32)
   nameWithType: IdnMapping.GetAscii(String, Int32, Int32)
-  fullName: System.Globalization.IdnMapping.GetAscii(String, Int32, Int32)
+  fullName: IdnMapping.GetAscii(String, Int32, Int32)
   type: Method
   assemblies:
   - System.Globalization.Extensions
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Encodes the specified number of characters in a  substring of domain name labels that include Unicode characters outside the US-ASCII character range. The substring is converted to a string of displayable Unicode characters in the US-ASCII character range and is formatted according to the IDNA standard.
   remarks: "The `Unicode`, `index`, and `count` parameters define a substring with one or more labels that consist of valid Unicode characters. The labels are separated by label separators. The first character of the substring cannot begin with a label separator, but it can include and optionally end with a separator. The label separators are FULL STOP (period, U+002E), IDEOGRAPHIC FULL STOP (U+3002), FULLWIDTH FULL STOP (U+FF0E), and HALFWIDTH IDEOGRAPHIC FULL STOP (U+FF61). For example, the domain name \"www.adatum.com\" consists of the labels, \"www\", \"adatum\", and \"com\", separated by periods.  \n  \n A label cannot contain any of the following characters:  \n  \n-   Unicode control characters from U+0001 through U+001F, and U+007F.  \n  \n-   Unassigned Unicode characters, depending on the value of the <xref:System.Globalization.IdnMapping.AllowUnassigned%2A> property.  \n  \n-   Non-standard characters in the US-ASCII character range, such as the SPACE (U+0020), EXCLAMATION MARK (U+0021), and LOW LINE (U+005F) characters, depending on the value of the <xref:System.Globalization.IdnMapping.UseStd3AsciiRules%2A> property.  \n  \n-   Characters that are prohibited by a specific version of the IDNA standard. For more information about prohibited characters, see [RFC 3454: Preparation of Internationalized Strings (\"stringprep\")](http://go.microsoft.com/fwlink/?LinkId=231873) for IDNA 2003, and [RFC 5982: The Unicode Code Points and Internationalized Domain Names for Applications](http://go.microsoft.com/fwlink/?LinkId=231877) for IDNA 2008.  \n  \n The <xref:System.Globalization.IdnMapping.GetAscii%2A> method converts all label separators to FULL STOP (period, U+002E). If the substring contains no characters outside the US-ASCII character range, and no characters within the US-ASCII character range are prohibited, the method returns the substring unchanged."
@@ -431,7 +432,8 @@ items:
     description: <code>unicode</code> is invalid based on the <xref href="System.Globalization.IdnMapping.AllowUnassigned"></xref> and <xref href="System.Globalization.IdnMapping.UseStd3AsciiRules"></xref> properties, and the IDNA standard.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -445,7 +447,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -458,9 +461,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/IdnMapping.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.IdnMapping.GetHashCode
   commentId: M:System.Globalization.IdnMapping.GetHashCode
   id: GetHashCode
@@ -469,12 +469,13 @@ items:
   - csharp
   name: GetHashCode()
   nameWithType: IdnMapping.GetHashCode()
-  fullName: System.Globalization.IdnMapping.GetHashCode()
+  fullName: IdnMapping.GetHashCode()
   type: Method
   assemblies:
   - System.Globalization.Extensions
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Returns a hash code for this <xref href="System.Globalization.IdnMapping"></xref> object.
   remarks: Override the <xref:System.Globalization.IdnMapping.GetHashCode%2A> method if your application needs to implement a meaningful hash code algorithm.
@@ -490,7 +491,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -504,7 +506,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -517,9 +520,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/IdnMapping.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.IdnMapping.GetUnicode(System.String)
   commentId: M:System.Globalization.IdnMapping.GetUnicode(System.String)
   id: GetUnicode(System.String)
@@ -528,12 +528,13 @@ items:
   - csharp
   name: GetUnicode(String)
   nameWithType: IdnMapping.GetUnicode(String)
-  fullName: System.Globalization.IdnMapping.GetUnicode(String)
+  fullName: IdnMapping.GetUnicode(String)
   type: Method
   assemblies:
   - System.Globalization.Extensions
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Decodes a string of one or more domain name labels, encoded according to the IDNA standard, to a string of Unicode characters.
   remarks: For more information about domain names, labels, and label separators, see the remarks for the <xref:System.Globalization.IdnMapping.GetAscii%28System.String%2CSystem.Int32%2CSystem.Int32%29?displayProperty=fullName> method.
@@ -558,7 +559,8 @@ items:
     description: <code>ascii</code> is invalid based on the <xref href="System.Globalization.IdnMapping.AllowUnassigned"></xref> and <xref href="System.Globalization.IdnMapping.UseStd3AsciiRules"></xref> properties, and the IDNA standard.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -572,7 +574,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -585,9 +588,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/IdnMapping.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.IdnMapping.GetUnicode(System.String,System.Int32)
   commentId: M:System.Globalization.IdnMapping.GetUnicode(System.String,System.Int32)
   id: GetUnicode(System.String,System.Int32)
@@ -596,12 +596,13 @@ items:
   - csharp
   name: GetUnicode(String, Int32)
   nameWithType: IdnMapping.GetUnicode(String, Int32)
-  fullName: System.Globalization.IdnMapping.GetUnicode(String, Int32)
+  fullName: IdnMapping.GetUnicode(String, Int32)
   type: Method
   assemblies:
   - System.Globalization.Extensions
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Decodes a substring of one or more domain name labels, encoded according to the IDNA standard, to a string of Unicode characters.
   remarks: For more information about domain names, labels, and label separators, see the remarks for the <xref:System.Globalization.IdnMapping.GetAscii%28System.String%2CSystem.Int32%2CSystem.Int32%29?displayProperty=fullName> method.
@@ -630,7 +631,8 @@ items:
     description: <code>ascii</code> is invalid based on the <xref href="System.Globalization.IdnMapping.AllowUnassigned"></xref> and <xref href="System.Globalization.IdnMapping.UseStd3AsciiRules"></xref> properties, and the IDNA standard.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -644,7 +646,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -657,9 +660,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/IdnMapping.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.IdnMapping.GetUnicode(System.String,System.Int32,System.Int32)
   commentId: M:System.Globalization.IdnMapping.GetUnicode(System.String,System.Int32,System.Int32)
   id: GetUnicode(System.String,System.Int32,System.Int32)
@@ -668,12 +668,13 @@ items:
   - csharp
   name: GetUnicode(String, Int32, Int32)
   nameWithType: IdnMapping.GetUnicode(String, Int32, Int32)
-  fullName: System.Globalization.IdnMapping.GetUnicode(String, Int32, Int32)
+  fullName: IdnMapping.GetUnicode(String, Int32, Int32)
   type: Method
   assemblies:
   - System.Globalization.Extensions
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Decodes a substring of a specified length that contains one or more domain name labels, encoded according to the IDNA standard, to a string of Unicode characters.
   remarks: For more information about domain names, labels, and label separators, see the remarks for the <xref:System.Globalization.IdnMapping.GetAscii%28System.String%2CSystem.Int32%2CSystem.Int32%29?displayProperty=fullName> method.
@@ -705,7 +706,8 @@ items:
     description: <code>ascii</code> is invalid based on the <xref href="System.Globalization.IdnMapping.AllowUnassigned"></xref> and <xref href="System.Globalization.IdnMapping.UseStd3AsciiRules"></xref> properties, and the IDNA standard.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -719,7 +721,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -732,9 +735,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/IdnMapping.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.IdnMapping.UseStd3AsciiRules
   commentId: P:System.Globalization.IdnMapping.UseStd3AsciiRules
   id: UseStd3AsciiRules
@@ -743,12 +743,13 @@ items:
   - csharp
   name: UseStd3AsciiRules
   nameWithType: IdnMapping.UseStd3AsciiRules
-  fullName: System.Globalization.IdnMapping.UseStd3AsciiRules
+  fullName: IdnMapping.UseStd3AsciiRules
   type: Property
   assemblies:
   - System.Globalization.Extensions
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets or sets a value that indicates whether standard or relaxed naming conventions are used in operations performed by members of the current <xref href="System.Globalization.IdnMapping"></xref> object.
   remarks: "Domain names that follow standard naming rules consist of a specific subset of characters in the US-ASCII character range. The characters are the letters A through Z, the digits 0 through 9, the hyphen (-) character (U+002D), and the period (.) character. The case of the characters is not significant. Relaxed naming conventions allow the use of a broader range of ASCII characters, including the space character (U+0020), the exclamation point character (U+0021), and the underbar character (U+005F). If <xref:System.Globalization.IdnMapping.UseStd3AsciiRules%2A> is `true`, only standard characters can appear in a label returned by the <xref:System.Globalization.IdnMapping.GetAscii%2A> method.  \n  \n By default, the value of the <xref:System.Globalization.IdnMapping.UseStd3AsciiRules%2A> property is `false`, and an expanded subset of ASCII characters is permitted in a label.  \n  \n> [!NOTE]\n>  The <xref:System.Globalization.IdnMapping> class prohibits the use of the nondisplayable characters U+0000 through U+001F, and U+007F in domain name labels regardless of the setting of the <xref:System.Globalization.IdnMapping.UseStd3AsciiRules%2A> property. This prohibition reduces the risk of security attacks such as name spoofing."
@@ -763,7 +764,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -777,7 +779,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -790,9 +793,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/IdnMapping.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -823,13 +823,13 @@ references:
   isExternal: false
   name: IdnMapping()
   nameWithType: IdnMapping.IdnMapping()
-  fullName: System.Globalization.IdnMapping.IdnMapping()
+  fullName: IdnMapping.IdnMapping()
 - uid: System.Globalization.IdnMapping.AllowUnassigned
   parent: System.Globalization.IdnMapping
   isExternal: false
   name: AllowUnassigned
   nameWithType: IdnMapping.AllowUnassigned
-  fullName: System.Globalization.IdnMapping.AllowUnassigned
+  fullName: IdnMapping.AllowUnassigned
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -841,13 +841,13 @@ references:
   isExternal: false
   name: Equals(Object)
   nameWithType: IdnMapping.Equals(Object)
-  fullName: System.Globalization.IdnMapping.Equals(Object)
+  fullName: IdnMapping.Equals(Object)
 - uid: System.Globalization.IdnMapping.GetAscii(System.String)
   parent: System.Globalization.IdnMapping
   isExternal: false
   name: GetAscii(String)
   nameWithType: IdnMapping.GetAscii(String)
-  fullName: System.Globalization.IdnMapping.GetAscii(String)
+  fullName: IdnMapping.GetAscii(String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -859,7 +859,7 @@ references:
   isExternal: false
   name: GetAscii(String, Int32)
   nameWithType: IdnMapping.GetAscii(String, Int32)
-  fullName: System.Globalization.IdnMapping.GetAscii(String, Int32)
+  fullName: IdnMapping.GetAscii(String, Int32)
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -871,46 +871,47 @@ references:
   isExternal: false
   name: GetAscii(String, Int32, Int32)
   nameWithType: IdnMapping.GetAscii(String, Int32, Int32)
-  fullName: System.Globalization.IdnMapping.GetAscii(String, Int32, Int32)
+  fullName: IdnMapping.GetAscii(String, Int32, Int32)
 - uid: System.Globalization.IdnMapping.GetHashCode
   parent: System.Globalization.IdnMapping
   isExternal: false
   name: GetHashCode()
   nameWithType: IdnMapping.GetHashCode()
-  fullName: System.Globalization.IdnMapping.GetHashCode()
+  fullName: IdnMapping.GetHashCode()
 - uid: System.Globalization.IdnMapping.GetUnicode(System.String)
   parent: System.Globalization.IdnMapping
   isExternal: false
   name: GetUnicode(String)
   nameWithType: IdnMapping.GetUnicode(String)
-  fullName: System.Globalization.IdnMapping.GetUnicode(String)
+  fullName: IdnMapping.GetUnicode(String)
 - uid: System.Globalization.IdnMapping.GetUnicode(System.String,System.Int32)
   parent: System.Globalization.IdnMapping
   isExternal: false
   name: GetUnicode(String, Int32)
   nameWithType: IdnMapping.GetUnicode(String, Int32)
-  fullName: System.Globalization.IdnMapping.GetUnicode(String, Int32)
+  fullName: IdnMapping.GetUnicode(String, Int32)
 - uid: System.Globalization.IdnMapping.GetUnicode(System.String,System.Int32,System.Int32)
   parent: System.Globalization.IdnMapping
   isExternal: false
   name: GetUnicode(String, Int32, Int32)
   nameWithType: IdnMapping.GetUnicode(String, Int32, Int32)
-  fullName: System.Globalization.IdnMapping.GetUnicode(String, Int32, Int32)
+  fullName: IdnMapping.GetUnicode(String, Int32, Int32)
 - uid: System.Globalization.IdnMapping.UseStd3AsciiRules
   parent: System.Globalization.IdnMapping
   isExternal: false
   name: UseStd3AsciiRules
   nameWithType: IdnMapping.UseStd3AsciiRules
-  fullName: System.Globalization.IdnMapping.UseStd3AsciiRules
+  fullName: IdnMapping.UseStd3AsciiRules
 - uid: System.Globalization.IdnMapping.#ctor*
   parent: System.Globalization.IdnMapping
   isExternal: false
   name: IdnMapping
   nameWithType: IdnMapping.IdnMapping
-  fullName: System.Globalization.IdnMapping.IdnMapping
+  fullName: IdnMapping.IdnMapping
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -928,10 +929,11 @@ references:
   isExternal: false
   name: AllowUnassigned
   nameWithType: IdnMapping.AllowUnassigned
-  fullName: System.Globalization.IdnMapping.AllowUnassigned
+  fullName: IdnMapping.AllowUnassigned
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -949,10 +951,11 @@ references:
   isExternal: false
   name: Equals
   nameWithType: IdnMapping.Equals
-  fullName: System.Globalization.IdnMapping.Equals
+  fullName: IdnMapping.Equals
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -970,10 +973,11 @@ references:
   isExternal: false
   name: GetAscii
   nameWithType: IdnMapping.GetAscii
-  fullName: System.Globalization.IdnMapping.GetAscii
+  fullName: IdnMapping.GetAscii
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -991,10 +995,11 @@ references:
   isExternal: false
   name: GetHashCode
   nameWithType: IdnMapping.GetHashCode
-  fullName: System.Globalization.IdnMapping.GetHashCode
+  fullName: IdnMapping.GetHashCode
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1012,10 +1017,11 @@ references:
   isExternal: false
   name: GetUnicode
   nameWithType: IdnMapping.GetUnicode
-  fullName: System.Globalization.IdnMapping.GetUnicode
+  fullName: IdnMapping.GetUnicode
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1033,10 +1039,11 @@ references:
   isExternal: false
   name: UseStd3AsciiRules
   nameWithType: IdnMapping.UseStd3AsciiRules
-  fullName: System.Globalization.IdnMapping.UseStd3AsciiRules
+  fullName: IdnMapping.UseStd3AsciiRules
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

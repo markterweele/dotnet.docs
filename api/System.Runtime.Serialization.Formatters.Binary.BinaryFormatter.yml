@@ -28,6 +28,7 @@ items:
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization.Formatters.Binary
   summary: Serializes and deserializes an object, or an entire graph of connected objects, in binary format.
   remarks: "The <xref:System.Runtime.Serialization.Formatters.Soap.SoapFormatter> and <xref:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter> classes implement the <xref:System.Runtime.Remoting.Messaging.IRemotingFormatter> interface to support remote procedure calls (RPCs), and the <xref:System.Runtime.Serialization.IFormatter> interface (inherited by the <xref:System.Runtime.Remoting.Messaging.IRemotingFormatter>) to support serialization of a graph of objects. The <xref:System.Runtime.Serialization.Formatters.Soap.SoapFormatter> class also supports RPCs with <xref:System.Runtime.Serialization.Formatters.ISoapMessage> objects, without using the <xref:System.Runtime.Remoting.Messaging.IRemotingFormatter> functionality.  \n  \n During RPCs, the <xref:System.Runtime.Remoting.Messaging.IRemotingFormatter> interface allows the specification of two separate object graphs: the graph of objects to serialize, and an additional graph that contains an array of header objects that convey information about the remote function call (for example, transaction ID or a method signature).  \n  \n RPCs that use the <xref:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter> separate into two distinct parts: method calls, which are sent to the server with the remote object that contains the method called, and method responses, which are sent from the server to the client with the status and response information from the called method.  \n  \n During serialization of a method call the first object of the object graph must support the <xref:System.Runtime.Remoting.Messaging.IMethodCallMessage> interface. To deserialize a method call, use the <xref:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize%2A> method with the <xref:System.Runtime.Remoting.Messaging.HeaderHandler> parameter. The remoting infrastructure uses the <xref:System.Runtime.Remoting.Messaging.HeaderHandler> delegate to produce an object that supports the <xref:System.Runtime.Serialization.ISerializable> interface. When the <xref:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter> invokes the <xref:System.Runtime.Remoting.Messaging.HeaderHandler> delegate, it returns the URI of the remote object with the method that is being called. The first object in the graph returned supports the <xref:System.Runtime.Remoting.Messaging.IMethodCallMessage> interface.  \n  \n The serialization procedure for a method response is identical to that of a method call, except the first object of the object graph must support the <xref:System.Runtime.Remoting.Messaging.IMethodReturnMessage> interface. To deserialize a method response, use the <xref:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.DeserializeMethodResponse%2A> method. To save time, details about the caller object are not sent to the remote object during the method call. These details are instead obtained from the original method call, which is passed to the <xref:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.DeserializeMethodResponse%2A> method in the <xref:System.Runtime.Remoting.Messaging.IMethodCallMessage> parameter. The first object in the graph returned by the <xref:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.DeserializeMethodResponse%2A> method supports the <xref:System.Runtime.Remoting.Messaging.IMethodReturnMessage> interface.  \n  \n> [!IMPORTANT]\n>  Using binary serialization to deserialize untrusted data can lead to security risks. For more information, see [Untrusted Data Security Risks](http://go.microsoft.com/fwlink/?LinkId=330378).  \n  \n## Unpaired Surrogates  \n Any unpaired surrogate characters are lost in binary serialization. For example, the following string contains a high surrogate Unicode character `(\\ud800`) in between the two `Test` words:  \n  \n `Test\\ud800Test`  \n  \n Before serialization, the byte array of the string is as follows:  \n  \n|Byte Array Value|Character|  \n|----------------------|---------------|  \n|84|T|  \n|101|e|  \n|115|s|  \n|116|t|  \n|55296|\\ud800|  \n|84|T|  \n|101|e|  \n|115|s|  \n|116|t|  \n  \n After deserialization, the high surrogate Unicode character is lost:  \n  \n|Byte Array Value|Character|  \n|----------------------|---------------|  \n|84|T|  \n|101|e|  \n|115|s|  \n|116|t|  \n|84|T|  \n|101|e|  \n|115|s|  \n|116|t|"
@@ -56,6 +57,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -68,6 +70,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -80,8 +83,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization.Formatters.Binary/BinaryFormatter.xml
-  ms.author: sethm
-  manager: ghogen
 - uid: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.#ctor
   commentId: M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.#ctor
   id: '#ctor'
@@ -90,11 +91,12 @@ items:
   - csharp
   name: BinaryFormatter()
   nameWithType: BinaryFormatter.BinaryFormatter()
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.BinaryFormatter()
+  fullName: BinaryFormatter.BinaryFormatter()
   type: Constructor
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization.Formatters.Binary
   summary: Initializes a new instance of the <xref href="System.Runtime.Serialization.Formatters.Binary.BinaryFormatter"></xref> class with default values.
   remarks: "This constructor sets the properties of the <xref:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter> object as follows:  \n  \n|Property Type|Condition|  \n|-------------------|---------------|  \n|<xref:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.SurrogateSelector%2A>|`null`|  \n|<xref:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Context%2A>|A <xref:System.Runtime.Serialization.StreamingContext> with a value that indicates that serialized data can be transmitted to or received from any of the other contexts. (<xref:System.Runtime.Serialization.StreamingContextStates?displayProperty=fullName>)|"
@@ -109,6 +111,7 @@ items:
   overload: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -121,6 +124,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -133,8 +137,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization.Formatters.Binary/BinaryFormatter.xml
-  ms.author: sethm
-  manager: ghogen
 - uid: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.#ctor(System.Runtime.Serialization.ISurrogateSelector,System.Runtime.Serialization.StreamingContext)
   commentId: M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.#ctor(System.Runtime.Serialization.ISurrogateSelector,System.Runtime.Serialization.StreamingContext)
   id: '#ctor(System.Runtime.Serialization.ISurrogateSelector,System.Runtime.Serialization.StreamingContext)'
@@ -143,11 +145,12 @@ items:
   - csharp
   name: BinaryFormatter(ISurrogateSelector, StreamingContext)
   nameWithType: BinaryFormatter.BinaryFormatter(ISurrogateSelector, StreamingContext)
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.BinaryFormatter(ISurrogateSelector, StreamingContext)
+  fullName: BinaryFormatter.BinaryFormatter(ISurrogateSelector, StreamingContext)
   type: Constructor
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization.Formatters.Binary
   summary: Initializes a new instance of the <xref href="System.Runtime.Serialization.Formatters.Binary.BinaryFormatter"></xref> class with a given surrogate selector and streaming context.
   remarks: "Initializes a new `BinaryFormatter` for serialization or deserialization of objects from the specified <xref:System.IO.Stream>.  \n  \n The serialization or deserialization process uses the specified <xref:System.Runtime.Serialization.ISurrogateSelector> to search for surrogates that are registered for the object types you want to deserialize. Surrogates are helpers that serialize and deserialize objects of specific classes. The default <xref:System.Runtime.Serialization.ISurrogateSelector> cannot handle the serialization of objects that derive from the <xref:System.MarshalByRefObject> for remoting purposes. In a remoting situation the specified <xref:System.Runtime.Serialization.ISurrogateSelector> replaces the object derived from <xref:System.MarshalByRefObject> with a <xref:System.Runtime.Remoting.ObjRef> object that is serialized by the specified surrogate selector. Therefore, if you want to use remote objects, set the `selector` parameter to an instance of <xref:System.Runtime.Remoting.Messaging.RemotingSurrogateSelector>. If you do not need surrogates, set the `selector` parameter to be `null`."
@@ -163,6 +166,7 @@ items:
   overload: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -175,6 +179,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -187,8 +192,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization.Formatters.Binary/BinaryFormatter.xml
-  ms.author: sethm
-  manager: ghogen
 - uid: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.AssemblyFormat
   commentId: P:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.AssemblyFormat
   id: AssemblyFormat
@@ -197,11 +200,12 @@ items:
   - csharp
   name: AssemblyFormat
   nameWithType: BinaryFormatter.AssemblyFormat
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.AssemblyFormat
+  fullName: BinaryFormatter.AssemblyFormat
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization.Formatters.Binary
   summary: Gets or sets the behavior of the deserializer with regards to finding and loading assemblies.
   syntax:
@@ -212,6 +216,7 @@ items:
   overload: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.AssemblyFormat*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -224,6 +229,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -236,8 +242,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization.Formatters.Binary/BinaryFormatter.xml
-  ms.author: sethm
-  manager: ghogen
 - uid: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Binder
   commentId: P:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Binder
   id: Binder
@@ -246,11 +250,12 @@ items:
   - csharp
   name: Binder
   nameWithType: BinaryFormatter.Binder
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Binder
+  fullName: BinaryFormatter.Binder
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization.Formatters.Binary
   summary: Gets or sets an object of type <xref href="System.Runtime.Serialization.SerializationBinder"></xref> that controls the binding of a serialized object to a type.
   remarks: ''
@@ -267,6 +272,7 @@ items:
   overload: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Binder*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -279,6 +285,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -291,8 +298,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization.Formatters.Binary/BinaryFormatter.xml
-  ms.author: sethm
-  manager: ghogen
 - uid: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Context
   commentId: P:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Context
   id: Context
@@ -301,11 +306,12 @@ items:
   - csharp
   name: Context
   nameWithType: BinaryFormatter.Context
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Context
+  fullName: BinaryFormatter.Context
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization.Formatters.Binary
   summary: Gets or sets the <xref href="System.Runtime.Serialization.StreamingContext"></xref> for this formatter.
   remarks: The <xref:System.Runtime.Serialization.StreamingContext> provides an enumeration that describes the source and the destination for a given serialized stream, as well as a way for serialization to retain that context and an additional caller-defined context.
@@ -317,6 +323,7 @@ items:
   overload: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Context*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -329,6 +336,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -341,8 +349,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization.Formatters.Binary/BinaryFormatter.xml
-  ms.author: sethm
-  manager: ghogen
 - uid: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(System.IO.Stream)
   commentId: M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(System.IO.Stream)
   id: Deserialize(System.IO.Stream)
@@ -351,11 +357,12 @@ items:
   - csharp
   name: Deserialize(Stream)
   nameWithType: BinaryFormatter.Deserialize(Stream)
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream)
+  fullName: BinaryFormatter.Deserialize(Stream)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization.Formatters.Binary
   summary: Deserializes the specified stream into an object graph.
   remarks: "For successful deserialization, the current position in the stream must be at the beginning of the object graph.  \n  \n> [!IMPORTANT]\n>  Calling this method with untrusted data is a security risk. Call this method only with trusted data. For more information, see [Untrusted Data Security Risks](http://go.microsoft.com/fwlink/?LinkId=330378)."
@@ -385,6 +392,7 @@ items:
     commentId: T:System.Security.SecurityException
     description: The caller does not have the required permission.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -397,6 +405,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -409,8 +418,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization.Formatters.Binary/BinaryFormatter.xml
-  ms.author: sethm
-  manager: ghogen
 - uid: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(System.IO.Stream,System.Runtime.Remoting.Messaging.HeaderHandler)
   commentId: M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(System.IO.Stream,System.Runtime.Remoting.Messaging.HeaderHandler)
   id: Deserialize(System.IO.Stream,System.Runtime.Remoting.Messaging.HeaderHandler)
@@ -419,7 +426,7 @@ items:
   - csharp
   name: Deserialize(Stream, HeaderHandler)
   nameWithType: BinaryFormatter.Deserialize(Stream, HeaderHandler)
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream, HeaderHandler)
+  fullName: BinaryFormatter.Deserialize(Stream, HeaderHandler)
   type: Method
   assemblies:
   - mscorlib
@@ -473,8 +480,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization.Formatters.Binary/BinaryFormatter.xml
-  ms.author: sethm
-  manager: ghogen
 - uid: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.DeserializeMethodResponse(System.IO.Stream,System.Runtime.Remoting.Messaging.HeaderHandler,System.Runtime.Remoting.Messaging.IMethodCallMessage)
   commentId: M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.DeserializeMethodResponse(System.IO.Stream,System.Runtime.Remoting.Messaging.HeaderHandler,System.Runtime.Remoting.Messaging.IMethodCallMessage)
   id: DeserializeMethodResponse(System.IO.Stream,System.Runtime.Remoting.Messaging.HeaderHandler,System.Runtime.Remoting.Messaging.IMethodCallMessage)
@@ -483,7 +488,7 @@ items:
   - csharp
   name: DeserializeMethodResponse(Stream, HeaderHandler, IMethodCallMessage)
   nameWithType: BinaryFormatter.DeserializeMethodResponse(Stream, HeaderHandler, IMethodCallMessage)
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.DeserializeMethodResponse(Stream, HeaderHandler, IMethodCallMessage)
+  fullName: BinaryFormatter.DeserializeMethodResponse(Stream, HeaderHandler, IMethodCallMessage)
   type: Method
   assemblies:
   - mscorlib
@@ -540,8 +545,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization.Formatters.Binary/BinaryFormatter.xml
-  ms.author: sethm
-  manager: ghogen
 - uid: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.FilterLevel
   commentId: P:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.FilterLevel
   id: FilterLevel
@@ -550,14 +553,15 @@ items:
   - csharp
   name: FilterLevel
   nameWithType: BinaryFormatter.FilterLevel
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.FilterLevel
+  fullName: BinaryFormatter.FilterLevel
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization.Formatters.Binary
   summary: Gets or sets the <xref href="System.Runtime.Serialization.Formatters.TypeFilterLevel"></xref> of automatic deserialization the <xref href="System.Runtime.Serialization.Formatters.Binary.BinaryFormatter"></xref> performs.
-  remarks: Supported values are <xref:System.Runtime.Serialization.Formatters.TypeFilterLevel> and <xref:System.Runtime.Serialization.Formatters.TypeFilterLevel> (the default). For details about deserialization levels, see [&#91;\<topic://cpconAutomaticDeserializationInNETRemoting>&#93;](http://msdn.microsoft.com/en-us/313a0e88-5b2b-4a17-8391-0ddf9f7a787b).
+  remarks: Supported values are <xref:System.Runtime.Serialization.Formatters.TypeFilterLevel.Low> and <xref:System.Runtime.Serialization.Formatters.TypeFilterLevel.Full> (the default). For details about deserialization levels, see [&#91;\<topic://cpconAutomaticDeserializationInNETRemoting>&#93;](http://msdn.microsoft.com/en-us/313a0e88-5b2b-4a17-8391-0ddf9f7a787b).
   syntax:
     content: public System.Runtime.Serialization.Formatters.TypeFilterLevel FilterLevel { get; set; }
     return:
@@ -566,6 +570,7 @@ items:
   overload: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.FilterLevel*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -578,6 +583,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -590,8 +596,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization.Formatters.Binary/BinaryFormatter.xml
-  ms.author: sethm
-  manager: ghogen
 - uid: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize(System.IO.Stream,System.Object)
   commentId: M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize(System.IO.Stream,System.Object)
   id: Serialize(System.IO.Stream,System.Object)
@@ -600,11 +604,12 @@ items:
   - csharp
   name: Serialize(Stream, Object)
   nameWithType: BinaryFormatter.Serialize(Stream, Object)
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize(Stream, Object)
+  fullName: BinaryFormatter.Serialize(Stream, Object)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization.Formatters.Binary
   summary: Serializes the object, or graph of objects with the specified top (root), to the given stream.
   remarks: ''
@@ -634,6 +639,7 @@ items:
     commentId: T:System.Security.SecurityException
     description: The caller does not have the required permission.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -646,6 +652,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -658,8 +665,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization.Formatters.Binary/BinaryFormatter.xml
-  ms.author: sethm
-  manager: ghogen
 - uid: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize(System.IO.Stream,System.Object,System.Runtime.Remoting.Messaging.Header[])
   commentId: M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize(System.IO.Stream,System.Object,System.Runtime.Remoting.Messaging.Header[])
   id: Serialize(System.IO.Stream,System.Object,System.Runtime.Remoting.Messaging.Header[])
@@ -668,7 +673,7 @@ items:
   - csharp
   name: Serialize(Stream, Object, Header[])
   nameWithType: BinaryFormatter.Serialize(Stream, Object, Header[])
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize(Stream, Object, Header[])
+  fullName: BinaryFormatter.Serialize(Stream, Object, Header[])
   type: Method
   assemblies:
   - mscorlib
@@ -722,8 +727,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization.Formatters.Binary/BinaryFormatter.xml
-  ms.author: sethm
-  manager: ghogen
 - uid: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.SurrogateSelector
   commentId: P:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.SurrogateSelector
   id: SurrogateSelector
@@ -732,11 +735,12 @@ items:
   - csharp
   name: SurrogateSelector
   nameWithType: BinaryFormatter.SurrogateSelector
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.SurrogateSelector
+  fullName: BinaryFormatter.SurrogateSelector
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization.Formatters.Binary
   summary: Gets or sets a <xref href="System.Runtime.Serialization.ISurrogateSelector"></xref> that controls type substitution during serialization and deserialization.
   remarks: The surrogate selector is used by <xref:System.Runtime.Remoting> to generate <xref:System.Runtime.Remoting.ObjRef> instances for objects that derive from <xref:System.MarshalByRefObject>.
@@ -748,6 +752,7 @@ items:
   overload: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.SurrogateSelector*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -760,6 +765,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -772,8 +778,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization.Formatters.Binary/BinaryFormatter.xml
-  ms.author: sethm
-  manager: ghogen
 - uid: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.TypeFormat
   commentId: P:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.TypeFormat
   id: TypeFormat
@@ -782,11 +786,12 @@ items:
   - csharp
   name: TypeFormat
   nameWithType: BinaryFormatter.TypeFormat
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.TypeFormat
+  fullName: BinaryFormatter.TypeFormat
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization.Formatters.Binary
   summary: Gets or sets the format in which type descriptions are laid out in the serialized stream.
   syntax:
@@ -797,6 +802,7 @@ items:
   overload: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.TypeFormat*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -809,6 +815,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -821,8 +828,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization.Formatters.Binary/BinaryFormatter.xml
-  ms.author: sethm
-  manager: ghogen
 - uid: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.UnsafeDeserialize(System.IO.Stream,System.Runtime.Remoting.Messaging.HeaderHandler)
   commentId: M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.UnsafeDeserialize(System.IO.Stream,System.Runtime.Remoting.Messaging.HeaderHandler)
   id: UnsafeDeserialize(System.IO.Stream,System.Runtime.Remoting.Messaging.HeaderHandler)
@@ -831,7 +836,7 @@ items:
   - csharp
   name: UnsafeDeserialize(Stream, HeaderHandler)
   nameWithType: BinaryFormatter.UnsafeDeserialize(Stream, HeaderHandler)
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.UnsafeDeserialize(Stream, HeaderHandler)
+  fullName: BinaryFormatter.UnsafeDeserialize(Stream, HeaderHandler)
   type: Method
   assemblies:
   - mscorlib
@@ -892,8 +897,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization.Formatters.Binary/BinaryFormatter.xml
-  ms.author: sethm
-  manager: ghogen
 - uid: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.UnsafeDeserializeMethodResponse(System.IO.Stream,System.Runtime.Remoting.Messaging.HeaderHandler,System.Runtime.Remoting.Messaging.IMethodCallMessage)
   commentId: M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.UnsafeDeserializeMethodResponse(System.IO.Stream,System.Runtime.Remoting.Messaging.HeaderHandler,System.Runtime.Remoting.Messaging.IMethodCallMessage)
   id: UnsafeDeserializeMethodResponse(System.IO.Stream,System.Runtime.Remoting.Messaging.HeaderHandler,System.Runtime.Remoting.Messaging.IMethodCallMessage)
@@ -902,7 +905,7 @@ items:
   - csharp
   name: UnsafeDeserializeMethodResponse(Stream, HeaderHandler, IMethodCallMessage)
   nameWithType: BinaryFormatter.UnsafeDeserializeMethodResponse(Stream, HeaderHandler, IMethodCallMessage)
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.UnsafeDeserializeMethodResponse(Stream, HeaderHandler, IMethodCallMessage)
+  fullName: BinaryFormatter.UnsafeDeserializeMethodResponse(Stream, HeaderHandler, IMethodCallMessage)
   type: Method
   assemblies:
   - mscorlib
@@ -966,8 +969,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization.Formatters.Binary/BinaryFormatter.xml
-  ms.author: sethm
-  manager: ghogen
 references:
 - uid: System.Object
   parent: System
@@ -998,13 +999,13 @@ references:
   isExternal: false
   name: BinaryFormatter()
   nameWithType: BinaryFormatter.BinaryFormatter()
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.BinaryFormatter()
+  fullName: BinaryFormatter.BinaryFormatter()
 - uid: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.#ctor(System.Runtime.Serialization.ISurrogateSelector,System.Runtime.Serialization.StreamingContext)
   parent: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
   isExternal: false
   name: BinaryFormatter(ISurrogateSelector, StreamingContext)
   nameWithType: BinaryFormatter.BinaryFormatter(ISurrogateSelector, StreamingContext)
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.BinaryFormatter(ISurrogateSelector, StreamingContext)
+  fullName: BinaryFormatter.BinaryFormatter(ISurrogateSelector, StreamingContext)
 - uid: System.Runtime.Serialization.ISurrogateSelector
   parent: System.Runtime.Serialization
   isExternal: false
@@ -1022,7 +1023,7 @@ references:
   isExternal: false
   name: AssemblyFormat
   nameWithType: BinaryFormatter.AssemblyFormat
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.AssemblyFormat
+  fullName: BinaryFormatter.AssemblyFormat
 - uid: System.Runtime.Serialization.Formatters.FormatterAssemblyStyle
   parent: System.Runtime.Serialization.Formatters
   isExternal: false
@@ -1034,7 +1035,7 @@ references:
   isExternal: false
   name: Binder
   nameWithType: BinaryFormatter.Binder
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Binder
+  fullName: BinaryFormatter.Binder
 - uid: System.Runtime.Serialization.SerializationBinder
   parent: System.Runtime.Serialization
   isExternal: false
@@ -1046,13 +1047,13 @@ references:
   isExternal: false
   name: Context
   nameWithType: BinaryFormatter.Context
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Context
+  fullName: BinaryFormatter.Context
 - uid: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(System.IO.Stream)
   parent: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
   isExternal: false
   name: Deserialize(Stream)
   nameWithType: BinaryFormatter.Deserialize(Stream)
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream)
+  fullName: BinaryFormatter.Deserialize(Stream)
 - uid: System.IO.Stream
   parent: System.IO
   isExternal: false
@@ -1064,7 +1065,7 @@ references:
   isExternal: false
   name: Deserialize(Stream, HeaderHandler)
   nameWithType: BinaryFormatter.Deserialize(Stream, HeaderHandler)
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream, HeaderHandler)
+  fullName: BinaryFormatter.Deserialize(Stream, HeaderHandler)
 - uid: System.Runtime.Remoting.Messaging.HeaderHandler
   parent: System.Runtime.Remoting.Messaging
   isExternal: false
@@ -1076,7 +1077,7 @@ references:
   isExternal: false
   name: DeserializeMethodResponse(Stream, HeaderHandler, IMethodCallMessage)
   nameWithType: BinaryFormatter.DeserializeMethodResponse(Stream, HeaderHandler, IMethodCallMessage)
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.DeserializeMethodResponse(Stream, HeaderHandler, IMethodCallMessage)
+  fullName: BinaryFormatter.DeserializeMethodResponse(Stream, HeaderHandler, IMethodCallMessage)
 - uid: System.Runtime.Remoting.Messaging.IMethodCallMessage
   parent: System.Runtime.Remoting.Messaging
   isExternal: false
@@ -1088,7 +1089,7 @@ references:
   isExternal: false
   name: FilterLevel
   nameWithType: BinaryFormatter.FilterLevel
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.FilterLevel
+  fullName: BinaryFormatter.FilterLevel
 - uid: System.Runtime.Serialization.Formatters.TypeFilterLevel
   parent: System.Runtime.Serialization.Formatters
   isExternal: false
@@ -1100,13 +1101,13 @@ references:
   isExternal: false
   name: Serialize(Stream, Object)
   nameWithType: BinaryFormatter.Serialize(Stream, Object)
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize(Stream, Object)
+  fullName: BinaryFormatter.Serialize(Stream, Object)
 - uid: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize(System.IO.Stream,System.Object,System.Runtime.Remoting.Messaging.Header[])
   parent: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
   isExternal: false
   name: Serialize(Stream, Object, Header[])
   nameWithType: BinaryFormatter.Serialize(Stream, Object, Header[])
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize(Stream, Object, Header[])
+  fullName: BinaryFormatter.Serialize(Stream, Object, Header[])
 - uid: System.Runtime.Remoting.Messaging.Header
   name: Header
   nameWithType: Header
@@ -1130,13 +1131,13 @@ references:
   isExternal: false
   name: SurrogateSelector
   nameWithType: BinaryFormatter.SurrogateSelector
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.SurrogateSelector
+  fullName: BinaryFormatter.SurrogateSelector
 - uid: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.TypeFormat
   parent: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
   isExternal: false
   name: TypeFormat
   nameWithType: BinaryFormatter.TypeFormat
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.TypeFormat
+  fullName: BinaryFormatter.TypeFormat
 - uid: System.Runtime.Serialization.Formatters.FormatterTypeStyle
   parent: System.Runtime.Serialization.Formatters
   isExternal: false
@@ -1148,20 +1149,21 @@ references:
   isExternal: false
   name: UnsafeDeserialize(Stream, HeaderHandler)
   nameWithType: BinaryFormatter.UnsafeDeserialize(Stream, HeaderHandler)
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.UnsafeDeserialize(Stream, HeaderHandler)
+  fullName: BinaryFormatter.UnsafeDeserialize(Stream, HeaderHandler)
 - uid: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.UnsafeDeserializeMethodResponse(System.IO.Stream,System.Runtime.Remoting.Messaging.HeaderHandler,System.Runtime.Remoting.Messaging.IMethodCallMessage)
   parent: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
   isExternal: false
   name: UnsafeDeserializeMethodResponse(Stream, HeaderHandler, IMethodCallMessage)
   nameWithType: BinaryFormatter.UnsafeDeserializeMethodResponse(Stream, HeaderHandler, IMethodCallMessage)
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.UnsafeDeserializeMethodResponse(Stream, HeaderHandler, IMethodCallMessage)
+  fullName: BinaryFormatter.UnsafeDeserializeMethodResponse(Stream, HeaderHandler, IMethodCallMessage)
 - uid: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize*
   parent: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
   isExternal: false
   name: Deserialize
   nameWithType: BinaryFormatter.Deserialize
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize
+  fullName: BinaryFormatter.Deserialize
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1179,8 +1181,9 @@ references:
   isExternal: false
   name: BinaryFormatter
   nameWithType: BinaryFormatter.BinaryFormatter
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.BinaryFormatter
+  fullName: BinaryFormatter.BinaryFormatter
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1198,8 +1201,9 @@ references:
   isExternal: false
   name: AssemblyFormat
   nameWithType: BinaryFormatter.AssemblyFormat
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.AssemblyFormat
+  fullName: BinaryFormatter.AssemblyFormat
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1217,8 +1221,9 @@ references:
   isExternal: false
   name: Binder
   nameWithType: BinaryFormatter.Binder
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Binder
+  fullName: BinaryFormatter.Binder
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1236,8 +1241,9 @@ references:
   isExternal: false
   name: Context
   nameWithType: BinaryFormatter.Context
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Context
+  fullName: BinaryFormatter.Context
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1255,7 +1261,7 @@ references:
   isExternal: false
   name: DeserializeMethodResponse
   nameWithType: BinaryFormatter.DeserializeMethodResponse
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.DeserializeMethodResponse
+  fullName: BinaryFormatter.DeserializeMethodResponse
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1273,8 +1279,9 @@ references:
   isExternal: false
   name: FilterLevel
   nameWithType: BinaryFormatter.FilterLevel
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.FilterLevel
+  fullName: BinaryFormatter.FilterLevel
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1292,8 +1299,9 @@ references:
   isExternal: false
   name: Serialize
   nameWithType: BinaryFormatter.Serialize
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize
+  fullName: BinaryFormatter.Serialize
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1311,8 +1319,9 @@ references:
   isExternal: false
   name: SurrogateSelector
   nameWithType: BinaryFormatter.SurrogateSelector
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.SurrogateSelector
+  fullName: BinaryFormatter.SurrogateSelector
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1330,8 +1339,9 @@ references:
   isExternal: false
   name: TypeFormat
   nameWithType: BinaryFormatter.TypeFormat
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.TypeFormat
+  fullName: BinaryFormatter.TypeFormat
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1349,7 +1359,7 @@ references:
   isExternal: false
   name: UnsafeDeserialize
   nameWithType: BinaryFormatter.UnsafeDeserialize
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.UnsafeDeserialize
+  fullName: BinaryFormatter.UnsafeDeserialize
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1367,7 +1377,7 @@ references:
   isExternal: false
   name: UnsafeDeserializeMethodResponse
   nameWithType: BinaryFormatter.UnsafeDeserializeMethodResponse
-  fullName: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.UnsafeDeserializeMethodResponse
+  fullName: BinaryFormatter.UnsafeDeserializeMethodResponse
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1380,3 +1390,9 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization.Formatters.Binary/BinaryFormatter.xml
+- uid: System.Runtime.Remoting.Messaging.IRemotingFormatter
+  parent: System.Runtime.Remoting.Messaging
+  isExternal: false
+  name: IRemotingFormatter
+  nameWithType: IRemotingFormatter
+  fullName: System.Runtime.Remoting.Messaging.IRemotingFormatter

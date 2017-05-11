@@ -19,9 +19,9 @@ additional_notes.overrides: *content
   
     -   Otherwise, determine whether the referenced object can be assigned to or converted to the property type.  
   
-4.  Use the <xref href="erload:System.ComponentModel.TypeConverter.CanConvertFrom"></xref> method on the <xref href="System.ComponentModel.TypeConverter"></xref> object for <code>propertyType</code> to determine whether the referenced object can be converted to the control property type, and then, depending on the result, complete one of the following actions:  
+4.  Use the <xref href="System.ComponentModel.TypeConverter.CanConvertFrom*"></xref> method on the <xref href="System.ComponentModel.TypeConverter"></xref> object for <code>propertyType</code> to determine whether the referenced object can be converted to the control property type, and then, depending on the result, complete one of the following actions:  
   
-    -   If the object can be converted to the control property type, return the converted object using the <xref href="erload:System.ComponentModel.TypeConverter.ConvertFrom"></xref> method.  
+    -   If the object can be converted to the control property type, return the converted object using the <xref href="System.ComponentModel.TypeConverter.ConvertFrom*"></xref> method.  
   
     -   If the referenced object cannot be assigned or converted to <code>propertyType</code>, return the referenced object.  
   

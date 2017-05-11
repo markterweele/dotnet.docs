@@ -64,7 +64,7 @@ items:
   - System
   namespace: System.Diagnostics
   summary: Provides interaction with Windows event logs.
-  remarks: "<xref:System.Diagnostics.EventLog> lets you access or customize Windows event logs, which record information about important software or hardware events. Using <xref:System.Diagnostics.EventLog>, you can read from existing logs, write entries to logs, create or delete event sources, delete logs, and respond to log entries. You can also create new logs when creating an event source.  \n  \n> [!IMPORTANT]\n>  This type implements the <xref:System.IDisposable> interface. When you have finished using the type, you should dispose of it either directly or indirectly. To dispose of the type directly, call its <xref:System.IDisposable.Dispose%2A> method in a `try`/`catch` block. To dispose of it indirectly, use a language construct such as `using` (in C#) or `Using` (in Visual Basic). For more information, see the “Using an Object that Implements IDisposable” section in the <xref:System.IDisposable> interface topic.  \n  \n In addition to providing access to individual event logs and their entries, the <xref:System.Diagnostics.EventLog> class lets you access the collection of all event logs. You can use the `static` members of <xref:System.Diagnostics.EventLog> to delete logs, get log lists, create or delete a source, or determine if a computer already contains a particular source.  \n  \n There are three default event logs: Application, System, and Security. A Security log is read-only. Other applications and services you install, such as Active Directory, might have additional event logs.  \n  \n There are security considerations when using the <xref:System.Diagnostics.EventLog> class. <xref:System.Diagnostics.EventLog> requires <xref:System.Diagnostics.EventLogPermission> permissions for specific actions in the .NET Framework 2.0 and later versions, or full trust in the .NET Framework 1.0 and 1.1. We recommend that <xref:System.Diagnostics.EventLogPermission> not be granted to partially trusted code.  You should never pass any event log object, including <xref:System.Diagnostics.EventLogEntryCollection> and <xref:System.Diagnostics.EventLogEntry> objects, to less trusted code. For example, creating an <xref:System.Diagnostics.EventLog> object, writing an entry, and then passing the <xref:System.Diagnostics.EventLog> object to partially trusted code can create a security issue, because the ability to read and write to the event log allows code to perform actions such as issuing event log messages in the name of another application.  \n  \n Starting with Windows Vista, User Account Control (UAC) determines the credentials of a user. If you are a member of the Built-in Administrators group, you are assigned two run-time access tokens: a standard user access token and an administrator access token. By default, you are in the standard user role. To run the code that accesses the Security log, you must first elevate your credentials from standard user to administrator. You can do this when you start an application by opening the shortcut menu for the application (if you're using a mouse, right-click the application icon) and indicating that you want to run as an administrator.  \n  \n You can use <xref:System.Diagnostics.EventLog> to create custom event logs that you can view through the server's Event Viewer. Use the <xref:System.Diagnostics.EventLog.RegisterDisplayName%2A> method to display a localized name for your event log in the Event Viewer. Use the <xref:System.Diagnostics.EventLog.ModifyOverflowPolicy%2A> method to configure the behavior of your event log when it reaches its maximum log size.  \n  \n To read from an event log, specify the log name (<xref:System.Diagnostics.EventLog.Log%2A> property) and server computer name (<xref:System.Diagnostics.EventLog.MachineName%2A> property for the event log. If you don't specify the server computer name, the local computer, \".\", is assumed. It's not necessary to specify the event source (<xref:System.Diagnostics.EventLog.Source%2A> property), because a source is required only for writing to logs. The  <xref:System.Diagnostics.EventLog.Entries%2A> property is automatically populated with the event log's list of entries.  \n  \n To write to an event log, specify or create an event source (<xref:System.Diagnostics.EventLog.Source%2A> property). You must have administrative credentials on the computer to create a new event source. The event source registers your application with the event log as a valid source of entries. You can use the event source  to write to only one log at a time. The <xref:System.Diagnostics.EventLog.Source%2A> property can be any random string, but the name must be distinct from other sources on the computer. The event source is typically the name of the application or another identifying string. Trying to create a duplicate <xref:System.Diagnostics.EventLog.Source%2A> value throws an exception. However, a single event log can be associated with multiple sources.  \n  \n If the event source for the event log associated with the <xref:System.Diagnostics.EventLog> instance doesn't exist, a new event source is created. To create an event source in Windows Vista and later or Windows Server 2003, you must have administrative credentials.  \n  \n This requirement is because all event logs, including Security logs, must be searched to determine whether the event source is unique. Starting with Windows Vista, users do not have permission to access the Security log; therefore, a <xref:System.Security.SecurityException> is thrown.  \n  \n> [!IMPORTANT]\n>  Creating or deleting an event source requires synchronization of the underlying code by using a named mutex. If a highly privileged application locks the named mutex, trying to create or delete an event source causes the application to stop responding until the lock is released. To help prevent this problem, never grant <xref:System.Security.Permissions.SecurityPermissionFlag> permission to untrusted code. In addition, <xref:System.Security.Permissions.SecurityPermissionFlag> permission potentially allows other permissions to be bypassed and should only be granted to highly trusted code.  \n  \n Applications and services should write to the Application log or to a custom log. Device drivers should write to the System log. If you do not explicitly set the <xref:System.Diagnostics.EventLog.Log%2A> property, the event log defaults to the Application log.  \n  \n> [!NOTE]\n>  There is nothing to protect an application from writing as any registered source.  If an application is granted <xref:System.Diagnostics.EventLogPermissionAccess> permission, it can write events for any valid source registered on the computer.  \n  \n Use the <xref:System.Diagnostics.EventLog.WriteEvent%2A> and <xref:System.Diagnostics.EventLog.WriteEntry%2A> methods to write events to an event log. You must specify an event source to write events; you must create and configure the event source before writing the first entry with the source.  \n  \n Create the new event source during the installation of your application. This allows time for the operating system to refresh its list of registered event sources and their configuration. If the operating system hasn't refreshed its list of event sources, and you try to write an event with the new source, the write operation will fail. You can configure a new source by using an <xref:System.Diagnostics.EventLogInstaller> object or the <xref:System.Diagnostics.EventLog.CreateEventSource%2A> method. You must have administrative credentials on the computer to create a new event source.  \n  \n Each source can write to only one event log at a time; however, your application can use multiple sources to write to multiple event logs. For example, your application might require multiple sources configured for different event logs or different resource files. To change the configuration details of an existing source, you must delete the source and then create it with the new configuration. If other applications or components use the existing source, create a new source with the updated configuration instead of deleting the existing source.  \n  \n You can register the event source with localized resources for your event category and message strings. Your application can write event log entries by using resource identifiers instead of specifying the actual string values. Refer to the <xref:System.Diagnostics.EventLogInstaller> and <xref:System.Diagnostics.EventSourceCreationData> classes for more information about configuring your source with resource files.  \n  \n If your application writes string values directly to the event log, you do not have to set the resource file properties for the source. The source must be configured either for writing localized entries or for writing direct strings. If your application writes entries using both resource identifiers and string values, you must register two separate sources. For example, configure one source with resource files, and then use that source in the <xref:System.Diagnostics.EventLog.WriteEvent%2A> method to write entries using resource identifiers to the event log. Then create a different source without resource files, and use that source in the <xref:System.Diagnostics.EventLog.WriteEntry%2A> method to write strings directly to the event log using that source.  \n  \n When writing events, you must at least specify either a message string or the resource identifier for a message string. Other event properties are optional. Examples of optional event settings include the following:  \n  \n-   You can set the <xref:System.Diagnostics.EventLogEntryType> to specify the icon that the Event Viewer displays for the entry.  \n  \n-   You can specify a category identifier for the event, if your application uses categories for filtering the events.  \n  \n-   You can attach binary data to your event entry if you want to associate additional information with a given event.  \n  \n> [!IMPORTANT]\n>  Event logging consumes disk space, processor time, and other system resources. It is important to log only essential information. We recommend that you place event log calls in an error path, rather than in the main code path, so they don't adversely affect performance.  \n  \n For a list of initial property values for an instance of <xref:System.Diagnostics.EventLog>, see the <xref:System.Diagnostics.EventLog.%23ctor%2A> constructor."
+  remarks: "<xref:System.Diagnostics.EventLog> lets you access or customize Windows event logs, which record information about important software or hardware events. Using <xref:System.Diagnostics.EventLog>, you can read from existing logs, write entries to logs, create or delete event sources, delete logs, and respond to log entries. You can also create new logs when creating an event source.  \n  \n> [!IMPORTANT]\n>  This type implements the <xref:System.IDisposable> interface. When you have finished using the type, you should dispose of it either directly or indirectly. To dispose of the type directly, call its <xref:System.IDisposable.Dispose%2A> method in a `try`/`catch` block. To dispose of it indirectly, use a language construct such as `using` (in C#) or `Using` (in Visual Basic). For more information, see the “Using an Object that Implements IDisposable” section in the <xref:System.IDisposable> interface topic.  \n  \n In addition to providing access to individual event logs and their entries, the <xref:System.Diagnostics.EventLog> class lets you access the collection of all event logs. You can use the `static` members of <xref:System.Diagnostics.EventLog> to delete logs, get log lists, create or delete a source, or determine if a computer already contains a particular source.  \n  \n There are three default event logs: Application, System, and Security. A Security log is read-only. Other applications and services you install, such as Active Directory, might have additional event logs.  \n  \n There are security considerations when using the <xref:System.Diagnostics.EventLog> class. <xref:System.Diagnostics.EventLog> requires <xref:System.Diagnostics.EventLogPermission> permissions for specific actions in the .NET Framework 2.0 and later versions, or full trust in the .NET Framework 1.0 and 1.1. We recommend that <xref:System.Diagnostics.EventLogPermission> not be granted to partially trusted code.  You should never pass any event log object, including <xref:System.Diagnostics.EventLogEntryCollection> and <xref:System.Diagnostics.EventLogEntry> objects, to less trusted code. For example, creating an <xref:System.Diagnostics.EventLog> object, writing an entry, and then passing the <xref:System.Diagnostics.EventLog> object to partially trusted code can create a security issue, because the ability to read and write to the event log allows code to perform actions such as issuing event log messages in the name of another application.  \n  \n Starting with Windows Vista, User Account Control (UAC) determines the credentials of a user. If you are a member of the Built-in Administrators group, you are assigned two run-time access tokens: a standard user access token and an administrator access token. By default, you are in the standard user role. To run the code that accesses the Security log, you must first elevate your credentials from standard user to administrator. You can do this when you start an application by opening the shortcut menu for the application (if you're using a mouse, right-click the application icon) and indicating that you want to run as an administrator.  \n  \n You can use <xref:System.Diagnostics.EventLog> to create custom event logs that you can view through the server's Event Viewer. Use the <xref:System.Diagnostics.EventLog.RegisterDisplayName%2A> method to display a localized name for your event log in the Event Viewer. Use the <xref:System.Diagnostics.EventLog.ModifyOverflowPolicy%2A> method to configure the behavior of your event log when it reaches its maximum log size.  \n  \n To read from an event log, specify the log name (<xref:System.Diagnostics.EventLog.Log%2A> property) and server computer name (<xref:System.Diagnostics.EventLog.MachineName%2A> property for the event log. If you don't specify the server computer name, the local computer, \".\", is assumed. It's not necessary to specify the event source (<xref:System.Diagnostics.EventLog.Source%2A> property), because a source is required only for writing to logs. The  <xref:System.Diagnostics.EventLog.Entries%2A> property is automatically populated with the event log's list of entries.  \n  \n To write to an event log, specify or create an event source (<xref:System.Diagnostics.EventLog.Source%2A> property). You must have administrative credentials on the computer to create a new event source. The event source registers your application with the event log as a valid source of entries. You can use the event source  to write to only one log at a time. The <xref:System.Diagnostics.EventLog.Source%2A> property can be any random string, but the name must be distinct from other sources on the computer. The event source is typically the name of the application or another identifying string. Trying to create a duplicate <xref:System.Diagnostics.EventLog.Source%2A> value throws an exception. However, a single event log can be associated with multiple sources.  \n  \n If the event source for the event log associated with the <xref:System.Diagnostics.EventLog> instance doesn't exist, a new event source is created. To create an event source in Windows Vista and later or Windows Server 2003, you must have administrative credentials.  \n  \n This requirement is because all event logs, including Security logs, must be searched to determine whether the event source is unique. Starting with Windows Vista, users do not have permission to access the Security log; therefore, a <xref:System.Security.SecurityException> is thrown.  \n  \n> [!IMPORTANT]\n>  Creating or deleting an event source requires synchronization of the underlying code by using a named mutex. If a highly privileged application locks the named mutex, trying to create or delete an event source causes the application to stop responding until the lock is released. To help prevent this problem, never grant <xref:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode> permission to untrusted code. In addition, <xref:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode> permission potentially allows other permissions to be bypassed and should only be granted to highly trusted code.  \n  \n Applications and services should write to the Application log or to a custom log. Device drivers should write to the System log. If you do not explicitly set the <xref:System.Diagnostics.EventLog.Log%2A> property, the event log defaults to the Application log.  \n  \n> [!NOTE]\n>  There is nothing to protect an application from writing as any registered source.  If an application is granted <xref:System.Diagnostics.EventLogPermissionAccess.Write> permission, it can write events for any valid source registered on the computer.  \n  \n Use the <xref:System.Diagnostics.EventLog.WriteEvent%2A> and <xref:System.Diagnostics.EventLog.WriteEntry%2A> methods to write events to an event log. You must specify an event source to write events; you must create and configure the event source before writing the first entry with the source.  \n  \n Create the new event source during the installation of your application. This allows time for the operating system to refresh its list of registered event sources and their configuration. If the operating system hasn't refreshed its list of event sources, and you try to write an event with the new source, the write operation will fail. You can configure a new source by using an <xref:System.Diagnostics.EventLogInstaller> object or the <xref:System.Diagnostics.EventLog.CreateEventSource%2A> method. You must have administrative credentials on the computer to create a new event source.  \n  \n Each source can write to only one event log at a time; however, your application can use multiple sources to write to multiple event logs. For example, your application might require multiple sources configured for different event logs or different resource files. To change the configuration details of an existing source, you must delete the source and then create it with the new configuration. If other applications or components use the existing source, create a new source with the updated configuration instead of deleting the existing source.  \n  \n You can register the event source with localized resources for your event category and message strings. Your application can write event log entries by using resource identifiers instead of specifying the actual string values. Refer to the <xref:System.Diagnostics.EventLogInstaller> and <xref:System.Diagnostics.EventSourceCreationData> classes for more information about configuring your source with resource files.  \n  \n If your application writes string values directly to the event log, you do not have to set the resource file properties for the source. The source must be configured either for writing localized entries or for writing direct strings. If your application writes entries using both resource identifiers and string values, you must register two separate sources. For example, configure one source with resource files, and then use that source in the <xref:System.Diagnostics.EventLog.WriteEvent%2A> method to write entries using resource identifiers to the event log. Then create a different source without resource files, and use that source in the <xref:System.Diagnostics.EventLog.WriteEntry%2A> method to write strings directly to the event log using that source.  \n  \n When writing events, you must at least specify either a message string or the resource identifier for a message string. Other event properties are optional. Examples of optional event settings include the following:  \n  \n-   You can set the <xref:System.Diagnostics.EventLogEntryType> to specify the icon that the Event Viewer displays for the entry.  \n  \n-   You can specify a category identifier for the event, if your application uses categories for filtering the events.  \n  \n-   You can attach binary data to your event entry if you want to associate additional information with a given event.  \n  \n> [!IMPORTANT]\n>  Event logging consumes disk space, processor time, and other system resources. It is important to log only essential information. We recommend that you place event log calls in an error path, rather than in the main code path, so they don't adversely affect performance.  \n  \n For a list of initial property values for an instance of <xref:System.Diagnostics.EventLog>, see the <xref:System.Diagnostics.EventLog.%23ctor%2A> constructor."
   example:
   - "The following example creates the event source `MySource` if it doesn't already exist, and writes an entry to the event log `MyNewLog`.  \n  \n> [!NOTE]\n>  Starting with Windows Vista, you must run this application as an administrator.  \n  \n [!code-cpp[Classic EventLog.CreateEventSource Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_Classic/classic EventLog.CreateEventSource Example/CPP/source.cpp#1)]\n [!code-csharp[Classic EventLog.CreateEventSource Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_Classic/classic EventLog.CreateEventSource Example/CS/source.cs#1)]\n [!code-vb[Classic EventLog.CreateEventSource Example#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_Classic/classic EventLog.CreateEventSource Example/VB/source.vb#1)]"
   syntax:
@@ -115,9 +115,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.#ctor
   commentId: M:System.Diagnostics.EventLog.#ctor
   id: '#ctor'
@@ -126,7 +123,7 @@ items:
   - csharp
   name: EventLog()
   nameWithType: EventLog.EventLog()
-  fullName: System.Diagnostics.EventLog.EventLog()
+  fullName: EventLog.EventLog()
   type: Constructor
   assemblies:
   - System
@@ -159,9 +156,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.#ctor(System.String)
   commentId: M:System.Diagnostics.EventLog.#ctor(System.String)
   id: '#ctor(System.String)'
@@ -170,7 +164,7 @@ items:
   - csharp
   name: EventLog(String)
   nameWithType: EventLog.EventLog(String)
-  fullName: System.Diagnostics.EventLog.EventLog(String)
+  fullName: EventLog.EventLog(String)
   type: Constructor
   assemblies:
   - System
@@ -212,9 +206,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.#ctor(System.String,System.String)
   commentId: M:System.Diagnostics.EventLog.#ctor(System.String,System.String)
   id: '#ctor(System.String,System.String)'
@@ -223,7 +214,7 @@ items:
   - csharp
   name: EventLog(String, String)
   nameWithType: EventLog.EventLog(String, String)
-  fullName: System.Diagnostics.EventLog.EventLog(String, String)
+  fullName: EventLog.EventLog(String, String)
   type: Constructor
   assemblies:
   - System
@@ -268,9 +259,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.#ctor(System.String,System.String,System.String)
   commentId: M:System.Diagnostics.EventLog.#ctor(System.String,System.String,System.String)
   id: '#ctor(System.String,System.String,System.String)'
@@ -279,7 +267,7 @@ items:
   - csharp
   name: EventLog(String, String, String)
   nameWithType: EventLog.EventLog(String, String, String)
-  fullName: System.Diagnostics.EventLog.EventLog(String, String, String)
+  fullName: EventLog.EventLog(String, String, String)
   type: Constructor
   assemblies:
   - System
@@ -327,9 +315,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.BeginInit
   commentId: M:System.Diagnostics.EventLog.BeginInit
   id: BeginInit
@@ -338,7 +323,7 @@ items:
   - csharp
   name: BeginInit()
   nameWithType: EventLog.BeginInit()
-  fullName: System.Diagnostics.EventLog.BeginInit()
+  fullName: EventLog.BeginInit()
   type: Method
   assemblies:
   - System
@@ -372,9 +357,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.Clear
   commentId: M:System.Diagnostics.EventLog.Clear
   id: Clear
@@ -383,7 +365,7 @@ items:
   - csharp
   name: Clear()
   nameWithType: EventLog.Clear()
-  fullName: System.Diagnostics.EventLog.Clear()
+  fullName: EventLog.Clear()
   type: Method
   assemblies:
   - System
@@ -425,9 +407,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.Close
   commentId: M:System.Diagnostics.EventLog.Close
   id: Close
@@ -436,7 +415,7 @@ items:
   - csharp
   name: Close()
   nameWithType: EventLog.Close()
-  fullName: System.Diagnostics.EventLog.Close()
+  fullName: EventLog.Close()
   type: Method
   assemblies:
   - System
@@ -470,9 +449,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.CreateEventSource(System.Diagnostics.EventSourceCreationData)
   commentId: M:System.Diagnostics.EventLog.CreateEventSource(System.Diagnostics.EventSourceCreationData)
   id: CreateEventSource(System.Diagnostics.EventSourceCreationData)
@@ -481,7 +457,7 @@ items:
   - csharp
   name: CreateEventSource(EventSourceCreationData)
   nameWithType: EventLog.CreateEventSource(EventSourceCreationData)
-  fullName: System.Diagnostics.EventLog.CreateEventSource(EventSourceCreationData)
+  fullName: EventLog.CreateEventSource(EventSourceCreationData)
   type: Method
   assemblies:
   - System
@@ -531,9 +507,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.CreateEventSource(System.String,System.String)
   commentId: M:System.Diagnostics.EventLog.CreateEventSource(System.String,System.String)
   id: CreateEventSource(System.String,System.String)
@@ -542,7 +515,7 @@ items:
   - csharp
   name: CreateEventSource(String, String)
   nameWithType: EventLog.CreateEventSource(String, String)
-  fullName: System.Diagnostics.EventLog.CreateEventSource(String, String)
+  fullName: EventLog.CreateEventSource(String, String)
   type: Method
   assemblies:
   - System
@@ -587,9 +560,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.CreateEventSource(System.String,System.String,System.String)
   commentId: M:System.Diagnostics.EventLog.CreateEventSource(System.String,System.String,System.String)
   id: CreateEventSource(System.String,System.String,System.String)
@@ -598,7 +568,7 @@ items:
   - csharp
   name: CreateEventSource(String, String, String)
   nameWithType: EventLog.CreateEventSource(String, String, String)
-  fullName: System.Diagnostics.EventLog.CreateEventSource(String, String, String)
+  fullName: EventLog.CreateEventSource(String, String, String)
   type: Method
   assemblies:
   - System
@@ -651,9 +621,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.Delete(System.String,System.String)
   commentId: M:System.Diagnostics.EventLog.Delete(System.String,System.String)
   id: Delete(System.String,System.String)
@@ -662,7 +629,7 @@ items:
   - csharp
   name: Delete(String, String)
   nameWithType: EventLog.Delete(String, String)
-  fullName: System.Diagnostics.EventLog.Delete(String, String)
+  fullName: EventLog.Delete(String, String)
   type: Method
   assemblies:
   - System
@@ -715,9 +682,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.Delete(System.String)
   commentId: M:System.Diagnostics.EventLog.Delete(System.String)
   id: Delete(System.String)
@@ -726,7 +690,7 @@ items:
   - csharp
   name: Delete(String)
   nameWithType: EventLog.Delete(String)
-  fullName: System.Diagnostics.EventLog.Delete(String)
+  fullName: EventLog.Delete(String)
   type: Method
   assemblies:
   - System
@@ -771,9 +735,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.DeleteEventSource(System.String)
   commentId: M:System.Diagnostics.EventLog.DeleteEventSource(System.String)
   id: DeleteEventSource(System.String)
@@ -782,7 +743,7 @@ items:
   - csharp
   name: DeleteEventSource(String)
   nameWithType: EventLog.DeleteEventSource(String)
-  fullName: System.Diagnostics.EventLog.DeleteEventSource(String)
+  fullName: EventLog.DeleteEventSource(String)
   type: Method
   assemblies:
   - System
@@ -821,9 +782,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.DeleteEventSource(System.String,System.String)
   commentId: M:System.Diagnostics.EventLog.DeleteEventSource(System.String,System.String)
   id: DeleteEventSource(System.String,System.String)
@@ -832,7 +790,7 @@ items:
   - csharp
   name: DeleteEventSource(String, String)
   nameWithType: EventLog.DeleteEventSource(String, String)
-  fullName: System.Diagnostics.EventLog.DeleteEventSource(String, String)
+  fullName: EventLog.DeleteEventSource(String, String)
   type: Method
   assemblies:
   - System
@@ -882,9 +840,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.Dispose(System.Boolean)
   commentId: M:System.Diagnostics.EventLog.Dispose(System.Boolean)
   id: Dispose(System.Boolean)
@@ -893,13 +848,13 @@ items:
   - csharp
   name: Dispose(Boolean)
   nameWithType: EventLog.Dispose(Boolean)
-  fullName: System.Diagnostics.EventLog.Dispose(Boolean)
+  fullName: EventLog.Dispose(Boolean)
   type: Method
   assemblies:
   - System
   namespace: System.Diagnostics
   summary: Releases the unmanaged resources used by the <xref href="System.Diagnostics.EventLog"></xref>, and optionally releases the managed resources.
-  remarks: "This method is called by the public `Dispose()`method and the <xref:System.Object.Finalize%2A> method. `Dispose()` invokes the protected `Dispose(Boolean)` method with the `disposing` parameter set to `true`. <xref:System.Object.Finalize%2A> invokes `Dispose` with `disposing` set to `false`.  \n  \n When the `disposing` parameter is true, this method releases all resources held by any managed objects that this <xref:System.Diagnostics.EventLog> references. This method invokes the `Dispose()` method of each referenced object."
+  remarks: "This method is called by the public `Dispose()` method and the <xref:System.Object.Finalize%2A> method. `Dispose()` invokes the protected `Dispose(Boolean)` method with the `disposing` parameter set to `true`. <xref:System.Object.Finalize%2A> invokes `Dispose` with `disposing` set to `false`.  \n  \n When the `disposing` parameter is true, this method releases all resources held by any managed objects that this <xref:System.Diagnostics.EventLog> references. This method invokes the `Dispose()` method of each referenced object."
   syntax:
     content: protected override void Dispose (bool disposing);
     parameters:
@@ -927,9 +882,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.EnableRaisingEvents
   commentId: P:System.Diagnostics.EventLog.EnableRaisingEvents
   id: EnableRaisingEvents
@@ -938,7 +890,7 @@ items:
   - csharp
   name: EnableRaisingEvents
   nameWithType: EventLog.EnableRaisingEvents
-  fullName: System.Diagnostics.EventLog.EnableRaisingEvents
+  fullName: EventLog.EnableRaisingEvents
   type: Property
   assemblies:
   - System
@@ -981,9 +933,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.EndInit
   commentId: M:System.Diagnostics.EventLog.EndInit
   id: EndInit
@@ -992,7 +941,7 @@ items:
   - csharp
   name: EndInit()
   nameWithType: EventLog.EndInit()
-  fullName: System.Diagnostics.EventLog.EndInit()
+  fullName: EventLog.EndInit()
   type: Method
   assemblies:
   - System
@@ -1023,9 +972,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.Entries
   commentId: P:System.Diagnostics.EventLog.Entries
   id: Entries
@@ -1034,7 +980,7 @@ items:
   - csharp
   name: Entries
   nameWithType: EventLog.Entries
-  fullName: System.Diagnostics.EventLog.Entries
+  fullName: EventLog.Entries
   type: Property
   assemblies:
   - System
@@ -1074,9 +1020,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.EntryWritten
   commentId: E:System.Diagnostics.EventLog.EntryWritten
   id: EntryWritten
@@ -1085,7 +1028,7 @@ items:
   - csharp
   name: EntryWritten
   nameWithType: EventLog.EntryWritten
-  fullName: System.Diagnostics.EventLog.EntryWritten
+  fullName: EventLog.EntryWritten
   type: Event
   assemblies:
   - System
@@ -1120,9 +1063,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.Exists(System.String)
   commentId: M:System.Diagnostics.EventLog.Exists(System.String)
   id: Exists(System.String)
@@ -1131,7 +1071,7 @@ items:
   - csharp
   name: Exists(String)
   nameWithType: EventLog.Exists(String)
-  fullName: System.Diagnostics.EventLog.Exists(String)
+  fullName: EventLog.Exists(String)
   type: Method
   assemblies:
   - System
@@ -1176,9 +1116,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.Exists(System.String,System.String)
   commentId: M:System.Diagnostics.EventLog.Exists(System.String,System.String)
   id: Exists(System.String,System.String)
@@ -1187,7 +1124,7 @@ items:
   - csharp
   name: Exists(String, String)
   nameWithType: EventLog.Exists(String, String)
-  fullName: System.Diagnostics.EventLog.Exists(String, String)
+  fullName: EventLog.Exists(String, String)
   type: Method
   assemblies:
   - System
@@ -1235,9 +1172,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.GetEventLogs(System.String)
   commentId: M:System.Diagnostics.EventLog.GetEventLogs(System.String)
   id: GetEventLogs(System.String)
@@ -1246,7 +1180,7 @@ items:
   - csharp
   name: GetEventLogs(String)
   nameWithType: EventLog.GetEventLogs(String)
-  fullName: System.Diagnostics.EventLog.GetEventLogs(String)
+  fullName: EventLog.GetEventLogs(String)
   type: Method
   assemblies:
   - System
@@ -1296,9 +1230,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.GetEventLogs
   commentId: M:System.Diagnostics.EventLog.GetEventLogs
   id: GetEventLogs
@@ -1307,7 +1238,7 @@ items:
   - csharp
   name: GetEventLogs()
   nameWithType: EventLog.GetEventLogs()
-  fullName: System.Diagnostics.EventLog.GetEventLogs()
+  fullName: EventLog.GetEventLogs()
   type: Method
   assemblies:
   - System
@@ -1346,9 +1277,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.Log
   commentId: P:System.Diagnostics.EventLog.Log
   id: Log
@@ -1357,7 +1285,7 @@ items:
   - csharp
   name: Log
   nameWithType: EventLog.Log
-  fullName: System.Diagnostics.EventLog.Log
+  fullName: EventLog.Log
   type: Property
   assemblies:
   - System
@@ -1397,9 +1325,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.LogDisplayName
   commentId: P:System.Diagnostics.EventLog.LogDisplayName
   id: LogDisplayName
@@ -1408,7 +1333,7 @@ items:
   - csharp
   name: LogDisplayName
   nameWithType: EventLog.LogDisplayName
-  fullName: System.Diagnostics.EventLog.LogDisplayName
+  fullName: EventLog.LogDisplayName
   type: Property
   assemblies:
   - System
@@ -1451,9 +1376,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.LogNameFromSourceName(System.String,System.String)
   commentId: M:System.Diagnostics.EventLog.LogNameFromSourceName(System.String,System.String)
   id: LogNameFromSourceName(System.String,System.String)
@@ -1462,7 +1384,7 @@ items:
   - csharp
   name: LogNameFromSourceName(String, String)
   nameWithType: EventLog.LogNameFromSourceName(String, String)
-  fullName: System.Diagnostics.EventLog.LogNameFromSourceName(String, String)
+  fullName: EventLog.LogNameFromSourceName(String, String)
   type: Method
   assemblies:
   - System
@@ -1509,9 +1431,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.MachineName
   commentId: P:System.Diagnostics.EventLog.MachineName
   id: MachineName
@@ -1520,7 +1439,7 @@ items:
   - csharp
   name: MachineName
   nameWithType: EventLog.MachineName
-  fullName: System.Diagnostics.EventLog.MachineName
+  fullName: EventLog.MachineName
   type: Property
   assemblies:
   - System
@@ -1559,9 +1478,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.MaximumKilobytes
   commentId: P:System.Diagnostics.EventLog.MaximumKilobytes
   id: MaximumKilobytes
@@ -1570,7 +1486,7 @@ items:
   - csharp
   name: MaximumKilobytes
   nameWithType: EventLog.MaximumKilobytes
-  fullName: System.Diagnostics.EventLog.MaximumKilobytes
+  fullName: EventLog.MaximumKilobytes
   type: Property
   assemblies:
   - System
@@ -1622,9 +1538,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.MinimumRetentionDays
   commentId: P:System.Diagnostics.EventLog.MinimumRetentionDays
   id: MinimumRetentionDays
@@ -1633,13 +1546,13 @@ items:
   - csharp
   name: MinimumRetentionDays
   nameWithType: EventLog.MinimumRetentionDays
-  fullName: System.Diagnostics.EventLog.MinimumRetentionDays
+  fullName: EventLog.MinimumRetentionDays
   type: Property
   assemblies:
   - System
   namespace: System.Diagnostics
   summary: Gets the number of days to retain entries in the event log.
-  remarks: "Use the <xref:System.Diagnostics.EventLog.MinimumRetentionDays%2A> property to examine the current setting for an event log. Use <xref:System.Diagnostics.EventLog.ModifyOverflowPolicy%2A> to change the minimum number of days that each entry in the event log must be retained.  \n  \n The <xref:System.Diagnostics.EventLog.MinimumRetentionDays%2A> value depends on the configured overflow behavior of the event log. If the <xref:System.Diagnostics.OverflowAction> property for an event log is set to <xref:System.Diagnostics.OverflowAction>, then the <xref:System.Diagnostics.EventLog.MinimumRetentionDays%2A> value is 0. If the <xref:System.Diagnostics.OverflowAction> property for an event log is set to <xref:System.Diagnostics.OverflowAction>, then the <xref:System.Diagnostics.EventLog.MinimumRetentionDays%2A> value is -1. If the <xref:System.Diagnostics.OverflowAction> property for an event log is set to <xref:System.Diagnostics.OverflowAction>, then the <xref:System.Diagnostics.EventLog.MinimumRetentionDays%2A> value is greater than zero, and represents the number of days to retain event log entries when the event log is full.  \n  \n The overflow behavior only occurs when an event log reaches its size limit. When an <xref:System.Diagnostics.EventLog> has its <xref:System.Diagnostics.EventLog.OverflowAction%2A> set to <xref:System.Diagnostics.OverflowAction>, and the event log reaches its maximum size, then new entries are written only if they can replace entries whose age exceeds the <xref:System.Diagnostics.EventLog.MinimumRetentionDays%2A> period. Retaining event entries for a minimum period is appropriate when the event log is archived regularly. Otherwise, you risk losing new entries when the event log reaches its limit. To avoid losing new event information, set the minimum retention days for events based on your archive schedule for a particular event log."
+  remarks: "Use the <xref:System.Diagnostics.EventLog.MinimumRetentionDays%2A> property to examine the current setting for an event log. Use <xref:System.Diagnostics.EventLog.ModifyOverflowPolicy%2A> to change the minimum number of days that each entry in the event log must be retained.  \n  \n The <xref:System.Diagnostics.EventLog.MinimumRetentionDays%2A> value depends on the configured overflow behavior of the event log. If the <xref:System.Diagnostics.OverflowAction> property for an event log is set to <xref:System.Diagnostics.OverflowAction.OverwriteAsNeeded>, then the <xref:System.Diagnostics.EventLog.MinimumRetentionDays%2A> value is 0. If the <xref:System.Diagnostics.OverflowAction> property for an event log is set to <xref:System.Diagnostics.OverflowAction.DoNotOverwrite>, then the <xref:System.Diagnostics.EventLog.MinimumRetentionDays%2A> value is -1. If the <xref:System.Diagnostics.OverflowAction> property for an event log is set to <xref:System.Diagnostics.OverflowAction.OverwriteOlder>, then the <xref:System.Diagnostics.EventLog.MinimumRetentionDays%2A> value is greater than zero, and represents the number of days to retain event log entries when the event log is full.  \n  \n The overflow behavior only occurs when an event log reaches its size limit. When an <xref:System.Diagnostics.EventLog> has its <xref:System.Diagnostics.EventLog.OverflowAction%2A> set to <xref:System.Diagnostics.OverflowAction.OverwriteOlder>, and the event log reaches its maximum size, then new entries are written only if they can replace entries whose age exceeds the <xref:System.Diagnostics.EventLog.MinimumRetentionDays%2A> period. Retaining event entries for a minimum period is appropriate when the event log is archived regularly. Otherwise, you risk losing new entries when the event log reaches its limit. To avoid losing new event information, set the minimum retention days for events based on your archive schedule for a particular event log."
   example:
   - "The following example enumerates the event logs defined on the local computer, and displays configuration details for each event log.  \n  \n [!code-cpp[EventLogProperties#2](~/samples/snippets/cpp/VS_Snippets_CLR/EventLogProperties/CPP/source.cpp#2)]\n [!code-csharp[EventLogProperties#2](~/samples/snippets/csharp/VS_Snippets_CLR/EventLogProperties/CS/source.cs#2)]\n [!code-vb[EventLogProperties#2](~/samples/snippets/visualbasic/VS_Snippets_CLR/EventLogProperties/VB/source.vb#2)]"
   syntax:
@@ -1679,9 +1592,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.ModifyOverflowPolicy(System.Diagnostics.OverflowAction,System.Int32)
   commentId: M:System.Diagnostics.EventLog.ModifyOverflowPolicy(System.Diagnostics.OverflowAction,System.Int32)
   id: ModifyOverflowPolicy(System.Diagnostics.OverflowAction,System.Int32)
@@ -1690,13 +1600,13 @@ items:
   - csharp
   name: ModifyOverflowPolicy(OverflowAction, Int32)
   nameWithType: EventLog.ModifyOverflowPolicy(OverflowAction, Int32)
-  fullName: System.Diagnostics.EventLog.ModifyOverflowPolicy(OverflowAction, Int32)
+  fullName: EventLog.ModifyOverflowPolicy(OverflowAction, Int32)
   type: Method
   assemblies:
   - System
   namespace: System.Diagnostics
   summary: Changes the configured behavior for writing new entries when the event log reaches its maximum file size.
-  remarks: "The overflow behavior for an event log specifies what happens when new entries are to be written to a log that has reached its maximum file size.  \n  \n> [!NOTE]\n>  The overflow behavior takes effect only when an event log reaches its maximum file size. The overflow behavior does not affect writing a new entry to a log that can accommodate additional event log entries.  \n  \n The <xref:System.Diagnostics.EventLog.ModifyOverflowPolicy%2A> method configures the overflow behavior of an event log. <xref:System.Diagnostics.EventLog> instance. After calling this method for the event log specified by the <xref:System.Diagnostics.EventLog.Log%2A> property, the <xref:System.Diagnostics.EventLog.OverflowAction%2A> and <xref:System.Diagnostics.EventLog.MinimumRetentionDays%2A> property values reflect the newly configured overflow behavior.  \n  \n> [!NOTE]\n>  This property represents a configuration setting for the event log represented by this instance. When the event log reaches its maximum size, this property specifies how the operating system handles new entries written by all event sources registered for the event log.  \n  \n Set the `action` parameter to <xref:System.Diagnostics.OverflowAction> to indicate that a new entry overwrites the oldest entry when the <xref:System.Diagnostics.EventLog> reaches its maximum size. If the `action` parameter is set to <xref:System.Diagnostics.OverflowAction>, the `retentionDays` parameter value is ignored.  \n  \n Set the `action` parameter to <xref:System.Diagnostics.OverflowAction> to indicate that each new entry overwrites older entries when the <xref:System.Diagnostics.EventLog> reaches its maximum size. Specify the number of days that events must be retained in the log using the `retentionDays` parameter. Events written within the retention range are not overwritten by new entries.  \n  \n Set the `action` parameter to <xref:System.Diagnostics.OverflowAction> to discard new events when the maximum log size is reached. If the `action` parameter is set to <xref:System.Diagnostics.OverflowAction>, the `retentionDays` parameter value is ignored.  \n  \n> [!CAUTION]\n>  Setting the overflow policy to <xref:System.Diagnostics.OverflowAction> specifies that new entries are discarded when the event log is full. If you use this setting, ensure the event log is regularly archived and cleared to avoid reaching its maximum size limit."
+  remarks: "The overflow behavior for an event log specifies what happens when new entries are to be written to a log that has reached its maximum file size.  \n  \n> [!NOTE]\n>  The overflow behavior takes effect only when an event log reaches its maximum file size. The overflow behavior does not affect writing a new entry to a log that can accommodate additional event log entries.  \n  \n The <xref:System.Diagnostics.EventLog.ModifyOverflowPolicy%2A> method configures the overflow behavior of an event log. <xref:System.Diagnostics.EventLog> instance. After calling this method for the event log specified by the <xref:System.Diagnostics.EventLog.Log%2A> property, the <xref:System.Diagnostics.EventLog.OverflowAction%2A> and <xref:System.Diagnostics.EventLog.MinimumRetentionDays%2A> property values reflect the newly configured overflow behavior.  \n  \n> [!NOTE]\n>  This property represents a configuration setting for the event log represented by this instance. When the event log reaches its maximum size, this property specifies how the operating system handles new entries written by all event sources registered for the event log.  \n  \n Set the `action` parameter to <xref:System.Diagnostics.OverflowAction.OverwriteAsNeeded> to indicate that a new entry overwrites the oldest entry when the <xref:System.Diagnostics.EventLog> reaches its maximum size. If the `action` parameter is set to <xref:System.Diagnostics.OverflowAction.OverwriteAsNeeded>, the `retentionDays` parameter value is ignored.  \n  \n Set the `action` parameter to <xref:System.Diagnostics.OverflowAction.OverwriteOlder> to indicate that each new entry overwrites older entries when the <xref:System.Diagnostics.EventLog> reaches its maximum size. Specify the number of days that events must be retained in the log using the `retentionDays` parameter. Events written within the retention range are not overwritten by new entries.  \n  \n Set the `action` parameter to <xref:System.Diagnostics.OverflowAction.DoNotOverwrite> to discard new events when the maximum log size is reached. If the `action` parameter is set to <xref:System.Diagnostics.OverflowAction.DoNotOverwrite>, the `retentionDays` parameter value is ignored.  \n  \n> [!CAUTION]\n>  Setting the overflow policy to <xref:System.Diagnostics.OverflowAction.DoNotOverwrite> specifies that new entries are discarded when the event log is full. If you use this setting, ensure the event log is regularly archived and cleared to avoid reaching its maximum size limit."
   example:
   - "The following example displays the configured overflow policy for a specified event log, and allows the user to select a new overflow policy setting for the event log.  \n  \n [!code-cpp[EventLogProperties#3](~/samples/snippets/cpp/VS_Snippets_CLR/EventLogProperties/CPP/source.cpp#3)]\n [!code-csharp[EventLogProperties#3](~/samples/snippets/csharp/VS_Snippets_CLR/EventLogProperties/CS/source.cs#3)]\n [!code-vb[EventLogProperties#3](~/samples/snippets/visualbasic/VS_Snippets_CLR/EventLogProperties/VB/source.vb#3)]"
   syntax:
@@ -1746,9 +1656,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.OverflowAction
   commentId: P:System.Diagnostics.EventLog.OverflowAction
   id: OverflowAction
@@ -1757,7 +1664,7 @@ items:
   - csharp
   name: OverflowAction
   nameWithType: EventLog.OverflowAction
-  fullName: System.Diagnostics.EventLog.OverflowAction
+  fullName: EventLog.OverflowAction
   type: Property
   assemblies:
   - System
@@ -1803,9 +1710,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.RegisterDisplayName(System.String,System.Int64)
   commentId: M:System.Diagnostics.EventLog.RegisterDisplayName(System.String,System.Int64)
   id: RegisterDisplayName(System.String,System.Int64)
@@ -1814,7 +1718,7 @@ items:
   - csharp
   name: RegisterDisplayName(String, Int64)
   nameWithType: EventLog.RegisterDisplayName(String, Int64)
-  fullName: System.Diagnostics.EventLog.RegisterDisplayName(String, Int64)
+  fullName: EventLog.RegisterDisplayName(String, Int64)
   type: Method
   assemblies:
   - System
@@ -1867,9 +1771,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.Source
   commentId: P:System.Diagnostics.EventLog.Source
   id: Source
@@ -1878,7 +1779,7 @@ items:
   - csharp
   name: Source
   nameWithType: EventLog.Source
-  fullName: System.Diagnostics.EventLog.Source
+  fullName: EventLog.Source
   type: Property
   assemblies:
   - System
@@ -1921,9 +1822,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.SourceExists(System.String)
   commentId: M:System.Diagnostics.EventLog.SourceExists(System.String)
   id: SourceExists(System.String)
@@ -1932,13 +1830,13 @@ items:
   - csharp
   name: SourceExists(String)
   nameWithType: EventLog.SourceExists(String)
-  fullName: System.Diagnostics.EventLog.SourceExists(String)
+  fullName: EventLog.SourceExists(String)
   type: Method
   assemblies:
   - System
   namespace: System.Diagnostics
   summary: Determines whether an event source is registered on the local computer.
-  remarks: "Use this method to determine whether an event source exists on the local computer. If you want to determine whether a log exists on the local computer, use <xref:System.Diagnostics.EventLog.Exists%2A>.  \n  \n Because this method accesses the registry, you must have the appropriate registry permissions on the local computer; otherwise, a <xref:System.Security.SecurityException> will be thrown.  \n  \n> [!NOTE]\n>  To search for an event source in Windows Vista and later or Windows Server 2003, you must have administrative privileges.  \n>   \n>  The reason for this requirement is that all event logs, including security, must be searched to determine whether the event source is unique. Starting with Windows Vista, users do not have permission to access the security log; therefore, a <xref:System.Security.SecurityException> is thrown.  \n>   \n>  Starting with Windows Vista, User Account Control (UAC) determines the privileges of a user. If you are a member of the Built-in Administrators group, you are assigned two run-time access tokens: a standard user access token and an administrator access token. By default, you are in the standard user role. To execute the code that accesses performance counters, you must first elevate your privileges from standard user to administrator. You can do this when you start an application by right-clicking the application icon and indicating that you want to run as an administrator.  \n  \n> [!NOTE]\n>  A service that is executing under the <xref:System.ServiceProcess.ServiceAccount> account does not have the privileges required to execute this method. The solution is to check whether the event source exists in the <xref:System.ServiceProcess.ServiceInstaller>, and if it does not exist, to create the source in the installer.  \n  \n Because you cannot give a new source the name of an existing source on the same computer, use this method before attempting to call <xref:System.Diagnostics.EventLog.CreateEventSource%2A> to ensure that a source with the name specified by `source` does not already exist on the local computer. The `source` parameter is not case-sensitive."
+  remarks: "Use this method to determine whether an event source exists on the local computer. If you want to determine whether a log exists on the local computer, use <xref:System.Diagnostics.EventLog.Exists%2A>.  \n  \n Because this method accesses the registry, you must have the appropriate registry permissions on the local computer; otherwise, a <xref:System.Security.SecurityException> will be thrown.  \n  \n> [!NOTE]\n>  To search for an event source in Windows Vista and later or Windows Server 2003, you must have administrative privileges.  \n>   \n>  The reason for this requirement is that all event logs, including security, must be searched to determine whether the event source is unique. Starting with Windows Vista, users do not have permission to access the security log; therefore, a <xref:System.Security.SecurityException> is thrown.  \n>   \n>  Starting with Windows Vista, User Account Control (UAC) determines the privileges of a user. If you are a member of the Built-in Administrators group, you are assigned two run-time access tokens: a standard user access token and an administrator access token. By default, you are in the standard user role. To execute the code that accesses performance counters, you must first elevate your privileges from standard user to administrator. You can do this when you start an application by right-clicking the application icon and indicating that you want to run as an administrator.  \n  \n> [!NOTE]\n>  A service that is executing under the <xref:System.ServiceProcess.ServiceAccount.LocalSystem> account does not have the privileges required to execute this method. The solution is to check whether the event source exists in the <xref:System.ServiceProcess.ServiceInstaller>, and if it does not exist, to create the source in the installer.  \n  \n Because you cannot give a new source the name of an existing source on the same computer, use this method before attempting to call <xref:System.Diagnostics.EventLog.CreateEventSource%2A> to ensure that a source with the name specified by `source` does not already exist on the local computer. The `source` parameter is not case-sensitive."
   example:
   - "The following example creates the source `MySource` if it does not already exist, and writes an entry to the event log `MyNewLog`.  \n  \n [!code-cpp[Classic EventLog.Source Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_Classic/classic EventLog.Source Example/CPP/source.cpp#1)]\n [!code-csharp[Classic EventLog.Source Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_Classic/classic EventLog.Source Example/CS/source.cs#1)]\n [!code-vb[Classic EventLog.Source Example#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_Classic/classic EventLog.Source Example/VB/source.vb#1)]"
   syntax:
@@ -1974,9 +1872,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.SourceExists(System.String,System.String)
   commentId: M:System.Diagnostics.EventLog.SourceExists(System.String,System.String)
   id: SourceExists(System.String,System.String)
@@ -1985,13 +1880,13 @@ items:
   - csharp
   name: SourceExists(String, String)
   nameWithType: EventLog.SourceExists(String, String)
-  fullName: System.Diagnostics.EventLog.SourceExists(String, String)
+  fullName: EventLog.SourceExists(String, String)
   type: Method
   assemblies:
   - System
   namespace: System.Diagnostics
   summary: Determines whether an event source is registered on a specified computer.
-  remarks: "Use this method to determine whether an event source exists on the computer specified by the `machineName` parameter. If you want to determine whether a log exists on the specified computer, use <xref:System.Diagnostics.EventLog.Exists%2A>.  \n  \n Because this method accesses the registry, you must have the appropriate registry permissions on the given server; otherwise, a <xref:System.Security.SecurityException> will be thrown.  \n  \n> [!NOTE]\n>  To search for an event source in Windows Vista and later or Windows Server 2003, you must have administrative privileges.  \n>   \n>  The reason for this requirement is that all event logs, including security, must be searched to determine whether the event source is unique. Starting with Windows Vista, users do not have permission to access the security log; therefore, a <xref:System.Security.SecurityException> is thrown.  \n>   \n>  Starting with Windows Vista, User Account Control (UAC) determines the privileges of a user. If you are a member of the Built-in Administrators group, you are assigned two run-time access tokens: a standard user access token and an administrator access token. By default, you are in the standard user role. To execute the code that accesses performance counters, you must first elevate your privileges from standard user to administrator. You can do this when you start an application by right-clicking the application icon and indicating that you want to run as an administrator.  \n  \n> [!NOTE]\n>  A service that is executing under the <xref:System.ServiceProcess.ServiceAccount> account does not have the privileges required to execute this method. The solution is to check whether the event source exists in the <xref:System.ServiceProcess.ServiceInstaller>, and if it does not exist, to create the source in the installer.  \n  \n Because you cannot give a new source the name of an existing source on the same computer, use this method before attempting to call <xref:System.Diagnostics.EventLog.CreateEventSource%2A> to ensure that a source with the name specified by `source` does not already exist on the computer. The `source` and `machineName` parameters are not case sensitive.  \n  \n <xref:System.Diagnostics.EventLog.SourceExists%2A> is a `static` method, so it can be called on the class itself. It is not necessary to create an instance of <xref:System.Diagnostics.EventLog> to call <xref:System.Diagnostics.EventLog.SourceExists%2A>."
+  remarks: "Use this method to determine whether an event source exists on the computer specified by the `machineName` parameter. If you want to determine whether a log exists on the specified computer, use <xref:System.Diagnostics.EventLog.Exists%2A>.  \n  \n Because this method accesses the registry, you must have the appropriate registry permissions on the given server; otherwise, a <xref:System.Security.SecurityException> will be thrown.  \n  \n> [!NOTE]\n>  To search for an event source in Windows Vista and later or Windows Server 2003, you must have administrative privileges.  \n>   \n>  The reason for this requirement is that all event logs, including security, must be searched to determine whether the event source is unique. Starting with Windows Vista, users do not have permission to access the security log; therefore, a <xref:System.Security.SecurityException> is thrown.  \n>   \n>  Starting with Windows Vista, User Account Control (UAC) determines the privileges of a user. If you are a member of the Built-in Administrators group, you are assigned two run-time access tokens: a standard user access token and an administrator access token. By default, you are in the standard user role. To execute the code that accesses performance counters, you must first elevate your privileges from standard user to administrator. You can do this when you start an application by right-clicking the application icon and indicating that you want to run as an administrator.  \n  \n> [!NOTE]\n>  A service that is executing under the <xref:System.ServiceProcess.ServiceAccount.LocalSystem> account does not have the privileges required to execute this method. The solution is to check whether the event source exists in the <xref:System.ServiceProcess.ServiceInstaller>, and if it does not exist, to create the source in the installer.  \n  \n Because you cannot give a new source the name of an existing source on the same computer, use this method before attempting to call <xref:System.Diagnostics.EventLog.CreateEventSource%2A> to ensure that a source with the name specified by `source` does not already exist on the computer. The `source` and `machineName` parameters are not case sensitive.  \n  \n <xref:System.Diagnostics.EventLog.SourceExists%2A> is a `static` method, so it can be called on the class itself. It is not necessary to create an instance of <xref:System.Diagnostics.EventLog> to call <xref:System.Diagnostics.EventLog.SourceExists%2A>."
   example:
   - "The following example creates the source `MySource` on the computer `MyServer`, and writes an entry to the event log `MyNewLog`.  \n  \n [!code-cpp[Classic EventLog.SourceExists1 Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_Classic/classic EventLog.SourceExists1 Example/CPP/source.cpp#1)]\n [!code-csharp[Classic EventLog.SourceExists1 Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_Classic/classic EventLog.SourceExists1 Example/CS/source.cs#1)]\n [!code-vb[Classic EventLog.SourceExists1 Example#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_Classic/classic EventLog.SourceExists1 Example/VB/source.vb#1)]"
   syntax:
@@ -2038,9 +1933,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.SynchronizingObject
   commentId: P:System.Diagnostics.EventLog.SynchronizingObject
   id: SynchronizingObject
@@ -2049,7 +1941,7 @@ items:
   - csharp
   name: SynchronizingObject
   nameWithType: EventLog.SynchronizingObject
-  fullName: System.Diagnostics.EventLog.SynchronizingObject
+  fullName: EventLog.SynchronizingObject
   type: Property
   assemblies:
   - System
@@ -2087,9 +1979,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.WriteEntry(System.String,System.String,System.Diagnostics.EventLogEntryType,System.Int32,System.Int16,System.Byte[])
   commentId: M:System.Diagnostics.EventLog.WriteEntry(System.String,System.String,System.Diagnostics.EventLogEntryType,System.Int32,System.Int16,System.Byte[])
   id: WriteEntry(System.String,System.String,System.Diagnostics.EventLogEntryType,System.Int32,System.Int16,System.Byte[])
@@ -2098,7 +1987,7 @@ items:
   - csharp
   name: WriteEntry(String, String, EventLogEntryType, Int32, Int16, Byte[])
   nameWithType: EventLog.WriteEntry(String, String, EventLogEntryType, Int32, Int16, Byte[])
-  fullName: System.Diagnostics.EventLog.WriteEntry(String, String, EventLogEntryType, Int32, Int16, Byte[])
+  fullName: EventLog.WriteEntry(String, String, EventLogEntryType, Int32, Int16, Byte[])
   type: Method
   assemblies:
   - System
@@ -2164,9 +2053,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.WriteEntry(System.String,System.String,System.Diagnostics.EventLogEntryType,System.Int32,System.Int16)
   commentId: M:System.Diagnostics.EventLog.WriteEntry(System.String,System.String,System.Diagnostics.EventLogEntryType,System.Int32,System.Int16)
   id: WriteEntry(System.String,System.String,System.Diagnostics.EventLogEntryType,System.Int32,System.Int16)
@@ -2175,7 +2061,7 @@ items:
   - csharp
   name: WriteEntry(String, String, EventLogEntryType, Int32, Int16)
   nameWithType: EventLog.WriteEntry(String, String, EventLogEntryType, Int32, Int16)
-  fullName: System.Diagnostics.EventLog.WriteEntry(String, String, EventLogEntryType, Int32, Int16)
+  fullName: EventLog.WriteEntry(String, String, EventLogEntryType, Int32, Int16)
   type: Method
   assemblies:
   - System
@@ -2238,9 +2124,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.WriteEntry(System.String,System.Diagnostics.EventLogEntryType,System.Int32,System.Int16,System.Byte[])
   commentId: M:System.Diagnostics.EventLog.WriteEntry(System.String,System.Diagnostics.EventLogEntryType,System.Int32,System.Int16,System.Byte[])
   id: WriteEntry(System.String,System.Diagnostics.EventLogEntryType,System.Int32,System.Int16,System.Byte[])
@@ -2249,7 +2132,7 @@ items:
   - csharp
   name: WriteEntry(String, EventLogEntryType, Int32, Int16, Byte[])
   nameWithType: EventLog.WriteEntry(String, EventLogEntryType, Int32, Int16, Byte[])
-  fullName: System.Diagnostics.EventLog.WriteEntry(String, EventLogEntryType, Int32, Int16, Byte[])
+  fullName: EventLog.WriteEntry(String, EventLogEntryType, Int32, Int16, Byte[])
   type: Method
   assemblies:
   - System
@@ -2312,9 +2195,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.WriteEntry(System.String,System.String,System.Diagnostics.EventLogEntryType,System.Int32)
   commentId: M:System.Diagnostics.EventLog.WriteEntry(System.String,System.String,System.Diagnostics.EventLogEntryType,System.Int32)
   id: WriteEntry(System.String,System.String,System.Diagnostics.EventLogEntryType,System.Int32)
@@ -2323,7 +2203,7 @@ items:
   - csharp
   name: WriteEntry(String, String, EventLogEntryType, Int32)
   nameWithType: EventLog.WriteEntry(String, String, EventLogEntryType, Int32)
-  fullName: System.Diagnostics.EventLog.WriteEntry(String, String, EventLogEntryType, Int32)
+  fullName: EventLog.WriteEntry(String, String, EventLogEntryType, Int32)
   type: Method
   assemblies:
   - System
@@ -2383,9 +2263,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.WriteEntry(System.String,System.Diagnostics.EventLogEntryType,System.Int32,System.Int16)
   commentId: M:System.Diagnostics.EventLog.WriteEntry(System.String,System.Diagnostics.EventLogEntryType,System.Int32,System.Int16)
   id: WriteEntry(System.String,System.Diagnostics.EventLogEntryType,System.Int32,System.Int16)
@@ -2394,7 +2271,7 @@ items:
   - csharp
   name: WriteEntry(String, EventLogEntryType, Int32, Int16)
   nameWithType: EventLog.WriteEntry(String, EventLogEntryType, Int32, Int16)
-  fullName: System.Diagnostics.EventLog.WriteEntry(String, EventLogEntryType, Int32, Int16)
+  fullName: EventLog.WriteEntry(String, EventLogEntryType, Int32, Int16)
   type: Method
   assemblies:
   - System
@@ -2454,9 +2331,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.WriteEntry(System.String,System.Diagnostics.EventLogEntryType)
   commentId: M:System.Diagnostics.EventLog.WriteEntry(System.String,System.Diagnostics.EventLogEntryType)
   id: WriteEntry(System.String,System.Diagnostics.EventLogEntryType)
@@ -2465,7 +2339,7 @@ items:
   - csharp
   name: WriteEntry(String, EventLogEntryType)
   nameWithType: EventLog.WriteEntry(String, EventLogEntryType)
-  fullName: System.Diagnostics.EventLog.WriteEntry(String, EventLogEntryType)
+  fullName: EventLog.WriteEntry(String, EventLogEntryType)
   type: Method
   assemblies:
   - System
@@ -2516,9 +2390,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.WriteEntry(System.String,System.Diagnostics.EventLogEntryType,System.Int32)
   commentId: M:System.Diagnostics.EventLog.WriteEntry(System.String,System.Diagnostics.EventLogEntryType,System.Int32)
   id: WriteEntry(System.String,System.Diagnostics.EventLogEntryType,System.Int32)
@@ -2527,7 +2398,7 @@ items:
   - csharp
   name: WriteEntry(String, EventLogEntryType, Int32)
   nameWithType: EventLog.WriteEntry(String, EventLogEntryType, Int32)
-  fullName: System.Diagnostics.EventLog.WriteEntry(String, EventLogEntryType, Int32)
+  fullName: EventLog.WriteEntry(String, EventLogEntryType, Int32)
   type: Method
   assemblies:
   - System
@@ -2584,9 +2455,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.WriteEntry(System.String,System.String)
   commentId: M:System.Diagnostics.EventLog.WriteEntry(System.String,System.String)
   id: WriteEntry(System.String,System.String)
@@ -2595,7 +2463,7 @@ items:
   - csharp
   name: WriteEntry(String, String)
   nameWithType: EventLog.WriteEntry(String, String)
-  fullName: System.Diagnostics.EventLog.WriteEntry(String, String)
+  fullName: EventLog.WriteEntry(String, String)
   type: Method
   assemblies:
   - System
@@ -2643,9 +2511,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.WriteEntry(System.String)
   commentId: M:System.Diagnostics.EventLog.WriteEntry(System.String)
   id: WriteEntry(System.String)
@@ -2654,7 +2519,7 @@ items:
   - csharp
   name: WriteEntry(String)
   nameWithType: EventLog.WriteEntry(String)
-  fullName: System.Diagnostics.EventLog.WriteEntry(String)
+  fullName: EventLog.WriteEntry(String)
   type: Method
   assemblies:
   - System
@@ -2699,9 +2564,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.WriteEntry(System.String,System.String,System.Diagnostics.EventLogEntryType)
   commentId: M:System.Diagnostics.EventLog.WriteEntry(System.String,System.String,System.Diagnostics.EventLogEntryType)
   id: WriteEntry(System.String,System.String,System.Diagnostics.EventLogEntryType)
@@ -2710,7 +2572,7 @@ items:
   - csharp
   name: WriteEntry(String, String, EventLogEntryType)
   nameWithType: EventLog.WriteEntry(String, String, EventLogEntryType)
-  fullName: System.Diagnostics.EventLog.WriteEntry(String, String, EventLogEntryType)
+  fullName: EventLog.WriteEntry(String, String, EventLogEntryType)
   type: Method
   assemblies:
   - System
@@ -2764,9 +2626,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.WriteEvent(System.String,System.Diagnostics.EventInstance,System.Object[])
   commentId: M:System.Diagnostics.EventLog.WriteEvent(System.String,System.Diagnostics.EventInstance,System.Object[])
   id: WriteEvent(System.String,System.Diagnostics.EventInstance,System.Object[])
@@ -2775,7 +2634,7 @@ items:
   - csharp
   name: WriteEvent(String, EventInstance, Object[])
   nameWithType: EventLog.WriteEvent(String, EventInstance, Object[])
-  fullName: System.Diagnostics.EventLog.WriteEvent(String, EventInstance, Object[])
+  fullName: EventLog.WriteEvent(String, EventInstance, Object[])
   type: Method
   assemblies:
   - System
@@ -2829,9 +2688,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.WriteEvent(System.Diagnostics.EventInstance,System.Object[])
   commentId: M:System.Diagnostics.EventLog.WriteEvent(System.Diagnostics.EventInstance,System.Object[])
   id: WriteEvent(System.Diagnostics.EventInstance,System.Object[])
@@ -2840,7 +2696,7 @@ items:
   - csharp
   name: WriteEvent(EventInstance, Object[])
   nameWithType: EventLog.WriteEvent(EventInstance, Object[])
-  fullName: System.Diagnostics.EventLog.WriteEvent(EventInstance, Object[])
+  fullName: EventLog.WriteEvent(EventInstance, Object[])
   type: Method
   assemblies:
   - System
@@ -2896,9 +2752,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.WriteEvent(System.Diagnostics.EventInstance,System.Byte[],System.Object[])
   commentId: M:System.Diagnostics.EventLog.WriteEvent(System.Diagnostics.EventInstance,System.Byte[],System.Object[])
   id: WriteEvent(System.Diagnostics.EventInstance,System.Byte[],System.Object[])
@@ -2907,7 +2760,7 @@ items:
   - csharp
   name: WriteEvent(EventInstance, Byte[], Object[])
   nameWithType: EventLog.WriteEvent(EventInstance, Byte[], Object[])
-  fullName: System.Diagnostics.EventLog.WriteEvent(EventInstance, Byte[], Object[])
+  fullName: EventLog.WriteEvent(EventInstance, Byte[], Object[])
   type: Method
   assemblies:
   - System
@@ -2966,9 +2819,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.EventLog.WriteEvent(System.String,System.Diagnostics.EventInstance,System.Byte[],System.Object[])
   commentId: M:System.Diagnostics.EventLog.WriteEvent(System.String,System.Diagnostics.EventInstance,System.Byte[],System.Object[])
   id: WriteEvent(System.String,System.Diagnostics.EventInstance,System.Byte[],System.Object[])
@@ -2977,7 +2827,7 @@ items:
   - csharp
   name: WriteEvent(String, EventInstance, Byte[], Object[])
   nameWithType: EventLog.WriteEvent(String, EventInstance, Byte[], Object[])
-  fullName: System.Diagnostics.EventLog.WriteEvent(String, EventInstance, Byte[], Object[])
+  fullName: EventLog.WriteEvent(String, EventInstance, Byte[], Object[])
   type: Method
   assemblies:
   - System
@@ -3034,9 +2884,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.ComponentModel.Component
   parent: System.ComponentModel
@@ -3097,13 +2944,13 @@ references:
   isExternal: false
   name: EventLog()
   nameWithType: EventLog.EventLog()
-  fullName: System.Diagnostics.EventLog.EventLog()
+  fullName: EventLog.EventLog()
 - uid: System.Diagnostics.EventLog.#ctor(System.String)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: EventLog(String)
   nameWithType: EventLog.EventLog(String)
-  fullName: System.Diagnostics.EventLog.EventLog(String)
+  fullName: EventLog.EventLog(String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -3115,37 +2962,37 @@ references:
   isExternal: false
   name: EventLog(String, String)
   nameWithType: EventLog.EventLog(String, String)
-  fullName: System.Diagnostics.EventLog.EventLog(String, String)
+  fullName: EventLog.EventLog(String, String)
 - uid: System.Diagnostics.EventLog.#ctor(System.String,System.String,System.String)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: EventLog(String, String, String)
   nameWithType: EventLog.EventLog(String, String, String)
-  fullName: System.Diagnostics.EventLog.EventLog(String, String, String)
+  fullName: EventLog.EventLog(String, String, String)
 - uid: System.Diagnostics.EventLog.BeginInit
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: BeginInit()
   nameWithType: EventLog.BeginInit()
-  fullName: System.Diagnostics.EventLog.BeginInit()
+  fullName: EventLog.BeginInit()
 - uid: System.Diagnostics.EventLog.Clear
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: Clear()
   nameWithType: EventLog.Clear()
-  fullName: System.Diagnostics.EventLog.Clear()
+  fullName: EventLog.Clear()
 - uid: System.Diagnostics.EventLog.Close
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: Close()
   nameWithType: EventLog.Close()
-  fullName: System.Diagnostics.EventLog.Close()
+  fullName: EventLog.Close()
 - uid: System.Diagnostics.EventLog.CreateEventSource(System.Diagnostics.EventSourceCreationData)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: CreateEventSource(EventSourceCreationData)
   nameWithType: EventLog.CreateEventSource(EventSourceCreationData)
-  fullName: System.Diagnostics.EventLog.CreateEventSource(EventSourceCreationData)
+  fullName: EventLog.CreateEventSource(EventSourceCreationData)
 - uid: System.Diagnostics.EventSourceCreationData
   parent: System.Diagnostics
   isExternal: false
@@ -3157,43 +3004,43 @@ references:
   isExternal: false
   name: CreateEventSource(String, String)
   nameWithType: EventLog.CreateEventSource(String, String)
-  fullName: System.Diagnostics.EventLog.CreateEventSource(String, String)
+  fullName: EventLog.CreateEventSource(String, String)
 - uid: System.Diagnostics.EventLog.CreateEventSource(System.String,System.String,System.String)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: CreateEventSource(String, String, String)
   nameWithType: EventLog.CreateEventSource(String, String, String)
-  fullName: System.Diagnostics.EventLog.CreateEventSource(String, String, String)
+  fullName: EventLog.CreateEventSource(String, String, String)
 - uid: System.Diagnostics.EventLog.Delete(System.String,System.String)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: Delete(String, String)
   nameWithType: EventLog.Delete(String, String)
-  fullName: System.Diagnostics.EventLog.Delete(String, String)
+  fullName: EventLog.Delete(String, String)
 - uid: System.Diagnostics.EventLog.Delete(System.String)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: Delete(String)
   nameWithType: EventLog.Delete(String)
-  fullName: System.Diagnostics.EventLog.Delete(String)
+  fullName: EventLog.Delete(String)
 - uid: System.Diagnostics.EventLog.DeleteEventSource(System.String)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: DeleteEventSource(String)
   nameWithType: EventLog.DeleteEventSource(String)
-  fullName: System.Diagnostics.EventLog.DeleteEventSource(String)
+  fullName: EventLog.DeleteEventSource(String)
 - uid: System.Diagnostics.EventLog.DeleteEventSource(System.String,System.String)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: DeleteEventSource(String, String)
   nameWithType: EventLog.DeleteEventSource(String, String)
-  fullName: System.Diagnostics.EventLog.DeleteEventSource(String, String)
+  fullName: EventLog.DeleteEventSource(String, String)
 - uid: System.Diagnostics.EventLog.Dispose(System.Boolean)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: Dispose(Boolean)
   nameWithType: EventLog.Dispose(Boolean)
-  fullName: System.Diagnostics.EventLog.Dispose(Boolean)
+  fullName: EventLog.Dispose(Boolean)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -3205,19 +3052,19 @@ references:
   isExternal: false
   name: EnableRaisingEvents
   nameWithType: EventLog.EnableRaisingEvents
-  fullName: System.Diagnostics.EventLog.EnableRaisingEvents
+  fullName: EventLog.EnableRaisingEvents
 - uid: System.Diagnostics.EventLog.EndInit
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: EndInit()
   nameWithType: EventLog.EndInit()
-  fullName: System.Diagnostics.EventLog.EndInit()
+  fullName: EventLog.EndInit()
 - uid: System.Diagnostics.EventLog.Entries
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: Entries
   nameWithType: EventLog.Entries
-  fullName: System.Diagnostics.EventLog.Entries
+  fullName: EventLog.Entries
 - uid: System.Diagnostics.EventLogEntryCollection
   parent: System.Diagnostics
   isExternal: false
@@ -3229,7 +3076,7 @@ references:
   isExternal: false
   name: EntryWritten
   nameWithType: EventLog.EntryWritten
-  fullName: System.Diagnostics.EventLog.EntryWritten
+  fullName: EventLog.EntryWritten
 - uid: System.Diagnostics.EntryWrittenEventHandler
   parent: System.Diagnostics
   isExternal: false
@@ -3241,19 +3088,19 @@ references:
   isExternal: false
   name: Exists(String)
   nameWithType: EventLog.Exists(String)
-  fullName: System.Diagnostics.EventLog.Exists(String)
+  fullName: EventLog.Exists(String)
 - uid: System.Diagnostics.EventLog.Exists(System.String,System.String)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: Exists(String, String)
   nameWithType: EventLog.Exists(String, String)
-  fullName: System.Diagnostics.EventLog.Exists(String, String)
+  fullName: EventLog.Exists(String, String)
 - uid: System.Diagnostics.EventLog.GetEventLogs(System.String)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: GetEventLogs(String)
   nameWithType: EventLog.GetEventLogs(String)
-  fullName: System.Diagnostics.EventLog.GetEventLogs(String)
+  fullName: EventLog.GetEventLogs(String)
 - uid: System.Diagnostics.EventLog
   name: EventLog
   nameWithType: EventLog
@@ -3277,37 +3124,37 @@ references:
   isExternal: false
   name: GetEventLogs()
   nameWithType: EventLog.GetEventLogs()
-  fullName: System.Diagnostics.EventLog.GetEventLogs()
+  fullName: EventLog.GetEventLogs()
 - uid: System.Diagnostics.EventLog.Log
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: Log
   nameWithType: EventLog.Log
-  fullName: System.Diagnostics.EventLog.Log
+  fullName: EventLog.Log
 - uid: System.Diagnostics.EventLog.LogDisplayName
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: LogDisplayName
   nameWithType: EventLog.LogDisplayName
-  fullName: System.Diagnostics.EventLog.LogDisplayName
+  fullName: EventLog.LogDisplayName
 - uid: System.Diagnostics.EventLog.LogNameFromSourceName(System.String,System.String)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: LogNameFromSourceName(String, String)
   nameWithType: EventLog.LogNameFromSourceName(String, String)
-  fullName: System.Diagnostics.EventLog.LogNameFromSourceName(String, String)
+  fullName: EventLog.LogNameFromSourceName(String, String)
 - uid: System.Diagnostics.EventLog.MachineName
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: MachineName
   nameWithType: EventLog.MachineName
-  fullName: System.Diagnostics.EventLog.MachineName
+  fullName: EventLog.MachineName
 - uid: System.Diagnostics.EventLog.MaximumKilobytes
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: MaximumKilobytes
   nameWithType: EventLog.MaximumKilobytes
-  fullName: System.Diagnostics.EventLog.MaximumKilobytes
+  fullName: EventLog.MaximumKilobytes
 - uid: System.Int64
   parent: System
   isExternal: false
@@ -3319,7 +3166,7 @@ references:
   isExternal: false
   name: MinimumRetentionDays
   nameWithType: EventLog.MinimumRetentionDays
-  fullName: System.Diagnostics.EventLog.MinimumRetentionDays
+  fullName: EventLog.MinimumRetentionDays
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -3331,7 +3178,7 @@ references:
   isExternal: false
   name: ModifyOverflowPolicy(OverflowAction, Int32)
   nameWithType: EventLog.ModifyOverflowPolicy(OverflowAction, Int32)
-  fullName: System.Diagnostics.EventLog.ModifyOverflowPolicy(OverflowAction, Int32)
+  fullName: EventLog.ModifyOverflowPolicy(OverflowAction, Int32)
 - uid: System.Diagnostics.OverflowAction
   parent: System.Diagnostics
   isExternal: false
@@ -3343,37 +3190,37 @@ references:
   isExternal: false
   name: OverflowAction
   nameWithType: EventLog.OverflowAction
-  fullName: System.Diagnostics.EventLog.OverflowAction
+  fullName: EventLog.OverflowAction
 - uid: System.Diagnostics.EventLog.RegisterDisplayName(System.String,System.Int64)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: RegisterDisplayName(String, Int64)
   nameWithType: EventLog.RegisterDisplayName(String, Int64)
-  fullName: System.Diagnostics.EventLog.RegisterDisplayName(String, Int64)
+  fullName: EventLog.RegisterDisplayName(String, Int64)
 - uid: System.Diagnostics.EventLog.Source
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: Source
   nameWithType: EventLog.Source
-  fullName: System.Diagnostics.EventLog.Source
+  fullName: EventLog.Source
 - uid: System.Diagnostics.EventLog.SourceExists(System.String)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: SourceExists(String)
   nameWithType: EventLog.SourceExists(String)
-  fullName: System.Diagnostics.EventLog.SourceExists(String)
+  fullName: EventLog.SourceExists(String)
 - uid: System.Diagnostics.EventLog.SourceExists(System.String,System.String)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: SourceExists(String, String)
   nameWithType: EventLog.SourceExists(String, String)
-  fullName: System.Diagnostics.EventLog.SourceExists(String, String)
+  fullName: EventLog.SourceExists(String, String)
 - uid: System.Diagnostics.EventLog.SynchronizingObject
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: SynchronizingObject
   nameWithType: EventLog.SynchronizingObject
-  fullName: System.Diagnostics.EventLog.SynchronizingObject
+  fullName: EventLog.SynchronizingObject
 - uid: System.ComponentModel.ISynchronizeInvoke
   parent: System.ComponentModel
   isExternal: false
@@ -3385,7 +3232,7 @@ references:
   isExternal: false
   name: WriteEntry(String, String, EventLogEntryType, Int32, Int16, Byte[])
   nameWithType: EventLog.WriteEntry(String, String, EventLogEntryType, Int32, Int16, Byte[])
-  fullName: System.Diagnostics.EventLog.WriteEntry(String, String, EventLogEntryType, Int32, Int16, Byte[])
+  fullName: EventLog.WriteEntry(String, String, EventLogEntryType, Int32, Int16, Byte[])
 - uid: System.Diagnostics.EventLogEntryType
   parent: System.Diagnostics
   isExternal: false
@@ -3421,61 +3268,61 @@ references:
   isExternal: false
   name: WriteEntry(String, String, EventLogEntryType, Int32, Int16)
   nameWithType: EventLog.WriteEntry(String, String, EventLogEntryType, Int32, Int16)
-  fullName: System.Diagnostics.EventLog.WriteEntry(String, String, EventLogEntryType, Int32, Int16)
+  fullName: EventLog.WriteEntry(String, String, EventLogEntryType, Int32, Int16)
 - uid: System.Diagnostics.EventLog.WriteEntry(System.String,System.Diagnostics.EventLogEntryType,System.Int32,System.Int16,System.Byte[])
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: WriteEntry(String, EventLogEntryType, Int32, Int16, Byte[])
   nameWithType: EventLog.WriteEntry(String, EventLogEntryType, Int32, Int16, Byte[])
-  fullName: System.Diagnostics.EventLog.WriteEntry(String, EventLogEntryType, Int32, Int16, Byte[])
+  fullName: EventLog.WriteEntry(String, EventLogEntryType, Int32, Int16, Byte[])
 - uid: System.Diagnostics.EventLog.WriteEntry(System.String,System.String,System.Diagnostics.EventLogEntryType,System.Int32)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: WriteEntry(String, String, EventLogEntryType, Int32)
   nameWithType: EventLog.WriteEntry(String, String, EventLogEntryType, Int32)
-  fullName: System.Diagnostics.EventLog.WriteEntry(String, String, EventLogEntryType, Int32)
+  fullName: EventLog.WriteEntry(String, String, EventLogEntryType, Int32)
 - uid: System.Diagnostics.EventLog.WriteEntry(System.String,System.Diagnostics.EventLogEntryType,System.Int32,System.Int16)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: WriteEntry(String, EventLogEntryType, Int32, Int16)
   nameWithType: EventLog.WriteEntry(String, EventLogEntryType, Int32, Int16)
-  fullName: System.Diagnostics.EventLog.WriteEntry(String, EventLogEntryType, Int32, Int16)
+  fullName: EventLog.WriteEntry(String, EventLogEntryType, Int32, Int16)
 - uid: System.Diagnostics.EventLog.WriteEntry(System.String,System.Diagnostics.EventLogEntryType)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: WriteEntry(String, EventLogEntryType)
   nameWithType: EventLog.WriteEntry(String, EventLogEntryType)
-  fullName: System.Diagnostics.EventLog.WriteEntry(String, EventLogEntryType)
+  fullName: EventLog.WriteEntry(String, EventLogEntryType)
 - uid: System.Diagnostics.EventLog.WriteEntry(System.String,System.Diagnostics.EventLogEntryType,System.Int32)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: WriteEntry(String, EventLogEntryType, Int32)
   nameWithType: EventLog.WriteEntry(String, EventLogEntryType, Int32)
-  fullName: System.Diagnostics.EventLog.WriteEntry(String, EventLogEntryType, Int32)
+  fullName: EventLog.WriteEntry(String, EventLogEntryType, Int32)
 - uid: System.Diagnostics.EventLog.WriteEntry(System.String,System.String)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: WriteEntry(String, String)
   nameWithType: EventLog.WriteEntry(String, String)
-  fullName: System.Diagnostics.EventLog.WriteEntry(String, String)
+  fullName: EventLog.WriteEntry(String, String)
 - uid: System.Diagnostics.EventLog.WriteEntry(System.String)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: WriteEntry(String)
   nameWithType: EventLog.WriteEntry(String)
-  fullName: System.Diagnostics.EventLog.WriteEntry(String)
+  fullName: EventLog.WriteEntry(String)
 - uid: System.Diagnostics.EventLog.WriteEntry(System.String,System.String,System.Diagnostics.EventLogEntryType)
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: WriteEntry(String, String, EventLogEntryType)
   nameWithType: EventLog.WriteEntry(String, String, EventLogEntryType)
-  fullName: System.Diagnostics.EventLog.WriteEntry(String, String, EventLogEntryType)
+  fullName: EventLog.WriteEntry(String, String, EventLogEntryType)
 - uid: System.Diagnostics.EventLog.WriteEvent(System.String,System.Diagnostics.EventInstance,System.Object[])
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: WriteEvent(String, EventInstance, Object[])
   nameWithType: EventLog.WriteEvent(String, EventInstance, Object[])
-  fullName: System.Diagnostics.EventLog.WriteEvent(String, EventInstance, Object[])
+  fullName: EventLog.WriteEvent(String, EventInstance, Object[])
 - uid: System.Diagnostics.EventInstance
   parent: System.Diagnostics
   isExternal: false
@@ -3505,25 +3352,25 @@ references:
   isExternal: false
   name: WriteEvent(EventInstance, Object[])
   nameWithType: EventLog.WriteEvent(EventInstance, Object[])
-  fullName: System.Diagnostics.EventLog.WriteEvent(EventInstance, Object[])
+  fullName: EventLog.WriteEvent(EventInstance, Object[])
 - uid: System.Diagnostics.EventLog.WriteEvent(System.Diagnostics.EventInstance,System.Byte[],System.Object[])
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: WriteEvent(EventInstance, Byte[], Object[])
   nameWithType: EventLog.WriteEvent(EventInstance, Byte[], Object[])
-  fullName: System.Diagnostics.EventLog.WriteEvent(EventInstance, Byte[], Object[])
+  fullName: EventLog.WriteEvent(EventInstance, Byte[], Object[])
 - uid: System.Diagnostics.EventLog.WriteEvent(System.String,System.Diagnostics.EventInstance,System.Byte[],System.Object[])
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: WriteEvent(String, EventInstance, Byte[], Object[])
   nameWithType: EventLog.WriteEvent(String, EventInstance, Byte[], Object[])
-  fullName: System.Diagnostics.EventLog.WriteEvent(String, EventInstance, Byte[], Object[])
+  fullName: EventLog.WriteEvent(String, EventInstance, Byte[], Object[])
 - uid: System.Diagnostics.EventLog.#ctor*
   parent: System.Diagnostics.EventLog
   isExternal: false
   name: EventLog
   nameWithType: EventLog.EventLog
-  fullName: System.Diagnostics.EventLog.EventLog
+  fullName: EventLog.EventLog
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3539,7 +3386,7 @@ references:
   isExternal: false
   name: BeginInit
   nameWithType: EventLog.BeginInit
-  fullName: System.Diagnostics.EventLog.BeginInit
+  fullName: EventLog.BeginInit
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3555,7 +3402,7 @@ references:
   isExternal: false
   name: Clear
   nameWithType: EventLog.Clear
-  fullName: System.Diagnostics.EventLog.Clear
+  fullName: EventLog.Clear
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3571,7 +3418,7 @@ references:
   isExternal: false
   name: Close
   nameWithType: EventLog.Close
-  fullName: System.Diagnostics.EventLog.Close
+  fullName: EventLog.Close
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3587,7 +3434,7 @@ references:
   isExternal: false
   name: CreateEventSource
   nameWithType: EventLog.CreateEventSource
-  fullName: System.Diagnostics.EventLog.CreateEventSource
+  fullName: EventLog.CreateEventSource
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3603,7 +3450,7 @@ references:
   isExternal: false
   name: Delete
   nameWithType: EventLog.Delete
-  fullName: System.Diagnostics.EventLog.Delete
+  fullName: EventLog.Delete
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3619,7 +3466,7 @@ references:
   isExternal: false
   name: DeleteEventSource
   nameWithType: EventLog.DeleteEventSource
-  fullName: System.Diagnostics.EventLog.DeleteEventSource
+  fullName: EventLog.DeleteEventSource
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3635,7 +3482,7 @@ references:
   isExternal: false
   name: Dispose
   nameWithType: EventLog.Dispose
-  fullName: System.Diagnostics.EventLog.Dispose
+  fullName: EventLog.Dispose
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3651,7 +3498,7 @@ references:
   isExternal: false
   name: EnableRaisingEvents
   nameWithType: EventLog.EnableRaisingEvents
-  fullName: System.Diagnostics.EventLog.EnableRaisingEvents
+  fullName: EventLog.EnableRaisingEvents
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3667,7 +3514,7 @@ references:
   isExternal: false
   name: EndInit
   nameWithType: EventLog.EndInit
-  fullName: System.Diagnostics.EventLog.EndInit
+  fullName: EventLog.EndInit
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3683,7 +3530,7 @@ references:
   isExternal: false
   name: Entries
   nameWithType: EventLog.Entries
-  fullName: System.Diagnostics.EventLog.Entries
+  fullName: EventLog.Entries
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3699,7 +3546,7 @@ references:
   isExternal: false
   name: Exists
   nameWithType: EventLog.Exists
-  fullName: System.Diagnostics.EventLog.Exists
+  fullName: EventLog.Exists
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3715,7 +3562,7 @@ references:
   isExternal: false
   name: GetEventLogs
   nameWithType: EventLog.GetEventLogs
-  fullName: System.Diagnostics.EventLog.GetEventLogs
+  fullName: EventLog.GetEventLogs
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3731,7 +3578,7 @@ references:
   isExternal: false
   name: Log
   nameWithType: EventLog.Log
-  fullName: System.Diagnostics.EventLog.Log
+  fullName: EventLog.Log
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3747,7 +3594,7 @@ references:
   isExternal: false
   name: LogDisplayName
   nameWithType: EventLog.LogDisplayName
-  fullName: System.Diagnostics.EventLog.LogDisplayName
+  fullName: EventLog.LogDisplayName
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3763,7 +3610,7 @@ references:
   isExternal: false
   name: LogNameFromSourceName
   nameWithType: EventLog.LogNameFromSourceName
-  fullName: System.Diagnostics.EventLog.LogNameFromSourceName
+  fullName: EventLog.LogNameFromSourceName
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3779,7 +3626,7 @@ references:
   isExternal: false
   name: MachineName
   nameWithType: EventLog.MachineName
-  fullName: System.Diagnostics.EventLog.MachineName
+  fullName: EventLog.MachineName
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3795,7 +3642,7 @@ references:
   isExternal: false
   name: MaximumKilobytes
   nameWithType: EventLog.MaximumKilobytes
-  fullName: System.Diagnostics.EventLog.MaximumKilobytes
+  fullName: EventLog.MaximumKilobytes
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3811,7 +3658,7 @@ references:
   isExternal: false
   name: MinimumRetentionDays
   nameWithType: EventLog.MinimumRetentionDays
-  fullName: System.Diagnostics.EventLog.MinimumRetentionDays
+  fullName: EventLog.MinimumRetentionDays
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3827,7 +3674,7 @@ references:
   isExternal: false
   name: ModifyOverflowPolicy
   nameWithType: EventLog.ModifyOverflowPolicy
-  fullName: System.Diagnostics.EventLog.ModifyOverflowPolicy
+  fullName: EventLog.ModifyOverflowPolicy
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3843,7 +3690,7 @@ references:
   isExternal: false
   name: OverflowAction
   nameWithType: EventLog.OverflowAction
-  fullName: System.Diagnostics.EventLog.OverflowAction
+  fullName: EventLog.OverflowAction
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3859,7 +3706,7 @@ references:
   isExternal: false
   name: RegisterDisplayName
   nameWithType: EventLog.RegisterDisplayName
-  fullName: System.Diagnostics.EventLog.RegisterDisplayName
+  fullName: EventLog.RegisterDisplayName
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3875,7 +3722,7 @@ references:
   isExternal: false
   name: Source
   nameWithType: EventLog.Source
-  fullName: System.Diagnostics.EventLog.Source
+  fullName: EventLog.Source
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3891,7 +3738,7 @@ references:
   isExternal: false
   name: SourceExists
   nameWithType: EventLog.SourceExists
-  fullName: System.Diagnostics.EventLog.SourceExists
+  fullName: EventLog.SourceExists
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3907,7 +3754,7 @@ references:
   isExternal: false
   name: SynchronizingObject
   nameWithType: EventLog.SynchronizingObject
-  fullName: System.Diagnostics.EventLog.SynchronizingObject
+  fullName: EventLog.SynchronizingObject
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3923,7 +3770,7 @@ references:
   isExternal: false
   name: WriteEntry
   nameWithType: EventLog.WriteEntry
-  fullName: System.Diagnostics.EventLog.WriteEntry
+  fullName: EventLog.WriteEntry
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3939,7 +3786,7 @@ references:
   isExternal: false
   name: WriteEvent
   nameWithType: EventLog.WriteEvent
-  fullName: System.Diagnostics.EventLog.WriteEvent
+  fullName: EventLog.WriteEvent
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3950,3 +3797,9 @@ references:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/EventLog.xml
+- uid: System.ComponentModel.ISupportInitialize
+  parent: System.ComponentModel
+  isExternal: false
+  name: ISupportInitialize
+  nameWithType: ISupportInitialize
+  fullName: System.ComponentModel.ISupportInitialize

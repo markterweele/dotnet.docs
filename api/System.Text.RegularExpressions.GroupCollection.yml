@@ -5,6 +5,7 @@ items:
   id: GroupCollection
   children:
   - System.Text.RegularExpressions.GroupCollection.CopyTo(System.Array,System.Int32)
+  - System.Text.RegularExpressions.GroupCollection.CopyTo(System.Text.RegularExpressions.Group[],System.Int32)
   - System.Text.RegularExpressions.GroupCollection.Count
   - System.Text.RegularExpressions.GroupCollection.GetEnumerator
   - System.Text.RegularExpressions.GroupCollection.IsReadOnly
@@ -12,9 +13,27 @@ items:
   - System.Text.RegularExpressions.GroupCollection.Item(System.Int32)
   - System.Text.RegularExpressions.GroupCollection.Item(System.String)
   - System.Text.RegularExpressions.GroupCollection.SyncRoot
+  - System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Add(System.Text.RegularExpressions.Group)
+  - System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Clear
+  - System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Contains(System.Text.RegularExpressions.Group)
+  - System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Remove(System.Text.RegularExpressions.Group)
+  - System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IEnumerable{System#Text#RegularExpressions#Group}#GetEnumerator
+  - System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#IndexOf(System.Text.RegularExpressions.Group)
+  - System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#Insert(System.Int32,System.Text.RegularExpressions.Group)
+  - System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#Item(System.Int32)
+  - System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#RemoveAt(System.Int32)
   - System.Text.RegularExpressions.GroupCollection.System#Collections#ICollection#CopyTo(System.Array,System.Int32)
   - System.Text.RegularExpressions.GroupCollection.System#Collections#ICollection#IsSynchronized
   - System.Text.RegularExpressions.GroupCollection.System#Collections#ICollection#SyncRoot
+  - System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Add(System.Object)
+  - System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Clear
+  - System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Contains(System.Object)
+  - System.Text.RegularExpressions.GroupCollection.System#Collections#IList#IndexOf(System.Object)
+  - System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Insert(System.Int32,System.Object)
+  - System.Text.RegularExpressions.GroupCollection.System#Collections#IList#IsFixedSize
+  - System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Item(System.Int32)
+  - System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Remove(System.Object)
+  - System.Text.RegularExpressions.GroupCollection.System#Collections#IList#RemoveAt(System.Int32)
   langs:
   - csharp
   name: GroupCollection
@@ -27,7 +46,7 @@ items:
   - netstandard
   namespace: System.Text.RegularExpressions
   summary: Returns the set of captured groups in a single match.
-  remarks: "The <xref:System.Text.RegularExpressions.GroupCollection> class is a zero-based collection class that consists of one or more <xref:System.Text.RegularExpressions.Group> objects that provide information about captured groups in a regular expression match. The collection is immutable (read-only) and has no public constructor. A <xref:System.Text.RegularExpressions.GroupCollection> object is returned by the <xref:System.Text.RegularExpressions.Match.Groups%2A?displayProperty=fullName> property.  \n  \n The collection contains one or more <xref:System.Text.RegularExpressions.Group?displayProperty=fullName> objects. If the match is successful, the first element in the collection contains the <xref:System.Text.RegularExpressions.Group> object that corresponds to the entire match. Each subsequent element represents a captured group, if the regular expression includes capturing groups. Matches from numbered (unnamed) capturing groups appear in numeric order before matches from named capturing groups. If the match is unsuccessful, the collection contains a single <xref:System.Text.RegularExpressions.Group?displayProperty=fullName> object whose <xref:System.Text.RegularExpressions.Group.Success%2A> property is `false` and whose <xref:System.Text.RegularExpressions.Capture.Value%2A> property equals <xref:System.String.Empty?displayProperty=fullName>. For more information, see the \"Grouping Constructs and Regular Expression Objects\" section in the [Grouping Constructs](~/docs/standard/base-types/grouping-constructs-in-regular-expressions.md) article.  \n  \n To iterate through the members of the collection, you should use the collection iteration construct provided by your language (such as `foreach` in C# and `For Each`…`Next` in Visual Basic) instead of retrieving the enumerator that is returned by the <xref:System.Text.RegularExpressions.GroupCollection.GetEnumerator%2A> method. In addition, you can access individual numbered captured groups from the [Item\\<xref:System.Text.RegularExpressions.GroupCollection.Item%28System.Int32%29> property (the indexer in C#), and you can access individual named captured groups from the [Item\\<xref:System.Text.RegularExpressions.GroupCollection.Item%28System.String%29> property. Note that you can retrieve an array that contains the numbers and names of all capturing groups by calling the <xref:System.Text.RegularExpressions.Regex.GetGroupNumbers%2A?displayProperty=fullName> and <xref:System.Text.RegularExpressions.Regex.GetGroupNames%2A?displayProperty=fullName> methods, respectively. Both are instance methods and require that you instantiate a <xref:System.Text.RegularExpressions.Regex> object that represents the regular expression to be matched."
+  remarks: "The <xref:System.Text.RegularExpressions.GroupCollection> class is a zero-based collection class that consists of one or more <xref:System.Text.RegularExpressions.Group> objects that provide information about captured groups in a regular expression match. The collection is immutable (read-only) and has no public constructor. A <xref:System.Text.RegularExpressions.GroupCollection> object is returned by the <xref:System.Text.RegularExpressions.Match.Groups%2A?displayProperty=fullName> property.  \n  \n The collection contains one or more <xref:System.Text.RegularExpressions.Group?displayProperty=fullName> objects. If the match is successful, the first element in the collection contains the <xref:System.Text.RegularExpressions.Group> object that corresponds to the entire match. Each subsequent element represents a captured group, if the regular expression includes capturing groups. Matches from numbered (unnamed) capturing groups appear in numeric order before matches from named capturing groups. If the match is unsuccessful, the collection contains a single <xref:System.Text.RegularExpressions.Group?displayProperty=fullName> object whose <xref:System.Text.RegularExpressions.Group.Success%2A> property is `false` and whose <xref:System.Text.RegularExpressions.Capture.Value%2A> property equals <xref:System.String.Empty?displayProperty=fullName>. For more information, see the \"Grouping Constructs and Regular Expression Objects\" section in the [Grouping Constructs](~/docs/standard/base-types/grouping-constructs-in-regular-expressions.md) article.  \n  \n To iterate through the members of the collection, you should use the collection iteration construct provided by your language (such as `foreach` in C# and `For Each`…`Next` in Visual Basic) instead of retrieving the enumerator that is returned by the <xref:System.Text.RegularExpressions.GroupCollection.GetEnumerator%2A> method. In addition, you can access individual numbered captured groups from the <xref:System.Text.RegularExpressions.GroupCollection.Item%28System.Int32%29> property (the indexer in C#), and you can access individual named captured groups from the <xref:System.Text.RegularExpressions.GroupCollection.Item%28System.String%29> property. Note that you can retrieve an array that contains the numbers and names of all capturing groups by calling the <xref:System.Text.RegularExpressions.Regex.GetGroupNumbers%2A?displayProperty=fullName> and <xref:System.Text.RegularExpressions.Regex.GetGroupNames%2A?displayProperty=fullName> methods, respectively. Both are instance methods and require that you instantiate a <xref:System.Text.RegularExpressions.Regex> object that represents the regular expression to be matched."
   example:
   - "The following example uses a regular expression with capturing groups to extract information about trademarks and registered trademarks used in text. The regular expression pattern is `\\b(\\w+?)([\\u00AE\\u2122])`, which is interpreted as shown in the following table.  \n  \n|Pattern|Description|  \n|-------------|-----------------|  \n|`\\b`|Look for a word boundary.|  \n|`(\\w+?)`|Look for one or more word characters. Together, these form the trademarked name. (Note that this regular expression assumes that a trademark consists of a single word.) This is the first capturing group.|  \n|`([\\u00AE\\u2122])`|Look for either the ® or the ™ character. This is the second capturing group.|  \n  \n For each match, the <xref:System.Text.RegularExpressions.GroupCollection> contains three <xref:System.Text.RegularExpressions.Group> objects. The first object contains the string that matches the entire regular expression. The second object, which represents the first captured group, contains the product name. The third object, which represents the second captured group, contains the trademark or registered trademark symbol.  \n  \n [!code-csharp[System.Text.RegularExpressions.GroupCollection#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Text.RegularExpressions.GroupCollection/cs/Example1.cs#1)]\n [!code-vb[System.Text.RegularExpressions.GroupCollection#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Text.RegularExpressions.GroupCollection/vb/Example1.vb#1)]"
   syntax:
@@ -51,7 +70,8 @@ items:
   - System.Linq.Queryable.AsQueryable(System.Collections.IEnumerable)
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -71,7 +91,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -90,9 +111,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Text.RegularExpressions.GroupCollection.CopyTo(System.Array,System.Int32)
   commentId: M:System.Text.RegularExpressions.GroupCollection.CopyTo(System.Array,System.Int32)
   id: CopyTo(System.Array,System.Int32)
@@ -101,11 +119,12 @@ items:
   - csharp
   name: CopyTo(Array, Int32)
   nameWithType: GroupCollection.CopyTo(Array, Int32)
-  fullName: System.Text.RegularExpressions.GroupCollection.CopyTo(Array, Int32)
+  fullName: GroupCollection.CopyTo(Array, Int32)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Text.RegularExpressions
   namespace: System.Text.RegularExpressions
   summary: Copies all the elements of the collection to the given array beginning at the given index.
   remarks: "Because the entire collection is copied into the array starting at the given index, the destination array must be at least as large as the collection.  \n  \n> [!WARNING]\n>  This member is not present in the [!INCLUDE[net_portable](~/includes/net-portable-md.md)]. If you are developing applications that target the [!INCLUDE[net_portable](~/includes/net-portable-md.md)], use the <xref:System.Text.RegularExpressions.GroupCollection.System%23Collections%23ICollection%23CopyTo%2A?displayProperty=fullName> method instead."
@@ -129,6 +148,7 @@ items:
     commentId: T:System.IndexOutOfRangeException
     description: "<code>arrayIndex</code> is outside the bounds of <code>array</code>.  \n  \n -or-  \n  \n <code>arrayIndex</code> plus <xref href=\"System.Text.RegularExpressions.GroupCollection.Count\"></xref> is outside the bounds of <code>array</code>."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -141,6 +161,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -153,9 +174,35 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
+- uid: System.Text.RegularExpressions.GroupCollection.CopyTo(System.Text.RegularExpressions.Group[],System.Int32)
+  commentId: M:System.Text.RegularExpressions.GroupCollection.CopyTo(System.Text.RegularExpressions.Group[],System.Int32)
+  id: CopyTo(System.Text.RegularExpressions.Group[],System.Int32)
+  parent: System.Text.RegularExpressions.GroupCollection
+  langs:
+  - csharp
+  name: CopyTo(Group[], Int32)
+  nameWithType: GroupCollection.CopyTo(Group[], Int32)
+  fullName: GroupCollection.CopyTo(Group[], Int32)
+  type: Method
+  assemblies:
+  - System.Text.RegularExpressions
+  namespace: System.Text.RegularExpressions
+  syntax:
+    content: public void CopyTo (System.Text.RegularExpressions.Group[] array, int arrayIndex);
+    parameters:
+    - id: array
+      type: System.Text.RegularExpressions.Group[]
+      description: To be added.
+    - id: arrayIndex
+      type: System.Int32
+      description: To be added.
+  overload: System.Text.RegularExpressions.GroupCollection.CopyTo*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
 - uid: System.Text.RegularExpressions.GroupCollection.Count
   commentId: P:System.Text.RegularExpressions.GroupCollection.Count
   id: Count
@@ -164,7 +211,7 @@ items:
   - csharp
   name: Count
   nameWithType: GroupCollection.Count
-  fullName: System.Text.RegularExpressions.GroupCollection.Count
+  fullName: GroupCollection.Count
   type: Property
   assemblies:
   - System.Text.RegularExpressions
@@ -182,7 +229,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -202,7 +250,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -221,9 +270,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Text.RegularExpressions.GroupCollection.GetEnumerator
   commentId: M:System.Text.RegularExpressions.GroupCollection.GetEnumerator
   id: GetEnumerator
@@ -232,7 +278,7 @@ items:
   - csharp
   name: GetEnumerator()
   nameWithType: GroupCollection.GetEnumerator()
-  fullName: System.Text.RegularExpressions.GroupCollection.GetEnumerator()
+  fullName: GroupCollection.GetEnumerator()
   type: Method
   assemblies:
   - System.Text.RegularExpressions
@@ -251,7 +297,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -271,7 +318,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -290,9 +338,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Text.RegularExpressions.GroupCollection.IsReadOnly
   commentId: P:System.Text.RegularExpressions.GroupCollection.IsReadOnly
   id: IsReadOnly
@@ -301,11 +346,12 @@ items:
   - csharp
   name: IsReadOnly
   nameWithType: GroupCollection.IsReadOnly
-  fullName: System.Text.RegularExpressions.GroupCollection.IsReadOnly
+  fullName: GroupCollection.IsReadOnly
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.Text.RegularExpressions
   namespace: System.Text.RegularExpressions
   summary: Gets a value that indicates whether the collection is read-only.
   syntax:
@@ -316,6 +362,7 @@ items:
   overload: System.Text.RegularExpressions.GroupCollection.IsReadOnly*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -328,6 +375,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -340,9 +388,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Text.RegularExpressions.GroupCollection.IsSynchronized
   commentId: P:System.Text.RegularExpressions.GroupCollection.IsSynchronized
   id: IsSynchronized
@@ -351,11 +396,12 @@ items:
   - csharp
   name: IsSynchronized
   nameWithType: GroupCollection.IsSynchronized
-  fullName: System.Text.RegularExpressions.GroupCollection.IsSynchronized
+  fullName: GroupCollection.IsSynchronized
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.Text.RegularExpressions
   namespace: System.Text.RegularExpressions
   summary: Gets a value that indicates whether access to the <xref href="System.Text.RegularExpressions.GroupCollection"></xref> is synchronized (thread-safe).
   remarks: >-
@@ -370,6 +416,7 @@ items:
   overload: System.Text.RegularExpressions.GroupCollection.IsSynchronized*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -382,6 +429,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -394,9 +442,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Text.RegularExpressions.GroupCollection.Item(System.Int32)
   commentId: P:System.Text.RegularExpressions.GroupCollection.Item(System.Int32)
   id: Item(System.Int32)
@@ -405,7 +450,7 @@ items:
   - csharp
   name: Item(Int32)
   nameWithType: GroupCollection.Item(Int32)
-  fullName: System.Text.RegularExpressions.GroupCollection.Item(Int32)
+  fullName: GroupCollection.Item(Int32)
   type: Property
   assemblies:
   - System.Text.RegularExpressions
@@ -429,7 +474,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -449,7 +495,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -468,9 +515,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Text.RegularExpressions.GroupCollection.Item(System.String)
   commentId: P:System.Text.RegularExpressions.GroupCollection.Item(System.String)
   id: Item(System.String)
@@ -479,7 +523,7 @@ items:
   - csharp
   name: Item(String)
   nameWithType: GroupCollection.Item(String)
-  fullName: System.Text.RegularExpressions.GroupCollection.Item(String)
+  fullName: GroupCollection.Item(String)
   type: Property
   assemblies:
   - System.Text.RegularExpressions
@@ -503,7 +547,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -523,7 +568,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -542,9 +588,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Text.RegularExpressions.GroupCollection.SyncRoot
   commentId: P:System.Text.RegularExpressions.GroupCollection.SyncRoot
   id: SyncRoot
@@ -553,11 +596,12 @@ items:
   - csharp
   name: SyncRoot
   nameWithType: GroupCollection.SyncRoot
-  fullName: System.Text.RegularExpressions.GroupCollection.SyncRoot
+  fullName: GroupCollection.SyncRoot
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.Text.RegularExpressions
   namespace: System.Text.RegularExpressions
   summary: Gets an object that can be used to synchronize access to the <xref href="System.Text.RegularExpressions.GroupCollection"></xref>.
   remarks: >-
@@ -572,6 +616,7 @@ items:
   overload: System.Text.RegularExpressions.GroupCollection.SyncRoot*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -584,6 +629,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -596,9 +642,261 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Add(System.Text.RegularExpressions.Group)
+  commentId: M:System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection<System#Text#RegularExpressions#Group>#Add(System.Text.RegularExpressions.Group)
+  id: System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Add(System.Text.RegularExpressions.Group)
+  isEii: true
+  parent: System.Text.RegularExpressions.GroupCollection
+  langs:
+  - csharp
+  name: ICollection<Group>.Add(Group)
+  nameWithType: GroupCollection.ICollection<Group>.Add(Group)
+  fullName: GroupCollection.ICollection<Group>.Add(Group)
+  type: Method
+  assemblies:
+  - System.Text.RegularExpressions
+  namespace: System.Text.RegularExpressions
+  syntax:
+    content: void ICollection<Group>.Add (System.Text.RegularExpressions.Group item);
+    parameters:
+    - id: item
+      type: System.Text.RegularExpressions.Group
+      description: To be added.
+  overload: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Add*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Clear
+  commentId: M:System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection<System#Text#RegularExpressions#Group>#Clear
+  id: System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Clear
+  isEii: true
+  parent: System.Text.RegularExpressions.GroupCollection
+  langs:
+  - csharp
+  name: ICollection<Group>.Clear()
+  nameWithType: GroupCollection.ICollection<Group>.Clear()
+  fullName: GroupCollection.ICollection<Group>.Clear()
+  type: Method
+  assemblies:
+  - System.Text.RegularExpressions
+  namespace: System.Text.RegularExpressions
+  syntax:
+    content: void ICollection<Group>.Clear ();
+    parameters: []
+  overload: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Clear*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Contains(System.Text.RegularExpressions.Group)
+  commentId: M:System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection<System#Text#RegularExpressions#Group>#Contains(System.Text.RegularExpressions.Group)
+  id: System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Contains(System.Text.RegularExpressions.Group)
+  isEii: true
+  parent: System.Text.RegularExpressions.GroupCollection
+  langs:
+  - csharp
+  name: ICollection<Group>.Contains(Group)
+  nameWithType: GroupCollection.ICollection<Group>.Contains(Group)
+  fullName: GroupCollection.ICollection<Group>.Contains(Group)
+  type: Method
+  assemblies:
+  - System.Text.RegularExpressions
+  namespace: System.Text.RegularExpressions
+  syntax:
+    content: bool ICollection<Group>.Contains (System.Text.RegularExpressions.Group item);
+    parameters:
+    - id: item
+      type: System.Text.RegularExpressions.Group
+      description: To be added.
+    return:
+      type: System.Boolean
+      description: To be added.
+  overload: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Contains*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Remove(System.Text.RegularExpressions.Group)
+  commentId: M:System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection<System#Text#RegularExpressions#Group>#Remove(System.Text.RegularExpressions.Group)
+  id: System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Remove(System.Text.RegularExpressions.Group)
+  isEii: true
+  parent: System.Text.RegularExpressions.GroupCollection
+  langs:
+  - csharp
+  name: ICollection<Group>.Remove(Group)
+  nameWithType: GroupCollection.ICollection<Group>.Remove(Group)
+  fullName: GroupCollection.ICollection<Group>.Remove(Group)
+  type: Method
+  assemblies:
+  - System.Text.RegularExpressions
+  namespace: System.Text.RegularExpressions
+  syntax:
+    content: bool ICollection<Group>.Remove (System.Text.RegularExpressions.Group item);
+    parameters:
+    - id: item
+      type: System.Text.RegularExpressions.Group
+      description: To be added.
+    return:
+      type: System.Boolean
+      description: To be added.
+  overload: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Remove*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IEnumerable{System#Text#RegularExpressions#Group}#GetEnumerator
+  commentId: M:System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IEnumerable<System#Text#RegularExpressions#Group>#GetEnumerator
+  id: System#Collections#Generic#IEnumerable{System#Text#RegularExpressions#Group}#GetEnumerator
+  isEii: true
+  parent: System.Text.RegularExpressions.GroupCollection
+  langs:
+  - csharp
+  name: IEnumerable<Group>.GetEnumerator()
+  nameWithType: GroupCollection.IEnumerable<Group>.GetEnumerator()
+  fullName: GroupCollection.IEnumerable<Group>.GetEnumerator()
+  type: Method
+  assemblies:
+  - System.Text.RegularExpressions
+  namespace: System.Text.RegularExpressions
+  syntax:
+    content: System.Collections.Generic.IEnumerator<System.Text.RegularExpressions.Group> IEnumerable<Group>.GetEnumerator ();
+    parameters: []
+    return:
+      type: System.Collections.Generic.IEnumerator{System.Text.RegularExpressions.Group}
+      description: To be added.
+  overload: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IEnumerable{System#Text#RegularExpressions#Group}#GetEnumerator*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#IndexOf(System.Text.RegularExpressions.Group)
+  commentId: M:System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList<System#Text#RegularExpressions#Group>#IndexOf(System.Text.RegularExpressions.Group)
+  id: System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#IndexOf(System.Text.RegularExpressions.Group)
+  isEii: true
+  parent: System.Text.RegularExpressions.GroupCollection
+  langs:
+  - csharp
+  name: IList<Group>.IndexOf(Group)
+  nameWithType: GroupCollection.IList<Group>.IndexOf(Group)
+  fullName: GroupCollection.IList<Group>.IndexOf(Group)
+  type: Method
+  assemblies:
+  - System.Text.RegularExpressions
+  namespace: System.Text.RegularExpressions
+  syntax:
+    content: int IList<Group>.IndexOf (System.Text.RegularExpressions.Group item);
+    parameters:
+    - id: item
+      type: System.Text.RegularExpressions.Group
+      description: To be added.
+    return:
+      type: System.Int32
+      description: To be added.
+  overload: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#IndexOf*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#Insert(System.Int32,System.Text.RegularExpressions.Group)
+  commentId: M:System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList<System#Text#RegularExpressions#Group>#Insert(System.Int32,System.Text.RegularExpressions.Group)
+  id: System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#Insert(System.Int32,System.Text.RegularExpressions.Group)
+  isEii: true
+  parent: System.Text.RegularExpressions.GroupCollection
+  langs:
+  - csharp
+  name: IList<Group>.Insert(Int32, Group)
+  nameWithType: GroupCollection.IList<Group>.Insert(Int32, Group)
+  fullName: GroupCollection.IList<Group>.Insert(Int32, Group)
+  type: Method
+  assemblies:
+  - System.Text.RegularExpressions
+  namespace: System.Text.RegularExpressions
+  syntax:
+    content: void IList<Group>.Insert (int index, System.Text.RegularExpressions.Group item);
+    parameters:
+    - id: index
+      type: System.Int32
+      description: To be added.
+    - id: item
+      type: System.Text.RegularExpressions.Group
+      description: To be added.
+  overload: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#Insert*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#Item(System.Int32)
+  commentId: P:System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList<System#Text#RegularExpressions#Group>#Item(System.Int32)
+  id: System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#Item(System.Int32)
+  isEii: true
+  parent: System.Text.RegularExpressions.GroupCollection
+  langs:
+  - csharp
+  name: IList<Group>.Item(Int32)
+  nameWithType: GroupCollection.IList<Group>.Item(Int32)
+  fullName: GroupCollection.IList<Group>.Item(Int32)
+  type: Property
+  assemblies:
+  - System.Text.RegularExpressions
+  namespace: System.Text.RegularExpressions
+  syntax:
+    content: System.Text.RegularExpressions.Group System.Collections.Generic.IList<System.Text.RegularExpressions.Group>.Item[int index] { get; set; }
+    parameters:
+    - id: index
+      type: System.Int32
+      description: To be added.
+    return:
+      type: System.Text.RegularExpressions.Group
+      description: To be added.
+  overload: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#Item*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#RemoveAt(System.Int32)
+  commentId: M:System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList<System#Text#RegularExpressions#Group>#RemoveAt(System.Int32)
+  id: System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#RemoveAt(System.Int32)
+  isEii: true
+  parent: System.Text.RegularExpressions.GroupCollection
+  langs:
+  - csharp
+  name: IList<Group>.RemoveAt(Int32)
+  nameWithType: GroupCollection.IList<Group>.RemoveAt(Int32)
+  fullName: GroupCollection.IList<Group>.RemoveAt(Int32)
+  type: Method
+  assemblies:
+  - System.Text.RegularExpressions
+  namespace: System.Text.RegularExpressions
+  syntax:
+    content: void IList<Group>.RemoveAt (int index);
+    parameters:
+    - id: index
+      type: System.Int32
+      description: To be added.
+  overload: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#RemoveAt*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
 - uid: System.Text.RegularExpressions.GroupCollection.System#Collections#ICollection#CopyTo(System.Array,System.Int32)
   commentId: M:System.Text.RegularExpressions.GroupCollection.System#Collections#ICollection#CopyTo(System.Array,System.Int32)
   id: System#Collections#ICollection#CopyTo(System.Array,System.Int32)
@@ -608,7 +906,7 @@ items:
   - csharp
   name: ICollection.CopyTo(Array, Int32)
   nameWithType: GroupCollection.ICollection.CopyTo(Array, Int32)
-  fullName: System.Text.RegularExpressions.GroupCollection.ICollection.CopyTo(Array, Int32)
+  fullName: GroupCollection.ICollection.CopyTo(Array, Int32)
   type: Method
   assemblies:
   - System.Text.RegularExpressions
@@ -626,7 +924,7 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
   - netstandard-1.0
   - netstandard-1.1
   - netstandard-1.2
@@ -635,7 +933,7 @@ items:
   - netstandard-1.6
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
   - netstandard-1.0
   - netstandard-1.1
   - netstandard-1.2
@@ -652,7 +950,7 @@ items:
   - csharp
   name: ICollection.IsSynchronized
   nameWithType: GroupCollection.ICollection.IsSynchronized
-  fullName: System.Text.RegularExpressions.GroupCollection.ICollection.IsSynchronized
+  fullName: GroupCollection.ICollection.IsSynchronized
   type: Property
   assemblies:
   - System.Text.RegularExpressions
@@ -666,7 +964,7 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
   - netstandard-1.0
   - netstandard-1.1
   - netstandard-1.2
@@ -675,7 +973,7 @@ items:
   - netstandard-1.6
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
   - netstandard-1.0
   - netstandard-1.1
   - netstandard-1.2
@@ -692,7 +990,7 @@ items:
   - csharp
   name: ICollection.SyncRoot
   nameWithType: GroupCollection.ICollection.SyncRoot
-  fullName: System.Text.RegularExpressions.GroupCollection.ICollection.SyncRoot
+  fullName: GroupCollection.ICollection.SyncRoot
   type: Property
   assemblies:
   - System.Text.RegularExpressions
@@ -706,7 +1004,7 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
   - netstandard-1.0
   - netstandard-1.1
   - netstandard-1.2
@@ -715,13 +1013,267 @@ items:
   - netstandard-1.6
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
   - netstandard-1.0
   - netstandard-1.1
   - netstandard-1.2
   - netstandard-1.3
   - netstandard-1.4
   - netstandard-1.6
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Add(System.Object)
+  commentId: M:System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Add(System.Object)
+  id: System#Collections#IList#Add(System.Object)
+  isEii: true
+  parent: System.Text.RegularExpressions.GroupCollection
+  langs:
+  - csharp
+  name: IList.Add(Object)
+  nameWithType: GroupCollection.IList.Add(Object)
+  fullName: GroupCollection.IList.Add(Object)
+  type: Method
+  assemblies:
+  - System.Text.RegularExpressions
+  namespace: System.Text.RegularExpressions
+  syntax:
+    content: int IList.Add (object value);
+    parameters:
+    - id: value
+      type: System.Object
+      description: To be added.
+    return:
+      type: System.Int32
+      description: To be added.
+  overload: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Add*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Clear
+  commentId: M:System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Clear
+  id: System#Collections#IList#Clear
+  isEii: true
+  parent: System.Text.RegularExpressions.GroupCollection
+  langs:
+  - csharp
+  name: IList.Clear()
+  nameWithType: GroupCollection.IList.Clear()
+  fullName: GroupCollection.IList.Clear()
+  type: Method
+  assemblies:
+  - System.Text.RegularExpressions
+  namespace: System.Text.RegularExpressions
+  syntax:
+    content: void IList.Clear ();
+    parameters: []
+  overload: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Clear*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Contains(System.Object)
+  commentId: M:System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Contains(System.Object)
+  id: System#Collections#IList#Contains(System.Object)
+  isEii: true
+  parent: System.Text.RegularExpressions.GroupCollection
+  langs:
+  - csharp
+  name: IList.Contains(Object)
+  nameWithType: GroupCollection.IList.Contains(Object)
+  fullName: GroupCollection.IList.Contains(Object)
+  type: Method
+  assemblies:
+  - System.Text.RegularExpressions
+  namespace: System.Text.RegularExpressions
+  syntax:
+    content: bool IList.Contains (object value);
+    parameters:
+    - id: value
+      type: System.Object
+      description: To be added.
+    return:
+      type: System.Boolean
+      description: To be added.
+  overload: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Contains*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#IndexOf(System.Object)
+  commentId: M:System.Text.RegularExpressions.GroupCollection.System#Collections#IList#IndexOf(System.Object)
+  id: System#Collections#IList#IndexOf(System.Object)
+  isEii: true
+  parent: System.Text.RegularExpressions.GroupCollection
+  langs:
+  - csharp
+  name: IList.IndexOf(Object)
+  nameWithType: GroupCollection.IList.IndexOf(Object)
+  fullName: GroupCollection.IList.IndexOf(Object)
+  type: Method
+  assemblies:
+  - System.Text.RegularExpressions
+  namespace: System.Text.RegularExpressions
+  syntax:
+    content: int IList.IndexOf (object value);
+    parameters:
+    - id: value
+      type: System.Object
+      description: To be added.
+    return:
+      type: System.Int32
+      description: To be added.
+  overload: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#IndexOf*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Insert(System.Int32,System.Object)
+  commentId: M:System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Insert(System.Int32,System.Object)
+  id: System#Collections#IList#Insert(System.Int32,System.Object)
+  isEii: true
+  parent: System.Text.RegularExpressions.GroupCollection
+  langs:
+  - csharp
+  name: IList.Insert(Int32, Object)
+  nameWithType: GroupCollection.IList.Insert(Int32, Object)
+  fullName: GroupCollection.IList.Insert(Int32, Object)
+  type: Method
+  assemblies:
+  - System.Text.RegularExpressions
+  namespace: System.Text.RegularExpressions
+  syntax:
+    content: void IList.Insert (int index, object value);
+    parameters:
+    - id: index
+      type: System.Int32
+      description: To be added.
+    - id: value
+      type: System.Object
+      description: To be added.
+  overload: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Insert*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#IsFixedSize
+  commentId: P:System.Text.RegularExpressions.GroupCollection.System#Collections#IList#IsFixedSize
+  id: System#Collections#IList#IsFixedSize
+  isEii: true
+  parent: System.Text.RegularExpressions.GroupCollection
+  langs:
+  - csharp
+  name: IList.IsFixedSize
+  nameWithType: GroupCollection.IList.IsFixedSize
+  fullName: GroupCollection.IList.IsFixedSize
+  type: Property
+  assemblies:
+  - System.Text.RegularExpressions
+  namespace: System.Text.RegularExpressions
+  syntax:
+    content: bool System.Collections.IList.IsFixedSize { get; }
+    return:
+      type: System.Boolean
+      description: To be added.
+  overload: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#IsFixedSize*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Item(System.Int32)
+  commentId: P:System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Item(System.Int32)
+  id: System#Collections#IList#Item(System.Int32)
+  isEii: true
+  parent: System.Text.RegularExpressions.GroupCollection
+  langs:
+  - csharp
+  name: IList.Item(Int32)
+  nameWithType: GroupCollection.IList.Item(Int32)
+  fullName: GroupCollection.IList.Item(Int32)
+  type: Property
+  assemblies:
+  - System.Text.RegularExpressions
+  namespace: System.Text.RegularExpressions
+  syntax:
+    content: object System.Collections.IList.Item[int index] { get; set; }
+    parameters:
+    - id: index
+      type: System.Int32
+      description: To be added.
+    return:
+      type: System.Object
+      description: To be added.
+  overload: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Item*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Remove(System.Object)
+  commentId: M:System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Remove(System.Object)
+  id: System#Collections#IList#Remove(System.Object)
+  isEii: true
+  parent: System.Text.RegularExpressions.GroupCollection
+  langs:
+  - csharp
+  name: IList.Remove(Object)
+  nameWithType: GroupCollection.IList.Remove(Object)
+  fullName: GroupCollection.IList.Remove(Object)
+  type: Method
+  assemblies:
+  - System.Text.RegularExpressions
+  namespace: System.Text.RegularExpressions
+  syntax:
+    content: void IList.Remove (object value);
+    parameters:
+    - id: value
+      type: System.Object
+      description: To be added.
+  overload: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Remove*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#RemoveAt(System.Int32)
+  commentId: M:System.Text.RegularExpressions.GroupCollection.System#Collections#IList#RemoveAt(System.Int32)
+  id: System#Collections#IList#RemoveAt(System.Int32)
+  isEii: true
+  parent: System.Text.RegularExpressions.GroupCollection
+  langs:
+  - csharp
+  name: IList.RemoveAt(Int32)
+  nameWithType: GroupCollection.IList.RemoveAt(Int32)
+  fullName: GroupCollection.IList.RemoveAt(Int32)
+  type: Method
+  assemblies:
+  - System.Text.RegularExpressions
+  namespace: System.Text.RegularExpressions
+  syntax:
+    content: void IList.RemoveAt (int index);
+    parameters:
+    - id: index
+      type: System.Int32
+      description: To be added.
+  overload: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#RemoveAt*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
 references:
 - uid: System.Object
@@ -747,7 +1299,7 @@ references:
   isExternal: false
   name: CopyTo(Array, Int32)
   nameWithType: GroupCollection.CopyTo(Array, Int32)
-  fullName: System.Text.RegularExpressions.GroupCollection.CopyTo(Array, Int32)
+  fullName: GroupCollection.CopyTo(Array, Int32)
 - uid: System.Array
   parent: System
   isExternal: false
@@ -760,18 +1312,42 @@ references:
   name: Int32
   nameWithType: Int32
   fullName: System.Int32
+- uid: System.Text.RegularExpressions.GroupCollection.CopyTo(System.Text.RegularExpressions.Group[],System.Int32)
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: CopyTo(Group[], Int32)
+  nameWithType: GroupCollection.CopyTo(Group[], Int32)
+  fullName: GroupCollection.CopyTo(Group[], Int32)
+- uid: System.Text.RegularExpressions.Group
+  name: Group
+  nameWithType: Group
+  fullName: System.Text.RegularExpressions.Group
+- uid: System.Text.RegularExpressions.Group[]
+  parent: System.Text.RegularExpressions
+  isExternal: false
+  name: Group[]
+  nameWithType: Group[]
+  fullName: System.Text.RegularExpressions.Group[]
+  spec.csharp:
+  - uid: System.Text.RegularExpressions.Group
+    name: Group
+    nameWithType: Group
+    fullName: System.Text.RegularExpressions.Group
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
 - uid: System.Text.RegularExpressions.GroupCollection.Count
   parent: System.Text.RegularExpressions.GroupCollection
   isExternal: false
   name: Count
   nameWithType: GroupCollection.Count
-  fullName: System.Text.RegularExpressions.GroupCollection.Count
+  fullName: GroupCollection.Count
 - uid: System.Text.RegularExpressions.GroupCollection.GetEnumerator
   parent: System.Text.RegularExpressions.GroupCollection
   isExternal: false
   name: GetEnumerator()
   nameWithType: GroupCollection.GetEnumerator()
-  fullName: System.Text.RegularExpressions.GroupCollection.GetEnumerator()
+  fullName: GroupCollection.GetEnumerator()
 - uid: System.Collections.IEnumerator
   parent: System.Collections
   isExternal: false
@@ -783,7 +1359,7 @@ references:
   isExternal: false
   name: IsReadOnly
   nameWithType: GroupCollection.IsReadOnly
-  fullName: System.Text.RegularExpressions.GroupCollection.IsReadOnly
+  fullName: GroupCollection.IsReadOnly
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -795,25 +1371,19 @@ references:
   isExternal: false
   name: IsSynchronized
   nameWithType: GroupCollection.IsSynchronized
-  fullName: System.Text.RegularExpressions.GroupCollection.IsSynchronized
+  fullName: GroupCollection.IsSynchronized
 - uid: System.Text.RegularExpressions.GroupCollection.Item(System.Int32)
   parent: System.Text.RegularExpressions.GroupCollection
   isExternal: false
   name: Item(Int32)
   nameWithType: GroupCollection.Item(Int32)
-  fullName: System.Text.RegularExpressions.GroupCollection.Item(Int32)
-- uid: System.Text.RegularExpressions.Group
-  parent: System.Text.RegularExpressions
-  isExternal: false
-  name: Group
-  nameWithType: Group
-  fullName: System.Text.RegularExpressions.Group
+  fullName: GroupCollection.Item(Int32)
 - uid: System.Text.RegularExpressions.GroupCollection.Item(System.String)
   parent: System.Text.RegularExpressions.GroupCollection
   isExternal: false
   name: Item(String)
   nameWithType: GroupCollection.Item(String)
-  fullName: System.Text.RegularExpressions.GroupCollection.Item(String)
+  fullName: GroupCollection.Item(String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -825,32 +1395,166 @@ references:
   isExternal: false
   name: SyncRoot
   nameWithType: GroupCollection.SyncRoot
-  fullName: System.Text.RegularExpressions.GroupCollection.SyncRoot
+  fullName: GroupCollection.SyncRoot
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Add(System.Text.RegularExpressions.Group)
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: ICollection<Group>.Add(Group)
+  nameWithType: GroupCollection.ICollection<Group>.Add(Group)
+  fullName: GroupCollection.ICollection<Group>.Add(Group)
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Clear
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: ICollection<Group>.Clear()
+  nameWithType: GroupCollection.ICollection<Group>.Clear()
+  fullName: GroupCollection.ICollection<Group>.Clear()
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Contains(System.Text.RegularExpressions.Group)
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: ICollection<Group>.Contains(Group)
+  nameWithType: GroupCollection.ICollection<Group>.Contains(Group)
+  fullName: GroupCollection.ICollection<Group>.Contains(Group)
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Remove(System.Text.RegularExpressions.Group)
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: ICollection<Group>.Remove(Group)
+  nameWithType: GroupCollection.ICollection<Group>.Remove(Group)
+  fullName: GroupCollection.ICollection<Group>.Remove(Group)
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IEnumerable{System#Text#RegularExpressions#Group}#GetEnumerator
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: IEnumerable<Group>.GetEnumerator()
+  nameWithType: GroupCollection.IEnumerable<Group>.GetEnumerator()
+  fullName: GroupCollection.IEnumerable<Group>.GetEnumerator()
+- uid: System.Collections.Generic.IEnumerator`1
+  name: IEnumerator<T>
+  nameWithType: IEnumerator<T>
+  fullName: System.Collections.Generic.IEnumerator<T>
+- uid: System.Collections.Generic.IEnumerator{System.Text.RegularExpressions.Group}
+  parent: System.Collections.Generic
+  isExternal: false
+  name: IEnumerator<Group>
+  nameWithType: IEnumerator<Group>
+  fullName: System.Collections.Generic.IEnumerator<System.Text.RegularExpressions.Group>
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    nameWithType: IEnumerator
+    fullName: System.Collections.Generic.IEnumerator
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Text.RegularExpressions.Group
+    name: Group
+    nameWithType: Group
+    fullName: System.Text.RegularExpressions.Group
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#IndexOf(System.Text.RegularExpressions.Group)
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: IList<Group>.IndexOf(Group)
+  nameWithType: GroupCollection.IList<Group>.IndexOf(Group)
+  fullName: GroupCollection.IList<Group>.IndexOf(Group)
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#Insert(System.Int32,System.Text.RegularExpressions.Group)
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: IList<Group>.Insert(Int32, Group)
+  nameWithType: GroupCollection.IList<Group>.Insert(Int32, Group)
+  fullName: GroupCollection.IList<Group>.Insert(Int32, Group)
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#Item(System.Int32)
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: IList<Group>.Item(Int32)
+  nameWithType: GroupCollection.IList<Group>.Item(Int32)
+  fullName: GroupCollection.IList<Group>.Item(Int32)
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#RemoveAt(System.Int32)
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: IList<Group>.RemoveAt(Int32)
+  nameWithType: GroupCollection.IList<Group>.RemoveAt(Int32)
+  fullName: GroupCollection.IList<Group>.RemoveAt(Int32)
 - uid: System.Text.RegularExpressions.GroupCollection.System#Collections#ICollection#CopyTo(System.Array,System.Int32)
   parent: System.Text.RegularExpressions.GroupCollection
   isExternal: false
   name: ICollection.CopyTo(Array, Int32)
   nameWithType: GroupCollection.ICollection.CopyTo(Array, Int32)
-  fullName: System.Text.RegularExpressions.GroupCollection.ICollection.CopyTo(Array, Int32)
+  fullName: GroupCollection.ICollection.CopyTo(Array, Int32)
 - uid: System.Text.RegularExpressions.GroupCollection.System#Collections#ICollection#IsSynchronized
   parent: System.Text.RegularExpressions.GroupCollection
   isExternal: false
   name: ICollection.IsSynchronized
   nameWithType: GroupCollection.ICollection.IsSynchronized
-  fullName: System.Text.RegularExpressions.GroupCollection.ICollection.IsSynchronized
+  fullName: GroupCollection.ICollection.IsSynchronized
 - uid: System.Text.RegularExpressions.GroupCollection.System#Collections#ICollection#SyncRoot
   parent: System.Text.RegularExpressions.GroupCollection
   isExternal: false
   name: ICollection.SyncRoot
   nameWithType: GroupCollection.ICollection.SyncRoot
-  fullName: System.Text.RegularExpressions.GroupCollection.ICollection.SyncRoot
+  fullName: GroupCollection.ICollection.SyncRoot
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Add(System.Object)
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: IList.Add(Object)
+  nameWithType: GroupCollection.IList.Add(Object)
+  fullName: GroupCollection.IList.Add(Object)
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Clear
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: IList.Clear()
+  nameWithType: GroupCollection.IList.Clear()
+  fullName: GroupCollection.IList.Clear()
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Contains(System.Object)
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: IList.Contains(Object)
+  nameWithType: GroupCollection.IList.Contains(Object)
+  fullName: GroupCollection.IList.Contains(Object)
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#IndexOf(System.Object)
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: IList.IndexOf(Object)
+  nameWithType: GroupCollection.IList.IndexOf(Object)
+  fullName: GroupCollection.IList.IndexOf(Object)
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Insert(System.Int32,System.Object)
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: IList.Insert(Int32, Object)
+  nameWithType: GroupCollection.IList.Insert(Int32, Object)
+  fullName: GroupCollection.IList.Insert(Int32, Object)
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#IsFixedSize
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: IList.IsFixedSize
+  nameWithType: GroupCollection.IList.IsFixedSize
+  fullName: GroupCollection.IList.IsFixedSize
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Item(System.Int32)
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: IList.Item(Int32)
+  nameWithType: GroupCollection.IList.Item(Int32)
+  fullName: GroupCollection.IList.Item(Int32)
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Remove(System.Object)
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: IList.Remove(Object)
+  nameWithType: GroupCollection.IList.Remove(Object)
+  fullName: GroupCollection.IList.Remove(Object)
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#RemoveAt(System.Int32)
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: IList.RemoveAt(Int32)
+  nameWithType: GroupCollection.IList.RemoveAt(Int32)
+  fullName: GroupCollection.IList.RemoveAt(Int32)
 - uid: System.Text.RegularExpressions.GroupCollection.CopyTo*
   parent: System.Text.RegularExpressions.GroupCollection
   isExternal: false
   name: CopyTo
   nameWithType: GroupCollection.CopyTo
-  fullName: System.Text.RegularExpressions.GroupCollection.CopyTo
+  fullName: GroupCollection.CopyTo
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -868,10 +1572,11 @@ references:
   isExternal: false
   name: Count
   nameWithType: GroupCollection.Count
-  fullName: System.Text.RegularExpressions.GroupCollection.Count
+  fullName: GroupCollection.Count
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -895,10 +1600,11 @@ references:
   isExternal: false
   name: GetEnumerator
   nameWithType: GroupCollection.GetEnumerator
-  fullName: System.Text.RegularExpressions.GroupCollection.GetEnumerator
+  fullName: GroupCollection.GetEnumerator
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -922,8 +1628,9 @@ references:
   isExternal: false
   name: IsReadOnly
   nameWithType: GroupCollection.IsReadOnly
-  fullName: System.Text.RegularExpressions.GroupCollection.IsReadOnly
+  fullName: GroupCollection.IsReadOnly
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -941,8 +1648,9 @@ references:
   isExternal: false
   name: IsSynchronized
   nameWithType: GroupCollection.IsSynchronized
-  fullName: System.Text.RegularExpressions.GroupCollection.IsSynchronized
+  fullName: GroupCollection.IsSynchronized
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -960,10 +1668,11 @@ references:
   isExternal: false
   name: Item
   nameWithType: GroupCollection.Item
-  fullName: System.Text.RegularExpressions.GroupCollection.Item
+  fullName: GroupCollection.Item
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -987,8 +1696,9 @@ references:
   isExternal: false
   name: SyncRoot
   nameWithType: GroupCollection.SyncRoot
-  fullName: System.Text.RegularExpressions.GroupCollection.SyncRoot
+  fullName: GroupCollection.SyncRoot
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1001,15 +1711,96 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Add*
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: System.Collections.Generic.ICollection<System.Text.RegularExpressions.Group>.Add
+  nameWithType: GroupCollection.System.Collections.Generic.ICollection<System.Text.RegularExpressions.Group>.Add
+  fullName: GroupCollection.System.Collections.Generic.ICollection<System.Text.RegularExpressions.Group>.Add
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Clear*
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: System.Collections.Generic.ICollection<System.Text.RegularExpressions.Group>.Clear
+  nameWithType: GroupCollection.System.Collections.Generic.ICollection<System.Text.RegularExpressions.Group>.Clear
+  fullName: GroupCollection.System.Collections.Generic.ICollection<System.Text.RegularExpressions.Group>.Clear
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Contains*
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: System.Collections.Generic.ICollection<System.Text.RegularExpressions.Group>.Contains
+  nameWithType: GroupCollection.System.Collections.Generic.ICollection<System.Text.RegularExpressions.Group>.Contains
+  fullName: GroupCollection.System.Collections.Generic.ICollection<System.Text.RegularExpressions.Group>.Contains
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#ICollection{System#Text#RegularExpressions#Group}#Remove*
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: System.Collections.Generic.ICollection<System.Text.RegularExpressions.Group>.Remove
+  nameWithType: GroupCollection.System.Collections.Generic.ICollection<System.Text.RegularExpressions.Group>.Remove
+  fullName: GroupCollection.System.Collections.Generic.ICollection<System.Text.RegularExpressions.Group>.Remove
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IEnumerable{System#Text#RegularExpressions#Group}#GetEnumerator*
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: System.Collections.Generic.IEnumerable<System.Text.RegularExpressions.Group>.GetEnumerator
+  nameWithType: GroupCollection.System.Collections.Generic.IEnumerable<System.Text.RegularExpressions.Group>.GetEnumerator
+  fullName: GroupCollection.System.Collections.Generic.IEnumerable<System.Text.RegularExpressions.Group>.GetEnumerator
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#IndexOf*
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: System.Collections.Generic.IList<System.Text.RegularExpressions.Group>.IndexOf
+  nameWithType: GroupCollection.System.Collections.Generic.IList<System.Text.RegularExpressions.Group>.IndexOf
+  fullName: GroupCollection.System.Collections.Generic.IList<System.Text.RegularExpressions.Group>.IndexOf
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#Insert*
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: System.Collections.Generic.IList<System.Text.RegularExpressions.Group>.Insert
+  nameWithType: GroupCollection.System.Collections.Generic.IList<System.Text.RegularExpressions.Group>.Insert
+  fullName: GroupCollection.System.Collections.Generic.IList<System.Text.RegularExpressions.Group>.Insert
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#Item*
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: System.Collections.Generic.IList<System.Text.RegularExpressions.Group>.Item
+  nameWithType: GroupCollection.System.Collections.Generic.IList<System.Text.RegularExpressions.Group>.Item
+  fullName: GroupCollection.System.Collections.Generic.IList<System.Text.RegularExpressions.Group>.Item
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#Generic#IList{System#Text#RegularExpressions#Group}#RemoveAt*
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: System.Collections.Generic.IList<System.Text.RegularExpressions.Group>.RemoveAt
+  nameWithType: GroupCollection.System.Collections.Generic.IList<System.Text.RegularExpressions.Group>.RemoveAt
+  fullName: GroupCollection.System.Collections.Generic.IList<System.Text.RegularExpressions.Group>.RemoveAt
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
 - uid: System.Text.RegularExpressions.GroupCollection.System#Collections#ICollection#CopyTo*
   parent: System.Text.RegularExpressions.GroupCollection
   isExternal: false
   name: System.Collections.ICollection.CopyTo
   nameWithType: GroupCollection.System.Collections.ICollection.CopyTo
-  fullName: System.Text.RegularExpressions.GroupCollection.System.Collections.ICollection.CopyTo
+  fullName: GroupCollection.System.Collections.ICollection.CopyTo
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
   - netstandard-1.0
   - netstandard-1.1
   - netstandard-1.2
@@ -1022,10 +1813,10 @@ references:
   isExternal: false
   name: System.Collections.ICollection.IsSynchronized
   nameWithType: GroupCollection.System.Collections.ICollection.IsSynchronized
-  fullName: System.Text.RegularExpressions.GroupCollection.System.Collections.ICollection.IsSynchronized
+  fullName: GroupCollection.System.Collections.ICollection.IsSynchronized
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
   - netstandard-1.0
   - netstandard-1.1
   - netstandard-1.2
@@ -1038,10 +1829,10 @@ references:
   isExternal: false
   name: System.Collections.ICollection.SyncRoot
   nameWithType: GroupCollection.System.Collections.ICollection.SyncRoot
-  fullName: System.Text.RegularExpressions.GroupCollection.System.Collections.ICollection.SyncRoot
+  fullName: GroupCollection.System.Collections.ICollection.SyncRoot
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
   - netstandard-1.0
   - netstandard-1.1
   - netstandard-1.2
@@ -1049,27 +1840,114 @@ references:
   - netstandard-1.4
   - netstandard-1.6
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Add*
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: System.Collections.IList.Add
+  nameWithType: GroupCollection.System.Collections.IList.Add
+  fullName: GroupCollection.System.Collections.IList.Add
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Clear*
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: System.Collections.IList.Clear
+  nameWithType: GroupCollection.System.Collections.IList.Clear
+  fullName: GroupCollection.System.Collections.IList.Clear
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Contains*
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: System.Collections.IList.Contains
+  nameWithType: GroupCollection.System.Collections.IList.Contains
+  fullName: GroupCollection.System.Collections.IList.Contains
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#IndexOf*
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: System.Collections.IList.IndexOf
+  nameWithType: GroupCollection.System.Collections.IList.IndexOf
+  fullName: GroupCollection.System.Collections.IList.IndexOf
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Insert*
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: System.Collections.IList.Insert
+  nameWithType: GroupCollection.System.Collections.IList.Insert
+  fullName: GroupCollection.System.Collections.IList.Insert
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#IsFixedSize*
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: System.Collections.IList.IsFixedSize
+  nameWithType: GroupCollection.System.Collections.IList.IsFixedSize
+  fullName: GroupCollection.System.Collections.IList.IsFixedSize
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Item*
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: System.Collections.IList.Item
+  nameWithType: GroupCollection.System.Collections.IList.Item
+  fullName: GroupCollection.System.Collections.IList.Item
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#Remove*
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: System.Collections.IList.Remove
+  nameWithType: GroupCollection.System.Collections.IList.Remove
+  fullName: GroupCollection.System.Collections.IList.Remove
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
+- uid: System.Text.RegularExpressions.GroupCollection.System#Collections#IList#RemoveAt*
+  parent: System.Text.RegularExpressions.GroupCollection
+  isExternal: false
+  name: System.Collections.IList.RemoveAt
+  nameWithType: GroupCollection.System.Collections.IList.RemoveAt
+  fullName: GroupCollection.System.Collections.IList.RemoveAt
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Text.RegularExpressions/GroupCollection.xml
 - uid: System.Linq.Enumerable.Cast``1(System.Collections.IEnumerable)
   parent: System.Linq.Enumerable
   isExternal: false
   name: Cast<TResult>(IEnumerable)
   nameWithType: Enumerable.Cast<TResult>(IEnumerable)
-  fullName: System.Linq.Enumerable.Cast<TResult>(IEnumerable)
+  fullName: Enumerable.Cast<TResult>(IEnumerable)
 - uid: System.Linq.Enumerable.OfType``1(System.Collections.IEnumerable)
   parent: System.Linq.Enumerable
   isExternal: false
   name: OfType<TResult>(IEnumerable)
   nameWithType: Enumerable.OfType<TResult>(IEnumerable)
-  fullName: System.Linq.Enumerable.OfType<TResult>(IEnumerable)
+  fullName: Enumerable.OfType<TResult>(IEnumerable)
 - uid: System.Linq.ParallelEnumerable.AsParallel(System.Collections.IEnumerable)
   parent: System.Linq.ParallelEnumerable
   isExternal: false
   name: AsParallel(IEnumerable)
   nameWithType: ParallelEnumerable.AsParallel(IEnumerable)
-  fullName: System.Linq.ParallelEnumerable.AsParallel(IEnumerable)
+  fullName: ParallelEnumerable.AsParallel(IEnumerable)
 - uid: System.Linq.Queryable.AsQueryable(System.Collections.IEnumerable)
   parent: System.Linq.Queryable
   isExternal: false
   name: AsQueryable(IEnumerable)
   nameWithType: Queryable.AsQueryable(IEnumerable)
-  fullName: System.Linq.Queryable.AsQueryable(IEnumerable)
+  fullName: Queryable.AsQueryable(IEnumerable)
+- uid: System.Collections.ICollection
+  parent: System.Collections
+  isExternal: false
+  name: ICollection
+  nameWithType: ICollection
+  fullName: System.Collections.ICollection

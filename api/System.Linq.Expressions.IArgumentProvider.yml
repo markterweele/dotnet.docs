@@ -20,10 +20,18 @@ items:
   summary: "Provides an internal interface for accessing the arguments of multiple tree nodes (DynamicExpression, ElementInit, MethodCallExpression, InvocationExpression, NewExpression, and InexExpression).  You should not use this API.  It is only public due to DLL refactoring and exists only for internal performance optimizations.  \n  \n This enables two optimizations which reduce the size of expression trees.  The first enables the tree nodes to hold onto an IList<T> instead of a ReadOnlyCollection.  IList<T> saves the cost of allocating the ReadOnlyCollection for each node.  The second enables creating specialized subclasses that hold onto a specific number of arguments (for example, Block2, Block3, Block4).  Therefore, these nodes avoid allocating both a ReadOnlyCollection and an array for storing their elements, saving 32 bytes per node.  \n  \n The expression tree nodes continue to expose the original LINQ properties of ReadOnlyCollections.  The nodes do this by re-using a field for storing both the array or an element that would normally be stored in the array.  \n  \n For the array case, the collection is typed to IList<T> instead of ReadOnlyCollection<T>.  When the node is initially constructed it is an array.  When the compiler accesses the members it uses this interface.  Accessing array elements promotes the array to a ReadOnlyCollection.  \n  \n For the object case we store the first argument in a field typed to object.  When the node is initially constructed, the field holds the Expression.  The compiler accesses arguments through this interface, and the accessor for the first argument uses Expression.ReturnObject to return the object that handles the Expression or ReadOnlyCollection case.  When the user accesses the ReadOnlyCollection, then the object field is updated to hold directly onto the ReadOnlyCollection.  \n  \n It is important that the Expressions consistently return the same ReadOnlyCollection.  Otherwise, the re-writer tree walker will break.  It is a breaking change from LINQ v1 to return different ReadOnlyCollections form the same Expression node.  Currently users can rely on object identity to tell if the node has changed.  Storing the ReadOnlyCollection in an overloaded field both reduces memory usage and maintains compatibility for the public API."
   syntax:
     content: public interface IArgumentProvider
+  derivedClasses:
+  - System.Linq.Expressions.ElementInit
+  - System.Linq.Expressions.IDynamicExpression
+  - System.Linq.Expressions.IndexExpression
+  - System.Linq.Expressions.InvocationExpression
+  - System.Linq.Expressions.MethodCallExpression
+  - System.Linq.Expressions.NewExpression
   implements: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.6
@@ -37,7 +45,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.6
@@ -50,8 +59,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Linq.Expressions/IArgumentProvider.xml
-  ms.author: billchi
-  manager: ghogen
 - uid: System.Linq.Expressions.IArgumentProvider.ArgumentCount
   commentId: P:System.Linq.Expressions.IArgumentProvider.ArgumentCount
   id: ArgumentCount
@@ -60,7 +67,7 @@ items:
   - csharp
   name: ArgumentCount
   nameWithType: IArgumentProvider.ArgumentCount
-  fullName: System.Linq.Expressions.IArgumentProvider.ArgumentCount
+  fullName: IArgumentProvider.ArgumentCount
   type: Property
   assemblies:
   - System.Linq.Expressions
@@ -77,7 +84,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.6
@@ -91,7 +99,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.6
@@ -104,9 +113,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Linq.Expressions/IArgumentProvider.xml
-  author: BillWagner
-  ms.author: wiwagn
-  manager: wpickett
 - uid: System.Linq.Expressions.IArgumentProvider.GetArgument(System.Int32)
   commentId: M:System.Linq.Expressions.IArgumentProvider.GetArgument(System.Int32)
   id: GetArgument(System.Int32)
@@ -115,7 +121,7 @@ items:
   - csharp
   name: GetArgument(Int32)
   nameWithType: IArgumentProvider.GetArgument(Int32)
-  fullName: System.Linq.Expressions.IArgumentProvider.GetArgument(Int32)
+  fullName: IArgumentProvider.GetArgument(Int32)
   type: Method
   assemblies:
   - System.Linq.Expressions
@@ -136,7 +142,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.6
@@ -150,7 +157,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.6
@@ -163,15 +171,13 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Linq.Expressions/IArgumentProvider.xml
-  ms.author: billchi
-  manager: ghogen
 references:
 - uid: System.Linq.Expressions.IArgumentProvider.ArgumentCount
   parent: System.Linq.Expressions.IArgumentProvider
   isExternal: false
   name: ArgumentCount
   nameWithType: IArgumentProvider.ArgumentCount
-  fullName: System.Linq.Expressions.IArgumentProvider.ArgumentCount
+  fullName: IArgumentProvider.ArgumentCount
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -183,7 +189,7 @@ references:
   isExternal: false
   name: GetArgument(Int32)
   nameWithType: IArgumentProvider.GetArgument(Int32)
-  fullName: System.Linq.Expressions.IArgumentProvider.GetArgument(Int32)
+  fullName: IArgumentProvider.GetArgument(Int32)
 - uid: System.Linq.Expressions.Expression
   parent: System.Linq.Expressions
   isExternal: false
@@ -195,10 +201,11 @@ references:
   isExternal: false
   name: ArgumentCount
   nameWithType: IArgumentProvider.ArgumentCount
-  fullName: System.Linq.Expressions.IArgumentProvider.ArgumentCount
+  fullName: IArgumentProvider.ArgumentCount
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.6
@@ -216,10 +223,11 @@ references:
   isExternal: false
   name: GetArgument
   nameWithType: IArgumentProvider.GetArgument
-  fullName: System.Linq.Expressions.IArgumentProvider.GetArgument
+  fullName: IArgumentProvider.GetArgument
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.6

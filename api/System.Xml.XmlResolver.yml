@@ -19,6 +19,7 @@ items:
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Resolves external XML resources named by a Uniform Resource Identifier (URI).
   remarks: "The <xref:System.Xml.XmlResolver> type is used to resolve external XML resources, such as entities, document type definitions (DTDs), or schemas. It is also used to process include and import elements found in Extensible Stylesheet Language (XSL) style sheets or XML Schema definition language (XSD) schemas.  \n  \n <xref:System.Xml.XmlResolver> handles all aspects of negotiating the connection to the resources, including handling security credentials, opening the connection to the data source, and returning the resource in the form of a stream or other object type. The object that calls <xref:System.Xml.XmlResolver> has the task of interpreting the stream.  \n  \n The <xref:System.Xml> namespace includes two concrete implementations of the <xref:System.Xml.XmlResolver> class:  \n  \n-   <xref:System.Xml.XmlUrlResolver> is the default resolver for all classes in the <xref:System.Xml> namespace. It supports the `file://` and `http://` protocols and requests from the <xref:System.Net.WebRequest?displayProperty=fullName> class. For examples of extending the class to improve performance, see the <xref:System.Xml.XmlUrlResolver> reference page.  \n  \n-   <xref:System.Xml.XmlSecureResolver> helps secure another <xref:System.Xml.XmlResolver> object by wrapping the object object and restricting the resources that it can access. For example, the <xref:System.Xml.XmlSecureResolver> can prohibit access to specific Internet sites or zones.  \n  \n You can create and specify your own resolver. If you don't specify a resolver, the reader uses a default <xref:System.Xml.XmlUrlResolver> with no user credentials.  \n  \n You specify the <xref:System.Xml.XmlResolver> to use by setting the <xref:System.Xml.XmlReaderSettings.XmlResolver%2A?displayProperty=fullName> property and passing the <xref:System.Xml.XmlReaderSettings> object to the <xref:System.Xml.XmlReader.Create%2A> method.  \n  \n If the resource is stored on a system that requires authentication, you use the <xref:System.Xml.XmlResolver.Credentials%2A?displayProperty=fullName> property to specify the necessary credentials.  \n  \n## Supplying authentication credentials  \n The file that contains the XML data to read may have a restricted access policy. If authentication is required to access a network resource, use the <xref:System.Xml.XmlResolver.Credentials%2A> property to specify the necessary credentials. If the <xref:System.Xml.XmlResolver.Credentials%2A> property is not set, credentials are set to `null`.  \n  \n For example, assume that credentials are needed when requesting data from the web for authentication purposes. Unless the web virtual directory allows anonymous access, you must set the <xref:System.Xml.XmlResolver.Credentials%2A> property to supply credentials. The following example creates an <xref:System.Xml.XmlReader> object that uses an <xref:System.Xml.XmlUrlResolver> with default credentials to access the http://localhost/bookstore/inventory.xml site.  \n  \n [!code-cpp[XmlReaderSettings.cctor#2](~/samples/snippets/cpp/VS_Snippets_Data/XmlReaderSettings.cctor/CPP/XmlReaderSettings.cctor.cpp#2)]\n [!code-csharp[XmlReaderSettings.cctor#2](~/samples/snippets/csharp/VS_Snippets_Data/XmlReaderSettings.cctor/CS/factory_rdr_cctor2.cs#2)]\n [!code-vb[XmlReaderSettings.cctor#2](~/samples/snippets/visualbasic/VS_Snippets_Data/XmlReaderSettings.cctor/VB/factory_rdr_cctor2.vb#2)]  \n  \n You can supply different credentials for different URIs and add them to a cache. These credentials are used to check authentication for the different URIs regardless of the original source of the XML. The following example shows how to add credentials to a cache.  \n  \n [!code-csharp[XslCompiledTransform.Load#11](~/samples/snippets/csharp/VS_Snippets_Data/XslCompiledTransform.Load/CS/Xslt_Load_v2.cs#11)]\n [!code-vb[XslCompiledTransform.Load#11](~/samples/snippets/visualbasic/VS_Snippets_Data/XslCompiledTransform.Load/VB/Xslt_Load_v2.vb#11)]  \n  \n## Security considerations  \n Consider the following items when working with the <xref:System.Xml.XmlResolver> class.  \n  \n-   <xref:System.Xml.XmlResolver> objects can contain sensitive information such as user credentials. You should be careful when caching <xref:System.Xml.XmlResolver> objects and should not pass the <xref:System.Xml.XmlResolver> object to an untrusted component.  \n  \n-   If you are designing a class property that uses the <xref:System.Xml.XmlResolver> class, the property should be defined as a write-only property. The property can be used to specify the <xref:System.Xml.XmlResolver> to use, but it cannot be used to return an <xref:System.Xml.XmlResolver> object.  \n  \n-   If your application accepts <xref:System.Xml.XmlResolver> objects from untrusted code, you cannot assume that the URI passed into the <xref:System.Xml.XmlResolver.GetEntity%2A> method will be the same as that returned by the <xref:System.Xml.XmlResolver.ResolveUri%2A> method. Classes derived from the <xref:System.Xml.XmlResolver> class can override the <xref:System.Xml.XmlResolver.GetEntity%2A> method and return data that is different than what was contained in the original URI.  \n  \n-   Your application can mitigate memory denial of service threats to the <xref:System.Xml.XmlResolver.GetEntity%2A> method by implementing an <xref:System.Runtime.InteropServices.ComTypes.IStream> that limits the number of bytes read. This helps guard against situations where malicious code attempts to pass an infinite stream of bytes to the <xref:System.Xml.XmlResolver.GetEntity%2A> method."
@@ -43,6 +44,7 @@ items:
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -55,6 +57,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -67,9 +70,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlResolver.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlResolver.#ctor
   commentId: M:System.Xml.XmlResolver.#ctor
   id: '#ctor'
@@ -78,11 +78,12 @@ items:
   - csharp
   name: XmlResolver()
   nameWithType: XmlResolver.XmlResolver()
-  fullName: System.Xml.XmlResolver.XmlResolver()
+  fullName: XmlResolver.XmlResolver()
   type: Constructor
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Initializes a new instance of the <xref href="System.Xml.XmlResolver"></xref> class.
   remarks: This constructor is called by derived class constructors to initialize state in this type.
@@ -92,6 +93,7 @@ items:
   overload: System.Xml.XmlResolver.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -104,6 +106,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -116,9 +119,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlResolver.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlResolver.Credentials
   commentId: P:System.Xml.XmlResolver.Credentials
   id: Credentials
@@ -127,11 +127,12 @@ items:
   - csharp
   name: Credentials
   nameWithType: XmlResolver.Credentials
-  fullName: System.Xml.XmlResolver.Credentials
+  fullName: XmlResolver.Credentials
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: When overridden in a derived class, sets the credentials used to authenticate web requests.
   remarks: "If the virtual directory does not require authentication, this property doesn't have to be set. Otherwise, the credentials of the user must be supplied.  \n  \n The following C# code sets credentials on the <xref:System.Xml.XmlResolver> object.  \n  \n```  \nNetworkCredential nc = new NetWorkCredential(UserName,SecurelyStoredPassword,Domain);  \nXmlUrlResolver resolver = new XmlUrlResolver();  \nresolver.Credentials = nc;  \n```  \n  \n You can associate different credentials with different URIs and add them to a cache. You can then use the credentials to check authentication for different URIs regardless of the original source of the XML.  \n  \n```  \nNetworkCredential myCred = new NetworkCredential(UserName,SecurelyStoredPassword,Domain);   \nCredentialCache myCache = new CredentialCache();   \nmyCache.Add(new Uri(\"http://www.contoso.com/\"), \"Basic\", myCred);   \nmyCache.Add(new Uri(\"http://app.contoso.com/\"), \"Basic\", myCred);  \nXmlUrlResolver resolver = new XmlUrlResolver();  \nresolver.Credentials = myCache;  \n```"
@@ -145,6 +146,7 @@ items:
   overload: System.Xml.XmlResolver.Credentials*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -157,6 +159,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -169,9 +172,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlResolver.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlResolver.GetEntity(System.Uri,System.String,System.Type)
   commentId: M:System.Xml.XmlResolver.GetEntity(System.Uri,System.String,System.Type)
   id: GetEntity(System.Uri,System.String,System.Type)
@@ -180,11 +180,12 @@ items:
   - csharp
   name: GetEntity(Uri, String, Type)
   nameWithType: XmlResolver.GetEntity(Uri, String, Type)
-  fullName: System.Xml.XmlResolver.GetEntity(Uri, String, Type)
+  fullName: XmlResolver.GetEntity(Uri, String, Type)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: When overridden in a derived class, maps a URI to an object that contains the actual resource.
   remarks: "This method is used when the caller wants to map a given URI into the object containing the actual resource that the URI represents. The type of object returned is negotiable; however, the implementation must always support <xref:System.IO.Stream?displayProperty=fullName>.  \n  \n For the asynchronous version of this method, see <xref:System.Xml.XmlResolver.GetEntityAsync%2A>.  \n  \n> [!IMPORTANT]\n>  Your application can mitigate memory denial of service threats to the <xref:System.Xml.XmlResolver.GetEntity%2A> method by implementing an <xref:System.Runtime.InteropServices.ComTypes.IStream> that limits the number of bytes read. This helps guard against situations where malicious code attempts to pass an infinite stream of bytes to the <xref:System.Xml.XmlResolver.GetEntity%2A> method."
@@ -220,6 +221,7 @@ items:
     commentId: T:System.Exception
     description: There is a runtime error (for example, an interrupted server connection).
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -232,6 +234,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -244,9 +247,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlResolver.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlResolver.GetEntityAsync(System.Uri,System.String,System.Type)
   commentId: M:System.Xml.XmlResolver.GetEntityAsync(System.Uri,System.String,System.Type)
   id: GetEntityAsync(System.Uri,System.String,System.Type)
@@ -255,11 +255,12 @@ items:
   - csharp
   name: GetEntityAsync(Uri, String, Type)
   nameWithType: XmlResolver.GetEntityAsync(Uri, String, Type)
-  fullName: System.Xml.XmlResolver.GetEntityAsync(Uri, String, Type)
+  fullName: XmlResolver.GetEntityAsync(Uri, String, Type)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Asynchronously maps a URI to an object that contains the actual resource.
   remarks: This is the asynchronous version of <xref:System.Xml.XmlResolver.GetEntity%2A>, with the same functionality. To use this method, you must set the <xref:System.Xml.XmlReaderSettings.Async%2A> flag to `true`.
@@ -281,6 +282,7 @@ items:
   overload: System.Xml.XmlResolver.GetEntityAsync*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -293,6 +295,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -305,9 +308,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlResolver.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlResolver.ResolveUri(System.Uri,System.String)
   commentId: M:System.Xml.XmlResolver.ResolveUri(System.Uri,System.String)
   id: ResolveUri(System.Uri,System.String)
@@ -316,11 +316,12 @@ items:
   - csharp
   name: ResolveUri(Uri, String)
   nameWithType: XmlResolver.ResolveUri(Uri, String)
-  fullName: System.Xml.XmlResolver.ResolveUri(Uri, String)
+  fullName: XmlResolver.ResolveUri(Uri, String)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: When overridden in a derived class, resolves the absolute URI from the base and relative URIs.
   remarks: The absolute URI may be used as the base URI for any subsequent requests for entities that are relative to this URI.
@@ -344,6 +345,7 @@ items:
     commentId: T:System.ArgumentException
     description: <code>relativeUri</code> is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -356,6 +358,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -368,9 +371,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlResolver.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlResolver.SupportsType(System.Uri,System.Type)
   commentId: M:System.Xml.XmlResolver.SupportsType(System.Uri,System.Type)
   id: SupportsType(System.Uri,System.Type)
@@ -379,11 +379,12 @@ items:
   - csharp
   name: SupportsType(Uri, Type)
   nameWithType: XmlResolver.SupportsType(Uri, Type)
-  fullName: System.Xml.XmlResolver.SupportsType(Uri, Type)
+  fullName: XmlResolver.SupportsType(Uri, Type)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Enables the resolver to return types other than <xref href="System.IO.Stream"></xref>.
   syntax:
@@ -401,6 +402,7 @@ items:
   overload: System.Xml.XmlResolver.SupportsType*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -413,6 +415,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -425,9 +428,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlResolver.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -470,13 +470,13 @@ references:
   isExternal: false
   name: XmlResolver()
   nameWithType: XmlResolver.XmlResolver()
-  fullName: System.Xml.XmlResolver.XmlResolver()
+  fullName: XmlResolver.XmlResolver()
 - uid: System.Xml.XmlResolver.Credentials
   parent: System.Xml.XmlResolver
   isExternal: false
   name: Credentials
   nameWithType: XmlResolver.Credentials
-  fullName: System.Xml.XmlResolver.Credentials
+  fullName: XmlResolver.Credentials
 - uid: System.Net.ICredentials
   parent: System.Net
   isExternal: false
@@ -488,7 +488,7 @@ references:
   isExternal: false
   name: GetEntity(Uri, String, Type)
   nameWithType: XmlResolver.GetEntity(Uri, String, Type)
-  fullName: System.Xml.XmlResolver.GetEntity(Uri, String, Type)
+  fullName: XmlResolver.GetEntity(Uri, String, Type)
 - uid: System.Uri
   parent: System
   isExternal: false
@@ -512,7 +512,7 @@ references:
   isExternal: false
   name: GetEntityAsync(Uri, String, Type)
   nameWithType: XmlResolver.GetEntityAsync(Uri, String, Type)
-  fullName: System.Xml.XmlResolver.GetEntityAsync(Uri, String, Type)
+  fullName: XmlResolver.GetEntityAsync(Uri, String, Type)
 - uid: System.Threading.Tasks.Task`1
   name: Task<TResult>
   nameWithType: Task<TResult>
@@ -543,13 +543,13 @@ references:
   isExternal: false
   name: ResolveUri(Uri, String)
   nameWithType: XmlResolver.ResolveUri(Uri, String)
-  fullName: System.Xml.XmlResolver.ResolveUri(Uri, String)
+  fullName: XmlResolver.ResolveUri(Uri, String)
 - uid: System.Xml.XmlResolver.SupportsType(System.Uri,System.Type)
   parent: System.Xml.XmlResolver
   isExternal: false
   name: SupportsType(Uri, Type)
   nameWithType: XmlResolver.SupportsType(Uri, Type)
-  fullName: System.Xml.XmlResolver.SupportsType(Uri, Type)
+  fullName: XmlResolver.SupportsType(Uri, Type)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -561,8 +561,9 @@ references:
   isExternal: false
   name: XmlResolver
   nameWithType: XmlResolver.XmlResolver
-  fullName: System.Xml.XmlResolver.XmlResolver
+  fullName: XmlResolver.XmlResolver
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -580,8 +581,9 @@ references:
   isExternal: false
   name: Credentials
   nameWithType: XmlResolver.Credentials
-  fullName: System.Xml.XmlResolver.Credentials
+  fullName: XmlResolver.Credentials
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -599,8 +601,9 @@ references:
   isExternal: false
   name: GetEntity
   nameWithType: XmlResolver.GetEntity
-  fullName: System.Xml.XmlResolver.GetEntity
+  fullName: XmlResolver.GetEntity
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -618,8 +621,9 @@ references:
   isExternal: false
   name: GetEntityAsync
   nameWithType: XmlResolver.GetEntityAsync
-  fullName: System.Xml.XmlResolver.GetEntityAsync
+  fullName: XmlResolver.GetEntityAsync
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -637,8 +641,9 @@ references:
   isExternal: false
   name: ResolveUri
   nameWithType: XmlResolver.ResolveUri
-  fullName: System.Xml.XmlResolver.ResolveUri
+  fullName: XmlResolver.ResolveUri
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -656,8 +661,9 @@ references:
   isExternal: false
   name: SupportsType
   nameWithType: XmlResolver.SupportsType
-  fullName: System.Xml.XmlResolver.SupportsType
+  fullName: XmlResolver.SupportsType
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

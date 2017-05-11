@@ -35,6 +35,7 @@ items:
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Provides a simple, programmatically controlled HTTP protocol listener. This class cannot be inherited.
   remarks: "Using the <xref:System.Net.HttpListener> class, you can create a simple HTTP protocol listener that responds to HTTP requests. The listener is active for the lifetime of the <xref:System.Net.HttpListener> object and runs within your application with its permissions.  \n  \n> [!NOTE]\n>  This class is available only on computers running the Windows XP SP2 or Windows Server 2003 operating systems. If you attempt to create an <xref:System.Net.HttpListener> object on a computer that is running an earlier operating system, the constructor throws a <xref:System.PlatformNotSupportedException> exception.  \n  \n To use <xref:System.Net.HttpListener>, create a new instance of the class using the <xref:System.Net.HttpListener> constructor and use the <xref:System.Net.HttpListener.Prefixes%2A> property to gain access to the collection that holds the strings that specify which Uniform Resource Identifier (URI) prefixes the <xref:System.Net.HttpListener> should process.  \n  \n A URI prefix string is composed of a scheme (http or https), a host, an optional port, and an optional path. An example of a complete prefix string is \"`http://www.contoso.com:8080/customerData``/`\". Prefixes must end in a forward slash (\"/\"). The <xref:System.Net.HttpListener> object with the prefix that most closely matches a requested URI responds to the request. Multiple <xref:System.Net.HttpListener> objects cannot add the same prefix; a <xref:System.ComponentModel.Win32Exception> exception is thrown if a <xref:System.Net.HttpListener> adds a prefix that is already in use.  \n  \n When a port is specified, the host element can be replaced with \"*\" to indicate that the <xref:System.Net.HttpListener> accepts requests sent to the port if the requested URI does not match any other prefix. For example, to receive all requests sent to port 8080 when the requested URI is not handled by any <xref:System.Net.HttpListener>, the prefix is \"`http://*:8080``/`\". Similarly, to specify that the <xref:System.Net.HttpListener> accepts all requests sent to a port, replace the host element with the \"+\" character, \"`https://+:8080`\". The \"\\*\" and \"+\" characters can be present in prefixes that include paths.  \n  \n Starting with .NET 4.5.3 and Windows 10, wildcard subdomains are supported in URI prefixes that are managed by an <xref:System.Net.HttpListener> object. To specify a wildcard subdomain, use the \"*\" character as part of the hostname in a URI prefix: for example, `http://*.foo.com/`, and pass this as the argument to the HttpListenerPrefixCollection.Add method. This will work on .NET 4.5.3 and Windows 10; in earlier versions, this would generate an <xref:System.Net.HttpListenerException>  \n  \n To begin listening for requests from clients, add the URI prefixes to the collection and call the <xref:System.Net.HttpListener.Start%2A> method. <xref:System.Net.HttpListener> offers both synchronous and asynchronous models for processing client requests. Requests and their associated responses are accessed using the <xref:System.Net.HttpListenerContext> object returned by the <xref:System.Net.HttpListener.GetContext%2A> method or its asynchronous counterparts, the <xref:System.Net.HttpListener.BeginGetContext%2A> and <xref:System.Net.HttpListener.EndGetContext%2A> methods.  \n  \n The synchronous model is appropriate if your application should block while waiting for a client request and if you want to process only one request at a time. Using the synchronous model, call the <xref:System.Net.HttpListener.GetContext%2A> method, which waits for a client to send a request. The method returns an <xref:System.Net.HttpListenerContext> object to you for processing when one occurs.  \n  \n In the more complex asynchronous model, your application does not block while waiting for requests and each request is processed in its own execution thread. Use the <xref:System.Net.HttpListener.BeginGetContext%2A> method to specify an application-defined method to be called for each incoming request. Within that method, call the <xref:System.Net.HttpListener.EndGetContext%2A> method to obtain the request, process it, and respond.  \n  \n In either model, incoming requests are accessed using the <xref:System.Net.HttpListenerContext.Request%2A?displayProperty=fullName> property and are represented by <xref:System.Net.HttpListenerRequest> objects. Similarly, responses are accessed using the <xref:System.Net.HttpListenerContext.Response%2A?displayProperty=fullName> property and are represented by <xref:System.Net.HttpListenerResponse> objects. These objects share some functionality with the <xref:System.Net.HttpWebRequest> and <xref:System.Net.HttpWebResponse> objects, but the latter objects cannot be used in conjunction with <xref:System.Net.HttpListener> because they implement client, not server, behaviors.  \n  \n An <xref:System.Net.HttpListener> can require client authentication. You can either specify a particular scheme to use for authentication, or you can specify a delegate that determines the scheme to use. You must require some form of authentication to obtain information about the client's identity. For additional information, see the <xref:System.Net.HttpListenerContext.User%2A>, <xref:System.Net.HttpListener.AuthenticationSchemes%2A>, and <xref:System.Net.HttpListener.AuthenticationSchemeSelectorDelegate%2A> properties.  \n  \n> [!NOTE]\n>  If you create an <xref:System.Net.HttpListener> using https, you must select a Server Certificate for that listener. Otherwise, an <xref:System.Net.HttpWebRequest> query of this <xref:System.Net.HttpListener> will fail with an unexpected close of the connection.  \n  \n> [!NOTE]\n>  You can configure Server Certificates and other listener options by using HttpCfg.exe. See [http://msdn.microsoft.com/library/default.asp?url=/library/en-us/http/http/httpcfg_exe.asp](http://msdn.microsoft.com/library/default.asp?url=/library/http/http/httpcfg_exe.asp) for more details. The executable is shipped with Windows Server 2003, or can be built from source code available in the Platform SDK.  \n  \n> [!NOTE]\n>  If you specify multiple authentication schemes for the <xref:System.Net.HttpListener>, the listener will challenge clients in the following order: `Negotiate`, `NTLM`, `Digest`, and then `Basic`."
@@ -55,6 +56,7 @@ items:
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -67,6 +69,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -79,8 +82,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.#ctor
   commentId: M:System.Net.HttpListener.#ctor
   id: '#ctor'
@@ -89,11 +90,12 @@ items:
   - csharp
   name: HttpListener()
   nameWithType: HttpListener.HttpListener()
-  fullName: System.Net.HttpListener.HttpListener()
+  fullName: HttpListener.HttpListener()
   type: Constructor
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Initializes a new instance of the <xref href="System.Net.HttpListener"></xref> class.
   remarks: Before using the instance returned by this constructor, you must invoke its <xref:System.Net.HttpListener.Start%2A> method.
@@ -108,6 +110,7 @@ items:
     commentId: T:System.PlatformNotSupportedException
     description: This class cannot be used on the current operating system. Windows Server 2003 or Windows XP SP2 is required to use instances of this class.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -120,6 +123,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -132,8 +136,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.Abort
   commentId: M:System.Net.HttpListener.Abort
   id: Abort
@@ -142,11 +144,12 @@ items:
   - csharp
   name: Abort()
   nameWithType: HttpListener.Abort()
-  fullName: System.Net.HttpListener.Abort()
+  fullName: HttpListener.Abort()
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Shuts down the <xref href="System.Net.HttpListener"></xref> object immediately, discarding all currently queued requests.
   remarks: "This method disposes of all resources held by this listener. Any pending requests are unable to complete.  \n  \n After calling this method, you will receive an <xref:System.ObjectDisposedException> if you attempt to use this <xref:System.Net.HttpListener>."
@@ -158,6 +161,7 @@ items:
   overload: System.Net.HttpListener.Abort*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -170,6 +174,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -182,8 +187,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.AuthenticationSchemes
   commentId: P:System.Net.HttpListener.AuthenticationSchemes
   id: AuthenticationSchemes
@@ -192,14 +195,15 @@ items:
   - csharp
   name: AuthenticationSchemes
   nameWithType: HttpListener.AuthenticationSchemes
-  fullName: System.Net.HttpListener.AuthenticationSchemes
+  fullName: HttpListener.AuthenticationSchemes
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Gets or sets the scheme used to authenticate clients.
-  remarks: "The <xref:System.Net.HttpListener> uses the specified scheme to authenticate all incoming requests. The <xref:System.Net.HttpListener.GetContext%2A> and <xref:System.Net.HttpListener.EndGetContext%2A> methods return an incoming client request only if the <xref:System.Net.HttpListener> successfully authenticates the request.  \n  \n You can interrogate the identity of a successfully authenticated client by using the <xref:System.Net.HttpListenerContext.User%2A?displayProperty=fullName> property.  \n  \n If you want an <xref:System.Net.HttpListener> object to use different authentication mechanisms based on characteristics of the requests it receives (for example, the request's <xref:System.Net.HttpListenerRequest.Url%2A> or <xref:System.Net.HttpListenerRequest.UserHostName%2A> property), you must implement a method that chooses the authentication scheme. For instructions about how to do this, see the <xref:System.Net.HttpListener.AuthenticationSchemeSelectorDelegate%2A> property documentation.  \n  \n> [!NOTE]\n>  To set this property to enable Digest, NTLM, or Negotiate requires the <xref:System.Security.Permissions.SecurityPermission>, <xref:System.Security.Permissions.SecurityPermissionFlag>."
+  remarks: "The <xref:System.Net.HttpListener> uses the specified scheme to authenticate all incoming requests. The <xref:System.Net.HttpListener.GetContext%2A> and <xref:System.Net.HttpListener.EndGetContext%2A> methods return an incoming client request only if the <xref:System.Net.HttpListener> successfully authenticates the request.  \n  \n You can interrogate the identity of a successfully authenticated client by using the <xref:System.Net.HttpListenerContext.User%2A?displayProperty=fullName> property.  \n  \n If you want an <xref:System.Net.HttpListener> object to use different authentication mechanisms based on characteristics of the requests it receives (for example, the request's <xref:System.Net.HttpListenerRequest.Url%2A> or <xref:System.Net.HttpListenerRequest.UserHostName%2A> property), you must implement a method that chooses the authentication scheme. For instructions about how to do this, see the <xref:System.Net.HttpListener.AuthenticationSchemeSelectorDelegate%2A> property documentation.  \n  \n> [!NOTE]\n>  To set this property to enable Digest, NTLM, or Negotiate requires the <xref:System.Security.Permissions.SecurityPermission>, <xref:System.Security.Permissions.SecurityPermissionFlag.ControlPrincipal>."
   example:
   - "The following code example demonstrates using the <xref:System.Net.HttpListener.AuthenticationSchemes%2A> property to specify an authentication scheme.  \n  \n [!code-csharp[Net_listener_Basic#14](~/samples/snippets/csharp/VS_Snippets_Remoting/Net_Listener_Basic/CS/test.cs#14)]"
   syntax:
@@ -213,6 +217,7 @@ items:
     commentId: T:System.ObjectDisposedException
     description: This object has been closed.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -225,6 +230,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -237,8 +243,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.AuthenticationSchemeSelectorDelegate
   commentId: P:System.Net.HttpListener.AuthenticationSchemeSelectorDelegate
   id: AuthenticationSchemeSelectorDelegate
@@ -247,14 +251,15 @@ items:
   - csharp
   name: AuthenticationSchemeSelectorDelegate
   nameWithType: HttpListener.AuthenticationSchemeSelectorDelegate
-  fullName: System.Net.HttpListener.AuthenticationSchemeSelectorDelegate
+  fullName: HttpListener.AuthenticationSchemeSelectorDelegate
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Gets or sets the delegate called to determine the protocol used to authenticate clients.
-  remarks: "> [!NOTE]\n>  If you want the same authentication protocol to be used for all requests handled by a particular instance of <xref:System.Net.HttpListener>, you do not need to set this property. To specify a protocol to be used for all client requests, use the <xref:System.Net.HttpListener.AuthenticationSchemes%2A> property.  \n  \n If the client has not specified authentication information in its headers, the <xref:System.Net.HttpListener> calls the specified delegate for each unauthenticated incoming request to determine which, if any, protocol to use to authenticate the client. The <xref:System.Net.HttpListener.GetContext%2A> and <xref:System.Net.HttpListener.EndGetContext%2A> methods return an incoming request only if the <xref:System.Net.HttpListener> successfully authenticated the request. If a request cannot be authenticated, the <xref:System.Net.HttpListener> automatically sends back a 401 response. You can get the identity of a successfully authenticated client using the <xref:System.Web.HttpRequest.LogonUserIdentity%2A?displayProperty=fullName> property.  \n  \n The ability to delegate the choice of authentication protocol to an application-specific method is useful if you want an instance of <xref:System.Net.HttpListener> to use different authentication protocols depending on the characteristics of the requests it receives (for example, the request's <xref:System.Net.HttpListenerRequest.Url%2A> or <xref:System.Net.HttpListenerRequest.UserHostAddress%2A> property).  \n  \n> [!NOTE]\n>  To set this property to enable Digest, NTLM, or Negotiate requires the <xref:System.Security.Permissions.SecurityPermission>, <xref:System.Security.Permissions.SecurityPermissionFlag>."
+  remarks: "> [!NOTE]\n>  If you want the same authentication protocol to be used for all requests handled by a particular instance of <xref:System.Net.HttpListener>, you do not need to set this property. To specify a protocol to be used for all client requests, use the <xref:System.Net.HttpListener.AuthenticationSchemes%2A> property.  \n  \n If the client has not specified authentication information in its headers, the <xref:System.Net.HttpListener> calls the specified delegate for each unauthenticated incoming request to determine which, if any, protocol to use to authenticate the client. The <xref:System.Net.HttpListener.GetContext%2A> and <xref:System.Net.HttpListener.EndGetContext%2A> methods return an incoming request only if the <xref:System.Net.HttpListener> successfully authenticated the request. If a request cannot be authenticated, the <xref:System.Net.HttpListener> automatically sends back a 401 response. You can get the identity of a successfully authenticated client using the <xref:System.Web.HttpRequest.LogonUserIdentity%2A?displayProperty=fullName> property.  \n  \n The ability to delegate the choice of authentication protocol to an application-specific method is useful if you want an instance of <xref:System.Net.HttpListener> to use different authentication protocols depending on the characteristics of the requests it receives (for example, the request's <xref:System.Net.HttpListenerRequest.Url%2A> or <xref:System.Net.HttpListenerRequest.UserHostAddress%2A> property).  \n  \n> [!NOTE]\n>  To set this property to enable Digest, NTLM, or Negotiate requires the <xref:System.Security.Permissions.SecurityPermission>, <xref:System.Security.Permissions.SecurityPermissionFlag.ControlPrincipal>."
   example:
   - "The following code example sets the value of this property.  \n  \n [!code-csharp[NclListener#2](~/samples/snippets/csharp/VS_Snippets_Remoting/NCLListener/CS/sample.cs#2)]\n [!code-vb[NclListener#2](~/samples/snippets/visualbasic/VS_Snippets_Remoting/NCLListener/vb/sample.vb#2)]  \n  \n The following code example provides an implementation of a method invoked by an <xref:System.Net.AuthenticationSchemeSelector> delegate.  \n  \n [!code-csharp[NclListener#1](~/samples/snippets/csharp/VS_Snippets_Remoting/NCLListener/CS/sample.cs#1)]\n [!code-vb[NclListener#1](~/samples/snippets/visualbasic/VS_Snippets_Remoting/NCLListener/vb/sample.vb#1)]"
   syntax:
@@ -268,6 +273,7 @@ items:
     commentId: T:System.ObjectDisposedException
     description: This object has been closed.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -280,6 +286,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -292,8 +299,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.BeginGetContext(System.AsyncCallback,System.Object)
   commentId: M:System.Net.HttpListener.BeginGetContext(System.AsyncCallback,System.Object)
   id: BeginGetContext(System.AsyncCallback,System.Object)
@@ -302,11 +307,12 @@ items:
   - csharp
   name: BeginGetContext(AsyncCallback, Object)
   nameWithType: HttpListener.BeginGetContext(AsyncCallback, Object)
-  fullName: System.Net.HttpListener.BeginGetContext(AsyncCallback, Object)
+  fullName: HttpListener.BeginGetContext(AsyncCallback, Object)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Begins asynchronously retrieving an incoming request.
   remarks: "The <xref:System.Net.HttpListener.BeginGetContext%2A> method begins an asynchronous (non-blocking) call to receive incoming client requests. Before calling this method, you must call the <xref:System.Net.HttpListener.Start%2A> method and add at least one Uniform Resource Identifier (URI) prefix to listen for by adding the URI strings to the <xref:System.Net.HttpListenerPrefixCollection> returned by the <xref:System.Net.HttpListener.Prefixes%2A> property.  \n  \n The asynchronous operation must be completed by calling the <xref:System.Net.HttpListener.EndGetContext%2A> method. Typically, the method is invoked by the `callback` delegate.  \n  \n This method does not block while the operation completes. To get an incoming request and block until the operation completes, call the <xref:System.Net.HttpListener.GetContext%2A> method.  \n  \n For detailed information about using the asynchronous programming model, see [Calling Synchronous Methods Asynchronously](~/docs/standard/asynchronous-programming-patterns/calling-synchronous-methods-asynchronously.md)"
@@ -336,6 +342,7 @@ items:
     commentId: T:System.ObjectDisposedException
     description: This object is closed.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -348,6 +355,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -360,8 +368,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.Close
   commentId: M:System.Net.HttpListener.Close
   id: Close
@@ -370,11 +376,12 @@ items:
   - csharp
   name: Close()
   nameWithType: HttpListener.Close()
-  fullName: System.Net.HttpListener.Close()
+  fullName: HttpListener.Close()
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Shuts down the <xref href="System.Net.HttpListener"></xref>.
   remarks: "After calling this method, you can no longer use the <xref:System.Net.HttpListener> object. To temporarily pause an <xref:System.Net.HttpListener> object, use the <xref:System.Net.HttpListener.Stop%2A> method.  \n  \n This method shut downs the <xref:System.Net.HttpListener> object without processing queued requests. Any pending requests are unable to complete."
@@ -386,6 +393,7 @@ items:
   overload: System.Net.HttpListener.Close*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -398,6 +406,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -410,8 +419,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.DefaultServiceNames
   commentId: P:System.Net.HttpListener.DefaultServiceNames
   id: DefaultServiceNames
@@ -420,11 +427,12 @@ items:
   - csharp
   name: DefaultServiceNames
   nameWithType: HttpListener.DefaultServiceNames
-  fullName: System.Net.HttpListener.DefaultServiceNames
+  fullName: HttpListener.DefaultServiceNames
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Gets a default list of Service Provider Names (SPNs) as determined by registered prefixes.
   remarks: "The <xref:System.Net.HttpListener.DefaultServiceNames%2A> property is used with integrated Windows authentication to provide extended protection. The list of SPNs is initialized from the <xref:System.Net.HttpListener.Prefixes%2A> property when accessed and cleared when new prefixes are added to the <xref:System.Net.HttpListener.Prefixes%2A> property.  \n  \n The <xref:System.Net.HttpListener.DefaultServiceNames%2A> property is used if an application doesn't set the <xref:System.Security.Authentication.ExtendedProtection.ExtendedProtectionPolicy.CustomServiceNames%2A> property on its extended protection policy.  \n  \n The <xref:System.Security.Authentication.ExtendedProtection.ServiceNameCollection> that is retrieved with the <xref:System.Net.HttpListener.DefaultServiceNames%2A> property is built from the <xref:System.Net.HttpListener.Prefixes%2A> property according to the following rules:  \n  \n1.  If the hostname is \"+\", \"*\", or an IPv4 or IPv6 literal (equivalent to \"\\*\" but restricted to a specific local interface), the following SPN is added:  \n  \n `\"HTTP/\"` plus the fully qualified domain name of the computer.  \n  \n1.  If the hostname contains no dots (no domains or subdomains), an attempt is made to resolve the fully-qualified domain name using DNS (the same behavior used by <xref:System.Net.HttpWebRequest>). If the fully-qualified domain name can be resolved, the following SPNs are added:  \n  \n `\"HTTP/\"` plus the hostname (the short name).  \n  \n `\"HTTP/\"` plus the fully qualified domain name for the hostname.  \n  \n1.  If the hostname contains not dots (no domains or subdomains) and a fully-qualified domain name can't be resolved, the following SPN is added:  \n  \n `\"HTTP/\"` plus the hostname.  \n  \n1.  If the hostname contains dots (domains or subdomains), the following SPN is added:  \n  \n `\"HTTP/\"` plus the hostname.  \n  \n The <xref:System.Net.HttpListener.DefaultServiceNames%2A> property can be used by an application to review the list of default SPNs which will be used for authentication if no custom list is supplied. If other SPNs are needed, an application can add them using one of the <xref:System.Security.Authentication.ExtendedProtection.ServiceNameCollection.Merge%2A> methods.  \n  \n It is not safe when using extended protection to make policy decisions based on the requested URL, since this can be spoofed. Rather, applications should rely on the <xref:System.Net.HttpListenerRequest.LocalEndPoint%2A> or <xref:System.Net.HttpListenerRequest.RemoteEndPoint%2A> properties to make such policy decisions."
@@ -436,6 +444,7 @@ items:
   overload: System.Net.HttpListener.DefaultServiceNames*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -448,6 +457,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -460,8 +470,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.EndGetContext(System.IAsyncResult)
   commentId: M:System.Net.HttpListener.EndGetContext(System.IAsyncResult)
   id: EndGetContext(System.IAsyncResult)
@@ -470,11 +478,12 @@ items:
   - csharp
   name: EndGetContext(IAsyncResult)
   nameWithType: HttpListener.EndGetContext(IAsyncResult)
-  fullName: System.Net.HttpListener.EndGetContext(IAsyncResult)
+  fullName: HttpListener.EndGetContext(IAsyncResult)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Completes an asynchronous operation to retrieve an incoming client request.
   remarks: "The <xref:System.Net.HttpListener.EndGetContext%2A> method is called, usually within an application-defined callback method invoked by a delegate, to obtain the <xref:System.Net.HttpListenerContext> object that contains an incoming client request and its associated response. This method completes an operation previously started by calling the <xref:System.Net.HttpListener.BeginGetContext%2A> method. If the operation has not completed, this method blocks until it does.  \n  \n Because calling the <xref:System.Net.HttpListener.EndGetContext%2A> method requires the <xref:System.Net.HttpListener> object, this object is typically passed into a callback method by using the state object passed into the <xref:System.Net.HttpListener.BeginGetContext%2A> method. You can obtain this state object by using the <xref:System.IAsyncResult.AsyncState%2A> property of the `asyncResult` object.  \n  \n For detailed information about using the asynchronous programming model, see [Calling Synchronous Methods Asynchronously](~/docs/standard/asynchronous-programming-patterns/calling-synchronous-methods-asynchronously.md)"
@@ -504,6 +513,7 @@ items:
     commentId: T:System.ObjectDisposedException
     description: This object is closed.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -516,6 +526,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -528,8 +539,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.ExtendedProtectionPolicy
   commentId: P:System.Net.HttpListener.ExtendedProtectionPolicy
   id: ExtendedProtectionPolicy
@@ -538,11 +547,12 @@ items:
   - csharp
   name: ExtendedProtectionPolicy
   nameWithType: HttpListener.ExtendedProtectionPolicy
-  fullName: System.Net.HttpListener.ExtendedProtectionPolicy
+  fullName: HttpListener.ExtendedProtectionPolicy
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Get or set the <xref href="System.Security.Authentication.ExtendedProtection.ExtendedProtectionPolicy"></xref> to use for extended protection for a session.
   remarks: "The <xref:System.Net.HttpListener.ExtendedProtectionPolicy%2A> property is used with integrated Windows authentication to provide extended protection. The <xref:System.Net.HttpListener.ExtendedProtectionPolicy%2A> property allows the configuration of the extended protection policy for the whole <xref:System.Net.HttpListener> session. The <xref:System.Net.HttpListener.ExtendedProtectionSelectorDelegate%2A> property allows the configuration of the extended protection policy for each individual request.  \n  \n The <xref:System.Security.Authentication.ExtendedProtection.ExtendedProtectionPolicy.CustomChannelBinding%2A> property must be `null`. The <xref:System.Net.HttpListener> instance gets the Channel Binding Token (CBT) directly from its own TLS session if there is one."
@@ -574,6 +584,7 @@ items:
   attributes:
   - type: System.MonoTODO
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -586,6 +597,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -598,8 +610,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.ExtendedProtectionSelectorDelegate
   commentId: P:System.Net.HttpListener.ExtendedProtectionSelectorDelegate
   id: ExtendedProtectionSelectorDelegate
@@ -608,14 +618,15 @@ items:
   - csharp
   name: ExtendedProtectionSelectorDelegate
   nameWithType: HttpListener.ExtendedProtectionSelectorDelegate
-  fullName: System.Net.HttpListener.ExtendedProtectionSelectorDelegate
+  fullName: HttpListener.ExtendedProtectionSelectorDelegate
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Get or set the delegate called to determine the <xref href="System.Security.Authentication.ExtendedProtection.ExtendedProtectionPolicy"></xref> to use for each request.
-  remarks: "The <xref:System.Net.HttpListener.ExtendedProtectionPolicy%2A> property is used with integrated Windows authentication to provide extended protection. The <xref:System.Net.HttpListener.ExtendedProtectionPolicy%2A> property allows the configuration of the extended protection policy for the whole <xref:System.Net.HttpListener> session. The <xref:System.Net.HttpListener.ExtendedProtectionSelectorDelegate%2A> property allows the configuration of the extended protection policy per individual request.  \n  \n The <xref:System.Security.Authentication.ExtendedProtection.ExtendedProtectionPolicy.CustomChannelBinding%2A> property must be `null`. The <xref:System.Net.HttpListener> instance gets the Channel Binding Token (CBT) directly from its own TLS session if there is one.  \n  \n For each request, the delegate can choose the settings that the <xref:System.Net.HttpListener> instance will use to provide extended protection.  \n  \n If a delegate returns `null` for this property, this represents a <xref:System.Security.Authentication.ExtendedProtection.ExtendedProtectionPolicy> which the <xref:System.Security.Authentication.ExtendedProtection.ExtendedProtectionPolicy.PolicyEnforcement%2A> property set to <xref:System.Security.Authentication.ExtendedProtection.PolicyEnforcement>."
+  remarks: "The <xref:System.Net.HttpListener.ExtendedProtectionPolicy%2A> property is used with integrated Windows authentication to provide extended protection. The <xref:System.Net.HttpListener.ExtendedProtectionPolicy%2A> property allows the configuration of the extended protection policy for the whole <xref:System.Net.HttpListener> session. The <xref:System.Net.HttpListener.ExtendedProtectionSelectorDelegate%2A> property allows the configuration of the extended protection policy per individual request.  \n  \n The <xref:System.Security.Authentication.ExtendedProtection.ExtendedProtectionPolicy.CustomChannelBinding%2A> property must be `null`. The <xref:System.Net.HttpListener> instance gets the Channel Binding Token (CBT) directly from its own TLS session if there is one.  \n  \n For each request, the delegate can choose the settings that the <xref:System.Net.HttpListener> instance will use to provide extended protection.  \n  \n If a delegate returns `null` for this property, this represents a <xref:System.Security.Authentication.ExtendedProtection.ExtendedProtectionPolicy> which the <xref:System.Security.Authentication.ExtendedProtection.ExtendedProtectionPolicy.PolicyEnforcement%2A> property set to <xref:System.Security.Authentication.ExtendedProtection.PolicyEnforcement.Never>."
   syntax:
     content: public System.Net.HttpListener.ExtendedProtectionSelector ExtendedProtectionSelectorDelegate { get; set; }
     return:
@@ -639,6 +650,7 @@ items:
     commentId: T:System.PlatformNotSupportedException
     description: An attempt was made to set the <xref href="System.Net.HttpListener.ExtendedProtectionSelectorDelegate"></xref> property on a platform that does not support extended protection.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -651,6 +663,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -663,8 +676,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.GetContext
   commentId: M:System.Net.HttpListener.GetContext
   id: GetContext
@@ -673,11 +684,12 @@ items:
   - csharp
   name: GetContext()
   nameWithType: HttpListener.GetContext()
-  fullName: System.Net.HttpListener.GetContext()
+  fullName: HttpListener.GetContext()
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Waits for an incoming request and returns when one is received.
   remarks: "Before calling this method, you must call the <xref:System.Net.HttpListener.Start%2A> method and add at least one URI prefix to listen for by adding the URI strings to the <xref:System.Net.HttpListenerPrefixCollection> returned by the <xref:System.Net.HttpListener.Prefixes%2A> property. For a detailed description of prefixes, see the <xref:System.Net.HttpListener> class overview.  \n  \n This method blocks while waiting for an incoming request. If you want incoming requests to be processed asynchronously (on separate threads) so that your application does not block, use the <xref:System.Net.HttpListener.BeginGetContext%2A> method."
@@ -696,11 +708,12 @@ items:
     description: A Win32 function call failed. Check the exception's <xref href="System.Net.HttpListenerException.ErrorCode"></xref> property to determine the cause of the exception.
   - type: System.InvalidOperationException
     commentId: T:System.InvalidOperationException
-    description: "This object has not been started or is currently stopped.  \n  \n -or-  \n  \n The <xref href=\"System.Net.HttpListener\"></xref> does not have any Uniform Resource Identifier (URI) prefixes to respond to. See Remarks."
+    description: "This object has not been started or is currently stopped.  \n  \n -or-  \n  \n The <xref href=\"System.Net.HttpListener\"></xref> does not have any Uniform Resource Identifier (URI) prefixes to respond to."
   - type: System.ObjectDisposedException
     commentId: T:System.ObjectDisposedException
     description: This object is closed.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -713,6 +726,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -725,8 +739,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.GetContextAsync
   commentId: M:System.Net.HttpListener.GetContextAsync
   id: GetContextAsync
@@ -735,11 +747,12 @@ items:
   - csharp
   name: GetContextAsync()
   nameWithType: HttpListener.GetContextAsync()
-  fullName: System.Net.HttpListener.GetContextAsync()
+  fullName: HttpListener.GetContextAsync()
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Waits for an incoming request as an asynchronous operation.
   remarks: "This operation will not block. The returned <xref:System.Threading.Tasks.Task%601> object will complete when the incoming request has been received.  \n  \n Before calling this method, you must call the <xref:System.Net.HttpListener.Start%2A> method and add at least one URI prefix to listen for by adding the URI strings to the <xref:System.Net.HttpListenerPrefixCollection> returned by the <xref:System.Net.HttpListener.Prefixes%2A> property. For a detailed description of prefixes, see the <xref:System.Net.HttpListener> class overview."
@@ -752,6 +765,7 @@ items:
   overload: System.Net.HttpListener.GetContextAsync*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -764,6 +778,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -776,8 +791,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.IgnoreWriteExceptions
   commentId: P:System.Net.HttpListener.IgnoreWriteExceptions
   id: IgnoreWriteExceptions
@@ -786,11 +799,12 @@ items:
   - csharp
   name: IgnoreWriteExceptions
   nameWithType: HttpListener.IgnoreWriteExceptions
-  fullName: System.Net.HttpListener.IgnoreWriteExceptions
+  fullName: HttpListener.IgnoreWriteExceptions
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Gets or sets a <xref href="System.Boolean"></xref> value that specifies whether your application receives exceptions that occur when an <xref href="System.Net.HttpListener"></xref> sends the response to the client.
   remarks: Set this property to `true` if your application does not require that a response is successfully sent to each client.
@@ -807,6 +821,7 @@ items:
     commentId: T:System.ObjectDisposedException
     description: This object has been closed.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -819,6 +834,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -831,8 +847,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.IsListening
   commentId: P:System.Net.HttpListener.IsListening
   id: IsListening
@@ -841,11 +855,12 @@ items:
   - csharp
   name: IsListening
   nameWithType: HttpListener.IsListening
-  fullName: System.Net.HttpListener.IsListening
+  fullName: HttpListener.IsListening
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Gets a value that indicates whether <xref href="System.Net.HttpListener"></xref> has been started.
   remarks: To start an <xref:System.Net.HttpListener>, call the <xref:System.Net.HttpListener.Start%2A> method.
@@ -859,6 +874,7 @@ items:
   overload: System.Net.HttpListener.IsListening*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -871,6 +887,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -883,8 +900,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.IsSupported
   commentId: P:System.Net.HttpListener.IsSupported
   id: IsSupported
@@ -893,11 +908,12 @@ items:
   - csharp
   name: IsSupported
   nameWithType: HttpListener.IsSupported
-  fullName: System.Net.HttpListener.IsSupported
+  fullName: HttpListener.IsSupported
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Gets a value that indicates whether <xref href="System.Net.HttpListener"></xref> can be used with the current operating system.
   remarks: This class is available only on computers running the Windows XP SP2 or Windows Server 2003 operating systems.
@@ -911,6 +927,7 @@ items:
   overload: System.Net.HttpListener.IsSupported*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -923,6 +940,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -935,8 +953,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.Prefixes
   commentId: P:System.Net.HttpListener.Prefixes
   id: Prefixes
@@ -945,11 +961,12 @@ items:
   - csharp
   name: Prefixes
   nameWithType: HttpListener.Prefixes
-  fullName: System.Net.HttpListener.Prefixes
+  fullName: HttpListener.Prefixes
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Gets the Uniform Resource Identifier (URI) prefixes handled by this <xref href="System.Net.HttpListener"></xref> object.
   remarks: The prefixes are in canonical form. For a detailed description of prefixes, see the <xref:System.Net.HttpListener> class overview.
@@ -966,6 +983,7 @@ items:
     commentId: T:System.ObjectDisposedException
     description: This object has been closed.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -978,6 +996,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -990,8 +1009,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.Realm
   commentId: P:System.Net.HttpListener.Realm
   id: Realm
@@ -1000,11 +1017,12 @@ items:
   - csharp
   name: Realm
   nameWithType: HttpListener.Realm
-  fullName: System.Net.HttpListener.Realm
+  fullName: HttpListener.Realm
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Gets or sets the realm, or resource partition, associated with this <xref href="System.Net.HttpListener"></xref> object.
   remarks: "Servers use realms to partition protected resources; each partition can have its own authentication scheme and/or authorization database. Realms are used only for basic and digest authentication. After a client successfully authenticates, the authentication is valid for all resources in a given realm. For a detailed description of realms, see RFC 2617 at [http://www.ietf.org](http://www.ietf.org).  \n  \n An instance of <xref:System.Net.HttpListener> has only one associated realm."
@@ -1021,6 +1039,7 @@ items:
     commentId: T:System.ObjectDisposedException
     description: This object has been closed.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1033,6 +1052,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1045,8 +1065,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.Start
   commentId: M:System.Net.HttpListener.Start
   id: Start
@@ -1055,11 +1073,12 @@ items:
   - csharp
   name: Start()
   nameWithType: HttpListener.Start()
-  fullName: System.Net.HttpListener.Start()
+  fullName: HttpListener.Start()
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Allows this instance to receive incoming requests.
   remarks: "This method must be called before you call the <xref:System.Net.HttpListener.GetContext%2A> or <xref:System.Net.HttpListener.BeginGetContext%2A> method.  \n  \n After you have started an <xref:System.Net.HttpListener> object, you can use the <xref:System.Net.HttpListener.Stop%2A> method to stop it.  \n  \n> [!NOTE]\n>  If this listener instance uses https, you must install and select a Server Certificate. Otherwise, an <xref:System.Net.HttpWebRequest> query of this <xref:System.Net.HttpListener> will fail with an unexpected close of the connection. You can configure Server Certificates and other listener options by using HttpCfg.exe. See [http://msdn.microsoft.com/library/default.asp?url=/library/http/http/httpcfg_exe.asp](http://msdn.microsoft.com/library/default.asp?url=/library/http/http/httpcfg_exe.asp) for more details."
@@ -1077,6 +1096,7 @@ items:
     commentId: T:System.ObjectDisposedException
     description: This object is closed.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1089,6 +1109,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1101,8 +1122,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.Stop
   commentId: M:System.Net.HttpListener.Stop
   id: Stop
@@ -1111,11 +1130,12 @@ items:
   - csharp
   name: Stop()
   nameWithType: HttpListener.Stop()
-  fullName: System.Net.HttpListener.Stop()
+  fullName: HttpListener.Stop()
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Causes this instance to stop receiving incoming requests.
   remarks: "If this instance is already stopped, calling this method has no effect.  \n  \n After you have stopped an <xref:System.Net.HttpListener> object, you can use the <xref:System.Net.HttpListener.Start%2A> method to restart it."
@@ -1130,6 +1150,7 @@ items:
     commentId: T:System.ObjectDisposedException
     description: This object has been closed.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1142,6 +1163,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1154,8 +1176,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.TimeoutManager
   commentId: P:System.Net.HttpListener.TimeoutManager
   id: TimeoutManager
@@ -1164,11 +1184,12 @@ items:
   - csharp
   name: TimeoutManager
   nameWithType: HttpListener.TimeoutManager
-  fullName: System.Net.HttpListener.TimeoutManager
+  fullName: HttpListener.TimeoutManager
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: The timeout manager for this <xref href="System.Net.HttpListener"></xref> instance.
   remarks: The timeout manager defines the connection timeout limits for this <xref:System.Net.HttpListener> instance.
@@ -1185,6 +1206,7 @@ items:
   attributes:
   - type: System.MonoTODO
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1197,6 +1219,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1209,8 +1232,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.UnsafeConnectionNtlmAuthentication
   commentId: P:System.Net.HttpListener.UnsafeConnectionNtlmAuthentication
   id: UnsafeConnectionNtlmAuthentication
@@ -1219,11 +1240,12 @@ items:
   - csharp
   name: UnsafeConnectionNtlmAuthentication
   nameWithType: HttpListener.UnsafeConnectionNtlmAuthentication
-  fullName: System.Net.HttpListener.UnsafeConnectionNtlmAuthentication
+  fullName: HttpListener.UnsafeConnectionNtlmAuthentication
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Gets or sets a <xref href="System.Boolean"></xref> value that controls whether, when NTLM is used, additional requests using the same Transmission Control Protocol (TCP) connection are required to authenticate.
   remarks: "When this property is set to `true` and the first request over a particular TCP connection is authenticated using NTLM, subsequent requests over the same TCP connection are processed using the authentication information (<xref:System.Security.Principal.IIdentity>) of the initial request.  \n  \n This property has no effect when NTLM is not the authentication protocol. When Negotiate is specified as the authentication protocol, this property has an effect only if NTLM is the actual protocol used for authentication.  \n  \n> [!NOTE]\n>  While setting this property to `true` increases performance because the <xref:System.Net.HttpListener> does not send additional NTLM authentication challenges, there is a security risk in not requiring all requests to provide authentication information. You must determine whether the increase in performance is worth this risk."
@@ -1245,6 +1267,7 @@ items:
   attributes:
   - type: System.MonoTODO
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1257,6 +1280,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1269,8 +1293,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.HttpListener.System#IDisposable#Dispose
   commentId: M:System.Net.HttpListener.System#IDisposable#Dispose
   id: System#IDisposable#Dispose
@@ -1280,11 +1302,12 @@ items:
   - csharp
   name: IDisposable.Dispose()
   nameWithType: HttpListener.IDisposable.Dispose()
-  fullName: System.Net.HttpListener.IDisposable.Dispose()
+  fullName: HttpListener.IDisposable.Dispose()
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.HttpListener
   namespace: System.Net
   summary: Releases the resources held by this <xref href="System.Net.HttpListener"></xref> object.
   remarks: Applications should use the <xref:System.Net.HttpListener.Close%2A> method instead of calling this method.
@@ -1294,6 +1317,7 @@ items:
   overload: System.Net.HttpListener.System#IDisposable#Dispose*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1306,6 +1330,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1318,8 +1343,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
-  ms.author: bobdel
-  manager: markl
 references:
 - uid: System.Object
   parent: System
@@ -1368,19 +1391,19 @@ references:
   isExternal: false
   name: HttpListener()
   nameWithType: HttpListener.HttpListener()
-  fullName: System.Net.HttpListener.HttpListener()
+  fullName: HttpListener.HttpListener()
 - uid: System.Net.HttpListener.Abort
   parent: System.Net.HttpListener
   isExternal: false
   name: Abort()
   nameWithType: HttpListener.Abort()
-  fullName: System.Net.HttpListener.Abort()
+  fullName: HttpListener.Abort()
 - uid: System.Net.HttpListener.AuthenticationSchemes
   parent: System.Net.HttpListener
   isExternal: false
   name: AuthenticationSchemes
   nameWithType: HttpListener.AuthenticationSchemes
-  fullName: System.Net.HttpListener.AuthenticationSchemes
+  fullName: HttpListener.AuthenticationSchemes
 - uid: System.Net.AuthenticationSchemes
   parent: System.Net
   isExternal: false
@@ -1392,7 +1415,7 @@ references:
   isExternal: false
   name: AuthenticationSchemeSelectorDelegate
   nameWithType: HttpListener.AuthenticationSchemeSelectorDelegate
-  fullName: System.Net.HttpListener.AuthenticationSchemeSelectorDelegate
+  fullName: HttpListener.AuthenticationSchemeSelectorDelegate
 - uid: System.Net.AuthenticationSchemeSelector
   parent: System.Net
   isExternal: false
@@ -1404,7 +1427,7 @@ references:
   isExternal: false
   name: BeginGetContext(AsyncCallback, Object)
   nameWithType: HttpListener.BeginGetContext(AsyncCallback, Object)
-  fullName: System.Net.HttpListener.BeginGetContext(AsyncCallback, Object)
+  fullName: HttpListener.BeginGetContext(AsyncCallback, Object)
 - uid: System.IAsyncResult
   parent: System
   isExternal: false
@@ -1422,13 +1445,13 @@ references:
   isExternal: false
   name: Close()
   nameWithType: HttpListener.Close()
-  fullName: System.Net.HttpListener.Close()
+  fullName: HttpListener.Close()
 - uid: System.Net.HttpListener.DefaultServiceNames
   parent: System.Net.HttpListener
   isExternal: false
   name: DefaultServiceNames
   nameWithType: HttpListener.DefaultServiceNames
-  fullName: System.Net.HttpListener.DefaultServiceNames
+  fullName: HttpListener.DefaultServiceNames
 - uid: System.Security.Authentication.ExtendedProtection.ServiceNameCollection
   parent: System.Security.Authentication.ExtendedProtection
   isExternal: false
@@ -1440,7 +1463,7 @@ references:
   isExternal: false
   name: EndGetContext(IAsyncResult)
   nameWithType: HttpListener.EndGetContext(IAsyncResult)
-  fullName: System.Net.HttpListener.EndGetContext(IAsyncResult)
+  fullName: HttpListener.EndGetContext(IAsyncResult)
 - uid: System.Net.HttpListenerContext
   parent: System.Net
   isExternal: false
@@ -1452,7 +1475,7 @@ references:
   isExternal: false
   name: ExtendedProtectionPolicy
   nameWithType: HttpListener.ExtendedProtectionPolicy
-  fullName: System.Net.HttpListener.ExtendedProtectionPolicy
+  fullName: HttpListener.ExtendedProtectionPolicy
 - uid: System.Security.Authentication.ExtendedProtection.ExtendedProtectionPolicy
   parent: System.Security.Authentication.ExtendedProtection
   isExternal: false
@@ -1464,7 +1487,7 @@ references:
   isExternal: false
   name: ExtendedProtectionSelectorDelegate
   nameWithType: HttpListener.ExtendedProtectionSelectorDelegate
-  fullName: System.Net.HttpListener.ExtendedProtectionSelectorDelegate
+  fullName: HttpListener.ExtendedProtectionSelectorDelegate
 - uid: System.Net.HttpListener
   parent: System.Net
   isExternal: false
@@ -1476,13 +1499,13 @@ references:
   isExternal: false
   name: GetContext()
   nameWithType: HttpListener.GetContext()
-  fullName: System.Net.HttpListener.GetContext()
+  fullName: HttpListener.GetContext()
 - uid: System.Net.HttpListener.GetContextAsync
   parent: System.Net.HttpListener
   isExternal: false
   name: GetContextAsync()
   nameWithType: HttpListener.GetContextAsync()
-  fullName: System.Net.HttpListener.GetContextAsync()
+  fullName: HttpListener.GetContextAsync()
 - uid: System.Threading.Tasks.Task`1
   name: Task<TResult>
   nameWithType: Task<TResult>
@@ -1513,7 +1536,7 @@ references:
   isExternal: false
   name: IgnoreWriteExceptions
   nameWithType: HttpListener.IgnoreWriteExceptions
-  fullName: System.Net.HttpListener.IgnoreWriteExceptions
+  fullName: HttpListener.IgnoreWriteExceptions
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -1525,19 +1548,19 @@ references:
   isExternal: false
   name: IsListening
   nameWithType: HttpListener.IsListening
-  fullName: System.Net.HttpListener.IsListening
+  fullName: HttpListener.IsListening
 - uid: System.Net.HttpListener.IsSupported
   parent: System.Net.HttpListener
   isExternal: false
   name: IsSupported
   nameWithType: HttpListener.IsSupported
-  fullName: System.Net.HttpListener.IsSupported
+  fullName: HttpListener.IsSupported
 - uid: System.Net.HttpListener.Prefixes
   parent: System.Net.HttpListener
   isExternal: false
   name: Prefixes
   nameWithType: HttpListener.Prefixes
-  fullName: System.Net.HttpListener.Prefixes
+  fullName: HttpListener.Prefixes
 - uid: System.Net.HttpListenerPrefixCollection
   parent: System.Net
   isExternal: false
@@ -1549,7 +1572,7 @@ references:
   isExternal: false
   name: Realm
   nameWithType: HttpListener.Realm
-  fullName: System.Net.HttpListener.Realm
+  fullName: HttpListener.Realm
 - uid: System.String
   parent: System
   isExternal: false
@@ -1561,19 +1584,19 @@ references:
   isExternal: false
   name: Start()
   nameWithType: HttpListener.Start()
-  fullName: System.Net.HttpListener.Start()
+  fullName: HttpListener.Start()
 - uid: System.Net.HttpListener.Stop
   parent: System.Net.HttpListener
   isExternal: false
   name: Stop()
   nameWithType: HttpListener.Stop()
-  fullName: System.Net.HttpListener.Stop()
+  fullName: HttpListener.Stop()
 - uid: System.Net.HttpListener.TimeoutManager
   parent: System.Net.HttpListener
   isExternal: false
   name: TimeoutManager
   nameWithType: HttpListener.TimeoutManager
-  fullName: System.Net.HttpListener.TimeoutManager
+  fullName: HttpListener.TimeoutManager
 - uid: System.Net.HttpListenerTimeoutManager
   parent: System.Net
   isExternal: false
@@ -1585,20 +1608,21 @@ references:
   isExternal: false
   name: UnsafeConnectionNtlmAuthentication
   nameWithType: HttpListener.UnsafeConnectionNtlmAuthentication
-  fullName: System.Net.HttpListener.UnsafeConnectionNtlmAuthentication
+  fullName: HttpListener.UnsafeConnectionNtlmAuthentication
 - uid: System.Net.HttpListener.System#IDisposable#Dispose
   parent: System.Net.HttpListener
   isExternal: false
   name: IDisposable.Dispose()
   nameWithType: HttpListener.IDisposable.Dispose()
-  fullName: System.Net.HttpListener.IDisposable.Dispose()
+  fullName: HttpListener.IDisposable.Dispose()
 - uid: System.Net.HttpListener.#ctor*
   parent: System.Net.HttpListener
   isExternal: false
   name: HttpListener
   nameWithType: HttpListener.HttpListener
-  fullName: System.Net.HttpListener.HttpListener
+  fullName: HttpListener.HttpListener
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1616,8 +1640,9 @@ references:
   isExternal: false
   name: Abort
   nameWithType: HttpListener.Abort
-  fullName: System.Net.HttpListener.Abort
+  fullName: HttpListener.Abort
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1635,8 +1660,9 @@ references:
   isExternal: false
   name: AuthenticationSchemes
   nameWithType: HttpListener.AuthenticationSchemes
-  fullName: System.Net.HttpListener.AuthenticationSchemes
+  fullName: HttpListener.AuthenticationSchemes
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1654,8 +1680,9 @@ references:
   isExternal: false
   name: AuthenticationSchemeSelectorDelegate
   nameWithType: HttpListener.AuthenticationSchemeSelectorDelegate
-  fullName: System.Net.HttpListener.AuthenticationSchemeSelectorDelegate
+  fullName: HttpListener.AuthenticationSchemeSelectorDelegate
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1673,8 +1700,9 @@ references:
   isExternal: false
   name: BeginGetContext
   nameWithType: HttpListener.BeginGetContext
-  fullName: System.Net.HttpListener.BeginGetContext
+  fullName: HttpListener.BeginGetContext
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1692,8 +1720,9 @@ references:
   isExternal: false
   name: Close
   nameWithType: HttpListener.Close
-  fullName: System.Net.HttpListener.Close
+  fullName: HttpListener.Close
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1711,8 +1740,9 @@ references:
   isExternal: false
   name: DefaultServiceNames
   nameWithType: HttpListener.DefaultServiceNames
-  fullName: System.Net.HttpListener.DefaultServiceNames
+  fullName: HttpListener.DefaultServiceNames
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1730,8 +1760,9 @@ references:
   isExternal: false
   name: EndGetContext
   nameWithType: HttpListener.EndGetContext
-  fullName: System.Net.HttpListener.EndGetContext
+  fullName: HttpListener.EndGetContext
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1749,8 +1780,9 @@ references:
   isExternal: false
   name: ExtendedProtectionPolicy
   nameWithType: HttpListener.ExtendedProtectionPolicy
-  fullName: System.Net.HttpListener.ExtendedProtectionPolicy
+  fullName: HttpListener.ExtendedProtectionPolicy
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1768,8 +1800,9 @@ references:
   isExternal: false
   name: ExtendedProtectionSelectorDelegate
   nameWithType: HttpListener.ExtendedProtectionSelectorDelegate
-  fullName: System.Net.HttpListener.ExtendedProtectionSelectorDelegate
+  fullName: HttpListener.ExtendedProtectionSelectorDelegate
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1787,8 +1820,9 @@ references:
   isExternal: false
   name: GetContext
   nameWithType: HttpListener.GetContext
-  fullName: System.Net.HttpListener.GetContext
+  fullName: HttpListener.GetContext
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1806,8 +1840,9 @@ references:
   isExternal: false
   name: GetContextAsync
   nameWithType: HttpListener.GetContextAsync
-  fullName: System.Net.HttpListener.GetContextAsync
+  fullName: HttpListener.GetContextAsync
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1825,8 +1860,9 @@ references:
   isExternal: false
   name: IgnoreWriteExceptions
   nameWithType: HttpListener.IgnoreWriteExceptions
-  fullName: System.Net.HttpListener.IgnoreWriteExceptions
+  fullName: HttpListener.IgnoreWriteExceptions
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1844,8 +1880,9 @@ references:
   isExternal: false
   name: IsListening
   nameWithType: HttpListener.IsListening
-  fullName: System.Net.HttpListener.IsListening
+  fullName: HttpListener.IsListening
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1863,8 +1900,9 @@ references:
   isExternal: false
   name: IsSupported
   nameWithType: HttpListener.IsSupported
-  fullName: System.Net.HttpListener.IsSupported
+  fullName: HttpListener.IsSupported
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1882,8 +1920,9 @@ references:
   isExternal: false
   name: Prefixes
   nameWithType: HttpListener.Prefixes
-  fullName: System.Net.HttpListener.Prefixes
+  fullName: HttpListener.Prefixes
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1901,8 +1940,9 @@ references:
   isExternal: false
   name: Realm
   nameWithType: HttpListener.Realm
-  fullName: System.Net.HttpListener.Realm
+  fullName: HttpListener.Realm
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1920,8 +1960,9 @@ references:
   isExternal: false
   name: Start
   nameWithType: HttpListener.Start
-  fullName: System.Net.HttpListener.Start
+  fullName: HttpListener.Start
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1939,8 +1980,9 @@ references:
   isExternal: false
   name: Stop
   nameWithType: HttpListener.Stop
-  fullName: System.Net.HttpListener.Stop
+  fullName: HttpListener.Stop
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1958,8 +2000,9 @@ references:
   isExternal: false
   name: TimeoutManager
   nameWithType: HttpListener.TimeoutManager
-  fullName: System.Net.HttpListener.TimeoutManager
+  fullName: HttpListener.TimeoutManager
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1977,8 +2020,9 @@ references:
   isExternal: false
   name: UnsafeConnectionNtlmAuthentication
   nameWithType: HttpListener.UnsafeConnectionNtlmAuthentication
-  fullName: System.Net.HttpListener.UnsafeConnectionNtlmAuthentication
+  fullName: HttpListener.UnsafeConnectionNtlmAuthentication
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1996,8 +2040,9 @@ references:
   isExternal: false
   name: System.IDisposable.Dispose
   nameWithType: HttpListener.System.IDisposable.Dispose
-  fullName: System.Net.HttpListener.System.IDisposable.Dispose
+  fullName: HttpListener.System.IDisposable.Dispose
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2010,3 +2055,9 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net/HttpListener.xml
+- uid: System.IDisposable
+  parent: System
+  isExternal: false
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable

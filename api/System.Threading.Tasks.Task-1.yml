@@ -46,6 +46,7 @@ items:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Represents an asynchronous operation that can return a value.
   remarks: "The <xref:System.Threading.Tasks.Task%601> class represents a single operation that returns a value and that usually executes asynchronously. <xref:System.Threading.Tasks.Task%601> objects are one of the central components of the  first introduced in the .NET Framework 4. Because the work performed by a <xref:System.Threading.Tasks.Task%601> object typically executes asynchronously on a thread pool thread rather than synchronously on the main application thread, you can use the <xref:System.Threading.Tasks.Task.Status%2A> property, as well as the <xref:System.Threading.Tasks.Task.IsCanceled%2A>, <xref:System.Threading.Tasks.Task.IsCompleted%2A>, and <xref:System.Threading.Tasks.Task.IsFaulted%2A> properties, to determine the   state of a task. Most commonly, a lambda expression is used to specify the work that the task is to perform.  \n  \n <xref:System.Threading.Tasks.Task%601> instances may be created in a variety of ways. The most common approach, which is available starting with the [!INCLUDE[net_v45](~/includes/net-v45-md.md)], is to call the static <xref:System.Threading.Tasks.Task.Run%60%601%28System.Func%7B%60%600%7D%29?displayProperty=fullName> or <xref:System.Threading.Tasks.Task.Run%60%601%28System.Func%7B%60%600%7D%2CSystem.Threading.CancellationToken%29?displayProperty=fullName> method. These methods provide a simple way to start a task by using default values and without acquiring additional parameters. The following example uses the <xref:System.Threading.Tasks.Task.Run%60%601%28System.Func%7B%60%600%7D%29?displayProperty=fullName> method to start a task that loops and then displays the number of loop iterations:  \n  \n [!code-csharp[System.Threading.Tasks.Task\\`1#6](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.threading.tasks.task`1/cs/run1.cs#6)]\n [!code-vb[System.Threading.Tasks.Task\\`1#6](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.threading.tasks.task`1/vb/run1.vb#6)]  \n  \n An alternative, and the most common way to start a task in the [!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)], is to call the static <xref:System.Threading.Tasks.TaskFactory.StartNew%2A?displayProperty=fullName> or <xref:System.Threading.Tasks.TaskFactory%601.StartNew%2A?displayProperty=fullName> method. The <xref:System.Threading.Tasks.Task.Factory%2A?displayProperty=fullName> property returns a <xref:System.Threading.Tasks.TaskFactory> object, and the <xref:System.Threading.Tasks.Task%601.Factory%2A?displayProperty=fullName> property returns a <xref:System.Threading.Tasks.TaskFactory%601> object. Overloads of their `StartNew` method let you pass arguments, define task creation options, and specify a task scheduler. The following example uses the <xref:System.Threading.Tasks.TaskFactory%601.StartNew%28System.Func%7B%600%7D%29?displayProperty=fullName> method to start a task. It is functionally equivalent to the code in the previous example.  \n  \n [!code-csharp[System.Threading.Tasks.Task\\`1#7](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.threading.tasks.task`1/cs/startnew1.cs#7)]\n [!code-vb[System.Threading.Tasks.Task\\`1#7](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.threading.tasks.task`1/vb/startnew1.vb#7)]  \n  \n For more complete examples, see [Task-based Asynchronous Programming](~/docs/standard/parallel-programming/task-based-asynchronous-programming.md).  \n  \n The <xref:System.Threading.Tasks.Task%601> class also provides constructors that initialize the task but that do not schedule it for execution. For performance reasons, the <xref:System.Threading.Tasks.Task.Run%2A?displayProperty=fullName> and `StartNew` methods are the preferred mechanism for creating and scheduling computational tasks, but for scenarios where task creation and scheduling must be separated, the constructors may be used, and the task's <xref:System.Threading.Tasks.Task.Start%2A> method may then be used to schedule the task for execution at a later time.  \n  \n Starting with desktop apps that target the [!INCLUDE[net_v46](~/includes/net-v46-md.md)], the culture of the thread that creates and invokes a task becomes part of the thread's context. That is, regardless of the current culture of the thread on which the task executes, the current culture of the task is the culture of the calling thread. For apps that target versions of the .NET Framework prior to the [!INCLUDE[net_v46](~/includes/net-v46-md.md)], the culture of the task is the culture of the thread on which the task executes. For more information, see the \"Culture and task-based asynchronous operations\" section in the <xref:System.Globalization.CultureInfo> topic. Note that Store apps follow the Windows Runtime in setting and getting the default culture.  \n  \n For operations that do not return a value, you use the <xref:System.Threading.Tasks.Task> class."
@@ -105,6 +106,7 @@ items:
   - System.Threading.Tasks.Task.Id
   - System.Threading.Tasks.Task.IsCanceled
   - System.Threading.Tasks.Task.IsCompleted
+  - System.Threading.Tasks.Task.IsCompletedSuccessfully
   - System.Threading.Tasks.Task.IsFaulted
   - System.Threading.Tasks.Task.Run(System.Action)
   - System.Threading.Tasks.Task.Run(System.Action,System.Threading.CancellationToken)
@@ -154,7 +156,8 @@ items:
   attributes: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -174,7 +177,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -193,9 +197,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.#ctor(System.Func{`0})
   commentId: M:System.Threading.Tasks.Task`1.#ctor(System.Func{`0})
   id: '#ctor(System.Func{`0})'
@@ -204,17 +205,18 @@ items:
   - csharp
   name: Task<TResult>(Func<TResult>)
   nameWithType: Task<TResult>.Task<TResult>(Func<TResult>)
-  fullName: System.Threading.Tasks.Task<TResult>.Task<TResult>(Func<TResult>)
+  fullName: Task<TResult>.Task<TResult>(Func<TResult>)
   type: Constructor
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Initializes a new <xref href="System.Threading.Tasks.Task`1"></xref> with the specified function.
   remarks: Rather than calling this constructor, the most common way to instantiate a <xref:System.Threading.Tasks.Task%601> object and launch a task is by calling the static <xref:System.Threading.Tasks.Task.Run%60%601%28System.Func%7B%60%600%7D%29?displayProperty=fullName> and <xref:System.Threading.Tasks.TaskFactory%601.StartNew%28System.Func%7B%600%7D%29?displayProperty=fullName> methods. The only advantage offered by this constructor is that it allows object instantiation to be separated from task invocation.
   example:
-  - "The following example counts the approximate number of words in text files that represent published books. Each task is responsible for opening a file, reading its entire contents asynchronously, and calculating the word count by using a regular expression. The [Task.WaitAll(Task\\<xref:System.Threading.Tasks.Task.WaitAll%28System.Threading.Tasks.Task%5B%5D%29?displayProperty=fullName> method is called to ensure that all tasks have completed before displaying the word count of each book to the console.  \n  \n Object instantiation is separated from object execution in this example so that the example can ensure that each file exists. If they do not,  it displays the name of the missing file. Otherwise, it calls the <xref:System.Threading.Tasks.Task.Start%2A?displayProperty=fullName> method to launch each task.  \n  \n [!code-csharp[System.Threading.Tasks.Task.ctor#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.threading.tasks.task.ctor/cs/run3.cs#2)]\n [!code-vb[System.Threading.Tasks.Task.ctor#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.threading.tasks.task.ctor/vb/run3.vb#2)]  \n  \n The regular expression pattern `\\p{P}*\\s+` matches zero, one, or more punctuation characters followed by one or more whitespace characters. It assumes that the total number of matches equals the approximate word count."
+  - "The following example counts the approximate number of words in text files that represent published books. Each task is responsible for opening a file, reading its entire contents asynchronously, and calculating the word count by using a regular expression. The <xref:System.Threading.Tasks.Task.WaitAll%28System.Threading.Tasks.Task%5B%5D%29?displayProperty=fullName> method is called to ensure that all tasks have completed before displaying the word count of each book to the console.  \n  \n Object instantiation is separated from object execution in this example so that the example can ensure that each file exists. If they do not,  it displays the name of the missing file. Otherwise, it calls the <xref:System.Threading.Tasks.Task.Start%2A?displayProperty=fullName> method to launch each task.  \n  \n [!code-csharp[System.Threading.Tasks.Task.ctor#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.threading.tasks.task.ctor/cs/run3.cs#2)]\n [!code-vb[System.Threading.Tasks.Task.ctor#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.threading.tasks.task.ctor/vb/run3.vb#2)]  \n  \n The regular expression pattern `\\p{P}*\\s+` matches zero, one, or more punctuation characters followed by one or more whitespace characters. It assumes that the total number of matches equals the approximate word count."
   syntax:
     content: public Task (Func<TResult> function);
     parameters:
@@ -228,7 +230,8 @@ items:
     description: The <code>function</code> argument is null.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -248,7 +251,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -267,9 +271,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.#ctor(System.Func{System.Object,`0},System.Object)
   commentId: M:System.Threading.Tasks.Task`1.#ctor(System.Func{System.Object,`0},System.Object)
   id: '#ctor(System.Func{System.Object,`0},System.Object)'
@@ -278,12 +279,13 @@ items:
   - csharp
   name: Task<TResult>(Func<Object,TResult>, Object)
   nameWithType: Task<TResult>.Task<TResult>(Func<Object,TResult>, Object)
-  fullName: System.Threading.Tasks.Task<TResult>.Task<TResult>(Func<Object,TResult>, Object)
+  fullName: Task<TResult>.Task<TResult>(Func<Object,TResult>, Object)
   type: Constructor
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Initializes a new <xref href="System.Threading.Tasks.Task`1"></xref> with the specified function and state.
   remarks: Rather than calling this constructor, the most common way to instantiate a <xref:System.Threading.Tasks.Task%601> object and launch a task is by calling the static <xref:System.Threading.Tasks.TaskFactory%601.StartNew%28System.Func%7BSystem.Object%2C%600%7D%2CSystem.Object%29?displayProperty=fullName> method. The only advantage offered by this constructor is that it allows object instantiation to be separated from task invocation.
@@ -303,7 +305,8 @@ items:
     description: The <code>function</code> argument is null.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -323,7 +326,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -342,9 +346,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.#ctor(System.Func{`0},System.Threading.CancellationToken)
   commentId: M:System.Threading.Tasks.Task`1.#ctor(System.Func{`0},System.Threading.CancellationToken)
   id: '#ctor(System.Func{`0},System.Threading.CancellationToken)'
@@ -353,12 +354,13 @@ items:
   - csharp
   name: Task<TResult>(Func<TResult>, CancellationToken)
   nameWithType: Task<TResult>.Task<TResult>(Func<TResult>, CancellationToken)
-  fullName: System.Threading.Tasks.Task<TResult>.Task<TResult>(Func<TResult>, CancellationToken)
+  fullName: Task<TResult>.Task<TResult>(Func<TResult>, CancellationToken)
   type: Constructor
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Initializes a new <xref href="System.Threading.Tasks.Task`1"></xref> with the specified function.
   remarks: Rather than calling this constructor, the most common way to instantiate a <xref:System.Threading.Tasks.Task%601> object and launch a task is by calling the static <xref:System.Threading.Tasks.Task.Run%60%601%28System.Func%7B%60%600%7D%2CSystem.Threading.CancellationToken%29?displayProperty=fullName> and <xref:System.Threading.Tasks.TaskFactory%601.StartNew%28System.Func%7B%600%7D%2CSystem.Threading.CancellationToken%29?displayProperty=fullName> methods. The only advantage offered by this constructor is that it allows object instantiation to be separated from task invocation.
@@ -381,7 +383,8 @@ items:
     description: The <code>function</code> argument is null.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -401,7 +404,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -420,9 +424,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.#ctor(System.Func{`0},System.Threading.Tasks.TaskCreationOptions)
   commentId: M:System.Threading.Tasks.Task`1.#ctor(System.Func{`0},System.Threading.Tasks.TaskCreationOptions)
   id: '#ctor(System.Func{`0},System.Threading.Tasks.TaskCreationOptions)'
@@ -431,12 +432,13 @@ items:
   - csharp
   name: Task<TResult>(Func<TResult>, TaskCreationOptions)
   nameWithType: Task<TResult>.Task<TResult>(Func<TResult>, TaskCreationOptions)
-  fullName: System.Threading.Tasks.Task<TResult>.Task<TResult>(Func<TResult>, TaskCreationOptions)
+  fullName: Task<TResult>.Task<TResult>(Func<TResult>, TaskCreationOptions)
   type: Constructor
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Initializes a new <xref href="System.Threading.Tasks.Task`1"></xref> with the specified function and creation options.
   remarks: Rather than calling this constructor, the most common way to instantiate a <xref:System.Threading.Tasks.Task%601> object and launch a task is by calling the static <xref:System.Threading.Tasks.TaskFactory%601.StartNew%28System.Func%7B%600%7D%2CSystem.Threading.Tasks.TaskCreationOptions%29?displayProperty=fullName> method. The only advantage offered by this constructor is that it allows object instantiation to be separated from task invocation.
@@ -459,7 +461,8 @@ items:
     description: The <code>function</code> argument is null.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -479,7 +482,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -498,9 +502,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.#ctor(System.Func{System.Object,`0},System.Object,System.Threading.CancellationToken)
   commentId: M:System.Threading.Tasks.Task`1.#ctor(System.Func{System.Object,`0},System.Object,System.Threading.CancellationToken)
   id: '#ctor(System.Func{System.Object,`0},System.Object,System.Threading.CancellationToken)'
@@ -509,12 +510,13 @@ items:
   - csharp
   name: Task<TResult>(Func<Object,TResult>, Object, CancellationToken)
   nameWithType: Task<TResult>.Task<TResult>(Func<Object,TResult>, Object, CancellationToken)
-  fullName: System.Threading.Tasks.Task<TResult>.Task<TResult>(Func<Object,TResult>, Object, CancellationToken)
+  fullName: Task<TResult>.Task<TResult>(Func<Object,TResult>, Object, CancellationToken)
   type: Constructor
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Initializes a new <xref href="System.Threading.Tasks.Task`1"></xref> with the specified action, state, and options.
   remarks: Rather than calling this constructor, the most common way to instantiate a <xref:System.Threading.Tasks.Task%601> object and launch a task is by calling the static <xref:System.Threading.Tasks.TaskFactory%601.StartNew%28System.Func%7BSystem.Object%2C%600%7D%2CSystem.Object%2CSystem.Threading.CancellationToken%29?displayProperty=fullName> method. The only advantage offered by this constructor is that it allows object instantiation to be separated from task invocation.
@@ -540,7 +542,8 @@ items:
     description: The <code>function</code> argument is null.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -560,7 +563,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -579,9 +583,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.#ctor(System.Func{System.Object,`0},System.Object,System.Threading.Tasks.TaskCreationOptions)
   commentId: M:System.Threading.Tasks.Task`1.#ctor(System.Func{System.Object,`0},System.Object,System.Threading.Tasks.TaskCreationOptions)
   id: '#ctor(System.Func{System.Object,`0},System.Object,System.Threading.Tasks.TaskCreationOptions)'
@@ -590,12 +591,13 @@ items:
   - csharp
   name: Task<TResult>(Func<Object,TResult>, Object, TaskCreationOptions)
   nameWithType: Task<TResult>.Task<TResult>(Func<Object,TResult>, Object, TaskCreationOptions)
-  fullName: System.Threading.Tasks.Task<TResult>.Task<TResult>(Func<Object,TResult>, Object, TaskCreationOptions)
+  fullName: Task<TResult>.Task<TResult>(Func<Object,TResult>, Object, TaskCreationOptions)
   type: Constructor
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Initializes a new <xref href="System.Threading.Tasks.Task`1"></xref> with the specified action, state, and options.
   remarks: Rather than calling this constructor, the most common way to instantiate a <xref:System.Threading.Tasks.Task%601> object and launch a task is by calling the static <xref:System.Threading.Tasks.TaskFactory%601.StartNew%28System.Func%7BSystem.Object%2C%600%7D%2CSystem.Object%2CSystem.Threading.Tasks.TaskCreationOptions%29?displayProperty=fullName> method. The only advantage offered by this constructor is that it allows object instantiation to be separated from task invocation.
@@ -621,7 +623,8 @@ items:
     description: The <code>function</code> argument is null.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -641,7 +644,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -660,9 +664,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.#ctor(System.Func{`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskCreationOptions)
   commentId: M:System.Threading.Tasks.Task`1.#ctor(System.Func{`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskCreationOptions)
   id: '#ctor(System.Func{`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskCreationOptions)'
@@ -671,12 +672,13 @@ items:
   - csharp
   name: Task<TResult>(Func<TResult>, CancellationToken, TaskCreationOptions)
   nameWithType: Task<TResult>.Task<TResult>(Func<TResult>, CancellationToken, TaskCreationOptions)
-  fullName: System.Threading.Tasks.Task<TResult>.Task<TResult>(Func<TResult>, CancellationToken, TaskCreationOptions)
+  fullName: Task<TResult>.Task<TResult>(Func<TResult>, CancellationToken, TaskCreationOptions)
   type: Constructor
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Initializes a new <xref href="System.Threading.Tasks.Task`1"></xref> with the specified function and creation options.
   remarks: Rather than calling this constructor, the most common way to instantiate a <xref:System.Threading.Tasks.Task%601> object and launch a task is by calling the static <xref:System.Threading.Tasks.TaskFactory.StartNew%60%601%28System.Func%7B%60%600%7D%2CSystem.Threading.CancellationToken%2CSystem.Threading.Tasks.TaskCreationOptions%2CSystem.Threading.Tasks.TaskScheduler%29?displayProperty=fullName> method.  The only advantage offered by this constructor is that it allows object instantiation to be separated from task invocation.
@@ -705,7 +707,8 @@ items:
     description: The <code>function</code> argument is null.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -725,7 +728,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -744,9 +748,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.#ctor(System.Func{System.Object,`0},System.Object,System.Threading.CancellationToken,System.Threading.Tasks.TaskCreationOptions)
   commentId: M:System.Threading.Tasks.Task`1.#ctor(System.Func{System.Object,`0},System.Object,System.Threading.CancellationToken,System.Threading.Tasks.TaskCreationOptions)
   id: '#ctor(System.Func{System.Object,`0},System.Object,System.Threading.CancellationToken,System.Threading.Tasks.TaskCreationOptions)'
@@ -755,12 +756,13 @@ items:
   - csharp
   name: Task<TResult>(Func<Object,TResult>, Object, CancellationToken, TaskCreationOptions)
   nameWithType: Task<TResult>.Task<TResult>(Func<Object,TResult>, Object, CancellationToken, TaskCreationOptions)
-  fullName: System.Threading.Tasks.Task<TResult>.Task<TResult>(Func<Object,TResult>, Object, CancellationToken, TaskCreationOptions)
+  fullName: Task<TResult>.Task<TResult>(Func<Object,TResult>, Object, CancellationToken, TaskCreationOptions)
   type: Constructor
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Initializes a new <xref href="System.Threading.Tasks.Task`1"></xref> with the specified action, state, and options.
   remarks: Rather than calling this constructor, the most common way to instantiate a <xref:System.Threading.Tasks.Task%601> object and launch a task is by calling the static <xref:System.Threading.Tasks.TaskFactory%601.StartNew%28System.Func%7BSystem.Object%2C%600%7D%2CSystem.Object%2CSystem.Threading.CancellationToken%2CSystem.Threading.Tasks.TaskCreationOptions%2CSystem.Threading.Tasks.TaskScheduler%29?displayProperty=fullName> method. The only advantage offered by this constructor is that it allows object instantiation to be separated from task invocation.
@@ -792,7 +794,8 @@ items:
     description: The <code>function</code> argument is null.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -812,7 +815,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -831,9 +835,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.ConfigureAwait(System.Boolean)
   commentId: M:System.Threading.Tasks.Task`1.ConfigureAwait(System.Boolean)
   id: ConfigureAwait(System.Boolean)
@@ -842,12 +843,13 @@ items:
   - csharp
   name: ConfigureAwait(Boolean)
   nameWithType: Task<TResult>.ConfigureAwait(Boolean)
-  fullName: System.Threading.Tasks.Task<TResult>.ConfigureAwait(Boolean)
+  fullName: Task<TResult>.ConfigureAwait(Boolean)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Configures an awaiter used to await this <xref href="System.Threading.Tasks.Task`1"></xref>.
   syntax:
@@ -863,7 +865,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -883,7 +886,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -902,9 +906,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0},System.Object},System.Object,System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   commentId: M:System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0},System.Object},System.Object,System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   id: ContinueWith(System.Action{System.Threading.Tasks.Task{`0},System.Object},System.Object,System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
@@ -913,12 +914,13 @@ items:
   - csharp
   name: ContinueWith(Action<Task<TResult>,Object>, Object, CancellationToken, TaskContinuationOptions, TaskScheduler)
   nameWithType: Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, CancellationToken, TaskContinuationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, CancellationToken, TaskContinuationOptions, TaskScheduler)
+  fullName: Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, CancellationToken, TaskContinuationOptions, TaskScheduler)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation that executes when the target <xref href="System.Threading.Tasks.Task`1"></xref> completes.
   remarks: The returned <xref:System.Threading.Tasks.Task> will not be scheduled for execution until the current task has  completed. If the criteria specified through the `continuationOptions` parameter  are not met, the continuation task will be canceled instead of scheduled.
@@ -956,7 +958,8 @@ items:
     description: The provided <xref href="System.Threading.CancellationToken"></xref> has already been disposed.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -976,7 +979,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -995,9 +999,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0}},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   commentId: M:System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0}},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   id: ContinueWith(System.Action{System.Threading.Tasks.Task{`0}},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
@@ -1006,12 +1007,13 @@ items:
   - csharp
   name: ContinueWith(Action<Task<TResult>>, CancellationToken, TaskContinuationOptions, TaskScheduler)
   nameWithType: Task<TResult>.ContinueWith(Action<Task<TResult>>, CancellationToken, TaskContinuationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith(Action<Task<TResult>>, CancellationToken, TaskContinuationOptions, TaskScheduler)
+  fullName: Task<TResult>.ContinueWith(Action<Task<TResult>>, CancellationToken, TaskContinuationOptions, TaskScheduler)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation that executes according the condition specified in <code>continuationOptions</code>.
   remarks: The returned <xref:System.Threading.Tasks.Task> will not be scheduled for execution until the current task has completed. If the criteria specified through the `continuationOptions` parameter are not met, the continuation task will be canceled instead of scheduled. For more information, see [Chaining Tasks by Using Continuation Tasks](~/docs/standard/parallel-programming/chaining-tasks-by-using-continuation-tasks.md).
@@ -1046,7 +1048,8 @@ items:
     description: The <code>continuationOptions</code> argument specifies an invalid value for <xref href="System.Threading.Tasks.TaskContinuationOptions"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1066,7 +1069,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1085,9 +1089,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0},System.Object},System.Object,System.Threading.Tasks.TaskScheduler)
   commentId: M:System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0},System.Object},System.Object,System.Threading.Tasks.TaskScheduler)
   id: ContinueWith(System.Action{System.Threading.Tasks.Task{`0},System.Object},System.Object,System.Threading.Tasks.TaskScheduler)
@@ -1096,12 +1097,13 @@ items:
   - csharp
   name: ContinueWith(Action<Task<TResult>,Object>, Object, TaskScheduler)
   nameWithType: Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, TaskScheduler)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, TaskScheduler)
+  fullName: Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, TaskScheduler)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation that executes when the target <xref href="System.Threading.Tasks.Task`1"></xref> completes.
   remarks: The returned <xref:System.Threading.Tasks.Task> will not be scheduled for execution until the current task has completed, whether it completes due to running to completion successfully, faulting due to an unhandled exception, or exiting out early due to being canceled.
@@ -1127,7 +1129,8 @@ items:
     description: The <code>scheduler</code> argument is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1147,7 +1150,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1166,9 +1170,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0},System.Object},System.Object,System.Threading.CancellationToken)
   commentId: M:System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0},System.Object},System.Object,System.Threading.CancellationToken)
   id: ContinueWith(System.Action{System.Threading.Tasks.Task{`0},System.Object},System.Object,System.Threading.CancellationToken)
@@ -1177,12 +1178,13 @@ items:
   - csharp
   name: ContinueWith(Action<Task<TResult>,Object>, Object, CancellationToken)
   nameWithType: Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, CancellationToken)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, CancellationToken)
+  fullName: Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, CancellationToken)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation that executes when the target <xref href="System.Threading.Tasks.Task`1"></xref> completes.
   remarks: The returned <xref:System.Threading.Tasks.Task> will not be scheduled for execution until the current task has  completed, whether it completes due to running to completion successfully, faulting due to an  unhandled exception, or exiting out early due to being canceled.
@@ -1211,7 +1213,8 @@ items:
     description: The provided <xref href="System.Threading.CancellationToken"></xref> has already been disposed.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1231,7 +1234,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1250,9 +1254,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0},System.Object},System.Object,System.Threading.Tasks.TaskContinuationOptions)
   commentId: M:System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0},System.Object},System.Object,System.Threading.Tasks.TaskContinuationOptions)
   id: ContinueWith(System.Action{System.Threading.Tasks.Task{`0},System.Object},System.Object,System.Threading.Tasks.TaskContinuationOptions)
@@ -1261,12 +1262,13 @@ items:
   - csharp
   name: ContinueWith(Action<Task<TResult>,Object>, Object, TaskContinuationOptions)
   nameWithType: Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, TaskContinuationOptions)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, TaskContinuationOptions)
+  fullName: Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, TaskContinuationOptions)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation that executes when the target <xref href="System.Threading.Tasks.Task`1"></xref> completes.
   remarks: The returned <xref:System.Threading.Tasks.Task> will not be scheduled for execution until the current task has completed. If the continuation criteria specified through the `continuationOptions` parameter are not met, the continuation task will be canceled instead of scheduled.
@@ -1295,7 +1297,8 @@ items:
     description: The <code>continuationOptions</code> argument specifies an invalid value for <xref href="System.Threading.Tasks.TaskContinuationOptions"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1315,7 +1318,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1334,9 +1338,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0}},System.Threading.Tasks.TaskContinuationOptions)
   commentId: M:System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0}},System.Threading.Tasks.TaskContinuationOptions)
   id: ContinueWith(System.Action{System.Threading.Tasks.Task{`0}},System.Threading.Tasks.TaskContinuationOptions)
@@ -1345,12 +1346,13 @@ items:
   - csharp
   name: ContinueWith(Action<Task<TResult>>, TaskContinuationOptions)
   nameWithType: Task<TResult>.ContinueWith(Action<Task<TResult>>, TaskContinuationOptions)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith(Action<Task<TResult>>, TaskContinuationOptions)
+  fullName: Task<TResult>.ContinueWith(Action<Task<TResult>>, TaskContinuationOptions)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation that executes according the condition specified in <code>continuationOptions</code>.
   remarks: "The returned <xref:System.Threading.Tasks.Task> will not be scheduled for execution until the current task has completed. If the continuation criteria specified through the `continuationOptions` parameter are not met, the continuation task will be canceled instead of scheduled.  \n  \n For more information, see [Chaining Tasks by Using Continuation Tasks](~/docs/standard/parallel-programming/chaining-tasks-by-using-continuation-tasks.md)."
@@ -1379,7 +1381,8 @@ items:
     description: The <code>continuationOptions</code> argument specifies an invalid value for <xref href="System.Threading.Tasks.TaskContinuationOptions"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1399,7 +1402,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1418,9 +1422,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0}},System.Threading.CancellationToken)
   commentId: M:System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0}},System.Threading.CancellationToken)
   id: ContinueWith(System.Action{System.Threading.Tasks.Task{`0}},System.Threading.CancellationToken)
@@ -1429,12 +1430,13 @@ items:
   - csharp
   name: ContinueWith(Action<Task<TResult>>, CancellationToken)
   nameWithType: Task<TResult>.ContinueWith(Action<Task<TResult>>, CancellationToken)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith(Action<Task<TResult>>, CancellationToken)
+  fullName: Task<TResult>.ContinueWith(Action<Task<TResult>>, CancellationToken)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a cancelable continuation that executes asynchronously when the target <xref href="System.Threading.Tasks.Task`1"></xref> completes.
   remarks: The returned <xref:System.Threading.Tasks.Task> will not be scheduled for execution until the current task has completed, whether it completes due to running to completion successfully, faulting due to an unhandled exception, or exiting out early due to being canceled.
@@ -1462,7 +1464,8 @@ items:
     description: The <code>continuationAction</code> argument is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1482,7 +1485,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1501,9 +1505,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0},System.Object},System.Object)
   commentId: M:System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0},System.Object},System.Object)
   id: ContinueWith(System.Action{System.Threading.Tasks.Task{`0},System.Object},System.Object)
@@ -1512,12 +1513,13 @@ items:
   - csharp
   name: ContinueWith(Action<Task<TResult>,Object>, Object)
   nameWithType: Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object)
+  fullName: Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation that that is passed state information and that executes when the target <xref href="System.Threading.Tasks.Task`1"></xref> completes.
   remarks: The returned <xref:System.Threading.Tasks.Task> will not be scheduled for execution until the current task has completed, whether it completes due to running to completion successfully, faulting due to an unhandled exception, or exiting out early due to being canceled.
@@ -1542,7 +1544,8 @@ items:
     description: The <code>continuationAction</code> argument is null.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1562,7 +1565,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1581,9 +1585,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0}})
   commentId: M:System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0}})
   id: ContinueWith(System.Action{System.Threading.Tasks.Task{`0}})
@@ -1592,12 +1593,13 @@ items:
   - csharp
   name: ContinueWith(Action<Task<TResult>>)
   nameWithType: Task<TResult>.ContinueWith(Action<Task<TResult>>)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith(Action<Task<TResult>>)
+  fullName: Task<TResult>.ContinueWith(Action<Task<TResult>>)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation that executes asynchronously when the target task completes.
   remarks: The returned <xref:System.Threading.Tasks.Task> will not be scheduled for execution until the current task has completed, whether it completes due to running to completion successfully, faulting due to an unhandled exception, or exiting early due to being canceled.
@@ -1622,7 +1624,8 @@ items:
     description: The <code>continuationAction</code> argument is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1642,7 +1645,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1661,9 +1665,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0}},System.Threading.Tasks.TaskScheduler)
   commentId: M:System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0}},System.Threading.Tasks.TaskScheduler)
   id: ContinueWith(System.Action{System.Threading.Tasks.Task{`0}},System.Threading.Tasks.TaskScheduler)
@@ -1672,12 +1673,13 @@ items:
   - csharp
   name: ContinueWith(Action<Task<TResult>>, TaskScheduler)
   nameWithType: Task<TResult>.ContinueWith(Action<Task<TResult>>, TaskScheduler)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith(Action<Task<TResult>>, TaskScheduler)
+  fullName: Task<TResult>.ContinueWith(Action<Task<TResult>>, TaskScheduler)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation that executes asynchronously when the target <xref href="System.Threading.Tasks.Task`1"></xref> completes.
   remarks: The returned <xref:System.Threading.Tasks.Task> will not be scheduled for execution until the current task has completed, whether it completes due to running to completion successfully, faulting due to an unhandled exception, or exiting out early due to being canceled.
@@ -1703,7 +1705,8 @@ items:
     description: "The <code>continuationAction</code> argument is null.  \n  \n -or-  \n  \n The <code>scheduler</code> argument is null."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1723,7 +1726,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1742,9 +1746,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},System.Object,``0},System.Object,System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   commentId: M:System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},System.Object,``0},System.Object,System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   id: ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},System.Object,``0},System.Object,System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
@@ -1753,12 +1754,13 @@ items:
   - csharp
   name: ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, CancellationToken, TaskContinuationOptions, TaskScheduler)
   nameWithType: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, CancellationToken, TaskContinuationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, CancellationToken, TaskContinuationOptions, TaskScheduler)
+  fullName: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, CancellationToken, TaskContinuationOptions, TaskScheduler)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation that executes when the target <xref href="System.Threading.Tasks.Task`1"></xref> completes.
   remarks: "The returned <xref:System.Threading.Tasks.Task%601> will not be scheduled for execution until the current task has  completed, whether it completes due to running to completion successfully, faulting due to an  unhandled exception, or exiting out early due to being canceled.  \n  \n The `continuationFunction`, when executed, should return a <xref:System.Threading.Tasks.Task%601>. This task's completion state will be transferred to the task returned from the <xref:System.Threading.Tasks.Task%601.ContinueWith%2A?displayProperty=fullName> call."
@@ -1780,6 +1782,9 @@ items:
     - id: scheduler
       type: System.Threading.Tasks.TaskScheduler
       description: The <xref href="System.Threading.Tasks.TaskScheduler"></xref> to associate with the continuation task and to use for its execution.
+    typeParameters:
+    - id: TNewResult
+      description: The type of the result produced by the continuation.
     return:
       type: System.Threading.Tasks.Task{TNewResult}
       description: A new continuation <xref href="System.Threading.Tasks.Task`1"></xref>.
@@ -1796,7 +1801,8 @@ items:
     description: The provided <xref href="System.Threading.CancellationToken"></xref> has already been disposed.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1816,7 +1822,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1835,9 +1842,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},``0},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   commentId: M:System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},``0},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   id: ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},``0},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
@@ -1846,12 +1850,13 @@ items:
   - csharp
   name: ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
   nameWithType: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
+  fullName: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation that executes according the condition specified in <code>continuationOptions</code>.
   remarks: "The returned <xref:System.Threading.Tasks.Task%601> will not be scheduled for execution until the current task has completed, whether it completes due to running to completion successfully, faulting due to an unhandled exception, or exiting out early due to being canceled.  \n  \n The `continuationFunction`, when executed, should return a <xref:System.Threading.Tasks.Task%601>."
@@ -1870,6 +1875,9 @@ items:
     - id: scheduler
       type: System.Threading.Tasks.TaskScheduler
       description: The <xref href="System.Threading.Tasks.TaskScheduler"></xref> to associate with the continuation task and to use for its execution.
+    typeParameters:
+    - id: TNewResult
+      description: The type of the result produced by the continuation.
     return:
       type: System.Threading.Tasks.Task{TNewResult}
       description: A new continuation <xref href="System.Threading.Tasks.Task`1"></xref>.
@@ -1886,7 +1894,8 @@ items:
     description: The <code>continuationOptions</code> argument specifies an invalid value for <xref href="System.Threading.Tasks.TaskContinuationOptions"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1906,7 +1915,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1925,9 +1935,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},System.Object,``0},System.Object,System.Threading.Tasks.TaskScheduler)
   commentId: M:System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},System.Object,``0},System.Object,System.Threading.Tasks.TaskScheduler)
   id: ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},System.Object,``0},System.Object,System.Threading.Tasks.TaskScheduler)
@@ -1936,12 +1943,13 @@ items:
   - csharp
   name: ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, TaskScheduler)
   nameWithType: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, TaskScheduler)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, TaskScheduler)
+  fullName: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, TaskScheduler)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation that executes when the target <xref href="System.Threading.Tasks.Task`1"></xref> completes.
   remarks: The returned <xref:System.Threading.Tasks.Task%601> will not be scheduled for execution until the current task has  completed, whether it completes due to running to completion successfully, faulting due to an  unhandled exception, or exiting out early due to being canceled.
@@ -1957,6 +1965,9 @@ items:
     - id: scheduler
       type: System.Threading.Tasks.TaskScheduler
       description: The <xref href="System.Threading.Tasks.TaskScheduler"></xref> to associate with the continuation task and to use for its execution.
+    typeParameters:
+    - id: TNewResult
+      description: The type of the result produced by the continuation.
     return:
       type: System.Threading.Tasks.Task{TNewResult}
       description: A new continuation <xref href="System.Threading.Tasks.Task`1"></xref>.
@@ -1967,7 +1978,8 @@ items:
     description: The <code>scheduler</code> argument is null.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1987,7 +1999,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2006,9 +2019,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},System.Object,``0},System.Object,System.Threading.Tasks.TaskContinuationOptions)
   commentId: M:System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},System.Object,``0},System.Object,System.Threading.Tasks.TaskContinuationOptions)
   id: ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},System.Object,``0},System.Object,System.Threading.Tasks.TaskContinuationOptions)
@@ -2017,12 +2027,13 @@ items:
   - csharp
   name: ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, TaskContinuationOptions)
   nameWithType: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, TaskContinuationOptions)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, TaskContinuationOptions)
+  fullName: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, TaskContinuationOptions)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation that executes when the target <xref href="System.Threading.Tasks.Task`1"></xref> completes.
   remarks: "The returned <xref:System.Threading.Tasks.Task%601> will not be scheduled for execution until the current  task has completed, whether it completes due to running to completion successfully, faulting due  to an unhandled exception, or exiting out early due to being canceled.  \n  \n The `continuationFunction`, when executed, should return a <xref:System.Threading.Tasks.Task%601>. This task's completion state will be transferred to the task returned from the ContinueWith call."
@@ -2038,6 +2049,9 @@ items:
     - id: continuationOptions
       type: System.Threading.Tasks.TaskContinuationOptions
       description: Options for when the continuation is scheduled and how it behaves. This includes criteria, such as <xref href="System.Threading.Tasks.TaskContinuationOptions.OnlyOnCanceled"></xref>, as well as execution options, such as <xref href="System.Threading.Tasks.TaskContinuationOptions.ExecuteSynchronously"></xref>.
+    typeParameters:
+    - id: TNewResult
+      description: The type of the result produced by the continuation.
     return:
       type: System.Threading.Tasks.Task{TNewResult}
       description: A new continuation <xref href="System.Threading.Tasks.Task`1"></xref>.
@@ -2051,7 +2065,8 @@ items:
     description: The <code>continuationOptions</code> argument specifies an invalid value for <xref href="System.Threading.Tasks.TaskContinuationOptions"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2071,7 +2086,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2090,9 +2106,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},System.Object,``0},System.Object,System.Threading.CancellationToken)
   commentId: M:System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},System.Object,``0},System.Object,System.Threading.CancellationToken)
   id: ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},System.Object,``0},System.Object,System.Threading.CancellationToken)
@@ -2101,12 +2114,13 @@ items:
   - csharp
   name: ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, CancellationToken)
   nameWithType: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, CancellationToken)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, CancellationToken)
+  fullName: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, CancellationToken)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation that executes when the target <xref href="System.Threading.Tasks.Task`1"></xref> completes.
   remarks: The returned <xref:System.Threading.Tasks.Task%601> will not be scheduled for execution until the current  task has completed, whether it completes due to running to completion successfully, faulting due  to an unhandled exception, or exiting out early due to being canceled.
@@ -2122,6 +2136,9 @@ items:
     - id: cancellationToken
       type: System.Threading.CancellationToken
       description: The <xref href="System.Threading.CancellationToken"></xref> that will be assigned to the new task.
+    typeParameters:
+    - id: TNewResult
+      description: The type of the result produced by the continuation.
     return:
       type: System.Threading.Tasks.Task{TNewResult}
       description: A new continuation <xref href="System.Threading.Tasks.Task`1"></xref>.
@@ -2135,7 +2152,8 @@ items:
     description: The provided <xref href="System.Threading.CancellationToken"></xref> has already been disposed.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2155,7 +2173,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2174,9 +2193,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},``0},System.Threading.Tasks.TaskContinuationOptions)
   commentId: M:System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},``0},System.Threading.Tasks.TaskContinuationOptions)
   id: ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},``0},System.Threading.Tasks.TaskContinuationOptions)
@@ -2185,12 +2201,13 @@ items:
   - csharp
   name: ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, TaskContinuationOptions)
   nameWithType: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, TaskContinuationOptions)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, TaskContinuationOptions)
+  fullName: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, TaskContinuationOptions)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation that executes according the condition specified in <code>continuationOptions</code>.
   remarks: "The returned <xref:System.Threading.Tasks.Task%601> will not be scheduled for execution until the current task has completed, whether it completes due to running to completion successfully, faulting due to an unhandled exception, or exiting out early due to being canceled.  \n  \n The `continuationFunction`, when executed, should return a <xref:System.Threading.Tasks.Task%601>.."
@@ -2203,6 +2220,9 @@ items:
     - id: continuationOptions
       type: System.Threading.Tasks.TaskContinuationOptions
       description: Options for when the continuation is scheduled and how it behaves. This includes criteria, such as <xref href="System.Threading.Tasks.TaskContinuationOptions.OnlyOnCanceled"></xref>, as well as execution options, such as <xref href="System.Threading.Tasks.TaskContinuationOptions.ExecuteSynchronously"></xref>.
+    typeParameters:
+    - id: TNewResult
+      description: The type of the result produced by the continuation.
     return:
       type: System.Threading.Tasks.Task{TNewResult}
       description: A new continuation <xref href="System.Threading.Tasks.Task`1"></xref>.
@@ -2219,7 +2239,8 @@ items:
     description: The <code>continuationOptions</code> argument specifies an invalid value for <xref href="System.Threading.Tasks.TaskContinuationOptions"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2239,7 +2260,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2258,9 +2280,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},``0},System.Threading.CancellationToken)
   commentId: M:System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},``0},System.Threading.CancellationToken)
   id: ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},``0},System.Threading.CancellationToken)
@@ -2269,12 +2288,13 @@ items:
   - csharp
   name: ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, CancellationToken)
   nameWithType: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, CancellationToken)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, CancellationToken)
+  fullName: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, CancellationToken)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation that executes asynchronously when the target <xref href="System.Threading.Tasks.Task`1"></xref> completes.
   remarks: The returned <xref:System.Threading.Tasks.Task%601> will not be scheduled for execution until the current task has completed, whether it completes due to running to completion successfully, faulting due to an unhandled exception, or exiting out early due to being canceled.
@@ -2287,6 +2307,9 @@ items:
     - id: cancellationToken
       type: System.Threading.CancellationToken
       description: The <xref href="System.Threading.CancellationToken"></xref> that will be assigned to the new task.
+    typeParameters:
+    - id: TNewResult
+      description: The type of the result produced by the continuation.
     return:
       type: System.Threading.Tasks.Task{TNewResult}
       description: A new continuation <xref href="System.Threading.Tasks.Task`1"></xref>.
@@ -2300,7 +2323,8 @@ items:
     description: The <code>continuationFunction</code> argument is null.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2320,7 +2344,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2339,9 +2364,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},System.Object,``0},System.Object)
   commentId: M:System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},System.Object,``0},System.Object)
   id: ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},System.Object,``0},System.Object)
@@ -2350,12 +2372,13 @@ items:
   - csharp
   name: ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object)
   nameWithType: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object)
+  fullName: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation that executes when the target <xref href="System.Threading.Tasks.Task`1"></xref> completes.
   remarks: The returned <xref:System.Threading.Tasks.Task%601> will not be scheduled for execution until the current  task has completed, whether it completes due to running to completion successfully, faulting due  to an unhandled exception, or exiting out early due to being canceled.
@@ -2370,6 +2393,9 @@ items:
     - id: state
       type: System.Object
       description: An object representing data to be used by the continuation function.
+    typeParameters:
+    - id: TNewResult
+      description: The type of the result produced by the continuation.
     return:
       type: System.Threading.Tasks.Task{TNewResult}
       description: A new continuation <xref href="System.Threading.Tasks.Task`1"></xref>.
@@ -2380,7 +2406,8 @@ items:
     description: The <code>continuationFunction</code> argument is null.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2400,7 +2427,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2419,9 +2447,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},``0})
   commentId: M:System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},``0})
   id: ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},``0})
@@ -2430,12 +2455,13 @@ items:
   - csharp
   name: ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>)
   nameWithType: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>)
+  fullName: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation that executes asynchronously when the target <xref href="System.Threading.Tasks.Task`1"></xref> completes.
   remarks: The returned <xref:System.Threading.Tasks.Task%601> will not be scheduled for execution until the current task has completed, whether it completes due to running to completion successfully, faulting due to an unhandled exception, or exiting out early due to being canceled.
@@ -2445,6 +2471,9 @@ items:
     - id: continuationFunction
       type: System.Func{System.Threading.Tasks.Task{TResult},TNewResult}
       description: A function to run when the <xref href="System.Threading.Tasks.Task`1"></xref> completes. When run, the delegate will be passed the completed task as an argument.
+    typeParameters:
+    - id: TNewResult
+      description: The type of the result produced by the continuation.
     return:
       type: System.Threading.Tasks.Task{TNewResult}
       description: A new continuation <xref href="System.Threading.Tasks.Task`1"></xref>.
@@ -2458,7 +2487,8 @@ items:
     description: The <code>continuationFunction</code> argument is null.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2478,7 +2508,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2497,9 +2528,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},``0},System.Threading.Tasks.TaskScheduler)
   commentId: M:System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},``0},System.Threading.Tasks.TaskScheduler)
   id: ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},``0},System.Threading.Tasks.TaskScheduler)
@@ -2508,12 +2536,13 @@ items:
   - csharp
   name: ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, TaskScheduler)
   nameWithType: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, TaskScheduler)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, TaskScheduler)
+  fullName: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, TaskScheduler)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation that executes asynchronously when the target <xref href="System.Threading.Tasks.Task`1"></xref> completes.
   remarks: The returned <xref:System.Threading.Tasks.Task%601> will not be scheduled for execution until the current task has completed, whether it completes due to running to completion successfully, faulting due to an unhandled exception, or exiting out early due to being canceled.
@@ -2526,6 +2555,9 @@ items:
     - id: scheduler
       type: System.Threading.Tasks.TaskScheduler
       description: The <xref href="System.Threading.Tasks.TaskScheduler"></xref> to associate with the continuation task and to use for its execution.
+    typeParameters:
+    - id: TNewResult
+      description: The type of the result produced by the continuation.
     return:
       type: System.Threading.Tasks.Task{TNewResult}
       description: A new continuation <xref href="System.Threading.Tasks.Task`1"></xref>.
@@ -2539,7 +2571,8 @@ items:
     description: "The <code>continuationFunction</code> argument is null.  \n  \n -or-  \n  \n The <code>scheduler</code> argument is null."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2559,7 +2592,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2578,9 +2612,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.Factory
   commentId: P:System.Threading.Tasks.Task`1.Factory
   id: Factory
@@ -2589,12 +2620,13 @@ items:
   - csharp
   name: Factory
   nameWithType: Task<TResult>.Factory
-  fullName: System.Threading.Tasks.Task<TResult>.Factory
+  fullName: Task<TResult>.Factory
   type: Property
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Provides access to factory methods for creating and configuring <xref href="System.Threading.Tasks.Task`1"></xref> instances.
   remarks: "This property returns a default instance of the <xref:System.Threading.Tasks.TaskFactory%601> class that is identical to the one created by calling the parameterless <xref:System.Threading.Tasks.TaskFactory%601.%23ctor?displayProperty=fullName> constructor. It has the following property values:  \n  \n|Property|Value|  \n|--------------|-----------|  \n|<xref:System.Threading.Tasks.TaskFactory%601.CancellationToken%2A?displayProperty=fullName>|<xref:System.Threading.CancellationToken.None%2A?displayProperty=fullName>|  \n|<xref:System.Threading.Tasks.TaskFactory%601.ContinuationOptions%2A?displayProperty=fullName>|<xref:System.Threading.Tasks.TaskContinuationOptions?displayProperty=fullName>|  \n|<xref:System.Threading.Tasks.TaskFactory%601.CreationOptions%2A?displayProperty=fullName>|<xref:System.Threading.Tasks.TaskCreationOptions?displayProperty=fullName>|  \n|<xref:System.Threading.Tasks.TaskFactory%601.Scheduler%2A?displayProperty=fullName>|`null`, or <xref:System.Threading.Tasks.TaskScheduler.Current%2A?displayProperty=fullName>|  \n  \n The most common use of this property is to create and start a new task in a single call to the <xref:System.Threading.Tasks.TaskFactory%601.StartNew%2A?displayProperty=fullName> method.  \n  \n> [!NOTE]\n>  Starting with the [!INCLUDE[net_v45](~/includes/net-v45-md.md)], the <xref:System.Threading.Tasks.Task.Run%2A?displayProperty=fullName> method provides the easiest way to create a <xref:System.Threading.Tasks.Task%601> object with default configuration values.  \n  \n The following example uses the static <xref:System.Threading.Tasks.Task%601.Factory%2A> property to make three calls to the <xref:System.Threading.Tasks.TaskFactory%601.StartNew%2A?displayProperty=fullName> method. The first starts a `Task<Int32>` object, which executes a lambda expression that returns 1. The second starts a `Task<Test>` object, which executes a lambda expression that instantiates a new `Test` instance. The third starts a `Task<String[]>` object, which enumerates the files in the C:\\Users\\Public\\Pictures\\Sample Pictures\\ directory. (Note that successful execution of the example requires that the directory exist and that it contain files.  \n  \n [!code-csharp[TPL#10](~/samples/snippets/csharp/VS_Snippets_Misc/tpl/cs/returnavalue10.cs#10)]\n [!code-vb[TPL#10](~/samples/snippets/visualbasic/VS_Snippets_Misc/tpl/vb/10_returnavalue.vb#10)]"
@@ -2607,7 +2639,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2627,7 +2660,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2646,9 +2680,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.GetAwaiter
   commentId: M:System.Threading.Tasks.Task`1.GetAwaiter
   id: GetAwaiter
@@ -2657,12 +2688,13 @@ items:
   - csharp
   name: GetAwaiter()
   nameWithType: Task<TResult>.GetAwaiter()
-  fullName: System.Threading.Tasks.Task<TResult>.GetAwaiter()
+  fullName: Task<TResult>.GetAwaiter()
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Gets an awaiter used to await this <xref href="System.Threading.Tasks.Task`1"></xref>.
   remarks: This method is intended for compiler user rather than use directly in code.
@@ -2676,7 +2708,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2696,7 +2729,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2715,9 +2749,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.Task`1.Result
   commentId: P:System.Threading.Tasks.Task`1.Result
   id: Result
@@ -2726,12 +2757,13 @@ items:
   - csharp
   name: Result
   nameWithType: Task<TResult>.Result
-  fullName: System.Threading.Tasks.Task<TResult>.Result
+  fullName: Task<TResult>.Result
   type: Property
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Gets the result value of this <xref href="System.Threading.Tasks.Task`1"></xref>.
   remarks: "Accessing the property's get accessor blocks the calling thread until the asynchronous operation is complete; it is equivalent to calling the <xref:System.Threading.Tasks.Task.Wait%2A> method.  \n  \n Once the result of an operation is available, it is stored and is returned immediately on subsequent calls to the <xref:System.Threading.Tasks.Task%601.Result%2A> property. Note that, if an exception occurred during the operation of the task, or if the task has been cancelled, the <xref:System.Threading.Tasks.Task%601.Result%2A> property does not return a value. Instead, attempting to access the property value throws an <xref:System.AggregateException> exception."
@@ -2750,7 +2782,8 @@ items:
   attributes: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2770,7 +2803,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2789,9 +2823,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/Task`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.Threading.Tasks.Task
   parent: System.Threading.Tasks
@@ -2828,7 +2859,7 @@ references:
   isExternal: false
   name: Task<TResult>(Func<TResult>)
   nameWithType: Task<TResult>.Task<TResult>(Func<TResult>)
-  fullName: System.Threading.Tasks.Task<TResult>.Task<TResult>(Func<TResult>)
+  fullName: Task<TResult>.Task<TResult>(Func<TResult>)
 - uid: System.Func`1
   parent: System
   isExternal: false
@@ -2840,7 +2871,7 @@ references:
   isExternal: false
   name: Task<TResult>(Func<Object,TResult>, Object)
   nameWithType: Task<TResult>.Task<TResult>(Func<Object,TResult>, Object)
-  fullName: System.Threading.Tasks.Task<TResult>.Task<TResult>(Func<Object,TResult>, Object)
+  fullName: Task<TResult>.Task<TResult>(Func<Object,TResult>, Object)
 - uid: System.Func`2
   name: Func<T,TResult>
   nameWithType: Func<T,TResult>
@@ -2886,7 +2917,7 @@ references:
   isExternal: false
   name: Task<TResult>(Func<TResult>, CancellationToken)
   nameWithType: Task<TResult>.Task<TResult>(Func<TResult>, CancellationToken)
-  fullName: System.Threading.Tasks.Task<TResult>.Task<TResult>(Func<TResult>, CancellationToken)
+  fullName: Task<TResult>.Task<TResult>(Func<TResult>, CancellationToken)
 - uid: System.Threading.CancellationToken
   parent: System.Threading
   isExternal: false
@@ -2898,7 +2929,7 @@ references:
   isExternal: false
   name: Task<TResult>(Func<TResult>, TaskCreationOptions)
   nameWithType: Task<TResult>.Task<TResult>(Func<TResult>, TaskCreationOptions)
-  fullName: System.Threading.Tasks.Task<TResult>.Task<TResult>(Func<TResult>, TaskCreationOptions)
+  fullName: Task<TResult>.Task<TResult>(Func<TResult>, TaskCreationOptions)
 - uid: System.Threading.Tasks.TaskCreationOptions
   parent: System.Threading.Tasks
   isExternal: false
@@ -2910,31 +2941,31 @@ references:
   isExternal: false
   name: Task<TResult>(Func<Object,TResult>, Object, CancellationToken)
   nameWithType: Task<TResult>.Task<TResult>(Func<Object,TResult>, Object, CancellationToken)
-  fullName: System.Threading.Tasks.Task<TResult>.Task<TResult>(Func<Object,TResult>, Object, CancellationToken)
+  fullName: Task<TResult>.Task<TResult>(Func<Object,TResult>, Object, CancellationToken)
 - uid: System.Threading.Tasks.Task`1.#ctor(System.Func{System.Object,`0},System.Object,System.Threading.Tasks.TaskCreationOptions)
   parent: System.Threading.Tasks.Task`1
   isExternal: false
   name: Task<TResult>(Func<Object,TResult>, Object, TaskCreationOptions)
   nameWithType: Task<TResult>.Task<TResult>(Func<Object,TResult>, Object, TaskCreationOptions)
-  fullName: System.Threading.Tasks.Task<TResult>.Task<TResult>(Func<Object,TResult>, Object, TaskCreationOptions)
+  fullName: Task<TResult>.Task<TResult>(Func<Object,TResult>, Object, TaskCreationOptions)
 - uid: System.Threading.Tasks.Task`1.#ctor(System.Func{`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskCreationOptions)
   parent: System.Threading.Tasks.Task`1
   isExternal: false
   name: Task<TResult>(Func<TResult>, CancellationToken, TaskCreationOptions)
   nameWithType: Task<TResult>.Task<TResult>(Func<TResult>, CancellationToken, TaskCreationOptions)
-  fullName: System.Threading.Tasks.Task<TResult>.Task<TResult>(Func<TResult>, CancellationToken, TaskCreationOptions)
+  fullName: Task<TResult>.Task<TResult>(Func<TResult>, CancellationToken, TaskCreationOptions)
 - uid: System.Threading.Tasks.Task`1.#ctor(System.Func{System.Object,`0},System.Object,System.Threading.CancellationToken,System.Threading.Tasks.TaskCreationOptions)
   parent: System.Threading.Tasks.Task`1
   isExternal: false
   name: Task<TResult>(Func<Object,TResult>, Object, CancellationToken, TaskCreationOptions)
   nameWithType: Task<TResult>.Task<TResult>(Func<Object,TResult>, Object, CancellationToken, TaskCreationOptions)
-  fullName: System.Threading.Tasks.Task<TResult>.Task<TResult>(Func<Object,TResult>, Object, CancellationToken, TaskCreationOptions)
+  fullName: Task<TResult>.Task<TResult>(Func<Object,TResult>, Object, CancellationToken, TaskCreationOptions)
 - uid: System.Threading.Tasks.Task`1.ConfigureAwait(System.Boolean)
   parent: System.Threading.Tasks.Task`1
   isExternal: false
   name: ConfigureAwait(Boolean)
   nameWithType: Task<TResult>.ConfigureAwait(Boolean)
-  fullName: System.Threading.Tasks.Task<TResult>.ConfigureAwait(Boolean)
+  fullName: Task<TResult>.ConfigureAwait(Boolean)
 - uid: System.Runtime.CompilerServices.ConfiguredTaskAwaitable`1
   parent: System.Runtime.CompilerServices
   isExternal: false
@@ -2952,7 +2983,7 @@ references:
   isExternal: false
   name: ContinueWith(Action<Task<TResult>,Object>, Object, CancellationToken, TaskContinuationOptions, TaskScheduler)
   nameWithType: Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, CancellationToken, TaskContinuationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, CancellationToken, TaskContinuationOptions, TaskScheduler)
+  fullName: Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, CancellationToken, TaskContinuationOptions, TaskScheduler)
 - uid: System.Action`2
   name: Action<T1,T2>
   nameWithType: Action<T1,T2>
@@ -3016,7 +3047,7 @@ references:
   isExternal: false
   name: ContinueWith(Action<Task<TResult>>, CancellationToken, TaskContinuationOptions, TaskScheduler)
   nameWithType: Task<TResult>.ContinueWith(Action<Task<TResult>>, CancellationToken, TaskContinuationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith(Action<Task<TResult>>, CancellationToken, TaskContinuationOptions, TaskScheduler)
+  fullName: Task<TResult>.ContinueWith(Action<Task<TResult>>, CancellationToken, TaskContinuationOptions, TaskScheduler)
 - uid: System.Action`1
   name: Action<T>
   nameWithType: Action<T>
@@ -3057,55 +3088,55 @@ references:
   isExternal: false
   name: ContinueWith(Action<Task<TResult>,Object>, Object, TaskScheduler)
   nameWithType: Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, TaskScheduler)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, TaskScheduler)
+  fullName: Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, TaskScheduler)
 - uid: System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0},System.Object},System.Object,System.Threading.CancellationToken)
   parent: System.Threading.Tasks.Task`1
   isExternal: false
   name: ContinueWith(Action<Task<TResult>,Object>, Object, CancellationToken)
   nameWithType: Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, CancellationToken)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, CancellationToken)
+  fullName: Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, CancellationToken)
 - uid: System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0},System.Object},System.Object,System.Threading.Tasks.TaskContinuationOptions)
   parent: System.Threading.Tasks.Task`1
   isExternal: false
   name: ContinueWith(Action<Task<TResult>,Object>, Object, TaskContinuationOptions)
   nameWithType: Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, TaskContinuationOptions)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, TaskContinuationOptions)
+  fullName: Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object, TaskContinuationOptions)
 - uid: System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0}},System.Threading.Tasks.TaskContinuationOptions)
   parent: System.Threading.Tasks.Task`1
   isExternal: false
   name: ContinueWith(Action<Task<TResult>>, TaskContinuationOptions)
   nameWithType: Task<TResult>.ContinueWith(Action<Task<TResult>>, TaskContinuationOptions)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith(Action<Task<TResult>>, TaskContinuationOptions)
+  fullName: Task<TResult>.ContinueWith(Action<Task<TResult>>, TaskContinuationOptions)
 - uid: System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0}},System.Threading.CancellationToken)
   parent: System.Threading.Tasks.Task`1
   isExternal: false
   name: ContinueWith(Action<Task<TResult>>, CancellationToken)
   nameWithType: Task<TResult>.ContinueWith(Action<Task<TResult>>, CancellationToken)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith(Action<Task<TResult>>, CancellationToken)
+  fullName: Task<TResult>.ContinueWith(Action<Task<TResult>>, CancellationToken)
 - uid: System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0},System.Object},System.Object)
   parent: System.Threading.Tasks.Task`1
   isExternal: false
   name: ContinueWith(Action<Task<TResult>,Object>, Object)
   nameWithType: Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object)
+  fullName: Task<TResult>.ContinueWith(Action<Task<TResult>,Object>, Object)
 - uid: System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0}})
   parent: System.Threading.Tasks.Task`1
   isExternal: false
   name: ContinueWith(Action<Task<TResult>>)
   nameWithType: Task<TResult>.ContinueWith(Action<Task<TResult>>)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith(Action<Task<TResult>>)
+  fullName: Task<TResult>.ContinueWith(Action<Task<TResult>>)
 - uid: System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0}},System.Threading.Tasks.TaskScheduler)
   parent: System.Threading.Tasks.Task`1
   isExternal: false
   name: ContinueWith(Action<Task<TResult>>, TaskScheduler)
   nameWithType: Task<TResult>.ContinueWith(Action<Task<TResult>>, TaskScheduler)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith(Action<Task<TResult>>, TaskScheduler)
+  fullName: Task<TResult>.ContinueWith(Action<Task<TResult>>, TaskScheduler)
 - uid: System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},System.Object,``0},System.Object,System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   parent: System.Threading.Tasks.Task`1
   isExternal: false
   name: ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, CancellationToken, TaskContinuationOptions, TaskScheduler)
   nameWithType: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, CancellationToken, TaskContinuationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, CancellationToken, TaskContinuationOptions, TaskScheduler)
+  fullName: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, CancellationToken, TaskContinuationOptions, TaskScheduler)
 - uid: TNewResult
   name: TNewResult
   nameWithType: TNewResult
@@ -3185,7 +3216,7 @@ references:
   isExternal: false
   name: ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
   nameWithType: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
+  fullName: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
 - uid: System.Func{System.Threading.Tasks.Task{TResult},TNewResult}
   parent: System
   isExternal: false
@@ -3229,55 +3260,55 @@ references:
   isExternal: false
   name: ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, TaskScheduler)
   nameWithType: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, TaskScheduler)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, TaskScheduler)
+  fullName: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, TaskScheduler)
 - uid: System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},System.Object,``0},System.Object,System.Threading.Tasks.TaskContinuationOptions)
   parent: System.Threading.Tasks.Task`1
   isExternal: false
   name: ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, TaskContinuationOptions)
   nameWithType: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, TaskContinuationOptions)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, TaskContinuationOptions)
+  fullName: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, TaskContinuationOptions)
 - uid: System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},System.Object,``0},System.Object,System.Threading.CancellationToken)
   parent: System.Threading.Tasks.Task`1
   isExternal: false
   name: ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, CancellationToken)
   nameWithType: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, CancellationToken)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, CancellationToken)
+  fullName: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object, CancellationToken)
 - uid: System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},``0},System.Threading.Tasks.TaskContinuationOptions)
   parent: System.Threading.Tasks.Task`1
   isExternal: false
   name: ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, TaskContinuationOptions)
   nameWithType: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, TaskContinuationOptions)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, TaskContinuationOptions)
+  fullName: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, TaskContinuationOptions)
 - uid: System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},``0},System.Threading.CancellationToken)
   parent: System.Threading.Tasks.Task`1
   isExternal: false
   name: ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, CancellationToken)
   nameWithType: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, CancellationToken)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, CancellationToken)
+  fullName: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, CancellationToken)
 - uid: System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},System.Object,``0},System.Object)
   parent: System.Threading.Tasks.Task`1
   isExternal: false
   name: ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object)
   nameWithType: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object)
+  fullName: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,Object,TNewResult>, Object)
 - uid: System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},``0})
   parent: System.Threading.Tasks.Task`1
   isExternal: false
   name: ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>)
   nameWithType: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>)
+  fullName: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>)
 - uid: System.Threading.Tasks.Task`1.ContinueWith``1(System.Func{System.Threading.Tasks.Task{`0},``0},System.Threading.Tasks.TaskScheduler)
   parent: System.Threading.Tasks.Task`1
   isExternal: false
   name: ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, TaskScheduler)
   nameWithType: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, TaskScheduler)
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, TaskScheduler)
+  fullName: Task<TResult>.ContinueWith<TNewResult>(Func<Task<TResult>,TNewResult>, TaskScheduler)
 - uid: System.Threading.Tasks.Task`1.Factory
   parent: System.Threading.Tasks.Task`1
   isExternal: false
   name: Factory
   nameWithType: Task<TResult>.Factory
-  fullName: System.Threading.Tasks.Task<TResult>.Factory
+  fullName: Task<TResult>.Factory
 - uid: System.Threading.Tasks.TaskFactory`1
   parent: System.Threading.Tasks
   isExternal: false
@@ -3289,7 +3320,7 @@ references:
   isExternal: false
   name: GetAwaiter()
   nameWithType: Task<TResult>.GetAwaiter()
-  fullName: System.Threading.Tasks.Task<TResult>.GetAwaiter()
+  fullName: Task<TResult>.GetAwaiter()
 - uid: System.Runtime.CompilerServices.TaskAwaiter`1
   parent: System.Runtime.CompilerServices
   isExternal: false
@@ -3301,16 +3332,17 @@ references:
   isExternal: false
   name: Result
   nameWithType: Task<TResult>.Result
-  fullName: System.Threading.Tasks.Task<TResult>.Result
+  fullName: Task<TResult>.Result
 - uid: System.Threading.Tasks.Task`1.#ctor*
   parent: System.Threading.Tasks.Task`1
   isExternal: false
   name: Task<TResult>
   nameWithType: Task<TResult>.Task<TResult>
-  fullName: System.Threading.Tasks.Task<TResult>.Task<TResult>
+  fullName: Task<TResult>.Task<TResult>
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3334,10 +3366,11 @@ references:
   isExternal: false
   name: ConfigureAwait
   nameWithType: Task<TResult>.ConfigureAwait
-  fullName: System.Threading.Tasks.Task<TResult>.ConfigureAwait
+  fullName: Task<TResult>.ConfigureAwait
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3361,10 +3394,11 @@ references:
   isExternal: false
   name: ContinueWith
   nameWithType: Task<TResult>.ContinueWith
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith
+  fullName: Task<TResult>.ContinueWith
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3388,10 +3422,11 @@ references:
   isExternal: false
   name: ContinueWith<TNewResult>
   nameWithType: Task<TResult>.ContinueWith<TNewResult>
-  fullName: System.Threading.Tasks.Task<TResult>.ContinueWith<TNewResult>
+  fullName: Task<TResult>.ContinueWith<TNewResult>
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3415,10 +3450,11 @@ references:
   isExternal: false
   name: Factory
   nameWithType: Task<TResult>.Factory
-  fullName: System.Threading.Tasks.Task<TResult>.Factory
+  fullName: Task<TResult>.Factory
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3442,10 +3478,11 @@ references:
   isExternal: false
   name: GetAwaiter
   nameWithType: Task<TResult>.GetAwaiter
-  fullName: System.Threading.Tasks.Task<TResult>.GetAwaiter
+  fullName: Task<TResult>.GetAwaiter
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3469,10 +3506,11 @@ references:
   isExternal: false
   name: Result
   nameWithType: Task<TResult>.Result
-  fullName: System.Threading.Tasks.Task<TResult>.Result
+  fullName: Task<TResult>.Result
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3496,28 +3534,28 @@ references:
   isExternal: false
   name: Unwrap(Task<Task>)
   nameWithType: TaskExtensions.Unwrap(Task<Task>)
-  fullName: System.Threading.Tasks.TaskExtensions.Unwrap(Task<Task>)
+  fullName: TaskExtensions.Unwrap(Task<Task>)
 - uid: System.Threading.Tasks.TaskExtensions.Unwrap``1(System.Threading.Tasks.Task{System.Threading.Tasks.Task{``0}})
   parent: System.Threading.Tasks.TaskExtensions
   isExternal: false
   name: Unwrap<TResult>(Task<Task<TResult>>)
   nameWithType: TaskExtensions.Unwrap<TResult>(Task<Task<TResult>>)
-  fullName: System.Threading.Tasks.TaskExtensions.Unwrap<TResult>(Task<Task<TResult>>)
+  fullName: TaskExtensions.Unwrap<TResult>(Task<Task<TResult>>)
 - uid: System.Windows.Threading.TaskExtensions.DispatcherOperationWait(System.Threading.Tasks.Task)
   parent: System.Windows.Threading.TaskExtensions
   isExternal: false
   name: DispatcherOperationWait(Task)
   nameWithType: TaskExtensions.DispatcherOperationWait(Task)
-  fullName: System.Windows.Threading.TaskExtensions.DispatcherOperationWait(Task)
+  fullName: TaskExtensions.DispatcherOperationWait(Task)
 - uid: System.Windows.Threading.TaskExtensions.DispatcherOperationWait(System.Threading.Tasks.Task,System.TimeSpan)
   parent: System.Windows.Threading.TaskExtensions
   isExternal: false
   name: DispatcherOperationWait(Task, TimeSpan)
   nameWithType: TaskExtensions.DispatcherOperationWait(Task, TimeSpan)
-  fullName: System.Windows.Threading.TaskExtensions.DispatcherOperationWait(Task, TimeSpan)
+  fullName: TaskExtensions.DispatcherOperationWait(Task, TimeSpan)
 - uid: System.Windows.Threading.TaskExtensions.IsDispatcherOperationTask(System.Threading.Tasks.Task)
   parent: System.Windows.Threading.TaskExtensions
   isExternal: false
   name: IsDispatcherOperationTask(Task)
   nameWithType: TaskExtensions.IsDispatcherOperationTask(Task)
-  fullName: System.Windows.Threading.TaskExtensions.IsDispatcherOperationTask(Task)
+  fullName: TaskExtensions.IsDispatcherOperationTask(Task)

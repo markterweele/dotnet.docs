@@ -20,6 +20,8 @@ items:
   - "```csharp  \n  \npublic class QueryStringDispatcherBehavior : IDispatchOperationSelector  \n{  \n//Define the mapping from the Actions of the message to the operations.  \nNameValueCollection actionMap; { … }  \n  \n//Implement the SelectOperation method.  \npublic string SelectOperation( ref Message message )  \n        {  \n            Uri uri = new Uri(message.Headers.Action);  \n            string query = uri.Query;  \n  \n            string methodName = actionMap[message.Headers.Action.ToString()];  \n  \n            return methodName;  \n        }  \n}  \n```"
   syntax:
     content: public interface IDispatchOperationSelector
+  derivedClasses:
+  - System.ServiceModel.Dispatcher.WebHttpDispatchOperationSelector
   implements: []
   version:
   - netframework-4.5.1
@@ -38,9 +40,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Dispatcher/IDispatchOperationSelector.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.Dispatcher.IDispatchOperationSelector.SelectOperation(System.ServiceModel.Channels.Message@)
   commentId: M:System.ServiceModel.Dispatcher.IDispatchOperationSelector.SelectOperation(System.ServiceModel.Channels.Message@)
   id: SelectOperation(System.ServiceModel.Channels.Message@)
@@ -49,7 +48,7 @@ items:
   - csharp
   name: SelectOperation(Message)
   nameWithType: IDispatchOperationSelector.SelectOperation(Message)
-  fullName: System.ServiceModel.Dispatcher.IDispatchOperationSelector.SelectOperation(Message)
+  fullName: IDispatchOperationSelector.SelectOperation(Message)
   type: Method
   assemblies:
   - System.ServiceModel
@@ -83,16 +82,13 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel.Dispatcher/IDispatchOperationSelector.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 references:
 - uid: System.ServiceModel.Dispatcher.IDispatchOperationSelector.SelectOperation(System.ServiceModel.Channels.Message@)
   parent: System.ServiceModel.Dispatcher.IDispatchOperationSelector
   isExternal: false
   name: SelectOperation(Message)
   nameWithType: IDispatchOperationSelector.SelectOperation(Message)
-  fullName: System.ServiceModel.Dispatcher.IDispatchOperationSelector.SelectOperation(Message)
+  fullName: IDispatchOperationSelector.SelectOperation(Message)
 - uid: System.String
   parent: System
   isExternal: false
@@ -110,7 +106,7 @@ references:
   isExternal: false
   name: SelectOperation
   nameWithType: IDispatchOperationSelector.SelectOperation
-  fullName: System.ServiceModel.Dispatcher.IDispatchOperationSelector.SelectOperation
+  fullName: IDispatchOperationSelector.SelectOperation
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

@@ -18,6 +18,7 @@ items:
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.InteropServices
   namespace: System.Runtime.InteropServices
   summary: Wraps a managed object holding a handle to a resource that is passed to unmanaged code using platform invoke.
   remarks: "> [!IMPORTANT]\n>  Starting with the .NET Framework 2.0, the functionality of the <xref:System.Runtime.InteropServices.HandleRef> class has been replaced by the <xref:System.Runtime.InteropServices.SafeHandle> class and its derived classes, as well as by the <xref:System.Runtime.InteropServices.CriticalHandle> class.  \n  \n If you use platform invoke to call a managed object, and the object is not referenced elsewhere after the platform invoke call, it is possible for the garbage collector to finalize the managed object. This action releases the resource and invalidates the handle, causing the platform invoke call to fail. Wrapping a handle with <xref:System.Runtime.InteropServices.HandleRef> guarantees that the managed object is not garbage collected until the platform invoke call completes. For a description of platform invoke services, see [Consuming Unmanaged DLL Functions](~/docs/framework/interop/consuming-unmanaged-dll-functions.md).  \n  \n The <xref:System.Runtime.InteropServices.HandleRef> value type, like <xref:System.Runtime.InteropServices.GCHandle>, is a special type recognized by the interop marshaler. A normal, nonpinned <xref:System.Runtime.InteropServices.GCHandle> also prevents untimely garbage collection, yet <xref:System.Runtime.InteropServices.HandleRef> provides better performance. Although using <xref:System.Runtime.InteropServices.HandleRef> to keep an object alive for the duration of a platform invoke call is preferred, you can also use the <xref:System.GC.KeepAlive%2A?displayProperty=fullName> method for the same purpose.  \n  \n The <xref:System.Runtime.InteropServices.HandleRef> constructor takes two parameters: an <xref:System.Object> representing the wrapper, and an <xref:System.IntPtr> representing the unmanaged handle. The interop marshaler passes only the handle to unmanaged code, and guarantees that the wrapper (passed as the first parameter to the constructor of the `HandleRef`) remains alive for the duration of the call."
@@ -33,6 +34,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -45,6 +47,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -57,9 +60,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/HandleRef.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.HandleRef.#ctor(System.Object,System.IntPtr)
   commentId: M:System.Runtime.InteropServices.HandleRef.#ctor(System.Object,System.IntPtr)
   id: '#ctor(System.Object,System.IntPtr)'
@@ -68,11 +68,12 @@ items:
   - csharp
   name: HandleRef(Object, IntPtr)
   nameWithType: HandleRef.HandleRef(Object, IntPtr)
-  fullName: System.Runtime.InteropServices.HandleRef.HandleRef(Object, IntPtr)
+  fullName: HandleRef.HandleRef(Object, IntPtr)
   type: Constructor
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.InteropServices
   namespace: System.Runtime.InteropServices
   summary: Initializes a new instance of the <xref href="System.Runtime.InteropServices.HandleRef"></xref> class with the object to wrap and a handle to the resource used by unmanaged code.
   syntax:
@@ -87,6 +88,7 @@ items:
   overload: System.Runtime.InteropServices.HandleRef.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -99,6 +101,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -111,9 +114,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/HandleRef.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.HandleRef.Handle
   commentId: P:System.Runtime.InteropServices.HandleRef.Handle
   id: Handle
@@ -122,11 +122,12 @@ items:
   - csharp
   name: Handle
   nameWithType: HandleRef.Handle
-  fullName: System.Runtime.InteropServices.HandleRef.Handle
+  fullName: HandleRef.Handle
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.InteropServices
   namespace: System.Runtime.InteropServices
   summary: Gets the handle to a resource.
   syntax:
@@ -137,6 +138,7 @@ items:
   overload: System.Runtime.InteropServices.HandleRef.Handle*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -149,6 +151,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -161,9 +164,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/HandleRef.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.HandleRef.op_Explicit(System.Runtime.InteropServices.HandleRef to System.IntPtr)
   commentId: M:System.Runtime.InteropServices.HandleRef.op_Explicit(System.Runtime.InteropServices.HandleRef)~System.IntPtr
   id: op_Explicit(System.Runtime.InteropServices.HandleRef to System.IntPtr)
@@ -172,11 +172,12 @@ items:
   - csharp
   name: op_Explicit(HandleRef to IntPtr)
   nameWithType: HandleRef.op_Explicit(HandleRef to IntPtr)
-  fullName: System.Runtime.InteropServices.HandleRef.op_Explicit(HandleRef to IntPtr)
+  fullName: HandleRef.op_Explicit(HandleRef to IntPtr)
   type: Operator
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.InteropServices
   namespace: System.Runtime.InteropServices
   syntax:
     content: public static IntPtr op_Explicit (System.Runtime.InteropServices.HandleRef value);
@@ -190,6 +191,7 @@ items:
   overload: System.Runtime.InteropServices.HandleRef.op_Explicit*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -202,6 +204,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -222,11 +225,12 @@ items:
   - csharp
   name: ToIntPtr(HandleRef)
   nameWithType: HandleRef.ToIntPtr(HandleRef)
-  fullName: System.Runtime.InteropServices.HandleRef.ToIntPtr(HandleRef)
+  fullName: HandleRef.ToIntPtr(HandleRef)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.InteropServices
   namespace: System.Runtime.InteropServices
   summary: Returns the internal integer representation of a <xref href="System.Runtime.InteropServices.HandleRef"></xref> object.
   syntax:
@@ -241,6 +245,7 @@ items:
   overload: System.Runtime.InteropServices.HandleRef.ToIntPtr*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -253,6 +258,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -265,9 +271,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/HandleRef.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.HandleRef.Wrapper
   commentId: P:System.Runtime.InteropServices.HandleRef.Wrapper
   id: Wrapper
@@ -276,11 +279,12 @@ items:
   - csharp
   name: Wrapper
   nameWithType: HandleRef.Wrapper
-  fullName: System.Runtime.InteropServices.HandleRef.Wrapper
+  fullName: HandleRef.Wrapper
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.InteropServices
   namespace: System.Runtime.InteropServices
   summary: Gets the object holding the handle to a resource.
   syntax:
@@ -291,6 +295,7 @@ items:
   overload: System.Runtime.InteropServices.HandleRef.Wrapper*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -303,6 +308,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -315,9 +321,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/HandleRef.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.ValueType
   parent: System
@@ -330,7 +333,7 @@ references:
   isExternal: false
   name: HandleRef(Object, IntPtr)
   nameWithType: HandleRef.HandleRef(Object, IntPtr)
-  fullName: System.Runtime.InteropServices.HandleRef.HandleRef(Object, IntPtr)
+  fullName: HandleRef.HandleRef(Object, IntPtr)
 - uid: System.Object
   parent: System
   isExternal: false
@@ -348,13 +351,13 @@ references:
   isExternal: false
   name: Handle
   nameWithType: HandleRef.Handle
-  fullName: System.Runtime.InteropServices.HandleRef.Handle
+  fullName: HandleRef.Handle
 - uid: System.Runtime.InteropServices.HandleRef.op_Explicit(System.Runtime.InteropServices.HandleRef to System.IntPtr)
   parent: System.Runtime.InteropServices.HandleRef
   isExternal: false
   name: op_Explicit(HandleRef to IntPtr)
   nameWithType: HandleRef.op_Explicit(HandleRef to IntPtr)
-  fullName: System.Runtime.InteropServices.HandleRef.op_Explicit(HandleRef to IntPtr)
+  fullName: HandleRef.op_Explicit(HandleRef to IntPtr)
 - uid: System.Runtime.InteropServices.HandleRef
   parent: System.Runtime.InteropServices
   isExternal: false
@@ -366,20 +369,21 @@ references:
   isExternal: false
   name: ToIntPtr(HandleRef)
   nameWithType: HandleRef.ToIntPtr(HandleRef)
-  fullName: System.Runtime.InteropServices.HandleRef.ToIntPtr(HandleRef)
+  fullName: HandleRef.ToIntPtr(HandleRef)
 - uid: System.Runtime.InteropServices.HandleRef.Wrapper
   parent: System.Runtime.InteropServices.HandleRef
   isExternal: false
   name: Wrapper
   nameWithType: HandleRef.Wrapper
-  fullName: System.Runtime.InteropServices.HandleRef.Wrapper
+  fullName: HandleRef.Wrapper
 - uid: System.Runtime.InteropServices.HandleRef.#ctor*
   parent: System.Runtime.InteropServices.HandleRef
   isExternal: false
   name: HandleRef
   nameWithType: HandleRef.HandleRef
-  fullName: System.Runtime.InteropServices.HandleRef.HandleRef
+  fullName: HandleRef.HandleRef
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -397,8 +401,9 @@ references:
   isExternal: false
   name: Handle
   nameWithType: HandleRef.Handle
-  fullName: System.Runtime.InteropServices.HandleRef.Handle
+  fullName: HandleRef.Handle
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -416,8 +421,9 @@ references:
   isExternal: false
   name: op_Explicit
   nameWithType: HandleRef.op_Explicit
-  fullName: System.Runtime.InteropServices.HandleRef.op_Explicit
+  fullName: HandleRef.op_Explicit
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -435,8 +441,9 @@ references:
   isExternal: false
   name: ToIntPtr
   nameWithType: HandleRef.ToIntPtr
-  fullName: System.Runtime.InteropServices.HandleRef.ToIntPtr
+  fullName: HandleRef.ToIntPtr
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -454,8 +461,9 @@ references:
   isExternal: false
   name: Wrapper
   nameWithType: HandleRef.Wrapper
-  fullName: System.Runtime.InteropServices.HandleRef.Wrapper
+  fullName: HandleRef.Wrapper
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

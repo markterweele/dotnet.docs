@@ -51,8 +51,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Speech.Recognition/RecognizerUpdateReachedEventArgs.xml
-  ms.author: kbridge
-  manager: ghogen
 - uid: System.Speech.Recognition.RecognizerUpdateReachedEventArgs.AudioPosition
   commentId: P:System.Speech.Recognition.RecognizerUpdateReachedEventArgs.AudioPosition
   id: AudioPosition
@@ -61,7 +59,7 @@ items:
   - csharp
   name: AudioPosition
   nameWithType: RecognizerUpdateReachedEventArgs.AudioPosition
-  fullName: System.Speech.Recognition.RecognizerUpdateReachedEventArgs.AudioPosition
+  fullName: RecognizerUpdateReachedEventArgs.AudioPosition
   type: Property
   assemblies:
   - System.Speech
@@ -92,8 +90,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Speech.Recognition/RecognizerUpdateReachedEventArgs.xml
-  ms.author: kbridge
-  manager: ghogen
 - uid: System.Speech.Recognition.RecognizerUpdateReachedEventArgs.UserToken
   commentId: P:System.Speech.Recognition.RecognizerUpdateReachedEventArgs.UserToken
   id: UserToken
@@ -102,12 +98,12 @@ items:
   - csharp
   name: UserToken
   nameWithType: RecognizerUpdateReachedEventArgs.UserToken
-  fullName: System.Speech.Recognition.RecognizerUpdateReachedEventArgs.UserToken
+  fullName: RecognizerUpdateReachedEventArgs.UserToken
   type: Property
   assemblies:
   - System.Speech
   namespace: System.Speech.Recognition
-  summary: Gets the <code>UserToken</code> passed to the system when an application calls <xref href="erload:System.Speech.Recognition.SpeechRecognitionEngine.RequestRecognizerUpdate"></xref> or <xref href="erload:System.Speech.Recognition.SpeechRecognizer.RequestRecognizerUpdate"></xref>.
+  summary: Gets the <code>UserToken</code> passed to the system when an application calls <xref href="System.Speech.Recognition.SpeechRecognitionEngine.RequestRecognizerUpdate*"></xref> or <xref href="System.Speech.Recognition.SpeechRecognizer.RequestRecognizerUpdate*"></xref>.
   remarks: An application specifies a `UserToken` when it requests the generation of a `RecognizerUpdateReached` event by calling one of the <xref:System.Speech.Recognition.SpeechRecognitionEngine.RequestRecognizerUpdate%2A?displayProperty=fullName> or <xref:System.Speech.Recognition.SpeechRecognizer.RequestRecognizerUpdate%2A?displayProperty=fullName> methods that take a `userToken` parameter.
   example:
   - "The following example shows a console application that loads and unloads <xref:System.Speech.Recognition.Grammar> objects. The application uses the <xref:System.Speech.Recognition.SpeechRecognitionEngine.RequestRecognizerUpdate%2A> method to request the speech recognition engine to pause so it can receive an update. The method passes in a <xref:System.String> object for the `userToken` parameter that describes what the application will recognize after the update. The application then loads or unloads a <xref:System.Speech.Recognition.Grammar> object.  \n  \n At each update, a handler for <xref:System.Speech.Recognition.SpeechRecognitionEngine.RecognizerUpdateReached?displayProperty=fullName> event writes the contents of `userToken` to the console. As grammars are loaded and unloaded, the application first recognizes the names of farm animals, then the names of farm animals and the names of fruits, then only the names of fruits.  \n  \n```  \nusing System;  \nusing System.Speech.Recognition;  \nusing System.Collections.Generic;  \nusing System.Threading;  \n  \nnamespace SampleRecognition  \n{  \n  class Program  \n  {  \n    private static SpeechRecognitionEngine recognizer;  \n    public static void Main(string[] args)  \n    {  \n  \n      // Initialize an in-process speech recognition engine and configure its input.  \n      using (recognizer = new SpeechRecognitionEngine(  \n        new System.Globalization.CultureInfo(\"en-US\")))  \n      {  \n        recognizer.SetInputToDefaultAudioDevice();  \n  \n        // Create the first grammar - Farm.  \n        Choices animals = new Choices(new string[] { \"cow\", \"pig\", \"goat\" });  \n        GrammarBuilder farm = new GrammarBuilder(animals);  \n        Grammar farmAnimals = new Grammar(farm);  \n        farmAnimals.Name = \"Farm\";  \n  \n        // Create the second grammar - Fruit.  \n        Choices fruit = new Choices(new string[] { \"apples\", \"peaches\", \"oranges\" });  \n        GrammarBuilder favorite = new GrammarBuilder(fruit);  \n        Grammar favoriteFruit = new Grammar(favorite);  \n        favoriteFruit.Name = \"Fruit\";  \n  \n        // Attach event handlers.  \n        recognizer.SpeechRecognized +=  \n          new EventHandler<SpeechRecognizedEventArgs>(recognizer_SpeechRecognized);  \n        recognizer.RecognizerUpdateReached +=  \n          new EventHandler<RecognizerUpdateReachedEventArgs>(recognizer_RecognizerUpdateReached);  \n        recognizer.SpeechRecognitionRejected +=  \n          new EventHandler<SpeechRecognitionRejectedEventArgs>(recognizer_SpeechRecognitionRejected);  \n  \n        // Load the farmAnimals grammar  \n        recognizer.LoadGrammar(farmAnimals);  \n  \n        // Start continuous, asynchronous recognition.  \n        recognizer.RecognizeAsync(RecognizeMode.Multiple);  \n        Console.WriteLine(\"Starting asynchronous recognition...\");  \n        Console.WriteLine(\"  Farm animals will now be recognized.\");  \n        Thread.Sleep(7000);  \n        Console.WriteLine();  \n  \n        // Load the Fruit grammar.  \n        string activeGrammars = \"Farm animals and fruits will now be recognized.\";  \n        recognizer.RequestRecognizerUpdate(activeGrammars);  \n        recognizer.LoadGrammarAsync(favoriteFruit);  \n        Console.WriteLine();  \n        Thread.Sleep(7000);  \n        Console.WriteLine();  \n  \n        // Unload the Farm grammar.  \n        string onlyFruit = \"Only fruits will now be recognized.\";  \n        recognizer.RequestRecognizerUpdate(onlyFruit);  \n        recognizer.UnloadGrammar(farmAnimals);  \n        Thread.Sleep(7000);  \n      }  \n  \n      // Keep the console window open.  \n      Console.WriteLine();  \n      Console.WriteLine(\"Press any key to exit...\");  \n      Console.ReadKey();  \n    }  \n  \n    // At the update, describe what the application will recognize next.  \n    public static void recognizer_RecognizerUpdateReached(object sender, RecognizerUpdateReachedEventArgs e)  \n    {  \n      Console.WriteLine(\"  Update reached: \" + e.UserToken);  \n    }  \n  \n    // Write the text of the recognized phrase to the console.  \n    static void recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)  \n    {  \n      Console.WriteLine(\"    Speech recognized: \" + e.Result.Text);  \n    }  \n  \n    // Write a message to the console when recognition fails.  \n    static void recognizer_SpeechRecognitionRejected(object sender, SpeechRecognitionRejectedEventArgs e)  \n    {  \n      Console.WriteLine(\"    Recognition attempt failed\");  \n    }  \n  }  \n}  \n  \n```"
@@ -135,8 +131,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Speech.Recognition/RecognizerUpdateReachedEventArgs.xml
-  ms.author: kbridge
-  manager: ghogen
 references:
 - uid: System.EventArgs
   parent: System
@@ -149,7 +143,7 @@ references:
   isExternal: false
   name: AudioPosition
   nameWithType: RecognizerUpdateReachedEventArgs.AudioPosition
-  fullName: System.Speech.Recognition.RecognizerUpdateReachedEventArgs.AudioPosition
+  fullName: RecognizerUpdateReachedEventArgs.AudioPosition
 - uid: System.TimeSpan
   parent: System
   isExternal: false
@@ -161,7 +155,7 @@ references:
   isExternal: false
   name: UserToken
   nameWithType: RecognizerUpdateReachedEventArgs.UserToken
-  fullName: System.Speech.Recognition.RecognizerUpdateReachedEventArgs.UserToken
+  fullName: RecognizerUpdateReachedEventArgs.UserToken
 - uid: System.Object
   parent: System
   isExternal: false
@@ -173,7 +167,7 @@ references:
   isExternal: false
   name: AudioPosition
   nameWithType: RecognizerUpdateReachedEventArgs.AudioPosition
-  fullName: System.Speech.Recognition.RecognizerUpdateReachedEventArgs.AudioPosition
+  fullName: RecognizerUpdateReachedEventArgs.AudioPosition
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -188,7 +182,7 @@ references:
   isExternal: false
   name: UserToken
   nameWithType: RecognizerUpdateReachedEventArgs.UserToken
-  fullName: System.Speech.Recognition.RecognizerUpdateReachedEventArgs.UserToken
+  fullName: RecognizerUpdateReachedEventArgs.UserToken
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

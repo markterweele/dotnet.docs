@@ -18,6 +18,7 @@ items:
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.Security
   summary: Defines methods implemented by permission types.
   remarks: "Permissions in the common language runtime are objects that describe sets of operations that can be secured for specified resources. A permission object describes operations or access that is subject to security control; it does not represent access or a right to perform operations. Permissions are used by both application code and the .NET Framework security system in the following ways.  \n  \n-   Code requests the permissions it needs in order to run.  \n  \n-   The security system policy grants permissions to code in order for it to run.  \n  \n-   Code demands that calling code has a permission.  \n  \n-   Code overrides the security stack using assert/deny/permit-only.  \n  \n> [!NOTE]\n>  If you write a new permission, you must implement this interface in your class.  \n  \n> [!IMPORTANT]\n>  A permission can be accessed by multiple threads. When implementing this interface, you must guarantee that the <xref:System.Security.IPermission.IsSubsetOf%2A>, <xref:System.Security.IPermission.Intersect%2A>, <xref:System.Security.IPermission.Union%2A>, and <xref:System.Security.IPermission.Copy%2A> method implementations are thread safe."
@@ -37,6 +38,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -49,6 +51,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -61,9 +64,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security/IPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.IPermission.Copy
   commentId: M:System.Security.IPermission.Copy
   id: Copy
@@ -72,11 +72,12 @@ items:
   - csharp
   name: Copy()
   nameWithType: IPermission.Copy()
-  fullName: System.Security.IPermission.Copy()
+  fullName: IPermission.Copy()
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.Security
   summary: Creates and returns an identical copy of the current permission.
   remarks: A copy of a permission represents the same access to resources as the original permission.
@@ -91,6 +92,7 @@ items:
   overload: System.Security.IPermission.Copy*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -103,6 +105,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -115,9 +118,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security/IPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.IPermission.Demand
   commentId: M:System.Security.IPermission.Demand
   id: Demand
@@ -126,11 +126,12 @@ items:
   - csharp
   name: Demand()
   nameWithType: IPermission.Demand()
-  fullName: System.Security.IPermission.Demand()
+  fullName: IPermission.Demand()
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.Security
   summary: Throws a <xref href="System.Security.SecurityException"></xref> at run time if the security requirement is not met.
   remarks: "This method is typically used by secure libraries to ensure that callers have permission to access a resource. For example, a file class in a secure class library calls <xref:System.Security.CodeAccessPermission.Demand%2A> for the necessary <xref:System.Security.Permissions.FileIOPermission> before performing a file operation requested by the caller.  \n  \n Although the majority of the classes that implement this interface method satisfy the security criteria by performing a full stack walk, a stack walk is not necessarily performed. An example of an implementation that does not perform a stack walk is <xref:System.Security.Permissions.PrincipalPermission.Demand%2A?displayProperty=fullName>.  \n  \n When a stack walk is performed, the permissions of the code that calls this method are not examined; the check begins from the immediate caller of that code and proceeds up the stack. The call stack is typically represented as growing down, so that methods higher in the call stack call methods lower in the call stack. <xref:System.Security.CodeAccessPermission.Demand%2A> succeeds only if no <xref:System.Security.SecurityException> is raised."
@@ -140,6 +141,7 @@ items:
   overload: System.Security.IPermission.Demand*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -152,6 +154,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -164,9 +167,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security/IPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.IPermission.Intersect(System.Security.IPermission)
   commentId: M:System.Security.IPermission.Intersect(System.Security.IPermission)
   id: Intersect(System.Security.IPermission)
@@ -175,11 +175,12 @@ items:
   - csharp
   name: Intersect(IPermission)
   nameWithType: IPermission.Intersect(IPermission)
-  fullName: System.Security.IPermission.Intersect(IPermission)
+  fullName: IPermission.Intersect(IPermission)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.Security
   summary: Creates and returns a permission that is the intersection of the current permission and the specified permission.
   remarks: "The intersection of two permissions is a permission that describes the set of operations they both describe in common. Only a demand that passes both original permissions will pass the intersection.  \n  \n The following statements are required to be true for all implementations of the <xref:System.Security.IPermission.Intersect%2A> method. `X` and `Y` represent <xref:System.Security.IPermission> object references that are not `null`.  \n  \n-   `X`.Intersect(`X`) returns a value equal to `X`.  \n  \n-   `X`.Intersect(`Y`) returns the same value as `Y`.Intersect(`X`).  \n  \n-   `X`.Intersect(`null`) returns `null`."
@@ -200,6 +201,7 @@ items:
     commentId: T:System.ArgumentException
     description: The <code>target</code> parameter is not `null` and is not an instance of the same class as the current permission.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -212,6 +214,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -224,9 +227,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security/IPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.IPermission.IsSubsetOf(System.Security.IPermission)
   commentId: M:System.Security.IPermission.IsSubsetOf(System.Security.IPermission)
   id: IsSubsetOf(System.Security.IPermission)
@@ -235,14 +235,15 @@ items:
   - csharp
   name: IsSubsetOf(IPermission)
   nameWithType: IPermission.IsSubsetOf(IPermission)
-  fullName: System.Security.IPermission.IsSubsetOf(IPermission)
+  fullName: IPermission.IsSubsetOf(IPermission)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.Security
   summary: Determines whether the current permission is a subset of the specified permission.
-  remarks: "The current permission is a subset of the specified permission if the current permission specifies a set of operations that is wholly contained by the specified permission. For example, a permission that represents access to C:\\example.txt is a subset of a permission that represents access to C:\\\\. If this method returns `true`, the current permission represents no more access to the protected resource than does the specified permission.  \n  \n The following statements are required to be true for all implementations of the <xref:System.Security.IPermission.IsSubsetOf%2A> method. `X`, `Y`, and `Z` represent <xref:System.Security.IPermission> objects that are not `null`.  \n  \n-   `X`.IsSubsetOf(`X`) returns `true`.  \n  \n-   `X`.IsSubsetOf(`Y`) returns the same value as `Y`.IsSubsetOf(`X`) if and only if `X` and `Y` represent the same set of permissions.  \n  \n-   If `X`.IsSubsetOf(`Y`) and `Y`.IsSubsetOf(`Z`) both return `true`, `X`.IsSubsetOf(`Z`) returns `true`.  \n  \n If `X` represents an empty <xref:System.Security.IPermission> object with a permission state of <xref:System.Security.Permissions.PermissionState> and `Y` represents an <xref:System.Security.IPermission> object that is `null`, `X`.IsSubsetOf(`Y`) returns `true`. If `Z` is also an empty permission, the compound set operation `X`.Union(Z).IsSubsetOf(Y) also returns `true` because the union of two empty permissions is an empty permission."
+  remarks: "The current permission is a subset of the specified permission if the current permission specifies a set of operations that is wholly contained by the specified permission. For example, a permission that represents access to C:\\example.txt is a subset of a permission that represents access to C:\\\\. If this method returns `true`, the current permission represents no more access to the protected resource than does the specified permission.  \n  \n The following statements are required to be true for all implementations of the <xref:System.Security.IPermission.IsSubsetOf%2A> method. `X`, `Y`, and `Z` represent <xref:System.Security.IPermission> objects that are not `null`.  \n  \n-   `X`.IsSubsetOf(`X`) returns `true`.  \n  \n-   `X`.IsSubsetOf(`Y`) returns the same value as `Y`.IsSubsetOf(`X`) if and only if `X` and `Y` represent the same set of permissions.  \n  \n-   If `X`.IsSubsetOf(`Y`) and `Y`.IsSubsetOf(`Z`) both return `true`, `X`.IsSubsetOf(`Z`) returns `true`.  \n  \n If `X` represents an empty <xref:System.Security.IPermission> object with a permission state of <xref:System.Security.Permissions.PermissionState.None> and `Y` represents an <xref:System.Security.IPermission> object that is `null`, `X`.IsSubsetOf(`Y`) returns `true`. If `Z` is also an empty permission, the compound set operation `X`.Union(Z).IsSubsetOf(Y) also returns `true` because the union of two empty permissions is an empty permission."
   example:
   - "The following code example demonstrates implementing the <xref:System.Security.IPermission.IsSubsetOf%2A> method. This code example is part of a larger example provided for the <xref:System.Security.IPermission> class.  \n  \n [!code-cpp[Permission#3](~/samples/snippets/cpp/VS_Snippets_CLR/Permission/cpp/Permission.cpp#3)]\n [!code-csharp[Permission#3](~/samples/snippets/csharp/VS_Snippets_CLR/Permission/CS/Permission.cs#3)]\n [!code-vb[Permission#3](~/samples/snippets/visualbasic/VS_Snippets_CLR/Permission/vb/permission.vb#3)]"
   syntax:
@@ -260,6 +261,7 @@ items:
     commentId: T:System.ArgumentException
     description: The <code>target</code> parameter is not `null` and is not of the same type as the current permission.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -272,6 +274,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -284,9 +287,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security/IPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.IPermission.Union(System.Security.IPermission)
   commentId: M:System.Security.IPermission.Union(System.Security.IPermission)
   id: Union(System.Security.IPermission)
@@ -295,11 +295,12 @@ items:
   - csharp
   name: Union(IPermission)
   nameWithType: IPermission.Union(IPermission)
-  fullName: System.Security.IPermission.Union(IPermission)
+  fullName: IPermission.Union(IPermission)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.Security
   summary: Creates a permission that is the union of the current permission and the specified permission.
   remarks: "The result of a call to <xref:System.Security.IPermission.Union%2A> is a permission that represents all the operations represented by both the current permission and the specified permission. Any demand that passes either permission passes their union.  \n  \n The following statements are required to be true for all implementations of the <xref:System.Security.IPermission.Union%2A> method. `X` and `Y` represent <xref:System.Security.IPermission> objects that are not `null`.  \n  \n-   `X`.Union(`X`) returns an object that has the same value as `X`.  \n  \n-   `X`.Union(`Y`) returns an object that has the same value as the object returned by `Y`.Union(`X`).  \n  \n-   `X`.Union(`null`) returns an object that has the same value as `X`."
@@ -320,6 +321,7 @@ items:
     commentId: T:System.ArgumentException
     description: The <code>target</code> parameter is not `null` and is not of the same type as the current permission.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -332,6 +334,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -344,9 +347,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security/IPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.ArgumentException
   parent: System
@@ -359,7 +359,7 @@ references:
   isExternal: false
   name: Copy()
   nameWithType: IPermission.Copy()
-  fullName: System.Security.IPermission.Copy()
+  fullName: IPermission.Copy()
 - uid: System.Security.IPermission
   parent: System.Security
   isExternal: false
@@ -371,19 +371,19 @@ references:
   isExternal: false
   name: Demand()
   nameWithType: IPermission.Demand()
-  fullName: System.Security.IPermission.Demand()
+  fullName: IPermission.Demand()
 - uid: System.Security.IPermission.Intersect(System.Security.IPermission)
   parent: System.Security.IPermission
   isExternal: false
   name: Intersect(IPermission)
   nameWithType: IPermission.Intersect(IPermission)
-  fullName: System.Security.IPermission.Intersect(IPermission)
+  fullName: IPermission.Intersect(IPermission)
 - uid: System.Security.IPermission.IsSubsetOf(System.Security.IPermission)
   parent: System.Security.IPermission
   isExternal: false
   name: IsSubsetOf(IPermission)
   nameWithType: IPermission.IsSubsetOf(IPermission)
-  fullName: System.Security.IPermission.IsSubsetOf(IPermission)
+  fullName: IPermission.IsSubsetOf(IPermission)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -395,14 +395,15 @@ references:
   isExternal: false
   name: Union(IPermission)
   nameWithType: IPermission.Union(IPermission)
-  fullName: System.Security.IPermission.Union(IPermission)
+  fullName: IPermission.Union(IPermission)
 - uid: System.Security.IPermission.Copy*
   parent: System.Security.IPermission
   isExternal: false
   name: Copy
   nameWithType: IPermission.Copy
-  fullName: System.Security.IPermission.Copy
+  fullName: IPermission.Copy
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -420,8 +421,9 @@ references:
   isExternal: false
   name: Demand
   nameWithType: IPermission.Demand
-  fullName: System.Security.IPermission.Demand
+  fullName: IPermission.Demand
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -439,8 +441,9 @@ references:
   isExternal: false
   name: Intersect
   nameWithType: IPermission.Intersect
-  fullName: System.Security.IPermission.Intersect
+  fullName: IPermission.Intersect
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -458,8 +461,9 @@ references:
   isExternal: false
   name: IsSubsetOf
   nameWithType: IPermission.IsSubsetOf
-  fullName: System.Security.IPermission.IsSubsetOf
+  fullName: IPermission.IsSubsetOf
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -477,8 +481,9 @@ references:
   isExternal: false
   name: Union
   nameWithType: IPermission.Union
-  fullName: System.Security.IPermission.Union
+  fullName: IPermission.Union
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -491,3 +496,9 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security/IPermission.xml
+- uid: System.Security.ISecurityEncodable
+  parent: System.Security
+  isExternal: false
+  name: ISecurityEncodable
+  nameWithType: ISecurityEncodable
+  fullName: System.Security.ISecurityEncodable

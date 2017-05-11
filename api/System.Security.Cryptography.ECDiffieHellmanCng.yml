@@ -44,7 +44,7 @@ items:
   - System.Core
   namespace: System.Security.Cryptography
   summary: Provides a Cryptography Next Generation (CNG) implementation of the Elliptic Curve Diffie-Hellman (ECDH) algorithm. This class is used to perform cryptographic operations.
-  remarks: "The <xref:System.Security.Cryptography.ECDiffieHellmanCng> class enables two parties to exchange private key material even if they are communicating through a public channel.  Both parties can calculate the same secret value, which is referred to as the *secret agreement* in the managed Diffie-Hellman classes. The secret agreement can then be used for a variety of purposes, including as a symmetric key. However, instead of exposing the secret agreement directly, the <xref:System.Security.Cryptography.ECDiffieHellmanCng> class does some post-processing on the agreement before providing the value. This post processing is referred to as the *key derivation function (KDF)*; you can select which KDF you want to use and set its parameters through a set of properties on the instance of the Diffie-Hellman object.  \n  \n|Key derivation function|Properties|  \n|-----------------------------|----------------|  \n|<xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction>|<xref:System.Security.Cryptography.ECDiffieHellmanCng.HashAlgorithm%2A> - The hash algorithm that is used to process the secret agreement.<br /><br /> <xref:System.Security.Cryptography.ECDiffieHellmanCng.SecretPrepend%2A> - An optional byte array to prepend to the secret agreement before hashing it.<br /><br /> <xref:System.Security.Cryptography.ECDiffieHellmanCng.SecretAppend%2A> - An optional byte array to append to the secret agreement before hashing it.|  \n|<xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction>|<xref:System.Security.Cryptography.ECDiffieHellmanCng.HashAlgorithm%2A> - The hash algorithm that is used to process the secret agreement.<br /><br /> <xref:System.Security.Cryptography.ECDiffieHellmanCng.SecretPrepend%2A>- An optional byte array to prepend to the secret agreement before hashing it.<br /><br /> <xref:System.Security.Cryptography.ECDiffieHellmanCng.SecretAppend%2A> - An optional byte array to append to the secret agreement before hashing it.|  \n|<xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction>|<xref:System.Security.Cryptography.ECDiffieHellmanCng.Label%2A> - The label for key derivation.<br /><br /> <xref:System.Security.Cryptography.ECDiffieHellmanCng.Seed%2A> - The seed for key derivation.|  \n  \n The result of passing the secret agreement through the key derivation function is a byte array that may be used as key material for your application. The number of bytes of key material generated is dependent on the key derivation function; for example, SHA-256 will generate 256 bits of key material, whereas SHA-512 will generate 512 bits of key material.The basic flow of an ECDH key exchange is as follows:  \n  \n1.  Alice and Bob create a key pair to use for the Diffie-Hellman key exchange operation  \n  \n2.  Alice and Bob configure the KDF using parameters the agree on.  \n  \n3.  Alice sends Bob her public key.  \n  \n4.  Bob sends Alice his public key.  \n  \n5.  Alice and Bob use each other's public keys to generate the secret agreement, and apply the KDF to the secret agreement to generate key material."
+  remarks: "The <xref:System.Security.Cryptography.ECDiffieHellmanCng> class enables two parties to exchange private key material even if they are communicating through a public channel.  Both parties can calculate the same secret value, which is referred to as the *secret agreement* in the managed Diffie-Hellman classes. The secret agreement can then be used for a variety of purposes, including as a symmetric key. However, instead of exposing the secret agreement directly, the <xref:System.Security.Cryptography.ECDiffieHellmanCng> class does some post-processing on the agreement before providing the value. This post processing is referred to as the *key derivation function (KDF)*; you can select which KDF you want to use and set its parameters through a set of properties on the instance of the Diffie-Hellman object.  \n  \n|Key derivation function|Properties|  \n|-----------------------------|----------------|  \n|<xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction.Hash>|<xref:System.Security.Cryptography.ECDiffieHellmanCng.HashAlgorithm%2A> - The hash algorithm that is used to process the secret agreement.<br /><br /> <xref:System.Security.Cryptography.ECDiffieHellmanCng.SecretPrepend%2A> - An optional byte array to prepend to the secret agreement before hashing it.<br /><br /> <xref:System.Security.Cryptography.ECDiffieHellmanCng.SecretAppend%2A> - An optional byte array to append to the secret agreement before hashing it.|  \n|<xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction.Hmac>|<xref:System.Security.Cryptography.ECDiffieHellmanCng.HashAlgorithm%2A> - The hash algorithm that is used to process the secret agreement.<br /><br /> <xref:System.Security.Cryptography.ECDiffieHellmanCng.SecretPrepend%2A>- An optional byte array to prepend to the secret agreement before hashing it.<br /><br /> <xref:System.Security.Cryptography.ECDiffieHellmanCng.SecretAppend%2A> - An optional byte array to append to the secret agreement before hashing it.|  \n|<xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction.Tls>|<xref:System.Security.Cryptography.ECDiffieHellmanCng.Label%2A> - The label for key derivation.<br /><br /> <xref:System.Security.Cryptography.ECDiffieHellmanCng.Seed%2A> - The seed for key derivation.|  \n  \n The result of passing the secret agreement through the key derivation function is a byte array that may be used as key material for your application. The number of bytes of key material generated is dependent on the key derivation function; for example, SHA-256 will generate 256 bits of key material, whereas SHA-512 will generate 512 bits of key material.The basic flow of an ECDH key exchange is as follows:  \n  \n1.  Alice and Bob create a key pair to use for the Diffie-Hellman key exchange operation  \n  \n2.  Alice and Bob configure the KDF using parameters the agree on.  \n  \n3.  Alice sends Bob her public key.  \n  \n4.  Bob sends Alice his public key.  \n  \n5.  Alice and Bob use each other's public keys to generate the secret agreement, and apply the KDF to the secret agreement to generate key material."
   example:
   - "The following example shows how to use the <xref:System.Security.Cryptography.ECDiffieHellmanCng> class to establish a key exchange and how to use that key to encrypt a message that can be sent over a public channel and decrypted by the receiver.  \n  \n [!code-csharp[ECDiffieHellmanCng#1](~/samples/snippets/csharp/VS_Snippets_CLR/ecdiffiehellmancng/cs/program.cs#1)]\n [!code-vb[ECDiffieHellmanCng#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/ecdiffiehellmancng/vb/program.vb#1)]"
   syntax:
@@ -93,9 +93,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.#ctor
   commentId: M:System.Security.Cryptography.ECDiffieHellmanCng.#ctor
   id: '#ctor'
@@ -104,7 +101,7 @@ items:
   - csharp
   name: ECDiffieHellmanCng()
   nameWithType: ECDiffieHellmanCng.ECDiffieHellmanCng()
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ECDiffieHellmanCng()
+  fullName: ECDiffieHellmanCng.ECDiffieHellmanCng()
   type: Constructor
   assemblies:
   - System.Core
@@ -133,9 +130,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.#ctor(System.Int32)
   commentId: M:System.Security.Cryptography.ECDiffieHellmanCng.#ctor(System.Int32)
   id: '#ctor(System.Int32)'
@@ -144,7 +138,7 @@ items:
   - csharp
   name: ECDiffieHellmanCng(Int32)
   nameWithType: ECDiffieHellmanCng.ECDiffieHellmanCng(Int32)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ECDiffieHellmanCng(Int32)
+  fullName: ECDiffieHellmanCng.ECDiffieHellmanCng(Int32)
   type: Constructor
   assemblies:
   - System.Core
@@ -182,9 +176,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.#ctor(System.Security.Cryptography.CngKey)
   commentId: M:System.Security.Cryptography.ECDiffieHellmanCng.#ctor(System.Security.Cryptography.CngKey)
   id: '#ctor(System.Security.Cryptography.CngKey)'
@@ -193,7 +184,7 @@ items:
   - csharp
   name: ECDiffieHellmanCng(CngKey)
   nameWithType: ECDiffieHellmanCng.ECDiffieHellmanCng(CngKey)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ECDiffieHellmanCng(CngKey)
+  fullName: ECDiffieHellmanCng.ECDiffieHellmanCng(CngKey)
   type: Constructor
   assemblies:
   - System.Core
@@ -234,9 +225,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.#ctor(System.Security.Cryptography.ECCurve)
   commentId: M:System.Security.Cryptography.ECDiffieHellmanCng.#ctor(System.Security.Cryptography.ECCurve)
   id: '#ctor(System.Security.Cryptography.ECCurve)'
@@ -245,7 +233,7 @@ items:
   - csharp
   name: ECDiffieHellmanCng(ECCurve)
   nameWithType: ECDiffieHellmanCng.ECDiffieHellmanCng(ECCurve)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ECDiffieHellmanCng(ECCurve)
+  fullName: ECDiffieHellmanCng.ECDiffieHellmanCng(ECCurve)
   type: Constructor
   assemblies:
   - System.Core
@@ -268,9 +256,6 @@ items:
   monikers:
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyFromHash(System.Security.Cryptography.ECDiffieHellmanPublicKey,System.Security.Cryptography.HashAlgorithmName,System.Byte[],System.Byte[])
   commentId: M:System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyFromHash(System.Security.Cryptography.ECDiffieHellmanPublicKey,System.Security.Cryptography.HashAlgorithmName,System.Byte[],System.Byte[])
   id: DeriveKeyFromHash(System.Security.Cryptography.ECDiffieHellmanPublicKey,System.Security.Cryptography.HashAlgorithmName,System.Byte[],System.Byte[])
@@ -279,7 +264,7 @@ items:
   - csharp
   name: DeriveKeyFromHash(ECDiffieHellmanPublicKey, HashAlgorithmName, Byte[], Byte[])
   nameWithType: ECDiffieHellmanCng.DeriveKeyFromHash(ECDiffieHellmanPublicKey, HashAlgorithmName, Byte[], Byte[])
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyFromHash(ECDiffieHellmanPublicKey, HashAlgorithmName, Byte[], Byte[])
+  fullName: ECDiffieHellmanCng.DeriveKeyFromHash(ECDiffieHellmanPublicKey, HashAlgorithmName, Byte[], Byte[])
   type: Method
   assemblies:
   - System.Core
@@ -323,9 +308,6 @@ items:
   - netframework-4.6.2
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyFromHmac(System.Security.Cryptography.ECDiffieHellmanPublicKey,System.Security.Cryptography.HashAlgorithmName,System.Byte[],System.Byte[],System.Byte[])
   commentId: M:System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyFromHmac(System.Security.Cryptography.ECDiffieHellmanPublicKey,System.Security.Cryptography.HashAlgorithmName,System.Byte[],System.Byte[],System.Byte[])
   id: DeriveKeyFromHmac(System.Security.Cryptography.ECDiffieHellmanPublicKey,System.Security.Cryptography.HashAlgorithmName,System.Byte[],System.Byte[],System.Byte[])
@@ -334,7 +316,7 @@ items:
   - csharp
   name: DeriveKeyFromHmac(ECDiffieHellmanPublicKey, HashAlgorithmName, Byte[], Byte[], Byte[])
   nameWithType: ECDiffieHellmanCng.DeriveKeyFromHmac(ECDiffieHellmanPublicKey, HashAlgorithmName, Byte[], Byte[], Byte[])
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyFromHmac(ECDiffieHellmanPublicKey, HashAlgorithmName, Byte[], Byte[], Byte[])
+  fullName: ECDiffieHellmanCng.DeriveKeyFromHmac(ECDiffieHellmanPublicKey, HashAlgorithmName, Byte[], Byte[], Byte[])
   type: Method
   assemblies:
   - System.Core
@@ -381,9 +363,6 @@ items:
   - netframework-4.6.2
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyMaterial(System.Security.Cryptography.CngKey)
   commentId: M:System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyMaterial(System.Security.Cryptography.CngKey)
   id: DeriveKeyMaterial(System.Security.Cryptography.CngKey)
@@ -392,7 +371,7 @@ items:
   - csharp
   name: DeriveKeyMaterial(CngKey)
   nameWithType: ECDiffieHellmanCng.DeriveKeyMaterial(CngKey)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyMaterial(CngKey)
+  fullName: ECDiffieHellmanCng.DeriveKeyMaterial(CngKey)
   type: Method
   assemblies:
   - System.Core
@@ -439,9 +418,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyMaterial(System.Security.Cryptography.ECDiffieHellmanPublicKey)
   commentId: M:System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyMaterial(System.Security.Cryptography.ECDiffieHellmanPublicKey)
   id: DeriveKeyMaterial(System.Security.Cryptography.ECDiffieHellmanPublicKey)
@@ -450,7 +426,7 @@ items:
   - csharp
   name: DeriveKeyMaterial(ECDiffieHellmanPublicKey)
   nameWithType: ECDiffieHellmanCng.DeriveKeyMaterial(ECDiffieHellmanPublicKey)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyMaterial(ECDiffieHellmanPublicKey)
+  fullName: ECDiffieHellmanCng.DeriveKeyMaterial(ECDiffieHellmanPublicKey)
   type: Method
   assemblies:
   - System.Core
@@ -490,9 +466,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyTls(System.Security.Cryptography.ECDiffieHellmanPublicKey,System.Byte[],System.Byte[])
   commentId: M:System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyTls(System.Security.Cryptography.ECDiffieHellmanPublicKey,System.Byte[],System.Byte[])
   id: DeriveKeyTls(System.Security.Cryptography.ECDiffieHellmanPublicKey,System.Byte[],System.Byte[])
@@ -501,7 +474,7 @@ items:
   - csharp
   name: DeriveKeyTls(ECDiffieHellmanPublicKey, Byte[], Byte[])
   nameWithType: ECDiffieHellmanCng.DeriveKeyTls(ECDiffieHellmanPublicKey, Byte[], Byte[])
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyTls(ECDiffieHellmanPublicKey, Byte[], Byte[])
+  fullName: ECDiffieHellmanCng.DeriveKeyTls(ECDiffieHellmanPublicKey, Byte[], Byte[])
   type: Method
   assemblies:
   - System.Core
@@ -541,9 +514,6 @@ items:
   - netframework-4.6.2
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.DeriveSecretAgreementHandle(System.Security.Cryptography.CngKey)
   commentId: M:System.Security.Cryptography.ECDiffieHellmanCng.DeriveSecretAgreementHandle(System.Security.Cryptography.CngKey)
   id: DeriveSecretAgreementHandle(System.Security.Cryptography.CngKey)
@@ -552,7 +522,7 @@ items:
   - csharp
   name: DeriveSecretAgreementHandle(CngKey)
   nameWithType: ECDiffieHellmanCng.DeriveSecretAgreementHandle(CngKey)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.DeriveSecretAgreementHandle(CngKey)
+  fullName: ECDiffieHellmanCng.DeriveSecretAgreementHandle(CngKey)
   type: Method
   assemblies:
   - System.Core
@@ -600,9 +570,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.DeriveSecretAgreementHandle(System.Security.Cryptography.ECDiffieHellmanPublicKey)
   commentId: M:System.Security.Cryptography.ECDiffieHellmanCng.DeriveSecretAgreementHandle(System.Security.Cryptography.ECDiffieHellmanPublicKey)
   id: DeriveSecretAgreementHandle(System.Security.Cryptography.ECDiffieHellmanPublicKey)
@@ -611,7 +578,7 @@ items:
   - csharp
   name: DeriveSecretAgreementHandle(ECDiffieHellmanPublicKey)
   nameWithType: ECDiffieHellmanCng.DeriveSecretAgreementHandle(ECDiffieHellmanPublicKey)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.DeriveSecretAgreementHandle(ECDiffieHellmanPublicKey)
+  fullName: ECDiffieHellmanCng.DeriveSecretAgreementHandle(ECDiffieHellmanPublicKey)
   type: Method
   assemblies:
   - System.Core
@@ -651,9 +618,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.Dispose(System.Boolean)
   commentId: M:System.Security.Cryptography.ECDiffieHellmanCng.Dispose(System.Boolean)
   id: Dispose(System.Boolean)
@@ -662,7 +626,7 @@ items:
   - csharp
   name: Dispose(Boolean)
   nameWithType: ECDiffieHellmanCng.Dispose(Boolean)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.Dispose(Boolean)
+  fullName: ECDiffieHellmanCng.Dispose(Boolean)
   type: Method
   assemblies:
   - System.Core
@@ -700,7 +664,7 @@ items:
   - csharp
   name: ExportExplicitParameters(Boolean)
   nameWithType: ECDiffieHellmanCng.ExportExplicitParameters(Boolean)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ExportExplicitParameters(Boolean)
+  fullName: ECDiffieHellmanCng.ExportExplicitParameters(Boolean)
   type: Method
   assemblies:
   - System.Core
@@ -728,9 +692,6 @@ items:
   monikers:
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.ExportParameters(System.Boolean)
   commentId: M:System.Security.Cryptography.ECDiffieHellmanCng.ExportParameters(System.Boolean)
   id: ExportParameters(System.Boolean)
@@ -739,7 +700,7 @@ items:
   - csharp
   name: ExportParameters(Boolean)
   nameWithType: ECDiffieHellmanCng.ExportParameters(Boolean)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ExportParameters(Boolean)
+  fullName: ECDiffieHellmanCng.ExportParameters(Boolean)
   type: Method
   assemblies:
   - System.Core
@@ -765,9 +726,6 @@ items:
   monikers:
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.FromXmlString(System.String,System.Security.Cryptography.ECKeyXmlFormat)
   commentId: M:System.Security.Cryptography.ECDiffieHellmanCng.FromXmlString(System.String,System.Security.Cryptography.ECKeyXmlFormat)
   id: FromXmlString(System.String,System.Security.Cryptography.ECKeyXmlFormat)
@@ -776,7 +734,7 @@ items:
   - csharp
   name: FromXmlString(String, ECKeyXmlFormat)
   nameWithType: ECDiffieHellmanCng.FromXmlString(String, ECKeyXmlFormat)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.FromXmlString(String, ECKeyXmlFormat)
+  fullName: ECDiffieHellmanCng.FromXmlString(String, ECKeyXmlFormat)
   type: Method
   assemblies:
   - System.Core
@@ -822,9 +780,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.FromXmlString(System.String)
   commentId: M:System.Security.Cryptography.ECDiffieHellmanCng.FromXmlString(System.String)
   id: FromXmlString(System.String)
@@ -833,7 +788,7 @@ items:
   - csharp
   name: FromXmlString(String)
   nameWithType: ECDiffieHellmanCng.FromXmlString(String)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.FromXmlString(String)
+  fullName: ECDiffieHellmanCng.FromXmlString(String)
   type: Method
   assemblies:
   - System.Core
@@ -868,9 +823,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.GenerateKey(System.Security.Cryptography.ECCurve)
   commentId: M:System.Security.Cryptography.ECDiffieHellmanCng.GenerateKey(System.Security.Cryptography.ECCurve)
   id: GenerateKey(System.Security.Cryptography.ECCurve)
@@ -879,7 +831,7 @@ items:
   - csharp
   name: GenerateKey(ECCurve)
   nameWithType: ECDiffieHellmanCng.GenerateKey(ECCurve)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.GenerateKey(ECCurve)
+  fullName: ECDiffieHellmanCng.GenerateKey(ECCurve)
   type: Method
   assemblies:
   - System.Core
@@ -902,9 +854,6 @@ items:
   monikers:
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.HashAlgorithm
   commentId: P:System.Security.Cryptography.ECDiffieHellmanCng.HashAlgorithm
   id: HashAlgorithm
@@ -913,13 +862,13 @@ items:
   - csharp
   name: HashAlgorithm
   nameWithType: ECDiffieHellmanCng.HashAlgorithm
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.HashAlgorithm
+  fullName: ECDiffieHellmanCng.HashAlgorithm
   type: Property
   assemblies:
   - System.Core
   namespace: System.Security.Cryptography
   summary: Gets or sets the hash algorithm to use when generating key material.
-  remarks: "This property is used by Cryptography Next Generation (CNG) objects only if the <xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction> or <xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction> value is set in the <xref:System.Security.Cryptography.ECDiffieHellmanCng.KeyDerivationFunction%2A> property.  \n  \n This property accepts the following algorithms: <xref:System.Security.Cryptography.CngAlgorithm.MD5%2A>, <xref:System.Security.Cryptography.CngAlgorithm.Sha1%2A>, <xref:System.Security.Cryptography.CngAlgorithm.Sha256%2A>, <xref:System.Security.Cryptography.CngAlgorithm.Sha384%2A>, and <xref:System.Security.Cryptography.CngAlgorithm.Sha512%2A>.  \n  \n Other custom hash algorithms may also be used.  \n  \n The default algorithm is <xref:System.Security.Cryptography.CngAlgorithm.Sha256%2A>."
+  remarks: "This property is used by Cryptography Next Generation (CNG) objects only if the <xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction.Hash> or <xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction.Hmac> value is set in the <xref:System.Security.Cryptography.ECDiffieHellmanCng.KeyDerivationFunction%2A> property.  \n  \n This property accepts the following algorithms: <xref:System.Security.Cryptography.CngAlgorithm.MD5%2A>, <xref:System.Security.Cryptography.CngAlgorithm.Sha1%2A>, <xref:System.Security.Cryptography.CngAlgorithm.Sha256%2A>, <xref:System.Security.Cryptography.CngAlgorithm.Sha384%2A>, and <xref:System.Security.Cryptography.CngAlgorithm.Sha512%2A>.  \n  \n Other custom hash algorithms may also be used.  \n  \n The default algorithm is <xref:System.Security.Cryptography.CngAlgorithm.Sha256%2A>."
   syntax:
     content: public System.Security.Cryptography.CngAlgorithm HashAlgorithm { get; set; }
     return:
@@ -947,9 +896,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.HmacKey
   commentId: P:System.Security.Cryptography.ECDiffieHellmanCng.HmacKey
   id: HmacKey
@@ -958,13 +904,13 @@ items:
   - csharp
   name: HmacKey
   nameWithType: ECDiffieHellmanCng.HmacKey
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.HmacKey
+  fullName: ECDiffieHellmanCng.HmacKey
   type: Property
   assemblies:
   - System.Core
   namespace: System.Security.Cryptography
   summary: Gets or sets the Hash-based Message Authentication Code (HMAC) key to use when deriving key material.
-  remarks: This property applies only when the <xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction> value is set in the <xref:System.Security.Cryptography.ECDiffieHellmanCng.KeyDerivationFunction%2A> property, and the <xref:System.Security.Cryptography.ECDiffieHellmanCng.UseSecretAgreementAsHmacKey%2A> property is `false`. By default, the value is `null`.
+  remarks: This property applies only when the <xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction.Hmac> value is set in the <xref:System.Security.Cryptography.ECDiffieHellmanCng.KeyDerivationFunction%2A> property, and the <xref:System.Security.Cryptography.ECDiffieHellmanCng.UseSecretAgreementAsHmacKey%2A> property is `false`. By default, the value is `null`.
   syntax:
     content: public byte[] HmacKey { get; set; }
     return:
@@ -989,9 +935,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.ImportParameters(System.Security.Cryptography.ECParameters)
   commentId: M:System.Security.Cryptography.ECDiffieHellmanCng.ImportParameters(System.Security.Cryptography.ECParameters)
   id: ImportParameters(System.Security.Cryptography.ECParameters)
@@ -1000,7 +943,7 @@ items:
   - csharp
   name: ImportParameters(ECParameters)
   nameWithType: ECDiffieHellmanCng.ImportParameters(ECParameters)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ImportParameters(ECParameters)
+  fullName: ECDiffieHellmanCng.ImportParameters(ECParameters)
   type: Method
   assemblies:
   - System.Core
@@ -1029,9 +972,6 @@ items:
   monikers:
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.Key
   commentId: P:System.Security.Cryptography.ECDiffieHellmanCng.Key
   id: Key
@@ -1040,7 +980,7 @@ items:
   - csharp
   name: Key
   nameWithType: ECDiffieHellmanCng.Key
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.Key
+  fullName: ECDiffieHellmanCng.Key
   type: Property
   assemblies:
   - System.Core
@@ -1070,9 +1010,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.KeyDerivationFunction
   commentId: P:System.Security.Cryptography.ECDiffieHellmanCng.KeyDerivationFunction
   id: KeyDerivationFunction
@@ -1081,7 +1018,7 @@ items:
   - csharp
   name: KeyDerivationFunction
   nameWithType: ECDiffieHellmanCng.KeyDerivationFunction
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.KeyDerivationFunction
+  fullName: ECDiffieHellmanCng.KeyDerivationFunction
   type: Property
   assemblies:
   - System.Core
@@ -1115,9 +1052,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.Label
   commentId: P:System.Security.Cryptography.ECDiffieHellmanCng.Label
   id: Label
@@ -1126,13 +1060,13 @@ items:
   - csharp
   name: Label
   nameWithType: ECDiffieHellmanCng.Label
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.Label
+  fullName: ECDiffieHellmanCng.Label
   type: Property
   assemblies:
   - System.Core
   namespace: System.Security.Cryptography
   summary: Gets or sets the label value that is used for key derivation.
-  remarks: This value is used for key derivation if the <xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction> value is set in the <xref:System.Security.Cryptography.ECDiffieHellmanCng.KeyDerivationFunction%2A> property. By default, it is `null`.
+  remarks: This value is used for key derivation if the <xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction.Tls> value is set in the <xref:System.Security.Cryptography.ECDiffieHellmanCng.KeyDerivationFunction%2A> property. By default, it is `null`.
   syntax:
     content: public byte[] Label { get; set; }
     return:
@@ -1157,9 +1091,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.PublicKey
   commentId: P:System.Security.Cryptography.ECDiffieHellmanCng.PublicKey
   id: PublicKey
@@ -1168,7 +1099,7 @@ items:
   - csharp
   name: PublicKey
   nameWithType: ECDiffieHellmanCng.PublicKey
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.PublicKey
+  fullName: ECDiffieHellmanCng.PublicKey
   type: Property
   assemblies:
   - System.Core
@@ -1198,9 +1129,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.SecretAppend
   commentId: P:System.Security.Cryptography.ECDiffieHellmanCng.SecretAppend
   id: SecretAppend
@@ -1209,13 +1137,13 @@ items:
   - csharp
   name: SecretAppend
   nameWithType: ECDiffieHellmanCng.SecretAppend
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.SecretAppend
+  fullName: ECDiffieHellmanCng.SecretAppend
   type: Property
   assemblies:
   - System.Core
   namespace: System.Security.Cryptography
   summary: Gets or sets a value that will be appended to the secret agreement when generating key material.
-  remarks: This value is used for key derivation if the <xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction> or <xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction> key derivation function (KDF) is used. The value is appended to the secret agreement, and the combined value is passed to the KDF to generate the key material. By default, the value is `null`.
+  remarks: This value is used for key derivation if the <xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction.Hash> or <xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction.Hmac> key derivation function (KDF) is used. The value is appended to the secret agreement, and the combined value is passed to the KDF to generate the key material. By default, the value is `null`.
   syntax:
     content: public byte[] SecretAppend { get; set; }
     return:
@@ -1240,9 +1168,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.SecretPrepend
   commentId: P:System.Security.Cryptography.ECDiffieHellmanCng.SecretPrepend
   id: SecretPrepend
@@ -1251,13 +1176,13 @@ items:
   - csharp
   name: SecretPrepend
   nameWithType: ECDiffieHellmanCng.SecretPrepend
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.SecretPrepend
+  fullName: ECDiffieHellmanCng.SecretPrepend
   type: Property
   assemblies:
   - System.Core
   namespace: System.Security.Cryptography
   summary: Gets or sets a value that will be added to the beginning of the secret agreement when deriving key material.
-  remarks: "This value is used for key derivation if the <xref:System.Security.Cryptography.ECDiffieHellmanCng.KeyDerivationFunction%2A> property is set to one of the following values:  \n  \n-   <xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction>  \n  \n-   <xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction>  \n  \n The value is prepended to the secret agreement, and the combined value is passed to the key derivation function (KDF) to generate the key material. By default, the value is `null`."
+  remarks: "This value is used for key derivation if the <xref:System.Security.Cryptography.ECDiffieHellmanCng.KeyDerivationFunction%2A> property is set to one of the following values:  \n  \n-   <xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction.Hash>  \n  \n-   <xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction.Hmac>  \n  \n The value is prepended to the secret agreement, and the combined value is passed to the key derivation function (KDF) to generate the key material. By default, the value is `null`."
   syntax:
     content: public byte[] SecretPrepend { get; set; }
     return:
@@ -1282,9 +1207,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.Seed
   commentId: P:System.Security.Cryptography.ECDiffieHellmanCng.Seed
   id: Seed
@@ -1293,13 +1215,13 @@ items:
   - csharp
   name: Seed
   nameWithType: ECDiffieHellmanCng.Seed
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.Seed
+  fullName: ECDiffieHellmanCng.Seed
   type: Property
   assemblies:
   - System.Core
   namespace: System.Security.Cryptography
   summary: Gets or sets the seed value that will be used when deriving key material.
-  remarks: This value is used for key derivation if the <xref:System.Security.Cryptography.ECDiffieHellmanCng.KeyDerivationFunction%2A> property is set to <xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction>. By default, the value is `null`.
+  remarks: This value is used for key derivation if the <xref:System.Security.Cryptography.ECDiffieHellmanCng.KeyDerivationFunction%2A> property is set to <xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction.Tls>. By default, the value is `null`.
   syntax:
     content: public byte[] Seed { get; set; }
     return:
@@ -1324,9 +1246,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.ToXmlString(System.Boolean)
   commentId: M:System.Security.Cryptography.ECDiffieHellmanCng.ToXmlString(System.Boolean)
   id: ToXmlString(System.Boolean)
@@ -1335,7 +1254,7 @@ items:
   - csharp
   name: ToXmlString(Boolean)
   nameWithType: ECDiffieHellmanCng.ToXmlString(Boolean)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ToXmlString(Boolean)
+  fullName: ECDiffieHellmanCng.ToXmlString(Boolean)
   type: Method
   assemblies:
   - System.Core
@@ -1373,9 +1292,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.ToXmlString(System.Security.Cryptography.ECKeyXmlFormat)
   commentId: M:System.Security.Cryptography.ECDiffieHellmanCng.ToXmlString(System.Security.Cryptography.ECKeyXmlFormat)
   id: ToXmlString(System.Security.Cryptography.ECKeyXmlFormat)
@@ -1384,7 +1300,7 @@ items:
   - csharp
   name: ToXmlString(ECKeyXmlFormat)
   nameWithType: ECDiffieHellmanCng.ToXmlString(ECKeyXmlFormat)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ToXmlString(ECKeyXmlFormat)
+  fullName: ECDiffieHellmanCng.ToXmlString(ECKeyXmlFormat)
   type: Method
   assemblies:
   - System.Core
@@ -1421,9 +1337,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.UseSecretAgreementAsHmacKey
   commentId: P:System.Security.Cryptography.ECDiffieHellmanCng.UseSecretAgreementAsHmacKey
   id: UseSecretAgreementAsHmacKey
@@ -1432,13 +1345,13 @@ items:
   - csharp
   name: UseSecretAgreementAsHmacKey
   nameWithType: ECDiffieHellmanCng.UseSecretAgreementAsHmacKey
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.UseSecretAgreementAsHmacKey
+  fullName: ECDiffieHellmanCng.UseSecretAgreementAsHmacKey
   type: Property
   assemblies:
   - System.Core
   namespace: System.Security.Cryptography
   summary: Gets a value that indicates whether the secret agreement is used as a Hash-based Message Authentication Code (HMAC) key to derive key material.
-  remarks: '-   This value is used for key derivation if the <xref:System.Security.Cryptography.ECDiffieHellmanCng.KeyDerivationFunction%2A> property is set to <xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction>. By default, the value is `false`.'
+  remarks: '-   This value is used for key derivation if the <xref:System.Security.Cryptography.ECDiffieHellmanCng.KeyDerivationFunction%2A> property is set to <xref:System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction.Hmac>. By default, the value is `false`.'
   syntax:
     content: public bool UseSecretAgreementAsHmacKey { get; }
     return:
@@ -1463,9 +1376,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Security.Cryptography.ECDiffieHellman
   parent: System.Security.Cryptography
@@ -1526,13 +1436,13 @@ references:
   isExternal: false
   name: ECDiffieHellmanCng()
   nameWithType: ECDiffieHellmanCng.ECDiffieHellmanCng()
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ECDiffieHellmanCng()
+  fullName: ECDiffieHellmanCng.ECDiffieHellmanCng()
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.#ctor(System.Int32)
   parent: System.Security.Cryptography.ECDiffieHellmanCng
   isExternal: false
   name: ECDiffieHellmanCng(Int32)
   nameWithType: ECDiffieHellmanCng.ECDiffieHellmanCng(Int32)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ECDiffieHellmanCng(Int32)
+  fullName: ECDiffieHellmanCng.ECDiffieHellmanCng(Int32)
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -1544,7 +1454,7 @@ references:
   isExternal: false
   name: ECDiffieHellmanCng(CngKey)
   nameWithType: ECDiffieHellmanCng.ECDiffieHellmanCng(CngKey)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ECDiffieHellmanCng(CngKey)
+  fullName: ECDiffieHellmanCng.ECDiffieHellmanCng(CngKey)
 - uid: System.Security.Cryptography.CngKey
   parent: System.Security.Cryptography
   isExternal: false
@@ -1556,7 +1466,7 @@ references:
   isExternal: false
   name: ECDiffieHellmanCng(ECCurve)
   nameWithType: ECDiffieHellmanCng.ECDiffieHellmanCng(ECCurve)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ECDiffieHellmanCng(ECCurve)
+  fullName: ECDiffieHellmanCng.ECDiffieHellmanCng(ECCurve)
 - uid: System.Security.Cryptography.ECCurve
   parent: System.Security.Cryptography
   isExternal: false
@@ -1568,7 +1478,7 @@ references:
   isExternal: false
   name: DeriveKeyFromHash(ECDiffieHellmanPublicKey, HashAlgorithmName, Byte[], Byte[])
   nameWithType: ECDiffieHellmanCng.DeriveKeyFromHash(ECDiffieHellmanPublicKey, HashAlgorithmName, Byte[], Byte[])
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyFromHash(ECDiffieHellmanPublicKey, HashAlgorithmName, Byte[], Byte[])
+  fullName: ECDiffieHellmanCng.DeriveKeyFromHash(ECDiffieHellmanPublicKey, HashAlgorithmName, Byte[], Byte[])
 - uid: System.Byte
   name: Byte
   nameWithType: Byte
@@ -1604,31 +1514,31 @@ references:
   isExternal: false
   name: DeriveKeyFromHmac(ECDiffieHellmanPublicKey, HashAlgorithmName, Byte[], Byte[], Byte[])
   nameWithType: ECDiffieHellmanCng.DeriveKeyFromHmac(ECDiffieHellmanPublicKey, HashAlgorithmName, Byte[], Byte[], Byte[])
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyFromHmac(ECDiffieHellmanPublicKey, HashAlgorithmName, Byte[], Byte[], Byte[])
+  fullName: ECDiffieHellmanCng.DeriveKeyFromHmac(ECDiffieHellmanPublicKey, HashAlgorithmName, Byte[], Byte[], Byte[])
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyMaterial(System.Security.Cryptography.CngKey)
   parent: System.Security.Cryptography.ECDiffieHellmanCng
   isExternal: false
   name: DeriveKeyMaterial(CngKey)
   nameWithType: ECDiffieHellmanCng.DeriveKeyMaterial(CngKey)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyMaterial(CngKey)
+  fullName: ECDiffieHellmanCng.DeriveKeyMaterial(CngKey)
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyMaterial(System.Security.Cryptography.ECDiffieHellmanPublicKey)
   parent: System.Security.Cryptography.ECDiffieHellmanCng
   isExternal: false
   name: DeriveKeyMaterial(ECDiffieHellmanPublicKey)
   nameWithType: ECDiffieHellmanCng.DeriveKeyMaterial(ECDiffieHellmanPublicKey)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyMaterial(ECDiffieHellmanPublicKey)
+  fullName: ECDiffieHellmanCng.DeriveKeyMaterial(ECDiffieHellmanPublicKey)
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyTls(System.Security.Cryptography.ECDiffieHellmanPublicKey,System.Byte[],System.Byte[])
   parent: System.Security.Cryptography.ECDiffieHellmanCng
   isExternal: false
   name: DeriveKeyTls(ECDiffieHellmanPublicKey, Byte[], Byte[])
   nameWithType: ECDiffieHellmanCng.DeriveKeyTls(ECDiffieHellmanPublicKey, Byte[], Byte[])
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyTls(ECDiffieHellmanPublicKey, Byte[], Byte[])
+  fullName: ECDiffieHellmanCng.DeriveKeyTls(ECDiffieHellmanPublicKey, Byte[], Byte[])
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.DeriveSecretAgreementHandle(System.Security.Cryptography.CngKey)
   parent: System.Security.Cryptography.ECDiffieHellmanCng
   isExternal: false
   name: DeriveSecretAgreementHandle(CngKey)
   nameWithType: ECDiffieHellmanCng.DeriveSecretAgreementHandle(CngKey)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.DeriveSecretAgreementHandle(CngKey)
+  fullName: ECDiffieHellmanCng.DeriveSecretAgreementHandle(CngKey)
 - uid: Microsoft.Win32.SafeHandles.SafeNCryptSecretHandle
   parent: Microsoft.Win32.SafeHandles
   isExternal: false
@@ -1640,13 +1550,13 @@ references:
   isExternal: false
   name: DeriveSecretAgreementHandle(ECDiffieHellmanPublicKey)
   nameWithType: ECDiffieHellmanCng.DeriveSecretAgreementHandle(ECDiffieHellmanPublicKey)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.DeriveSecretAgreementHandle(ECDiffieHellmanPublicKey)
+  fullName: ECDiffieHellmanCng.DeriveSecretAgreementHandle(ECDiffieHellmanPublicKey)
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.Dispose(System.Boolean)
   parent: System.Security.Cryptography.ECDiffieHellmanCng
   isExternal: false
   name: Dispose(Boolean)
   nameWithType: ECDiffieHellmanCng.Dispose(Boolean)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.Dispose(Boolean)
+  fullName: ECDiffieHellmanCng.Dispose(Boolean)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -1658,7 +1568,7 @@ references:
   isExternal: false
   name: ExportExplicitParameters(Boolean)
   nameWithType: ECDiffieHellmanCng.ExportExplicitParameters(Boolean)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ExportExplicitParameters(Boolean)
+  fullName: ECDiffieHellmanCng.ExportExplicitParameters(Boolean)
 - uid: System.Security.Cryptography.ECParameters
   parent: System.Security.Cryptography
   isExternal: false
@@ -1670,13 +1580,13 @@ references:
   isExternal: false
   name: ExportParameters(Boolean)
   nameWithType: ECDiffieHellmanCng.ExportParameters(Boolean)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ExportParameters(Boolean)
+  fullName: ECDiffieHellmanCng.ExportParameters(Boolean)
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.FromXmlString(System.String,System.Security.Cryptography.ECKeyXmlFormat)
   parent: System.Security.Cryptography.ECDiffieHellmanCng
   isExternal: false
   name: FromXmlString(String, ECKeyXmlFormat)
   nameWithType: ECDiffieHellmanCng.FromXmlString(String, ECKeyXmlFormat)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.FromXmlString(String, ECKeyXmlFormat)
+  fullName: ECDiffieHellmanCng.FromXmlString(String, ECKeyXmlFormat)
 - uid: System.String
   parent: System
   isExternal: false
@@ -1694,19 +1604,19 @@ references:
   isExternal: false
   name: FromXmlString(String)
   nameWithType: ECDiffieHellmanCng.FromXmlString(String)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.FromXmlString(String)
+  fullName: ECDiffieHellmanCng.FromXmlString(String)
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.GenerateKey(System.Security.Cryptography.ECCurve)
   parent: System.Security.Cryptography.ECDiffieHellmanCng
   isExternal: false
   name: GenerateKey(ECCurve)
   nameWithType: ECDiffieHellmanCng.GenerateKey(ECCurve)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.GenerateKey(ECCurve)
+  fullName: ECDiffieHellmanCng.GenerateKey(ECCurve)
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.HashAlgorithm
   parent: System.Security.Cryptography.ECDiffieHellmanCng
   isExternal: false
   name: HashAlgorithm
   nameWithType: ECDiffieHellmanCng.HashAlgorithm
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.HashAlgorithm
+  fullName: ECDiffieHellmanCng.HashAlgorithm
 - uid: System.Security.Cryptography.CngAlgorithm
   parent: System.Security.Cryptography
   isExternal: false
@@ -1718,25 +1628,25 @@ references:
   isExternal: false
   name: HmacKey
   nameWithType: ECDiffieHellmanCng.HmacKey
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.HmacKey
+  fullName: ECDiffieHellmanCng.HmacKey
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.ImportParameters(System.Security.Cryptography.ECParameters)
   parent: System.Security.Cryptography.ECDiffieHellmanCng
   isExternal: false
   name: ImportParameters(ECParameters)
   nameWithType: ECDiffieHellmanCng.ImportParameters(ECParameters)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ImportParameters(ECParameters)
+  fullName: ECDiffieHellmanCng.ImportParameters(ECParameters)
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.Key
   parent: System.Security.Cryptography.ECDiffieHellmanCng
   isExternal: false
   name: Key
   nameWithType: ECDiffieHellmanCng.Key
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.Key
+  fullName: ECDiffieHellmanCng.Key
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.KeyDerivationFunction
   parent: System.Security.Cryptography.ECDiffieHellmanCng
   isExternal: false
   name: KeyDerivationFunction
   nameWithType: ECDiffieHellmanCng.KeyDerivationFunction
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.KeyDerivationFunction
+  fullName: ECDiffieHellmanCng.KeyDerivationFunction
 - uid: System.Security.Cryptography.ECDiffieHellmanKeyDerivationFunction
   parent: System.Security.Cryptography
   isExternal: false
@@ -1748,55 +1658,55 @@ references:
   isExternal: false
   name: Label
   nameWithType: ECDiffieHellmanCng.Label
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.Label
+  fullName: ECDiffieHellmanCng.Label
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.PublicKey
   parent: System.Security.Cryptography.ECDiffieHellmanCng
   isExternal: false
   name: PublicKey
   nameWithType: ECDiffieHellmanCng.PublicKey
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.PublicKey
+  fullName: ECDiffieHellmanCng.PublicKey
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.SecretAppend
   parent: System.Security.Cryptography.ECDiffieHellmanCng
   isExternal: false
   name: SecretAppend
   nameWithType: ECDiffieHellmanCng.SecretAppend
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.SecretAppend
+  fullName: ECDiffieHellmanCng.SecretAppend
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.SecretPrepend
   parent: System.Security.Cryptography.ECDiffieHellmanCng
   isExternal: false
   name: SecretPrepend
   nameWithType: ECDiffieHellmanCng.SecretPrepend
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.SecretPrepend
+  fullName: ECDiffieHellmanCng.SecretPrepend
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.Seed
   parent: System.Security.Cryptography.ECDiffieHellmanCng
   isExternal: false
   name: Seed
   nameWithType: ECDiffieHellmanCng.Seed
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.Seed
+  fullName: ECDiffieHellmanCng.Seed
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.ToXmlString(System.Boolean)
   parent: System.Security.Cryptography.ECDiffieHellmanCng
   isExternal: false
   name: ToXmlString(Boolean)
   nameWithType: ECDiffieHellmanCng.ToXmlString(Boolean)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ToXmlString(Boolean)
+  fullName: ECDiffieHellmanCng.ToXmlString(Boolean)
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.ToXmlString(System.Security.Cryptography.ECKeyXmlFormat)
   parent: System.Security.Cryptography.ECDiffieHellmanCng
   isExternal: false
   name: ToXmlString(ECKeyXmlFormat)
   nameWithType: ECDiffieHellmanCng.ToXmlString(ECKeyXmlFormat)
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ToXmlString(ECKeyXmlFormat)
+  fullName: ECDiffieHellmanCng.ToXmlString(ECKeyXmlFormat)
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.UseSecretAgreementAsHmacKey
   parent: System.Security.Cryptography.ECDiffieHellmanCng
   isExternal: false
   name: UseSecretAgreementAsHmacKey
   nameWithType: ECDiffieHellmanCng.UseSecretAgreementAsHmacKey
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.UseSecretAgreementAsHmacKey
+  fullName: ECDiffieHellmanCng.UseSecretAgreementAsHmacKey
 - uid: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyMaterial*
   parent: System.Security.Cryptography.ECDiffieHellmanCng
   isExternal: false
   name: DeriveKeyMaterial
   nameWithType: ECDiffieHellmanCng.DeriveKeyMaterial
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyMaterial
+  fullName: ECDiffieHellmanCng.DeriveKeyMaterial
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1811,7 +1721,7 @@ references:
   isExternal: false
   name: DeriveSecretAgreementHandle
   nameWithType: ECDiffieHellmanCng.DeriveSecretAgreementHandle
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.DeriveSecretAgreementHandle
+  fullName: ECDiffieHellmanCng.DeriveSecretAgreementHandle
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1826,7 +1736,7 @@ references:
   isExternal: false
   name: ECDiffieHellmanCng
   nameWithType: ECDiffieHellmanCng.ECDiffieHellmanCng
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ECDiffieHellmanCng
+  fullName: ECDiffieHellmanCng.ECDiffieHellmanCng
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1841,7 +1751,7 @@ references:
   isExternal: false
   name: DeriveKeyFromHash
   nameWithType: ECDiffieHellmanCng.DeriveKeyFromHash
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyFromHash
+  fullName: ECDiffieHellmanCng.DeriveKeyFromHash
   monikers:
   - netframework-4.6.2
   - netframework-4.7
@@ -1851,7 +1761,7 @@ references:
   isExternal: false
   name: DeriveKeyFromHmac
   nameWithType: ECDiffieHellmanCng.DeriveKeyFromHmac
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyFromHmac
+  fullName: ECDiffieHellmanCng.DeriveKeyFromHmac
   monikers:
   - netframework-4.6.2
   - netframework-4.7
@@ -1861,7 +1771,7 @@ references:
   isExternal: false
   name: DeriveKeyTls
   nameWithType: ECDiffieHellmanCng.DeriveKeyTls
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.DeriveKeyTls
+  fullName: ECDiffieHellmanCng.DeriveKeyTls
   monikers:
   - netframework-4.6.2
   - netframework-4.7
@@ -1871,7 +1781,7 @@ references:
   isExternal: false
   name: Dispose
   nameWithType: ECDiffieHellmanCng.Dispose
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.Dispose
+  fullName: ECDiffieHellmanCng.Dispose
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1886,7 +1796,7 @@ references:
   isExternal: false
   name: ExportExplicitParameters
   nameWithType: ECDiffieHellmanCng.ExportExplicitParameters
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ExportExplicitParameters
+  fullName: ECDiffieHellmanCng.ExportExplicitParameters
   monikers:
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
@@ -1895,7 +1805,7 @@ references:
   isExternal: false
   name: ExportParameters
   nameWithType: ECDiffieHellmanCng.ExportParameters
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ExportParameters
+  fullName: ECDiffieHellmanCng.ExportParameters
   monikers:
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
@@ -1904,7 +1814,7 @@ references:
   isExternal: false
   name: FromXmlString
   nameWithType: ECDiffieHellmanCng.FromXmlString
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.FromXmlString
+  fullName: ECDiffieHellmanCng.FromXmlString
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1919,7 +1829,7 @@ references:
   isExternal: false
   name: GenerateKey
   nameWithType: ECDiffieHellmanCng.GenerateKey
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.GenerateKey
+  fullName: ECDiffieHellmanCng.GenerateKey
   monikers:
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
@@ -1928,7 +1838,7 @@ references:
   isExternal: false
   name: HashAlgorithm
   nameWithType: ECDiffieHellmanCng.HashAlgorithm
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.HashAlgorithm
+  fullName: ECDiffieHellmanCng.HashAlgorithm
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1943,7 +1853,7 @@ references:
   isExternal: false
   name: HmacKey
   nameWithType: ECDiffieHellmanCng.HmacKey
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.HmacKey
+  fullName: ECDiffieHellmanCng.HmacKey
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1958,7 +1868,7 @@ references:
   isExternal: false
   name: ImportParameters
   nameWithType: ECDiffieHellmanCng.ImportParameters
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ImportParameters
+  fullName: ECDiffieHellmanCng.ImportParameters
   monikers:
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/ECDiffieHellmanCng.xml
@@ -1967,7 +1877,7 @@ references:
   isExternal: false
   name: Key
   nameWithType: ECDiffieHellmanCng.Key
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.Key
+  fullName: ECDiffieHellmanCng.Key
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1982,7 +1892,7 @@ references:
   isExternal: false
   name: KeyDerivationFunction
   nameWithType: ECDiffieHellmanCng.KeyDerivationFunction
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.KeyDerivationFunction
+  fullName: ECDiffieHellmanCng.KeyDerivationFunction
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1997,7 +1907,7 @@ references:
   isExternal: false
   name: Label
   nameWithType: ECDiffieHellmanCng.Label
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.Label
+  fullName: ECDiffieHellmanCng.Label
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2012,7 +1922,7 @@ references:
   isExternal: false
   name: PublicKey
   nameWithType: ECDiffieHellmanCng.PublicKey
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.PublicKey
+  fullName: ECDiffieHellmanCng.PublicKey
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2027,7 +1937,7 @@ references:
   isExternal: false
   name: SecretAppend
   nameWithType: ECDiffieHellmanCng.SecretAppend
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.SecretAppend
+  fullName: ECDiffieHellmanCng.SecretAppend
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2042,7 +1952,7 @@ references:
   isExternal: false
   name: SecretPrepend
   nameWithType: ECDiffieHellmanCng.SecretPrepend
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.SecretPrepend
+  fullName: ECDiffieHellmanCng.SecretPrepend
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2057,7 +1967,7 @@ references:
   isExternal: false
   name: Seed
   nameWithType: ECDiffieHellmanCng.Seed
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.Seed
+  fullName: ECDiffieHellmanCng.Seed
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2072,7 +1982,7 @@ references:
   isExternal: false
   name: ToXmlString
   nameWithType: ECDiffieHellmanCng.ToXmlString
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.ToXmlString
+  fullName: ECDiffieHellmanCng.ToXmlString
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2087,7 +1997,7 @@ references:
   isExternal: false
   name: UseSecretAgreementAsHmacKey
   nameWithType: ECDiffieHellmanCng.UseSecretAgreementAsHmacKey
-  fullName: System.Security.Cryptography.ECDiffieHellmanCng.UseSecretAgreementAsHmacKey
+  fullName: ECDiffieHellmanCng.UseSecretAgreementAsHmacKey
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

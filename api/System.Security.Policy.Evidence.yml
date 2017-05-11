@@ -35,9 +35,10 @@ items:
   type: Class
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Defines the set of information that constitutes input to security policy decisions. This class cannot be inherited.
-  remarks: "Common forms of evidence include signatures and location of origin of code, but can potentially be anything. Objects of any type that are recognized by security policy represent evidence.  \n  \n Security policy is composed of code groups; a particular assembly (the basic unit of code for granting security permissions) is a member of a code group if it satisfies the code group's membership condition. Evidence is the set of inputs to policy that membership conditions use to determine to which code groups an assembly belongs.  \n  \n The <xref:System.Security.Policy.Evidence> class is a collection (see <xref:System.Collections.ICollection>) that holds a set of objects that represent evidence. This class holds two sets that correspond to the source of the evidence: host evidence and assembly evidence.  \n  \n Policy can get evidence from two different sources when evaluating permissions for code.  \n  \n-   `Host evidence` is provided by the host, and can only be provided by hosts that have been granted the <xref:System.Security.Permissions.SecurityPermissionFlag> permission. Typically, this is evidence of the origin of the code and digital signatures on the assembly. Evidence about origin typically includes <xref:System.Security.Policy.Url>, <xref:System.Security.Policy.Site>, and <xref:System.Security.Policy.Zone> evidence. Signatures refer to software publisher (AuthentiCode X.509v3 signature) and strong name identities. Both kinds of digital signature-based identity are built into the assembly, but must be validated and passed to policy by the host; when loaded, the security system verifies the signature. The system then creates the appropriate evidence and passes it to policy only if the corresponding signature is valid.  \n  \n-   `Assembly evidence` is part of the assembly itself. Developers or administrators can attach custom evidence to the assembly to extend the set of evidence for policy. Assembly evidence can only be added at the time of assembly generation, which occurs before the assembly is signed. The default policy of the security system ignores assembly-provided evidence, but policy can be extended to accept it."
+  remarks: "Common forms of evidence include signatures and location of origin of code, but can potentially be anything. Objects of any type that are recognized by security policy represent evidence.  \n  \n Security policy is composed of code groups; a particular assembly (the basic unit of code for granting security permissions) is a member of a code group if it satisfies the code group's membership condition. Evidence is the set of inputs to policy that membership conditions use to determine to which code groups an assembly belongs.  \n  \n The <xref:System.Security.Policy.Evidence> class is a collection (see <xref:System.Collections.ICollection>) that holds a set of objects that represent evidence. This class holds two sets that correspond to the source of the evidence: host evidence and assembly evidence.  \n  \n Policy can get evidence from two different sources when evaluating permissions for code.  \n  \n-   `Host evidence` is provided by the host, and can only be provided by hosts that have been granted the <xref:System.Security.Permissions.SecurityPermissionFlag.ControlEvidence> permission. Typically, this is evidence of the origin of the code and digital signatures on the assembly. Evidence about origin typically includes <xref:System.Security.Policy.Url>, <xref:System.Security.Policy.Site>, and <xref:System.Security.Policy.Zone> evidence. Signatures refer to software publisher (AuthentiCode X.509v3 signature) and strong name identities. Both kinds of digital signature-based identity are built into the assembly, but must be validated and passed to policy by the host; when loaded, the security system verifies the signature. The system then creates the appropriate evidence and passes it to policy only if the corresponding signature is valid.  \n  \n-   `Assembly evidence` is part of the assembly itself. Developers or administrators can attach custom evidence to the assembly to extend the set of evidence for policy. Assembly evidence can only be added at the time of assembly generation, which occurs before the assembly is signed. The default policy of the security system ignores assembly-provided evidence, but policy can be extended to accept it."
   example:
   - "The following code example demonstrates how to create new <xref:System.Security.Policy.Evidence> classes with both host evidence and assembly evidence.  \n  \n [!code-cpp[System.Security.Policy.Evidence#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Policy.Evidence/CPP/evidence_evidence.cpp#1)]\n [!code-csharp[System.Security.Policy.Evidence#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Policy.Evidence/CS/evidence_evidence.cs#1)]\n [!code-vb[System.Security.Policy.Evidence#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Policy.Evidence/VB/evidence_evidence.vb#1)]"
   syntax:
@@ -65,6 +66,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -76,6 +78,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -87,9 +90,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.#ctor
   commentId: M:System.Security.Policy.Evidence.#ctor
   id: '#ctor'
@@ -98,10 +98,11 @@ items:
   - csharp
   name: Evidence()
   nameWithType: Evidence.Evidence()
-  fullName: System.Security.Policy.Evidence.Evidence()
+  fullName: Evidence.Evidence()
   type: Constructor
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Initializes a new empty instance of the <xref href="System.Security.Policy.Evidence"></xref> class.
   remarks: ''
@@ -113,6 +114,7 @@ items:
   overload: System.Security.Policy.Evidence.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -124,6 +126,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -135,9 +138,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.#ctor(System.Security.Policy.Evidence)
   commentId: M:System.Security.Policy.Evidence.#ctor(System.Security.Policy.Evidence)
   id: '#ctor(System.Security.Policy.Evidence)'
@@ -146,10 +146,11 @@ items:
   - csharp
   name: Evidence(Evidence)
   nameWithType: Evidence.Evidence(Evidence)
-  fullName: System.Security.Policy.Evidence.Evidence(Evidence)
+  fullName: Evidence.Evidence(Evidence)
   type: Constructor
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Initializes a new instance of the <xref href="System.Security.Policy.Evidence"></xref> class from a shallow copy of an existing one.
   remarks: ''
@@ -167,6 +168,7 @@ items:
     commentId: T:System.ArgumentException
     description: The <code>evidence</code> parameter is not a valid instance of <xref href="System.Security.Policy.Evidence"></xref>.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -178,6 +180,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -189,9 +192,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.#ctor(System.Object[],System.Object[])
   commentId: M:System.Security.Policy.Evidence.#ctor(System.Object[],System.Object[])
   id: '#ctor(System.Object[],System.Object[])'
@@ -200,15 +200,16 @@ items:
   - csharp
   name: Evidence(Object[], Object[])
   nameWithType: Evidence.Evidence(Object[], Object[])
-  fullName: System.Security.Policy.Evidence.Evidence(Object[], Object[])
+  fullName: Evidence.Evidence(Object[], Object[])
   type: Constructor
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Initializes a new instance of the <xref href="System.Security.Policy.Evidence"></xref> class from multiple sets of host and assembly evidence.
   remarks: ''
   example:
-  - "The following code example shows the use of the [Evidence Constructor (Object\\<xref:System.Security.Policy.Evidence.%23ctor%28System.Object%5B%5D%2CSystem.Object%5B%5D%29> constructor. This example is part of a larger example provided for the <xref:System.Security.Policy.Evidence> class.  \n  \n [!code-cpp[System.Security.Policy.Evidence#3](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Policy.Evidence/CPP/evidence_evidence.cpp#3)]\n [!code-csharp[System.Security.Policy.Evidence#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Policy.Evidence/CS/evidence_evidence.cs#3)]\n [!code-vb[System.Security.Policy.Evidence#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Policy.Evidence/VB/evidence_evidence.vb#3)]"
+  - "The following code example shows the use of the <xref:System.Security.Policy.Evidence.%23ctor%28System.Object%5B%5D%2CSystem.Object%5B%5D%29> constructor. This example is part of a larger example provided for the <xref:System.Security.Policy.Evidence> class.  \n  \n [!code-cpp[System.Security.Policy.Evidence#3](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Policy.Evidence/CPP/evidence_evidence.cpp#3)]\n [!code-csharp[System.Security.Policy.Evidence#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Policy.Evidence/CS/evidence_evidence.cs#3)]\n [!code-vb[System.Security.Policy.Evidence#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Policy.Evidence/VB/evidence_evidence.vb#3)]"
   syntax:
     content: >-
       [System.Obsolete]
@@ -226,6 +227,7 @@ items:
   attributes:
   - type: System.ObsoleteAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -237,6 +239,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -248,9 +251,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.#ctor(System.Security.Policy.EvidenceBase[],System.Security.Policy.EvidenceBase[])
   commentId: M:System.Security.Policy.Evidence.#ctor(System.Security.Policy.EvidenceBase[],System.Security.Policy.EvidenceBase[])
   id: '#ctor(System.Security.Policy.EvidenceBase[],System.Security.Policy.EvidenceBase[])'
@@ -259,10 +259,11 @@ items:
   - csharp
   name: Evidence(EvidenceBase[], EvidenceBase[])
   nameWithType: Evidence.Evidence(EvidenceBase[], EvidenceBase[])
-  fullName: System.Security.Policy.Evidence.Evidence(EvidenceBase[], EvidenceBase[])
+  fullName: Evidence.Evidence(EvidenceBase[], EvidenceBase[])
   type: Constructor
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Initializes a new instance of the <xref href="System.Security.Policy.Evidence"></xref> class from multiple sets of host and assembly evidence.
   remarks: This constructor creates a new instance of the class by using evidence objects that inherit from the <xref:System.Security.Policy.EvidenceBase> class.
@@ -278,6 +279,7 @@ items:
   overload: System.Security.Policy.Evidence.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -286,6 +288,7 @@ items:
   - netframework-4.6
   - netframework-4.7
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -294,9 +297,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.AddAssembly(System.Object)
   commentId: M:System.Security.Policy.Evidence.AddAssembly(System.Object)
   id: AddAssembly(System.Object)
@@ -305,10 +305,11 @@ items:
   - csharp
   name: AddAssembly(Object)
   nameWithType: Evidence.AddAssembly(Object)
-  fullName: System.Security.Policy.Evidence.AddAssembly(Object)
+  fullName: Evidence.AddAssembly(Object)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Adds the specified assembly evidence to the evidence set.
   remarks: "Use this method for evidence derived from the assembly.  \n  \n> [!NOTE]\n>  This method does not perform a check to prevent adding duplicate types of evidence. Many assembly evidence objects can exist at the same time."
@@ -334,6 +335,7 @@ items:
   attributes:
   - type: System.ObsoleteAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -345,6 +347,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -356,9 +359,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.AddAssemblyEvidence``1(``0)
   commentId: M:System.Security.Policy.Evidence.AddAssemblyEvidence``1(``0)
   id: AddAssemblyEvidence``1(``0)
@@ -367,10 +367,11 @@ items:
   - csharp
   name: AddAssemblyEvidence<T>(T)
   nameWithType: Evidence.AddAssemblyEvidence<T>(T)
-  fullName: System.Security.Policy.Evidence.AddAssemblyEvidence<T>(T)
+  fullName: Evidence.AddAssemblyEvidence<T>(T)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Adds an evidence object of the specified type to the assembly-supplied evidence list.
   remarks: Legacy evidence, that is, evidence that is not derived from <xref:System.Security.Policy.EvidenceBase>, cannot be added. Only evidence that is derived from <xref:System.Security.Policy.EvidenceBase> can be added. This method does not allow you to add evidence if evidence of that type already exists in the assembly list.
@@ -383,6 +384,9 @@ items:
     - id: evidence
       type: T
       description: The assembly evidence to add.
+    typeParameters:
+    - id: T
+      description: The type of the object in <code>evidence</code>.
   overload: System.Security.Policy.Evidence.AddAssemblyEvidence``1*
   exceptions:
   - type: System.ArgumentNullException
@@ -397,6 +401,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -405,6 +410,7 @@ items:
   - netframework-4.6
   - netframework-4.7
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -413,9 +419,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.AddHost(System.Object)
   commentId: M:System.Security.Policy.Evidence.AddHost(System.Object)
   id: AddHost(System.Object)
@@ -424,10 +427,11 @@ items:
   - csharp
   name: AddHost(Object)
   nameWithType: Evidence.AddHost(Object)
-  fullName: System.Security.Policy.Evidence.AddHost(Object)
+  fullName: Evidence.AddHost(Object)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Adds the specified evidence supplied by the host to the evidence set.
   remarks: "Use this method for evidence supplied by the host.  \n  \n> [!NOTE]\n>  This method does not perform a check to prevent adding duplicate types of evidence. Many host evidence objects can exist at the same time."
@@ -453,6 +457,7 @@ items:
   attributes:
   - type: System.ObsoleteAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -464,6 +469,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -475,9 +481,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.AddHostEvidence``1(``0)
   commentId: M:System.Security.Policy.Evidence.AddHostEvidence``1(``0)
   id: AddHostEvidence``1(``0)
@@ -486,10 +489,11 @@ items:
   - csharp
   name: AddHostEvidence<T>(T)
   nameWithType: Evidence.AddHostEvidence<T>(T)
-  fullName: System.Security.Policy.Evidence.AddHostEvidence<T>(T)
+  fullName: Evidence.AddHostEvidence<T>(T)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Adds host evidence of the specified type to the host evidence collection.
   remarks: Legacy evidence, that is, evidence that is not derived from <xref:System.Security.Policy.EvidenceBase>, cannot be added. Only evidence that is derived from <xref:System.Security.Policy.EvidenceBase> can be added. This method does not allow you to add evidence if evidence of that type already exists in the assembly list.
@@ -502,6 +506,9 @@ items:
     - id: evidence
       type: T
       description: The host evidence to add.
+    typeParameters:
+    - id: T
+      description: The type of the object in <code>evidence</code>.
   overload: System.Security.Policy.Evidence.AddHostEvidence``1*
   exceptions:
   - type: System.ArgumentNullException
@@ -513,6 +520,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -521,6 +529,7 @@ items:
   - netframework-4.6
   - netframework-4.7
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -529,9 +538,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.Clear
   commentId: M:System.Security.Policy.Evidence.Clear
   id: Clear
@@ -540,10 +546,11 @@ items:
   - csharp
   name: Clear()
   nameWithType: Evidence.Clear()
-  fullName: System.Security.Policy.Evidence.Clear()
+  fullName: Evidence.Clear()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Removes the host and assembly evidence from the evidence set.
   remarks: <xref:System.Security.Policy.Evidence.Clear%2A> removes the evidence in the host and assembly enumerations, setting both to `null`.
@@ -560,6 +567,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -571,6 +579,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -582,9 +591,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.Clone
   commentId: M:System.Security.Policy.Evidence.Clone
   id: Clone
@@ -593,10 +599,11 @@ items:
   - csharp
   name: Clone()
   nameWithType: Evidence.Clone()
-  fullName: System.Security.Policy.Evidence.Clone()
+  fullName: Evidence.Clone()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Returns a duplicate copy of this evidence object.
   remarks: The duplicate copy is a complete copy that includes all the evidence objects in the collection.
@@ -614,6 +621,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -625,6 +633,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -636,9 +645,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.CopyTo(System.Array,System.Int32)
   commentId: M:System.Security.Policy.Evidence.CopyTo(System.Array,System.Int32)
   id: CopyTo(System.Array,System.Int32)
@@ -647,10 +653,11 @@ items:
   - csharp
   name: CopyTo(Array, Int32)
   nameWithType: Evidence.CopyTo(Array, Int32)
-  fullName: System.Security.Policy.Evidence.CopyTo(Array, Int32)
+  fullName: Evidence.CopyTo(Array, Int32)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Copies evidence objects to an <xref href="System.Array"></xref>.
   remarks: ''
@@ -679,6 +686,7 @@ items:
   attributes:
   - type: System.ObsoleteAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -690,6 +698,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -701,9 +710,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.Count
   commentId: P:System.Security.Policy.Evidence.Count
   id: Count
@@ -712,10 +718,11 @@ items:
   - csharp
   name: Count
   nameWithType: Evidence.Count
-  fullName: System.Security.Policy.Evidence.Count
+  fullName: Evidence.Count
   type: Property
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Gets the number of evidence objects in the evidence set.
   remarks: ''
@@ -734,6 +741,7 @@ items:
   attributes:
   - type: System.ObsoleteAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -745,6 +753,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -756,9 +765,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.GetAssemblyEnumerator
   commentId: M:System.Security.Policy.Evidence.GetAssemblyEnumerator
   id: GetAssemblyEnumerator
@@ -767,10 +773,11 @@ items:
   - csharp
   name: GetAssemblyEnumerator()
   nameWithType: Evidence.GetAssemblyEnumerator()
-  fullName: System.Security.Policy.Evidence.GetAssemblyEnumerator()
+  fullName: Evidence.GetAssemblyEnumerator()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Enumerates evidence provided by the assembly.
   remarks: ''
@@ -785,6 +792,7 @@ items:
   overload: System.Security.Policy.Evidence.GetAssemblyEnumerator*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -796,6 +804,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -807,9 +816,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.GetAssemblyEvidence``1
   commentId: M:System.Security.Policy.Evidence.GetAssemblyEvidence``1
   id: GetAssemblyEvidence``1
@@ -818,10 +824,11 @@ items:
   - csharp
   name: GetAssemblyEvidence<T>()
   nameWithType: Evidence.GetAssemblyEvidence<T>()
-  fullName: System.Security.Policy.Evidence.GetAssemblyEvidence<T>()
+  fullName: Evidence.GetAssemblyEvidence<T>()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Gets assembly evidence of the specified type from the collection.
   remarks: This method returns only evidence that is derived from the <xref:System.Security.Policy.EvidenceBase> class. It does not return legacy evidence objects that are derived from other classes.
@@ -831,6 +838,9 @@ items:
 
       public T GetAssemblyEvidence<T> () where T : System.Security.Policy.EvidenceBase;
     parameters: []
+    typeParameters:
+    - id: T
+      description: The type of the evidence to get.
     return:
       type: T
       description: Evidence of type <code>T</code> in the assembly evidence collection.
@@ -839,6 +849,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -847,6 +858,7 @@ items:
   - netframework-4.6
   - netframework-4.7
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -855,9 +867,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.GetEnumerator
   commentId: M:System.Security.Policy.Evidence.GetEnumerator
   id: GetEnumerator
@@ -866,10 +875,11 @@ items:
   - csharp
   name: GetEnumerator()
   nameWithType: Evidence.GetEnumerator()
-  fullName: System.Security.Policy.Evidence.GetEnumerator()
+  fullName: Evidence.GetEnumerator()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Enumerates all evidence in the set, both that provided by the host and that provided by the assembly.
   remarks: ''
@@ -889,6 +899,7 @@ items:
   attributes:
   - type: System.ObsoleteAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -900,6 +911,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -911,9 +923,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.GetHostEnumerator
   commentId: M:System.Security.Policy.Evidence.GetHostEnumerator
   id: GetHostEnumerator
@@ -922,10 +931,11 @@ items:
   - csharp
   name: GetHostEnumerator()
   nameWithType: Evidence.GetHostEnumerator()
-  fullName: System.Security.Policy.Evidence.GetHostEnumerator()
+  fullName: Evidence.GetHostEnumerator()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Enumerates evidence supplied by the host.
   remarks: ''
@@ -940,6 +950,7 @@ items:
   overload: System.Security.Policy.Evidence.GetHostEnumerator*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -951,6 +962,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -962,9 +974,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.GetHostEvidence``1
   commentId: M:System.Security.Policy.Evidence.GetHostEvidence``1
   id: GetHostEvidence``1
@@ -973,10 +982,11 @@ items:
   - csharp
   name: GetHostEvidence<T>()
   nameWithType: Evidence.GetHostEvidence<T>()
-  fullName: System.Security.Policy.Evidence.GetHostEvidence<T>()
+  fullName: Evidence.GetHostEvidence<T>()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Gets host evidence of the specified type from the collection.
   remarks: This method returns only evidence that is derived from the <xref:System.Security.Policy.EvidenceBase> class. It does not return legacy evidence objects that are derived from other classes.
@@ -986,6 +996,9 @@ items:
 
       public T GetHostEvidence<T> () where T : System.Security.Policy.EvidenceBase;
     parameters: []
+    typeParameters:
+    - id: T
+      description: The type of the evidence to get.
     return:
       type: T
       description: Evidence of type <code>T</code> in the host evidence collection.
@@ -994,6 +1007,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1002,6 +1016,7 @@ items:
   - netframework-4.6
   - netframework-4.7
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1010,9 +1025,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.IsReadOnly
   commentId: P:System.Security.Policy.Evidence.IsReadOnly
   id: IsReadOnly
@@ -1021,10 +1033,11 @@ items:
   - csharp
   name: IsReadOnly
   nameWithType: Evidence.IsReadOnly
-  fullName: System.Security.Policy.Evidence.IsReadOnly
+  fullName: Evidence.IsReadOnly
   type: Property
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Gets a value indicating whether the evidence set is read-only.
   remarks: Application code does not normally use this property.
@@ -1036,6 +1049,7 @@ items:
   overload: System.Security.Policy.Evidence.IsReadOnly*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1047,6 +1061,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1058,9 +1073,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.IsSynchronized
   commentId: P:System.Security.Policy.Evidence.IsSynchronized
   id: IsSynchronized
@@ -1069,10 +1081,11 @@ items:
   - csharp
   name: IsSynchronized
   nameWithType: Evidence.IsSynchronized
-  fullName: System.Security.Policy.Evidence.IsSynchronized
+  fullName: Evidence.IsSynchronized
   type: Property
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Gets a value indicating whether the evidence set is thread-safe.
   remarks: Application code does not normally use this property.
@@ -1084,6 +1097,7 @@ items:
   overload: System.Security.Policy.Evidence.IsSynchronized*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1095,6 +1109,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1106,9 +1121,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.Locked
   commentId: P:System.Security.Policy.Evidence.Locked
   id: Locked
@@ -1117,10 +1129,11 @@ items:
   - csharp
   name: Locked
   nameWithType: Evidence.Locked
-  fullName: System.Security.Policy.Evidence.Locked
+  fullName: Evidence.Locked
   type: Property
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Gets or sets a value indicating whether the evidence is locked.
   remarks: ''
@@ -1134,6 +1147,7 @@ items:
   overload: System.Security.Policy.Evidence.Locked*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1145,6 +1159,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1156,9 +1171,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.Merge(System.Security.Policy.Evidence)
   commentId: M:System.Security.Policy.Evidence.Merge(System.Security.Policy.Evidence)
   id: Merge(System.Security.Policy.Evidence)
@@ -1167,10 +1179,11 @@ items:
   - csharp
   name: Merge(Evidence)
   nameWithType: Evidence.Merge(Evidence)
-  fullName: System.Security.Policy.Evidence.Merge(Evidence)
+  fullName: Evidence.Merge(Evidence)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Merges the specified evidence set into the current evidence set.
   remarks: "Each evidence object in the specified evidence set is added to the assembly and host sets of the current evidence set, according to the sets from which it came.  \n  \n> [!NOTE]\n>  This method does not perform a check to prevent adding duplicate types of evidence. Many assembly and host evidence objects can exist at the same time."
@@ -1191,6 +1204,7 @@ items:
     commentId: T:System.Security.SecurityException
     description: <xref href="System.Security.Policy.Evidence.Locked"></xref> is `true`, the code that calls this method does not have <xref href="System.Security.Permissions.SecurityPermissionFlag.ControlEvidence"></xref>, and the <code>evidence</code> parameter has a host list that is not empty.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1202,6 +1216,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1213,9 +1228,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.RemoveType(System.Type)
   commentId: M:System.Security.Policy.Evidence.RemoveType(System.Type)
   id: RemoveType(System.Type)
@@ -1224,10 +1236,11 @@ items:
   - csharp
   name: RemoveType(Type)
   nameWithType: Evidence.RemoveType(Type)
-  fullName: System.Security.Policy.Evidence.RemoveType(Type)
+  fullName: Evidence.RemoveType(Type)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Removes the evidence for a given type from the host and assembly enumerations.
   remarks: The results of executing the <xref:System.Security.Policy.Evidence.RemoveType%2A> method can be confirmed using the <xref:System.Security.Policy.Evidence.GetAssemblyEnumerator%2A> method and the <xref:System.Security.Policy.Evidence.GetHostEnumerator%2A> method.
@@ -1250,6 +1263,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1261,6 +1275,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1272,9 +1287,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Policy.Evidence.SyncRoot
   commentId: P:System.Security.Policy.Evidence.SyncRoot
   id: SyncRoot
@@ -1283,10 +1295,11 @@ items:
   - csharp
   name: SyncRoot
   nameWithType: Evidence.SyncRoot
-  fullName: System.Security.Policy.Evidence.SyncRoot
+  fullName: Evidence.SyncRoot
   type: Property
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Policy
   summary: Gets the synchronization root.
   remarks: This property is not normally used by application code.
@@ -1298,6 +1311,7 @@ items:
   overload: System.Security.Policy.Evidence.SyncRoot*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1309,6 +1323,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1320,9 +1335,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Policy/Evidence.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -1365,13 +1377,13 @@ references:
   isExternal: false
   name: Evidence()
   nameWithType: Evidence.Evidence()
-  fullName: System.Security.Policy.Evidence.Evidence()
+  fullName: Evidence.Evidence()
 - uid: System.Security.Policy.Evidence.#ctor(System.Security.Policy.Evidence)
   parent: System.Security.Policy.Evidence
   isExternal: false
   name: Evidence(Evidence)
   nameWithType: Evidence.Evidence(Evidence)
-  fullName: System.Security.Policy.Evidence.Evidence(Evidence)
+  fullName: Evidence.Evidence(Evidence)
 - uid: System.Security.Policy.Evidence
   parent: System.Security.Policy
   isExternal: false
@@ -1383,7 +1395,7 @@ references:
   isExternal: false
   name: Evidence(Object[], Object[])
   nameWithType: Evidence.Evidence(Object[], Object[])
-  fullName: System.Security.Policy.Evidence.Evidence(Object[], Object[])
+  fullName: Evidence.Evidence(Object[], Object[])
 - uid: System.Object[]
   parent: System
   isExternal: false
@@ -1403,7 +1415,7 @@ references:
   isExternal: false
   name: Evidence(EvidenceBase[], EvidenceBase[])
   nameWithType: Evidence.Evidence(EvidenceBase[], EvidenceBase[])
-  fullName: System.Security.Policy.Evidence.Evidence(EvidenceBase[], EvidenceBase[])
+  fullName: Evidence.Evidence(EvidenceBase[], EvidenceBase[])
 - uid: System.Security.Policy.EvidenceBase
   name: EvidenceBase
   nameWithType: EvidenceBase
@@ -1427,13 +1439,13 @@ references:
   isExternal: false
   name: AddAssembly(Object)
   nameWithType: Evidence.AddAssembly(Object)
-  fullName: System.Security.Policy.Evidence.AddAssembly(Object)
+  fullName: Evidence.AddAssembly(Object)
 - uid: System.Security.Policy.Evidence.AddAssemblyEvidence``1(``0)
   parent: System.Security.Policy.Evidence
   isExternal: false
   name: AddAssemblyEvidence<T>(T)
   nameWithType: Evidence.AddAssemblyEvidence<T>(T)
-  fullName: System.Security.Policy.Evidence.AddAssemblyEvidence<T>(T)
+  fullName: Evidence.AddAssemblyEvidence<T>(T)
 - uid: T
   isExternal: true
   name: T
@@ -1444,31 +1456,31 @@ references:
   isExternal: false
   name: AddHost(Object)
   nameWithType: Evidence.AddHost(Object)
-  fullName: System.Security.Policy.Evidence.AddHost(Object)
+  fullName: Evidence.AddHost(Object)
 - uid: System.Security.Policy.Evidence.AddHostEvidence``1(``0)
   parent: System.Security.Policy.Evidence
   isExternal: false
   name: AddHostEvidence<T>(T)
   nameWithType: Evidence.AddHostEvidence<T>(T)
-  fullName: System.Security.Policy.Evidence.AddHostEvidence<T>(T)
+  fullName: Evidence.AddHostEvidence<T>(T)
 - uid: System.Security.Policy.Evidence.Clear
   parent: System.Security.Policy.Evidence
   isExternal: false
   name: Clear()
   nameWithType: Evidence.Clear()
-  fullName: System.Security.Policy.Evidence.Clear()
+  fullName: Evidence.Clear()
 - uid: System.Security.Policy.Evidence.Clone
   parent: System.Security.Policy.Evidence
   isExternal: false
   name: Clone()
   nameWithType: Evidence.Clone()
-  fullName: System.Security.Policy.Evidence.Clone()
+  fullName: Evidence.Clone()
 - uid: System.Security.Policy.Evidence.CopyTo(System.Array,System.Int32)
   parent: System.Security.Policy.Evidence
   isExternal: false
   name: CopyTo(Array, Int32)
   nameWithType: Evidence.CopyTo(Array, Int32)
-  fullName: System.Security.Policy.Evidence.CopyTo(Array, Int32)
+  fullName: Evidence.CopyTo(Array, Int32)
 - uid: System.Array
   parent: System
   isExternal: false
@@ -1486,13 +1498,13 @@ references:
   isExternal: false
   name: Count
   nameWithType: Evidence.Count
-  fullName: System.Security.Policy.Evidence.Count
+  fullName: Evidence.Count
 - uid: System.Security.Policy.Evidence.GetAssemblyEnumerator
   parent: System.Security.Policy.Evidence
   isExternal: false
   name: GetAssemblyEnumerator()
   nameWithType: Evidence.GetAssemblyEnumerator()
-  fullName: System.Security.Policy.Evidence.GetAssemblyEnumerator()
+  fullName: Evidence.GetAssemblyEnumerator()
 - uid: System.Collections.IEnumerator
   parent: System.Collections
   isExternal: false
@@ -1504,31 +1516,31 @@ references:
   isExternal: false
   name: GetAssemblyEvidence<T>()
   nameWithType: Evidence.GetAssemblyEvidence<T>()
-  fullName: System.Security.Policy.Evidence.GetAssemblyEvidence<T>()
+  fullName: Evidence.GetAssemblyEvidence<T>()
 - uid: System.Security.Policy.Evidence.GetEnumerator
   parent: System.Security.Policy.Evidence
   isExternal: false
   name: GetEnumerator()
   nameWithType: Evidence.GetEnumerator()
-  fullName: System.Security.Policy.Evidence.GetEnumerator()
+  fullName: Evidence.GetEnumerator()
 - uid: System.Security.Policy.Evidence.GetHostEnumerator
   parent: System.Security.Policy.Evidence
   isExternal: false
   name: GetHostEnumerator()
   nameWithType: Evidence.GetHostEnumerator()
-  fullName: System.Security.Policy.Evidence.GetHostEnumerator()
+  fullName: Evidence.GetHostEnumerator()
 - uid: System.Security.Policy.Evidence.GetHostEvidence``1
   parent: System.Security.Policy.Evidence
   isExternal: false
   name: GetHostEvidence<T>()
   nameWithType: Evidence.GetHostEvidence<T>()
-  fullName: System.Security.Policy.Evidence.GetHostEvidence<T>()
+  fullName: Evidence.GetHostEvidence<T>()
 - uid: System.Security.Policy.Evidence.IsReadOnly
   parent: System.Security.Policy.Evidence
   isExternal: false
   name: IsReadOnly
   nameWithType: Evidence.IsReadOnly
-  fullName: System.Security.Policy.Evidence.IsReadOnly
+  fullName: Evidence.IsReadOnly
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -1540,25 +1552,25 @@ references:
   isExternal: false
   name: IsSynchronized
   nameWithType: Evidence.IsSynchronized
-  fullName: System.Security.Policy.Evidence.IsSynchronized
+  fullName: Evidence.IsSynchronized
 - uid: System.Security.Policy.Evidence.Locked
   parent: System.Security.Policy.Evidence
   isExternal: false
   name: Locked
   nameWithType: Evidence.Locked
-  fullName: System.Security.Policy.Evidence.Locked
+  fullName: Evidence.Locked
 - uid: System.Security.Policy.Evidence.Merge(System.Security.Policy.Evidence)
   parent: System.Security.Policy.Evidence
   isExternal: false
   name: Merge(Evidence)
   nameWithType: Evidence.Merge(Evidence)
-  fullName: System.Security.Policy.Evidence.Merge(Evidence)
+  fullName: Evidence.Merge(Evidence)
 - uid: System.Security.Policy.Evidence.RemoveType(System.Type)
   parent: System.Security.Policy.Evidence
   isExternal: false
   name: RemoveType(Type)
   nameWithType: Evidence.RemoveType(Type)
-  fullName: System.Security.Policy.Evidence.RemoveType(Type)
+  fullName: Evidence.RemoveType(Type)
 - uid: System.Type
   parent: System
   isExternal: false
@@ -1570,14 +1582,15 @@ references:
   isExternal: false
   name: SyncRoot
   nameWithType: Evidence.SyncRoot
-  fullName: System.Security.Policy.Evidence.SyncRoot
+  fullName: Evidence.SyncRoot
 - uid: System.Security.Policy.Evidence.#ctor*
   parent: System.Security.Policy.Evidence
   isExternal: false
   name: Evidence
   nameWithType: Evidence.Evidence
-  fullName: System.Security.Policy.Evidence.Evidence
+  fullName: Evidence.Evidence
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1594,8 +1607,9 @@ references:
   isExternal: false
   name: AddAssembly
   nameWithType: Evidence.AddAssembly
-  fullName: System.Security.Policy.Evidence.AddAssembly
+  fullName: Evidence.AddAssembly
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1612,8 +1626,9 @@ references:
   isExternal: false
   name: AddAssemblyEvidence<T>
   nameWithType: Evidence.AddAssemblyEvidence<T>
-  fullName: System.Security.Policy.Evidence.AddAssemblyEvidence<T>
+  fullName: Evidence.AddAssemblyEvidence<T>
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1627,8 +1642,9 @@ references:
   isExternal: false
   name: AddHost
   nameWithType: Evidence.AddHost
-  fullName: System.Security.Policy.Evidence.AddHost
+  fullName: Evidence.AddHost
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1645,8 +1661,9 @@ references:
   isExternal: false
   name: AddHostEvidence<T>
   nameWithType: Evidence.AddHostEvidence<T>
-  fullName: System.Security.Policy.Evidence.AddHostEvidence<T>
+  fullName: Evidence.AddHostEvidence<T>
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1660,8 +1677,9 @@ references:
   isExternal: false
   name: Clear
   nameWithType: Evidence.Clear
-  fullName: System.Security.Policy.Evidence.Clear
+  fullName: Evidence.Clear
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1678,8 +1696,9 @@ references:
   isExternal: false
   name: Clone
   nameWithType: Evidence.Clone
-  fullName: System.Security.Policy.Evidence.Clone
+  fullName: Evidence.Clone
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1696,8 +1715,9 @@ references:
   isExternal: false
   name: CopyTo
   nameWithType: Evidence.CopyTo
-  fullName: System.Security.Policy.Evidence.CopyTo
+  fullName: Evidence.CopyTo
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1714,8 +1734,9 @@ references:
   isExternal: false
   name: Count
   nameWithType: Evidence.Count
-  fullName: System.Security.Policy.Evidence.Count
+  fullName: Evidence.Count
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1732,8 +1753,9 @@ references:
   isExternal: false
   name: GetAssemblyEnumerator
   nameWithType: Evidence.GetAssemblyEnumerator
-  fullName: System.Security.Policy.Evidence.GetAssemblyEnumerator
+  fullName: Evidence.GetAssemblyEnumerator
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1750,8 +1772,9 @@ references:
   isExternal: false
   name: GetAssemblyEvidence<T>
   nameWithType: Evidence.GetAssemblyEvidence<T>
-  fullName: System.Security.Policy.Evidence.GetAssemblyEvidence<T>
+  fullName: Evidence.GetAssemblyEvidence<T>
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1765,8 +1788,9 @@ references:
   isExternal: false
   name: GetEnumerator
   nameWithType: Evidence.GetEnumerator
-  fullName: System.Security.Policy.Evidence.GetEnumerator
+  fullName: Evidence.GetEnumerator
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1783,8 +1807,9 @@ references:
   isExternal: false
   name: GetHostEnumerator
   nameWithType: Evidence.GetHostEnumerator
-  fullName: System.Security.Policy.Evidence.GetHostEnumerator
+  fullName: Evidence.GetHostEnumerator
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1801,8 +1826,9 @@ references:
   isExternal: false
   name: GetHostEvidence<T>
   nameWithType: Evidence.GetHostEvidence<T>
-  fullName: System.Security.Policy.Evidence.GetHostEvidence<T>
+  fullName: Evidence.GetHostEvidence<T>
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1816,8 +1842,9 @@ references:
   isExternal: false
   name: IsReadOnly
   nameWithType: Evidence.IsReadOnly
-  fullName: System.Security.Policy.Evidence.IsReadOnly
+  fullName: Evidence.IsReadOnly
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1834,8 +1861,9 @@ references:
   isExternal: false
   name: IsSynchronized
   nameWithType: Evidence.IsSynchronized
-  fullName: System.Security.Policy.Evidence.IsSynchronized
+  fullName: Evidence.IsSynchronized
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1852,8 +1880,9 @@ references:
   isExternal: false
   name: Locked
   nameWithType: Evidence.Locked
-  fullName: System.Security.Policy.Evidence.Locked
+  fullName: Evidence.Locked
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1870,8 +1899,9 @@ references:
   isExternal: false
   name: Merge
   nameWithType: Evidence.Merge
-  fullName: System.Security.Policy.Evidence.Merge
+  fullName: Evidence.Merge
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1888,8 +1918,9 @@ references:
   isExternal: false
   name: RemoveType
   nameWithType: Evidence.RemoveType
-  fullName: System.Security.Policy.Evidence.RemoveType
+  fullName: Evidence.RemoveType
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1906,8 +1937,9 @@ references:
   isExternal: false
   name: SyncRoot
   nameWithType: Evidence.SyncRoot
-  fullName: System.Security.Policy.Evidence.SyncRoot
+  fullName: Evidence.SyncRoot
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1924,22 +1956,28 @@ references:
   isExternal: false
   name: Cast<TResult>(IEnumerable)
   nameWithType: Enumerable.Cast<TResult>(IEnumerable)
-  fullName: System.Linq.Enumerable.Cast<TResult>(IEnumerable)
+  fullName: Enumerable.Cast<TResult>(IEnumerable)
 - uid: System.Linq.Enumerable.OfType``1(System.Collections.IEnumerable)
   parent: System.Linq.Enumerable
   isExternal: false
   name: OfType<TResult>(IEnumerable)
   nameWithType: Enumerable.OfType<TResult>(IEnumerable)
-  fullName: System.Linq.Enumerable.OfType<TResult>(IEnumerable)
+  fullName: Enumerable.OfType<TResult>(IEnumerable)
 - uid: System.Linq.ParallelEnumerable.AsParallel(System.Collections.IEnumerable)
   parent: System.Linq.ParallelEnumerable
   isExternal: false
   name: AsParallel(IEnumerable)
   nameWithType: ParallelEnumerable.AsParallel(IEnumerable)
-  fullName: System.Linq.ParallelEnumerable.AsParallel(IEnumerable)
+  fullName: ParallelEnumerable.AsParallel(IEnumerable)
 - uid: System.Linq.Queryable.AsQueryable(System.Collections.IEnumerable)
   parent: System.Linq.Queryable
   isExternal: false
   name: AsQueryable(IEnumerable)
   nameWithType: Queryable.AsQueryable(IEnumerable)
-  fullName: System.Linq.Queryable.AsQueryable(IEnumerable)
+  fullName: Queryable.AsQueryable(IEnumerable)
+- uid: System.Collections.ICollection
+  parent: System.Collections
+  isExternal: false
+  name: ICollection
+  nameWithType: ICollection
+  fullName: System.Collections.ICollection

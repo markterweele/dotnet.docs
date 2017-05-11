@@ -11,7 +11,7 @@ additional_notes.overrides: *content
   
 -   Read permissions on all the parent configuration files.  
   
- If your application needs read-only access to its own configuration, it is recommended that you use the <xref href="erload:System.Web.Configuration.WebConfigurationManager.GetSection"></xref> method overloads for Web applications. For client application, use the <xref href="System.Configuration.ConfigurationManager.GetSection(System.String)"></xref> method.  
+ If your application needs read-only access to its own configuration, it is recommended that you use the <xref href="System.Web.Configuration.WebConfigurationManager.GetSection*"></xref> method overloads for Web applications. For client application, use the <xref href="System.Configuration.ConfigurationManager.GetSection(System.String)"></xref> method.  
   
  These methods provide access to the cached configuration values for the current application, which has better performance than the <xref href="System.Configuration.Configuration"></xref> class.  
   
@@ -20,7 +20,7 @@ additional_notes.overrides: *content
   
 </p></block>  
   
- You use one of the <xref href="erload:System.Configuration.Configuration.Save"></xref> methods to write configuration information. Note that the user or process that writes must have the following permissions:  
+ You use one of the <xref href="System.Configuration.Configuration.Save*"></xref> methods to write configuration information. Note that the user or process that writes must have the following permissions:  
   
 -   Write permission on the configuration file and directory at the current configuration hierarchy level.  
   

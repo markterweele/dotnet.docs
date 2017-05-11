@@ -21,9 +21,10 @@ items:
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Facilitates interaction between <xref href="System.Transactions"></xref> and components that were previously written to interact with MSDTC, COM+, or <xref href="System.EnterpriseServices"></xref>. This class cannot be inherited.
-  remarks: "This class provides methods for transaction propagation. For more information on how this process works, see [Transaction Propagation](http://msdn.microsoft.com/library/default.asp?url=/library/cossdk/html/b09541e6-4baf-4e37-b879-62884fbb0969.asp).  \n  \n Using the methods provided by this class, you can engage in two types of transaction propagations, Export/Import (push model) and Transmitter/Receiver (pull model).  \n  \n The Export/Import (push model) propagation involves these steps,  \n  \n1.  On the remote machine, obtain the \"whereabouts\" of the transaction manager of that machine by calling the <xref:System.Transactions.TransactionInterop.GetWhereabouts%2A> method. You can then cache this piece of information on the client machine for future usage.  \n  \n2.  Send the data containing the whereabouts to the client machine using any preferred method  \n  \n3.  On the client machine, use the whereabouts to \"export\" the transaction to the remote machine and generate a transaction \"cookie\".  This is done by calling <xref:System.Transactions.TransactionInterop.GetExportCookie%2A> and passing in the remote machine's whereabouts.  \n  \n4.  Send the data containing the transaction \"cookie\" to the remote machine using any preferred method  \n  \n5.  On the remote machine, use the transaction \"cookie\" to obtain a clone of the client transaction by calling the <xref:System.Transactions.TransactionInterop.GetTransactionFromExportCookie%2A> method.  \n  \n6.  On the remote machine, use the clone transaction to enlist the resource manager using the <xref:System.Transactions.Transaction.EnlistVolatile%2A> or <xref:System.Transactions.Transaction.EnlistDurable%2A> methods of the <xref:System.Transactions.Transaction> class.  \n  \n The Transmitter/Receiver (pull model) propagation involves these steps,  \n  \n-   On the client machine, using the transaction generates a corresponding \"propagation token\" by calling <xref:System.Transactions.TransactionInterop.GetTransmitterPropagationToken%2A>  \n  \n-   Send the data containing the \"propagation token\" of the transaction to the remote machine using any preferred method  \n  \n-   On the remote machine, use the \"propagation token\" to obtain a clone of the client transaction by calling <xref:System.Transactions.TransactionInterop.GetTransactionFromTransmitterPropagationToken%2A>  \n  \n The Transmitter/Receiver model provides better performance in scenarios where the transaction token is sent to a remote machine, but the remote machine may not use it to obtain the transaction.  This is because the transaction is not propagated until <xref:System.Transactions.TransactionInterop.GetTransactionFromTransmitterPropagationToken%2A> is called. Another advantage is that the propagation token can be sent to any remote machine, while the export cookie can be used only on the machine that provided the whereabouts.  \n  \n However, you should also note that the whereabouts of remote transaction managers are encapsulated in all the propagation tokens, making them bigger than the corresponding transaction cookies from the Export/Import model.  \n  \n **Note** This type uses <xref:System.Security.Permissions.SecurityAction> to prevent it from being called from untrusted code; however, only the immediate caller is required to possess the `FullTrust` permission set."
+  remarks: "This class provides methods for transaction propagation. For more information on how this process works, see [Transaction Propagation](http://msdn.microsoft.com/library/default.asp?url=/library/cossdk/html/b09541e6-4baf-4e37-b879-62884fbb0969.asp).  \n  \n Using the methods provided by this class, you can engage in two types of transaction propagations, Export/Import (push model) and Transmitter/Receiver (pull model).  \n  \n The Export/Import (push model) propagation involves these steps,  \n  \n1.  On the remote machine, obtain the \"whereabouts\" of the transaction manager of that machine by calling the <xref:System.Transactions.TransactionInterop.GetWhereabouts%2A> method. You can then cache this piece of information on the client machine for future usage.  \n  \n2.  Send the data containing the whereabouts to the client machine using any preferred method  \n  \n3.  On the client machine, use the whereabouts to \"export\" the transaction to the remote machine and generate a transaction \"cookie\".  This is done by calling <xref:System.Transactions.TransactionInterop.GetExportCookie%2A> and passing in the remote machine's whereabouts.  \n  \n4.  Send the data containing the transaction \"cookie\" to the remote machine using any preferred method  \n  \n5.  On the remote machine, use the transaction \"cookie\" to obtain a clone of the client transaction by calling the <xref:System.Transactions.TransactionInterop.GetTransactionFromExportCookie%2A> method.  \n  \n6.  On the remote machine, use the clone transaction to enlist the resource manager using the <xref:System.Transactions.Transaction.EnlistVolatile%2A> or <xref:System.Transactions.Transaction.EnlistDurable%2A> methods of the <xref:System.Transactions.Transaction> class.  \n  \n The Transmitter/Receiver (pull model) propagation involves these steps,  \n  \n-   On the client machine, using the transaction generates a corresponding \"propagation token\" by calling <xref:System.Transactions.TransactionInterop.GetTransmitterPropagationToken%2A>  \n  \n-   Send the data containing the \"propagation token\" of the transaction to the remote machine using any preferred method  \n  \n-   On the remote machine, use the \"propagation token\" to obtain a clone of the client transaction by calling <xref:System.Transactions.TransactionInterop.GetTransactionFromTransmitterPropagationToken%2A>  \n  \n The Transmitter/Receiver model provides better performance in scenarios where the transaction token is sent to a remote machine, but the remote machine may not use it to obtain the transaction.  This is because the transaction is not propagated until <xref:System.Transactions.TransactionInterop.GetTransactionFromTransmitterPropagationToken%2A> is called. Another advantage is that the propagation token can be sent to any remote machine, while the export cookie can be used only on the machine that provided the whereabouts.  \n  \n However, you should also note that the whereabouts of remote transaction managers are encapsulated in all the propagation tokens, making them bigger than the corresponding transaction cookies from the Export/Import model.  \n  \n **Note** This type uses <xref:System.Security.Permissions.SecurityAction.LinkDemand> to prevent it from being called from untrusted code; however, only the immediate caller is required to possess the `FullTrust` permission set."
   syntax:
     content: public static class TransactionInterop
   inheritance:
@@ -38,6 +39,7 @@ items:
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -50,6 +52,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -62,7 +65,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/TransactionInterop.xml
-  manager: ghogen
 - uid: System.Transactions.TransactionInterop.GetDtcTransaction(System.Transactions.Transaction)
   commentId: M:System.Transactions.TransactionInterop.GetDtcTransaction(System.Transactions.Transaction)
   id: GetDtcTransaction(System.Transactions.Transaction)
@@ -71,11 +73,12 @@ items:
   - csharp
   name: GetDtcTransaction(Transaction)
   nameWithType: TransactionInterop.GetDtcTransaction(Transaction)
-  fullName: System.Transactions.TransactionInterop.GetDtcTransaction(Transaction)
+  fullName: TransactionInterop.GetDtcTransaction(Transaction)
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Gets an <xref href="System.Transactions.IDtcTransaction"></xref> instance that represents a <xref href="System.Transactions.Transaction"></xref>.
   syntax:
@@ -90,6 +93,7 @@ items:
   overload: System.Transactions.TransactionInterop.GetDtcTransaction*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -102,6 +106,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -114,7 +119,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/TransactionInterop.xml
-  manager: ghogen
 - uid: System.Transactions.TransactionInterop.GetExportCookie(System.Transactions.Transaction,System.Byte[])
   commentId: M:System.Transactions.TransactionInterop.GetExportCookie(System.Transactions.Transaction,System.Byte[])
   id: GetExportCookie(System.Transactions.Transaction,System.Byte[])
@@ -123,11 +127,12 @@ items:
   - csharp
   name: GetExportCookie(Transaction, Byte[])
   nameWithType: TransactionInterop.GetExportCookie(Transaction, Byte[])
-  fullName: System.Transactions.TransactionInterop.GetExportCookie(Transaction, Byte[])
+  fullName: TransactionInterop.GetExportCookie(Transaction, Byte[])
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Transforms a transaction object into an export transaction cookie.
   remarks: "Call this method if you want to export a transaction. The `transaction` that is passed along is marshaled into a transaction cookie. You can then send the transaction cookie to the destination process. This is referred to as propagating the transaction between processes or systems. The propagation is considered to be a push model where the local transaction is pushed to the destination.  Therefore, information contained in `whereabouts` must describe the destination transaction manager.  \n  \n For more information on different propagation models, see the Remarks section of the <xref:System.Transactions.TransactionInterop> class."
@@ -146,6 +151,7 @@ items:
   overload: System.Transactions.TransactionInterop.GetExportCookie*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -158,6 +164,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -170,7 +177,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/TransactionInterop.xml
-  manager: ghogen
 - uid: System.Transactions.TransactionInterop.GetTransactionFromDtcTransaction(System.Transactions.IDtcTransaction)
   commentId: M:System.Transactions.TransactionInterop.GetTransactionFromDtcTransaction(System.Transactions.IDtcTransaction)
   id: GetTransactionFromDtcTransaction(System.Transactions.IDtcTransaction)
@@ -179,11 +185,12 @@ items:
   - csharp
   name: GetTransactionFromDtcTransaction(IDtcTransaction)
   nameWithType: TransactionInterop.GetTransactionFromDtcTransaction(IDtcTransaction)
-  fullName: System.Transactions.TransactionInterop.GetTransactionFromDtcTransaction(IDtcTransaction)
+  fullName: TransactionInterop.GetTransactionFromDtcTransaction(IDtcTransaction)
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Generates a <xref href="System.Transactions.Transaction"></xref> from a specified <xref href="System.Transactions.IDtcTransaction"></xref>.
   remarks: The `transactionNative` is compatible with the unmanaged form of [ITransaction](http://msdn.microsoft.com/library/default.asp?url=/library/cossdk/html/d40264be-f9b2-4044-aac6-84b43e5be666.asp) used by MSDTC and with the Managed form of <xref:System.EnterpriseServices.ITransaction> used by <xref:System.EnterpriseServices>.
@@ -199,6 +206,7 @@ items:
   overload: System.Transactions.TransactionInterop.GetTransactionFromDtcTransaction*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -211,6 +219,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -223,7 +232,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/TransactionInterop.xml
-  manager: ghogen
 - uid: System.Transactions.TransactionInterop.GetTransactionFromExportCookie(System.Byte[])
   commentId: M:System.Transactions.TransactionInterop.GetTransactionFromExportCookie(System.Byte[])
   id: GetTransactionFromExportCookie(System.Byte[])
@@ -232,11 +240,12 @@ items:
   - csharp
   name: GetTransactionFromExportCookie(Byte[])
   nameWithType: TransactionInterop.GetTransactionFromExportCookie(Byte[])
-  fullName: System.Transactions.TransactionInterop.GetTransactionFromExportCookie(Byte[])
+  fullName: TransactionInterop.GetTransactionFromExportCookie(Byte[])
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Generates a <xref href="System.Transactions.Transaction"></xref> from the specified an export cookie.
   remarks: For more information on different propagation models, see the Remarks section of the <xref:System.Transactions.TransactionInterop> class.
@@ -252,6 +261,7 @@ items:
   overload: System.Transactions.TransactionInterop.GetTransactionFromExportCookie*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -264,6 +274,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -276,7 +287,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/TransactionInterop.xml
-  manager: ghogen
 - uid: System.Transactions.TransactionInterop.GetTransactionFromTransmitterPropagationToken(System.Byte[])
   commentId: M:System.Transactions.TransactionInterop.GetTransactionFromTransmitterPropagationToken(System.Byte[])
   id: GetTransactionFromTransmitterPropagationToken(System.Byte[])
@@ -285,11 +295,12 @@ items:
   - csharp
   name: GetTransactionFromTransmitterPropagationToken(Byte[])
   nameWithType: TransactionInterop.GetTransactionFromTransmitterPropagationToken(Byte[])
-  fullName: System.Transactions.TransactionInterop.GetTransactionFromTransmitterPropagationToken(Byte[])
+  fullName: TransactionInterop.GetTransactionFromTransmitterPropagationToken(Byte[])
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Generates a <xref href="System.Transactions.Transaction"></xref> instance from the specified transmitter propagation token.
   remarks: "This method, together with the <xref:System.Transactions.TransactionInterop.GetTransmitterPropagationToken%2A> method, provide functionality for \"pull\" propagation, in which the transaction is \"pulled\" from the remote machine when this method is called to unmarshal the transaction.  \n  \n For more information on different propagation models, see the Remarks section of the <xref:System.Transactions.TransactionInterop> class."
@@ -308,6 +319,7 @@ items:
     commentId: T:System.Transactions.TransactionManagerCommunicationException
     description: The deserialization of a transaction fails because the transaction manager cannot be contacted. This may be caused by network firewall or security settings.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -320,6 +332,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -332,7 +345,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/TransactionInterop.xml
-  manager: ghogen
 - uid: System.Transactions.TransactionInterop.GetTransmitterPropagationToken(System.Transactions.Transaction)
   commentId: M:System.Transactions.TransactionInterop.GetTransmitterPropagationToken(System.Transactions.Transaction)
   id: GetTransmitterPropagationToken(System.Transactions.Transaction)
@@ -341,11 +353,12 @@ items:
   - csharp
   name: GetTransmitterPropagationToken(Transaction)
   nameWithType: TransactionInterop.GetTransmitterPropagationToken(Transaction)
-  fullName: System.Transactions.TransactionInterop.GetTransmitterPropagationToken(Transaction)
+  fullName: TransactionInterop.GetTransmitterPropagationToken(Transaction)
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Generates a propagation token for the specified <xref href="System.Transactions.Transaction"></xref>.
   syntax:
@@ -356,10 +369,11 @@ items:
       description: A transaction to be marshaled into a propagation token.
     return:
       type: System.Byte[]
-      description: "This method, together with the <xref href=\"System.Transactions.TransactionInterop.GetTransactionFromTransmitterPropagationToken(System.Byte[])\"></xref> method, provide functionality for Transmitter/Receiver propagation, in which the transaction is \"pulled\" from the remote machine when the latter is called to unmarshal the transaction.  \n  \n For more information on different propagation models, see the Remarks section of the <xref href=\"System.Transactions.TransactionInterop\"></xref> class."
+      description: "This method, together with the <xref href=\"System.Transactions.TransactionInterop.GetTransactionFromTransmitterPropagationToken(System.Byte[])\"></xref> method, provide functionality for Transmitter/Receiver propagation, in which the transaction is \"pulled\" from the remote machine when the latter is called to unmarshal the transaction.  \n  \n For more information on different propagation models, see <xref href=\"System.Transactions.TransactionInterop\"></xref> class."
   overload: System.Transactions.TransactionInterop.GetTransmitterPropagationToken*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -372,6 +386,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -384,7 +399,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/TransactionInterop.xml
-  manager: ghogen
 - uid: System.Transactions.TransactionInterop.GetWhereabouts
   commentId: M:System.Transactions.TransactionInterop.GetWhereabouts
   id: GetWhereabouts
@@ -393,11 +407,12 @@ items:
   - csharp
   name: GetWhereabouts()
   nameWithType: TransactionInterop.GetWhereabouts()
-  fullName: System.Transactions.TransactionInterop.GetWhereabouts()
+  fullName: TransactionInterop.GetWhereabouts()
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Gets the Whereabouts of the distributed transaction manager that <xref href="System.Transactions"></xref> uses.
   remarks: "The Whereabouts contains an address that describes the location of a transaction manager. This permits two transaction managers to communicate with one another and thereby propagate a transaction from one system to the other. The information returned by this method can be used to provide location information for push model transaction propagation with the <xref:System.Transactions.TransactionInterop.GetExportCookie%2A> method.  \n  \n For more information on different propagation models, see the Remarks section of the <xref:System.Transactions.TransactionInterop> class."
@@ -410,6 +425,7 @@ items:
   overload: System.Transactions.TransactionInterop.GetWhereabouts*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -422,6 +438,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -434,7 +451,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/TransactionInterop.xml
-  manager: ghogen
 - uid: System.Transactions.TransactionInterop.PromoterTypeDtc
   commentId: F:System.Transactions.TransactionInterop.PromoterTypeDtc
   id: PromoterTypeDtc
@@ -443,11 +459,12 @@ items:
   - csharp
   name: PromoterTypeDtc
   nameWithType: TransactionInterop.PromoterTypeDtc
-  fullName: System.Transactions.TransactionInterop.PromoterTypeDtc
+  fullName: TransactionInterop.PromoterTypeDtc
   type: Field
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: The type of the distributed transaction processor.
   remarks: This value is used for the `Transaction.PromoterType` property if the transaction is or will be promoted to MSDTC and the `Transaction.GetPromotedToken` method will return an MSDTC transaction propagation token for the `byte[]` result.
@@ -458,6 +475,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.7
@@ -466,6 +484,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.7
@@ -474,8 +493,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/TransactionInterop.xml
-  ms.author: sdanie
-  manager: ghogen
 references:
 - uid: System.Object
   parent: System
@@ -494,7 +511,7 @@ references:
   isExternal: false
   name: GetDtcTransaction(Transaction)
   nameWithType: TransactionInterop.GetDtcTransaction(Transaction)
-  fullName: System.Transactions.TransactionInterop.GetDtcTransaction(Transaction)
+  fullName: TransactionInterop.GetDtcTransaction(Transaction)
 - uid: System.Transactions.IDtcTransaction
   parent: System.Transactions
   isExternal: false
@@ -512,7 +529,7 @@ references:
   isExternal: false
   name: GetExportCookie(Transaction, Byte[])
   nameWithType: TransactionInterop.GetExportCookie(Transaction, Byte[])
-  fullName: System.Transactions.TransactionInterop.GetExportCookie(Transaction, Byte[])
+  fullName: TransactionInterop.GetExportCookie(Transaction, Byte[])
 - uid: System.Byte
   name: Byte
   nameWithType: Byte
@@ -536,37 +553,37 @@ references:
   isExternal: false
   name: GetTransactionFromDtcTransaction(IDtcTransaction)
   nameWithType: TransactionInterop.GetTransactionFromDtcTransaction(IDtcTransaction)
-  fullName: System.Transactions.TransactionInterop.GetTransactionFromDtcTransaction(IDtcTransaction)
+  fullName: TransactionInterop.GetTransactionFromDtcTransaction(IDtcTransaction)
 - uid: System.Transactions.TransactionInterop.GetTransactionFromExportCookie(System.Byte[])
   parent: System.Transactions.TransactionInterop
   isExternal: false
   name: GetTransactionFromExportCookie(Byte[])
   nameWithType: TransactionInterop.GetTransactionFromExportCookie(Byte[])
-  fullName: System.Transactions.TransactionInterop.GetTransactionFromExportCookie(Byte[])
+  fullName: TransactionInterop.GetTransactionFromExportCookie(Byte[])
 - uid: System.Transactions.TransactionInterop.GetTransactionFromTransmitterPropagationToken(System.Byte[])
   parent: System.Transactions.TransactionInterop
   isExternal: false
   name: GetTransactionFromTransmitterPropagationToken(Byte[])
   nameWithType: TransactionInterop.GetTransactionFromTransmitterPropagationToken(Byte[])
-  fullName: System.Transactions.TransactionInterop.GetTransactionFromTransmitterPropagationToken(Byte[])
+  fullName: TransactionInterop.GetTransactionFromTransmitterPropagationToken(Byte[])
 - uid: System.Transactions.TransactionInterop.GetTransmitterPropagationToken(System.Transactions.Transaction)
   parent: System.Transactions.TransactionInterop
   isExternal: false
   name: GetTransmitterPropagationToken(Transaction)
   nameWithType: TransactionInterop.GetTransmitterPropagationToken(Transaction)
-  fullName: System.Transactions.TransactionInterop.GetTransmitterPropagationToken(Transaction)
+  fullName: TransactionInterop.GetTransmitterPropagationToken(Transaction)
 - uid: System.Transactions.TransactionInterop.GetWhereabouts
   parent: System.Transactions.TransactionInterop
   isExternal: false
   name: GetWhereabouts()
   nameWithType: TransactionInterop.GetWhereabouts()
-  fullName: System.Transactions.TransactionInterop.GetWhereabouts()
+  fullName: TransactionInterop.GetWhereabouts()
 - uid: System.Transactions.TransactionInterop.PromoterTypeDtc
   parent: System.Transactions.TransactionInterop
   isExternal: false
   name: PromoterTypeDtc
   nameWithType: TransactionInterop.PromoterTypeDtc
-  fullName: System.Transactions.TransactionInterop.PromoterTypeDtc
+  fullName: TransactionInterop.PromoterTypeDtc
 - uid: System.Guid
   parent: System
   isExternal: false
@@ -578,8 +595,9 @@ references:
   isExternal: false
   name: GetDtcTransaction
   nameWithType: TransactionInterop.GetDtcTransaction
-  fullName: System.Transactions.TransactionInterop.GetDtcTransaction
+  fullName: TransactionInterop.GetDtcTransaction
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -597,8 +615,9 @@ references:
   isExternal: false
   name: GetExportCookie
   nameWithType: TransactionInterop.GetExportCookie
-  fullName: System.Transactions.TransactionInterop.GetExportCookie
+  fullName: TransactionInterop.GetExportCookie
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -616,8 +635,9 @@ references:
   isExternal: false
   name: GetTransactionFromDtcTransaction
   nameWithType: TransactionInterop.GetTransactionFromDtcTransaction
-  fullName: System.Transactions.TransactionInterop.GetTransactionFromDtcTransaction
+  fullName: TransactionInterop.GetTransactionFromDtcTransaction
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -635,8 +655,9 @@ references:
   isExternal: false
   name: GetTransactionFromExportCookie
   nameWithType: TransactionInterop.GetTransactionFromExportCookie
-  fullName: System.Transactions.TransactionInterop.GetTransactionFromExportCookie
+  fullName: TransactionInterop.GetTransactionFromExportCookie
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -654,8 +675,9 @@ references:
   isExternal: false
   name: GetTransactionFromTransmitterPropagationToken
   nameWithType: TransactionInterop.GetTransactionFromTransmitterPropagationToken
-  fullName: System.Transactions.TransactionInterop.GetTransactionFromTransmitterPropagationToken
+  fullName: TransactionInterop.GetTransactionFromTransmitterPropagationToken
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -673,8 +695,9 @@ references:
   isExternal: false
   name: GetTransmitterPropagationToken
   nameWithType: TransactionInterop.GetTransmitterPropagationToken
-  fullName: System.Transactions.TransactionInterop.GetTransmitterPropagationToken
+  fullName: TransactionInterop.GetTransmitterPropagationToken
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -692,8 +715,9 @@ references:
   isExternal: false
   name: GetWhereabouts
   nameWithType: TransactionInterop.GetWhereabouts
-  fullName: System.Transactions.TransactionInterop.GetWhereabouts
+  fullName: TransactionInterop.GetWhereabouts
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

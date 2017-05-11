@@ -26,7 +26,7 @@ items:
   - System.Security
   namespace: System.Security.Cryptography
   summary: Provides the base class for data protectors.
-  remarks: "This class protects stored data from viewing and tampering. The access to the protected data is obtained by creating an instance of this class and using the exact purpose strings that were used to protect the data.  The caller does not need a key to either protect or unprotect the data. The key is provided by the encryption algorithm.  \n  \n Derived classes must override the [ProviderProtect(Byte\\<xref:System.Security.Cryptography.DataProtector.ProviderProtect%2A> and <xref:System.Security.Cryptography.DataProtector.Unprotect%2A> methods, which the <xref:System.Security.Cryptography.DataProtector> base class calls back into. They must also override the <xref:System.Security.Cryptography.DataProtector.IsReprotectRequired%2A> method, which can always return `true` with a  potential small loss of efficiency when applications refresh their database of stored cipher text. Derived classes should provide a constructor that calls the base class constructor, which sets the <xref:System.Security.Cryptography.DataProtector.ApplicationName%2A>, <xref:System.Security.Cryptography.DataProtector.SpecificPurposes%2A>, and <xref:System.Security.Cryptography.DataProtector.PrimaryPurpose%2A> properties."
+  remarks: "This class protects stored data from viewing and tampering. The access to the protected data is obtained by creating an instance of this class and using the exact purpose strings that were used to protect the data.  The caller does not need a key to either protect or unprotect the data. The key is provided by the encryption algorithm.  \n  \n Derived classes must override the <xref:System.Security.Cryptography.DataProtector.ProviderProtect%2A> and <xref:System.Security.Cryptography.DataProtector.Unprotect%2A> methods, which the <xref:System.Security.Cryptography.DataProtector> base class calls back into. They must also override the <xref:System.Security.Cryptography.DataProtector.IsReprotectRequired%2A> method, which can always return `true` with a  potential small loss of efficiency when applications refresh their database of stored cipher text. Derived classes should provide a constructor that calls the base class constructor, which sets the <xref:System.Security.Cryptography.DataProtector.ApplicationName%2A>, <xref:System.Security.Cryptography.DataProtector.SpecificPurposes%2A>, and <xref:System.Security.Cryptography.DataProtector.PrimaryPurpose%2A> properties."
   example:
   - "The following example demonstrates how to create a data protector that uses a protection class with an option for extra entropy. By default, the <xref:System.Security.Cryptography.DataProtector> class prepends the hash of the purpose properties to the data to be encrypted. You can turn that functionality off and use the hashed purpose as extra entropy when calling a data protector with an extra entropy option.  \n  \n [!code-csharp[Cryptography.DataProtector#1](~/samples/snippets/csharp/VS_Snippets_CLR/cryptography.dataprotector/cs/class1.cs#1)]\n [!code-vb[Cryptography.DataProtector#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/cryptography.dataprotector/vb/class1.vb#1)]  \n  \n The following example demonstrates a simple data protector that uses the <xref:System.Security.Cryptography.DataProtector.PrependHashedPurposeToPlaintext%2A> functionality of the <xref:System.Security.Cryptography.DataProtector> class.  \n  \n [!code-csharp[Cryptography.MemoryProtector#1](~/samples/snippets/csharp/VS_Snippets_CLR/cryptography.memoryprotector/cs/class1.cs#1)]\n [!code-vb[Cryptography.MemoryProtector#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/cryptography.memoryprotector/vb/class1.vb#1)]"
   syntax:
@@ -61,9 +61,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DataProtector.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DataProtector.#ctor(System.String,System.String,System.String[])
   commentId: M:System.Security.Cryptography.DataProtector.#ctor(System.String,System.String,System.String[])
   id: '#ctor(System.String,System.String,System.String[])'
@@ -72,7 +69,7 @@ items:
   - csharp
   name: DataProtector(String, String, String[])
   nameWithType: DataProtector.DataProtector(String, String, String[])
-  fullName: System.Security.Cryptography.DataProtector.DataProtector(String, String, String[])
+  fullName: DataProtector.DataProtector(String, String, String[])
   type: Constructor
   assemblies:
   - System.Security
@@ -87,10 +84,10 @@ items:
       description: The name of the application.
     - id: primaryPurpose
       type: System.String
-      description: The primary purpose for the protected data. See Remarks for additional important information.
+      description: The primary purpose for the protected data.
     - id: specificPurposes
       type: System.String[]
-      description: The specific purposes for the protected data. See Remarks for additional important information.
+      description: The specific purposes for the protected data.
   overload: System.Security.Cryptography.DataProtector.#ctor*
   exceptions:
   - type: System.ArgumentException
@@ -113,9 +110,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DataProtector.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DataProtector.ApplicationName
   commentId: P:System.Security.Cryptography.DataProtector.ApplicationName
   id: ApplicationName
@@ -124,7 +118,7 @@ items:
   - csharp
   name: ApplicationName
   nameWithType: DataProtector.ApplicationName
-  fullName: System.Security.Cryptography.DataProtector.ApplicationName
+  fullName: DataProtector.ApplicationName
   type: Property
   assemblies:
   - System.Security
@@ -154,9 +148,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DataProtector.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DataProtector.Create(System.String,System.String,System.String,System.String[])
   commentId: M:System.Security.Cryptography.DataProtector.Create(System.String,System.String,System.String,System.String[])
   id: Create(System.String,System.String,System.String,System.String[])
@@ -165,7 +156,7 @@ items:
   - csharp
   name: Create(String, String, String, String[])
   nameWithType: DataProtector.Create(String, String, String, String[])
-  fullName: System.Security.Cryptography.DataProtector.Create(String, String, String, String[])
+  fullName: DataProtector.Create(String, String, String, String[])
   type: Method
   assemblies:
   - System.Security
@@ -211,9 +202,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DataProtector.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DataProtector.GetHashedPurpose
   commentId: M:System.Security.Cryptography.DataProtector.GetHashedPurpose
   id: GetHashedPurpose
@@ -222,7 +210,7 @@ items:
   - csharp
   name: GetHashedPurpose()
   nameWithType: DataProtector.GetHashedPurpose()
-  fullName: System.Security.Cryptography.DataProtector.GetHashedPurpose()
+  fullName: DataProtector.GetHashedPurpose()
   type: Method
   assemblies:
   - System.Security
@@ -256,9 +244,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DataProtector.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DataProtector.IsReprotectRequired(System.Byte[])
   commentId: M:System.Security.Cryptography.DataProtector.IsReprotectRequired(System.Byte[])
   id: IsReprotectRequired(System.Byte[])
@@ -267,7 +252,7 @@ items:
   - csharp
   name: IsReprotectRequired(Byte[])
   nameWithType: DataProtector.IsReprotectRequired(Byte[])
-  fullName: System.Security.Cryptography.DataProtector.IsReprotectRequired(Byte[])
+  fullName: DataProtector.IsReprotectRequired(Byte[])
   type: Method
   assemblies:
   - System.Security
@@ -301,9 +286,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DataProtector.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DataProtector.PrependHashedPurposeToPlaintext
   commentId: P:System.Security.Cryptography.DataProtector.PrependHashedPurposeToPlaintext
   id: PrependHashedPurposeToPlaintext
@@ -312,7 +294,7 @@ items:
   - csharp
   name: PrependHashedPurposeToPlaintext
   nameWithType: DataProtector.PrependHashedPurposeToPlaintext
-  fullName: System.Security.Cryptography.DataProtector.PrependHashedPurposeToPlaintext
+  fullName: DataProtector.PrependHashedPurposeToPlaintext
   type: Property
   assemblies:
   - System.Security
@@ -343,9 +325,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DataProtector.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DataProtector.PrimaryPurpose
   commentId: P:System.Security.Cryptography.DataProtector.PrimaryPurpose
   id: PrimaryPurpose
@@ -354,7 +333,7 @@ items:
   - csharp
   name: PrimaryPurpose
   nameWithType: DataProtector.PrimaryPurpose
-  fullName: System.Security.Cryptography.DataProtector.PrimaryPurpose
+  fullName: DataProtector.PrimaryPurpose
   type: Property
   assemblies:
   - System.Security
@@ -384,9 +363,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DataProtector.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DataProtector.Protect(System.Byte[])
   commentId: M:System.Security.Cryptography.DataProtector.Protect(System.Byte[])
   id: Protect(System.Byte[])
@@ -395,7 +371,7 @@ items:
   - csharp
   name: Protect(Byte[])
   nameWithType: DataProtector.Protect(Byte[])
-  fullName: System.Security.Cryptography.DataProtector.Protect(Byte[])
+  fullName: DataProtector.Protect(Byte[])
   type: Method
   assemblies:
   - System.Security
@@ -432,9 +408,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DataProtector.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DataProtector.ProviderProtect(System.Byte[])
   commentId: M:System.Security.Cryptography.DataProtector.ProviderProtect(System.Byte[])
   id: ProviderProtect(System.Byte[])
@@ -443,7 +416,7 @@ items:
   - csharp
   name: ProviderProtect(Byte[])
   nameWithType: DataProtector.ProviderProtect(Byte[])
-  fullName: System.Security.Cryptography.DataProtector.ProviderProtect(Byte[])
+  fullName: DataProtector.ProviderProtect(Byte[])
   type: Method
   assemblies:
   - System.Security
@@ -480,9 +453,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DataProtector.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DataProtector.ProviderUnprotect(System.Byte[])
   commentId: M:System.Security.Cryptography.DataProtector.ProviderUnprotect(System.Byte[])
   id: ProviderUnprotect(System.Byte[])
@@ -491,7 +461,7 @@ items:
   - csharp
   name: ProviderUnprotect(Byte[])
   nameWithType: DataProtector.ProviderUnprotect(Byte[])
-  fullName: System.Security.Cryptography.DataProtector.ProviderUnprotect(Byte[])
+  fullName: DataProtector.ProviderUnprotect(Byte[])
   type: Method
   assemblies:
   - System.Security
@@ -528,9 +498,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DataProtector.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DataProtector.SpecificPurposes
   commentId: P:System.Security.Cryptography.DataProtector.SpecificPurposes
   id: SpecificPurposes
@@ -539,7 +506,7 @@ items:
   - csharp
   name: SpecificPurposes
   nameWithType: DataProtector.SpecificPurposes
-  fullName: System.Security.Cryptography.DataProtector.SpecificPurposes
+  fullName: DataProtector.SpecificPurposes
   type: Property
   assemblies:
   - System.Security
@@ -569,9 +536,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DataProtector.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.DataProtector.Unprotect(System.Byte[])
   commentId: M:System.Security.Cryptography.DataProtector.Unprotect(System.Byte[])
   id: Unprotect(System.Byte[])
@@ -580,7 +544,7 @@ items:
   - csharp
   name: Unprotect(Byte[])
   nameWithType: DataProtector.Unprotect(Byte[])
-  fullName: System.Security.Cryptography.DataProtector.Unprotect(Byte[])
+  fullName: DataProtector.Unprotect(Byte[])
   type: Method
   assemblies:
   - System.Security
@@ -620,9 +584,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/DataProtector.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -653,7 +614,7 @@ references:
   isExternal: false
   name: DataProtector(String, String, String[])
   nameWithType: DataProtector.DataProtector(String, String, String[])
-  fullName: System.Security.Cryptography.DataProtector.DataProtector(String, String, String[])
+  fullName: DataProtector.DataProtector(String, String, String[])
 - uid: System.String
   parent: System
   isExternal: false
@@ -679,13 +640,13 @@ references:
   isExternal: false
   name: ApplicationName
   nameWithType: DataProtector.ApplicationName
-  fullName: System.Security.Cryptography.DataProtector.ApplicationName
+  fullName: DataProtector.ApplicationName
 - uid: System.Security.Cryptography.DataProtector.Create(System.String,System.String,System.String,System.String[])
   parent: System.Security.Cryptography.DataProtector
   isExternal: false
   name: Create(String, String, String, String[])
   nameWithType: DataProtector.Create(String, String, String, String[])
-  fullName: System.Security.Cryptography.DataProtector.Create(String, String, String, String[])
+  fullName: DataProtector.Create(String, String, String, String[])
 - uid: System.Security.Cryptography.DataProtector
   parent: System.Security.Cryptography
   isExternal: false
@@ -697,7 +658,7 @@ references:
   isExternal: false
   name: GetHashedPurpose()
   nameWithType: DataProtector.GetHashedPurpose()
-  fullName: System.Security.Cryptography.DataProtector.GetHashedPurpose()
+  fullName: DataProtector.GetHashedPurpose()
 - uid: System.Byte
   name: Byte
   nameWithType: Byte
@@ -721,7 +682,7 @@ references:
   isExternal: false
   name: IsReprotectRequired(Byte[])
   nameWithType: DataProtector.IsReprotectRequired(Byte[])
-  fullName: System.Security.Cryptography.DataProtector.IsReprotectRequired(Byte[])
+  fullName: DataProtector.IsReprotectRequired(Byte[])
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -733,37 +694,37 @@ references:
   isExternal: false
   name: PrependHashedPurposeToPlaintext
   nameWithType: DataProtector.PrependHashedPurposeToPlaintext
-  fullName: System.Security.Cryptography.DataProtector.PrependHashedPurposeToPlaintext
+  fullName: DataProtector.PrependHashedPurposeToPlaintext
 - uid: System.Security.Cryptography.DataProtector.PrimaryPurpose
   parent: System.Security.Cryptography.DataProtector
   isExternal: false
   name: PrimaryPurpose
   nameWithType: DataProtector.PrimaryPurpose
-  fullName: System.Security.Cryptography.DataProtector.PrimaryPurpose
+  fullName: DataProtector.PrimaryPurpose
 - uid: System.Security.Cryptography.DataProtector.Protect(System.Byte[])
   parent: System.Security.Cryptography.DataProtector
   isExternal: false
   name: Protect(Byte[])
   nameWithType: DataProtector.Protect(Byte[])
-  fullName: System.Security.Cryptography.DataProtector.Protect(Byte[])
+  fullName: DataProtector.Protect(Byte[])
 - uid: System.Security.Cryptography.DataProtector.ProviderProtect(System.Byte[])
   parent: System.Security.Cryptography.DataProtector
   isExternal: false
   name: ProviderProtect(Byte[])
   nameWithType: DataProtector.ProviderProtect(Byte[])
-  fullName: System.Security.Cryptography.DataProtector.ProviderProtect(Byte[])
+  fullName: DataProtector.ProviderProtect(Byte[])
 - uid: System.Security.Cryptography.DataProtector.ProviderUnprotect(System.Byte[])
   parent: System.Security.Cryptography.DataProtector
   isExternal: false
   name: ProviderUnprotect(Byte[])
   nameWithType: DataProtector.ProviderUnprotect(Byte[])
-  fullName: System.Security.Cryptography.DataProtector.ProviderUnprotect(Byte[])
+  fullName: DataProtector.ProviderUnprotect(Byte[])
 - uid: System.Security.Cryptography.DataProtector.SpecificPurposes
   parent: System.Security.Cryptography.DataProtector
   isExternal: false
   name: SpecificPurposes
   nameWithType: DataProtector.SpecificPurposes
-  fullName: System.Security.Cryptography.DataProtector.SpecificPurposes
+  fullName: DataProtector.SpecificPurposes
 - uid: System.Collections.Generic.IEnumerable`1
   name: IEnumerable<T>
   nameWithType: IEnumerable<T>
@@ -794,13 +755,13 @@ references:
   isExternal: false
   name: Unprotect(Byte[])
   nameWithType: DataProtector.Unprotect(Byte[])
-  fullName: System.Security.Cryptography.DataProtector.Unprotect(Byte[])
+  fullName: DataProtector.Unprotect(Byte[])
 - uid: System.Security.Cryptography.DataProtector.#ctor*
   parent: System.Security.Cryptography.DataProtector
   isExternal: false
   name: DataProtector
   nameWithType: DataProtector.DataProtector
-  fullName: System.Security.Cryptography.DataProtector.DataProtector
+  fullName: DataProtector.DataProtector
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -815,7 +776,7 @@ references:
   isExternal: false
   name: ApplicationName
   nameWithType: DataProtector.ApplicationName
-  fullName: System.Security.Cryptography.DataProtector.ApplicationName
+  fullName: DataProtector.ApplicationName
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -830,7 +791,7 @@ references:
   isExternal: false
   name: Create
   nameWithType: DataProtector.Create
-  fullName: System.Security.Cryptography.DataProtector.Create
+  fullName: DataProtector.Create
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -845,7 +806,7 @@ references:
   isExternal: false
   name: GetHashedPurpose
   nameWithType: DataProtector.GetHashedPurpose
-  fullName: System.Security.Cryptography.DataProtector.GetHashedPurpose
+  fullName: DataProtector.GetHashedPurpose
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -860,7 +821,7 @@ references:
   isExternal: false
   name: IsReprotectRequired
   nameWithType: DataProtector.IsReprotectRequired
-  fullName: System.Security.Cryptography.DataProtector.IsReprotectRequired
+  fullName: DataProtector.IsReprotectRequired
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -875,7 +836,7 @@ references:
   isExternal: false
   name: PrependHashedPurposeToPlaintext
   nameWithType: DataProtector.PrependHashedPurposeToPlaintext
-  fullName: System.Security.Cryptography.DataProtector.PrependHashedPurposeToPlaintext
+  fullName: DataProtector.PrependHashedPurposeToPlaintext
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -890,7 +851,7 @@ references:
   isExternal: false
   name: PrimaryPurpose
   nameWithType: DataProtector.PrimaryPurpose
-  fullName: System.Security.Cryptography.DataProtector.PrimaryPurpose
+  fullName: DataProtector.PrimaryPurpose
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -905,7 +866,7 @@ references:
   isExternal: false
   name: Protect
   nameWithType: DataProtector.Protect
-  fullName: System.Security.Cryptography.DataProtector.Protect
+  fullName: DataProtector.Protect
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -920,7 +881,7 @@ references:
   isExternal: false
   name: ProviderProtect
   nameWithType: DataProtector.ProviderProtect
-  fullName: System.Security.Cryptography.DataProtector.ProviderProtect
+  fullName: DataProtector.ProviderProtect
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -935,7 +896,7 @@ references:
   isExternal: false
   name: ProviderUnprotect
   nameWithType: DataProtector.ProviderUnprotect
-  fullName: System.Security.Cryptography.DataProtector.ProviderUnprotect
+  fullName: DataProtector.ProviderUnprotect
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -950,7 +911,7 @@ references:
   isExternal: false
   name: SpecificPurposes
   nameWithType: DataProtector.SpecificPurposes
-  fullName: System.Security.Cryptography.DataProtector.SpecificPurposes
+  fullName: DataProtector.SpecificPurposes
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -965,7 +926,7 @@ references:
   isExternal: false
   name: Unprotect
   nameWithType: DataProtector.Unprotect
-  fullName: System.Security.Cryptography.DataProtector.Unprotect
+  fullName: DataProtector.Unprotect
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

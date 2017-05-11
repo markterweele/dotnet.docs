@@ -18,7 +18,7 @@ items:
   - System.Web
   namespace: System.Web.Security
   summary: Sets the identity of the user for an ASP.NET application when forms authentication is enabled. This class cannot be inherited.
-  remarks: "The <xref:System.Web.Security.FormsAuthenticationModule> sets the current <xref:System.Web.HttpContext.User%2A?displayProperty=fullName> property to an <xref:System.Security.Principal.IPrincipal> object that represents the user identity for the current request when the authentication <xref:System.Web.Configuration.AuthenticationSection.Mode%2A> is set to <xref:System.Web.Configuration.AuthenticationMode> in the [authentication Element (ASP.NET Settings Schema)](http://msdn.microsoft.com/en-us/27bc0ba9-f23a-45f3-ae42-dbe7916e3ee2) element of the application's configuration file.  \n  \n The <xref:System.Web.Security.FormsAuthenticationModule> exposes an <xref:System.Web.Security.FormsAuthenticationModule.Authenticate> event that enables you to provide a custom <xref:System.Security.Principal.IPrincipal> object for the <xref:System.Web.HttpContext.User%2A> property of the current <xref:System.Web.HttpContext>. The <xref:System.Web.Security.FormsAuthenticationModule.Authenticate> event is accessed by specifying a subroutine named **FormsAuthentication_OnAuthenticate** in the Global.asax file for your ASP.NET application.  \n  \n> [!NOTE]\n>  In IIS 7.0, using the <xref:System.Web.Security.WindowsAuthenticationModule> with the <xref:System.Web.Security.FormsAuthenticationModule> is not supported. For more information about compatibility issues in Integrated modes, see [Moving an ASP.NET Application from IIS 6.0 to IIS 7.0](http://msdn.microsoft.com/library/76f9cc78-f978-4837-b1c8-51d642ec4847)."
+  remarks: "The <xref:System.Web.Security.FormsAuthenticationModule> sets the current <xref:System.Web.HttpContext.User%2A?displayProperty=fullName> property to an <xref:System.Security.Principal.IPrincipal> object that represents the user identity for the current request when the authentication <xref:System.Web.Configuration.AuthenticationSection.Mode%2A> is set to <xref:System.Web.Configuration.AuthenticationMode.Forms> in the [authentication Element (ASP.NET Settings Schema)](http://msdn.microsoft.com/en-us/27bc0ba9-f23a-45f3-ae42-dbe7916e3ee2) element of the application's configuration file.  \n  \n The <xref:System.Web.Security.FormsAuthenticationModule> exposes an <xref:System.Web.Security.FormsAuthenticationModule.Authenticate> event that enables you to provide a custom <xref:System.Security.Principal.IPrincipal> object for the <xref:System.Web.HttpContext.User%2A> property of the current <xref:System.Web.HttpContext>. The <xref:System.Web.Security.FormsAuthenticationModule.Authenticate> event is accessed by specifying a subroutine named **FormsAuthentication_OnAuthenticate** in the Global.asax file for your ASP.NET application.  \n  \n> [!NOTE]\n>  In IIS 7.0, using the <xref:System.Web.Security.WindowsAuthenticationModule> with the <xref:System.Web.Security.FormsAuthenticationModule> is not supported. For more information about compatibility issues in Integrated modes, see [Moving an ASP.NET Application from IIS 6.0 to IIS 7.0](http://msdn.microsoft.com/library/76f9cc78-f978-4837-b1c8-51d642ec4847)."
   example:
   - "The following example uses the **FormsAuthentication_OnAuthenticate** event to set the <xref:System.Web.HttpContext.User%2A> property of the current <xref:System.Web.HttpContext> to a custom <xref:System.Security.Principal.IPrincipal> object.  \n  \n [!code-csharp[System.Web.Security.FormsAuthenticationModule#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Security.FormsAuthenticationModule/CS/global.asax#1)]\n [!code-vb[System.Web.Security.FormsAuthenticationModule#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Security.FormsAuthenticationModule/VB/global.asax#1)]"
   syntax:
@@ -52,9 +52,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/FormsAuthenticationModule.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.FormsAuthenticationModule.#ctor
   commentId: M:System.Web.Security.FormsAuthenticationModule.#ctor
   id: '#ctor'
@@ -63,7 +60,7 @@ items:
   - csharp
   name: FormsAuthenticationModule()
   nameWithType: FormsAuthenticationModule.FormsAuthenticationModule()
-  fullName: System.Web.Security.FormsAuthenticationModule.FormsAuthenticationModule()
+  fullName: FormsAuthenticationModule.FormsAuthenticationModule()
   type: Constructor
   assemblies:
   - System.Web
@@ -92,9 +89,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/FormsAuthenticationModule.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.FormsAuthenticationModule.Authenticate
   commentId: E:System.Web.Security.FormsAuthenticationModule.Authenticate
   id: Authenticate
@@ -103,13 +97,13 @@ items:
   - csharp
   name: Authenticate
   nameWithType: FormsAuthenticationModule.Authenticate
-  fullName: System.Web.Security.FormsAuthenticationModule.Authenticate
+  fullName: FormsAuthenticationModule.Authenticate
   type: Event
   assemblies:
   - System.Web
   namespace: System.Web.Security
   summary: Occurs when the application authenticates the current request.
-  remarks: "The <xref:System.Web.Security.FormsAuthenticationModule.Authenticate> event is raised during the <xref:System.Web.HttpApplication.AuthenticateRequest> event.  \n  \n You can handle the <xref:System.Web.Security.FormsAuthenticationModule.Authenticate> event of the <xref:System.Web.Security.FormsAuthenticationModule> class by specifying a subroutine named **FormsAuthentication_OnAuthenticate** in the Global.asax file for your ASP.NET application.  \n  \n You can use the <xref:System.Web.Security.FormsAuthenticationEventArgs><xref:System.Web.Security.FormsAuthenticationEventArgs.User%2A> property supplied to the **FormsAuthentication_OnAuthenticate** event to set the <xref:System.Web.HttpContext.User%2A> property of the current <xref:System.Web.HttpContext> to a custom <xref:System.Security.Principal.IPrincipal> object. If you do not specify a value for the <xref:System.Web.Security.FormsAuthenticationEventArgs.User%2A> property during the **FormsAuthentication_OnAuthenticate** event, the identity supplied by the forms authentication ticket in the cookie or URL is used.  \n  \n The **FormsAuthentication_OnAuthenticate** event is only raised when the authentication mode is set to <xref:System.Web.Configuration.AuthenticationMode> in the [authentication Element (ASP.NET Settings Schema)](http://msdn.microsoft.com/en-us/27bc0ba9-f23a-45f3-ae42-dbe7916e3ee2) element of the application's configuration file and the <xref:System.Web.Security.FormsAuthenticationModule> is an active HTTP module for the application."
+  remarks: "The <xref:System.Web.Security.FormsAuthenticationModule.Authenticate> event is raised during the <xref:System.Web.HttpApplication.AuthenticateRequest> event.  \n  \n You can handle the <xref:System.Web.Security.FormsAuthenticationModule.Authenticate> event of the <xref:System.Web.Security.FormsAuthenticationModule> class by specifying a subroutine named **FormsAuthentication_OnAuthenticate** in the Global.asax file for your ASP.NET application.  \n  \n You can use the <xref:System.Web.Security.FormsAuthenticationEventArgs><xref:System.Web.Security.FormsAuthenticationEventArgs.User%2A> property supplied to the **FormsAuthentication_OnAuthenticate** event to set the <xref:System.Web.HttpContext.User%2A> property of the current <xref:System.Web.HttpContext> to a custom <xref:System.Security.Principal.IPrincipal> object. If you do not specify a value for the <xref:System.Web.Security.FormsAuthenticationEventArgs.User%2A> property during the **FormsAuthentication_OnAuthenticate** event, the identity supplied by the forms authentication ticket in the cookie or URL is used.  \n  \n The **FormsAuthentication_OnAuthenticate** event is only raised when the authentication mode is set to <xref:System.Web.Configuration.AuthenticationMode.Forms> in the [authentication Element (ASP.NET Settings Schema)](http://msdn.microsoft.com/en-us/27bc0ba9-f23a-45f3-ae42-dbe7916e3ee2) element of the application's configuration file and the <xref:System.Web.Security.FormsAuthenticationModule> is an active HTTP module for the application."
   example:
   - "The following code example uses the **FormsAuthentication_OnAuthenticate** event to set the <xref:System.Web.HttpContext.User%2A> property of the current <xref:System.Web.HttpContext> to a <xref:System.Security.Principal.GenericPrincipal> object that has a custom <xref:System.Security.Principal.IPrincipal.Identity%2A>.  \n  \n [!code-csharp[System.Web.Security.FormsAuthenticationModule#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Security.FormsAuthenticationModule/CS/global.asax#1)]\n [!code-vb[System.Web.Security.FormsAuthenticationModule#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Security.FormsAuthenticationModule/VB/global.asax#1)]"
   syntax:
@@ -135,9 +129,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/FormsAuthenticationModule.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.FormsAuthenticationModule.Dispose
   commentId: M:System.Web.Security.FormsAuthenticationModule.Dispose
   id: Dispose
@@ -146,7 +137,7 @@ items:
   - csharp
   name: Dispose()
   nameWithType: FormsAuthenticationModule.Dispose()
-  fullName: System.Web.Security.FormsAuthenticationModule.Dispose()
+  fullName: FormsAuthenticationModule.Dispose()
   type: Method
   assemblies:
   - System.Web
@@ -175,9 +166,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/FormsAuthenticationModule.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Security.FormsAuthenticationModule.Init(System.Web.HttpApplication)
   commentId: M:System.Web.Security.FormsAuthenticationModule.Init(System.Web.HttpApplication)
   id: Init(System.Web.HttpApplication)
@@ -186,7 +174,7 @@ items:
   - csharp
   name: Init(HttpApplication)
   nameWithType: FormsAuthenticationModule.Init(HttpApplication)
-  fullName: System.Web.Security.FormsAuthenticationModule.Init(HttpApplication)
+  fullName: FormsAuthenticationModule.Init(HttpApplication)
   type: Method
   assemblies:
   - System.Web
@@ -218,9 +206,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/FormsAuthenticationModule.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -233,13 +218,13 @@ references:
   isExternal: false
   name: FormsAuthenticationModule()
   nameWithType: FormsAuthenticationModule.FormsAuthenticationModule()
-  fullName: System.Web.Security.FormsAuthenticationModule.FormsAuthenticationModule()
+  fullName: FormsAuthenticationModule.FormsAuthenticationModule()
 - uid: System.Web.Security.FormsAuthenticationModule.Authenticate
   parent: System.Web.Security.FormsAuthenticationModule
   isExternal: false
   name: Authenticate
   nameWithType: FormsAuthenticationModule.Authenticate
-  fullName: System.Web.Security.FormsAuthenticationModule.Authenticate
+  fullName: FormsAuthenticationModule.Authenticate
 - uid: System.Web.Security.FormsAuthenticationEventHandler
   parent: System.Web.Security
   isExternal: false
@@ -251,13 +236,13 @@ references:
   isExternal: false
   name: Dispose()
   nameWithType: FormsAuthenticationModule.Dispose()
-  fullName: System.Web.Security.FormsAuthenticationModule.Dispose()
+  fullName: FormsAuthenticationModule.Dispose()
 - uid: System.Web.Security.FormsAuthenticationModule.Init(System.Web.HttpApplication)
   parent: System.Web.Security.FormsAuthenticationModule
   isExternal: false
   name: Init(HttpApplication)
   nameWithType: FormsAuthenticationModule.Init(HttpApplication)
-  fullName: System.Web.Security.FormsAuthenticationModule.Init(HttpApplication)
+  fullName: FormsAuthenticationModule.Init(HttpApplication)
 - uid: System.Web.HttpApplication
   parent: System.Web
   isExternal: false
@@ -269,7 +254,7 @@ references:
   isExternal: false
   name: FormsAuthenticationModule
   nameWithType: FormsAuthenticationModule.FormsAuthenticationModule
-  fullName: System.Web.Security.FormsAuthenticationModule.FormsAuthenticationModule
+  fullName: FormsAuthenticationModule.FormsAuthenticationModule
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -284,7 +269,7 @@ references:
   isExternal: false
   name: Dispose
   nameWithType: FormsAuthenticationModule.Dispose
-  fullName: System.Web.Security.FormsAuthenticationModule.Dispose
+  fullName: FormsAuthenticationModule.Dispose
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -299,7 +284,7 @@ references:
   isExternal: false
   name: Init
   nameWithType: FormsAuthenticationModule.Init
-  fullName: System.Web.Security.FormsAuthenticationModule.Init
+  fullName: FormsAuthenticationModule.Init
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -309,3 +294,9 @@ references:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Security/FormsAuthenticationModule.xml
+- uid: System.Web.IHttpModule
+  parent: System.Web
+  isExternal: false
+  name: IHttpModule
+  nameWithType: IHttpModule
+  fullName: System.Web.IHttpModule

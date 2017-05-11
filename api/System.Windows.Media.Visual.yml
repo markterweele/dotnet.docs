@@ -50,7 +50,7 @@ items:
   assemblies:
   - PresentationCore
   namespace: System.Windows.Media
-  summary: Provides rendering support in [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)], which includes hit testing, coordinate transformation, and bounding box calculations.
+  summary: Provides rendering support in WPF, which includes hit testing, coordinate transformation, and bounding box calculations.
   remarks: "The <xref:System.Windows.Media.Visual> class is the basic abstraction from which every <xref:System.Windows.FrameworkElement> object derives. It also serves as the entry point for writing new controls in [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)], and in many ways can be thought of as an equivalent of a window handle (HWND) in the [!INCLUDE[TLA#tla_win32](~/includes/tlasharptla-win32-md.md)] application model.  \n  \n The <xref:System.Windows.Media.Visual> object is a core [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] object, whose primary role is to provide rendering support. User interface controls, such as <xref:System.Windows.Controls.Button> and <xref:System.Windows.Controls.TextBox>, derive from the <xref:System.Windows.Media.Visual> class, and use the <xref:System.Windows.Media.Visual> defined properties for persisting their rendering data. The <xref:System.Windows.Media.Visual> object provides support for the following:  \n  \n-   Output display: Rendering the persisted, serialized drawing content of a visual.  \n  \n-   Transformations: Performing transformations on a visual.  \n  \n-   Clipping: Providing clipping region support for a visual.  \n  \n-   Hit testing: Determining whether a specified coordinate (point) or geometry is contained within the bounds of a visual.  \n  \n-   Bounding box calculations: Determining the bounding rectangle of a visual.  \n  \n Architecturally, the <xref:System.Windows.Media.Visual> object does not include support for other application development requirements / [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] features that are not immediately related to its rendering, such as the following:  \n  \n-   Event handling  \n  \n-   Layout  \n  \n-   Styles  \n  \n-   Data binding  \n  \n-   Globalization  \n  \n <xref:System.Windows.Media.Visual> is provided as a public abstract class from which further classes can be derived. The following illustration shows the hierarchy of the existing visual objects that are defined in the [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] architecture.  \n  \n ![Diagram of classes derived from the Visual object](~/add/media/visualclass01.png \"Diagram of classes derived from the Visual object\")  \nVisual class hierarchy  \n  \n In some cases, members that are defined as protected in <xref:System.Windows.Media.Visual> are exposed as more readily accessible members with similar names in the derived <xref:System.Windows.UIElement> class.  \n  \n For more information, see [WPF Graphics Rendering Overview](~/docs/framework/wpf/graphics-multimedia/wpf-graphics-rendering-overview.md).  \n  \n A <xref:System.Windows.Media.Visual> has a limited number of levels. In previous versions of the .NET Framework, this maximum depth was 255. This limit is inadequate for some layouts that have many levels in the visual tree.  \n  \n In [!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)], the maximum depth of a <xref:System.Windows.Media.Visual> is 2047, which enables much deeper visual trees. In most applications, there is not enough stack space to traverse so many levels, and the result is a <xref:System.StackOverflowException> during layout. For the default stack size, this exception is usually thrown when the tree depth is approximately 800, which corresponds to about 190 nested <xref:System.Windows.Controls.TreeViewItem> objects.  \n  \n If this exception is thrown by your application and you need to have a deeper visual tree, you can increase the application's stack size. You can increase the size of the stack by using the /STACK option at compile time or by using the EDITBIN utility. Increasing the stack size may affect your application's performance. For more information, see [Stack Allocations](http://go.microsoft.com/fwlink/?LinkId=165510) and [EDITBIN Options](http://go.microsoft.com/fwlink/?LinkId=165511)."
   syntax:
     content: 'public abstract class Visual : System.Windows.DependencyObject'
@@ -105,9 +105,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.#ctor
   commentId: M:System.Windows.Media.Visual.#ctor
   id: '#ctor'
@@ -116,7 +113,7 @@ items:
   - csharp
   name: Visual()
   nameWithType: Visual.Visual()
-  fullName: System.Windows.Media.Visual.Visual()
+  fullName: Visual.Visual()
   type: Constructor
   assemblies:
   - PresentationCore
@@ -144,9 +141,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.AddVisualChild(System.Windows.Media.Visual)
   commentId: M:System.Windows.Media.Visual.AddVisualChild(System.Windows.Media.Visual)
   id: AddVisualChild(System.Windows.Media.Visual)
@@ -155,7 +149,7 @@ items:
   - csharp
   name: AddVisualChild(Visual)
   nameWithType: Visual.AddVisualChild(Visual)
-  fullName: System.Windows.Media.Visual.AddVisualChild(Visual)
+  fullName: Visual.AddVisualChild(Visual)
   type: Method
   assemblies:
   - PresentationCore
@@ -189,8 +183,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Media.Visual.FindCommonVisualAncestor(System.Windows.DependencyObject)
   commentId: M:System.Windows.Media.Visual.FindCommonVisualAncestor(System.Windows.DependencyObject)
   id: FindCommonVisualAncestor(System.Windows.DependencyObject)
@@ -199,7 +191,7 @@ items:
   - csharp
   name: FindCommonVisualAncestor(DependencyObject)
   nameWithType: Visual.FindCommonVisualAncestor(DependencyObject)
-  fullName: System.Windows.Media.Visual.FindCommonVisualAncestor(DependencyObject)
+  fullName: Visual.FindCommonVisualAncestor(DependencyObject)
   type: Method
   assemblies:
   - PresentationCore
@@ -234,9 +226,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.GetVisualChild(System.Int32)
   commentId: M:System.Windows.Media.Visual.GetVisualChild(System.Int32)
   id: GetVisualChild(System.Int32)
@@ -245,7 +234,7 @@ items:
   - csharp
   name: GetVisualChild(Int32)
   nameWithType: Visual.GetVisualChild(Int32)
-  fullName: System.Windows.Media.Visual.GetVisualChild(Int32)
+  fullName: Visual.GetVisualChild(Int32)
   type: Method
   assemblies:
   - PresentationCore
@@ -282,9 +271,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.HitTestCore(System.Windows.Media.GeometryHitTestParameters)
   commentId: M:System.Windows.Media.Visual.HitTestCore(System.Windows.Media.GeometryHitTestParameters)
   id: HitTestCore(System.Windows.Media.GeometryHitTestParameters)
@@ -293,7 +279,7 @@ items:
   - csharp
   name: HitTestCore(GeometryHitTestParameters)
   nameWithType: Visual.HitTestCore(GeometryHitTestParameters)
-  fullName: System.Windows.Media.Visual.HitTestCore(GeometryHitTestParameters)
+  fullName: Visual.HitTestCore(GeometryHitTestParameters)
   type: Method
   assemblies:
   - PresentationCore
@@ -330,8 +316,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Media.Visual.HitTestCore(System.Windows.Media.PointHitTestParameters)
   commentId: M:System.Windows.Media.Visual.HitTestCore(System.Windows.Media.PointHitTestParameters)
   id: HitTestCore(System.Windows.Media.PointHitTestParameters)
@@ -340,7 +324,7 @@ items:
   - csharp
   name: HitTestCore(PointHitTestParameters)
   nameWithType: Visual.HitTestCore(PointHitTestParameters)
-  fullName: System.Windows.Media.Visual.HitTestCore(PointHitTestParameters)
+  fullName: Visual.HitTestCore(PointHitTestParameters)
   type: Method
   assemblies:
   - PresentationCore
@@ -377,9 +361,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.IsAncestorOf(System.Windows.DependencyObject)
   commentId: M:System.Windows.Media.Visual.IsAncestorOf(System.Windows.DependencyObject)
   id: IsAncestorOf(System.Windows.DependencyObject)
@@ -388,7 +369,7 @@ items:
   - csharp
   name: IsAncestorOf(DependencyObject)
   nameWithType: Visual.IsAncestorOf(DependencyObject)
-  fullName: System.Windows.Media.Visual.IsAncestorOf(DependencyObject)
+  fullName: Visual.IsAncestorOf(DependencyObject)
   type: Method
   assemblies:
   - PresentationCore
@@ -422,9 +403,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.IsDescendantOf(System.Windows.DependencyObject)
   commentId: M:System.Windows.Media.Visual.IsDescendantOf(System.Windows.DependencyObject)
   id: IsDescendantOf(System.Windows.DependencyObject)
@@ -433,7 +411,7 @@ items:
   - csharp
   name: IsDescendantOf(DependencyObject)
   nameWithType: Visual.IsDescendantOf(DependencyObject)
-  fullName: System.Windows.Media.Visual.IsDescendantOf(DependencyObject)
+  fullName: Visual.IsDescendantOf(DependencyObject)
   type: Method
   assemblies:
   - PresentationCore
@@ -467,9 +445,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.OnDpiChanged(System.Windows.DpiScale,System.Windows.DpiScale)
   commentId: M:System.Windows.Media.Visual.OnDpiChanged(System.Windows.DpiScale,System.Windows.DpiScale)
   id: OnDpiChanged(System.Windows.DpiScale,System.Windows.DpiScale)
@@ -478,7 +453,7 @@ items:
   - csharp
   name: OnDpiChanged(DpiScale, DpiScale)
   nameWithType: Visual.OnDpiChanged(DpiScale, DpiScale)
-  fullName: System.Windows.Media.Visual.OnDpiChanged(DpiScale, DpiScale)
+  fullName: Visual.OnDpiChanged(DpiScale, DpiScale)
   type: Method
   assemblies:
   - PresentationCore
@@ -502,9 +477,6 @@ items:
   - netframework-4.6.2
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.OnVisualChildrenChanged(System.Windows.DependencyObject,System.Windows.DependencyObject)
   commentId: M:System.Windows.Media.Visual.OnVisualChildrenChanged(System.Windows.DependencyObject,System.Windows.DependencyObject)
   id: OnVisualChildrenChanged(System.Windows.DependencyObject,System.Windows.DependencyObject)
@@ -513,7 +485,7 @@ items:
   - csharp
   name: OnVisualChildrenChanged(DependencyObject, DependencyObject)
   nameWithType: Visual.OnVisualChildrenChanged(DependencyObject, DependencyObject)
-  fullName: System.Windows.Media.Visual.OnVisualChildrenChanged(DependencyObject, DependencyObject)
+  fullName: Visual.OnVisualChildrenChanged(DependencyObject, DependencyObject)
   type: Method
   assemblies:
   - PresentationCore
@@ -547,8 +519,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Media.Visual.OnVisualParentChanged(System.Windows.DependencyObject)
   commentId: M:System.Windows.Media.Visual.OnVisualParentChanged(System.Windows.DependencyObject)
   id: OnVisualParentChanged(System.Windows.DependencyObject)
@@ -557,7 +527,7 @@ items:
   - csharp
   name: OnVisualParentChanged(DependencyObject)
   nameWithType: Visual.OnVisualParentChanged(DependencyObject)
-  fullName: System.Windows.Media.Visual.OnVisualParentChanged(DependencyObject)
+  fullName: Visual.OnVisualParentChanged(DependencyObject)
   type: Method
   assemblies:
   - PresentationCore
@@ -591,9 +561,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.PointFromScreen(System.Windows.Point)
   commentId: M:System.Windows.Media.Visual.PointFromScreen(System.Windows.Point)
   id: PointFromScreen(System.Windows.Point)
@@ -602,7 +569,7 @@ items:
   - csharp
   name: PointFromScreen(Point)
   nameWithType: Visual.PointFromScreen(Point)
-  fullName: System.Windows.Media.Visual.PointFromScreen(Point)
+  fullName: Visual.PointFromScreen(Point)
   type: Method
   assemblies:
   - PresentationCore
@@ -637,9 +604,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.PointToScreen(System.Windows.Point)
   commentId: M:System.Windows.Media.Visual.PointToScreen(System.Windows.Point)
   id: PointToScreen(System.Windows.Point)
@@ -648,7 +612,7 @@ items:
   - csharp
   name: PointToScreen(Point)
   nameWithType: Visual.PointToScreen(Point)
-  fullName: System.Windows.Media.Visual.PointToScreen(Point)
+  fullName: Visual.PointToScreen(Point)
   type: Method
   assemblies:
   - PresentationCore
@@ -683,8 +647,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Media.Visual.RemoveVisualChild(System.Windows.Media.Visual)
   commentId: M:System.Windows.Media.Visual.RemoveVisualChild(System.Windows.Media.Visual)
   id: RemoveVisualChild(System.Windows.Media.Visual)
@@ -693,7 +655,7 @@ items:
   - csharp
   name: RemoveVisualChild(Visual)
   nameWithType: Visual.RemoveVisualChild(Visual)
-  fullName: System.Windows.Media.Visual.RemoveVisualChild(Visual)
+  fullName: Visual.RemoveVisualChild(Visual)
   type: Method
   assemblies:
   - PresentationCore
@@ -727,9 +689,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.TransformToAncestor(System.Windows.Media.Media3D.Visual3D)
   commentId: M:System.Windows.Media.Visual.TransformToAncestor(System.Windows.Media.Media3D.Visual3D)
   id: TransformToAncestor(System.Windows.Media.Media3D.Visual3D)
@@ -738,7 +697,7 @@ items:
   - csharp
   name: TransformToAncestor(Visual3D)
   nameWithType: Visual.TransformToAncestor(Visual3D)
-  fullName: System.Windows.Media.Visual.TransformToAncestor(Visual3D)
+  fullName: Visual.TransformToAncestor(Visual3D)
   type: Method
   assemblies:
   - PresentationCore
@@ -772,8 +731,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Media.Visual.TransformToAncestor(System.Windows.Media.Visual)
   commentId: M:System.Windows.Media.Visual.TransformToAncestor(System.Windows.Media.Visual)
   id: TransformToAncestor(System.Windows.Media.Visual)
@@ -782,7 +739,7 @@ items:
   - csharp
   name: TransformToAncestor(Visual)
   nameWithType: Visual.TransformToAncestor(Visual)
-  fullName: System.Windows.Media.Visual.TransformToAncestor(Visual)
+  fullName: Visual.TransformToAncestor(Visual)
   type: Method
   assemblies:
   - PresentationCore
@@ -828,9 +785,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.TransformToDescendant(System.Windows.Media.Visual)
   commentId: M:System.Windows.Media.Visual.TransformToDescendant(System.Windows.Media.Visual)
   id: TransformToDescendant(System.Windows.Media.Visual)
@@ -839,7 +793,7 @@ items:
   - csharp
   name: TransformToDescendant(Visual)
   nameWithType: Visual.TransformToDescendant(Visual)
-  fullName: System.Windows.Media.Visual.TransformToDescendant(Visual)
+  fullName: Visual.TransformToDescendant(Visual)
   type: Method
   assemblies:
   - PresentationCore
@@ -885,8 +839,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Media.Visual.TransformToVisual(System.Windows.Media.Visual)
   commentId: M:System.Windows.Media.Visual.TransformToVisual(System.Windows.Media.Visual)
   id: TransformToVisual(System.Windows.Media.Visual)
@@ -895,7 +847,7 @@ items:
   - csharp
   name: TransformToVisual(Visual)
   nameWithType: Visual.TransformToVisual(Visual)
-  fullName: System.Windows.Media.Visual.TransformToVisual(Visual)
+  fullName: Visual.TransformToVisual(Visual)
   type: Method
   assemblies:
   - PresentationCore
@@ -938,9 +890,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.VisualBitmapEffect
   commentId: P:System.Windows.Media.Visual.VisualBitmapEffect
   id: VisualBitmapEffect
@@ -949,7 +898,7 @@ items:
   - csharp
   name: VisualBitmapEffect
   nameWithType: Visual.VisualBitmapEffect
-  fullName: System.Windows.Media.Visual.VisualBitmapEffect
+  fullName: Visual.VisualBitmapEffect
   type: Property
   assemblies:
   - PresentationCore
@@ -984,9 +933,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.VisualBitmapEffectInput
   commentId: P:System.Windows.Media.Visual.VisualBitmapEffectInput
   id: VisualBitmapEffectInput
@@ -995,7 +941,7 @@ items:
   - csharp
   name: VisualBitmapEffectInput
   nameWithType: Visual.VisualBitmapEffectInput
-  fullName: System.Windows.Media.Visual.VisualBitmapEffectInput
+  fullName: Visual.VisualBitmapEffectInput
   type: Property
   assemblies:
   - PresentationCore
@@ -1030,9 +976,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.VisualBitmapScalingMode
   commentId: P:System.Windows.Media.Visual.VisualBitmapScalingMode
   id: VisualBitmapScalingMode
@@ -1041,7 +984,7 @@ items:
   - csharp
   name: VisualBitmapScalingMode
   nameWithType: Visual.VisualBitmapScalingMode
-  fullName: System.Windows.Media.Visual.VisualBitmapScalingMode
+  fullName: Visual.VisualBitmapScalingMode
   type: Property
   assemblies:
   - PresentationCore
@@ -1071,8 +1014,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Media.Visual.VisualCacheMode
   commentId: P:System.Windows.Media.Visual.VisualCacheMode
   id: VisualCacheMode
@@ -1081,7 +1022,7 @@ items:
   - csharp
   name: VisualCacheMode
   nameWithType: Visual.VisualCacheMode
-  fullName: System.Windows.Media.Visual.VisualCacheMode
+  fullName: Visual.VisualCacheMode
   type: Property
   assemblies:
   - PresentationCore
@@ -1112,9 +1053,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.VisualChildrenCount
   commentId: P:System.Windows.Media.Visual.VisualChildrenCount
   id: VisualChildrenCount
@@ -1123,7 +1061,7 @@ items:
   - csharp
   name: VisualChildrenCount
   nameWithType: Visual.VisualChildrenCount
-  fullName: System.Windows.Media.Visual.VisualChildrenCount
+  fullName: Visual.VisualChildrenCount
   type: Property
   assemblies:
   - PresentationCore
@@ -1156,9 +1094,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.VisualClearTypeHint
   commentId: P:System.Windows.Media.Visual.VisualClearTypeHint
   id: VisualClearTypeHint
@@ -1167,7 +1102,7 @@ items:
   - csharp
   name: VisualClearTypeHint
   nameWithType: Visual.VisualClearTypeHint
-  fullName: System.Windows.Media.Visual.VisualClearTypeHint
+  fullName: Visual.VisualClearTypeHint
   type: Property
   assemblies:
   - PresentationCore
@@ -1197,9 +1132,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.VisualClip
   commentId: P:System.Windows.Media.Visual.VisualClip
   id: VisualClip
@@ -1208,7 +1140,7 @@ items:
   - csharp
   name: VisualClip
   nameWithType: Visual.VisualClip
-  fullName: System.Windows.Media.Visual.VisualClip
+  fullName: Visual.VisualClip
   type: Property
   assemblies:
   - PresentationCore
@@ -1238,9 +1170,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.VisualEdgeMode
   commentId: P:System.Windows.Media.Visual.VisualEdgeMode
   id: VisualEdgeMode
@@ -1249,7 +1178,7 @@ items:
   - csharp
   name: VisualEdgeMode
   nameWithType: Visual.VisualEdgeMode
-  fullName: System.Windows.Media.Visual.VisualEdgeMode
+  fullName: Visual.VisualEdgeMode
   type: Property
   assemblies:
   - PresentationCore
@@ -1279,9 +1208,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.VisualEffect
   commentId: P:System.Windows.Media.Visual.VisualEffect
   id: VisualEffect
@@ -1290,7 +1216,7 @@ items:
   - csharp
   name: VisualEffect
   nameWithType: Visual.VisualEffect
-  fullName: System.Windows.Media.Visual.VisualEffect
+  fullName: Visual.VisualEffect
   type: Property
   assemblies:
   - PresentationCore
@@ -1320,8 +1246,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Media.Visual.VisualOffset
   commentId: P:System.Windows.Media.Visual.VisualOffset
   id: VisualOffset
@@ -1330,7 +1254,7 @@ items:
   - csharp
   name: VisualOffset
   nameWithType: Visual.VisualOffset
-  fullName: System.Windows.Media.Visual.VisualOffset
+  fullName: Visual.VisualOffset
   type: Property
   assemblies:
   - PresentationCore
@@ -1360,9 +1284,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.VisualOpacity
   commentId: P:System.Windows.Media.Visual.VisualOpacity
   id: VisualOpacity
@@ -1371,7 +1292,7 @@ items:
   - csharp
   name: VisualOpacity
   nameWithType: Visual.VisualOpacity
-  fullName: System.Windows.Media.Visual.VisualOpacity
+  fullName: Visual.VisualOpacity
   type: Property
   assemblies:
   - PresentationCore
@@ -1402,8 +1323,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Media.Visual.VisualOpacityMask
   commentId: P:System.Windows.Media.Visual.VisualOpacityMask
   id: VisualOpacityMask
@@ -1412,7 +1331,7 @@ items:
   - csharp
   name: VisualOpacityMask
   nameWithType: Visual.VisualOpacityMask
-  fullName: System.Windows.Media.Visual.VisualOpacityMask
+  fullName: Visual.VisualOpacityMask
   type: Property
   assemblies:
   - PresentationCore
@@ -1443,9 +1362,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.VisualParent
   commentId: P:System.Windows.Media.Visual.VisualParent
   id: VisualParent
@@ -1454,7 +1370,7 @@ items:
   - csharp
   name: VisualParent
   nameWithType: Visual.VisualParent
-  fullName: System.Windows.Media.Visual.VisualParent
+  fullName: Visual.VisualParent
   type: Property
   assemblies:
   - PresentationCore
@@ -1484,8 +1400,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Media.Visual.VisualScrollableAreaClip
   commentId: P:System.Windows.Media.Visual.VisualScrollableAreaClip
   id: VisualScrollableAreaClip
@@ -1494,7 +1408,7 @@ items:
   - csharp
   name: VisualScrollableAreaClip
   nameWithType: Visual.VisualScrollableAreaClip
-  fullName: System.Windows.Media.Visual.VisualScrollableAreaClip
+  fullName: Visual.VisualScrollableAreaClip
   type: Property
   assemblies:
   - PresentationCore
@@ -1525,9 +1439,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.VisualTextHintingMode
   commentId: P:System.Windows.Media.Visual.VisualTextHintingMode
   id: VisualTextHintingMode
@@ -1536,7 +1447,7 @@ items:
   - csharp
   name: VisualTextHintingMode
   nameWithType: Visual.VisualTextHintingMode
-  fullName: System.Windows.Media.Visual.VisualTextHintingMode
+  fullName: Visual.VisualTextHintingMode
   type: Property
   assemblies:
   - PresentationCore
@@ -1566,9 +1477,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.VisualTextRenderingMode
   commentId: P:System.Windows.Media.Visual.VisualTextRenderingMode
   id: VisualTextRenderingMode
@@ -1577,7 +1485,7 @@ items:
   - csharp
   name: VisualTextRenderingMode
   nameWithType: Visual.VisualTextRenderingMode
-  fullName: System.Windows.Media.Visual.VisualTextRenderingMode
+  fullName: Visual.VisualTextRenderingMode
   type: Property
   assemblies:
   - PresentationCore
@@ -1607,9 +1515,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.VisualTransform
   commentId: P:System.Windows.Media.Visual.VisualTransform
   id: VisualTransform
@@ -1618,7 +1523,7 @@ items:
   - csharp
   name: VisualTransform
   nameWithType: Visual.VisualTransform
-  fullName: System.Windows.Media.Visual.VisualTransform
+  fullName: Visual.VisualTransform
   type: Property
   assemblies:
   - PresentationCore
@@ -1648,9 +1553,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.VisualXSnappingGuidelines
   commentId: P:System.Windows.Media.Visual.VisualXSnappingGuidelines
   id: VisualXSnappingGuidelines
@@ -1659,7 +1561,7 @@ items:
   - csharp
   name: VisualXSnappingGuidelines
   nameWithType: Visual.VisualXSnappingGuidelines
-  fullName: System.Windows.Media.Visual.VisualXSnappingGuidelines
+  fullName: Visual.VisualXSnappingGuidelines
   type: Property
   assemblies:
   - PresentationCore
@@ -1690,9 +1592,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Media.Visual.VisualYSnappingGuidelines
   commentId: P:System.Windows.Media.Visual.VisualYSnappingGuidelines
   id: VisualYSnappingGuidelines
@@ -1701,7 +1600,7 @@ items:
   - csharp
   name: VisualYSnappingGuidelines
   nameWithType: Visual.VisualYSnappingGuidelines
-  fullName: System.Windows.Media.Visual.VisualYSnappingGuidelines
+  fullName: Visual.VisualYSnappingGuidelines
   type: Property
   assemblies:
   - PresentationCore
@@ -1732,9 +1631,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Media/Visual.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 references:
 - uid: System.Windows.DependencyObject
   parent: System.Windows
@@ -1765,13 +1661,13 @@ references:
   isExternal: false
   name: Visual()
   nameWithType: Visual.Visual()
-  fullName: System.Windows.Media.Visual.Visual()
+  fullName: Visual.Visual()
 - uid: System.Windows.Media.Visual.AddVisualChild(System.Windows.Media.Visual)
   parent: System.Windows.Media.Visual
   isExternal: false
   name: AddVisualChild(Visual)
   nameWithType: Visual.AddVisualChild(Visual)
-  fullName: System.Windows.Media.Visual.AddVisualChild(Visual)
+  fullName: Visual.AddVisualChild(Visual)
 - uid: System.Windows.Media.Visual
   parent: System.Windows.Media
   isExternal: false
@@ -1783,13 +1679,13 @@ references:
   isExternal: false
   name: FindCommonVisualAncestor(DependencyObject)
   nameWithType: Visual.FindCommonVisualAncestor(DependencyObject)
-  fullName: System.Windows.Media.Visual.FindCommonVisualAncestor(DependencyObject)
+  fullName: Visual.FindCommonVisualAncestor(DependencyObject)
 - uid: System.Windows.Media.Visual.GetVisualChild(System.Int32)
   parent: System.Windows.Media.Visual
   isExternal: false
   name: GetVisualChild(Int32)
   nameWithType: Visual.GetVisualChild(Int32)
-  fullName: System.Windows.Media.Visual.GetVisualChild(Int32)
+  fullName: Visual.GetVisualChild(Int32)
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -1801,7 +1697,7 @@ references:
   isExternal: false
   name: HitTestCore(GeometryHitTestParameters)
   nameWithType: Visual.HitTestCore(GeometryHitTestParameters)
-  fullName: System.Windows.Media.Visual.HitTestCore(GeometryHitTestParameters)
+  fullName: Visual.HitTestCore(GeometryHitTestParameters)
 - uid: System.Windows.Media.GeometryHitTestResult
   parent: System.Windows.Media
   isExternal: false
@@ -1819,7 +1715,7 @@ references:
   isExternal: false
   name: HitTestCore(PointHitTestParameters)
   nameWithType: Visual.HitTestCore(PointHitTestParameters)
-  fullName: System.Windows.Media.Visual.HitTestCore(PointHitTestParameters)
+  fullName: Visual.HitTestCore(PointHitTestParameters)
 - uid: System.Windows.Media.HitTestResult
   parent: System.Windows.Media
   isExternal: false
@@ -1837,7 +1733,7 @@ references:
   isExternal: false
   name: IsAncestorOf(DependencyObject)
   nameWithType: Visual.IsAncestorOf(DependencyObject)
-  fullName: System.Windows.Media.Visual.IsAncestorOf(DependencyObject)
+  fullName: Visual.IsAncestorOf(DependencyObject)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -1849,13 +1745,13 @@ references:
   isExternal: false
   name: IsDescendantOf(DependencyObject)
   nameWithType: Visual.IsDescendantOf(DependencyObject)
-  fullName: System.Windows.Media.Visual.IsDescendantOf(DependencyObject)
+  fullName: Visual.IsDescendantOf(DependencyObject)
 - uid: System.Windows.Media.Visual.OnDpiChanged(System.Windows.DpiScale,System.Windows.DpiScale)
   parent: System.Windows.Media.Visual
   isExternal: false
   name: OnDpiChanged(DpiScale, DpiScale)
   nameWithType: Visual.OnDpiChanged(DpiScale, DpiScale)
-  fullName: System.Windows.Media.Visual.OnDpiChanged(DpiScale, DpiScale)
+  fullName: Visual.OnDpiChanged(DpiScale, DpiScale)
 - uid: System.Windows.DpiScale
   parent: System.Windows
   isExternal: false
@@ -1867,19 +1763,19 @@ references:
   isExternal: false
   name: OnVisualChildrenChanged(DependencyObject, DependencyObject)
   nameWithType: Visual.OnVisualChildrenChanged(DependencyObject, DependencyObject)
-  fullName: System.Windows.Media.Visual.OnVisualChildrenChanged(DependencyObject, DependencyObject)
+  fullName: Visual.OnVisualChildrenChanged(DependencyObject, DependencyObject)
 - uid: System.Windows.Media.Visual.OnVisualParentChanged(System.Windows.DependencyObject)
   parent: System.Windows.Media.Visual
   isExternal: false
   name: OnVisualParentChanged(DependencyObject)
   nameWithType: Visual.OnVisualParentChanged(DependencyObject)
-  fullName: System.Windows.Media.Visual.OnVisualParentChanged(DependencyObject)
+  fullName: Visual.OnVisualParentChanged(DependencyObject)
 - uid: System.Windows.Media.Visual.PointFromScreen(System.Windows.Point)
   parent: System.Windows.Media.Visual
   isExternal: false
   name: PointFromScreen(Point)
   nameWithType: Visual.PointFromScreen(Point)
-  fullName: System.Windows.Media.Visual.PointFromScreen(Point)
+  fullName: Visual.PointFromScreen(Point)
 - uid: System.Windows.Point
   parent: System.Windows
   isExternal: false
@@ -1891,19 +1787,19 @@ references:
   isExternal: false
   name: PointToScreen(Point)
   nameWithType: Visual.PointToScreen(Point)
-  fullName: System.Windows.Media.Visual.PointToScreen(Point)
+  fullName: Visual.PointToScreen(Point)
 - uid: System.Windows.Media.Visual.RemoveVisualChild(System.Windows.Media.Visual)
   parent: System.Windows.Media.Visual
   isExternal: false
   name: RemoveVisualChild(Visual)
   nameWithType: Visual.RemoveVisualChild(Visual)
-  fullName: System.Windows.Media.Visual.RemoveVisualChild(Visual)
+  fullName: Visual.RemoveVisualChild(Visual)
 - uid: System.Windows.Media.Visual.TransformToAncestor(System.Windows.Media.Media3D.Visual3D)
   parent: System.Windows.Media.Visual
   isExternal: false
   name: TransformToAncestor(Visual3D)
   nameWithType: Visual.TransformToAncestor(Visual3D)
-  fullName: System.Windows.Media.Visual.TransformToAncestor(Visual3D)
+  fullName: Visual.TransformToAncestor(Visual3D)
 - uid: System.Windows.Media.Media3D.GeneralTransform2DTo3D
   parent: System.Windows.Media.Media3D
   isExternal: false
@@ -1921,7 +1817,7 @@ references:
   isExternal: false
   name: TransformToAncestor(Visual)
   nameWithType: Visual.TransformToAncestor(Visual)
-  fullName: System.Windows.Media.Visual.TransformToAncestor(Visual)
+  fullName: Visual.TransformToAncestor(Visual)
 - uid: System.Windows.Media.GeneralTransform
   parent: System.Windows.Media
   isExternal: false
@@ -1933,19 +1829,19 @@ references:
   isExternal: false
   name: TransformToDescendant(Visual)
   nameWithType: Visual.TransformToDescendant(Visual)
-  fullName: System.Windows.Media.Visual.TransformToDescendant(Visual)
+  fullName: Visual.TransformToDescendant(Visual)
 - uid: System.Windows.Media.Visual.TransformToVisual(System.Windows.Media.Visual)
   parent: System.Windows.Media.Visual
   isExternal: false
   name: TransformToVisual(Visual)
   nameWithType: Visual.TransformToVisual(Visual)
-  fullName: System.Windows.Media.Visual.TransformToVisual(Visual)
+  fullName: Visual.TransformToVisual(Visual)
 - uid: System.Windows.Media.Visual.VisualBitmapEffect
   parent: System.Windows.Media.Visual
   isExternal: false
   name: VisualBitmapEffect
   nameWithType: Visual.VisualBitmapEffect
-  fullName: System.Windows.Media.Visual.VisualBitmapEffect
+  fullName: Visual.VisualBitmapEffect
 - uid: System.Windows.Media.Effects.BitmapEffect
   parent: System.Windows.Media.Effects
   isExternal: false
@@ -1957,7 +1853,7 @@ references:
   isExternal: false
   name: VisualBitmapEffectInput
   nameWithType: Visual.VisualBitmapEffectInput
-  fullName: System.Windows.Media.Visual.VisualBitmapEffectInput
+  fullName: Visual.VisualBitmapEffectInput
 - uid: System.Windows.Media.Effects.BitmapEffectInput
   parent: System.Windows.Media.Effects
   isExternal: false
@@ -1969,7 +1865,7 @@ references:
   isExternal: false
   name: VisualBitmapScalingMode
   nameWithType: Visual.VisualBitmapScalingMode
-  fullName: System.Windows.Media.Visual.VisualBitmapScalingMode
+  fullName: Visual.VisualBitmapScalingMode
 - uid: System.Windows.Media.BitmapScalingMode
   parent: System.Windows.Media
   isExternal: false
@@ -1981,7 +1877,7 @@ references:
   isExternal: false
   name: VisualCacheMode
   nameWithType: Visual.VisualCacheMode
-  fullName: System.Windows.Media.Visual.VisualCacheMode
+  fullName: Visual.VisualCacheMode
 - uid: System.Windows.Media.CacheMode
   parent: System.Windows.Media
   isExternal: false
@@ -1993,13 +1889,13 @@ references:
   isExternal: false
   name: VisualChildrenCount
   nameWithType: Visual.VisualChildrenCount
-  fullName: System.Windows.Media.Visual.VisualChildrenCount
+  fullName: Visual.VisualChildrenCount
 - uid: System.Windows.Media.Visual.VisualClearTypeHint
   parent: System.Windows.Media.Visual
   isExternal: false
   name: VisualClearTypeHint
   nameWithType: Visual.VisualClearTypeHint
-  fullName: System.Windows.Media.Visual.VisualClearTypeHint
+  fullName: Visual.VisualClearTypeHint
 - uid: System.Windows.Media.ClearTypeHint
   parent: System.Windows.Media
   isExternal: false
@@ -2011,7 +1907,7 @@ references:
   isExternal: false
   name: VisualClip
   nameWithType: Visual.VisualClip
-  fullName: System.Windows.Media.Visual.VisualClip
+  fullName: Visual.VisualClip
 - uid: System.Windows.Media.Geometry
   parent: System.Windows.Media
   isExternal: false
@@ -2023,7 +1919,7 @@ references:
   isExternal: false
   name: VisualEdgeMode
   nameWithType: Visual.VisualEdgeMode
-  fullName: System.Windows.Media.Visual.VisualEdgeMode
+  fullName: Visual.VisualEdgeMode
 - uid: System.Windows.Media.EdgeMode
   parent: System.Windows.Media
   isExternal: false
@@ -2035,7 +1931,7 @@ references:
   isExternal: false
   name: VisualEffect
   nameWithType: Visual.VisualEffect
-  fullName: System.Windows.Media.Visual.VisualEffect
+  fullName: Visual.VisualEffect
 - uid: System.Windows.Media.Effects.Effect
   parent: System.Windows.Media.Effects
   isExternal: false
@@ -2047,7 +1943,7 @@ references:
   isExternal: false
   name: VisualOffset
   nameWithType: Visual.VisualOffset
-  fullName: System.Windows.Media.Visual.VisualOffset
+  fullName: Visual.VisualOffset
 - uid: System.Windows.Vector
   parent: System.Windows
   isExternal: false
@@ -2059,7 +1955,7 @@ references:
   isExternal: false
   name: VisualOpacity
   nameWithType: Visual.VisualOpacity
-  fullName: System.Windows.Media.Visual.VisualOpacity
+  fullName: Visual.VisualOpacity
 - uid: System.Double
   parent: System
   isExternal: false
@@ -2071,7 +1967,7 @@ references:
   isExternal: false
   name: VisualOpacityMask
   nameWithType: Visual.VisualOpacityMask
-  fullName: System.Windows.Media.Visual.VisualOpacityMask
+  fullName: Visual.VisualOpacityMask
 - uid: System.Windows.Media.Brush
   parent: System.Windows.Media
   isExternal: false
@@ -2083,13 +1979,13 @@ references:
   isExternal: false
   name: VisualParent
   nameWithType: Visual.VisualParent
-  fullName: System.Windows.Media.Visual.VisualParent
+  fullName: Visual.VisualParent
 - uid: System.Windows.Media.Visual.VisualScrollableAreaClip
   parent: System.Windows.Media.Visual
   isExternal: false
   name: VisualScrollableAreaClip
   nameWithType: Visual.VisualScrollableAreaClip
-  fullName: System.Windows.Media.Visual.VisualScrollableAreaClip
+  fullName: Visual.VisualScrollableAreaClip
 - uid: System.Nullable`1
   name: Nullable<T>
   nameWithType: Nullable<T>
@@ -2124,7 +2020,7 @@ references:
   isExternal: false
   name: VisualTextHintingMode
   nameWithType: Visual.VisualTextHintingMode
-  fullName: System.Windows.Media.Visual.VisualTextHintingMode
+  fullName: Visual.VisualTextHintingMode
 - uid: System.Windows.Media.TextHintingMode
   parent: System.Windows.Media
   isExternal: false
@@ -2136,7 +2032,7 @@ references:
   isExternal: false
   name: VisualTextRenderingMode
   nameWithType: Visual.VisualTextRenderingMode
-  fullName: System.Windows.Media.Visual.VisualTextRenderingMode
+  fullName: Visual.VisualTextRenderingMode
 - uid: System.Windows.Media.TextRenderingMode
   parent: System.Windows.Media
   isExternal: false
@@ -2148,7 +2044,7 @@ references:
   isExternal: false
   name: VisualTransform
   nameWithType: Visual.VisualTransform
-  fullName: System.Windows.Media.Visual.VisualTransform
+  fullName: Visual.VisualTransform
 - uid: System.Windows.Media.Transform
   parent: System.Windows.Media
   isExternal: false
@@ -2160,7 +2056,7 @@ references:
   isExternal: false
   name: VisualXSnappingGuidelines
   nameWithType: Visual.VisualXSnappingGuidelines
-  fullName: System.Windows.Media.Visual.VisualXSnappingGuidelines
+  fullName: Visual.VisualXSnappingGuidelines
 - uid: System.Windows.Media.DoubleCollection
   parent: System.Windows.Media
   isExternal: false
@@ -2172,13 +2068,13 @@ references:
   isExternal: false
   name: VisualYSnappingGuidelines
   nameWithType: Visual.VisualYSnappingGuidelines
-  fullName: System.Windows.Media.Visual.VisualYSnappingGuidelines
+  fullName: Visual.VisualYSnappingGuidelines
 - uid: System.Windows.Media.Visual.#ctor*
   parent: System.Windows.Media.Visual
   isExternal: false
   name: Visual
   nameWithType: Visual.Visual
-  fullName: System.Windows.Media.Visual.Visual
+  fullName: Visual.Visual
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2193,7 +2089,7 @@ references:
   isExternal: false
   name: AddVisualChild
   nameWithType: Visual.AddVisualChild
-  fullName: System.Windows.Media.Visual.AddVisualChild
+  fullName: Visual.AddVisualChild
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2208,7 +2104,7 @@ references:
   isExternal: false
   name: FindCommonVisualAncestor
   nameWithType: Visual.FindCommonVisualAncestor
-  fullName: System.Windows.Media.Visual.FindCommonVisualAncestor
+  fullName: Visual.FindCommonVisualAncestor
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2223,7 +2119,7 @@ references:
   isExternal: false
   name: GetVisualChild
   nameWithType: Visual.GetVisualChild
-  fullName: System.Windows.Media.Visual.GetVisualChild
+  fullName: Visual.GetVisualChild
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2238,7 +2134,7 @@ references:
   isExternal: false
   name: HitTestCore
   nameWithType: Visual.HitTestCore
-  fullName: System.Windows.Media.Visual.HitTestCore
+  fullName: Visual.HitTestCore
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2253,7 +2149,7 @@ references:
   isExternal: false
   name: IsAncestorOf
   nameWithType: Visual.IsAncestorOf
-  fullName: System.Windows.Media.Visual.IsAncestorOf
+  fullName: Visual.IsAncestorOf
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2268,7 +2164,7 @@ references:
   isExternal: false
   name: IsDescendantOf
   nameWithType: Visual.IsDescendantOf
-  fullName: System.Windows.Media.Visual.IsDescendantOf
+  fullName: Visual.IsDescendantOf
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2283,7 +2179,7 @@ references:
   isExternal: false
   name: OnDpiChanged
   nameWithType: Visual.OnDpiChanged
-  fullName: System.Windows.Media.Visual.OnDpiChanged
+  fullName: Visual.OnDpiChanged
   monikers:
   - netframework-4.6.2
   - netframework-4.7
@@ -2293,7 +2189,7 @@ references:
   isExternal: false
   name: OnVisualChildrenChanged
   nameWithType: Visual.OnVisualChildrenChanged
-  fullName: System.Windows.Media.Visual.OnVisualChildrenChanged
+  fullName: Visual.OnVisualChildrenChanged
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2308,7 +2204,7 @@ references:
   isExternal: false
   name: OnVisualParentChanged
   nameWithType: Visual.OnVisualParentChanged
-  fullName: System.Windows.Media.Visual.OnVisualParentChanged
+  fullName: Visual.OnVisualParentChanged
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2323,7 +2219,7 @@ references:
   isExternal: false
   name: PointFromScreen
   nameWithType: Visual.PointFromScreen
-  fullName: System.Windows.Media.Visual.PointFromScreen
+  fullName: Visual.PointFromScreen
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2338,7 +2234,7 @@ references:
   isExternal: false
   name: PointToScreen
   nameWithType: Visual.PointToScreen
-  fullName: System.Windows.Media.Visual.PointToScreen
+  fullName: Visual.PointToScreen
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2353,7 +2249,7 @@ references:
   isExternal: false
   name: RemoveVisualChild
   nameWithType: Visual.RemoveVisualChild
-  fullName: System.Windows.Media.Visual.RemoveVisualChild
+  fullName: Visual.RemoveVisualChild
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2368,7 +2264,7 @@ references:
   isExternal: false
   name: TransformToAncestor
   nameWithType: Visual.TransformToAncestor
-  fullName: System.Windows.Media.Visual.TransformToAncestor
+  fullName: Visual.TransformToAncestor
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2383,7 +2279,7 @@ references:
   isExternal: false
   name: TransformToDescendant
   nameWithType: Visual.TransformToDescendant
-  fullName: System.Windows.Media.Visual.TransformToDescendant
+  fullName: Visual.TransformToDescendant
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2398,7 +2294,7 @@ references:
   isExternal: false
   name: TransformToVisual
   nameWithType: Visual.TransformToVisual
-  fullName: System.Windows.Media.Visual.TransformToVisual
+  fullName: Visual.TransformToVisual
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2413,7 +2309,7 @@ references:
   isExternal: false
   name: VisualBitmapEffect
   nameWithType: Visual.VisualBitmapEffect
-  fullName: System.Windows.Media.Visual.VisualBitmapEffect
+  fullName: Visual.VisualBitmapEffect
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2428,7 +2324,7 @@ references:
   isExternal: false
   name: VisualBitmapEffectInput
   nameWithType: Visual.VisualBitmapEffectInput
-  fullName: System.Windows.Media.Visual.VisualBitmapEffectInput
+  fullName: Visual.VisualBitmapEffectInput
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2443,7 +2339,7 @@ references:
   isExternal: false
   name: VisualBitmapScalingMode
   nameWithType: Visual.VisualBitmapScalingMode
-  fullName: System.Windows.Media.Visual.VisualBitmapScalingMode
+  fullName: Visual.VisualBitmapScalingMode
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2458,7 +2354,7 @@ references:
   isExternal: false
   name: VisualCacheMode
   nameWithType: Visual.VisualCacheMode
-  fullName: System.Windows.Media.Visual.VisualCacheMode
+  fullName: Visual.VisualCacheMode
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2473,7 +2369,7 @@ references:
   isExternal: false
   name: VisualChildrenCount
   nameWithType: Visual.VisualChildrenCount
-  fullName: System.Windows.Media.Visual.VisualChildrenCount
+  fullName: Visual.VisualChildrenCount
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2488,7 +2384,7 @@ references:
   isExternal: false
   name: VisualClearTypeHint
   nameWithType: Visual.VisualClearTypeHint
-  fullName: System.Windows.Media.Visual.VisualClearTypeHint
+  fullName: Visual.VisualClearTypeHint
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2503,7 +2399,7 @@ references:
   isExternal: false
   name: VisualClip
   nameWithType: Visual.VisualClip
-  fullName: System.Windows.Media.Visual.VisualClip
+  fullName: Visual.VisualClip
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2518,7 +2414,7 @@ references:
   isExternal: false
   name: VisualEdgeMode
   nameWithType: Visual.VisualEdgeMode
-  fullName: System.Windows.Media.Visual.VisualEdgeMode
+  fullName: Visual.VisualEdgeMode
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2533,7 +2429,7 @@ references:
   isExternal: false
   name: VisualEffect
   nameWithType: Visual.VisualEffect
-  fullName: System.Windows.Media.Visual.VisualEffect
+  fullName: Visual.VisualEffect
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2548,7 +2444,7 @@ references:
   isExternal: false
   name: VisualOffset
   nameWithType: Visual.VisualOffset
-  fullName: System.Windows.Media.Visual.VisualOffset
+  fullName: Visual.VisualOffset
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2563,7 +2459,7 @@ references:
   isExternal: false
   name: VisualOpacity
   nameWithType: Visual.VisualOpacity
-  fullName: System.Windows.Media.Visual.VisualOpacity
+  fullName: Visual.VisualOpacity
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2578,7 +2474,7 @@ references:
   isExternal: false
   name: VisualOpacityMask
   nameWithType: Visual.VisualOpacityMask
-  fullName: System.Windows.Media.Visual.VisualOpacityMask
+  fullName: Visual.VisualOpacityMask
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2593,7 +2489,7 @@ references:
   isExternal: false
   name: VisualParent
   nameWithType: Visual.VisualParent
-  fullName: System.Windows.Media.Visual.VisualParent
+  fullName: Visual.VisualParent
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2608,7 +2504,7 @@ references:
   isExternal: false
   name: VisualScrollableAreaClip
   nameWithType: Visual.VisualScrollableAreaClip
-  fullName: System.Windows.Media.Visual.VisualScrollableAreaClip
+  fullName: Visual.VisualScrollableAreaClip
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2623,7 +2519,7 @@ references:
   isExternal: false
   name: VisualTextHintingMode
   nameWithType: Visual.VisualTextHintingMode
-  fullName: System.Windows.Media.Visual.VisualTextHintingMode
+  fullName: Visual.VisualTextHintingMode
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2638,7 +2534,7 @@ references:
   isExternal: false
   name: VisualTextRenderingMode
   nameWithType: Visual.VisualTextRenderingMode
-  fullName: System.Windows.Media.Visual.VisualTextRenderingMode
+  fullName: Visual.VisualTextRenderingMode
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2653,7 +2549,7 @@ references:
   isExternal: false
   name: VisualTransform
   nameWithType: Visual.VisualTransform
-  fullName: System.Windows.Media.Visual.VisualTransform
+  fullName: Visual.VisualTransform
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2668,7 +2564,7 @@ references:
   isExternal: false
   name: VisualXSnappingGuidelines
   nameWithType: Visual.VisualXSnappingGuidelines
-  fullName: System.Windows.Media.Visual.VisualXSnappingGuidelines
+  fullName: Visual.VisualXSnappingGuidelines
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2683,7 +2579,7 @@ references:
   isExternal: false
   name: VisualYSnappingGuidelines
   nameWithType: Visual.VisualYSnappingGuidelines
-  fullName: System.Windows.Media.Visual.VisualYSnappingGuidelines
+  fullName: Visual.VisualYSnappingGuidelines
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

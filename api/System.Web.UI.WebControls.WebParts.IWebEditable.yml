@@ -21,6 +21,8 @@ items:
   - "The following code example demonstrates how to override the methods of the <xref:System.Web.UI.WebControls.WebParts.IWebEditable> interface in a custom <xref:System.Web.UI.WebControls.WebParts.WebPart> control, which then creates an instance of a custom <xref:System.Web.UI.WebControls.WebParts.EditorPart> control when the <xref:System.Web.UI.WebControls.WebParts.WebPart> control enters edit mode.  \n  \n This example has four parts:  \n  \n-   The code for the custom class.  \n  \n-   The Web page that hosts the custom control.  \n  \n-   A user control that switches the page into edit mode.  \n  \n-   A description of how the example works in a browser.  \n  \n The first part of the code example is the custom `TextDisplayWebPart` class. Notice that the class derives from the <xref:System.Web.UI.WebControls.WebParts.WebPart> class and implements the <xref:System.Web.UI.WebControls.WebParts.IWebEditable> interface, providing specific implementations for the <xref:System.Web.UI.WebControls.WebParts.IWebEditable.CreateEditorParts%2A> method and the <xref:System.Web.UI.WebControls.WebParts.IWebEditable.WebBrowsableObject%2A> property. Notice also that nested within the `TextDisplayWebPart` class is a private, custom `TextDisplayEditorPart` class that derives from the base <xref:System.Web.UI.WebControls.WebParts.EditorPart> class. For the code example to run, you must compile this source code. You can compile it explicitly and put the resulting assembly in your Web site's Bin folder or the global assembly cache. Alternatively, you can put the source code in your site's App_Code folder, where it will be dynamically compiled at run time. For a walkthrough that demonstrates both methods of compiling, see [Walkthrough: Developing and Using a Custom Web Server Control](http://msdn.microsoft.com/library/6d90782a-a1a4-45a6-b2d4-cf6362b83b08).  \n  \n [!code-csharp[WebParts_IWebEditable_Overview#1](~/samples/snippets/csharp/VS_Snippets_WebNet/WebParts_IWebEditable_Overview/CS/textdisplaywebpart.cs#1)]\n [!code-vb[WebParts_IWebEditable_Overview#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/WebParts_IWebEditable_Overview/VB/textdisplaywebpart.vb#1)]  \n  \n The second part of the code example is a Web page that hosts the custom control. Notice that although an <xref:System.Web.UI.WebControls.WebParts.EditorZone> control is declared in the markup of the page, the custom <xref:System.Web.UI.WebControls.WebParts.EditorPart> control need not be referenced there, because it can be added programmatically at run time.  \n  \n <!-- TODO: review snippet reference [!code-csharp[WebParts_IWebEditable_Overview#7](~/samples/snippets/csharp/VS_Snippets_WebNet/WebParts_IWebEditable_Overview/CS/editorpart_overview_cs.aspx#7)]  -->\n <!-- TODO: review snippet reference [!code-vb[WebParts_IWebEditable_Overview#7](~/samples/snippets/visualbasic/VS_Snippets_WebNet/WebParts_IWebEditable_Overview/VB/editorpart_overview_vb.aspx#7)]  -->  \n  \n The third part of the code example is a user control that enables a user to switch the page into edit mode. Notice that the user control is referenced in the hosting Web page. For a full description of how to create this user control, see [Walkthrough: Changing Display Modes on a Web Parts Page](http://msdn.microsoft.com/library/24e42f74-82dc-4c13-8574-130398985fc0).  \n  \n <!-- TODO: review snippet reference [!code-csharp[WebParts_IWebEditable_Overview#8](~/samples/snippets/csharp/VS_Snippets_WebNet/WebParts_IWebEditable_Overview/CS/displaymodeuccs.ascx#8)]  -->\n <!-- TODO: review snippet reference [!code-vb[WebParts_IWebEditable_Overview#8](~/samples/snippets/visualbasic/VS_Snippets_WebNet/WebParts_IWebEditable_Overview/VB/displaymodeucvb.ascx#8)]  -->  \n  \n To run the code example, load the hosting Web page in a browser, add some text to the text box, and click the **Set Label Content** button to update the label in the control. To switch the page into edit mode, select **Edit** from the drop-down list containing the display modes. To display the UI from the custom `TextDisplayEditorPart` control, click the verbs menu drop-down arrow on the `TextDisplayWebPart` control, and select **Edit**. In the editing UI, you can use the drop-down list containing the font styles to update the text style for the label in the `TextDisplayWebPart` control. You must click **Browse Mode** in the display modes drop-down list to return the page to normal view and confirm that the text in the label now has the font style you selected while in edit mode."
   syntax:
     content: public interface IWebEditable
+  derivedClasses:
+  - System.Web.UI.WebControls.WebParts.WebPart
   implements: []
   version:
   - netframework-4.5.1
@@ -39,9 +41,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.WebControls.WebParts/IWebEditable.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.UI.WebControls.WebParts.IWebEditable.CreateEditorParts
   commentId: M:System.Web.UI.WebControls.WebParts.IWebEditable.CreateEditorParts
   id: CreateEditorParts
@@ -50,7 +49,7 @@ items:
   - csharp
   name: CreateEditorParts()
   nameWithType: IWebEditable.CreateEditorParts()
-  fullName: System.Web.UI.WebControls.WebParts.IWebEditable.CreateEditorParts()
+  fullName: IWebEditable.CreateEditorParts()
   type: Method
   assemblies:
   - System.Web
@@ -84,9 +83,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.WebControls.WebParts/IWebEditable.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.UI.WebControls.WebParts.IWebEditable.WebBrowsableObject
   commentId: P:System.Web.UI.WebControls.WebParts.IWebEditable.WebBrowsableObject
   id: WebBrowsableObject
@@ -95,7 +91,7 @@ items:
   - csharp
   name: WebBrowsableObject
   nameWithType: IWebEditable.WebBrowsableObject
-  fullName: System.Web.UI.WebControls.WebParts.IWebEditable.WebBrowsableObject
+  fullName: IWebEditable.WebBrowsableObject
   type: Property
   assemblies:
   - System.Web
@@ -128,16 +124,13 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.WebControls.WebParts/IWebEditable.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 references:
 - uid: System.Web.UI.WebControls.WebParts.IWebEditable.CreateEditorParts
   parent: System.Web.UI.WebControls.WebParts.IWebEditable
   isExternal: false
   name: CreateEditorParts()
   nameWithType: IWebEditable.CreateEditorParts()
-  fullName: System.Web.UI.WebControls.WebParts.IWebEditable.CreateEditorParts()
+  fullName: IWebEditable.CreateEditorParts()
 - uid: System.Web.UI.WebControls.WebParts.EditorPartCollection
   parent: System.Web.UI.WebControls.WebParts
   isExternal: false
@@ -149,7 +142,7 @@ references:
   isExternal: false
   name: WebBrowsableObject
   nameWithType: IWebEditable.WebBrowsableObject
-  fullName: System.Web.UI.WebControls.WebParts.IWebEditable.WebBrowsableObject
+  fullName: IWebEditable.WebBrowsableObject
 - uid: System.Object
   parent: System
   isExternal: false
@@ -161,7 +154,7 @@ references:
   isExternal: false
   name: CreateEditorParts
   nameWithType: IWebEditable.CreateEditorParts
-  fullName: System.Web.UI.WebControls.WebParts.IWebEditable.CreateEditorParts
+  fullName: IWebEditable.CreateEditorParts
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -176,7 +169,7 @@ references:
   isExternal: false
   name: WebBrowsableObject
   nameWithType: IWebEditable.WebBrowsableObject
-  fullName: System.Web.UI.WebControls.WebParts.IWebEditable.WebBrowsableObject
+  fullName: IWebEditable.WebBrowsableObject
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

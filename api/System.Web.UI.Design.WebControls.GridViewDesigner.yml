@@ -31,7 +31,7 @@ items:
   summary: Provides design-time support in a visual designer for the <xref href="System.Web.UI.WebControls.GridView"></xref> control.
   remarks: "In a visual designer, when you switch from Source to Design view, the markup source code that describes the <xref:System.Web.UI.WebControls.GridView> control is parsed and a design-time version of the control is created on the design surface. When you switch back to Source view, the design-time control is persisted to the markup source code and edited into the markup for the Web page.  \n  \n The properties of the <xref:System.Web.UI.Design.WebControls.GridViewDesigner> class provide the following functionality:  \n  \n-   The <xref:System.Web.UI.Design.WebControls.GridViewDesigner.ActionLists%2A> property returns a <xref:System.ComponentModel.Design.DesignerActionListCollection> object, which typically contains an object that is derived from the <xref:System.ComponentModel.Design.DesignerActionList> class for each level in the inheritance tree of the designer.  \n  \n-   The <xref:System.Web.UI.Design.WebControls.GridViewDesigner.AutoFormats%2A> property returns a collection of formatting schemes for display in the **Auto Format** dialog box.  \n  \n-   The <xref:System.Web.UI.Design.WebControls.GridViewDesigner.TemplateGroups%2A> property returns a collection of template groups for the fields of the associated <xref:System.Web.UI.WebControls.GridView> control and the top-level <xref:System.Web.UI.WebControls.GridView> templates.  \n  \n-   The <xref:System.Web.UI.Design.WebControls.GridViewDesigner.UsePreviewControl%2A> property always returns `true`, indicating that the designer creates a temporary copy of the associated <xref:System.Web.UI.WebControls.GridView> to generate the design-time markup.  \n  \n The methods of the <xref:System.Web.UI.Design.WebControls.GridViewDesigner> class provide the following functionality:  \n  \n-   The <xref:System.Web.UI.Design.WebControls.GridViewDesigner.DataBind%2A> method binds the associated <xref:System.Web.UI.WebControls.GridView> control to a design-time data source.  \n  \n-   The <xref:System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml%2A> method returns the markup that is used to render the associated <xref:System.Web.UI.WebControls.GridView> at design time.  \n  \n-   The <xref:System.Web.UI.Design.WebControls.GridViewDesigner.Initialize%2A> method prepares the designer to view, edit, and design the associated <xref:System.Web.UI.WebControls.GridView>.  \n  \n-   The <xref:System.Web.UI.Design.WebControls.GridViewDesigner.OnClick%2A> method is called when a region of the design-time view of the associated <xref:System.Web.UI.WebControls.GridView> is clicked.  \n  \n-   The <xref:System.Web.UI.Design.WebControls.GridViewDesigner.OnSchemaRefreshed%2A> method is called when the schema of the data source of the associated <xref:System.Web.UI.WebControls.GridView> changes.  \n  \n-   The <xref:System.Web.UI.Design.WebControls.GridViewDesigner.PreFilterProperties%2A> method is used to remove or add properties or to shadow properties of the associated <xref:System.Web.UI.WebControls.GridView>.  \n  \n Design-time editable regions are not supported in the <xref:System.Web.UI.WebControls.GridView> control, so the <xref:System.Web.UI.Design.WebControls.GridViewDesigner.GetEditableDesignerRegionContent%2A> and <xref:System.Web.UI.Design.WebControls.GridViewDesigner.SetEditableDesignerRegionContent%2A> methods have no functionality."
   example:
-  - "The following code example shows how to extend the <xref:System.Web.UI.Design.WebControls.GridViewDesigner> class to change the appearance of controls that are derived from the <xref:System.Web.UI.WebControls.GridView> control at design time.  \n  \n The example derives the `MyGridView` control from the <xref:System.Web.UI.WebControls.GridView>. The `MyGridView` is simply a copy of the <xref:System.Web.UI.WebControls.GridView>. The example also derives the `MyGridViewDesigner` class from the <xref:System.Web.UI.Design.WebControls.GridViewDesigner> class and places a <xref:System.ComponentModel.DesignerAttribute> object for the `MyGridViewDesigner` on the `MyGridView` control.  \n  \n The `MyGridViewDesigner` overrides the <xref:System.Web.UI.Design.WebControls.GridViewDesigner.PreFilterProperties%2A> method to make the <xref:System.Web.UI.Control.Page%2A> property visible in the **Properties** grid at design time. It overrides the <xref:System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml%2A> method to include the <xref:System.Web.UI.WebControls.GridView.Caption%2A> property, if it is specified, as a new first row in the `MyGridView` control at design time. If the <xref:System.Web.UI.WebControls.WebControl.BorderStyle%2A> property of the `MyGridView` control has the <xref:System.Web.UI.WebControls.BorderStyle> or <xref:System.Web.UI.WebControls.BorderStyle> value, the <xref:System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml%2A> draws a blue dashed border around the control to make its extent more visible.  \n  \n [!code-csharp[System.Web.UI.Design.WebControls.GridViewDesigner#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.GridViewDesigner/CS/gridviewdesigner.cs#1)]\n [!code-vb[System.Web.UI.Design.WebControls.GridViewDesigner#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.GridViewDesigner/VB/gridviewdesigner.vb#1)]"
+  - "The following code example shows how to extend the <xref:System.Web.UI.Design.WebControls.GridViewDesigner> class to change the appearance of controls that are derived from the <xref:System.Web.UI.WebControls.GridView> control at design time.  \n  \n The example derives the `MyGridView` control from the <xref:System.Web.UI.WebControls.GridView>. The `MyGridView` is simply a copy of the <xref:System.Web.UI.WebControls.GridView>. The example also derives the `MyGridViewDesigner` class from the <xref:System.Web.UI.Design.WebControls.GridViewDesigner> class and places a <xref:System.ComponentModel.DesignerAttribute> object for the `MyGridViewDesigner` on the `MyGridView` control.  \n  \n The `MyGridViewDesigner` overrides the <xref:System.Web.UI.Design.WebControls.GridViewDesigner.PreFilterProperties%2A> method to make the <xref:System.Web.UI.Control.Page%2A> property visible in the **Properties** grid at design time. It overrides the <xref:System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml%2A> method to include the <xref:System.Web.UI.WebControls.GridView.Caption%2A> property, if it is specified, as a new first row in the `MyGridView` control at design time. If the <xref:System.Web.UI.WebControls.WebControl.BorderStyle%2A> property of the `MyGridView` control has the <xref:System.Web.UI.WebControls.BorderStyle.NotSet> or <xref:System.Web.UI.WebControls.BorderStyle.None> value, the <xref:System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml%2A> draws a blue dashed border around the control to make its extent more visible.  \n  \n [!code-csharp[System.Web.UI.Design.WebControls.GridViewDesigner#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.GridViewDesigner/CS/gridviewdesigner.cs#1)]\n [!code-vb[System.Web.UI.Design.WebControls.GridViewDesigner#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.GridViewDesigner/VB/gridviewdesigner.vb#1)]"
   syntax:
     content: 'public class GridViewDesigner : System.Web.UI.Design.WebControls.DataBoundControlDesigner'
   inheritance:
@@ -171,8 +171,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/GridViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.GridViewDesigner.#ctor
   commentId: M:System.Web.UI.Design.WebControls.GridViewDesigner.#ctor
   id: '#ctor'
@@ -181,7 +179,7 @@ items:
   - csharp
   name: GridViewDesigner()
   nameWithType: GridViewDesigner.GridViewDesigner()
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.GridViewDesigner()
+  fullName: GridViewDesigner.GridViewDesigner()
   type: Constructor
   assemblies:
   - System.Design
@@ -210,8 +208,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/GridViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.GridViewDesigner.ActionLists
   commentId: P:System.Web.UI.Design.WebControls.GridViewDesigner.ActionLists
   id: ActionLists
@@ -220,7 +216,7 @@ items:
   - csharp
   name: ActionLists
   nameWithType: GridViewDesigner.ActionLists
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.ActionLists
+  fullName: GridViewDesigner.ActionLists
   type: Property
   assemblies:
   - System.Design
@@ -250,8 +246,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/GridViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.GridViewDesigner.AutoFormats
   commentId: P:System.Web.UI.Design.WebControls.GridViewDesigner.AutoFormats
   id: AutoFormats
@@ -260,7 +254,7 @@ items:
   - csharp
   name: AutoFormats
   nameWithType: GridViewDesigner.AutoFormats
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.AutoFormats
+  fullName: GridViewDesigner.AutoFormats
   type: Property
   assemblies:
   - System.Design
@@ -291,8 +285,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/GridViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.GridViewDesigner.DataBind(System.Web.UI.WebControls.BaseDataBoundControl)
   commentId: M:System.Web.UI.Design.WebControls.GridViewDesigner.DataBind(System.Web.UI.WebControls.BaseDataBoundControl)
   id: DataBind(System.Web.UI.WebControls.BaseDataBoundControl)
@@ -301,7 +293,7 @@ items:
   - csharp
   name: DataBind(BaseDataBoundControl)
   nameWithType: GridViewDesigner.DataBind(BaseDataBoundControl)
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.DataBind(BaseDataBoundControl)
+  fullName: GridViewDesigner.DataBind(BaseDataBoundControl)
   type: Method
   assemblies:
   - System.Design
@@ -333,8 +325,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/GridViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml
   commentId: M:System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml
   id: GetDesignTimeHtml
@@ -343,7 +333,7 @@ items:
   - csharp
   name: GetDesignTimeHtml()
   nameWithType: GridViewDesigner.GetDesignTimeHtml()
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml()
+  fullName: GridViewDesigner.GetDesignTimeHtml()
   type: Method
   assemblies:
   - System.Design
@@ -351,7 +341,7 @@ items:
   summary: Gets the markup that is used to render the associated control at design time.
   remarks: "The <xref:System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml> method does the following:  \n  \n1.  Sets the <xref:System.Web.UI.WebControls.GridView.AutoGenerateColumns%2A> property of the control to `true`, if the <xref:System.Web.UI.WebControls.GridView.Columns%2A> property is empty.  \n  \n2.  Sets the <xref:System.Web.UI.WebControls.GridView.DataKeyNames%2A> property of the control to `null`, if the schema of the data source cannot be obtained.  \n  \n3.  Refreshes the <xref:System.ComponentModel.TypeDescriptor> object to force the <xref:System.Web.UI.Design.WebControls.GridViewDesigner.PreFilterProperties%2A> method to be called.  \n  \n4.  Calls the base method to generate the markup."
   example:
-  - "The following code example shows how to override the <xref:System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml%2A> method in a class that is inherited from the <xref:System.Web.UI.Design.WebControls.GridViewDesigner> class to change the appearance of the <xref:System.Web.UI.WebControls.GridView> control at design time. The example adds a new first row to the grid to contain the <xref:System.Web.UI.WebControls.GridView.Caption%2A> property, if the <xref:System.Web.UI.WebControls.GridView.Caption%2A> is defined. If the <xref:System.Web.UI.WebControls.WebControl.BorderStyle%2A> property of the control that is derived from the <xref:System.Web.UI.WebControls.GridView> class has the <xref:System.Web.UI.WebControls.BorderStyle> or <xref:System.Web.UI.WebControls.BorderStyle> value, the <xref:System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml%2A> draws a blue dashed border around the control to make its extent more visible. It does not change the run-time appearance of the control.  \n  \n [!code-csharp[System.Web.UI.Design.WebControls.GridViewDesigner#4](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.GridViewDesigner/CS/gridviewdesigner.cs#4)]\n [!code-vb[System.Web.UI.Design.WebControls.GridViewDesigner#4](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.GridViewDesigner/VB/gridviewdesigner.vb#4)]"
+  - "The following code example shows how to override the <xref:System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml%2A> method in a class that is inherited from the <xref:System.Web.UI.Design.WebControls.GridViewDesigner> class to change the appearance of the <xref:System.Web.UI.WebControls.GridView> control at design time. The example adds a new first row to the grid to contain the <xref:System.Web.UI.WebControls.GridView.Caption%2A> property, if the <xref:System.Web.UI.WebControls.GridView.Caption%2A> is defined. If the <xref:System.Web.UI.WebControls.WebControl.BorderStyle%2A> property of the control that is derived from the <xref:System.Web.UI.WebControls.GridView> class has the <xref:System.Web.UI.WebControls.BorderStyle.NotSet> or <xref:System.Web.UI.WebControls.BorderStyle.None> value, the <xref:System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml%2A> draws a blue dashed border around the control to make its extent more visible. It does not change the run-time appearance of the control.  \n  \n [!code-csharp[System.Web.UI.Design.WebControls.GridViewDesigner#4](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.GridViewDesigner/CS/gridviewdesigner.cs#4)]\n [!code-vb[System.Web.UI.Design.WebControls.GridViewDesigner#4](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.GridViewDesigner/VB/gridviewdesigner.vb#4)]"
   syntax:
     content: public override string GetDesignTimeHtml ();
     parameters: []
@@ -377,8 +367,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/GridViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml(System.Web.UI.Design.DesignerRegionCollection)
   commentId: M:System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml(System.Web.UI.Design.DesignerRegionCollection)
   id: GetDesignTimeHtml(System.Web.UI.Design.DesignerRegionCollection)
@@ -387,7 +375,7 @@ items:
   - csharp
   name: GetDesignTimeHtml(DesignerRegionCollection)
   nameWithType: GridViewDesigner.GetDesignTimeHtml(DesignerRegionCollection)
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml(DesignerRegionCollection)
+  fullName: GridViewDesigner.GetDesignTimeHtml(DesignerRegionCollection)
   type: Method
   assemblies:
   - System.Design
@@ -395,7 +383,7 @@ items:
   summary: Gets the markup that is used to render the associated control at design time and populates a collection of designer regions.
   remarks: "The <xref:System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml%28System.Web.UI.Design.DesignerRegionCollection%29> method calls the <xref:System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml> method to generate the markup for the design-time rendering of the <xref:System.Web.UI.WebControls.GridView> control. The <xref:System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml%28System.Web.UI.Design.DesignerRegionCollection%29> also populates `regions` with a <xref:System.Web.UI.Design.DesignerRegion> object for each clickable or selectable region of the design-time rendering.  \n  \n For the <xref:System.Web.UI.WebControls.GridView>, the first cell in each row is selectable; all the cells in the rows are clickable."
   example:
-  - "The following code example shows how to override the <xref:System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml%2A> method in a class that is inherited from the <xref:System.Web.UI.Design.WebControls.GridViewDesigner> class to change the appearance of the <xref:System.Web.UI.WebControls.GridView> control at design time. The example adds a new first row to the grid to contain the <xref:System.Web.UI.WebControls.GridView.Caption%2A> property, if the <xref:System.Web.UI.WebControls.GridView.Caption%2A> is defined. If the <xref:System.Web.UI.WebControls.WebControl.BorderStyle%2A> property of the control that is derived from the <xref:System.Web.UI.WebControls.GridView> class has the <xref:System.Web.UI.WebControls.BorderStyle> or <xref:System.Web.UI.WebControls.BorderStyle> value, the <xref:System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml%2A> draws a blue dashed border around the control to make its extent more visible. It does not change the run-time appearance of the control.  \n  \n [!code-csharp[System.Web.UI.Design.WebControls.GridViewDesigner#4](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.GridViewDesigner/CS/gridviewdesigner.cs#4)]\n [!code-vb[System.Web.UI.Design.WebControls.GridViewDesigner#4](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.GridViewDesigner/VB/gridviewdesigner.vb#4)]"
+  - "The following code example shows how to override the <xref:System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml%2A> method in a class that is inherited from the <xref:System.Web.UI.Design.WebControls.GridViewDesigner> class to change the appearance of the <xref:System.Web.UI.WebControls.GridView> control at design time. The example adds a new first row to the grid to contain the <xref:System.Web.UI.WebControls.GridView.Caption%2A> property, if the <xref:System.Web.UI.WebControls.GridView.Caption%2A> is defined. If the <xref:System.Web.UI.WebControls.WebControl.BorderStyle%2A> property of the control that is derived from the <xref:System.Web.UI.WebControls.GridView> class has the <xref:System.Web.UI.WebControls.BorderStyle.NotSet> or <xref:System.Web.UI.WebControls.BorderStyle.None> value, the <xref:System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml%2A> draws a blue dashed border around the control to make its extent more visible. It does not change the run-time appearance of the control.  \n  \n [!code-csharp[System.Web.UI.Design.WebControls.GridViewDesigner#4](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.GridViewDesigner/CS/gridviewdesigner.cs#4)]\n [!code-vb[System.Web.UI.Design.WebControls.GridViewDesigner#4](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.Design.WebControls.GridViewDesigner/VB/gridviewdesigner.vb#4)]"
   syntax:
     content: public override string GetDesignTimeHtml (System.Web.UI.Design.DesignerRegionCollection regions);
     parameters:
@@ -424,8 +412,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/GridViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.GridViewDesigner.GetEditableDesignerRegionContent(System.Web.UI.Design.EditableDesignerRegion)
   commentId: M:System.Web.UI.Design.WebControls.GridViewDesigner.GetEditableDesignerRegionContent(System.Web.UI.Design.EditableDesignerRegion)
   id: GetEditableDesignerRegionContent(System.Web.UI.Design.EditableDesignerRegion)
@@ -434,7 +420,7 @@ items:
   - csharp
   name: GetEditableDesignerRegionContent(EditableDesignerRegion)
   nameWithType: GridViewDesigner.GetEditableDesignerRegionContent(EditableDesignerRegion)
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.GetEditableDesignerRegionContent(EditableDesignerRegion)
+  fullName: GridViewDesigner.GetEditableDesignerRegionContent(EditableDesignerRegion)
   type: Method
   assemblies:
   - System.Design
@@ -469,8 +455,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/GridViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.GridViewDesigner.Initialize(System.ComponentModel.IComponent)
   commentId: M:System.Web.UI.Design.WebControls.GridViewDesigner.Initialize(System.ComponentModel.IComponent)
   id: Initialize(System.ComponentModel.IComponent)
@@ -479,7 +463,7 @@ items:
   - csharp
   name: Initialize(IComponent)
   nameWithType: GridViewDesigner.Initialize(IComponent)
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.Initialize(IComponent)
+  fullName: GridViewDesigner.Initialize(IComponent)
   type: Method
   assemblies:
   - System.Design
@@ -511,8 +495,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/GridViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.GridViewDesigner.OnClick(System.Web.UI.Design.DesignerRegionMouseEventArgs)
   commentId: M:System.Web.UI.Design.WebControls.GridViewDesigner.OnClick(System.Web.UI.Design.DesignerRegionMouseEventArgs)
   id: OnClick(System.Web.UI.Design.DesignerRegionMouseEventArgs)
@@ -521,7 +503,7 @@ items:
   - csharp
   name: OnClick(DesignerRegionMouseEventArgs)
   nameWithType: GridViewDesigner.OnClick(DesignerRegionMouseEventArgs)
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.OnClick(DesignerRegionMouseEventArgs)
+  fullName: GridViewDesigner.OnClick(DesignerRegionMouseEventArgs)
   type: Method
   assemblies:
   - System.Design
@@ -553,8 +535,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/GridViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.GridViewDesigner.OnSchemaRefreshed
   commentId: M:System.Web.UI.Design.WebControls.GridViewDesigner.OnSchemaRefreshed
   id: OnSchemaRefreshed
@@ -563,7 +543,7 @@ items:
   - csharp
   name: OnSchemaRefreshed()
   nameWithType: GridViewDesigner.OnSchemaRefreshed()
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.OnSchemaRefreshed()
+  fullName: GridViewDesigner.OnSchemaRefreshed()
   type: Method
   assemblies:
   - System.Design
@@ -592,8 +572,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/GridViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.GridViewDesigner.PreFilterProperties(System.Collections.IDictionary)
   commentId: M:System.Web.UI.Design.WebControls.GridViewDesigner.PreFilterProperties(System.Collections.IDictionary)
   id: PreFilterProperties(System.Collections.IDictionary)
@@ -602,7 +580,7 @@ items:
   - csharp
   name: PreFilterProperties(IDictionary)
   nameWithType: GridViewDesigner.PreFilterProperties(IDictionary)
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.PreFilterProperties(IDictionary)
+  fullName: GridViewDesigner.PreFilterProperties(IDictionary)
   type: Method
   assemblies:
   - System.Design
@@ -636,8 +614,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/GridViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.GridViewDesigner.SampleRowCount
   commentId: P:System.Web.UI.Design.WebControls.GridViewDesigner.SampleRowCount
   id: SampleRowCount
@@ -646,7 +622,7 @@ items:
   - csharp
   name: SampleRowCount
   nameWithType: GridViewDesigner.SampleRowCount
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.SampleRowCount
+  fullName: GridViewDesigner.SampleRowCount
   type: Property
   assemblies:
   - System.Design
@@ -677,8 +653,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/GridViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.GridViewDesigner.SetEditableDesignerRegionContent(System.Web.UI.Design.EditableDesignerRegion,System.String)
   commentId: M:System.Web.UI.Design.WebControls.GridViewDesigner.SetEditableDesignerRegionContent(System.Web.UI.Design.EditableDesignerRegion,System.String)
   id: SetEditableDesignerRegionContent(System.Web.UI.Design.EditableDesignerRegion,System.String)
@@ -687,7 +661,7 @@ items:
   - csharp
   name: SetEditableDesignerRegionContent(EditableDesignerRegion, String)
   nameWithType: GridViewDesigner.SetEditableDesignerRegionContent(EditableDesignerRegion, String)
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.SetEditableDesignerRegionContent(EditableDesignerRegion, String)
+  fullName: GridViewDesigner.SetEditableDesignerRegionContent(EditableDesignerRegion, String)
   type: Method
   assemblies:
   - System.Design
@@ -722,8 +696,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/GridViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.GridViewDesigner.TemplateGroups
   commentId: P:System.Web.UI.Design.WebControls.GridViewDesigner.TemplateGroups
   id: TemplateGroups
@@ -732,7 +704,7 @@ items:
   - csharp
   name: TemplateGroups
   nameWithType: GridViewDesigner.TemplateGroups
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.TemplateGroups
+  fullName: GridViewDesigner.TemplateGroups
   type: Property
   assemblies:
   - System.Design
@@ -763,8 +735,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/GridViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.Design.WebControls.GridViewDesigner.UsePreviewControl
   commentId: P:System.Web.UI.Design.WebControls.GridViewDesigner.UsePreviewControl
   id: UsePreviewControl
@@ -773,7 +743,7 @@ items:
   - csharp
   name: UsePreviewControl
   nameWithType: GridViewDesigner.UsePreviewControl
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.UsePreviewControl
+  fullName: GridViewDesigner.UsePreviewControl
   type: Property
   assemblies:
   - System.Design
@@ -804,8 +774,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.Design.WebControls/GridViewDesigner.xml
-  ms.author: riande
-  manager: wpickett
 references:
 - uid: System.Web.UI.Design.WebControls.DataBoundControlDesigner
   parent: System.Web.UI.Design.WebControls
@@ -818,13 +786,13 @@ references:
   isExternal: false
   name: GridViewDesigner()
   nameWithType: GridViewDesigner.GridViewDesigner()
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.GridViewDesigner()
+  fullName: GridViewDesigner.GridViewDesigner()
 - uid: System.Web.UI.Design.WebControls.GridViewDesigner.ActionLists
   parent: System.Web.UI.Design.WebControls.GridViewDesigner
   isExternal: false
   name: ActionLists
   nameWithType: GridViewDesigner.ActionLists
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.ActionLists
+  fullName: GridViewDesigner.ActionLists
 - uid: System.ComponentModel.Design.DesignerActionListCollection
   parent: System.ComponentModel.Design
   isExternal: false
@@ -836,7 +804,7 @@ references:
   isExternal: false
   name: AutoFormats
   nameWithType: GridViewDesigner.AutoFormats
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.AutoFormats
+  fullName: GridViewDesigner.AutoFormats
 - uid: System.Web.UI.Design.DesignerAutoFormatCollection
   parent: System.Web.UI.Design
   isExternal: false
@@ -848,7 +816,7 @@ references:
   isExternal: false
   name: DataBind(BaseDataBoundControl)
   nameWithType: GridViewDesigner.DataBind(BaseDataBoundControl)
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.DataBind(BaseDataBoundControl)
+  fullName: GridViewDesigner.DataBind(BaseDataBoundControl)
 - uid: System.Web.UI.WebControls.BaseDataBoundControl
   parent: System.Web.UI.WebControls
   isExternal: false
@@ -860,7 +828,7 @@ references:
   isExternal: false
   name: GetDesignTimeHtml()
   nameWithType: GridViewDesigner.GetDesignTimeHtml()
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml()
+  fullName: GridViewDesigner.GetDesignTimeHtml()
 - uid: System.String
   parent: System
   isExternal: false
@@ -872,7 +840,7 @@ references:
   isExternal: false
   name: GetDesignTimeHtml(DesignerRegionCollection)
   nameWithType: GridViewDesigner.GetDesignTimeHtml(DesignerRegionCollection)
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml(DesignerRegionCollection)
+  fullName: GridViewDesigner.GetDesignTimeHtml(DesignerRegionCollection)
 - uid: System.Web.UI.Design.DesignerRegionCollection
   parent: System.Web.UI.Design
   isExternal: false
@@ -884,7 +852,7 @@ references:
   isExternal: false
   name: GetEditableDesignerRegionContent(EditableDesignerRegion)
   nameWithType: GridViewDesigner.GetEditableDesignerRegionContent(EditableDesignerRegion)
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.GetEditableDesignerRegionContent(EditableDesignerRegion)
+  fullName: GridViewDesigner.GetEditableDesignerRegionContent(EditableDesignerRegion)
 - uid: System.Web.UI.Design.EditableDesignerRegion
   parent: System.Web.UI.Design
   isExternal: false
@@ -896,7 +864,7 @@ references:
   isExternal: false
   name: Initialize(IComponent)
   nameWithType: GridViewDesigner.Initialize(IComponent)
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.Initialize(IComponent)
+  fullName: GridViewDesigner.Initialize(IComponent)
 - uid: System.ComponentModel.IComponent
   parent: System.ComponentModel
   isExternal: false
@@ -908,7 +876,7 @@ references:
   isExternal: false
   name: OnClick(DesignerRegionMouseEventArgs)
   nameWithType: GridViewDesigner.OnClick(DesignerRegionMouseEventArgs)
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.OnClick(DesignerRegionMouseEventArgs)
+  fullName: GridViewDesigner.OnClick(DesignerRegionMouseEventArgs)
 - uid: System.Web.UI.Design.DesignerRegionMouseEventArgs
   parent: System.Web.UI.Design
   isExternal: false
@@ -920,13 +888,13 @@ references:
   isExternal: false
   name: OnSchemaRefreshed()
   nameWithType: GridViewDesigner.OnSchemaRefreshed()
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.OnSchemaRefreshed()
+  fullName: GridViewDesigner.OnSchemaRefreshed()
 - uid: System.Web.UI.Design.WebControls.GridViewDesigner.PreFilterProperties(System.Collections.IDictionary)
   parent: System.Web.UI.Design.WebControls.GridViewDesigner
   isExternal: false
   name: PreFilterProperties(IDictionary)
   nameWithType: GridViewDesigner.PreFilterProperties(IDictionary)
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.PreFilterProperties(IDictionary)
+  fullName: GridViewDesigner.PreFilterProperties(IDictionary)
 - uid: System.Collections.IDictionary
   parent: System.Collections
   isExternal: false
@@ -938,7 +906,7 @@ references:
   isExternal: false
   name: SampleRowCount
   nameWithType: GridViewDesigner.SampleRowCount
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.SampleRowCount
+  fullName: GridViewDesigner.SampleRowCount
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -950,13 +918,13 @@ references:
   isExternal: false
   name: SetEditableDesignerRegionContent(EditableDesignerRegion, String)
   nameWithType: GridViewDesigner.SetEditableDesignerRegionContent(EditableDesignerRegion, String)
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.SetEditableDesignerRegionContent(EditableDesignerRegion, String)
+  fullName: GridViewDesigner.SetEditableDesignerRegionContent(EditableDesignerRegion, String)
 - uid: System.Web.UI.Design.WebControls.GridViewDesigner.TemplateGroups
   parent: System.Web.UI.Design.WebControls.GridViewDesigner
   isExternal: false
   name: TemplateGroups
   nameWithType: GridViewDesigner.TemplateGroups
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.TemplateGroups
+  fullName: GridViewDesigner.TemplateGroups
 - uid: System.Web.UI.Design.TemplateGroupCollection
   parent: System.Web.UI.Design
   isExternal: false
@@ -968,7 +936,7 @@ references:
   isExternal: false
   name: UsePreviewControl
   nameWithType: GridViewDesigner.UsePreviewControl
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.UsePreviewControl
+  fullName: GridViewDesigner.UsePreviewControl
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -980,7 +948,7 @@ references:
   isExternal: false
   name: GridViewDesigner
   nameWithType: GridViewDesigner.GridViewDesigner
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.GridViewDesigner
+  fullName: GridViewDesigner.GridViewDesigner
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -995,7 +963,7 @@ references:
   isExternal: false
   name: ActionLists
   nameWithType: GridViewDesigner.ActionLists
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.ActionLists
+  fullName: GridViewDesigner.ActionLists
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1010,7 +978,7 @@ references:
   isExternal: false
   name: AutoFormats
   nameWithType: GridViewDesigner.AutoFormats
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.AutoFormats
+  fullName: GridViewDesigner.AutoFormats
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1025,7 +993,7 @@ references:
   isExternal: false
   name: DataBind
   nameWithType: GridViewDesigner.DataBind
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.DataBind
+  fullName: GridViewDesigner.DataBind
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1040,7 +1008,7 @@ references:
   isExternal: false
   name: GetDesignTimeHtml
   nameWithType: GridViewDesigner.GetDesignTimeHtml
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.GetDesignTimeHtml
+  fullName: GridViewDesigner.GetDesignTimeHtml
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1055,7 +1023,7 @@ references:
   isExternal: false
   name: GetEditableDesignerRegionContent
   nameWithType: GridViewDesigner.GetEditableDesignerRegionContent
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.GetEditableDesignerRegionContent
+  fullName: GridViewDesigner.GetEditableDesignerRegionContent
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1070,7 +1038,7 @@ references:
   isExternal: false
   name: Initialize
   nameWithType: GridViewDesigner.Initialize
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.Initialize
+  fullName: GridViewDesigner.Initialize
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1085,7 +1053,7 @@ references:
   isExternal: false
   name: OnClick
   nameWithType: GridViewDesigner.OnClick
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.OnClick
+  fullName: GridViewDesigner.OnClick
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1100,7 +1068,7 @@ references:
   isExternal: false
   name: OnSchemaRefreshed
   nameWithType: GridViewDesigner.OnSchemaRefreshed
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.OnSchemaRefreshed
+  fullName: GridViewDesigner.OnSchemaRefreshed
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1115,7 +1083,7 @@ references:
   isExternal: false
   name: PreFilterProperties
   nameWithType: GridViewDesigner.PreFilterProperties
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.PreFilterProperties
+  fullName: GridViewDesigner.PreFilterProperties
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1130,7 +1098,7 @@ references:
   isExternal: false
   name: SampleRowCount
   nameWithType: GridViewDesigner.SampleRowCount
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.SampleRowCount
+  fullName: GridViewDesigner.SampleRowCount
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1145,7 +1113,7 @@ references:
   isExternal: false
   name: SetEditableDesignerRegionContent
   nameWithType: GridViewDesigner.SetEditableDesignerRegionContent
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.SetEditableDesignerRegionContent
+  fullName: GridViewDesigner.SetEditableDesignerRegionContent
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1160,7 +1128,7 @@ references:
   isExternal: false
   name: TemplateGroups
   nameWithType: GridViewDesigner.TemplateGroups
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.TemplateGroups
+  fullName: GridViewDesigner.TemplateGroups
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1175,7 +1143,7 @@ references:
   isExternal: false
   name: UsePreviewControl
   nameWithType: GridViewDesigner.UsePreviewControl
-  fullName: System.Web.UI.Design.WebControls.GridViewDesigner.UsePreviewControl
+  fullName: GridViewDesigner.UsePreviewControl
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

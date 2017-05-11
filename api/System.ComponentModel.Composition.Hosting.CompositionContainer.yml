@@ -32,7 +32,7 @@ items:
   - System.ComponentModel.Composition
   namespace: System.ComponentModel.Composition.Hosting
   summary: Manages the composition of parts.
-  remarks: "A <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> object serves two major purposes in an application. First, it keeps track of which parts are available for composition and what their dependencies are, and performs composition whenever the set of available parts changes. Second, it provides the methods by which the application gets instances of composed parts or fills the dependencies of a composable part.  \n  \n> [!IMPORTANT]\n>  This type implements the <xref:System.IDisposable> interface. When you have finished using the type, you should dispose of it either directly or indirectly. To dispose of the type directly, call its <xref:System.IDisposable.Dispose%2A> method in a `try`/`catch` block. To dispose of it indirectly, use a language construct such as `using` (in C#) or `Using` (in Visual Basic). For more information, see the “Using an Object that Implements IDisposable” section in the <xref:System.IDisposable> interface topic.  \n  \n Parts can be made available to the container either directly or through the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer.Catalog%2A> property. All the parts discoverable in this <xref:System.ComponentModel.Composition.Primitives.ComposablePartCatalog> are available to the container to fulfill imports, along with any parts added directly.  \n  \n The <xref:System.ComponentModel.Composition.Hosting.CompositionContainer.Compose%2A> method allows instantiated parts to be added to an existing container. Assuming composition is successful, these parts will have their imports filled with parts retrieved from the container, and their exports will be available to other parts. Imports marked as recomposable will be registered for recomposition.  \n  \n The <xref:System.ComponentModel.Composition.Hosting.CompositionContainer.SatisfyImportsOnce%2A> method allows a part to have its imports filled without being added to the container. If the composition is successful, the part's imports will be filled, but the part's exports will not be available to other parts and no imports will be registered for recomposition.  \n  \n <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> objects should always be disposed. When the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer.Dispose%2A> method is called, the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> object also disposes all the parts that it has created.  \n  \n A <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> object that can be accessed from multiple threads must be constructed with the `isThreadSafe` parameter set to `true`, using the [CompositionContainer(ComposablePartCatalog, Boolean, ExportProvider\\<xref:System.ComponentModel.Composition.Hosting.CompositionContainer.%23ctor%28System.ComponentModel.Composition.Primitives.ComposablePartCatalog%2CSystem.Boolean%2CSystem.ComponentModel.Composition.Hosting.ExportProvider%5B%5D%29> constructor. Performance will be slightly slower when `isThreadSafe` is `true`, so we recommend that you set this parameter to `false` in single-threaded scenarios. The default is `false`.  \n  \n> [!WARNING]\n>  A <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> should never import itself, or a part that has a reference to it. Such a reference could allow an untrusted part to gain access all the parts in the container."
+  remarks: "A <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> object serves two major purposes in an application. First, it keeps track of which parts are available for composition and what their dependencies are, and performs composition whenever the set of available parts changes. Second, it provides the methods by which the application gets instances of composed parts or fills the dependencies of a composable part.  \n  \n> [!IMPORTANT]\n>  This type implements the <xref:System.IDisposable> interface. When you have finished using the type, you should dispose of it either directly or indirectly. To dispose of the type directly, call its <xref:System.IDisposable.Dispose%2A> method in a `try`/`catch` block. To dispose of it indirectly, use a language construct such as `using` (in C#) or `Using` (in Visual Basic). For more information, see the “Using an Object that Implements IDisposable” section in the <xref:System.IDisposable> interface topic.  \n  \n Parts can be made available to the container either directly or through the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer.Catalog%2A> property. All the parts discoverable in this <xref:System.ComponentModel.Composition.Primitives.ComposablePartCatalog> are available to the container to fulfill imports, along with any parts added directly.  \n  \n The <xref:System.ComponentModel.Composition.Hosting.CompositionContainer.Compose%2A> method allows instantiated parts to be added to an existing container. Assuming composition is successful, these parts will have their imports filled with parts retrieved from the container, and their exports will be available to other parts. Imports marked as recomposable will be registered for recomposition.  \n  \n The <xref:System.ComponentModel.Composition.Hosting.CompositionContainer.SatisfyImportsOnce%2A> method allows a part to have its imports filled without being added to the container. If the composition is successful, the part's imports will be filled, but the part's exports will not be available to other parts and no imports will be registered for recomposition.  \n  \n <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> objects should always be disposed. When the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer.Dispose%2A> method is called, the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> object also disposes all the parts that it has created.  \n  \n A <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> object that can be accessed from multiple threads must be constructed with the `isThreadSafe` parameter set to `true`, using the <xref:System.ComponentModel.Composition.Hosting.CompositionContainer.%23ctor%28System.ComponentModel.Composition.Primitives.ComposablePartCatalog%2CSystem.Boolean%2CSystem.ComponentModel.Composition.Hosting.ExportProvider%5B%5D%29> constructor. Performance will be slightly slower when `isThreadSafe` is `true`, so we recommend that you set this parameter to `false` in single-threaded scenarios. The default is `false`.  \n  \n> [!WARNING]\n>  A <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> should never import itself, or a part that has a reference to it. Such a reference could allow an untrusted part to gain access all the parts in the container."
   example:
   - "In the following example, a <xref:System.ComponentModel.Composition.Hosting.CompositionContainer> object is initialized with a catalog and is used to fill the imports of a part. This example uses the Attributed Programming Model.  \n  \n [!code-csharp[Composition.CompositionContainer#1](~/samples/snippets/csharp/VS_Snippets_Misc/composition.compositioncontainer/cs/program.cs#1)]\n [!code-vb[Composition.CompositionContainer#1](~/samples/snippets/visualbasic/VS_Snippets_Misc/composition.compositioncontainer/vb/module1.vb#1)]"
   syntax:
@@ -102,9 +102,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Composition.Hosting/CompositionContainer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.#ctor
   commentId: M:System.ComponentModel.Composition.Hosting.CompositionContainer.#ctor
   id: '#ctor'
@@ -113,7 +110,7 @@ items:
   - csharp
   name: CompositionContainer()
   nameWithType: CompositionContainer.CompositionContainer()
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.CompositionContainer()
+  fullName: CompositionContainer.CompositionContainer()
   type: Constructor
   assemblies:
   - System.ComponentModel.Composition
@@ -147,9 +144,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Composition.Hosting/CompositionContainer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.#ctor(System.ComponentModel.Composition.Hosting.ExportProvider[])
   commentId: M:System.ComponentModel.Composition.Hosting.CompositionContainer.#ctor(System.ComponentModel.Composition.Hosting.ExportProvider[])
   id: '#ctor(System.ComponentModel.Composition.Hosting.ExportProvider[])'
@@ -158,7 +152,7 @@ items:
   - csharp
   name: CompositionContainer(ExportProvider[])
   nameWithType: CompositionContainer.CompositionContainer(ExportProvider[])
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.CompositionContainer(ExportProvider[])
+  fullName: CompositionContainer.CompositionContainer(ExportProvider[])
   type: Constructor
   assemblies:
   - System.ComponentModel.Composition
@@ -198,9 +192,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Composition.Hosting/CompositionContainer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.#ctor(System.ComponentModel.Composition.Hosting.CompositionOptions,System.ComponentModel.Composition.Hosting.ExportProvider[])
   commentId: M:System.ComponentModel.Composition.Hosting.CompositionContainer.#ctor(System.ComponentModel.Composition.Hosting.CompositionOptions,System.ComponentModel.Composition.Hosting.ExportProvider[])
   id: '#ctor(System.ComponentModel.Composition.Hosting.CompositionOptions,System.ComponentModel.Composition.Hosting.ExportProvider[])'
@@ -209,7 +200,7 @@ items:
   - csharp
   name: CompositionContainer(CompositionOptions, ExportProvider[])
   nameWithType: CompositionContainer.CompositionContainer(CompositionOptions, ExportProvider[])
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.CompositionContainer(CompositionOptions, ExportProvider[])
+  fullName: CompositionContainer.CompositionContainer(CompositionOptions, ExportProvider[])
   type: Constructor
   assemblies:
   - System.ComponentModel.Composition
@@ -252,9 +243,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Composition.Hosting/CompositionContainer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.#ctor(System.ComponentModel.Composition.Primitives.ComposablePartCatalog,System.ComponentModel.Composition.Hosting.ExportProvider[])
   commentId: M:System.ComponentModel.Composition.Hosting.CompositionContainer.#ctor(System.ComponentModel.Composition.Primitives.ComposablePartCatalog,System.ComponentModel.Composition.Hosting.ExportProvider[])
   id: '#ctor(System.ComponentModel.Composition.Primitives.ComposablePartCatalog,System.ComponentModel.Composition.Hosting.ExportProvider[])'
@@ -263,7 +251,7 @@ items:
   - csharp
   name: CompositionContainer(ComposablePartCatalog, ExportProvider[])
   nameWithType: CompositionContainer.CompositionContainer(ComposablePartCatalog, ExportProvider[])
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.CompositionContainer(ComposablePartCatalog, ExportProvider[])
+  fullName: CompositionContainer.CompositionContainer(ComposablePartCatalog, ExportProvider[])
   type: Constructor
   assemblies:
   - System.ComponentModel.Composition
@@ -306,9 +294,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Composition.Hosting/CompositionContainer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.#ctor(System.ComponentModel.Composition.Primitives.ComposablePartCatalog,System.Boolean,System.ComponentModel.Composition.Hosting.ExportProvider[])
   commentId: M:System.ComponentModel.Composition.Hosting.CompositionContainer.#ctor(System.ComponentModel.Composition.Primitives.ComposablePartCatalog,System.Boolean,System.ComponentModel.Composition.Hosting.ExportProvider[])
   id: '#ctor(System.ComponentModel.Composition.Primitives.ComposablePartCatalog,System.Boolean,System.ComponentModel.Composition.Hosting.ExportProvider[])'
@@ -317,7 +302,7 @@ items:
   - csharp
   name: CompositionContainer(ComposablePartCatalog, Boolean, ExportProvider[])
   nameWithType: CompositionContainer.CompositionContainer(ComposablePartCatalog, Boolean, ExportProvider[])
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.CompositionContainer(ComposablePartCatalog, Boolean, ExportProvider[])
+  fullName: CompositionContainer.CompositionContainer(ComposablePartCatalog, Boolean, ExportProvider[])
   type: Constructor
   assemblies:
   - System.ComponentModel.Composition
@@ -364,9 +349,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Composition.Hosting/CompositionContainer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.#ctor(System.ComponentModel.Composition.Primitives.ComposablePartCatalog,System.ComponentModel.Composition.Hosting.CompositionOptions,System.ComponentModel.Composition.Hosting.ExportProvider[])
   commentId: M:System.ComponentModel.Composition.Hosting.CompositionContainer.#ctor(System.ComponentModel.Composition.Primitives.ComposablePartCatalog,System.ComponentModel.Composition.Hosting.CompositionOptions,System.ComponentModel.Composition.Hosting.ExportProvider[])
   id: '#ctor(System.ComponentModel.Composition.Primitives.ComposablePartCatalog,System.ComponentModel.Composition.Hosting.CompositionOptions,System.ComponentModel.Composition.Hosting.ExportProvider[])'
@@ -375,7 +357,7 @@ items:
   - csharp
   name: CompositionContainer(ComposablePartCatalog, CompositionOptions, ExportProvider[])
   nameWithType: CompositionContainer.CompositionContainer(ComposablePartCatalog, CompositionOptions, ExportProvider[])
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.CompositionContainer(ComposablePartCatalog, CompositionOptions, ExportProvider[])
+  fullName: CompositionContainer.CompositionContainer(ComposablePartCatalog, CompositionOptions, ExportProvider[])
   type: Constructor
   assemblies:
   - System.ComponentModel.Composition
@@ -421,9 +403,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Composition.Hosting/CompositionContainer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.Catalog
   commentId: P:System.ComponentModel.Composition.Hosting.CompositionContainer.Catalog
   id: Catalog
@@ -432,7 +411,7 @@ items:
   - csharp
   name: Catalog
   nameWithType: CompositionContainer.Catalog
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.Catalog
+  fullName: CompositionContainer.Catalog
   type: Property
   assemblies:
   - System.ComponentModel.Composition
@@ -471,9 +450,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Composition.Hosting/CompositionContainer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.Compose(System.ComponentModel.Composition.Hosting.CompositionBatch)
   commentId: M:System.ComponentModel.Composition.Hosting.CompositionContainer.Compose(System.ComponentModel.Composition.Hosting.CompositionBatch)
   id: Compose(System.ComponentModel.Composition.Hosting.CompositionBatch)
@@ -482,7 +458,7 @@ items:
   - csharp
   name: Compose(CompositionBatch)
   nameWithType: CompositionContainer.Compose(CompositionBatch)
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.Compose(CompositionBatch)
+  fullName: CompositionContainer.Compose(CompositionBatch)
   type: Method
   assemblies:
   - System.ComponentModel.Composition
@@ -522,9 +498,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Composition.Hosting/CompositionContainer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.Dispose(System.Boolean)
   commentId: M:System.ComponentModel.Composition.Hosting.CompositionContainer.Dispose(System.Boolean)
   id: Dispose(System.Boolean)
@@ -533,7 +506,7 @@ items:
   - csharp
   name: Dispose(Boolean)
   nameWithType: CompositionContainer.Dispose(Boolean)
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.Dispose(Boolean)
+  fullName: CompositionContainer.Dispose(Boolean)
   type: Method
   assemblies:
   - System.ComponentModel.Composition
@@ -570,9 +543,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Composition.Hosting/CompositionContainer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.Dispose
   commentId: M:System.ComponentModel.Composition.Hosting.CompositionContainer.Dispose
   id: Dispose
@@ -581,7 +551,7 @@ items:
   - csharp
   name: Dispose()
   nameWithType: CompositionContainer.Dispose()
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.Dispose()
+  fullName: CompositionContainer.Dispose()
   type: Method
   assemblies:
   - System.ComponentModel.Composition
@@ -616,9 +586,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Composition.Hosting/CompositionContainer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.GetExportsCore(System.ComponentModel.Composition.Primitives.ImportDefinition,System.ComponentModel.Composition.Hosting.AtomicComposition)
   commentId: M:System.ComponentModel.Composition.Hosting.CompositionContainer.GetExportsCore(System.ComponentModel.Composition.Primitives.ImportDefinition,System.ComponentModel.Composition.Hosting.AtomicComposition)
   id: GetExportsCore(System.ComponentModel.Composition.Primitives.ImportDefinition,System.ComponentModel.Composition.Hosting.AtomicComposition)
@@ -627,7 +594,7 @@ items:
   - csharp
   name: GetExportsCore(ImportDefinition, AtomicComposition)
   nameWithType: CompositionContainer.GetExportsCore(ImportDefinition, AtomicComposition)
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.GetExportsCore(ImportDefinition, AtomicComposition)
+  fullName: CompositionContainer.GetExportsCore(ImportDefinition, AtomicComposition)
   type: Method
   assemblies:
   - System.ComponentModel.Composition
@@ -671,9 +638,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Composition.Hosting/CompositionContainer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.Providers
   commentId: P:System.ComponentModel.Composition.Hosting.CompositionContainer.Providers
   id: Providers
@@ -682,7 +646,7 @@ items:
   - csharp
   name: Providers
   nameWithType: CompositionContainer.Providers
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.Providers
+  fullName: CompositionContainer.Providers
   type: Property
   assemblies:
   - System.ComponentModel.Composition
@@ -721,9 +685,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Composition.Hosting/CompositionContainer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExport(System.ComponentModel.Composition.Primitives.Export)
   commentId: M:System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExport(System.ComponentModel.Composition.Primitives.Export)
   id: ReleaseExport(System.ComponentModel.Composition.Primitives.Export)
@@ -732,13 +693,13 @@ items:
   - csharp
   name: ReleaseExport(Export)
   nameWithType: CompositionContainer.ReleaseExport(Export)
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExport(Export)
+  fullName: CompositionContainer.ReleaseExport(Export)
   type: Method
   assemblies:
   - System.ComponentModel.Composition
   namespace: System.ComponentModel.Composition.Hosting
   summary: Releases the specified <xref href="System.ComponentModel.Composition.Primitives.Export"></xref> object from the <xref href="System.ComponentModel.Composition.Hosting.CompositionContainer"></xref>.
-  remarks: "The behavior of this method may vary depending on the implementation of the <xref:System.ComponentModel.Composition.Hosting.ExportProvider> that produced the <xref:System.ComponentModel.Composition.Primitives.Export> instance. As a rule, non-shared exports should be detached from the container.  \n  \n For example, the <xref:System.ComponentModel.Composition.Hosting.CatalogExportProvider> will only release an <xref:System.ComponentModel.Composition.Primitives.Export> if it comes from a <xref:System.ComponentModel.Composition.Primitives.ComposablePart> that was constructed under a <xref:System.ComponentModel.Composition.CreationPolicy> context. Release in this context means walking the dependency chain of the <xref:System.ComponentModel.Composition.Primitives.Export> objects, detaching references from the container and calling `Dispose` on the <xref:System.ComponentModel.Composition.Primitives.ComposablePart> objects as needed. If the <xref:System.ComponentModel.Composition.Primitives.Export> was constructed under a <xref:System.ComponentModel.Composition.CreationPolicy> context the <xref:System.ComponentModel.Composition.Hosting.CatalogExportProvider> will do nothing, as the specified <xref:System.ComponentModel.Composition.Primitives.Export> may being used by other requestors. Those will only be detached when the container is itself disposed."
+  remarks: "The behavior of this method may vary depending on the implementation of the <xref:System.ComponentModel.Composition.Hosting.ExportProvider> that produced the <xref:System.ComponentModel.Composition.Primitives.Export> instance. As a rule, non-shared exports should be detached from the container.  \n  \n For example, the <xref:System.ComponentModel.Composition.Hosting.CatalogExportProvider> will only release an <xref:System.ComponentModel.Composition.Primitives.Export> if it comes from a <xref:System.ComponentModel.Composition.Primitives.ComposablePart> that was constructed under a <xref:System.ComponentModel.Composition.CreationPolicy.NonShared> context. Release in this context means walking the dependency chain of the <xref:System.ComponentModel.Composition.Primitives.Export> objects, detaching references from the container and calling `Dispose` on the <xref:System.ComponentModel.Composition.Primitives.ComposablePart> objects as needed. If the <xref:System.ComponentModel.Composition.Primitives.Export> was constructed under a <xref:System.ComponentModel.Composition.CreationPolicy.Shared> context the <xref:System.ComponentModel.Composition.Hosting.CatalogExportProvider> will do nothing, as the specified <xref:System.ComponentModel.Composition.Primitives.Export> may being used by other requestors. Those will only be detached when the container is itself disposed."
   syntax:
     content: public void ReleaseExport (System.ComponentModel.Composition.Primitives.Export export);
     parameters:
@@ -773,9 +734,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Composition.Hosting/CompositionContainer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExport``1(System.Lazy{``0})
   commentId: M:System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExport``1(System.Lazy{``0})
   id: ReleaseExport``1(System.Lazy{``0})
@@ -784,7 +742,7 @@ items:
   - csharp
   name: ReleaseExport<T>(Lazy<T>)
   nameWithType: CompositionContainer.ReleaseExport<T>(Lazy<T>)
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExport<T>(Lazy<T>)
+  fullName: CompositionContainer.ReleaseExport<T>(Lazy<T>)
   type: Method
   assemblies:
   - System.ComponentModel.Composition
@@ -796,6 +754,9 @@ items:
     - id: export
       type: System.Lazy`1
       description: An indirect reference to the export to remove.
+    typeParameters:
+    - id: T
+      description: The type of the export.
   overload: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExport``1*
   exceptions: []
   version:
@@ -821,9 +782,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Composition.Hosting/CompositionContainer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExports(System.Collections.Generic.IEnumerable{System.ComponentModel.Composition.Primitives.Export})
   commentId: M:System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExports(System.Collections.Generic.IEnumerable{System.ComponentModel.Composition.Primitives.Export})
   id: ReleaseExports(System.Collections.Generic.IEnumerable{System.ComponentModel.Composition.Primitives.Export})
@@ -832,7 +790,7 @@ items:
   - csharp
   name: ReleaseExports(IEnumerable<Export>)
   nameWithType: CompositionContainer.ReleaseExports(IEnumerable<Export>)
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExports(IEnumerable<Export>)
+  fullName: CompositionContainer.ReleaseExports(IEnumerable<Export>)
   type: Method
   assemblies:
   - System.ComponentModel.Composition
@@ -876,9 +834,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Composition.Hosting/CompositionContainer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExports``2(System.Collections.Generic.IEnumerable{System.Lazy{``0,``1}})
   commentId: M:System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExports``2(System.Collections.Generic.IEnumerable{System.Lazy{``0,``1}})
   id: ReleaseExports``2(System.Collections.Generic.IEnumerable{System.Lazy{``0,``1}})
@@ -887,7 +842,7 @@ items:
   - csharp
   name: ReleaseExports<T,TMetadataView>(IEnumerable<Lazy<T,TMetadataView>>)
   nameWithType: CompositionContainer.ReleaseExports<T,TMetadataView>(IEnumerable<Lazy<T,TMetadataView>>)
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExports<T,TMetadataView>(IEnumerable<Lazy<T,TMetadataView>>)
+  fullName: CompositionContainer.ReleaseExports<T,TMetadataView>(IEnumerable<Lazy<T,TMetadataView>>)
   type: Method
   assemblies:
   - System.ComponentModel.Composition
@@ -899,6 +854,11 @@ items:
     - id: exports
       type: System.Collections.Generic.IEnumerable{System.Lazy{T,TMetadataView}}
       description: A collection of indirect references to the exports to be removed and their metadata.
+    typeParameters:
+    - id: T
+      description: The type of the exports.
+    - id: TMetadataView
+      description: The type of the exports' metadata view.
   overload: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExports``2*
   exceptions: []
   version:
@@ -924,9 +884,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Composition.Hosting/CompositionContainer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExports``1(System.Collections.Generic.IEnumerable{System.Lazy{``0}})
   commentId: M:System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExports``1(System.Collections.Generic.IEnumerable{System.Lazy{``0}})
   id: ReleaseExports``1(System.Collections.Generic.IEnumerable{System.Lazy{``0}})
@@ -935,7 +892,7 @@ items:
   - csharp
   name: ReleaseExports<T>(IEnumerable<Lazy<T>>)
   nameWithType: CompositionContainer.ReleaseExports<T>(IEnumerable<Lazy<T>>)
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExports<T>(IEnumerable<Lazy<T>>)
+  fullName: CompositionContainer.ReleaseExports<T>(IEnumerable<Lazy<T>>)
   type: Method
   assemblies:
   - System.ComponentModel.Composition
@@ -947,6 +904,9 @@ items:
     - id: exports
       type: System.Collections.Generic.IEnumerable{System.Lazy{T}}
       description: A collection of indirect references to the exports to be removed.
+    typeParameters:
+    - id: T
+      description: The type of the exports.
   overload: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExports``1*
   exceptions: []
   version:
@@ -972,9 +932,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Composition.Hosting/CompositionContainer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.SatisfyImportsOnce(System.ComponentModel.Composition.Primitives.ComposablePart)
   commentId: M:System.ComponentModel.Composition.Hosting.CompositionContainer.SatisfyImportsOnce(System.ComponentModel.Composition.Primitives.ComposablePart)
   id: SatisfyImportsOnce(System.ComponentModel.Composition.Primitives.ComposablePart)
@@ -983,7 +940,7 @@ items:
   - csharp
   name: SatisfyImportsOnce(ComposablePart)
   nameWithType: CompositionContainer.SatisfyImportsOnce(ComposablePart)
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.SatisfyImportsOnce(ComposablePart)
+  fullName: CompositionContainer.SatisfyImportsOnce(ComposablePart)
   type: Method
   assemblies:
   - System.ComponentModel.Composition
@@ -1029,9 +986,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ComponentModel.Composition.Hosting/CompositionContainer.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.ComponentModel.Composition.Hosting.ExportProvider
   parent: System.ComponentModel.Composition.Hosting
@@ -1068,13 +1022,13 @@ references:
   isExternal: false
   name: CompositionContainer()
   nameWithType: CompositionContainer.CompositionContainer()
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.CompositionContainer()
+  fullName: CompositionContainer.CompositionContainer()
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.#ctor(System.ComponentModel.Composition.Hosting.ExportProvider[])
   parent: System.ComponentModel.Composition.Hosting.CompositionContainer
   isExternal: false
   name: CompositionContainer(ExportProvider[])
   nameWithType: CompositionContainer.CompositionContainer(ExportProvider[])
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.CompositionContainer(ExportProvider[])
+  fullName: CompositionContainer.CompositionContainer(ExportProvider[])
 - uid: System.ComponentModel.Composition.Hosting.ExportProvider[]
   parent: System.ComponentModel.Composition.Hosting
   isExternal: false
@@ -1094,7 +1048,7 @@ references:
   isExternal: false
   name: CompositionContainer(CompositionOptions, ExportProvider[])
   nameWithType: CompositionContainer.CompositionContainer(CompositionOptions, ExportProvider[])
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.CompositionContainer(CompositionOptions, ExportProvider[])
+  fullName: CompositionContainer.CompositionContainer(CompositionOptions, ExportProvider[])
 - uid: System.ComponentModel.Composition.Hosting.CompositionOptions
   parent: System.ComponentModel.Composition.Hosting
   isExternal: false
@@ -1106,7 +1060,7 @@ references:
   isExternal: false
   name: CompositionContainer(ComposablePartCatalog, ExportProvider[])
   nameWithType: CompositionContainer.CompositionContainer(ComposablePartCatalog, ExportProvider[])
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.CompositionContainer(ComposablePartCatalog, ExportProvider[])
+  fullName: CompositionContainer.CompositionContainer(ComposablePartCatalog, ExportProvider[])
 - uid: System.ComponentModel.Composition.Primitives.ComposablePartCatalog
   parent: System.ComponentModel.Composition.Primitives
   isExternal: false
@@ -1118,7 +1072,7 @@ references:
   isExternal: false
   name: CompositionContainer(ComposablePartCatalog, Boolean, ExportProvider[])
   nameWithType: CompositionContainer.CompositionContainer(ComposablePartCatalog, Boolean, ExportProvider[])
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.CompositionContainer(ComposablePartCatalog, Boolean, ExportProvider[])
+  fullName: CompositionContainer.CompositionContainer(ComposablePartCatalog, Boolean, ExportProvider[])
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -1130,19 +1084,19 @@ references:
   isExternal: false
   name: CompositionContainer(ComposablePartCatalog, CompositionOptions, ExportProvider[])
   nameWithType: CompositionContainer.CompositionContainer(ComposablePartCatalog, CompositionOptions, ExportProvider[])
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.CompositionContainer(ComposablePartCatalog, CompositionOptions, ExportProvider[])
+  fullName: CompositionContainer.CompositionContainer(ComposablePartCatalog, CompositionOptions, ExportProvider[])
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.Catalog
   parent: System.ComponentModel.Composition.Hosting.CompositionContainer
   isExternal: false
   name: Catalog
   nameWithType: CompositionContainer.Catalog
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.Catalog
+  fullName: CompositionContainer.Catalog
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.Compose(System.ComponentModel.Composition.Hosting.CompositionBatch)
   parent: System.ComponentModel.Composition.Hosting.CompositionContainer
   isExternal: false
   name: Compose(CompositionBatch)
   nameWithType: CompositionContainer.Compose(CompositionBatch)
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.Compose(CompositionBatch)
+  fullName: CompositionContainer.Compose(CompositionBatch)
 - uid: System.ComponentModel.Composition.Hosting.CompositionBatch
   parent: System.ComponentModel.Composition.Hosting
   isExternal: false
@@ -1154,19 +1108,19 @@ references:
   isExternal: false
   name: Dispose(Boolean)
   nameWithType: CompositionContainer.Dispose(Boolean)
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.Dispose(Boolean)
+  fullName: CompositionContainer.Dispose(Boolean)
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.Dispose
   parent: System.ComponentModel.Composition.Hosting.CompositionContainer
   isExternal: false
   name: Dispose()
   nameWithType: CompositionContainer.Dispose()
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.Dispose()
+  fullName: CompositionContainer.Dispose()
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.GetExportsCore(System.ComponentModel.Composition.Primitives.ImportDefinition,System.ComponentModel.Composition.Hosting.AtomicComposition)
   parent: System.ComponentModel.Composition.Hosting.CompositionContainer
   isExternal: false
   name: GetExportsCore(ImportDefinition, AtomicComposition)
   nameWithType: CompositionContainer.GetExportsCore(ImportDefinition, AtomicComposition)
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.GetExportsCore(ImportDefinition, AtomicComposition)
+  fullName: CompositionContainer.GetExportsCore(ImportDefinition, AtomicComposition)
 - uid: System.Collections.Generic.IEnumerable`1
   name: IEnumerable<T>
   nameWithType: IEnumerable<T>
@@ -1213,7 +1167,7 @@ references:
   isExternal: false
   name: Providers
   nameWithType: CompositionContainer.Providers
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.Providers
+  fullName: CompositionContainer.Providers
 - uid: System.Collections.ObjectModel.ReadOnlyCollection`1
   name: ReadOnlyCollection<T>
   nameWithType: ReadOnlyCollection<T>
@@ -1244,13 +1198,13 @@ references:
   isExternal: false
   name: ReleaseExport(Export)
   nameWithType: CompositionContainer.ReleaseExport(Export)
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExport(Export)
+  fullName: CompositionContainer.ReleaseExport(Export)
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExport``1(System.Lazy{``0})
   parent: System.ComponentModel.Composition.Hosting.CompositionContainer
   isExternal: false
   name: ReleaseExport<T>(Lazy<T>)
   nameWithType: CompositionContainer.ReleaseExport<T>(Lazy<T>)
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExport<T>(Lazy<T>)
+  fullName: CompositionContainer.ReleaseExport<T>(Lazy<T>)
 - uid: System.Lazy`1
   parent: System
   isExternal: false
@@ -1262,13 +1216,13 @@ references:
   isExternal: false
   name: ReleaseExports(IEnumerable<Export>)
   nameWithType: CompositionContainer.ReleaseExports(IEnumerable<Export>)
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExports(IEnumerable<Export>)
+  fullName: CompositionContainer.ReleaseExports(IEnumerable<Export>)
 - uid: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExports``2(System.Collections.Generic.IEnumerable{System.Lazy{``0,``1}})
   parent: System.ComponentModel.Composition.Hosting.CompositionContainer
   isExternal: false
   name: ReleaseExports<T,TMetadataView>(IEnumerable<Lazy<T,TMetadataView>>)
   nameWithType: CompositionContainer.ReleaseExports<T,TMetadataView>(IEnumerable<Lazy<T,TMetadataView>>)
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExports<T,TMetadataView>(IEnumerable<Lazy<T,TMetadataView>>)
+  fullName: CompositionContainer.ReleaseExports<T,TMetadataView>(IEnumerable<Lazy<T,TMetadataView>>)
 - uid: System.Lazy`2
   name: Lazy<T,TMetadata>
   nameWithType: Lazy<T,TMetadata>
@@ -1324,7 +1278,7 @@ references:
   isExternal: false
   name: ReleaseExports<T>(IEnumerable<Lazy<T>>)
   nameWithType: CompositionContainer.ReleaseExports<T>(IEnumerable<Lazy<T>>)
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExports<T>(IEnumerable<Lazy<T>>)
+  fullName: CompositionContainer.ReleaseExports<T>(IEnumerable<Lazy<T>>)
 - uid: System.Collections.Generic.IEnumerable{System.Lazy{T}}
   parent: System.Collections.Generic
   isExternal: false
@@ -1361,7 +1315,7 @@ references:
   isExternal: false
   name: SatisfyImportsOnce(ComposablePart)
   nameWithType: CompositionContainer.SatisfyImportsOnce(ComposablePart)
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.SatisfyImportsOnce(ComposablePart)
+  fullName: CompositionContainer.SatisfyImportsOnce(ComposablePart)
 - uid: System.ComponentModel.Composition.Primitives.ComposablePart
   parent: System.ComponentModel.Composition.Primitives
   isExternal: false
@@ -1373,7 +1327,7 @@ references:
   isExternal: false
   name: CompositionContainer
   nameWithType: CompositionContainer.CompositionContainer
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.CompositionContainer
+  fullName: CompositionContainer.CompositionContainer
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1391,7 +1345,7 @@ references:
   isExternal: false
   name: Catalog
   nameWithType: CompositionContainer.Catalog
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.Catalog
+  fullName: CompositionContainer.Catalog
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1409,7 +1363,7 @@ references:
   isExternal: false
   name: Compose
   nameWithType: CompositionContainer.Compose
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.Compose
+  fullName: CompositionContainer.Compose
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1427,7 +1381,7 @@ references:
   isExternal: false
   name: Dispose
   nameWithType: CompositionContainer.Dispose
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.Dispose
+  fullName: CompositionContainer.Dispose
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1445,7 +1399,7 @@ references:
   isExternal: false
   name: GetExportsCore
   nameWithType: CompositionContainer.GetExportsCore
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.GetExportsCore
+  fullName: CompositionContainer.GetExportsCore
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1463,7 +1417,7 @@ references:
   isExternal: false
   name: Providers
   nameWithType: CompositionContainer.Providers
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.Providers
+  fullName: CompositionContainer.Providers
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1481,7 +1435,7 @@ references:
   isExternal: false
   name: ReleaseExport
   nameWithType: CompositionContainer.ReleaseExport
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExport
+  fullName: CompositionContainer.ReleaseExport
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1499,7 +1453,7 @@ references:
   isExternal: false
   name: ReleaseExport<T>
   nameWithType: CompositionContainer.ReleaseExport<T>
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExport<T>
+  fullName: CompositionContainer.ReleaseExport<T>
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1517,7 +1471,7 @@ references:
   isExternal: false
   name: ReleaseExports
   nameWithType: CompositionContainer.ReleaseExports
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExports
+  fullName: CompositionContainer.ReleaseExports
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1535,7 +1489,7 @@ references:
   isExternal: false
   name: ReleaseExports<T,TMetadataView>
   nameWithType: CompositionContainer.ReleaseExports<T,TMetadataView>
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExports<T,TMetadataView>
+  fullName: CompositionContainer.ReleaseExports<T,TMetadataView>
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1553,7 +1507,7 @@ references:
   isExternal: false
   name: ReleaseExports<T>
   nameWithType: CompositionContainer.ReleaseExports<T>
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.ReleaseExports<T>
+  fullName: CompositionContainer.ReleaseExports<T>
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1571,7 +1525,7 @@ references:
   isExternal: false
   name: SatisfyImportsOnce
   nameWithType: CompositionContainer.SatisfyImportsOnce
-  fullName: System.ComponentModel.Composition.Hosting.CompositionContainer.SatisfyImportsOnce
+  fullName: CompositionContainer.SatisfyImportsOnce
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1589,28 +1543,40 @@ references:
   isExternal: false
   name: ComposeExportedValue<T>(CompositionContainer, T)
   nameWithType: AttributedModelServices.ComposeExportedValue<T>(CompositionContainer, T)
-  fullName: System.ComponentModel.Composition.AttributedModelServices.ComposeExportedValue<T>(CompositionContainer, T)
+  fullName: AttributedModelServices.ComposeExportedValue<T>(CompositionContainer, T)
 - uid: System.ComponentModel.Composition.AttributedModelServices.ComposeExportedValue``1(System.ComponentModel.Composition.Hosting.CompositionContainer,System.String,``0)
   parent: System.ComponentModel.Composition.AttributedModelServices
   isExternal: false
   name: ComposeExportedValue<T>(CompositionContainer, String, T)
   nameWithType: AttributedModelServices.ComposeExportedValue<T>(CompositionContainer, String, T)
-  fullName: System.ComponentModel.Composition.AttributedModelServices.ComposeExportedValue<T>(CompositionContainer, String, T)
+  fullName: AttributedModelServices.ComposeExportedValue<T>(CompositionContainer, String, T)
 - uid: System.ComponentModel.Composition.AttributedModelServices.ComposeParts(System.ComponentModel.Composition.Hosting.CompositionContainer,System.Object[])
   parent: System.ComponentModel.Composition.AttributedModelServices
   isExternal: false
   name: ComposeParts(CompositionContainer, Object[])
   nameWithType: AttributedModelServices.ComposeParts(CompositionContainer, Object[])
-  fullName: System.ComponentModel.Composition.AttributedModelServices.ComposeParts(CompositionContainer, Object[])
+  fullName: AttributedModelServices.ComposeParts(CompositionContainer, Object[])
 - uid: System.ComponentModel.Composition.AttributedModelServices.SatisfyImportsOnce(System.ComponentModel.Composition.ICompositionService,System.Object)
   parent: System.ComponentModel.Composition.AttributedModelServices
   isExternal: false
   name: SatisfyImportsOnce(ICompositionService, Object)
   nameWithType: AttributedModelServices.SatisfyImportsOnce(ICompositionService, Object)
-  fullName: System.ComponentModel.Composition.AttributedModelServices.SatisfyImportsOnce(ICompositionService, Object)
+  fullName: AttributedModelServices.SatisfyImportsOnce(ICompositionService, Object)
 - uid: System.ComponentModel.Composition.AttributedModelServices.SatisfyImportsOnce(System.ComponentModel.Composition.ICompositionService,System.Object,System.Reflection.ReflectionContext)
   parent: System.ComponentModel.Composition.AttributedModelServices
   isExternal: false
   name: SatisfyImportsOnce(ICompositionService, Object, ReflectionContext)
   nameWithType: AttributedModelServices.SatisfyImportsOnce(ICompositionService, Object, ReflectionContext)
-  fullName: System.ComponentModel.Composition.AttributedModelServices.SatisfyImportsOnce(ICompositionService, Object, ReflectionContext)
+  fullName: AttributedModelServices.SatisfyImportsOnce(ICompositionService, Object, ReflectionContext)
+- uid: System.ComponentModel.Composition.ICompositionService
+  parent: System.ComponentModel.Composition
+  isExternal: false
+  name: ICompositionService
+  nameWithType: ICompositionService
+  fullName: System.ComponentModel.Composition.ICompositionService
+- uid: System.IDisposable
+  parent: System
+  isExternal: false
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable

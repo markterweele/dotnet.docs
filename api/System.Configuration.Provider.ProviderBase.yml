@@ -16,6 +16,7 @@ items:
   type: Class
   assemblies:
   - System.Configuration
+  - System.Configuration.ConfigurationManager
   namespace: System.Configuration.Provider
   summary: Provides a base implementation for the extensible provider model.
   remarks: "The provider model is intended to encapsulate all or part of the functionality of multiple ASP.NET features, such as membership, profiles, and protected configuration. It allows the developer to create supporting classes that provide multiple implementations of the encapsulated functionality. In addition, developers can write new features using the provider model. This can be an effective way to support multiple implementations of a feature's functionality without duplicating the feature code or recoding the application layer if the implementation method needs to be changed.  \n  \n The <xref:System.Configuration.Provider.ProviderBase> class is simple, containing only a few basic methods and properties that are common to all providers. Feature-specific providers (such as <xref:System.Web.Security.MembershipProvider>) inherit from <xref:System.Configuration.Provider.ProviderBase> and establish the necessary methods and properties that the implementation-specific providers for that feature must support. Implementation-specific providers (such as <xref:System.Web.Security.SqlMembershipProvider>) inherit in turn from a feature-specific provider (in this case, <xref:System.Web.Security.MembershipProvider>).  \n  \n The most important aspect of the provider model is that the implementation (for example, whether data is persisted as a text file or in a database) is abstracted from the application code. The type of the implementation-specific provider for the given feature is designated in a configuration file. The feature-level provider then reads in the type from the configuration file and acts as a factory to the feature code. The application developer can then use the feature classes in the application code. The implementation type can be swapped out in the configuration file, eliminating the need to rewrite the code to accommodate the different implementation methodology.  \n  \n The providers included with ASP.NET are mostly abstractions of data persistence implementations for features like profiles or membership. However, this model can be applied to any other kind of feature functionality that could be abstracted and implemented in multiple ways."
@@ -46,6 +47,7 @@ items:
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -55,6 +57,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -64,9 +67,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Configuration.Provider/ProviderBase.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Configuration.Provider.ProviderBase.#ctor
   commentId: M:System.Configuration.Provider.ProviderBase.#ctor
   id: '#ctor'
@@ -75,10 +75,11 @@ items:
   - csharp
   name: ProviderBase()
   nameWithType: ProviderBase.ProviderBase()
-  fullName: System.Configuration.Provider.ProviderBase.ProviderBase()
+  fullName: ProviderBase.ProviderBase()
   type: Constructor
   assemblies:
   - System.Configuration
+  - System.Configuration.ConfigurationManager
   namespace: System.Configuration.Provider
   summary: Initializes a new instance of the <xref href="System.Configuration.Provider.ProviderBase"></xref> class.
   syntax:
@@ -87,6 +88,7 @@ items:
   overload: System.Configuration.Provider.ProviderBase.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -96,6 +98,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -105,9 +108,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Configuration.Provider/ProviderBase.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Configuration.Provider.ProviderBase.Description
   commentId: P:System.Configuration.Provider.ProviderBase.Description
   id: Description
@@ -116,10 +116,11 @@ items:
   - csharp
   name: Description
   nameWithType: ProviderBase.Description
-  fullName: System.Configuration.Provider.ProviderBase.Description
+  fullName: ProviderBase.Description
   type: Property
   assemblies:
   - System.Configuration
+  - System.Configuration.ConfigurationManager
   namespace: System.Configuration.Provider
   summary: Gets a brief, friendly description suitable for display in administrative tools or other user interfaces (UIs).
   remarks: If a configured provider does not supply a description, the value of the <xref:System.Configuration.Provider.ProviderBase.Name%2A> property is returned as a default.
@@ -131,6 +132,7 @@ items:
   overload: System.Configuration.Provider.ProviderBase.Description*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -140,6 +142,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -149,9 +152,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Configuration.Provider/ProviderBase.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Configuration.Provider.ProviderBase.Initialize(System.String,System.Collections.Specialized.NameValueCollection)
   commentId: M:System.Configuration.Provider.ProviderBase.Initialize(System.String,System.Collections.Specialized.NameValueCollection)
   id: Initialize(System.String,System.Collections.Specialized.NameValueCollection)
@@ -160,10 +160,11 @@ items:
   - csharp
   name: Initialize(String, NameValueCollection)
   nameWithType: ProviderBase.Initialize(String, NameValueCollection)
-  fullName: System.Configuration.Provider.ProviderBase.Initialize(String, NameValueCollection)
+  fullName: ProviderBase.Initialize(String, NameValueCollection)
   type: Method
   assemblies:
   - System.Configuration
+  - System.Configuration.ConfigurationManager
   namespace: System.Configuration.Provider
   summary: Initializes the provider.
   remarks: "The base class implementation internally tracks the number of times the provider's `Initialize` method has been called. If a provider is initialized more than once, an `InvalidOperationException` is thrown stating that the provider is already initialized.  \n  \n Because most feature providers call <xref:System.Configuration.Provider.ProviderBase.Initialize%2A> prior to performing provider-specific initialization, this method is a central location for preventing double initialization."
@@ -190,6 +191,7 @@ items:
     commentId: T:System.InvalidOperationException
     description: An attempt is made to call <xref href="System.Configuration.Provider.ProviderBase.Initialize(System.String,System.Collections.Specialized.NameValueCollection)"></xref> on a provider after the provider has already been initialized.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -199,6 +201,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -208,9 +211,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Configuration.Provider/ProviderBase.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Configuration.Provider.ProviderBase.Name
   commentId: P:System.Configuration.Provider.ProviderBase.Name
   id: Name
@@ -219,10 +219,11 @@ items:
   - csharp
   name: Name
   nameWithType: ProviderBase.Name
-  fullName: System.Configuration.Provider.ProviderBase.Name
+  fullName: ProviderBase.Name
   type: Property
   assemblies:
   - System.Configuration
+  - System.Configuration.ConfigurationManager
   namespace: System.Configuration.Provider
   summary: Gets the friendly name used to refer to the provider during configuration.
   remarks: 'The recommended pattern for this string is: [*Provider Creator*][*Implementation Type*][*Feature*]Provider. Although the <xref:System.Configuration.Provider.ProviderBase.Description%2A> property also provides a friendly description, the <xref:System.Configuration.Provider.ProviderBase.Name%2A> property is used as an identifier for the provider.'
@@ -234,6 +235,7 @@ items:
   overload: System.Configuration.Provider.ProviderBase.Name*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -243,6 +245,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -252,9 +255,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Configuration.Provider/ProviderBase.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -285,13 +285,13 @@ references:
   isExternal: false
   name: ProviderBase()
   nameWithType: ProviderBase.ProviderBase()
-  fullName: System.Configuration.Provider.ProviderBase.ProviderBase()
+  fullName: ProviderBase.ProviderBase()
 - uid: System.Configuration.Provider.ProviderBase.Description
   parent: System.Configuration.Provider.ProviderBase
   isExternal: false
   name: Description
   nameWithType: ProviderBase.Description
-  fullName: System.Configuration.Provider.ProviderBase.Description
+  fullName: ProviderBase.Description
 - uid: System.String
   parent: System
   isExternal: false
@@ -303,7 +303,7 @@ references:
   isExternal: false
   name: Initialize(String, NameValueCollection)
   nameWithType: ProviderBase.Initialize(String, NameValueCollection)
-  fullName: System.Configuration.Provider.ProviderBase.Initialize(String, NameValueCollection)
+  fullName: ProviderBase.Initialize(String, NameValueCollection)
 - uid: System.Collections.Specialized.NameValueCollection
   parent: System.Collections.Specialized
   isExternal: false
@@ -315,14 +315,15 @@ references:
   isExternal: false
   name: Name
   nameWithType: ProviderBase.Name
-  fullName: System.Configuration.Provider.ProviderBase.Name
+  fullName: ProviderBase.Name
 - uid: System.Configuration.Provider.ProviderBase.#ctor*
   parent: System.Configuration.Provider.ProviderBase
   isExternal: false
   name: ProviderBase
   nameWithType: ProviderBase.ProviderBase
-  fullName: System.Configuration.Provider.ProviderBase.ProviderBase
+  fullName: ProviderBase.ProviderBase
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -337,8 +338,9 @@ references:
   isExternal: false
   name: Description
   nameWithType: ProviderBase.Description
-  fullName: System.Configuration.Provider.ProviderBase.Description
+  fullName: ProviderBase.Description
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -353,8 +355,9 @@ references:
   isExternal: false
   name: Initialize
   nameWithType: ProviderBase.Initialize
-  fullName: System.Configuration.Provider.ProviderBase.Initialize
+  fullName: ProviderBase.Initialize
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -369,8 +372,9 @@ references:
   isExternal: false
   name: Name
   nameWithType: ProviderBase.Name
-  fullName: System.Configuration.Provider.ProviderBase.Name
+  fullName: ProviderBase.Name
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

@@ -24,7 +24,7 @@ items:
   - mscorlib
   - netstandard
   namespace: System
-  summary: "Supports all classes in the .NET Framework class hierarchy and provides low-level services to derived classes. This is the ultimate base class of all classes in the .NET Framework; it is the root of the type hierarchy.  \n  \n To browse the .NET Framework source code for this type, see the [Reference Source](http://referencesource.microsoft.com/#mscorlib/system/object.cs#d9262ceecc1719ab)."
+  summary: Supports all classes in the .NET Framework class hierarchy and provides low-level services to derived classes. This is the ultimate base class of all classes in the .NET Framework; it is the root of the type hierarchy.
   remarks: "> [!NOTE]\n>  To view the .NET Framework source code for this type, see the [Reference Source](http://referencesource.microsoft.com/#mscorlib/system/object.cs#d9262ceecc1719ab). You can browse through the source code online, download the reference for offline viewing, and step through the sources (including patches and updates) during debugging; see [instructions](http://referencesource.microsoft.com/).  \n  \n Languages typically do not require a class to declare inheritance from <xref:System.Object> because the inheritance is implicit.  \n  \n Because all classes in the .NET Framework are derived from <xref:System.Object>, every method defined in the <xref:System.Object> class is available in all objects in the system. Derived classes can and do override some of these methods, including:  \n  \n-   <xref:System.Object.Equals%2A> - Supports comparisons between objects.  \n  \n-   <xref:System.Object.Finalize%2A> - Performs cleanup operations before an object is automatically reclaimed.  \n  \n-   <xref:System.Object.GetHashCode%2A> - Generates a number corresponding to the value of the object to support the use of a hash table.  \n  \n-   <xref:System.Object.ToString%2A> - Manufactures a human-readable text string that describes an instance of the class.  \n  \n## Performance Considerations  \n If you are designing a class, such as a collection, that must handle any type of object, you can create class members that accept instances of the <xref:System.Object> class. However, the process of boxing and unboxing a type carries a performance cost. If you know your new class will frequently handle certain value types you can use one of two tactics to minimize the cost of boxing.  \n  \n-   Create a general method that accepts an <xref:System.Object> type, and a set of type-specific method overloads that accept each value type you expect your class to frequently handle. If a type-specific method exists that accepts the calling parameter type, no boxing occurs and the type-specific method is invoked. If there is no method argument that matches the calling parameter type, the parameter is boxed and the general method is invoked.  \n  \n-   Design your type and its members to use generics. The common language runtime creates a closed generic type when you create an instance of your class and specify a generic type argument. The generic method is type-specific and can be invoked without boxing the calling parameter.  \n  \n Although it is sometimes necessary to develop general purpose classes that accept and return <xref:System.Object> types, you can improve performance by also providing a type-specific class to handle a frequently used type. For example, providing a class that is specific to setting and getting Boolean values eliminates the cost of boxing and unboxing Boolean values."
   example:
   - "The following example defines a Point type derived from the <xref:System.Object> class and overrides many of the virtual methods of the <xref:System.Object> class. In addition, the example shows how to call many of the static and instance methods of the <xref:System.Object> class.  \n  \n [!code-cpp[ObjectX#1](~/samples/snippets/cpp/VS_Snippets_CLR/ObjectX/cpp/ObjectX.cpp#1)]\n [!code-csharp[ObjectX#1](~/samples/snippets/csharp/VS_Snippets_CLR/ObjectX/CS/ObjectX.cs#1)]\n [!code-vb[ObjectX#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/ObjectX/vb/objectX.vb#1)]"
@@ -41,7 +41,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -62,7 +63,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -82,9 +84,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/Object.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Object.#ctor
   commentId: M:System.Object.#ctor
   id: '#ctor'
@@ -93,7 +92,7 @@ items:
   - csharp
   name: Object()
   nameWithType: Object.Object()
-  fullName: System.Object.Object()
+  fullName: Object.Object()
   type: Constructor
   assemblies:
   - System.Runtime
@@ -110,7 +109,8 @@ items:
   attributes: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -131,7 +131,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -151,9 +152,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/Object.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Object.Equals(System.Object)
   commentId: M:System.Object.Equals(System.Object)
   id: Equals(System.Object)
@@ -162,7 +160,7 @@ items:
   - csharp
   name: Equals(Object)
   nameWithType: Object.Equals(Object)
-  fullName: System.Object.Equals(Object)
+  fullName: Object.Equals(Object)
   type: Method
   assemblies:
   - System.Runtime
@@ -186,7 +184,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -207,7 +206,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -227,9 +227,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/Object.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Object.Equals(System.Object,System.Object)
   commentId: M:System.Object.Equals(System.Object,System.Object)
   id: Equals(System.Object,System.Object)
@@ -238,7 +235,7 @@ items:
   - csharp
   name: Equals(Object, Object)
   nameWithType: Object.Equals(Object, Object)
-  fullName: System.Object.Equals(Object, Object)
+  fullName: Object.Equals(Object, Object)
   type: Method
   assemblies:
   - System.Runtime
@@ -246,7 +243,7 @@ items:
   - netstandard
   namespace: System
   summary: Determines whether the specified object instances are considered equal.
-  remarks: "The static <xref:System.Object.Equals%28System.Object%2CSystem.Object%29> method indicates whether two objects, `objA` and  `objB`, are equal. It also enables you to test objects whose value is **null** for equality. It compares `objA` and `objB` for equality as follows:  \n  \n-   It determines whether the two objects represent the same object reference. If they do, the method returns `true`. This test is equivalent to calling the <xref:System.Object.ReferenceEquals%2A> method. In addition, if both `objA` and `objB`are **null**, the method returns `true`.  \n  \n-   It determines whether either `objA` or `objB` is **null**. If so, it returns `false`.  \n  \n-   If the two objects do not represent the same object reference and neither is **null**, it calls `objA`.`Equals`(`objB`) and returns the result. This means that if `objA` overrides the <xref:System.Object.Equals%28System.Object%29?displayProperty=fullName> method, this override is called."
+  remarks: "The static <xref:System.Object.Equals%28System.Object%2CSystem.Object%29> method indicates whether two objects, `objA` and  `objB`, are equal. It also enables you to test objects whose value is **null** for equality. It compares `objA` and `objB` for equality as follows:  \n  \n-   It determines whether the two objects represent the same object reference. If they do, the method returns `true`. This test is equivalent to calling the <xref:System.Object.ReferenceEquals%2A> method. In addition, if both `objA` and `objB` are **null**, the method returns `true`.  \n  \n-   It determines whether either `objA` or `objB` is **null**. If so, it returns `false`.  \n  \n-   If the two objects do not represent the same object reference and neither is **null**, it calls `objA`.`Equals`(`objB`) and returns the result. This means that if `objA` overrides the <xref:System.Object.Equals%28System.Object%29?displayProperty=fullName> method, this override is called."
   example:
   - "The following example illustrates the <xref:System.Object.Equals%28System.Object%2CSystem.Object%29> method and compares it with the <xref:System.Object.ReferenceEquals%2A> method.  \n  \n [!code-csharp[System.Object.Equals#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.equals/cs/equals_static2.cs#1)]\n [!code-vb[System.Object.Equals#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.equals/vb/equals_static2.vb#1)]"
   syntax:
@@ -265,7 +262,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -286,7 +284,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -306,9 +305,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/Object.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Object.Finalize
   commentId: M:System.Object.Finalize
   id: Finalize
@@ -317,7 +313,7 @@ items:
   - csharp
   name: Finalize()
   nameWithType: Object.Finalize()
-  fullName: System.Object.Finalize()
+  fullName: Object.Finalize()
   type: Method
   assemblies:
   - System.Runtime
@@ -336,7 +332,8 @@ items:
   attributes: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -357,7 +354,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -377,9 +375,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/Object.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Object.GetHashCode
   commentId: M:System.Object.GetHashCode
   id: GetHashCode
@@ -388,7 +383,7 @@ items:
   - csharp
   name: GetHashCode()
   nameWithType: Object.GetHashCode()
-  fullName: System.Object.GetHashCode()
+  fullName: Object.GetHashCode()
   type: Method
   assemblies:
   - System.Runtime
@@ -409,7 +404,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -430,7 +426,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -450,9 +447,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/Object.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Object.GetType
   commentId: M:System.Object.GetType
   id: GetType
@@ -461,7 +455,7 @@ items:
   - csharp
   name: GetType()
   nameWithType: Object.GetType()
-  fullName: System.Object.GetType()
+  fullName: Object.GetType()
   type: Method
   assemblies:
   - System.Runtime
@@ -482,7 +476,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -503,7 +498,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -523,9 +519,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/Object.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Object.MemberwiseClone
   commentId: M:System.Object.MemberwiseClone
   id: MemberwiseClone
@@ -534,7 +527,7 @@ items:
   - csharp
   name: MemberwiseClone()
   nameWithType: Object.MemberwiseClone()
-  fullName: System.Object.MemberwiseClone()
+  fullName: Object.MemberwiseClone()
   type: Method
   assemblies:
   - System.Runtime
@@ -555,7 +548,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -576,7 +570,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -596,9 +591,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/Object.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Object.ReferenceEquals(System.Object,System.Object)
   commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
   id: ReferenceEquals(System.Object,System.Object)
@@ -607,7 +599,7 @@ items:
   - csharp
   name: ReferenceEquals(Object, Object)
   nameWithType: Object.ReferenceEquals(Object, Object)
-  fullName: System.Object.ReferenceEquals(Object, Object)
+  fullName: Object.ReferenceEquals(Object, Object)
   type: Method
   assemblies:
   - System.Runtime
@@ -635,7 +627,8 @@ items:
   attributes: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -656,7 +649,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -676,9 +670,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/Object.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Object.ToString
   commentId: M:System.Object.ToString
   id: ToString
@@ -687,7 +678,7 @@ items:
   - csharp
   name: ToString()
   nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
+  fullName: Object.ToString()
   type: Method
   assemblies:
   - System.Runtime
@@ -706,7 +697,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -727,7 +719,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -747,22 +740,19 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System/Object.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.Object.#ctor
   parent: System.Object
   isExternal: false
   name: Object()
   nameWithType: Object.Object()
-  fullName: System.Object.Object()
+  fullName: Object.Object()
 - uid: System.Object.Equals(System.Object)
   parent: System.Object
   isExternal: false
   name: Equals(Object)
   nameWithType: Object.Equals(Object)
-  fullName: System.Object.Equals(Object)
+  fullName: Object.Equals(Object)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -780,19 +770,19 @@ references:
   isExternal: false
   name: Equals(Object, Object)
   nameWithType: Object.Equals(Object, Object)
-  fullName: System.Object.Equals(Object, Object)
+  fullName: Object.Equals(Object, Object)
 - uid: System.Object.Finalize
   parent: System.Object
   isExternal: false
   name: Finalize()
   nameWithType: Object.Finalize()
-  fullName: System.Object.Finalize()
+  fullName: Object.Finalize()
 - uid: System.Object.GetHashCode
   parent: System.Object
   isExternal: false
   name: GetHashCode()
   nameWithType: Object.GetHashCode()
-  fullName: System.Object.GetHashCode()
+  fullName: Object.GetHashCode()
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -804,7 +794,7 @@ references:
   isExternal: false
   name: GetType()
   nameWithType: Object.GetType()
-  fullName: System.Object.GetType()
+  fullName: Object.GetType()
 - uid: System.Type
   parent: System
   isExternal: false
@@ -816,19 +806,19 @@ references:
   isExternal: false
   name: MemberwiseClone()
   nameWithType: Object.MemberwiseClone()
-  fullName: System.Object.MemberwiseClone()
+  fullName: Object.MemberwiseClone()
 - uid: System.Object.ReferenceEquals(System.Object,System.Object)
   parent: System.Object
   isExternal: false
   name: ReferenceEquals(Object, Object)
   nameWithType: Object.ReferenceEquals(Object, Object)
-  fullName: System.Object.ReferenceEquals(Object, Object)
+  fullName: Object.ReferenceEquals(Object, Object)
 - uid: System.Object.ToString
   parent: System.Object
   isExternal: false
   name: ToString()
   nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
+  fullName: Object.ToString()
 - uid: System.String
   parent: System
   isExternal: false
@@ -840,10 +830,11 @@ references:
   isExternal: false
   name: Object
   nameWithType: Object.Object
-  fullName: System.Object.Object
+  fullName: Object.Object
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -868,10 +859,11 @@ references:
   isExternal: false
   name: Equals
   nameWithType: Object.Equals
-  fullName: System.Object.Equals
+  fullName: Object.Equals
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -896,10 +888,11 @@ references:
   isExternal: false
   name: Finalize
   nameWithType: Object.Finalize
-  fullName: System.Object.Finalize
+  fullName: Object.Finalize
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -924,10 +917,11 @@ references:
   isExternal: false
   name: GetHashCode
   nameWithType: Object.GetHashCode
-  fullName: System.Object.GetHashCode
+  fullName: Object.GetHashCode
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -952,10 +946,11 @@ references:
   isExternal: false
   name: GetType
   nameWithType: Object.GetType
-  fullName: System.Object.GetType
+  fullName: Object.GetType
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -980,10 +975,11 @@ references:
   isExternal: false
   name: MemberwiseClone
   nameWithType: Object.MemberwiseClone
-  fullName: System.Object.MemberwiseClone
+  fullName: Object.MemberwiseClone
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1008,10 +1004,11 @@ references:
   isExternal: false
   name: ReferenceEquals
   nameWithType: Object.ReferenceEquals
-  fullName: System.Object.ReferenceEquals
+  fullName: Object.ReferenceEquals
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1036,10 +1033,11 @@ references:
   isExternal: false
   name: ToString
   nameWithType: Object.ToString
-  fullName: System.Object.ToString
+  fullName: Object.ToString
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

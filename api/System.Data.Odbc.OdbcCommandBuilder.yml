@@ -31,6 +31,7 @@ items:
   type: Class
   assemblies:
   - System.Data
+  - System.Data.Odbc
   namespace: System.Data.Odbc
   summary: Automatically generates single-table commands that are used to reconcile changes made to a <xref href="System.Data.DataSet"></xref> with the associated data source. This class cannot be inherited.
   remarks: "The <xref:System.Data.Odbc.OdbcDataAdapter> does not automatically generate the SQL statements required to reconcile changes made to a <xref:System.Data.DataSet> associated with the data source. However, you can create an <xref:System.Data.Odbc.OdbcCommandBuilder> object that generates SQL statements for single-table updates by setting the <xref:System.Data.Odbc.OdbcDataAdapter.SelectCommand%2A> property of the <xref:System.Data.Odbc.OdbcDataAdapter>. The <xref:System.Data.Odbc.OdbcCommandBuilder> then generates any additional SQL statements that you do not set.  \n  \n The relationship between an <xref:System.Data.Odbc.OdbcDataAdapter> and its corresponding <xref:System.Data.Odbc.OdbcCommandBuilder> is always one-to-one. To create this correspondence, you set the <xref:System.Data.Odbc.OdbcDataAdapter> property of the <xref:System.Data.Odbc.OdbcCommandBuilder> object. This causes the <xref:System.Data.Odbc.OdbcCommandBuilder> to register itself as a listener, which produces the output of <xref:System.Data.Odbc.OdbcDataAdapter.RowUpdating> events that affect the <xref:System.Data.DataSet>.  \n  \n To generate INSERT, UPDATE, or DELETE statements, the <xref:System.Data.Odbc.OdbcCommandBuilder> uses the <xref:System.Data.Odbc.OdbcDataAdapter.SelectCommand%2A> property to retrieve a required set of metadata. If you change the value of <xref:System.Data.Odbc.OdbcDataAdapter.SelectCommand%2A> after the metadata has been retrieved, such as after the first update, you should then call the <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> method to update the metadata.  \n  \n> [!NOTE]\n>  If the SELECT statement assigned to the <xref:System.Data.Odbc.OdbcDataAdapter.SelectCommand%2A> property uses aliased column names, the resulting INSERT, UPDATE, and DELETE statements may be inaccurate or fail. If the underlying ODBC driver cannot provide the appropriate base column name for the alias column name (using the SQL_DESC_BASE_COLUMN_NAME value of `SQLColAttribute`), the alias name could be used in the generated INSERT, UPDATE, and DELETE statements. For example, the Microsoft ODBC Driver for Oracle returns the alias name as the base column name. Therefore, the generated INSERT, UPDATE, and DELETE statements would cause errors.  \n  \n The <xref:System.Data.Odbc.OdbcCommandBuilder> also uses the <xref:System.Data.Odbc.OdbcCommand.Connection%2A>, <xref:System.Data.Odbc.OdbcCommand.CommandTimeout%2A>, and <xref:System.Data.Odbc.OdbcCommand.Transaction%2A> properties referenced by the <xref:System.Data.Odbc.OdbcDataAdapter.SelectCommand%2A>. The user should call <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> if one or more of these properties are modified, or if the value of the <xref:System.Data.Odbc.OdbcDataAdapter.SelectCommand%2A> property itself is changed. Otherwise the <xref:System.Data.Odbc.OdbcDataAdapter.InsertCommand%2A>, <xref:System.Data.Odbc.OdbcDataAdapter.UpdateCommand%2A>, and <xref:System.Data.Odbc.OdbcDataAdapter.DeleteCommand%2A> properties retain their previous values.  \n  \n If you call <xref:System.ComponentModel.Component.Dispose%2A>, the <xref:System.Data.Odbc.OdbcCommandBuilder> is disassociated from the <xref:System.Data.Odbc.OdbcDataAdapter>, and the generated commands are no longer used."
@@ -77,6 +78,7 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -86,6 +88,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -95,9 +98,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Odbc/OdbcCommandBuilder.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Odbc.OdbcCommandBuilder.#ctor
   commentId: M:System.Data.Odbc.OdbcCommandBuilder.#ctor
   id: '#ctor'
@@ -106,10 +106,11 @@ items:
   - csharp
   name: OdbcCommandBuilder()
   nameWithType: OdbcCommandBuilder.OdbcCommandBuilder()
-  fullName: System.Data.Odbc.OdbcCommandBuilder.OdbcCommandBuilder()
+  fullName: OdbcCommandBuilder.OdbcCommandBuilder()
   type: Constructor
   assemblies:
   - System.Data
+  - System.Data.Odbc
   namespace: System.Data.Odbc
   summary: Initializes a new instance of the <xref href="System.Data.Odbc.OdbcCommandBuilder"></xref> class.
   remarks: The base constructor initializes all fields to their default values.
@@ -119,6 +120,7 @@ items:
   overload: System.Data.Odbc.OdbcCommandBuilder.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -128,6 +130,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -137,9 +140,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Odbc/OdbcCommandBuilder.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Odbc.OdbcCommandBuilder.#ctor(System.Data.Odbc.OdbcDataAdapter)
   commentId: M:System.Data.Odbc.OdbcCommandBuilder.#ctor(System.Data.Odbc.OdbcDataAdapter)
   id: '#ctor(System.Data.Odbc.OdbcDataAdapter)'
@@ -148,10 +148,11 @@ items:
   - csharp
   name: OdbcCommandBuilder(OdbcDataAdapter)
   nameWithType: OdbcCommandBuilder.OdbcCommandBuilder(OdbcDataAdapter)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.OdbcCommandBuilder(OdbcDataAdapter)
+  fullName: OdbcCommandBuilder.OdbcCommandBuilder(OdbcDataAdapter)
   type: Constructor
   assemblies:
   - System.Data
+  - System.Data.Odbc
   namespace: System.Data.Odbc
   summary: Initializes a new instance of the <xref href="System.Data.Odbc.OdbcCommandBuilder"></xref> class with the associated <xref href="System.Data.Odbc.OdbcDataAdapter"></xref> object.
   remarks: "The <xref:System.Data.Odbc.OdbcCommandBuilder> registers itself as a listener for <xref:System.Data.Odbc.OdbcDataAdapter.RowUpdating> events that are generated by the <xref:System.Data.Odbc.OdbcDataAdapter> specified in this property.  \n  \n When you create a new instance of <xref:System.Data.Odbc.OdbcCommandBuilder>, any existing <xref:System.Data.Odbc.OdbcCommandBuilder> associated with this <xref:System.Data.Odbc.OdbcDataAdapter> is released."
@@ -164,6 +165,7 @@ items:
   overload: System.Data.Odbc.OdbcCommandBuilder.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -173,6 +175,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -182,9 +185,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Odbc/OdbcCommandBuilder.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Odbc.OdbcCommandBuilder.ApplyParameterInfo(System.Data.Common.DbParameter,System.Data.DataRow,System.Data.StatementType,System.Boolean)
   commentId: M:System.Data.Odbc.OdbcCommandBuilder.ApplyParameterInfo(System.Data.Common.DbParameter,System.Data.DataRow,System.Data.StatementType,System.Boolean)
   id: ApplyParameterInfo(System.Data.Common.DbParameter,System.Data.DataRow,System.Data.StatementType,System.Boolean)
@@ -193,10 +193,11 @@ items:
   - csharp
   name: ApplyParameterInfo(DbParameter, DataRow, StatementType, Boolean)
   nameWithType: OdbcCommandBuilder.ApplyParameterInfo(DbParameter, DataRow, StatementType, Boolean)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.ApplyParameterInfo(DbParameter, DataRow, StatementType, Boolean)
+  fullName: OdbcCommandBuilder.ApplyParameterInfo(DbParameter, DataRow, StatementType, Boolean)
   type: Method
   assemblies:
   - System.Data
+  - System.Data.Odbc
   namespace: System.Data.Odbc
   syntax:
     content: protected override void ApplyParameterInfo (System.Data.Common.DbParameter parameter, System.Data.DataRow datarow, System.Data.StatementType statementType, bool whereClause);
@@ -216,6 +217,7 @@ items:
   overload: System.Data.Odbc.OdbcCommandBuilder.ApplyParameterInfo*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -225,6 +227,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -242,10 +245,11 @@ items:
   - csharp
   name: DataAdapter
   nameWithType: OdbcCommandBuilder.DataAdapter
-  fullName: System.Data.Odbc.OdbcCommandBuilder.DataAdapter
+  fullName: OdbcCommandBuilder.DataAdapter
   type: Property
   assemblies:
   - System.Data
+  - System.Data.Odbc
   namespace: System.Data.Odbc
   summary: Gets or sets an <xref href="System.Data.Odbc.OdbcDataAdapter"></xref> object for which this <xref href="System.Data.Odbc.OdbcCommandBuilder"></xref> object will generate SQL statements.
   remarks: "The <xref:System.Data.Odbc.OdbcCommandBuilder> registers itself as a listener for <xref:System.Data.Odbc.OdbcDataAdapter.RowUpdating> events that are generated by the <xref:System.Data.Odbc.OdbcDataAdapter> specified in this property.  \n  \n When you create a new instance of <xref:System.Data.Odbc.OdbcCommandBuilder>, any existing <xref:System.Data.Odbc.OdbcCommandBuilder> associated with this <xref:System.Data.Odbc.OdbcDataAdapter> is released."
@@ -258,6 +262,7 @@ items:
   exceptions: []
   attributes: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -267,6 +272,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -276,9 +282,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Odbc/OdbcCommandBuilder.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Odbc.OdbcCommandBuilder.DeriveParameters(System.Data.Odbc.OdbcCommand)
   commentId: M:System.Data.Odbc.OdbcCommandBuilder.DeriveParameters(System.Data.Odbc.OdbcCommand)
   id: DeriveParameters(System.Data.Odbc.OdbcCommand)
@@ -287,10 +290,11 @@ items:
   - csharp
   name: DeriveParameters(OdbcCommand)
   nameWithType: OdbcCommandBuilder.DeriveParameters(OdbcCommand)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.DeriveParameters(OdbcCommand)
+  fullName: OdbcCommandBuilder.DeriveParameters(OdbcCommand)
   type: Method
   assemblies:
   - System.Data
+  - System.Data.Odbc
   namespace: System.Data.Odbc
   summary: Retrieves parameter information from the stored procedure specified in the <xref href="System.Data.Odbc.OdbcCommand"></xref> and populates the <xref href="System.Data.Odbc.OdbcCommand.Parameters"></xref> collection of the specified <xref href="System.Data.Odbc.OdbcCommand"></xref> object.
   remarks: "<xref:System.Data.Odbc.OdbcCommandBuilder.DeriveParameters%2A> overwrites any existing parameter information for the <xref:System.Data.Odbc.OdbcCommand>.  \n  \n <xref:System.Data.Odbc.OdbcCommandBuilder.DeriveParameters%2A> requires an additional call to the data source to obtain the information. If the parameter information is known in advance, it is more efficient to populate the parameters collection by setting the information explicitly.  \n  \n You can only use <xref:System.Data.Odbc.OdbcCommandBuilder.DeriveParameters%2A> with stored procedures. You cannot use <xref:System.Data.Odbc.OdbcCommandBuilder.DeriveParameters%2A> to populate the <xref:System.Data.Odbc.OdbcParameterCollection> with arbitrary Transact-SQL statements, such as a parameterized SELECT statement."
@@ -306,6 +310,7 @@ items:
     commentId: T:System.InvalidOperationException
     description: The underlying ODBC driver does not support returning stored procedure parameter information, or the command text is not a valid stored procedure name, or the <xref href="System.Data.CommandType"></xref> specified was not `CommandType.StoredProcedure`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -315,6 +320,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -324,9 +330,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Odbc/OdbcCommandBuilder.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand
   commentId: M:System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand
   id: GetDeleteCommand
@@ -335,10 +338,11 @@ items:
   - csharp
   name: GetDeleteCommand()
   nameWithType: OdbcCommandBuilder.GetDeleteCommand()
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand()
+  fullName: OdbcCommandBuilder.GetDeleteCommand()
   type: Method
   assemblies:
   - System.Data
+  - System.Data.Odbc
   namespace: System.Data.Odbc
   summary: Gets the automatically generated <xref href="System.Data.Odbc.OdbcCommand"></xref> object required to perform deletions at the data source.
   remarks: "You can use the <xref:System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand%2A> method for informational or troubleshooting purposes because it returns the <xref:System.Data.Odbc.OdbcCommand> object to be executed.  \n  \n You can also use <xref:System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand%2A> as the basis of a modified command. For example, you might call <xref:System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand%2A> and modify the <xref:System.Data.Odbc.OdbcCommand.CommandTimeout%2A> value, and then explicitly set that on the <xref:System.Data.Odbc.OdbcDataAdapter>.  \n  \n After the SQL statement is first generated, you must explicitly call <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> if it changes the statement in any way. Otherwise, the <xref:System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand%2A> will be using information from the previous statement, which might not be correct. The SQL statements are first generated when the application calls either <xref:System.Data.Common.DbDataAdapter.Update%2A> or <xref:System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand%2A>."
@@ -351,6 +355,7 @@ items:
   overload: System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -360,6 +365,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -369,9 +375,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Odbc/OdbcCommandBuilder.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand(System.Boolean)
   commentId: M:System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand(System.Boolean)
   id: GetDeleteCommand(System.Boolean)
@@ -380,10 +383,11 @@ items:
   - csharp
   name: GetDeleteCommand(Boolean)
   nameWithType: OdbcCommandBuilder.GetDeleteCommand(Boolean)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand(Boolean)
+  fullName: OdbcCommandBuilder.GetDeleteCommand(Boolean)
   type: Method
   assemblies:
   - System.Data
+  - System.Data.Odbc
   namespace: System.Data.Odbc
   summary: Gets the automatically generated <xref href="System.Data.Odbc.OdbcCommand"></xref> object required to perform deletions at the data source.
   remarks: "You can use the <xref:System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand%2A> method for informational or troubleshooting purposes because it returns the <xref:System.Data.Odbc.OdbcCommand> object to be executed.  \n  \n You can also use <xref:System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand%2A> as the basis of a modified command. For example, you might call <xref:System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand%2A> and modify the <xref:System.Data.Odbc.OdbcCommand.CommandTimeout%2A> value, and then explicitly set that on the <xref:System.Data.Odbc.OdbcDataAdapter>.  \n  \n After the SQL statement is first generated, you must explicitly call <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> if it changes the statement in any way. Otherwise, the <xref:System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand%2A> will be using information from the previous statement, which might not be correct. The SQL statements are first generated when the application calls either <xref:System.Data.Common.DbDataAdapter.Update%2A> or <xref:System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand%2A>.  \n  \n The default behavior, when generating parameter names, is to use @p1, @p2, and so on for the various parameters. Passing `true` for the `useColumnsForParameterNames` parameter lets you force the <xref:System.Data.Odbc.OdbcCommandBuilder> to generate parameters based on the column names instead. This succeeds only if the following conditions are met:  \n  \n-   The <xref:System.Data.Common.DbMetaDataColumnNames.ParameterNameMaxLength> has been specified, and its length is equal to or greater than the generated parameter name.  \n  \n-   The generated parameter name meets the criteria specified in the <xref:System.Data.Common.DbMetaDataColumnNames.ParameterNamePattern> regular expression.  \n  \n-   A <xref:System.Data.Common.DbMetaDataColumnNames.ParameterMarkerFormat> is specified."
@@ -399,6 +403,7 @@ items:
   overload: System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -408,6 +413,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -417,9 +423,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Odbc/OdbcCommandBuilder.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand
   commentId: M:System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand
   id: GetInsertCommand
@@ -428,10 +431,11 @@ items:
   - csharp
   name: GetInsertCommand()
   nameWithType: OdbcCommandBuilder.GetInsertCommand()
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand()
+  fullName: OdbcCommandBuilder.GetInsertCommand()
   type: Method
   assemblies:
   - System.Data
+  - System.Data.Odbc
   namespace: System.Data.Odbc
   summary: Gets the automatically generated <xref href="System.Data.Odbc.OdbcCommand"></xref> object required to perform insertions at the data source.
   remarks: "You can use the <xref:System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand%2A> method for informational or troubleshooting purposes because it returns the <xref:System.Data.Odbc.OdbcCommand> object to be executed.  \n  \n You can also use <xref:System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand%2A> as the basis of a modified command. For example, you might call <xref:System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand%2A> and modify the <xref:System.Data.Odbc.OdbcCommand.CommandTimeout%2A> value, and then explicitly set that on the <xref:System.Data.Odbc.OdbcDataAdapter>.  \n  \n After the SQL statement is first generated, you must explicitly call <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> if it changes the statement in any way. Otherwise, the <xref:System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand%2A> still will be using information from the previous statement, which might not be correct. The SQL statements are first generated when the application calls either <xref:System.Data.Common.DbDataAdapter.Update%2A> or <xref:System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand%2A>."
@@ -444,6 +448,7 @@ items:
   overload: System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -453,6 +458,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -462,9 +468,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Odbc/OdbcCommandBuilder.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand(System.Boolean)
   commentId: M:System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand(System.Boolean)
   id: GetInsertCommand(System.Boolean)
@@ -473,10 +476,11 @@ items:
   - csharp
   name: GetInsertCommand(Boolean)
   nameWithType: OdbcCommandBuilder.GetInsertCommand(Boolean)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand(Boolean)
+  fullName: OdbcCommandBuilder.GetInsertCommand(Boolean)
   type: Method
   assemblies:
   - System.Data
+  - System.Data.Odbc
   namespace: System.Data.Odbc
   summary: Gets the automatically generated <xref href="System.Data.Odbc.OdbcCommand"></xref> object required to perform insertions at the data source.
   remarks: "You can use the <xref:System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand%2A> method for informational or troubleshooting purposes because it returns the <xref:System.Data.Odbc.OdbcCommand> object to be executed.  \n  \n You can also use <xref:System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand%2A> as the basis of a modified command. For example, you might call <xref:System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand%2A> and modify the <xref:System.Data.Odbc.OdbcCommand.CommandTimeout%2A> value, and then explicitly set that on the <xref:System.Data.Odbc.OdbcDataAdapter>.  \n  \n After the SQL statement is first generated, you must explicitly call <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> if it changes the statement in any way. Otherwise, the <xref:System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand%2A> will be using information from the previous statement, which might not be correct. The SQL statements are first generated when the application calls either <xref:System.Data.Common.DbDataAdapter.Update%2A> or <xref:System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand%2A>.  \n  \n The default behavior, when generating parameter names, is to use @p1, @p2, and so on for the various parameters. Passing `true` for the `useColumnsForParameterNames` parameter lets you force the <xref:System.Data.Common.DbCommandBuilder> to generate parameters based on the column names instead. This succeeds only if the following conditions are met:  \n  \n-   The <xref:System.Data.Common.DbMetaDataColumnNames.ParameterNameMaxLength> has been specified, and its length is equal to or greater than the generated parameter name.  \n  \n-   The generated parameter name meets the criteria specified in the <xref:System.Data.Common.DbMetaDataColumnNames.ParameterNamePattern> regular expression.  \n  \n-   A <xref:System.Data.Common.DbMetaDataColumnNames.ParameterMarkerFormat> is specified."
@@ -492,6 +496,7 @@ items:
   overload: System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -501,6 +506,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -510,9 +516,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Odbc/OdbcCommandBuilder.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Odbc.OdbcCommandBuilder.GetParameterName(System.String)
   commentId: M:System.Data.Odbc.OdbcCommandBuilder.GetParameterName(System.String)
   id: GetParameterName(System.String)
@@ -521,10 +524,11 @@ items:
   - csharp
   name: GetParameterName(String)
   nameWithType: OdbcCommandBuilder.GetParameterName(String)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetParameterName(String)
+  fullName: OdbcCommandBuilder.GetParameterName(String)
   type: Method
   assemblies:
   - System.Data
+  - System.Data.Odbc
   namespace: System.Data.Odbc
   syntax:
     content: protected override string GetParameterName (string parameterName);
@@ -538,6 +542,7 @@ items:
   overload: System.Data.Odbc.OdbcCommandBuilder.GetParameterName*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -547,6 +552,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -564,10 +570,11 @@ items:
   - csharp
   name: GetParameterName(Int32)
   nameWithType: OdbcCommandBuilder.GetParameterName(Int32)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetParameterName(Int32)
+  fullName: OdbcCommandBuilder.GetParameterName(Int32)
   type: Method
   assemblies:
   - System.Data
+  - System.Data.Odbc
   namespace: System.Data.Odbc
   syntax:
     content: protected override string GetParameterName (int parameterOrdinal);
@@ -581,6 +588,7 @@ items:
   overload: System.Data.Odbc.OdbcCommandBuilder.GetParameterName*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -590,6 +598,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -607,10 +616,11 @@ items:
   - csharp
   name: GetParameterPlaceholder(Int32)
   nameWithType: OdbcCommandBuilder.GetParameterPlaceholder(Int32)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetParameterPlaceholder(Int32)
+  fullName: OdbcCommandBuilder.GetParameterPlaceholder(Int32)
   type: Method
   assemblies:
   - System.Data
+  - System.Data.Odbc
   namespace: System.Data.Odbc
   syntax:
     content: protected override string GetParameterPlaceholder (int parameterOrdinal);
@@ -624,6 +634,7 @@ items:
   overload: System.Data.Odbc.OdbcCommandBuilder.GetParameterPlaceholder*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -633,6 +644,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -650,10 +662,11 @@ items:
   - csharp
   name: GetUpdateCommand()
   nameWithType: OdbcCommandBuilder.GetUpdateCommand()
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetUpdateCommand()
+  fullName: OdbcCommandBuilder.GetUpdateCommand()
   type: Method
   assemblies:
   - System.Data
+  - System.Data.Odbc
   namespace: System.Data.Odbc
   summary: Gets the automatically generated <xref href="System.Data.Odbc.OdbcCommand"></xref> object required to perform updates at the data source.
   remarks: "You can use the <xref:System.Data.Odbc.OdbcCommandBuilder.GetUpdateCommand%2A> method for informational or troubleshooting purposes because it returns the <xref:System.Data.Odbc.OdbcCommand> object to be executed.  \n  \n You can also use <xref:System.Data.Odbc.OdbcCommandBuilder.GetUpdateCommand%2A> as the basis of a modified command. For example, you might call <xref:System.Data.Odbc.OdbcCommandBuilder.GetUpdateCommand%2A> and modify the <xref:System.Data.Odbc.OdbcCommand.CommandTimeout%2A> value, and then explicitly set that on the <xref:System.Data.Odbc.OdbcDataAdapter>.  \n  \n After the SQL statement is first generated, you must explicitly call <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> if it changes the statement in any way. Otherwise, the <xref:System.Data.Odbc.OdbcCommandBuilder.GetUpdateCommand%2A> still will be using information from the previous statement, which might not be correct. The SQL statements are first generated when the application calls either <xref:System.Data.Common.DbDataAdapter.Update%2A> or <xref:System.Data.Odbc.OdbcCommandBuilder.GetUpdateCommand%2A>."
@@ -666,6 +679,7 @@ items:
   overload: System.Data.Odbc.OdbcCommandBuilder.GetUpdateCommand*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -675,6 +689,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -684,9 +699,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Odbc/OdbcCommandBuilder.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Odbc.OdbcCommandBuilder.GetUpdateCommand(System.Boolean)
   commentId: M:System.Data.Odbc.OdbcCommandBuilder.GetUpdateCommand(System.Boolean)
   id: GetUpdateCommand(System.Boolean)
@@ -695,10 +707,11 @@ items:
   - csharp
   name: GetUpdateCommand(Boolean)
   nameWithType: OdbcCommandBuilder.GetUpdateCommand(Boolean)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetUpdateCommand(Boolean)
+  fullName: OdbcCommandBuilder.GetUpdateCommand(Boolean)
   type: Method
   assemblies:
   - System.Data
+  - System.Data.Odbc
   namespace: System.Data.Odbc
   summary: Gets the automatically generated <xref href="System.Data.Odbc.OdbcCommand"></xref> object required to perform updates at the data source.
   remarks: "You can use the <xref:System.Data.Odbc.OdbcCommandBuilder.GetUpdateCommand%2A> method for informational or troubleshooting purposes because it returns the <xref:System.Data.Odbc.OdbcCommand> object to be executed.  \n  \n You can also use <xref:System.Data.Odbc.OdbcCommandBuilder.GetUpdateCommand%2A> as the basis of a modified command. For example, you might call <xref:System.Data.Odbc.OdbcCommandBuilder.GetUpdateCommand%2A> and modify the <xref:System.Data.Odbc.OdbcCommand.CommandTimeout%2A> value, and then explicitly set that on the <xref:System.Data.Odbc.OdbcDataAdapter>.  \n  \n After the SQL statement is first generated, you must explicitly call <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> if it changes the statement in any way. Otherwise, the <xref:System.Data.Odbc.OdbcCommandBuilder.GetUpdateCommand%2A> still will be using information from the previous statement, which might not be correct. The SQL statements are first generated when the application calls either <xref:System.Data.Common.DbDataAdapter.Update%2A> or <xref:System.Data.Odbc.OdbcCommandBuilder.GetUpdateCommand%2A>.  \n  \n The default behavior, when generating parameter names, is to use @p1, @p2, and so on for the various parameters. Passing `true` for the `useColumnsForParameterNames` parameter lets you force the <xref:System.Data.Common.DbCommandBuilder> to generate parameters based on the column names instead. This succeeds only if the following conditions are met:  \n  \n-   The <xref:System.Data.Common.DbMetaDataColumnNames.ParameterNameMaxLength> has been specified, and its length is equal to or greater than the generated parameter name.  \n  \n-   The generated parameter name meets the criteria specified in the <xref:System.Data.Common.DbMetaDataColumnNames.ParameterNamePattern> regular expression.  \n  \n-   A <xref:System.Data.Common.DbMetaDataColumnNames.ParameterMarkerFormat> is specified."
@@ -714,6 +727,7 @@ items:
   overload: System.Data.Odbc.OdbcCommandBuilder.GetUpdateCommand*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -723,6 +737,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -732,9 +747,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Odbc/OdbcCommandBuilder.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Odbc.OdbcCommandBuilder.QuoteIdentifier(System.String)
   commentId: M:System.Data.Odbc.OdbcCommandBuilder.QuoteIdentifier(System.String)
   id: QuoteIdentifier(System.String)
@@ -743,10 +755,11 @@ items:
   - csharp
   name: QuoteIdentifier(String)
   nameWithType: OdbcCommandBuilder.QuoteIdentifier(String)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.QuoteIdentifier(String)
+  fullName: OdbcCommandBuilder.QuoteIdentifier(String)
   type: Method
   assemblies:
   - System.Data
+  - System.Data.Odbc
   namespace: System.Data.Odbc
   summary: Given an unquoted identifier in the correct catalog case, returns the correct quoted form of that identifier. This includes correctly escaping any embedded quotes in the identifier.
   syntax:
@@ -761,6 +774,7 @@ items:
   overload: System.Data.Odbc.OdbcCommandBuilder.QuoteIdentifier*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -770,6 +784,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -779,9 +794,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Odbc/OdbcCommandBuilder.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Odbc.OdbcCommandBuilder.QuoteIdentifier(System.String,System.Data.Odbc.OdbcConnection)
   commentId: M:System.Data.Odbc.OdbcCommandBuilder.QuoteIdentifier(System.String,System.Data.Odbc.OdbcConnection)
   id: QuoteIdentifier(System.String,System.Data.Odbc.OdbcConnection)
@@ -790,10 +802,11 @@ items:
   - csharp
   name: QuoteIdentifier(String, OdbcConnection)
   nameWithType: OdbcCommandBuilder.QuoteIdentifier(String, OdbcConnection)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.QuoteIdentifier(String, OdbcConnection)
+  fullName: OdbcCommandBuilder.QuoteIdentifier(String, OdbcConnection)
   type: Method
   assemblies:
   - System.Data
+  - System.Data.Odbc
   namespace: System.Data.Odbc
   summary: Given an unquoted identifier in the correct catalog case, returns the correct quoted form of that identifier. This includes correctly escaping any embedded quotes in the identifier.
   syntax:
@@ -811,6 +824,7 @@ items:
   overload: System.Data.Odbc.OdbcCommandBuilder.QuoteIdentifier*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -820,6 +834,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -829,9 +844,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Odbc/OdbcCommandBuilder.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Odbc.OdbcCommandBuilder.SetRowUpdatingHandler(System.Data.Common.DbDataAdapter)
   commentId: M:System.Data.Odbc.OdbcCommandBuilder.SetRowUpdatingHandler(System.Data.Common.DbDataAdapter)
   id: SetRowUpdatingHandler(System.Data.Common.DbDataAdapter)
@@ -840,10 +852,11 @@ items:
   - csharp
   name: SetRowUpdatingHandler(DbDataAdapter)
   nameWithType: OdbcCommandBuilder.SetRowUpdatingHandler(DbDataAdapter)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.SetRowUpdatingHandler(DbDataAdapter)
+  fullName: OdbcCommandBuilder.SetRowUpdatingHandler(DbDataAdapter)
   type: Method
   assemblies:
   - System.Data
+  - System.Data.Odbc
   namespace: System.Data.Odbc
   syntax:
     content: protected override void SetRowUpdatingHandler (System.Data.Common.DbDataAdapter adapter);
@@ -854,6 +867,7 @@ items:
   overload: System.Data.Odbc.OdbcCommandBuilder.SetRowUpdatingHandler*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -863,6 +877,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -880,10 +895,11 @@ items:
   - csharp
   name: UnquoteIdentifier(String)
   nameWithType: OdbcCommandBuilder.UnquoteIdentifier(String)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.UnquoteIdentifier(String)
+  fullName: OdbcCommandBuilder.UnquoteIdentifier(String)
   type: Method
   assemblies:
   - System.Data
+  - System.Data.Odbc
   namespace: System.Data.Odbc
   summary: Given a quoted identifier, returns the correct unquoted form of that identifier, including correctly unescaping any embedded quotes in the identifier.
   syntax:
@@ -898,6 +914,7 @@ items:
   overload: System.Data.Odbc.OdbcCommandBuilder.UnquoteIdentifier*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -907,6 +924,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -916,9 +934,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Odbc/OdbcCommandBuilder.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Odbc.OdbcCommandBuilder.UnquoteIdentifier(System.String,System.Data.Odbc.OdbcConnection)
   commentId: M:System.Data.Odbc.OdbcCommandBuilder.UnquoteIdentifier(System.String,System.Data.Odbc.OdbcConnection)
   id: UnquoteIdentifier(System.String,System.Data.Odbc.OdbcConnection)
@@ -927,10 +942,11 @@ items:
   - csharp
   name: UnquoteIdentifier(String, OdbcConnection)
   nameWithType: OdbcCommandBuilder.UnquoteIdentifier(String, OdbcConnection)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.UnquoteIdentifier(String, OdbcConnection)
+  fullName: OdbcCommandBuilder.UnquoteIdentifier(String, OdbcConnection)
   type: Method
   assemblies:
   - System.Data
+  - System.Data.Odbc
   namespace: System.Data.Odbc
   summary: Given a quoted identifier, returns the correct unquoted form of that identifier, including correctly unescaping any embedded quotes in the identifier.
   syntax:
@@ -948,6 +964,7 @@ items:
   overload: System.Data.Odbc.OdbcCommandBuilder.UnquoteIdentifier*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -957,6 +974,7 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -966,9 +984,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Odbc/OdbcCommandBuilder.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 references:
 - uid: System.Data.Common.DbCommandBuilder
   parent: System.Data.Common
@@ -987,13 +1002,13 @@ references:
   isExternal: false
   name: OdbcCommandBuilder()
   nameWithType: OdbcCommandBuilder.OdbcCommandBuilder()
-  fullName: System.Data.Odbc.OdbcCommandBuilder.OdbcCommandBuilder()
+  fullName: OdbcCommandBuilder.OdbcCommandBuilder()
 - uid: System.Data.Odbc.OdbcCommandBuilder.#ctor(System.Data.Odbc.OdbcDataAdapter)
   parent: System.Data.Odbc.OdbcCommandBuilder
   isExternal: false
   name: OdbcCommandBuilder(OdbcDataAdapter)
   nameWithType: OdbcCommandBuilder.OdbcCommandBuilder(OdbcDataAdapter)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.OdbcCommandBuilder(OdbcDataAdapter)
+  fullName: OdbcCommandBuilder.OdbcCommandBuilder(OdbcDataAdapter)
 - uid: System.Data.Odbc.OdbcDataAdapter
   parent: System.Data.Odbc
   isExternal: false
@@ -1005,7 +1020,7 @@ references:
   isExternal: false
   name: ApplyParameterInfo(DbParameter, DataRow, StatementType, Boolean)
   nameWithType: OdbcCommandBuilder.ApplyParameterInfo(DbParameter, DataRow, StatementType, Boolean)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.ApplyParameterInfo(DbParameter, DataRow, StatementType, Boolean)
+  fullName: OdbcCommandBuilder.ApplyParameterInfo(DbParameter, DataRow, StatementType, Boolean)
 - uid: System.Data.Common.DbParameter
   parent: System.Data.Common
   isExternal: false
@@ -1035,13 +1050,13 @@ references:
   isExternal: false
   name: DataAdapter
   nameWithType: OdbcCommandBuilder.DataAdapter
-  fullName: System.Data.Odbc.OdbcCommandBuilder.DataAdapter
+  fullName: OdbcCommandBuilder.DataAdapter
 - uid: System.Data.Odbc.OdbcCommandBuilder.DeriveParameters(System.Data.Odbc.OdbcCommand)
   parent: System.Data.Odbc.OdbcCommandBuilder
   isExternal: false
   name: DeriveParameters(OdbcCommand)
   nameWithType: OdbcCommandBuilder.DeriveParameters(OdbcCommand)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.DeriveParameters(OdbcCommand)
+  fullName: OdbcCommandBuilder.DeriveParameters(OdbcCommand)
 - uid: System.Data.Odbc.OdbcCommand
   parent: System.Data.Odbc
   isExternal: false
@@ -1053,31 +1068,31 @@ references:
   isExternal: false
   name: GetDeleteCommand()
   nameWithType: OdbcCommandBuilder.GetDeleteCommand()
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand()
+  fullName: OdbcCommandBuilder.GetDeleteCommand()
 - uid: System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand(System.Boolean)
   parent: System.Data.Odbc.OdbcCommandBuilder
   isExternal: false
   name: GetDeleteCommand(Boolean)
   nameWithType: OdbcCommandBuilder.GetDeleteCommand(Boolean)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand(Boolean)
+  fullName: OdbcCommandBuilder.GetDeleteCommand(Boolean)
 - uid: System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand
   parent: System.Data.Odbc.OdbcCommandBuilder
   isExternal: false
   name: GetInsertCommand()
   nameWithType: OdbcCommandBuilder.GetInsertCommand()
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand()
+  fullName: OdbcCommandBuilder.GetInsertCommand()
 - uid: System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand(System.Boolean)
   parent: System.Data.Odbc.OdbcCommandBuilder
   isExternal: false
   name: GetInsertCommand(Boolean)
   nameWithType: OdbcCommandBuilder.GetInsertCommand(Boolean)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand(Boolean)
+  fullName: OdbcCommandBuilder.GetInsertCommand(Boolean)
 - uid: System.Data.Odbc.OdbcCommandBuilder.GetParameterName(System.String)
   parent: System.Data.Odbc.OdbcCommandBuilder
   isExternal: false
   name: GetParameterName(String)
   nameWithType: OdbcCommandBuilder.GetParameterName(String)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetParameterName(String)
+  fullName: OdbcCommandBuilder.GetParameterName(String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -1089,7 +1104,7 @@ references:
   isExternal: false
   name: GetParameterName(Int32)
   nameWithType: OdbcCommandBuilder.GetParameterName(Int32)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetParameterName(Int32)
+  fullName: OdbcCommandBuilder.GetParameterName(Int32)
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -1101,31 +1116,31 @@ references:
   isExternal: false
   name: GetParameterPlaceholder(Int32)
   nameWithType: OdbcCommandBuilder.GetParameterPlaceholder(Int32)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetParameterPlaceholder(Int32)
+  fullName: OdbcCommandBuilder.GetParameterPlaceholder(Int32)
 - uid: System.Data.Odbc.OdbcCommandBuilder.GetUpdateCommand
   parent: System.Data.Odbc.OdbcCommandBuilder
   isExternal: false
   name: GetUpdateCommand()
   nameWithType: OdbcCommandBuilder.GetUpdateCommand()
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetUpdateCommand()
+  fullName: OdbcCommandBuilder.GetUpdateCommand()
 - uid: System.Data.Odbc.OdbcCommandBuilder.GetUpdateCommand(System.Boolean)
   parent: System.Data.Odbc.OdbcCommandBuilder
   isExternal: false
   name: GetUpdateCommand(Boolean)
   nameWithType: OdbcCommandBuilder.GetUpdateCommand(Boolean)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetUpdateCommand(Boolean)
+  fullName: OdbcCommandBuilder.GetUpdateCommand(Boolean)
 - uid: System.Data.Odbc.OdbcCommandBuilder.QuoteIdentifier(System.String)
   parent: System.Data.Odbc.OdbcCommandBuilder
   isExternal: false
   name: QuoteIdentifier(String)
   nameWithType: OdbcCommandBuilder.QuoteIdentifier(String)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.QuoteIdentifier(String)
+  fullName: OdbcCommandBuilder.QuoteIdentifier(String)
 - uid: System.Data.Odbc.OdbcCommandBuilder.QuoteIdentifier(System.String,System.Data.Odbc.OdbcConnection)
   parent: System.Data.Odbc.OdbcCommandBuilder
   isExternal: false
   name: QuoteIdentifier(String, OdbcConnection)
   nameWithType: OdbcCommandBuilder.QuoteIdentifier(String, OdbcConnection)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.QuoteIdentifier(String, OdbcConnection)
+  fullName: OdbcCommandBuilder.QuoteIdentifier(String, OdbcConnection)
 - uid: System.Data.Odbc.OdbcConnection
   parent: System.Data.Odbc
   isExternal: false
@@ -1137,7 +1152,7 @@ references:
   isExternal: false
   name: SetRowUpdatingHandler(DbDataAdapter)
   nameWithType: OdbcCommandBuilder.SetRowUpdatingHandler(DbDataAdapter)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.SetRowUpdatingHandler(DbDataAdapter)
+  fullName: OdbcCommandBuilder.SetRowUpdatingHandler(DbDataAdapter)
 - uid: System.Data.Common.DbDataAdapter
   parent: System.Data.Common
   isExternal: false
@@ -1149,20 +1164,21 @@ references:
   isExternal: false
   name: UnquoteIdentifier(String)
   nameWithType: OdbcCommandBuilder.UnquoteIdentifier(String)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.UnquoteIdentifier(String)
+  fullName: OdbcCommandBuilder.UnquoteIdentifier(String)
 - uid: System.Data.Odbc.OdbcCommandBuilder.UnquoteIdentifier(System.String,System.Data.Odbc.OdbcConnection)
   parent: System.Data.Odbc.OdbcCommandBuilder
   isExternal: false
   name: UnquoteIdentifier(String, OdbcConnection)
   nameWithType: OdbcCommandBuilder.UnquoteIdentifier(String, OdbcConnection)
-  fullName: System.Data.Odbc.OdbcCommandBuilder.UnquoteIdentifier(String, OdbcConnection)
-- uid: System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand*
+  fullName: OdbcCommandBuilder.UnquoteIdentifier(String, OdbcConnection)
+- uid: System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand*
   parent: System.Data.Odbc.OdbcCommandBuilder
   isExternal: false
-  name: GetInsertCommand
-  nameWithType: OdbcCommandBuilder.GetInsertCommand
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand
+  name: GetDeleteCommand
+  nameWithType: OdbcCommandBuilder.GetDeleteCommand
+  fullName: OdbcCommandBuilder.GetDeleteCommand
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1172,13 +1188,14 @@ references:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Odbc/OdbcCommandBuilder.xml
-- uid: System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand*
+- uid: System.Data.Odbc.OdbcCommandBuilder.GetInsertCommand*
   parent: System.Data.Odbc.OdbcCommandBuilder
   isExternal: false
-  name: GetDeleteCommand
-  nameWithType: OdbcCommandBuilder.GetDeleteCommand
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetDeleteCommand
+  name: GetInsertCommand
+  nameWithType: OdbcCommandBuilder.GetInsertCommand
+  fullName: OdbcCommandBuilder.GetInsertCommand
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1193,8 +1210,9 @@ references:
   isExternal: false
   name: GetUpdateCommand
   nameWithType: OdbcCommandBuilder.GetUpdateCommand
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetUpdateCommand
+  fullName: OdbcCommandBuilder.GetUpdateCommand
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1209,8 +1227,9 @@ references:
   isExternal: false
   name: OdbcCommandBuilder
   nameWithType: OdbcCommandBuilder.OdbcCommandBuilder
-  fullName: System.Data.Odbc.OdbcCommandBuilder.OdbcCommandBuilder
+  fullName: OdbcCommandBuilder.OdbcCommandBuilder
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1225,8 +1244,9 @@ references:
   isExternal: false
   name: ApplyParameterInfo
   nameWithType: OdbcCommandBuilder.ApplyParameterInfo
-  fullName: System.Data.Odbc.OdbcCommandBuilder.ApplyParameterInfo
+  fullName: OdbcCommandBuilder.ApplyParameterInfo
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1241,8 +1261,9 @@ references:
   isExternal: false
   name: DataAdapter
   nameWithType: OdbcCommandBuilder.DataAdapter
-  fullName: System.Data.Odbc.OdbcCommandBuilder.DataAdapter
+  fullName: OdbcCommandBuilder.DataAdapter
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1257,8 +1278,9 @@ references:
   isExternal: false
   name: DeriveParameters
   nameWithType: OdbcCommandBuilder.DeriveParameters
-  fullName: System.Data.Odbc.OdbcCommandBuilder.DeriveParameters
+  fullName: OdbcCommandBuilder.DeriveParameters
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1273,8 +1295,9 @@ references:
   isExternal: false
   name: GetParameterName
   nameWithType: OdbcCommandBuilder.GetParameterName
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetParameterName
+  fullName: OdbcCommandBuilder.GetParameterName
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1289,8 +1312,9 @@ references:
   isExternal: false
   name: GetParameterPlaceholder
   nameWithType: OdbcCommandBuilder.GetParameterPlaceholder
-  fullName: System.Data.Odbc.OdbcCommandBuilder.GetParameterPlaceholder
+  fullName: OdbcCommandBuilder.GetParameterPlaceholder
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1305,8 +1329,9 @@ references:
   isExternal: false
   name: QuoteIdentifier
   nameWithType: OdbcCommandBuilder.QuoteIdentifier
-  fullName: System.Data.Odbc.OdbcCommandBuilder.QuoteIdentifier
+  fullName: OdbcCommandBuilder.QuoteIdentifier
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1321,8 +1346,9 @@ references:
   isExternal: false
   name: SetRowUpdatingHandler
   nameWithType: OdbcCommandBuilder.SetRowUpdatingHandler
-  fullName: System.Data.Odbc.OdbcCommandBuilder.SetRowUpdatingHandler
+  fullName: OdbcCommandBuilder.SetRowUpdatingHandler
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1337,8 +1363,9 @@ references:
   isExternal: false
   name: UnquoteIdentifier
   nameWithType: OdbcCommandBuilder.UnquoteIdentifier
-  fullName: System.Data.Odbc.OdbcCommandBuilder.UnquoteIdentifier
+  fullName: OdbcCommandBuilder.UnquoteIdentifier
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

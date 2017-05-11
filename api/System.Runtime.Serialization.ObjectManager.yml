@@ -26,6 +26,7 @@ items:
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization
   summary: Keeps track of objects as they are deserialized.
   remarks: "During deserialization, the <xref:System.Runtime.Serialization.Formatter> queries the <xref:System.Runtime.Serialization.ObjectManager> to determine whether a reference to an object in the serialized stream refers to an object that has already been deserialized (a backward reference), or to an object that has not yet been deserialized (a forward reference). If the reference in the serialized stream is a forward reference, then the <xref:System.Runtime.Serialization.Formatter> can register a fixup with the <xref:System.Runtime.Serialization.ObjectManager>. If the reference in the serialized stream is a backward reference, the <xref:System.Runtime.Serialization.Formatter> immediately completes the reference. Fixup refers to the process of finalizing object references not already completed during the object deserialization process. After the required object has been deserialized, the <xref:System.Runtime.Serialization.ObjectManager> will complete the reference.  \n  \n The <xref:System.Runtime.Serialization.ObjectManager> follows a set of rules that dictate the fixup order. All objects that implement <xref:System.Runtime.Serialization.ISerializable> or have a <xref:System.Runtime.Serialization.ISerializationSurrogate> can expect to have all the objects that they transmitted through <xref:System.Runtime.Serialization.SerializationInfo> available when the object tree is deserialized. However, a parent object cannot presume that all its child objects will be fully completed when it is fully deserialized. All child objects will be present but not all the grandchild objects will necessarily be present. If an object needs to take certain actions that depend on executing code on its child objects, it can delay these actions, implement the <xref:System.Runtime.Serialization.IDeserializationCallback> interface, and execute the code only when it is called back on this interface."
@@ -50,6 +51,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -62,6 +64,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -74,7 +77,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization/ObjectManager.xml
-  manager: ghogen
 - uid: System.Runtime.Serialization.ObjectManager.#ctor(System.Runtime.Serialization.ISurrogateSelector,System.Runtime.Serialization.StreamingContext)
   commentId: M:System.Runtime.Serialization.ObjectManager.#ctor(System.Runtime.Serialization.ISurrogateSelector,System.Runtime.Serialization.StreamingContext)
   id: '#ctor(System.Runtime.Serialization.ISurrogateSelector,System.Runtime.Serialization.StreamingContext)'
@@ -83,11 +85,12 @@ items:
   - csharp
   name: ObjectManager(ISurrogateSelector, StreamingContext)
   nameWithType: ObjectManager.ObjectManager(ISurrogateSelector, StreamingContext)
-  fullName: System.Runtime.Serialization.ObjectManager.ObjectManager(ISurrogateSelector, StreamingContext)
+  fullName: ObjectManager.ObjectManager(ISurrogateSelector, StreamingContext)
   type: Constructor
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization
   summary: Initializes a new instance of the <xref href="System.Runtime.Serialization.ObjectManager"></xref> class.
   syntax:
@@ -106,6 +109,7 @@ items:
     description: The caller does not have the required permission.
   attributes: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -118,6 +122,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -130,7 +135,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization/ObjectManager.xml
-  manager: ghogen
 - uid: System.Runtime.Serialization.ObjectManager.DoFixups
   commentId: M:System.Runtime.Serialization.ObjectManager.DoFixups
   id: DoFixups
@@ -139,11 +143,12 @@ items:
   - csharp
   name: DoFixups()
   nameWithType: ObjectManager.DoFixups()
-  fullName: System.Runtime.Serialization.ObjectManager.DoFixups()
+  fullName: ObjectManager.DoFixups()
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization
   summary: Performs all the recorded fixups.
   remarks: The fixups are carried out by any appropriate surrogate, the object itself (if it implements <xref:System.Runtime.Serialization.ISerializable>), or the default implementation.
@@ -157,6 +162,7 @@ items:
     description: A fixup was not successfully completed.
   attributes: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -169,6 +175,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -181,7 +188,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization/ObjectManager.xml
-  manager: ghogen
 - uid: System.Runtime.Serialization.ObjectManager.GetObject(System.Int64)
   commentId: M:System.Runtime.Serialization.ObjectManager.GetObject(System.Int64)
   id: GetObject(System.Int64)
@@ -190,11 +196,12 @@ items:
   - csharp
   name: GetObject(Int64)
   nameWithType: ObjectManager.GetObject(Int64)
-  fullName: System.Runtime.Serialization.ObjectManager.GetObject(Int64)
+  fullName: ObjectManager.GetObject(Int64)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization
   summary: Returns the object with the specified object ID.
   remarks: An object can be registered and issued an object ID with a call to the <xref:System.Runtime.Serialization.ObjectManager.RegisterObject%2A> method.
@@ -213,6 +220,7 @@ items:
     commentId: T:System.ArgumentOutOfRangeException
     description: The <code>objectID</code> parameter is less than or equal to zero.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -225,6 +233,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -237,7 +246,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization/ObjectManager.xml
-  manager: ghogen
 - uid: System.Runtime.Serialization.ObjectManager.RaiseDeserializationEvent
   commentId: M:System.Runtime.Serialization.ObjectManager.RaiseDeserializationEvent
   id: RaiseDeserializationEvent
@@ -246,11 +254,12 @@ items:
   - csharp
   name: RaiseDeserializationEvent()
   nameWithType: ObjectManager.RaiseDeserializationEvent()
-  fullName: System.Runtime.Serialization.ObjectManager.RaiseDeserializationEvent()
+  fullName: ObjectManager.RaiseDeserializationEvent()
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization
   summary: Raises the deserialization event to any registered object that implements <xref href="System.Runtime.Serialization.IDeserializationCallback"></xref>.
   syntax:
@@ -259,6 +268,7 @@ items:
   overload: System.Runtime.Serialization.ObjectManager.RaiseDeserializationEvent*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -271,6 +281,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -283,7 +294,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization/ObjectManager.xml
-  manager: ghogen
 - uid: System.Runtime.Serialization.ObjectManager.RaiseOnDeserializingEvent(System.Object)
   commentId: M:System.Runtime.Serialization.ObjectManager.RaiseOnDeserializingEvent(System.Object)
   id: RaiseOnDeserializingEvent(System.Object)
@@ -292,11 +302,12 @@ items:
   - csharp
   name: RaiseOnDeserializingEvent(Object)
   nameWithType: ObjectManager.RaiseOnDeserializingEvent(Object)
-  fullName: System.Runtime.Serialization.ObjectManager.RaiseOnDeserializingEvent(Object)
+  fullName: ObjectManager.RaiseOnDeserializingEvent(Object)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization
   summary: Invokes the method marked with the <xref href="System.Runtime.Serialization.OnDeserializingAttribute"></xref>.
   syntax:
@@ -308,6 +319,7 @@ items:
   overload: System.Runtime.Serialization.ObjectManager.RaiseOnDeserializingEvent*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -320,6 +332,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -332,7 +345,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization/ObjectManager.xml
-  manager: ghogen
 - uid: System.Runtime.Serialization.ObjectManager.RecordArrayElementFixup(System.Int64,System.Int32,System.Int64)
   commentId: M:System.Runtime.Serialization.ObjectManager.RecordArrayElementFixup(System.Int64,System.Int32,System.Int64)
   id: RecordArrayElementFixup(System.Int64,System.Int32,System.Int64)
@@ -341,11 +353,12 @@ items:
   - csharp
   name: RecordArrayElementFixup(Int64, Int32, Int64)
   nameWithType: ObjectManager.RecordArrayElementFixup(Int64, Int32, Int64)
-  fullName: System.Runtime.Serialization.ObjectManager.RecordArrayElementFixup(Int64, Int32, Int64)
+  fullName: ObjectManager.RecordArrayElementFixup(Int64, Int32, Int64)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization
   summary: Records a fixup for one element in an array.
   remarks: The fixup is for a specified element of a specified array. The value used during the fixup process is provided in the `objectRequired` parameter.
@@ -370,6 +383,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: The <code>index</code> parameter is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -382,6 +396,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -394,7 +409,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization/ObjectManager.xml
-  manager: ghogen
 - uid: System.Runtime.Serialization.ObjectManager.RecordArrayElementFixup(System.Int64,System.Int32[],System.Int64)
   commentId: M:System.Runtime.Serialization.ObjectManager.RecordArrayElementFixup(System.Int64,System.Int32[],System.Int64)
   id: RecordArrayElementFixup(System.Int64,System.Int32[],System.Int64)
@@ -403,11 +417,12 @@ items:
   - csharp
   name: RecordArrayElementFixup(Int64, Int32[], Int64)
   nameWithType: ObjectManager.RecordArrayElementFixup(Int64, Int32[], Int64)
-  fullName: System.Runtime.Serialization.ObjectManager.RecordArrayElementFixup(Int64, Int32[], Int64)
+  fullName: ObjectManager.RecordArrayElementFixup(Int64, Int32[], Int64)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization
   summary: Records fixups for the specified elements in an array, to be executed later.
   remarks: The fixup is for specified elements of a specified array. The value used during the fixup process is provided in the `objectRequired` parameter.
@@ -432,6 +447,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: The <code>indices</code> parameter is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -444,6 +460,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -456,7 +473,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization/ObjectManager.xml
-  manager: ghogen
 - uid: System.Runtime.Serialization.ObjectManager.RecordDelayedFixup(System.Int64,System.String,System.Int64)
   commentId: M:System.Runtime.Serialization.ObjectManager.RecordDelayedFixup(System.Int64,System.String,System.Int64)
   id: RecordDelayedFixup(System.Int64,System.String,System.Int64)
@@ -465,11 +481,12 @@ items:
   - csharp
   name: RecordDelayedFixup(Int64, String, Int64)
   nameWithType: ObjectManager.RecordDelayedFixup(Int64, String, Int64)
-  fullName: System.Runtime.Serialization.ObjectManager.RecordDelayedFixup(Int64, String, Int64)
+  fullName: ObjectManager.RecordDelayedFixup(Int64, String, Int64)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization
   summary: Records a fixup for an object member, to be executed later.
   remarks: The fixup is for a specified member of a specified object. The value to be used during the fixup process is provided as the `objectRequired` argument.
@@ -494,6 +511,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: The <code>memberName</code> parameter is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -506,6 +524,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -518,7 +537,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization/ObjectManager.xml
-  manager: ghogen
 - uid: System.Runtime.Serialization.ObjectManager.RecordFixup(System.Int64,System.Reflection.MemberInfo,System.Int64)
   commentId: M:System.Runtime.Serialization.ObjectManager.RecordFixup(System.Int64,System.Reflection.MemberInfo,System.Int64)
   id: RecordFixup(System.Int64,System.Reflection.MemberInfo,System.Int64)
@@ -527,11 +545,12 @@ items:
   - csharp
   name: RecordFixup(Int64, MemberInfo, Int64)
   nameWithType: ObjectManager.RecordFixup(Int64, MemberInfo, Int64)
-  fullName: System.Runtime.Serialization.ObjectManager.RecordFixup(Int64, MemberInfo, Int64)
+  fullName: ObjectManager.RecordFixup(Int64, MemberInfo, Int64)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization
   summary: Records a fixup for a member of an object, to be executed later.
   remarks: The fixup is for a specified member of a specified object. The value to be used during the fixup process is provided as the `objectRequired` parameter.
@@ -556,6 +575,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: The <code>member</code> parameter is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -568,6 +588,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -580,7 +601,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization/ObjectManager.xml
-  manager: ghogen
 - uid: System.Runtime.Serialization.ObjectManager.RegisterObject(System.Object,System.Int64)
   commentId: M:System.Runtime.Serialization.ObjectManager.RegisterObject(System.Object,System.Int64)
   id: RegisterObject(System.Object,System.Int64)
@@ -589,11 +609,12 @@ items:
   - csharp
   name: RegisterObject(Object, Int64)
   nameWithType: ObjectManager.RegisterObject(Object, Int64)
-  fullName: System.Runtime.Serialization.ObjectManager.RegisterObject(Object, Int64)
+  fullName: ObjectManager.RegisterObject(Object, Int64)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization
   summary: Registers an object as it is deserialized, associating it with <code>objectID</code>.
   remarks: <xref:System.Runtime.Serialization.ObjectManager> retains information about both the object and its ID. Later during deserialization, <xref:System.Runtime.Serialization.ObjectManager.GetObject%2A> can be used to determine whether a particular object ID has already been deserialized, or whether it is a forward reference to an object that has not yet been deserialized.
@@ -623,6 +644,7 @@ items:
   attributes:
   - type: System.Security.SecurityCriticalAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -635,6 +657,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -647,7 +670,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization/ObjectManager.xml
-  manager: ghogen
 - uid: System.Runtime.Serialization.ObjectManager.RegisterObject(System.Object,System.Int64,System.Runtime.Serialization.SerializationInfo)
   commentId: M:System.Runtime.Serialization.ObjectManager.RegisterObject(System.Object,System.Int64,System.Runtime.Serialization.SerializationInfo)
   id: RegisterObject(System.Object,System.Int64,System.Runtime.Serialization.SerializationInfo)
@@ -656,11 +678,12 @@ items:
   - csharp
   name: RegisterObject(Object, Int64, SerializationInfo)
   nameWithType: ObjectManager.RegisterObject(Object, Int64, SerializationInfo)
-  fullName: System.Runtime.Serialization.ObjectManager.RegisterObject(Object, Int64, SerializationInfo)
+  fullName: ObjectManager.RegisterObject(Object, Int64, SerializationInfo)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization
   summary: Registers an object as it is deserialized, associating it with <code>objectID</code>, and recording the <xref href="System.Runtime.Serialization.SerializationInfo"></xref> used with it.
   remarks: <xref:System.Runtime.Serialization.ObjectManager> retains the information about both the object and its ID. Later during deserialization, you can use <xref:System.Runtime.Serialization.ObjectManager.GetObject%2A> to discover whether a particular object ID has already been deserialized, or if it is a forward reference to an object that has not yet been deserialized.
@@ -693,6 +716,7 @@ items:
   attributes:
   - type: System.Security.SecurityCriticalAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -705,6 +729,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -717,7 +742,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization/ObjectManager.xml
-  manager: ghogen
 - uid: System.Runtime.Serialization.ObjectManager.RegisterObject(System.Object,System.Int64,System.Runtime.Serialization.SerializationInfo,System.Int64,System.Reflection.MemberInfo)
   commentId: M:System.Runtime.Serialization.ObjectManager.RegisterObject(System.Object,System.Int64,System.Runtime.Serialization.SerializationInfo,System.Int64,System.Reflection.MemberInfo)
   id: RegisterObject(System.Object,System.Int64,System.Runtime.Serialization.SerializationInfo,System.Int64,System.Reflection.MemberInfo)
@@ -726,11 +750,12 @@ items:
   - csharp
   name: RegisterObject(Object, Int64, SerializationInfo, Int64, MemberInfo)
   nameWithType: ObjectManager.RegisterObject(Object, Int64, SerializationInfo, Int64, MemberInfo)
-  fullName: System.Runtime.Serialization.ObjectManager.RegisterObject(Object, Int64, SerializationInfo, Int64, MemberInfo)
+  fullName: ObjectManager.RegisterObject(Object, Int64, SerializationInfo, Int64, MemberInfo)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization
   summary: Registers a member of an object as it is deserialized, associating it with <code>objectID</code>, and recording the <xref href="System.Runtime.Serialization.SerializationInfo"></xref>.
   remarks: "You need to provide the `member` and `idOfContainingObj` parameters if `obj` is a <xref:System.ValueType> because of the way fixups are performed on <xref:System.ValueType> objects. The space to store the information for a <xref:System.ValueType> is allocated inline with its containing object. However, when the <xref:System.ValueType> is boxed to be registered with the <xref:System.Runtime.Serialization.ObjectManager>, it loses the connection with its containing object. To guarantee that fixups occur in the instance of the <xref:System.ValueType> stored in the containing object and not in the boxed instance, the <xref:System.Runtime.Serialization.ObjectManager> retains some additional information.  \n  \n <xref:System.Runtime.Serialization.ObjectManager> retains information about both the object and its ID. Later during deserialization, <xref:System.Runtime.Serialization.ObjectManager.GetObject%2A> can be used to discover whether a particular object ID has already been deserialized, or whether it is a forward reference to an object not yet deserialized."
@@ -769,6 +794,7 @@ items:
   attributes:
   - type: System.Security.SecurityCriticalAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -781,6 +807,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -793,7 +820,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization/ObjectManager.xml
-  manager: ghogen
 - uid: System.Runtime.Serialization.ObjectManager.RegisterObject(System.Object,System.Int64,System.Runtime.Serialization.SerializationInfo,System.Int64,System.Reflection.MemberInfo,System.Int32[])
   commentId: M:System.Runtime.Serialization.ObjectManager.RegisterObject(System.Object,System.Int64,System.Runtime.Serialization.SerializationInfo,System.Int64,System.Reflection.MemberInfo,System.Int32[])
   id: RegisterObject(System.Object,System.Int64,System.Runtime.Serialization.SerializationInfo,System.Int64,System.Reflection.MemberInfo,System.Int32[])
@@ -802,11 +828,12 @@ items:
   - csharp
   name: RegisterObject(Object, Int64, SerializationInfo, Int64, MemberInfo, Int32[])
   nameWithType: ObjectManager.RegisterObject(Object, Int64, SerializationInfo, Int64, MemberInfo, Int32[])
-  fullName: System.Runtime.Serialization.ObjectManager.RegisterObject(Object, Int64, SerializationInfo, Int64, MemberInfo, Int32[])
+  fullName: ObjectManager.RegisterObject(Object, Int64, SerializationInfo, Int64, MemberInfo, Int32[])
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Serialization.Formatters
   namespace: System.Runtime.Serialization
   summary: Registers a member of an array contained in an object while it is deserialized, associating it with <code>objectID</code>, and recording the <xref href="System.Runtime.Serialization.SerializationInfo"></xref>.
   remarks: "You need to provide the `member` and `idOfContainingObj` parameters if `obj` is a <xref:System.ValueType> because of the way fixups are performed on <xref:System.ValueType> objects. The space to store the information for a <xref:System.ValueType> is allocated inline with its containing object. However, when the <xref:System.ValueType> is boxed to be registered with the <xref:System.Runtime.Serialization.ObjectManager>, it loses the connection with its containing object. To guarantee that fixups occur in the instance of the <xref:System.ValueType> stored in the containing object and not in the boxed instance, the <xref:System.Runtime.Serialization.ObjectManager> retains some additional information.  \n  \n <xref:System.Runtime.Serialization.ObjectManager> retains information about both the object and its ID. Later during deserialization, <xref:System.Runtime.Serialization.ObjectManager.GetObject%2A> can be used to discover whether a particular object ID has already been deserialized, or whether it is a forward reference to an object not yet deserialized."
@@ -848,6 +875,7 @@ items:
   attributes:
   - type: System.Security.SecurityCriticalAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -860,6 +888,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -872,7 +901,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.Serialization/ObjectManager.xml
-  manager: ghogen
 references:
 - uid: System.Object
   parent: System
@@ -909,7 +937,7 @@ references:
   isExternal: false
   name: ObjectManager(ISurrogateSelector, StreamingContext)
   nameWithType: ObjectManager.ObjectManager(ISurrogateSelector, StreamingContext)
-  fullName: System.Runtime.Serialization.ObjectManager.ObjectManager(ISurrogateSelector, StreamingContext)
+  fullName: ObjectManager.ObjectManager(ISurrogateSelector, StreamingContext)
 - uid: System.Runtime.Serialization.ISurrogateSelector
   parent: System.Runtime.Serialization
   isExternal: false
@@ -927,13 +955,13 @@ references:
   isExternal: false
   name: DoFixups()
   nameWithType: ObjectManager.DoFixups()
-  fullName: System.Runtime.Serialization.ObjectManager.DoFixups()
+  fullName: ObjectManager.DoFixups()
 - uid: System.Runtime.Serialization.ObjectManager.GetObject(System.Int64)
   parent: System.Runtime.Serialization.ObjectManager
   isExternal: false
   name: GetObject(Int64)
   nameWithType: ObjectManager.GetObject(Int64)
-  fullName: System.Runtime.Serialization.ObjectManager.GetObject(Int64)
+  fullName: ObjectManager.GetObject(Int64)
 - uid: System.Int64
   parent: System
   isExternal: false
@@ -945,19 +973,19 @@ references:
   isExternal: false
   name: RaiseDeserializationEvent()
   nameWithType: ObjectManager.RaiseDeserializationEvent()
-  fullName: System.Runtime.Serialization.ObjectManager.RaiseDeserializationEvent()
+  fullName: ObjectManager.RaiseDeserializationEvent()
 - uid: System.Runtime.Serialization.ObjectManager.RaiseOnDeserializingEvent(System.Object)
   parent: System.Runtime.Serialization.ObjectManager
   isExternal: false
   name: RaiseOnDeserializingEvent(Object)
   nameWithType: ObjectManager.RaiseOnDeserializingEvent(Object)
-  fullName: System.Runtime.Serialization.ObjectManager.RaiseOnDeserializingEvent(Object)
+  fullName: ObjectManager.RaiseOnDeserializingEvent(Object)
 - uid: System.Runtime.Serialization.ObjectManager.RecordArrayElementFixup(System.Int64,System.Int32,System.Int64)
   parent: System.Runtime.Serialization.ObjectManager
   isExternal: false
   name: RecordArrayElementFixup(Int64, Int32, Int64)
   nameWithType: ObjectManager.RecordArrayElementFixup(Int64, Int32, Int64)
-  fullName: System.Runtime.Serialization.ObjectManager.RecordArrayElementFixup(Int64, Int32, Int64)
+  fullName: ObjectManager.RecordArrayElementFixup(Int64, Int32, Int64)
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -969,7 +997,7 @@ references:
   isExternal: false
   name: RecordArrayElementFixup(Int64, Int32[], Int64)
   nameWithType: ObjectManager.RecordArrayElementFixup(Int64, Int32[], Int64)
-  fullName: System.Runtime.Serialization.ObjectManager.RecordArrayElementFixup(Int64, Int32[], Int64)
+  fullName: ObjectManager.RecordArrayElementFixup(Int64, Int32[], Int64)
 - uid: System.Int32[]
   parent: System
   isExternal: false
@@ -989,7 +1017,7 @@ references:
   isExternal: false
   name: RecordDelayedFixup(Int64, String, Int64)
   nameWithType: ObjectManager.RecordDelayedFixup(Int64, String, Int64)
-  fullName: System.Runtime.Serialization.ObjectManager.RecordDelayedFixup(Int64, String, Int64)
+  fullName: ObjectManager.RecordDelayedFixup(Int64, String, Int64)
 - uid: System.String
   parent: System
   isExternal: false
@@ -1001,7 +1029,7 @@ references:
   isExternal: false
   name: RecordFixup(Int64, MemberInfo, Int64)
   nameWithType: ObjectManager.RecordFixup(Int64, MemberInfo, Int64)
-  fullName: System.Runtime.Serialization.ObjectManager.RecordFixup(Int64, MemberInfo, Int64)
+  fullName: ObjectManager.RecordFixup(Int64, MemberInfo, Int64)
 - uid: System.Reflection.MemberInfo
   parent: System.Reflection
   isExternal: false
@@ -1013,13 +1041,13 @@ references:
   isExternal: false
   name: RegisterObject(Object, Int64)
   nameWithType: ObjectManager.RegisterObject(Object, Int64)
-  fullName: System.Runtime.Serialization.ObjectManager.RegisterObject(Object, Int64)
+  fullName: ObjectManager.RegisterObject(Object, Int64)
 - uid: System.Runtime.Serialization.ObjectManager.RegisterObject(System.Object,System.Int64,System.Runtime.Serialization.SerializationInfo)
   parent: System.Runtime.Serialization.ObjectManager
   isExternal: false
   name: RegisterObject(Object, Int64, SerializationInfo)
   nameWithType: ObjectManager.RegisterObject(Object, Int64, SerializationInfo)
-  fullName: System.Runtime.Serialization.ObjectManager.RegisterObject(Object, Int64, SerializationInfo)
+  fullName: ObjectManager.RegisterObject(Object, Int64, SerializationInfo)
 - uid: System.Runtime.Serialization.SerializationInfo
   parent: System.Runtime.Serialization
   isExternal: false
@@ -1031,20 +1059,21 @@ references:
   isExternal: false
   name: RegisterObject(Object, Int64, SerializationInfo, Int64, MemberInfo)
   nameWithType: ObjectManager.RegisterObject(Object, Int64, SerializationInfo, Int64, MemberInfo)
-  fullName: System.Runtime.Serialization.ObjectManager.RegisterObject(Object, Int64, SerializationInfo, Int64, MemberInfo)
+  fullName: ObjectManager.RegisterObject(Object, Int64, SerializationInfo, Int64, MemberInfo)
 - uid: System.Runtime.Serialization.ObjectManager.RegisterObject(System.Object,System.Int64,System.Runtime.Serialization.SerializationInfo,System.Int64,System.Reflection.MemberInfo,System.Int32[])
   parent: System.Runtime.Serialization.ObjectManager
   isExternal: false
   name: RegisterObject(Object, Int64, SerializationInfo, Int64, MemberInfo, Int32[])
   nameWithType: ObjectManager.RegisterObject(Object, Int64, SerializationInfo, Int64, MemberInfo, Int32[])
-  fullName: System.Runtime.Serialization.ObjectManager.RegisterObject(Object, Int64, SerializationInfo, Int64, MemberInfo, Int32[])
+  fullName: ObjectManager.RegisterObject(Object, Int64, SerializationInfo, Int64, MemberInfo, Int32[])
 - uid: System.Runtime.Serialization.ObjectManager.#ctor*
   parent: System.Runtime.Serialization.ObjectManager
   isExternal: false
   name: ObjectManager
   nameWithType: ObjectManager.ObjectManager
-  fullName: System.Runtime.Serialization.ObjectManager.ObjectManager
+  fullName: ObjectManager.ObjectManager
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1062,8 +1091,9 @@ references:
   isExternal: false
   name: DoFixups
   nameWithType: ObjectManager.DoFixups
-  fullName: System.Runtime.Serialization.ObjectManager.DoFixups
+  fullName: ObjectManager.DoFixups
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1081,8 +1111,9 @@ references:
   isExternal: false
   name: GetObject
   nameWithType: ObjectManager.GetObject
-  fullName: System.Runtime.Serialization.ObjectManager.GetObject
+  fullName: ObjectManager.GetObject
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1100,8 +1131,9 @@ references:
   isExternal: false
   name: RaiseDeserializationEvent
   nameWithType: ObjectManager.RaiseDeserializationEvent
-  fullName: System.Runtime.Serialization.ObjectManager.RaiseDeserializationEvent
+  fullName: ObjectManager.RaiseDeserializationEvent
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1119,8 +1151,9 @@ references:
   isExternal: false
   name: RaiseOnDeserializingEvent
   nameWithType: ObjectManager.RaiseOnDeserializingEvent
-  fullName: System.Runtime.Serialization.ObjectManager.RaiseOnDeserializingEvent
+  fullName: ObjectManager.RaiseOnDeserializingEvent
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1138,8 +1171,9 @@ references:
   isExternal: false
   name: RecordArrayElementFixup
   nameWithType: ObjectManager.RecordArrayElementFixup
-  fullName: System.Runtime.Serialization.ObjectManager.RecordArrayElementFixup
+  fullName: ObjectManager.RecordArrayElementFixup
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1157,8 +1191,9 @@ references:
   isExternal: false
   name: RecordDelayedFixup
   nameWithType: ObjectManager.RecordDelayedFixup
-  fullName: System.Runtime.Serialization.ObjectManager.RecordDelayedFixup
+  fullName: ObjectManager.RecordDelayedFixup
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1176,8 +1211,9 @@ references:
   isExternal: false
   name: RecordFixup
   nameWithType: ObjectManager.RecordFixup
-  fullName: System.Runtime.Serialization.ObjectManager.RecordFixup
+  fullName: ObjectManager.RecordFixup
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1195,8 +1231,9 @@ references:
   isExternal: false
   name: RegisterObject
   nameWithType: ObjectManager.RegisterObject
-  fullName: System.Runtime.Serialization.ObjectManager.RegisterObject
+  fullName: ObjectManager.RegisterObject
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

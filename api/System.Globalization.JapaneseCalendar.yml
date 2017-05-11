@@ -38,6 +38,7 @@ items:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Represents the Japanese calendar.
   remarks: "The Japanese calendar, which is also known as the Wareki calendar, works exactly like the Gregorian calendar, except that the year and era are different.  \n  \n> [!NOTE]\n>  For information about using the <xref:System.Globalization.JapaneseCalendar> class and the other calendar classes in the .NET Framework, see [Working with Calendars](~/docs/standard/datetime/working-with-calendars.md).  \n  \n The Japanese calendar recognizes one era for every emperor's reign. The current era is the Heisei era, which began in the Gregorian calendar year 1989. The era name is typically displayed before the year. For example, the Gregorian calendar year 2001 is the Japanese calendar year Heisei 13. Note that the first year of an era is called \"Gannen.\" Therefore, the Gregorian calendar year 1989 was the Japanese calendar year Heisei Gannen.  \n  \n This class assigns numbers to the eras as follows:  \n  \n|GetEra value|Era Name|Era Abbreviation|Gregorian Dates|  \n|------------------|--------------|----------------------|---------------------|  \n|4|平成 (Heisei)|平 (H, h)|January 8, 1989 to present|  \n|3|昭和 (Showa)|昭 (S, s)|December 25, 1926 to January 7, 1989|  \n|2|大正 (Taisho)|大 (T, t)|July 30, 1912 to December 24, 1926|  \n|1|明治 (Meiji)|明 (M, m)|September 8, 1868 to July 29, 1912|  \n  \n This class handles dates from September 8 in the year Meiji 1 (in the Gregorian calendar, September 8, 1868). Although the Japanese calendar was switched from a lunar calendar to a solar calendar in the year Meiji 6 (1873 of the Gregorian calendar), this implementation is based on the solar calendar only.  \n  \n Leap years in the Japanese calendar correspond to the same leap years in the Gregorian calendar. A leap year in the Gregorian calendar is defined as a Gregorian year that is evenly divisible by four, except if it is divisible by 100. However, Gregorian years that are divisible by 400 are leap years. A common year has 365 days and a leap year has 366 days.  \n  \n The Japanese calendar has 12 months with 28 to 31 days each:  \n  \n|GetMonth value|Month|English|Days in common years|Days in leap years|  \n|--------------------|-----------|-------------|--------------------------|------------------------|  \n|1|1月 (Ichigatsu)|January|31|31|  \n|2|2月 (Nigatsu)|February|28|29|  \n|3|3月 (Sangatsu)|March|31|31|  \n|4|4月 (Shigatsu)|April|30|30|  \n|5|5月 (Gogatsu)|May|31|31|  \n|6|6月 (Rokugatsu)|June|30|30|  \n|7|7月 (Shichigatsu)|July|31|31|  \n|8|8月 (Hachigatsu)|August|31|31|  \n|9|9月 (Kugatsu)|September|30|30|  \n|10|10月 (Juugatsu)|October|31|31|  \n|11|11月 (Juuichigatsu)|November|30|30|  \n|12|12月 (Juunigatsu)|December|31|31|  \n  \n Nigatsu, which is equivalent to the Gregorian calendar month of February, has 29 days during leap years and 28 during common years.  \n  \n The date January 1, 2001 A.D. in the Gregorian calendar is equivalent to the first day of Ichigatsu in the year Heisei 13 in the Japanese calendar.  \n  \n If the application is using the <xref:System.Globalization.JapaneseCalendar> class, <xref:System.DateTime.Parse%2A?displayProperty=fullName> recognizes the era abbreviations in front of the year. The abbreviation is either the single-character case-insensitive Latin alphabet abbreviation or the single-character Kanji abbreviation.  \n  \n Each <xref:System.Globalization.CultureInfo> object supports a set of calendars. The <xref:System.Globalization.CultureInfo.Calendar%2A> property returns the default calendar for the culture, and the <xref:System.Globalization.CultureInfo.OptionalCalendars%2A> property returns an array containing all the calendars supported by the culture. To change the calendar used by a <xref:System.Globalization.CultureInfo>, the application should set the <xref:System.Globalization.DateTimeFormatInfo.Calendar%2A> property of <xref:System.Globalization.CultureInfo.DateTimeFormat%2A?displayProperty=fullName> to a new <xref:System.Globalization.Calendar>."
@@ -85,7 +86,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -102,7 +104,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -118,9 +121,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.#ctor
   commentId: M:System.Globalization.JapaneseCalendar.#ctor
   id: '#ctor'
@@ -129,12 +129,13 @@ items:
   - csharp
   name: JapaneseCalendar()
   nameWithType: JapaneseCalendar.JapaneseCalendar()
-  fullName: System.Globalization.JapaneseCalendar.JapaneseCalendar()
+  fullName: JapaneseCalendar.JapaneseCalendar()
   type: Constructor
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Initializes a new instance of the <xref href="System.Globalization.JapaneseCalendar"></xref> class.
   syntax:
@@ -147,7 +148,8 @@ items:
     description: Unable to initialize a <xref href="System.Globalization.JapaneseCalendar"></xref> object because of missing culture information.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -164,7 +166,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -180,9 +183,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.AddMonths(System.DateTime,System.Int32)
   commentId: M:System.Globalization.JapaneseCalendar.AddMonths(System.DateTime,System.Int32)
   id: AddMonths(System.DateTime,System.Int32)
@@ -191,12 +191,13 @@ items:
   - csharp
   name: AddMonths(DateTime, Int32)
   nameWithType: JapaneseCalendar.AddMonths(DateTime, Int32)
-  fullName: System.Globalization.JapaneseCalendar.AddMonths(DateTime, Int32)
+  fullName: JapaneseCalendar.AddMonths(DateTime, Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Returns a <xref href="System.DateTime"></xref> that is the specified number of months away from the specified <xref href="System.DateTime"></xref>.
   remarks: "The day part of the resulting <xref:System.DateTime> is affected if the resulting day is not a valid day in the resulting month of the resulting year. It is changed to the last valid day in the resulting month of the resulting year. The year part of the resulting <xref:System.DateTime> is affected if the resulting month is outside the year of the specified <xref:System.DateTime>. The era part of the resulting <xref:System.DateTime> is affected if the resulting year is outside the era of the specified <xref:System.DateTime>. The time-of-day part of the resulting <xref:System.DateTime> remains the same as the specified <xref:System.DateTime>.  \n  \n For example, if the specified month is Juugatsu (October), which has 31 days, the specified day is the 31st day of that month, and `months` is 6, the resulting year is one more than the specified year, the resulting month is Shigatsu (April), and the resulting day is the 30th day, which is the last day in Shigatsu (April).  \n  \n If `months` is negative, the resulting <xref:System.DateTime> is earlier than the specified <xref:System.DateTime>.  \n  \n The<xref:System.DateTime.Kind%2A> property of the returned <xref:System.DateTime> value always equals <xref:System.DateTimeKind?displayProperty=fullName>. You can preserve the <xref:System.DateTime.Kind%2A> property of the `time` parameter by calling the <xref:System.DateTime.SpecifyKind%2A?displayProperty=fullName> method, as the following example shows.  \n  \n [!code-csharp[System.Globalization.Calendar.AddMethods#5](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.globalization.calendar.addmethods/cs/add1.cs#5)]\n [!code-vb[System.Globalization.Calendar.AddMethods#5](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.globalization.calendar.addmethods/vb/add1.vb#5)]"
@@ -224,7 +225,8 @@ items:
     description: "<code>months</code> is less than -120000.  \n  \n -or-  \n  \n <code>months</code> is greater than 120000."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -241,7 +243,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -257,9 +260,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.AddYears(System.DateTime,System.Int32)
   commentId: M:System.Globalization.JapaneseCalendar.AddYears(System.DateTime,System.Int32)
   id: AddYears(System.DateTime,System.Int32)
@@ -268,12 +268,13 @@ items:
   - csharp
   name: AddYears(DateTime, Int32)
   nameWithType: JapaneseCalendar.AddYears(DateTime, Int32)
-  fullName: System.Globalization.JapaneseCalendar.AddYears(DateTime, Int32)
+  fullName: JapaneseCalendar.AddYears(DateTime, Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Returns a <xref href="System.DateTime"></xref> that is the specified number of years away from the specified <xref href="System.DateTime"></xref>.
   remarks: "The day part of the resulting <xref:System.DateTime> is affected if the resulting day is not a valid day in the resulting month of the resulting year. It is changed to the last valid day in the resulting month of the resulting year. The month part of the resulting <xref:System.DateTime> remains the same as the specified <xref:System.DateTime>. The era part of the resulting <xref:System.DateTime> is affected if the resulting year is outside the era of the specified <xref:System.DateTime>. The time-of-day part of the resulting <xref:System.DateTime> remains the same as the specified <xref:System.DateTime>.  \n  \n For example, Nigatsu (February) has 28 days except during leap years when it has 29 days. If the specified date is the 29th day of Nigatsu (February) in a leap year and the value of `years` is 1, the resulting date will be the 28th day of Nigatsu (February) in the following year.  \n  \n If `years` is negative, the resulting <xref:System.DateTime> is earlier than the specified <xref:System.DateTime>.  \n  \n The<xref:System.DateTime.Kind%2A> property of the returned <xref:System.DateTime> value always equals <xref:System.DateTimeKind?displayProperty=fullName>. You can preserve the <xref:System.DateTime.Kind%2A> property of the `time` parameter by calling the <xref:System.DateTime.SpecifyKind%2A?displayProperty=fullName> method, as the following example shows.  \n  \n [!code-csharp[System.Globalization.Calendar.AddMethods#8](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.globalization.calendar.addmethods/cs/add1.cs#8)]\n [!code-vb[System.Globalization.Calendar.AddMethods#8](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.globalization.calendar.addmethods/vb/add1.vb#8)]"
@@ -301,7 +302,8 @@ items:
     description: "<code>time</code> is outside the supported range of the <xref href=\"System.Globalization.JapaneseCalendar\"></xref> type.  \n  \n -or-  \n  \n <code>years</code> is less than -10,000 or greater than 10,000."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -318,7 +320,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -334,9 +337,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.AlgorithmType
   commentId: P:System.Globalization.JapaneseCalendar.AlgorithmType
   id: AlgorithmType
@@ -345,11 +345,12 @@ items:
   - csharp
   name: AlgorithmType
   nameWithType: JapaneseCalendar.AlgorithmType
-  fullName: System.Globalization.JapaneseCalendar.AlgorithmType
+  fullName: JapaneseCalendar.AlgorithmType
   type: Property
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets a value that indicates whether the current calendar is solar-based, lunar-based, or a combination of both.
   remarks: ''
@@ -368,6 +369,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -380,6 +382,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -392,9 +395,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.Eras
   commentId: P:System.Globalization.JapaneseCalendar.Eras
   id: Eras
@@ -403,12 +403,13 @@ items:
   - csharp
   name: Eras
   nameWithType: JapaneseCalendar.Eras
-  fullName: System.Globalization.JapaneseCalendar.Eras
+  fullName: JapaneseCalendar.Eras
   type: Property
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets the list of eras in the <xref href="System.Globalization.JapaneseCalendar"></xref>.
   remarks: "The Japanese calendar recognizes one era for every emperor's reign. The current era is the Heisei era, which began in the Gregorian calendar year 1989. The era name is typically displayed before the year. For example, the Gregorian calendar year 2001 is the Japanese calendar year Heisei 13. Note that the first year of an era is called \"Gannen.\" Therefore, the Gregorian calendar year 1989 was the Japanese calendar year Heisei Gannen.  \n  \n This class assigns numbers to the eras as follows:  \n  \n|GetEra value|Era Name|Era Abbreviation|Gregorian Dates|  \n|------------------|--------------|----------------------|---------------------|  \n|4|平成 (Heisei)|平 (H, h)|January 8, 1989 to present|  \n|3|昭和 (Showa)|昭 (S, s)|December 25, 1926 to January 7, 1989|  \n|2|大正 (Taisho)|大 (T, t)|July 30, 1912 to December 24, 1926|  \n|1|明治 (Meiji)|明 (M, m)|September 8, 1868 to July 29, 1912|  \n  \n This class handles dates from September 8 in the year Meiji 1 (January 1, 1868 of the Gregorian calendar). Although the Japanese calendar was switched from a lunar calendar to a solar calendar in the year Meiji 6 (1873 of the Gregorian calendar), this implementation is based on the solar calendar only.  \n  \n> [!NOTE]\n>  Should additional eras be added in the future, applications may encounter more than the expected four eras for the Japanese calendar. Applications should be tested to ensure that they continue to work in such an event; see [Era Handling for the Japanese Calendar](http://go.microsoft.com/fwlink/p/?LinkId=239618)."
@@ -423,7 +424,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -440,7 +442,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -456,9 +459,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.GetDayOfMonth(System.DateTime)
   commentId: M:System.Globalization.JapaneseCalendar.GetDayOfMonth(System.DateTime)
   id: GetDayOfMonth(System.DateTime)
@@ -467,12 +467,13 @@ items:
   - csharp
   name: GetDayOfMonth(DateTime)
   nameWithType: JapaneseCalendar.GetDayOfMonth(DateTime)
-  fullName: System.Globalization.JapaneseCalendar.GetDayOfMonth(DateTime)
+  fullName: JapaneseCalendar.GetDayOfMonth(DateTime)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Returns the day of the month in the specified <xref href="System.DateTime"></xref>.
   remarks: ''
@@ -491,7 +492,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -508,7 +510,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -524,9 +527,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.GetDayOfWeek(System.DateTime)
   commentId: M:System.Globalization.JapaneseCalendar.GetDayOfWeek(System.DateTime)
   id: GetDayOfWeek(System.DateTime)
@@ -535,12 +535,13 @@ items:
   - csharp
   name: GetDayOfWeek(DateTime)
   nameWithType: JapaneseCalendar.GetDayOfWeek(DateTime)
-  fullName: System.Globalization.JapaneseCalendar.GetDayOfWeek(DateTime)
+  fullName: JapaneseCalendar.GetDayOfWeek(DateTime)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Returns the day of the week in the specified <xref href="System.DateTime"></xref>.
   remarks: "The <xref:System.DayOfWeek> values are as follows:  \n  \n|DayOfWeek value|which indicates|  \n|---------------------|---------------------|  \n|Sunday|日曜日 (Nichiyoubi)|  \n|Monday|月曜日 (Getsuyoubi)|  \n|Tuesday|火曜日 (Kayoubi)|  \n|Wednesday|水曜日 (Suiyoubi)|  \n|Thursday|木曜日 (Mokuyoubi)|  \n|Friday|金曜日 (Kinyoubi)|  \n|Saturday|土曜日 (Doyoubi)|"
@@ -559,7 +560,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -576,7 +578,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -592,9 +595,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.GetDayOfYear(System.DateTime)
   commentId: M:System.Globalization.JapaneseCalendar.GetDayOfYear(System.DateTime)
   id: GetDayOfYear(System.DateTime)
@@ -603,12 +603,13 @@ items:
   - csharp
   name: GetDayOfYear(DateTime)
   nameWithType: JapaneseCalendar.GetDayOfYear(DateTime)
-  fullName: System.Globalization.JapaneseCalendar.GetDayOfYear(DateTime)
+  fullName: JapaneseCalendar.GetDayOfYear(DateTime)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Returns the day of the year in the specified <xref href="System.DateTime"></xref>.
   remarks: The day of the year is defined as the number of days from the first day of the year. For example, <xref:System.Globalization.JapaneseCalendar.GetDayOfYear%2A> for the first day of the first month returns 1, and <xref:System.Globalization.JapaneseCalendar.GetDayOfYear%2A> for the last day of the last month returns the total number of days in that year, which is the same value as that returned by <xref:System.Globalization.JapaneseCalendar.GetDaysInYear%2A>.
@@ -627,7 +628,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -644,7 +646,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -660,9 +663,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.GetDaysInMonth(System.Int32,System.Int32,System.Int32)
   commentId: M:System.Globalization.JapaneseCalendar.GetDaysInMonth(System.Int32,System.Int32,System.Int32)
   id: GetDaysInMonth(System.Int32,System.Int32,System.Int32)
@@ -671,12 +671,13 @@ items:
   - csharp
   name: GetDaysInMonth(Int32, Int32, Int32)
   nameWithType: JapaneseCalendar.GetDaysInMonth(Int32, Int32, Int32)
-  fullName: System.Globalization.JapaneseCalendar.GetDaysInMonth(Int32, Int32, Int32)
+  fullName: JapaneseCalendar.GetDaysInMonth(Int32, Int32, Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Returns the number of days in the specified month in the specified year in the specified era.
   remarks: For example, this method returns 28 or 29 for Nigatsu (February, `month` = 2), depending on whether `year` is a leap year.
@@ -704,7 +705,8 @@ items:
     description: "<code>year</code> is outside the range supported by the calendar.  \n  \n -or-  \n  \n <code>month</code> is outside the range supported by the calendar.  \n  \n -or-  \n  \n <code>era</code> is outside the range supported by the calendar."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -721,7 +723,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -737,9 +740,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.GetDaysInYear(System.Int32,System.Int32)
   commentId: M:System.Globalization.JapaneseCalendar.GetDaysInYear(System.Int32,System.Int32)
   id: GetDaysInYear(System.Int32,System.Int32)
@@ -748,12 +748,13 @@ items:
   - csharp
   name: GetDaysInYear(Int32, Int32)
   nameWithType: JapaneseCalendar.GetDaysInYear(Int32, Int32)
-  fullName: System.Globalization.JapaneseCalendar.GetDaysInYear(Int32, Int32)
+  fullName: JapaneseCalendar.GetDaysInYear(Int32, Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Returns the number of days in the specified year in the specified era.
   remarks: For example, this method returns 365 or 366, depending on whether `year` is a leap year.
@@ -778,7 +779,8 @@ items:
     description: "<code>year</code> is outside the range supported by the calendar.  \n  \n -or-  \n  \n <code>era</code> is outside the range supported by the calendar."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -795,7 +797,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -811,9 +814,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.GetEra(System.DateTime)
   commentId: M:System.Globalization.JapaneseCalendar.GetEra(System.DateTime)
   id: GetEra(System.DateTime)
@@ -822,12 +822,13 @@ items:
   - csharp
   name: GetEra(DateTime)
   nameWithType: JapaneseCalendar.GetEra(DateTime)
-  fullName: System.Globalization.JapaneseCalendar.GetEra(DateTime)
+  fullName: JapaneseCalendar.GetEra(DateTime)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Returns the era in the specified <xref href="System.DateTime"></xref>.
   remarks: "The Japanese calendar recognizes one era for every emperor's reign. The current era is the Heisei era, which began in the Gregorian calendar year 1989. The era name is typically displayed before the year. For example, the Gregorian calendar year 2001 is the Japanese calendar year Heisei 13. Note that the first year of an era is called \"Gannen.\" Therefore, the Gregorian calendar year 1989 was the Japanese calendar year Heisei Gannen.  \n  \n This class assigns numbers to the eras as follows:  \n  \n|GetEra value|Era Name|Era Abbreviation|Gregorian Dates|  \n|------------------|--------------|----------------------|---------------------|  \n|4|平成 (Heisei)|平 (H, h)|January 8, 1989 to present|  \n|3|昭和 (Showa)|昭 (S, s)|December 25, 1926 to January 7, 1989|  \n|2|大正 (Taisho)|大 (T, t)|July 30, 1912 to December 24, 1926|  \n|1|明治 (Meiji)|明 (M, m)|September 8, 1868 to July 29, 1912|  \n  \n Ordinarily, the <xref:System.Globalization.JapaneseCalendar> class supports dates from September 8 in the year Meiji 1 (September 8, 1868 of the Gregorian calendar), which is the value of the <xref:System.Globalization.JapaneseCalendar.MinSupportedDateTime%2A> property. However, the <xref:System.Globalization.JapaneseCalendar.GetEra%2A> method successfully returns the era for dates from January 1 through September 7 in the year Meiji 1 (January 1, 1868 through September 7, 1868 in the Gregorian calendar). For dates earlier than January 1, 1868 in the Gregorian calendar, the method throws an <xref:System.ArgumentOutOfRangeException> exception."
@@ -849,7 +850,8 @@ items:
     description: The resulting <xref href="System.DateTime"></xref> is outside the supported range.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -866,7 +868,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -882,9 +885,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.GetLeapMonth(System.Int32,System.Int32)
   commentId: M:System.Globalization.JapaneseCalendar.GetLeapMonth(System.Int32,System.Int32)
   id: GetLeapMonth(System.Int32,System.Int32)
@@ -893,12 +893,13 @@ items:
   - csharp
   name: GetLeapMonth(Int32, Int32)
   nameWithType: JapaneseCalendar.GetLeapMonth(Int32, Int32)
-  fullName: System.Globalization.JapaneseCalendar.GetLeapMonth(Int32, Int32)
+  fullName: JapaneseCalendar.GetLeapMonth(Int32, Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Calculates the leap month for a specified year and era.
   remarks: In a calendar that supports the notion of a leap month, the leap month can occur either after a particular month or after any month in a year. For example, the <xref:System.Globalization.EastAsianLunisolarCalendar.GetMonth%2A> method returns a number between 1 and 13 that indicates the month associated with a specified date. If there is a leap month between the eighth and ninth months of the year, the <xref:System.Globalization.EastAsianLunisolarCalendar.GetMonth%2A> method returns 8 for the eighth month, 9 for the leap eighth month, and 10 for the ninth month.
@@ -926,7 +927,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -943,7 +945,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -959,9 +962,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.GetMonth(System.DateTime)
   commentId: M:System.Globalization.JapaneseCalendar.GetMonth(System.DateTime)
   id: GetMonth(System.DateTime)
@@ -970,12 +970,13 @@ items:
   - csharp
   name: GetMonth(DateTime)
   nameWithType: JapaneseCalendar.GetMonth(DateTime)
-  fullName: System.Globalization.JapaneseCalendar.GetMonth(DateTime)
+  fullName: JapaneseCalendar.GetMonth(DateTime)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Returns the month in the specified <xref href="System.DateTime"></xref>.
   remarks: ''
@@ -994,7 +995,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1011,7 +1013,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1027,9 +1030,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.GetMonthsInYear(System.Int32,System.Int32)
   commentId: M:System.Globalization.JapaneseCalendar.GetMonthsInYear(System.Int32,System.Int32)
   id: GetMonthsInYear(System.Int32,System.Int32)
@@ -1038,12 +1038,13 @@ items:
   - csharp
   name: GetMonthsInYear(Int32, Int32)
   nameWithType: JapaneseCalendar.GetMonthsInYear(Int32, Int32)
-  fullName: System.Globalization.JapaneseCalendar.GetMonthsInYear(Int32, Int32)
+  fullName: JapaneseCalendar.GetMonthsInYear(Int32, Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Returns the number of months in the specified year in the specified era.
   remarks: ''
@@ -1068,7 +1069,8 @@ items:
     description: "<code>year</code> is outside the range supported by the calendar.  \n  \n -or-  \n  \n <code>era</code> is outside the range supported by the calendar."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1085,7 +1087,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1101,9 +1104,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.GetWeekOfYear(System.DateTime,System.Globalization.CalendarWeekRule,System.DayOfWeek)
   commentId: M:System.Globalization.JapaneseCalendar.GetWeekOfYear(System.DateTime,System.Globalization.CalendarWeekRule,System.DayOfWeek)
   id: GetWeekOfYear(System.DateTime,System.Globalization.CalendarWeekRule,System.DayOfWeek)
@@ -1112,12 +1112,13 @@ items:
   - csharp
   name: GetWeekOfYear(DateTime, CalendarWeekRule, DayOfWeek)
   nameWithType: JapaneseCalendar.GetWeekOfYear(DateTime, CalendarWeekRule, DayOfWeek)
-  fullName: System.Globalization.JapaneseCalendar.GetWeekOfYear(DateTime, CalendarWeekRule, DayOfWeek)
+  fullName: JapaneseCalendar.GetWeekOfYear(DateTime, CalendarWeekRule, DayOfWeek)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Returns the week of the year that includes the date in the specified <xref href="System.DateTime"></xref>.
   remarks: "This method can be used to determine the number of weeks in the year by setting the `time` parameter to the last day of the year.  \n  \n The <xref:System.Globalization.CultureInfo.DateTimeFormat%2A?displayProperty=fullName> property contains culture-specific values that can be used for the `rule` and `firstDayOfWeek` parameters.  \n  \n The <xref:System.Globalization.DateTimeFormatInfo.FirstDayOfWeek%2A> property of <xref:System.Globalization.CultureInfo.DateTimeFormat%2A?displayProperty=fullName> contains the default <xref:System.DayOfWeek> value that represents the first day of the week for a specific culture, using the calendar specified in the <xref:System.Globalization.DateTimeFormatInfo.Calendar%2A> property of <xref:System.Globalization.CultureInfo.DateTimeFormat%2A?displayProperty=fullName>.  \n  \n The <xref:System.Globalization.DateTimeFormatInfo.CalendarWeekRule%2A> property of <xref:System.Globalization.CultureInfo.DateTimeFormat%2A?displayProperty=fullName> contains the default <xref:System.Globalization.CalendarWeekRule> value that defines a calendar week for a specific culture, using the calendar specified in the <xref:System.Globalization.DateTimeFormatInfo.Calendar%2A> property of <xref:System.Globalization.CultureInfo.DateTimeFormat%2A?displayProperty=fullName>.  \n  \n For example, in <xref:System.Globalization.GregorianCalendar>, the <xref:System.Globalization.Calendar.GetWeekOfYear%2A> method for January 1 returns 1."
@@ -1150,7 +1151,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1167,7 +1169,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1183,9 +1186,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.GetYear(System.DateTime)
   commentId: M:System.Globalization.JapaneseCalendar.GetYear(System.DateTime)
   id: GetYear(System.DateTime)
@@ -1194,12 +1194,13 @@ items:
   - csharp
   name: GetYear(DateTime)
   nameWithType: JapaneseCalendar.GetYear(DateTime)
-  fullName: System.Globalization.JapaneseCalendar.GetYear(DateTime)
+  fullName: JapaneseCalendar.GetYear(DateTime)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Returns the year in the specified <xref href="System.DateTime"></xref>.
   remarks: ''
@@ -1218,7 +1219,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1235,7 +1237,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1251,9 +1254,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.IsLeapDay(System.Int32,System.Int32,System.Int32,System.Int32)
   commentId: M:System.Globalization.JapaneseCalendar.IsLeapDay(System.Int32,System.Int32,System.Int32,System.Int32)
   id: IsLeapDay(System.Int32,System.Int32,System.Int32,System.Int32)
@@ -1262,12 +1262,13 @@ items:
   - csharp
   name: IsLeapDay(Int32, Int32, Int32, Int32)
   nameWithType: JapaneseCalendar.IsLeapDay(Int32, Int32, Int32, Int32)
-  fullName: System.Globalization.JapaneseCalendar.IsLeapDay(Int32, Int32, Int32, Int32)
+  fullName: JapaneseCalendar.IsLeapDay(Int32, Int32, Int32, Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Determines whether the specified date in the specified era is a leap day.
   remarks: "Leap years in the Japanese calendar correspond to the same leap years in the Gregorian calendar. A leap year in the Gregorian calendar is defined as a Gregorian year that is evenly divisible by four, except if it is divisible by 100. However, Gregorian years that are divisible by 400 are leap years. A common year has 365 days and a leap year has 366 days.  \n  \n A leap day is a day that occurs only in a leap year. For example, the 29th day of Nigatsu (February) is the only leap day."
@@ -1298,7 +1299,8 @@ items:
     description: "<code>year</code> is outside the range supported by the calendar.  \n  \n -or-  \n  \n <code>month</code> is outside the range supported by the calendar.  \n  \n -or-  \n  \n <code>day</code> is outside the range supported by the calendar.  \n  \n -or-  \n  \n <code>era</code> is outside the range supported by the calendar."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1315,7 +1317,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1331,9 +1334,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.IsLeapMonth(System.Int32,System.Int32,System.Int32)
   commentId: M:System.Globalization.JapaneseCalendar.IsLeapMonth(System.Int32,System.Int32,System.Int32)
   id: IsLeapMonth(System.Int32,System.Int32,System.Int32)
@@ -1342,12 +1342,13 @@ items:
   - csharp
   name: IsLeapMonth(Int32, Int32, Int32)
   nameWithType: JapaneseCalendar.IsLeapMonth(Int32, Int32, Int32)
-  fullName: System.Globalization.JapaneseCalendar.IsLeapMonth(Int32, Int32, Int32)
+  fullName: JapaneseCalendar.IsLeapMonth(Int32, Int32, Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Determines whether the specified month in the specified year in the specified era is a leap month.
   remarks: "Leap years in the Japanese calendar correspond to the same leap years in the Gregorian calendar. A leap year in the Gregorian calendar is defined as a Gregorian year that is evenly divisible by four, except if it is divisible by 100. However, Gregorian years that are divisible by 400 are leap years. A common year has 365 days and a leap year has 366 days.  \n  \n A leap month is an entire month that occurs only in a leap year. The Japanese calendar does not have any leap months."
@@ -1375,7 +1376,8 @@ items:
     description: "<code>year</code> is outside the range supported by the calendar.  \n  \n -or-  \n  \n <code>month</code> is outside the range supported by the calendar.  \n  \n -or-  \n  \n <code>era</code> is outside the range supported by the calendar."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1392,7 +1394,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1408,9 +1411,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.IsLeapYear(System.Int32,System.Int32)
   commentId: M:System.Globalization.JapaneseCalendar.IsLeapYear(System.Int32,System.Int32)
   id: IsLeapYear(System.Int32,System.Int32)
@@ -1419,12 +1419,13 @@ items:
   - csharp
   name: IsLeapYear(Int32, Int32)
   nameWithType: JapaneseCalendar.IsLeapYear(Int32, Int32)
-  fullName: System.Globalization.JapaneseCalendar.IsLeapYear(Int32, Int32)
+  fullName: JapaneseCalendar.IsLeapYear(Int32, Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Determines whether the specified year in the specified era is a leap year.
   remarks: Leap years in the Japanese calendar correspond to the same leap years in the Gregorian calendar. A leap year in the Gregorian calendar is defined as a Gregorian year that is evenly divisible by four, except if it is divisible by 100. However, Gregorian years that are divisible by 400 are leap years. A common year has 365 days and a leap year has 366 days.
@@ -1449,7 +1450,8 @@ items:
     description: "<code>year</code> is outside the range supported by the calendar.  \n  \n -or-  \n  \n <code>era</code> is outside the range supported by the calendar."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1466,7 +1468,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1482,9 +1485,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.MaxSupportedDateTime
   commentId: P:System.Globalization.JapaneseCalendar.MaxSupportedDateTime
   id: MaxSupportedDateTime
@@ -1493,12 +1493,13 @@ items:
   - csharp
   name: MaxSupportedDateTime
   nameWithType: JapaneseCalendar.MaxSupportedDateTime
-  fullName: System.Globalization.JapaneseCalendar.MaxSupportedDateTime
+  fullName: JapaneseCalendar.MaxSupportedDateTime
   type: Property
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets the latest date and time supported by the current <xref href="System.Globalization.JapaneseCalendar"></xref> object.
   remarks: ''
@@ -1518,7 +1519,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1535,7 +1537,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1551,9 +1554,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.MinSupportedDateTime
   commentId: P:System.Globalization.JapaneseCalendar.MinSupportedDateTime
   id: MinSupportedDateTime
@@ -1562,12 +1562,13 @@ items:
   - csharp
   name: MinSupportedDateTime
   nameWithType: JapaneseCalendar.MinSupportedDateTime
-  fullName: System.Globalization.JapaneseCalendar.MinSupportedDateTime
+  fullName: JapaneseCalendar.MinSupportedDateTime
   type: Property
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets the earliest date and time supported by the current <xref href="System.Globalization.JapaneseCalendar"></xref> object.
   remarks: The earliest date supported by the <xref:System.Globalization.JapaneseCalendar> class is September 8, 1868 C.E., in the first year of the Meiji era. Ordinarily, date and time operations that use the <xref:System.Globalization.JapaneseCalendar> class throw an <xref:System.ArgumentOutOfRangeException> exception for dates before this date. However, some members, such as the <xref:System.Globalization.JapaneseCalendar.GetEra%2A> method, support dates from January 1, 1868 through September 7 in the year Meiji 1.
@@ -1587,7 +1588,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1604,7 +1606,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1620,9 +1623,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.ToDateTime(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
   commentId: M:System.Globalization.JapaneseCalendar.ToDateTime(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
   id: ToDateTime(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
@@ -1631,12 +1631,13 @@ items:
   - csharp
   name: ToDateTime(Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32)
   nameWithType: JapaneseCalendar.ToDateTime(Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32)
-  fullName: System.Globalization.JapaneseCalendar.ToDateTime(Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32)
+  fullName: JapaneseCalendar.ToDateTime(Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Returns a <xref href="System.DateTime"></xref> that is set to the specified date and time in the specified era.
   remarks: The <xref:System.Globalization.JapaneseCalendar.ToDateTime%2A> method is useful because it can convert any date in the current calendar to a Gregorian calendar date. The Gregorian date can subsequently be used, for example, to compare dates in different calendars or create an equivalent date in a particular calendar.
@@ -1677,7 +1678,8 @@ items:
     description: "<code>year</code> is outside the range supported by the calendar.  \n  \n -or-  \n  \n <code>month</code> is outside the range supported by the calendar.  \n  \n -or-  \n  \n <code>day</code> is outside the range supported by the calendar.  \n  \n -or-  \n  \n <code>hour</code> is less than zero or greater than 23.  \n  \n -or-  \n  \n <code>minute</code> is less than zero or greater than 59.  \n  \n -or-  \n  \n <code>second</code> is less than zero or greater than 59.  \n  \n -or-  \n  \n <code>millisecond</code> is less than zero or greater than 999.  \n  \n -or-  \n  \n <code>era</code> is outside the range supported by the calendar."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1694,7 +1696,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1710,9 +1713,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.ToFourDigitYear(System.Int32)
   commentId: M:System.Globalization.JapaneseCalendar.ToFourDigitYear(System.Int32)
   id: ToFourDigitYear(System.Int32)
@@ -1721,12 +1721,13 @@ items:
   - csharp
   name: ToFourDigitYear(Int32)
   nameWithType: JapaneseCalendar.ToFourDigitYear(Int32)
-  fullName: System.Globalization.JapaneseCalendar.ToFourDigitYear(Int32)
+  fullName: JapaneseCalendar.ToFourDigitYear(Int32)
   type: Method
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Converts the specified year to a four-digit year by using the <xref href="System.Globalization.JapaneseCalendar.TwoDigitYearMax"></xref> property to determine the appropriate century.
   remarks: "This method implements <xref:System.Globalization.Calendar.ToFourDigitYear%2A?displayProperty=fullName>.  \n  \n Because the year in the Japanese calendar is typically less than four digits long, this implementation always returns the value of the `year` parameter.  \n  \n <xref:System.Globalization.JapaneseCalendar.ToFourDigitYear%2A> supports either a two-digit year or a four-digit year. However, a valid year is generally represented as two digits (less than 100). Passing a two-digit year value causes the method to convert the value to a four-digit value according to the <xref:System.Globalization.JapaneseCalendar.TwoDigitYearMax%2A> value representing the appropriate century. If the application supplies a four-digit value, or if it supplies zero or a negative value, <xref:System.Globalization.JapaneseCalendar.ToFourDigitYear%2A> throws an exception."
@@ -1746,7 +1747,8 @@ items:
     description: <code>year</code> is outside the range supported by the calendar.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1763,7 +1765,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1779,9 +1782,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Globalization.JapaneseCalendar.TwoDigitYearMax
   commentId: P:System.Globalization.JapaneseCalendar.TwoDigitYearMax
   id: TwoDigitYearMax
@@ -1790,12 +1790,13 @@ items:
   - csharp
   name: TwoDigitYearMax
   nameWithType: JapaneseCalendar.TwoDigitYearMax
-  fullName: System.Globalization.JapaneseCalendar.TwoDigitYearMax
+  fullName: JapaneseCalendar.TwoDigitYearMax
   type: Property
   assemblies:
   - System.Globalization.Calendars
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Globalization
   summary: Gets or sets the last year of a 100-year range that can be represented by a 2-digit year.
   remarks: "This property implements <xref:System.Globalization.Calendar.TwoDigitYearMax%2A?displayProperty=fullName>.  \n  \n Because the year in the Japanese calendar is typically less than four digits long, this implementation returns 99 by default and does not affect the return value of <xref:System.Globalization.JapaneseCalendar.ToFourDigitYear%2A>."
@@ -1814,7 +1815,8 @@ items:
     description: In a set operation, the current instance is read-only.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1831,7 +1833,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1847,9 +1850,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Globalization/JapaneseCalendar.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.Globalization.Calendar
   parent: System.Globalization
@@ -1886,13 +1886,13 @@ references:
   isExternal: false
   name: JapaneseCalendar()
   nameWithType: JapaneseCalendar.JapaneseCalendar()
-  fullName: System.Globalization.JapaneseCalendar.JapaneseCalendar()
+  fullName: JapaneseCalendar.JapaneseCalendar()
 - uid: System.Globalization.JapaneseCalendar.AddMonths(System.DateTime,System.Int32)
   parent: System.Globalization.JapaneseCalendar
   isExternal: false
   name: AddMonths(DateTime, Int32)
   nameWithType: JapaneseCalendar.AddMonths(DateTime, Int32)
-  fullName: System.Globalization.JapaneseCalendar.AddMonths(DateTime, Int32)
+  fullName: JapaneseCalendar.AddMonths(DateTime, Int32)
 - uid: System.DateTime
   parent: System
   isExternal: false
@@ -1910,13 +1910,13 @@ references:
   isExternal: false
   name: AddYears(DateTime, Int32)
   nameWithType: JapaneseCalendar.AddYears(DateTime, Int32)
-  fullName: System.Globalization.JapaneseCalendar.AddYears(DateTime, Int32)
+  fullName: JapaneseCalendar.AddYears(DateTime, Int32)
 - uid: System.Globalization.JapaneseCalendar.AlgorithmType
   parent: System.Globalization.JapaneseCalendar
   isExternal: false
   name: AlgorithmType
   nameWithType: JapaneseCalendar.AlgorithmType
-  fullName: System.Globalization.JapaneseCalendar.AlgorithmType
+  fullName: JapaneseCalendar.AlgorithmType
 - uid: System.Globalization.CalendarAlgorithmType
   parent: System.Globalization
   isExternal: false
@@ -1928,7 +1928,7 @@ references:
   isExternal: false
   name: Eras
   nameWithType: JapaneseCalendar.Eras
-  fullName: System.Globalization.JapaneseCalendar.Eras
+  fullName: JapaneseCalendar.Eras
 - uid: System.Int32[]
   parent: System
   isExternal: false
@@ -1948,13 +1948,13 @@ references:
   isExternal: false
   name: GetDayOfMonth(DateTime)
   nameWithType: JapaneseCalendar.GetDayOfMonth(DateTime)
-  fullName: System.Globalization.JapaneseCalendar.GetDayOfMonth(DateTime)
+  fullName: JapaneseCalendar.GetDayOfMonth(DateTime)
 - uid: System.Globalization.JapaneseCalendar.GetDayOfWeek(System.DateTime)
   parent: System.Globalization.JapaneseCalendar
   isExternal: false
   name: GetDayOfWeek(DateTime)
   nameWithType: JapaneseCalendar.GetDayOfWeek(DateTime)
-  fullName: System.Globalization.JapaneseCalendar.GetDayOfWeek(DateTime)
+  fullName: JapaneseCalendar.GetDayOfWeek(DateTime)
 - uid: System.DayOfWeek
   parent: System
   isExternal: false
@@ -1966,49 +1966,49 @@ references:
   isExternal: false
   name: GetDayOfYear(DateTime)
   nameWithType: JapaneseCalendar.GetDayOfYear(DateTime)
-  fullName: System.Globalization.JapaneseCalendar.GetDayOfYear(DateTime)
+  fullName: JapaneseCalendar.GetDayOfYear(DateTime)
 - uid: System.Globalization.JapaneseCalendar.GetDaysInMonth(System.Int32,System.Int32,System.Int32)
   parent: System.Globalization.JapaneseCalendar
   isExternal: false
   name: GetDaysInMonth(Int32, Int32, Int32)
   nameWithType: JapaneseCalendar.GetDaysInMonth(Int32, Int32, Int32)
-  fullName: System.Globalization.JapaneseCalendar.GetDaysInMonth(Int32, Int32, Int32)
+  fullName: JapaneseCalendar.GetDaysInMonth(Int32, Int32, Int32)
 - uid: System.Globalization.JapaneseCalendar.GetDaysInYear(System.Int32,System.Int32)
   parent: System.Globalization.JapaneseCalendar
   isExternal: false
   name: GetDaysInYear(Int32, Int32)
   nameWithType: JapaneseCalendar.GetDaysInYear(Int32, Int32)
-  fullName: System.Globalization.JapaneseCalendar.GetDaysInYear(Int32, Int32)
+  fullName: JapaneseCalendar.GetDaysInYear(Int32, Int32)
 - uid: System.Globalization.JapaneseCalendar.GetEra(System.DateTime)
   parent: System.Globalization.JapaneseCalendar
   isExternal: false
   name: GetEra(DateTime)
   nameWithType: JapaneseCalendar.GetEra(DateTime)
-  fullName: System.Globalization.JapaneseCalendar.GetEra(DateTime)
+  fullName: JapaneseCalendar.GetEra(DateTime)
 - uid: System.Globalization.JapaneseCalendar.GetLeapMonth(System.Int32,System.Int32)
   parent: System.Globalization.JapaneseCalendar
   isExternal: false
   name: GetLeapMonth(Int32, Int32)
   nameWithType: JapaneseCalendar.GetLeapMonth(Int32, Int32)
-  fullName: System.Globalization.JapaneseCalendar.GetLeapMonth(Int32, Int32)
+  fullName: JapaneseCalendar.GetLeapMonth(Int32, Int32)
 - uid: System.Globalization.JapaneseCalendar.GetMonth(System.DateTime)
   parent: System.Globalization.JapaneseCalendar
   isExternal: false
   name: GetMonth(DateTime)
   nameWithType: JapaneseCalendar.GetMonth(DateTime)
-  fullName: System.Globalization.JapaneseCalendar.GetMonth(DateTime)
+  fullName: JapaneseCalendar.GetMonth(DateTime)
 - uid: System.Globalization.JapaneseCalendar.GetMonthsInYear(System.Int32,System.Int32)
   parent: System.Globalization.JapaneseCalendar
   isExternal: false
   name: GetMonthsInYear(Int32, Int32)
   nameWithType: JapaneseCalendar.GetMonthsInYear(Int32, Int32)
-  fullName: System.Globalization.JapaneseCalendar.GetMonthsInYear(Int32, Int32)
+  fullName: JapaneseCalendar.GetMonthsInYear(Int32, Int32)
 - uid: System.Globalization.JapaneseCalendar.GetWeekOfYear(System.DateTime,System.Globalization.CalendarWeekRule,System.DayOfWeek)
   parent: System.Globalization.JapaneseCalendar
   isExternal: false
   name: GetWeekOfYear(DateTime, CalendarWeekRule, DayOfWeek)
   nameWithType: JapaneseCalendar.GetWeekOfYear(DateTime, CalendarWeekRule, DayOfWeek)
-  fullName: System.Globalization.JapaneseCalendar.GetWeekOfYear(DateTime, CalendarWeekRule, DayOfWeek)
+  fullName: JapaneseCalendar.GetWeekOfYear(DateTime, CalendarWeekRule, DayOfWeek)
 - uid: System.Globalization.CalendarWeekRule
   parent: System.Globalization
   isExternal: false
@@ -2020,13 +2020,13 @@ references:
   isExternal: false
   name: GetYear(DateTime)
   nameWithType: JapaneseCalendar.GetYear(DateTime)
-  fullName: System.Globalization.JapaneseCalendar.GetYear(DateTime)
+  fullName: JapaneseCalendar.GetYear(DateTime)
 - uid: System.Globalization.JapaneseCalendar.IsLeapDay(System.Int32,System.Int32,System.Int32,System.Int32)
   parent: System.Globalization.JapaneseCalendar
   isExternal: false
   name: IsLeapDay(Int32, Int32, Int32, Int32)
   nameWithType: JapaneseCalendar.IsLeapDay(Int32, Int32, Int32, Int32)
-  fullName: System.Globalization.JapaneseCalendar.IsLeapDay(Int32, Int32, Int32, Int32)
+  fullName: JapaneseCalendar.IsLeapDay(Int32, Int32, Int32, Int32)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -2038,52 +2038,53 @@ references:
   isExternal: false
   name: IsLeapMonth(Int32, Int32, Int32)
   nameWithType: JapaneseCalendar.IsLeapMonth(Int32, Int32, Int32)
-  fullName: System.Globalization.JapaneseCalendar.IsLeapMonth(Int32, Int32, Int32)
+  fullName: JapaneseCalendar.IsLeapMonth(Int32, Int32, Int32)
 - uid: System.Globalization.JapaneseCalendar.IsLeapYear(System.Int32,System.Int32)
   parent: System.Globalization.JapaneseCalendar
   isExternal: false
   name: IsLeapYear(Int32, Int32)
   nameWithType: JapaneseCalendar.IsLeapYear(Int32, Int32)
-  fullName: System.Globalization.JapaneseCalendar.IsLeapYear(Int32, Int32)
+  fullName: JapaneseCalendar.IsLeapYear(Int32, Int32)
 - uid: System.Globalization.JapaneseCalendar.MaxSupportedDateTime
   parent: System.Globalization.JapaneseCalendar
   isExternal: false
   name: MaxSupportedDateTime
   nameWithType: JapaneseCalendar.MaxSupportedDateTime
-  fullName: System.Globalization.JapaneseCalendar.MaxSupportedDateTime
+  fullName: JapaneseCalendar.MaxSupportedDateTime
 - uid: System.Globalization.JapaneseCalendar.MinSupportedDateTime
   parent: System.Globalization.JapaneseCalendar
   isExternal: false
   name: MinSupportedDateTime
   nameWithType: JapaneseCalendar.MinSupportedDateTime
-  fullName: System.Globalization.JapaneseCalendar.MinSupportedDateTime
+  fullName: JapaneseCalendar.MinSupportedDateTime
 - uid: System.Globalization.JapaneseCalendar.ToDateTime(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
   parent: System.Globalization.JapaneseCalendar
   isExternal: false
   name: ToDateTime(Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32)
   nameWithType: JapaneseCalendar.ToDateTime(Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32)
-  fullName: System.Globalization.JapaneseCalendar.ToDateTime(Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32)
+  fullName: JapaneseCalendar.ToDateTime(Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32)
 - uid: System.Globalization.JapaneseCalendar.ToFourDigitYear(System.Int32)
   parent: System.Globalization.JapaneseCalendar
   isExternal: false
   name: ToFourDigitYear(Int32)
   nameWithType: JapaneseCalendar.ToFourDigitYear(Int32)
-  fullName: System.Globalization.JapaneseCalendar.ToFourDigitYear(Int32)
+  fullName: JapaneseCalendar.ToFourDigitYear(Int32)
 - uid: System.Globalization.JapaneseCalendar.TwoDigitYearMax
   parent: System.Globalization.JapaneseCalendar
   isExternal: false
   name: TwoDigitYearMax
   nameWithType: JapaneseCalendar.TwoDigitYearMax
-  fullName: System.Globalization.JapaneseCalendar.TwoDigitYearMax
+  fullName: JapaneseCalendar.TwoDigitYearMax
 - uid: System.Globalization.JapaneseCalendar.#ctor*
   parent: System.Globalization.JapaneseCalendar
   isExternal: false
   name: JapaneseCalendar
   nameWithType: JapaneseCalendar.JapaneseCalendar
-  fullName: System.Globalization.JapaneseCalendar.JapaneseCalendar
+  fullName: JapaneseCalendar.JapaneseCalendar
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2104,10 +2105,11 @@ references:
   isExternal: false
   name: AddMonths
   nameWithType: JapaneseCalendar.AddMonths
-  fullName: System.Globalization.JapaneseCalendar.AddMonths
+  fullName: JapaneseCalendar.AddMonths
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2128,10 +2130,11 @@ references:
   isExternal: false
   name: AddYears
   nameWithType: JapaneseCalendar.AddYears
-  fullName: System.Globalization.JapaneseCalendar.AddYears
+  fullName: JapaneseCalendar.AddYears
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2152,8 +2155,9 @@ references:
   isExternal: false
   name: AlgorithmType
   nameWithType: JapaneseCalendar.AlgorithmType
-  fullName: System.Globalization.JapaneseCalendar.AlgorithmType
+  fullName: JapaneseCalendar.AlgorithmType
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2171,10 +2175,11 @@ references:
   isExternal: false
   name: Eras
   nameWithType: JapaneseCalendar.Eras
-  fullName: System.Globalization.JapaneseCalendar.Eras
+  fullName: JapaneseCalendar.Eras
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2195,10 +2200,11 @@ references:
   isExternal: false
   name: GetDayOfMonth
   nameWithType: JapaneseCalendar.GetDayOfMonth
-  fullName: System.Globalization.JapaneseCalendar.GetDayOfMonth
+  fullName: JapaneseCalendar.GetDayOfMonth
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2219,10 +2225,11 @@ references:
   isExternal: false
   name: GetDayOfWeek
   nameWithType: JapaneseCalendar.GetDayOfWeek
-  fullName: System.Globalization.JapaneseCalendar.GetDayOfWeek
+  fullName: JapaneseCalendar.GetDayOfWeek
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2243,10 +2250,11 @@ references:
   isExternal: false
   name: GetDayOfYear
   nameWithType: JapaneseCalendar.GetDayOfYear
-  fullName: System.Globalization.JapaneseCalendar.GetDayOfYear
+  fullName: JapaneseCalendar.GetDayOfYear
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2267,10 +2275,11 @@ references:
   isExternal: false
   name: GetDaysInMonth
   nameWithType: JapaneseCalendar.GetDaysInMonth
-  fullName: System.Globalization.JapaneseCalendar.GetDaysInMonth
+  fullName: JapaneseCalendar.GetDaysInMonth
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2291,10 +2300,11 @@ references:
   isExternal: false
   name: GetDaysInYear
   nameWithType: JapaneseCalendar.GetDaysInYear
-  fullName: System.Globalization.JapaneseCalendar.GetDaysInYear
+  fullName: JapaneseCalendar.GetDaysInYear
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2315,10 +2325,11 @@ references:
   isExternal: false
   name: GetEra
   nameWithType: JapaneseCalendar.GetEra
-  fullName: System.Globalization.JapaneseCalendar.GetEra
+  fullName: JapaneseCalendar.GetEra
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2339,10 +2350,11 @@ references:
   isExternal: false
   name: GetLeapMonth
   nameWithType: JapaneseCalendar.GetLeapMonth
-  fullName: System.Globalization.JapaneseCalendar.GetLeapMonth
+  fullName: JapaneseCalendar.GetLeapMonth
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2363,10 +2375,11 @@ references:
   isExternal: false
   name: GetMonth
   nameWithType: JapaneseCalendar.GetMonth
-  fullName: System.Globalization.JapaneseCalendar.GetMonth
+  fullName: JapaneseCalendar.GetMonth
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2387,10 +2400,11 @@ references:
   isExternal: false
   name: GetMonthsInYear
   nameWithType: JapaneseCalendar.GetMonthsInYear
-  fullName: System.Globalization.JapaneseCalendar.GetMonthsInYear
+  fullName: JapaneseCalendar.GetMonthsInYear
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2411,10 +2425,11 @@ references:
   isExternal: false
   name: GetWeekOfYear
   nameWithType: JapaneseCalendar.GetWeekOfYear
-  fullName: System.Globalization.JapaneseCalendar.GetWeekOfYear
+  fullName: JapaneseCalendar.GetWeekOfYear
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2435,10 +2450,11 @@ references:
   isExternal: false
   name: GetYear
   nameWithType: JapaneseCalendar.GetYear
-  fullName: System.Globalization.JapaneseCalendar.GetYear
+  fullName: JapaneseCalendar.GetYear
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2459,10 +2475,11 @@ references:
   isExternal: false
   name: IsLeapDay
   nameWithType: JapaneseCalendar.IsLeapDay
-  fullName: System.Globalization.JapaneseCalendar.IsLeapDay
+  fullName: JapaneseCalendar.IsLeapDay
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2483,10 +2500,11 @@ references:
   isExternal: false
   name: IsLeapMonth
   nameWithType: JapaneseCalendar.IsLeapMonth
-  fullName: System.Globalization.JapaneseCalendar.IsLeapMonth
+  fullName: JapaneseCalendar.IsLeapMonth
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2507,10 +2525,11 @@ references:
   isExternal: false
   name: IsLeapYear
   nameWithType: JapaneseCalendar.IsLeapYear
-  fullName: System.Globalization.JapaneseCalendar.IsLeapYear
+  fullName: JapaneseCalendar.IsLeapYear
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2531,10 +2550,11 @@ references:
   isExternal: false
   name: MaxSupportedDateTime
   nameWithType: JapaneseCalendar.MaxSupportedDateTime
-  fullName: System.Globalization.JapaneseCalendar.MaxSupportedDateTime
+  fullName: JapaneseCalendar.MaxSupportedDateTime
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2555,10 +2575,11 @@ references:
   isExternal: false
   name: MinSupportedDateTime
   nameWithType: JapaneseCalendar.MinSupportedDateTime
-  fullName: System.Globalization.JapaneseCalendar.MinSupportedDateTime
+  fullName: JapaneseCalendar.MinSupportedDateTime
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2579,10 +2600,11 @@ references:
   isExternal: false
   name: ToDateTime
   nameWithType: JapaneseCalendar.ToDateTime
-  fullName: System.Globalization.JapaneseCalendar.ToDateTime
+  fullName: JapaneseCalendar.ToDateTime
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2603,10 +2625,11 @@ references:
   isExternal: false
   name: ToFourDigitYear
   nameWithType: JapaneseCalendar.ToFourDigitYear
-  fullName: System.Globalization.JapaneseCalendar.ToFourDigitYear
+  fullName: JapaneseCalendar.ToFourDigitYear
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2627,10 +2650,11 @@ references:
   isExternal: false
   name: TwoDigitYearMax
   nameWithType: JapaneseCalendar.TwoDigitYearMax
-  fullName: System.Globalization.JapaneseCalendar.TwoDigitYearMax
+  fullName: JapaneseCalendar.TwoDigitYearMax
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

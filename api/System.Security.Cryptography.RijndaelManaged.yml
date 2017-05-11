@@ -5,10 +5,20 @@ items:
   id: RijndaelManaged
   children:
   - System.Security.Cryptography.RijndaelManaged.#ctor
+  - System.Security.Cryptography.RijndaelManaged.BlockSize
+  - System.Security.Cryptography.RijndaelManaged.CreateDecryptor
   - System.Security.Cryptography.RijndaelManaged.CreateDecryptor(System.Byte[],System.Byte[])
+  - System.Security.Cryptography.RijndaelManaged.CreateEncryptor
   - System.Security.Cryptography.RijndaelManaged.CreateEncryptor(System.Byte[],System.Byte[])
+  - System.Security.Cryptography.RijndaelManaged.Dispose(System.Boolean)
   - System.Security.Cryptography.RijndaelManaged.GenerateIV
   - System.Security.Cryptography.RijndaelManaged.GenerateKey
+  - System.Security.Cryptography.RijndaelManaged.IV
+  - System.Security.Cryptography.RijndaelManaged.Key
+  - System.Security.Cryptography.RijndaelManaged.KeySize
+  - System.Security.Cryptography.RijndaelManaged.LegalKeySizes
+  - System.Security.Cryptography.RijndaelManaged.Mode
+  - System.Security.Cryptography.RijndaelManaged.Padding
   langs:
   - csharp
   name: RijndaelManaged
@@ -18,6 +28,7 @@ items:
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Algorithms
   namespace: System.Security.Cryptography
   summary: Accesses the managed version of the <xref href="System.Security.Cryptography.Rijndael"></xref> algorithm. This class cannot be inherited.
   remarks: "This algorithm supports key lengths of 128, 192, or 256 bits; defaulting to 256 bits. This algorithm supports block sizes of 128, 192, or 256 bits; defaulting to 128 bits (<xref:System.Security.Cryptography.Aes>-compatible).  \n  \n The <xref:System.Security.Cryptography.Rijndael> algorithm is the predecessor of <xref:System.Security.Cryptography.Aes>. You should use the <xref:System.Security.Cryptography.Aes> class instead of <xref:System.Security.Cryptography.RijndaelManaged>. For more information, see the entry [The Differences Between Rijndael and AES](http://go.microsoft.com/fwlink/?LinkId=200932) in the .NET Security blog."
@@ -43,33 +54,24 @@ items:
   - System.Object.ToString
   - System.Security.Cryptography.Rijndael.Create
   - System.Security.Cryptography.Rijndael.Create(System.String)
-  - System.Security.Cryptography.SymmetricAlgorithm.BlockSize
   - System.Security.Cryptography.SymmetricAlgorithm.BlockSizeValue
   - System.Security.Cryptography.SymmetricAlgorithm.Clear
-  - System.Security.Cryptography.SymmetricAlgorithm.CreateDecryptor
-  - System.Security.Cryptography.SymmetricAlgorithm.CreateEncryptor
   - System.Security.Cryptography.SymmetricAlgorithm.Dispose
-  - System.Security.Cryptography.SymmetricAlgorithm.Dispose(System.Boolean)
   - System.Security.Cryptography.SymmetricAlgorithm.FeedbackSize
   - System.Security.Cryptography.SymmetricAlgorithm.FeedbackSizeValue
-  - System.Security.Cryptography.SymmetricAlgorithm.IV
   - System.Security.Cryptography.SymmetricAlgorithm.IVValue
-  - System.Security.Cryptography.SymmetricAlgorithm.Key
-  - System.Security.Cryptography.SymmetricAlgorithm.KeySize
   - System.Security.Cryptography.SymmetricAlgorithm.KeySizeValue
   - System.Security.Cryptography.SymmetricAlgorithm.KeyValue
   - System.Security.Cryptography.SymmetricAlgorithm.LegalBlockSizes
   - System.Security.Cryptography.SymmetricAlgorithm.LegalBlockSizesValue
-  - System.Security.Cryptography.SymmetricAlgorithm.LegalKeySizes
   - System.Security.Cryptography.SymmetricAlgorithm.LegalKeySizesValue
-  - System.Security.Cryptography.SymmetricAlgorithm.Mode
   - System.Security.Cryptography.SymmetricAlgorithm.ModeValue
-  - System.Security.Cryptography.SymmetricAlgorithm.Padding
   - System.Security.Cryptography.SymmetricAlgorithm.PaddingValue
   - System.Security.Cryptography.SymmetricAlgorithm.ValidKeySize(System.Int32)
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -82,6 +84,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -94,9 +97,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.RijndaelManaged.#ctor
   commentId: M:System.Security.Cryptography.RijndaelManaged.#ctor
   id: '#ctor'
@@ -105,11 +105,12 @@ items:
   - csharp
   name: RijndaelManaged()
   nameWithType: RijndaelManaged.RijndaelManaged()
-  fullName: System.Security.Cryptography.RijndaelManaged.RijndaelManaged()
+  fullName: RijndaelManaged.RijndaelManaged()
   type: Constructor
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Algorithms
   namespace: System.Security.Cryptography
   summary: Initializes a new instance of the <xref href="System.Security.Cryptography.RijndaelManaged"></xref> class.
   remarks: ''
@@ -124,6 +125,7 @@ items:
     commentId: T:System.InvalidOperationException
     description: This class is not compliant with the FIPS algorithm.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -136,6 +138,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -148,9 +151,57 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
+- uid: System.Security.Cryptography.RijndaelManaged.BlockSize
+  commentId: P:System.Security.Cryptography.RijndaelManaged.BlockSize
+  id: BlockSize
+  parent: System.Security.Cryptography.RijndaelManaged
+  langs:
+  - csharp
+  name: BlockSize
+  nameWithType: RijndaelManaged.BlockSize
+  fullName: RijndaelManaged.BlockSize
+  type: Property
+  assemblies:
+  - System.Security.Cryptography.Algorithms
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override int BlockSize { get; set; }
+    return:
+      type: System.Int32
+      description: To be added.
+  overload: System.Security.Cryptography.RijndaelManaged.BlockSize*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
+- uid: System.Security.Cryptography.RijndaelManaged.CreateDecryptor
+  commentId: M:System.Security.Cryptography.RijndaelManaged.CreateDecryptor
+  id: CreateDecryptor
+  parent: System.Security.Cryptography.RijndaelManaged
+  langs:
+  - csharp
+  name: CreateDecryptor()
+  nameWithType: RijndaelManaged.CreateDecryptor()
+  fullName: RijndaelManaged.CreateDecryptor()
+  type: Method
+  assemblies:
+  - System.Security.Cryptography.Algorithms
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override System.Security.Cryptography.ICryptoTransform CreateDecryptor ();
+    parameters: []
+    return:
+      type: System.Security.Cryptography.ICryptoTransform
+      description: To be added.
+  overload: System.Security.Cryptography.RijndaelManaged.CreateDecryptor*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
 - uid: System.Security.Cryptography.RijndaelManaged.CreateDecryptor(System.Byte[],System.Byte[])
   commentId: M:System.Security.Cryptography.RijndaelManaged.CreateDecryptor(System.Byte[],System.Byte[])
   id: CreateDecryptor(System.Byte[],System.Byte[])
@@ -159,16 +210,17 @@ items:
   - csharp
   name: CreateDecryptor(Byte[], Byte[])
   nameWithType: RijndaelManaged.CreateDecryptor(Byte[], Byte[])
-  fullName: System.Security.Cryptography.RijndaelManaged.CreateDecryptor(Byte[], Byte[])
+  fullName: RijndaelManaged.CreateDecryptor(Byte[], Byte[])
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Algorithms
   namespace: System.Security.Cryptography
   summary: Creates a symmetric <xref href="System.Security.Cryptography.Rijndael"></xref> decryptor object with the specified <xref href="System.Security.Cryptography.SymmetricAlgorithm.Key"></xref> and initialization vector (<xref href="System.Security.Cryptography.SymmetricAlgorithm.IV"></xref>).
   remarks: "This method decrypts an encrypted message created using the <xref:System.Security.Cryptography.RijndaelManaged.CreateEncryptor%2A> overload with the same signature.  \n  \n The `rgbkey` size must be 128, 192, or 256 bits."
   example:
-  - "The following code example demonstrates how to use the [CreateDecryptor Method (Byte\\<xref:System.Security.Cryptography.RijndaelManaged.CreateDecryptor%2A> method to decrypt messages encoded with the same signature parameter.  \n  \n [!code-cpp[RijndaelManaged Example#1](~/samples/snippets/cpp/VS_Snippets_CLR/RijndaelManaged Example/CPP/class1.cpp#1)]\n [!code-csharp[RijndaelManaged Example#1](~/samples/snippets/csharp/VS_Snippets_CLR/RijndaelManaged Example/CS/class1.cs#1)]\n [!code-vb[RijndaelManaged Example#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/RijndaelManaged Example/VB/class1.vb#1)]"
+  - "The following code example demonstrates how to use the <xref:System.Security.Cryptography.RijndaelManaged.CreateDecryptor%2A> method to decrypt messages encoded with the same signature parameter.  \n  \n [!code-cpp[RijndaelManaged Example#1](~/samples/snippets/cpp/VS_Snippets_CLR/RijndaelManaged Example/CPP/class1.cpp#1)]\n [!code-csharp[RijndaelManaged Example#1](~/samples/snippets/csharp/VS_Snippets_CLR/RijndaelManaged Example/CS/class1.cs#1)]\n [!code-vb[RijndaelManaged Example#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/RijndaelManaged Example/VB/class1.vb#1)]"
   syntax:
     content: public override System.Security.Cryptography.ICryptoTransform CreateDecryptor (byte[] rgbKey, byte[] rgbIV);
     parameters:
@@ -190,6 +242,7 @@ items:
     commentId: T:System.Security.Cryptography.CryptographicException
     description: The value of the <xref href="System.Security.Cryptography.SymmetricAlgorithm.Mode"></xref> property is not <xref href="System.Security.Cryptography.CipherMode.ECB"></xref>, <xref href="System.Security.Cryptography.CipherMode.CBC"></xref>, or <xref href="System.Security.Cryptography.CipherMode.CFB"></xref>.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -202,6 +255,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -214,9 +268,32 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
+- uid: System.Security.Cryptography.RijndaelManaged.CreateEncryptor
+  commentId: M:System.Security.Cryptography.RijndaelManaged.CreateEncryptor
+  id: CreateEncryptor
+  parent: System.Security.Cryptography.RijndaelManaged
+  langs:
+  - csharp
+  name: CreateEncryptor()
+  nameWithType: RijndaelManaged.CreateEncryptor()
+  fullName: RijndaelManaged.CreateEncryptor()
+  type: Method
+  assemblies:
+  - System.Security.Cryptography.Algorithms
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override System.Security.Cryptography.ICryptoTransform CreateEncryptor ();
+    parameters: []
+    return:
+      type: System.Security.Cryptography.ICryptoTransform
+      description: To be added.
+  overload: System.Security.Cryptography.RijndaelManaged.CreateEncryptor*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
 - uid: System.Security.Cryptography.RijndaelManaged.CreateEncryptor(System.Byte[],System.Byte[])
   commentId: M:System.Security.Cryptography.RijndaelManaged.CreateEncryptor(System.Byte[],System.Byte[])
   id: CreateEncryptor(System.Byte[],System.Byte[])
@@ -225,11 +302,12 @@ items:
   - csharp
   name: CreateEncryptor(Byte[], Byte[])
   nameWithType: RijndaelManaged.CreateEncryptor(Byte[], Byte[])
-  fullName: System.Security.Cryptography.RijndaelManaged.CreateEncryptor(Byte[], Byte[])
+  fullName: RijndaelManaged.CreateEncryptor(Byte[], Byte[])
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Algorithms
   namespace: System.Security.Cryptography
   summary: Creates a symmetric <xref href="System.Security.Cryptography.Rijndael"></xref> encryptor object with the specified <xref href="System.Security.Cryptography.SymmetricAlgorithm.Key"></xref> and initialization vector (<xref href="System.Security.Cryptography.SymmetricAlgorithm.IV"></xref>).
   remarks: "Use the <xref:System.Security.Cryptography.RijndaelManaged.CreateDecryptor%2A> overload with the same signature to decrypt the result of this method.  \n  \n The `rgbkey` size must be 128, 192, or 256 bits."
@@ -256,6 +334,7 @@ items:
     commentId: T:System.Security.Cryptography.CryptographicException
     description: The value of the <xref href="System.Security.Cryptography.SymmetricAlgorithm.Mode"></xref> property is not <xref href="System.Security.Cryptography.CipherMode.ECB"></xref>, <xref href="System.Security.Cryptography.CipherMode.CBC"></xref>, or <xref href="System.Security.Cryptography.CipherMode.CFB"></xref>.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -268,6 +347,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -280,9 +360,32 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
+- uid: System.Security.Cryptography.RijndaelManaged.Dispose(System.Boolean)
+  commentId: M:System.Security.Cryptography.RijndaelManaged.Dispose(System.Boolean)
+  id: Dispose(System.Boolean)
+  parent: System.Security.Cryptography.RijndaelManaged
+  langs:
+  - csharp
+  name: Dispose(Boolean)
+  nameWithType: RijndaelManaged.Dispose(Boolean)
+  fullName: RijndaelManaged.Dispose(Boolean)
+  type: Method
+  assemblies:
+  - System.Security.Cryptography.Algorithms
+  namespace: System.Security.Cryptography
+  syntax:
+    content: protected override void Dispose (bool disposing);
+    parameters:
+    - id: disposing
+      type: System.Boolean
+      description: To be added.
+  overload: System.Security.Cryptography.RijndaelManaged.Dispose*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
 - uid: System.Security.Cryptography.RijndaelManaged.GenerateIV
   commentId: M:System.Security.Cryptography.RijndaelManaged.GenerateIV
   id: GenerateIV
@@ -291,11 +394,12 @@ items:
   - csharp
   name: GenerateIV()
   nameWithType: RijndaelManaged.GenerateIV()
-  fullName: System.Security.Cryptography.RijndaelManaged.GenerateIV()
+  fullName: RijndaelManaged.GenerateIV()
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Algorithms
   namespace: System.Security.Cryptography
   summary: Generates a random initialization vector (<xref href="System.Security.Cryptography.SymmetricAlgorithm.IV"></xref>) to be used for the algorithm.
   remarks: Use this method to generate a random IV when none is specified.
@@ -310,6 +414,7 @@ items:
   overload: System.Security.Cryptography.RijndaelManaged.GenerateIV*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -322,6 +427,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -334,9 +440,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.RijndaelManaged.GenerateKey
   commentId: M:System.Security.Cryptography.RijndaelManaged.GenerateKey
   id: GenerateKey
@@ -345,11 +448,12 @@ items:
   - csharp
   name: GenerateKey()
   nameWithType: RijndaelManaged.GenerateKey()
-  fullName: System.Security.Cryptography.RijndaelManaged.GenerateKey()
+  fullName: RijndaelManaged.GenerateKey()
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Algorithms
   namespace: System.Security.Cryptography
   summary: Generates a random <xref href="System.Security.Cryptography.SymmetricAlgorithm.Key"></xref> to be used for the algorithm.
   remarks: Use this method to generate a random key when none is specified.
@@ -364,6 +468,7 @@ items:
   overload: System.Security.Cryptography.RijndaelManaged.GenerateKey*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -376,6 +481,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -388,9 +494,156 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
+- uid: System.Security.Cryptography.RijndaelManaged.IV
+  commentId: P:System.Security.Cryptography.RijndaelManaged.IV
+  id: IV
+  parent: System.Security.Cryptography.RijndaelManaged
+  langs:
+  - csharp
+  name: IV
+  nameWithType: RijndaelManaged.IV
+  fullName: RijndaelManaged.IV
+  type: Property
+  assemblies:
+  - System.Security.Cryptography.Algorithms
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override byte[] IV { get; set; }
+    return:
+      type: System.Byte[]
+      description: To be added.
+  overload: System.Security.Cryptography.RijndaelManaged.IV*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
+- uid: System.Security.Cryptography.RijndaelManaged.Key
+  commentId: P:System.Security.Cryptography.RijndaelManaged.Key
+  id: Key
+  parent: System.Security.Cryptography.RijndaelManaged
+  langs:
+  - csharp
+  name: Key
+  nameWithType: RijndaelManaged.Key
+  fullName: RijndaelManaged.Key
+  type: Property
+  assemblies:
+  - System.Security.Cryptography.Algorithms
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override byte[] Key { get; set; }
+    return:
+      type: System.Byte[]
+      description: To be added.
+  overload: System.Security.Cryptography.RijndaelManaged.Key*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
+- uid: System.Security.Cryptography.RijndaelManaged.KeySize
+  commentId: P:System.Security.Cryptography.RijndaelManaged.KeySize
+  id: KeySize
+  parent: System.Security.Cryptography.RijndaelManaged
+  langs:
+  - csharp
+  name: KeySize
+  nameWithType: RijndaelManaged.KeySize
+  fullName: RijndaelManaged.KeySize
+  type: Property
+  assemblies:
+  - System.Security.Cryptography.Algorithms
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override int KeySize { get; set; }
+    return:
+      type: System.Int32
+      description: To be added.
+  overload: System.Security.Cryptography.RijndaelManaged.KeySize*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
+- uid: System.Security.Cryptography.RijndaelManaged.LegalKeySizes
+  commentId: P:System.Security.Cryptography.RijndaelManaged.LegalKeySizes
+  id: LegalKeySizes
+  parent: System.Security.Cryptography.RijndaelManaged
+  langs:
+  - csharp
+  name: LegalKeySizes
+  nameWithType: RijndaelManaged.LegalKeySizes
+  fullName: RijndaelManaged.LegalKeySizes
+  type: Property
+  assemblies:
+  - System.Security.Cryptography.Algorithms
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override System.Security.Cryptography.KeySizes[] LegalKeySizes { get; }
+    return:
+      type: System.Security.Cryptography.KeySizes[]
+      description: To be added.
+  overload: System.Security.Cryptography.RijndaelManaged.LegalKeySizes*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
+- uid: System.Security.Cryptography.RijndaelManaged.Mode
+  commentId: P:System.Security.Cryptography.RijndaelManaged.Mode
+  id: Mode
+  parent: System.Security.Cryptography.RijndaelManaged
+  langs:
+  - csharp
+  name: Mode
+  nameWithType: RijndaelManaged.Mode
+  fullName: RijndaelManaged.Mode
+  type: Property
+  assemblies:
+  - System.Security.Cryptography.Algorithms
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override System.Security.Cryptography.CipherMode Mode { get; set; }
+    return:
+      type: System.Security.Cryptography.CipherMode
+      description: To be added.
+  overload: System.Security.Cryptography.RijndaelManaged.Mode*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
+- uid: System.Security.Cryptography.RijndaelManaged.Padding
+  commentId: P:System.Security.Cryptography.RijndaelManaged.Padding
+  id: Padding
+  parent: System.Security.Cryptography.RijndaelManaged
+  langs:
+  - csharp
+  name: Padding
+  nameWithType: RijndaelManaged.Padding
+  fullName: RijndaelManaged.Padding
+  type: Property
+  assemblies:
+  - System.Security.Cryptography.Algorithms
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override System.Security.Cryptography.PaddingMode Padding { get; set; }
+    return:
+      type: System.Security.Cryptography.PaddingMode
+      description: To be added.
+  overload: System.Security.Cryptography.RijndaelManaged.Padding*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
 references:
 - uid: System.Security.Cryptography.Rijndael
   parent: System.Security.Cryptography
@@ -421,19 +674,37 @@ references:
   isExternal: false
   name: RijndaelManaged()
   nameWithType: RijndaelManaged.RijndaelManaged()
-  fullName: System.Security.Cryptography.RijndaelManaged.RijndaelManaged()
-- uid: System.Security.Cryptography.RijndaelManaged.CreateDecryptor(System.Byte[],System.Byte[])
+  fullName: RijndaelManaged.RijndaelManaged()
+- uid: System.Security.Cryptography.RijndaelManaged.BlockSize
   parent: System.Security.Cryptography.RijndaelManaged
   isExternal: false
-  name: CreateDecryptor(Byte[], Byte[])
-  nameWithType: RijndaelManaged.CreateDecryptor(Byte[], Byte[])
-  fullName: System.Security.Cryptography.RijndaelManaged.CreateDecryptor(Byte[], Byte[])
+  name: BlockSize
+  nameWithType: RijndaelManaged.BlockSize
+  fullName: RijndaelManaged.BlockSize
+- uid: System.Int32
+  parent: System
+  isExternal: false
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32
+- uid: System.Security.Cryptography.RijndaelManaged.CreateDecryptor
+  parent: System.Security.Cryptography.RijndaelManaged
+  isExternal: false
+  name: CreateDecryptor()
+  nameWithType: RijndaelManaged.CreateDecryptor()
+  fullName: RijndaelManaged.CreateDecryptor()
 - uid: System.Security.Cryptography.ICryptoTransform
   parent: System.Security.Cryptography
   isExternal: false
   name: ICryptoTransform
   nameWithType: ICryptoTransform
   fullName: System.Security.Cryptography.ICryptoTransform
+- uid: System.Security.Cryptography.RijndaelManaged.CreateDecryptor(System.Byte[],System.Byte[])
+  parent: System.Security.Cryptography.RijndaelManaged
+  isExternal: false
+  name: CreateDecryptor(Byte[], Byte[])
+  nameWithType: RijndaelManaged.CreateDecryptor(Byte[], Byte[])
+  fullName: RijndaelManaged.CreateDecryptor(Byte[], Byte[])
 - uid: System.Byte
   name: Byte
   nameWithType: Byte
@@ -452,31 +723,116 @@ references:
   - name: '[]'
     nameWithType: '[]'
     fullName: '[]'
+- uid: System.Security.Cryptography.RijndaelManaged.CreateEncryptor
+  parent: System.Security.Cryptography.RijndaelManaged
+  isExternal: false
+  name: CreateEncryptor()
+  nameWithType: RijndaelManaged.CreateEncryptor()
+  fullName: RijndaelManaged.CreateEncryptor()
 - uid: System.Security.Cryptography.RijndaelManaged.CreateEncryptor(System.Byte[],System.Byte[])
   parent: System.Security.Cryptography.RijndaelManaged
   isExternal: false
   name: CreateEncryptor(Byte[], Byte[])
   nameWithType: RijndaelManaged.CreateEncryptor(Byte[], Byte[])
-  fullName: System.Security.Cryptography.RijndaelManaged.CreateEncryptor(Byte[], Byte[])
+  fullName: RijndaelManaged.CreateEncryptor(Byte[], Byte[])
+- uid: System.Security.Cryptography.RijndaelManaged.Dispose(System.Boolean)
+  parent: System.Security.Cryptography.RijndaelManaged
+  isExternal: false
+  name: Dispose(Boolean)
+  nameWithType: RijndaelManaged.Dispose(Boolean)
+  fullName: RijndaelManaged.Dispose(Boolean)
+- uid: System.Boolean
+  parent: System
+  isExternal: false
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
 - uid: System.Security.Cryptography.RijndaelManaged.GenerateIV
   parent: System.Security.Cryptography.RijndaelManaged
   isExternal: false
   name: GenerateIV()
   nameWithType: RijndaelManaged.GenerateIV()
-  fullName: System.Security.Cryptography.RijndaelManaged.GenerateIV()
+  fullName: RijndaelManaged.GenerateIV()
 - uid: System.Security.Cryptography.RijndaelManaged.GenerateKey
   parent: System.Security.Cryptography.RijndaelManaged
   isExternal: false
   name: GenerateKey()
   nameWithType: RijndaelManaged.GenerateKey()
-  fullName: System.Security.Cryptography.RijndaelManaged.GenerateKey()
+  fullName: RijndaelManaged.GenerateKey()
+- uid: System.Security.Cryptography.RijndaelManaged.IV
+  parent: System.Security.Cryptography.RijndaelManaged
+  isExternal: false
+  name: IV
+  nameWithType: RijndaelManaged.IV
+  fullName: RijndaelManaged.IV
+- uid: System.Security.Cryptography.RijndaelManaged.Key
+  parent: System.Security.Cryptography.RijndaelManaged
+  isExternal: false
+  name: Key
+  nameWithType: RijndaelManaged.Key
+  fullName: RijndaelManaged.Key
+- uid: System.Security.Cryptography.RijndaelManaged.KeySize
+  parent: System.Security.Cryptography.RijndaelManaged
+  isExternal: false
+  name: KeySize
+  nameWithType: RijndaelManaged.KeySize
+  fullName: RijndaelManaged.KeySize
+- uid: System.Security.Cryptography.RijndaelManaged.LegalKeySizes
+  parent: System.Security.Cryptography.RijndaelManaged
+  isExternal: false
+  name: LegalKeySizes
+  nameWithType: RijndaelManaged.LegalKeySizes
+  fullName: RijndaelManaged.LegalKeySizes
+- uid: System.Security.Cryptography.KeySizes
+  name: KeySizes
+  nameWithType: KeySizes
+  fullName: System.Security.Cryptography.KeySizes
+- uid: System.Security.Cryptography.KeySizes[]
+  parent: System.Security.Cryptography
+  isExternal: false
+  name: KeySizes[]
+  nameWithType: KeySizes[]
+  fullName: System.Security.Cryptography.KeySizes[]
+  spec.csharp:
+  - uid: System.Security.Cryptography.KeySizes
+    name: KeySizes
+    nameWithType: KeySizes
+    fullName: System.Security.Cryptography.KeySizes
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+- uid: System.Security.Cryptography.RijndaelManaged.Mode
+  parent: System.Security.Cryptography.RijndaelManaged
+  isExternal: false
+  name: Mode
+  nameWithType: RijndaelManaged.Mode
+  fullName: RijndaelManaged.Mode
+- uid: System.Security.Cryptography.CipherMode
+  parent: System.Security.Cryptography
+  isExternal: false
+  name: CipherMode
+  nameWithType: CipherMode
+  fullName: System.Security.Cryptography.CipherMode
+- uid: System.Security.Cryptography.RijndaelManaged.Padding
+  parent: System.Security.Cryptography.RijndaelManaged
+  isExternal: false
+  name: Padding
+  nameWithType: RijndaelManaged.Padding
+  fullName: RijndaelManaged.Padding
+- uid: System.Security.Cryptography.PaddingMode
+  parent: System.Security.Cryptography
+  isExternal: false
+  name: PaddingMode
+  nameWithType: PaddingMode
+  fullName: System.Security.Cryptography.PaddingMode
 - uid: System.Security.Cryptography.RijndaelManaged.#ctor*
   parent: System.Security.Cryptography.RijndaelManaged
   isExternal: false
   name: RijndaelManaged
   nameWithType: RijndaelManaged.RijndaelManaged
-  fullName: System.Security.Cryptography.RijndaelManaged.RijndaelManaged
+  fullName: RijndaelManaged.RijndaelManaged
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -489,13 +845,23 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
+- uid: System.Security.Cryptography.RijndaelManaged.BlockSize*
+  parent: System.Security.Cryptography.RijndaelManaged
+  isExternal: false
+  name: BlockSize
+  nameWithType: RijndaelManaged.BlockSize
+  fullName: RijndaelManaged.BlockSize
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
 - uid: System.Security.Cryptography.RijndaelManaged.CreateDecryptor*
   parent: System.Security.Cryptography.RijndaelManaged
   isExternal: false
   name: CreateDecryptor
   nameWithType: RijndaelManaged.CreateDecryptor
-  fullName: System.Security.Cryptography.RijndaelManaged.CreateDecryptor
+  fullName: RijndaelManaged.CreateDecryptor
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -513,8 +879,9 @@ references:
   isExternal: false
   name: CreateEncryptor
   nameWithType: RijndaelManaged.CreateEncryptor
-  fullName: System.Security.Cryptography.RijndaelManaged.CreateEncryptor
+  fullName: RijndaelManaged.CreateEncryptor
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -527,13 +894,23 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
+- uid: System.Security.Cryptography.RijndaelManaged.Dispose*
+  parent: System.Security.Cryptography.RijndaelManaged
+  isExternal: false
+  name: Dispose
+  nameWithType: RijndaelManaged.Dispose
+  fullName: RijndaelManaged.Dispose
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
 - uid: System.Security.Cryptography.RijndaelManaged.GenerateIV*
   parent: System.Security.Cryptography.RijndaelManaged
   isExternal: false
   name: GenerateIV
   nameWithType: RijndaelManaged.GenerateIV
-  fullName: System.Security.Cryptography.RijndaelManaged.GenerateIV
+  fullName: RijndaelManaged.GenerateIV
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -551,8 +928,9 @@ references:
   isExternal: false
   name: GenerateKey
   nameWithType: RijndaelManaged.GenerateKey
-  fullName: System.Security.Cryptography.RijndaelManaged.GenerateKey
+  fullName: RijndaelManaged.GenerateKey
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -564,4 +942,58 @@ references:
   - xamarinandroid-7.1
   - xamarinios-10.8
   - xamarinmac-3.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
+- uid: System.Security.Cryptography.RijndaelManaged.IV*
+  parent: System.Security.Cryptography.RijndaelManaged
+  isExternal: false
+  name: IV
+  nameWithType: RijndaelManaged.IV
+  fullName: RijndaelManaged.IV
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
+- uid: System.Security.Cryptography.RijndaelManaged.Key*
+  parent: System.Security.Cryptography.RijndaelManaged
+  isExternal: false
+  name: Key
+  nameWithType: RijndaelManaged.Key
+  fullName: RijndaelManaged.Key
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
+- uid: System.Security.Cryptography.RijndaelManaged.KeySize*
+  parent: System.Security.Cryptography.RijndaelManaged
+  isExternal: false
+  name: KeySize
+  nameWithType: RijndaelManaged.KeySize
+  fullName: RijndaelManaged.KeySize
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
+- uid: System.Security.Cryptography.RijndaelManaged.LegalKeySizes*
+  parent: System.Security.Cryptography.RijndaelManaged
+  isExternal: false
+  name: LegalKeySizes
+  nameWithType: RijndaelManaged.LegalKeySizes
+  fullName: RijndaelManaged.LegalKeySizes
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
+- uid: System.Security.Cryptography.RijndaelManaged.Mode*
+  parent: System.Security.Cryptography.RijndaelManaged
+  isExternal: false
+  name: Mode
+  nameWithType: RijndaelManaged.Mode
+  fullName: RijndaelManaged.Mode
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml
+- uid: System.Security.Cryptography.RijndaelManaged.Padding*
+  parent: System.Security.Cryptography.RijndaelManaged
+  isExternal: false
+  name: Padding
+  nameWithType: RijndaelManaged.Padding
+  fullName: RijndaelManaged.Padding
+  monikers:
+  - netcore-2.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/RijndaelManaged.xml

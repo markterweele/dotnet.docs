@@ -26,6 +26,11 @@ items:
       [System.Runtime.InteropServices.InterfaceType(System.Runtime.InteropServices.ComInterfaceType.InterfaceIsIUnknown)]
 
       public interface IToggleProvider
+  derivedClasses:
+  - System.Windows.Automation.Peers.MenuItemAutomationPeer
+  - System.Windows.Automation.Peers.RibbonMenuItemDataAutomationPeer
+  - System.Windows.Automation.Peers.RibbonSplitButtonAutomationPeer
+  - System.Windows.Automation.Peers.ToggleButtonAutomationPeer
   implements: []
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
@@ -48,9 +53,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Automation.Provider/IToggleProvider.xml
-  author: Xansky
-  ms.author: mhopkins
-  manager: markl
 - uid: System.Windows.Automation.Provider.IToggleProvider.Toggle
   commentId: M:System.Windows.Automation.Provider.IToggleProvider.Toggle
   id: Toggle
@@ -59,13 +61,13 @@ items:
   - csharp
   name: Toggle()
   nameWithType: IToggleProvider.Toggle()
-  fullName: System.Windows.Automation.Provider.IToggleProvider.Toggle()
+  fullName: IToggleProvider.Toggle()
   type: Method
   assemblies:
   - UIAutomationProvider
   namespace: System.Windows.Automation.Provider
   summary: Cycles through the toggle states of a control.
-  remarks: 'A control must cycle through its toggle states in this order: <xref:System.Windows.Automation.ToggleState>, <xref:System.Windows.Automation.ToggleState>, and (if supported) <xref:System.Windows.Automation.ToggleState>.'
+  remarks: 'A control must cycle through its toggle states in this order: <xref:System.Windows.Automation.ToggleState.On>, <xref:System.Windows.Automation.ToggleState.Off>, and (if supported) <xref:System.Windows.Automation.ToggleState.Indeterminate>.'
   example:
   - "The following example shows one possible implementation of this method for a custom control that can be toggled.  \n  \n [!code-csharp[UIAIToggleProvider_snip#Toggle](~/samples/snippets/csharp/VS_Snippets_Wpf/UIAIToggleProvider_snip/CSharp/ToggleFragment.cs#toggle)]\n [!code-vb[UIAIToggleProvider_snip#Toggle](~/samples/snippets/visualbasic/VS_Snippets_Wpf/UIAIToggleProvider_snip/visualbasic/togglefragment.vb#toggle)]"
   syntax:
@@ -90,9 +92,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Automation.Provider/IToggleProvider.xml
-  author: Xansky
-  ms.author: mhopkins
-  manager: markl
 - uid: System.Windows.Automation.Provider.IToggleProvider.ToggleState
   commentId: P:System.Windows.Automation.Provider.IToggleProvider.ToggleState
   id: ToggleState
@@ -101,13 +100,13 @@ items:
   - csharp
   name: ToggleState
   nameWithType: IToggleProvider.ToggleState
-  fullName: System.Windows.Automation.Provider.IToggleProvider.ToggleState
+  fullName: IToggleProvider.ToggleState
   type: Property
   assemblies:
   - UIAutomationProvider
   namespace: System.Windows.Automation.Provider
   summary: Gets the toggle state of the control.
-  remarks: 'A control must cycle through its <xref:System.Windows.Automation.ToggleState> in this order: <xref:System.Windows.Automation.ToggleState>, <xref:System.Windows.Automation.ToggleState>, and (if supported) <xref:System.Windows.Automation.ToggleState>.'
+  remarks: 'A control must cycle through its <xref:System.Windows.Automation.ToggleState> in this order: <xref:System.Windows.Automation.ToggleState.On>, <xref:System.Windows.Automation.ToggleState.Off>, and (if supported) <xref:System.Windows.Automation.ToggleState.Indeterminate>.'
   example:
   - "The following example shows an implementation of this method for a control that can be toggled. The ToggleState returned is based on the color of the control; this is analogous to the <xref:System.Windows.Controls.Primitives.ToggleButton.IsChecked%2A> property of a CheckBox control.  \n  \n [!code-csharp[UIAIToggleProvider_snip#ToggleState](~/samples/snippets/csharp/VS_Snippets_Wpf/UIAIToggleProvider_snip/CSharp/ToggleFragment.cs#togglestate)]\n [!code-vb[UIAIToggleProvider_snip#ToggleState](~/samples/snippets/visualbasic/VS_Snippets_Wpf/UIAIToggleProvider_snip/visualbasic/togglefragment.vb#togglestate)]"
   syntax:
@@ -134,22 +133,19 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Automation.Provider/IToggleProvider.xml
-  author: Xansky
-  ms.author: mhopkins
-  manager: markl
 references:
 - uid: System.Windows.Automation.Provider.IToggleProvider.Toggle
   parent: System.Windows.Automation.Provider.IToggleProvider
   isExternal: false
   name: Toggle()
   nameWithType: IToggleProvider.Toggle()
-  fullName: System.Windows.Automation.Provider.IToggleProvider.Toggle()
+  fullName: IToggleProvider.Toggle()
 - uid: System.Windows.Automation.Provider.IToggleProvider.ToggleState
   parent: System.Windows.Automation.Provider.IToggleProvider
   isExternal: false
   name: ToggleState
   nameWithType: IToggleProvider.ToggleState
-  fullName: System.Windows.Automation.Provider.IToggleProvider.ToggleState
+  fullName: IToggleProvider.ToggleState
 - uid: System.Windows.Automation.ToggleState
   parent: System.Windows.Automation
   isExternal: false
@@ -161,7 +157,7 @@ references:
   isExternal: false
   name: Toggle
   nameWithType: IToggleProvider.Toggle
-  fullName: System.Windows.Automation.Provider.IToggleProvider.Toggle
+  fullName: IToggleProvider.Toggle
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -176,7 +172,7 @@ references:
   isExternal: false
   name: ToggleState
   nameWithType: IToggleProvider.ToggleState
-  fullName: System.Windows.Automation.Provider.IToggleProvider.ToggleState
+  fullName: IToggleProvider.ToggleState
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

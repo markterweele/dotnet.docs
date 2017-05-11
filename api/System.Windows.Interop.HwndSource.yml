@@ -52,7 +52,7 @@ items:
   assemblies:
   - PresentationCore
   namespace: System.Windows.Interop
-  summary: Presents [!INCLUDE[TLA#tla_winclient](~/includes/tlasharptla-winclient-md.md)] content in a [!INCLUDE[TLA#tla_win32](~/includes/tlasharptla-win32-md.md)] window.
+  summary: Presents Windows Presentation Foundation (WPF) content in a Win32 window.
   remarks: "> [!IMPORTANT]\n>  Many members of this class are unavailable in the Internet security zone.  \n  \n An <xref:System.Windows.Interop.HwndSource> implements a [!INCLUDE[TLA2#tla_win32](~/includes/tla2sharptla-win32-md.md)] window that can contain [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] content. The [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] content in the window is arranged, measured, and rendered; and is interactive to input. Because the <xref:System.Windows.Interop.HwndSource> is specifically designed to interoperate with [!INCLUDE[TLA2#tla_win32](~/includes/tla2sharptla-win32-md.md)], this class exposes several low-level [!INCLUDE[TLA2#tla_win32](~/includes/tla2sharptla-win32-md.md)] features. You can use this class to do the following:  \n  \n-   Specify window styles, window class styles, and extended window styles.  \n  \n-   Hook the window procedure.  \n  \n-   Provide access to the window handle (HWND).  \n  \n-   Destroy the window.  \n  \n The <xref:System.Windows.Interop.HwndSource> class is designed for general interoperability and is not designed as a managed HWND wrapper. In general, it does not provide managed methods for manipulating the window or properties for inspecting its state. Instead, the <xref:System.Windows.Interop.HwndSource> class provides access to the [!INCLUDE[TLA2#tla_win32](~/includes/tla2sharptla-win32-md.md)] window handle (HWND) through the <xref:System.Windows.Interop.HwndSource.Handle%2A> property, which can be passed by means of PInvoke techniques to [!INCLUDE[TLA2#tla_win32](~/includes/tla2sharptla-win32-md.md)] [!INCLUDE[TLA2#tla_api#plural](~/includes/tla2sharptla-apisharpplural-md.md)] in order to manipulate the window.  \n  \n **Construction**  \n  \n Many aspects of the <xref:System.Windows.Interop.HwndSource> can only be specified at construction time. To create an <xref:System.Windows.Interop.HwndSource>, first create an <xref:System.Windows.Interop.HwndSourceParameters> structure and populate it with the desired parameters. These parameters include the following:  \n  \n-   The class, window, and extended window styles. You must use PInvoke to change the styles after the window is created. Not all styles can be changed after the window is created. Consult the [!INCLUDE[TLA2#tla_win32](~/includes/tla2sharptla-win32-md.md)] documentation before changing window styles.  \n  \n-   The initial position of the window.  \n  \n-   The initial size of the window, which includes whether the size is specified or should be determined from the determined size of the [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] content.  \n  \n-   The parent window.  \n  \n-   The <xref:System.Windows.Interop.HwndSourceHook> to include in the window procedure chain. If you specify a hook at construction time, it receives all messages for the window. You can use <xref:System.Windows.Interop.HwndSource.AddHook%2A> to add a hook after the window is created.  \n  \n-   The transparency settings. A top-level window can be configured to blend with the other windows on the desktop according to the per-pixel transparency of the [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] content. To enable this, set the <xref:System.Windows.Interop.HwndSourceParameters.UsesPerPixelOpacity%2A> property in the <xref:System.Windows.Interop.HwndSourceParameters> to `true`. This property can only be specified at construction time, and only through the <xref:System.Windows.Interop.HwndSource.%23ctor%28System.Windows.Interop.HwndSourceParameters%29> constructor signature, and it imposes several limitations.  \n  \n After you populate the <xref:System.Windows.Interop.HwndSourceParameters> structure, pass it to the <xref:System.Windows.Interop.HwndSource.%23ctor%28System.Windows.Interop.HwndSourceParameters%29> constructor for the <xref:System.Windows.Interop.HwndSource>.  \n  \n **Object Lifetime**  \n  \n An <xref:System.Windows.Interop.HwndSource> is a regular [!INCLUDE[TLA#tla_clr](~/includes/tlasharptla-clr-md.md)] object, and its lifetime is managed by the garbage collector. Because the <xref:System.Windows.Interop.HwndSource> represents an unmanaged resource, <xref:System.Windows.Interop.HwndSource> implements <xref:System.IDisposable>. Synchronously calling <xref:System.Windows.Interop.HwndSource.Dispose%2A> immediately destroys the [!INCLUDE[TLA2#tla_win32](~/includes/tla2sharptla-win32-md.md)] window if called from the owner thread. If called from another thread, the [!INCLUDE[TLA2#tla_win32](~/includes/tla2sharptla-win32-md.md)] window is destroyed asynchronously. Calling <xref:System.Windows.Interop.HwndSource.Dispose%2A> explicitly from the interoperating code might be necessary for certain interoperation scenarios.  \n  \n **Window Procedures**  \n  \n The <xref:System.Windows.Interop.HwndSource> class implements its own window procedure. This window procedure is used to process important window messages, such as those related to layout, rendering, and input. However, you can also hook the window procedure for your own use. You can specify your own hook during construction by setting the <xref:System.Windows.Interop.HwndSourceParameters.HwndSourceHook%2A?displayProperty=fullName> property, or you can also use <xref:System.Windows.Interop.HwndSource.AddHook%2A> and <xref:System.Windows.Interop.HwndSource.RemoveHook%2A> to add and remove hooks after the window is created. The hooks are called by last-in first-out order, which enables your hooks to execute before the built-in processing. The actual hooks are held by a weak reference. Therefore, make sure that you manage the lifetime of your hook delegate.  \n  \n For more information about <xref:System.Windows.Interop.HwndSource> and other interoperation classes, see [WPF and Win32 Interoperation](~/docs/framework/wpf/advanced/wpf-and-win32-interoperation.md).  \n  \n Notice how the constructors for <xref:System.Windows.Interop.HwndSource> take parameters that resemble the parameters for [!INCLUDE[TLA#tla_win32](~/includes/tlasharptla-win32-md.md)] functions such as [CreateWindowEx](http://go.microsoft.com/fwlink/?LinkID=98462).  \n  \n Scale transformations should not be applied to the <xref:System.Windows.Interop.HwndSource.RootVisual%2A> of an <xref:System.Windows.Interop.HwndSource>. See Remarks for <xref:System.Windows.Interop.HwndSource.RootVisual%2A>."
   syntax:
     content: 'public class HwndSource : System.Windows.PresentationSource, IDisposable, System.Windows.Interop.IKeyboardInputSink, System.Windows.Interop.IWin32Window'
@@ -102,8 +102,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Interop.HwndSource.#ctor(System.Windows.Interop.HwndSourceParameters)
   commentId: M:System.Windows.Interop.HwndSource.#ctor(System.Windows.Interop.HwndSourceParameters)
   id: '#ctor(System.Windows.Interop.HwndSourceParameters)'
@@ -112,7 +110,7 @@ items:
   - csharp
   name: HwndSource(HwndSourceParameters)
   nameWithType: HwndSource.HwndSource(HwndSourceParameters)
-  fullName: System.Windows.Interop.HwndSource.HwndSource(HwndSourceParameters)
+  fullName: HwndSource.HwndSource(HwndSourceParameters)
   type: Constructor
   assemblies:
   - PresentationCore
@@ -149,9 +147,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.String,System.IntPtr)
   commentId: M:System.Windows.Interop.HwndSource.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.String,System.IntPtr)
   id: '#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.String,System.IntPtr)'
@@ -160,7 +155,7 @@ items:
   - csharp
   name: HwndSource(Int32, Int32, Int32, Int32, Int32, String, IntPtr)
   nameWithType: HwndSource.HwndSource(Int32, Int32, Int32, Int32, Int32, String, IntPtr)
-  fullName: System.Windows.Interop.HwndSource.HwndSource(Int32, Int32, Int32, Int32, Int32, String, IntPtr)
+  fullName: HwndSource.HwndSource(Int32, Int32, Int32, Int32, Int32, String, IntPtr)
   type: Constructor
   assemblies:
   - PresentationCore
@@ -218,8 +213,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Interop.HwndSource.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.String,System.IntPtr)
   commentId: M:System.Windows.Interop.HwndSource.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.String,System.IntPtr)
   id: '#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.String,System.IntPtr)'
@@ -228,7 +221,7 @@ items:
   - csharp
   name: HwndSource(Int32, Int32, Int32, Int32, Int32, Int32, Int32, String, IntPtr)
   nameWithType: HwndSource.HwndSource(Int32, Int32, Int32, Int32, Int32, Int32, Int32, String, IntPtr)
-  fullName: System.Windows.Interop.HwndSource.HwndSource(Int32, Int32, Int32, Int32, Int32, Int32, Int32, String, IntPtr)
+  fullName: HwndSource.HwndSource(Int32, Int32, Int32, Int32, Int32, Int32, Int32, String, IntPtr)
   type: Constructor
   assemblies:
   - PresentationCore
@@ -292,9 +285,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.String,System.IntPtr,System.Boolean)
   commentId: M:System.Windows.Interop.HwndSource.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.String,System.IntPtr,System.Boolean)
   id: '#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.String,System.IntPtr,System.Boolean)'
@@ -303,7 +293,7 @@ items:
   - csharp
   name: HwndSource(Int32, Int32, Int32, Int32, Int32, Int32, Int32, String, IntPtr, Boolean)
   nameWithType: HwndSource.HwndSource(Int32, Int32, Int32, Int32, Int32, Int32, Int32, String, IntPtr, Boolean)
-  fullName: System.Windows.Interop.HwndSource.HwndSource(Int32, Int32, Int32, Int32, Int32, Int32, Int32, String, IntPtr, Boolean)
+  fullName: HwndSource.HwndSource(Int32, Int32, Int32, Int32, Int32, Int32, Int32, String, IntPtr, Boolean)
   type: Constructor
   assemblies:
   - PresentationCore
@@ -370,9 +360,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.AcquireHwndFocusInMenuMode
   commentId: P:System.Windows.Interop.HwndSource.AcquireHwndFocusInMenuMode
   id: AcquireHwndFocusInMenuMode
@@ -381,7 +368,7 @@ items:
   - csharp
   name: AcquireHwndFocusInMenuMode
   nameWithType: HwndSource.AcquireHwndFocusInMenuMode
-  fullName: System.Windows.Interop.HwndSource.AcquireHwndFocusInMenuMode
+  fullName: HwndSource.AcquireHwndFocusInMenuMode
   type: Property
   assemblies:
   - PresentationCore
@@ -412,9 +399,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.AddHook(System.Windows.Interop.HwndSourceHook)
   commentId: M:System.Windows.Interop.HwndSource.AddHook(System.Windows.Interop.HwndSourceHook)
   id: AddHook(System.Windows.Interop.HwndSourceHook)
@@ -423,7 +407,7 @@ items:
   - csharp
   name: AddHook(HwndSourceHook)
   nameWithType: HwndSource.AddHook(HwndSourceHook)
-  fullName: System.Windows.Interop.HwndSource.AddHook(HwndSourceHook)
+  fullName: HwndSource.AddHook(HwndSourceHook)
   type: Method
   assemblies:
   - PresentationCore
@@ -460,9 +444,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.AutoResized
   commentId: E:System.Windows.Interop.HwndSource.AutoResized
   id: AutoResized
@@ -471,13 +452,13 @@ items:
   - csharp
   name: AutoResized
   nameWithType: HwndSource.AutoResized
-  fullName: System.Windows.Interop.HwndSource.AutoResized
+  fullName: HwndSource.AutoResized
   type: Event
   assemblies:
   - PresentationCore
   namespace: System.Windows.Interop
   summary: Occurs when layout causes the <xref href="System.Windows.Interop.HwndSource"></xref> to automatically resize.
-  remarks: The native behavior of <xref:System.Windows.Interop.HwndSource> is to automatically resize content and the window region based on changes reported through the [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] layout system. The window does not resize if it is currently minimized or if <xref:System.Windows.Interop.HwndSource.SizeToContent%2A> is set to <xref:System.Windows.SizeToContent>.
+  remarks: The native behavior of <xref:System.Windows.Interop.HwndSource> is to automatically resize content and the window region based on changes reported through the [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] layout system. The window does not resize if it is currently minimized or if <xref:System.Windows.Interop.HwndSource.SizeToContent%2A> is set to <xref:System.Windows.SizeToContent.Manual>.
   syntax:
     content: public event System.Windows.AutoResizedEventHandler AutoResized;
     return:
@@ -501,9 +482,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.ChildKeyboardInputSinks
   commentId: P:System.Windows.Interop.HwndSource.ChildKeyboardInputSinks
   id: ChildKeyboardInputSinks
@@ -512,7 +490,7 @@ items:
   - csharp
   name: ChildKeyboardInputSinks
   nameWithType: HwndSource.ChildKeyboardInputSinks
-  fullName: System.Windows.Interop.HwndSource.ChildKeyboardInputSinks
+  fullName: HwndSource.ChildKeyboardInputSinks
   type: Property
   assemblies:
   - PresentationCore
@@ -547,9 +525,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.CompositionTarget
   commentId: P:System.Windows.Interop.HwndSource.CompositionTarget
   id: CompositionTarget
@@ -558,7 +533,7 @@ items:
   - csharp
   name: CompositionTarget
   nameWithType: HwndSource.CompositionTarget
-  fullName: System.Windows.Interop.HwndSource.CompositionTarget
+  fullName: HwndSource.CompositionTarget
   type: Property
   assemblies:
   - PresentationCore
@@ -594,9 +569,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.CreateHandleRef
   commentId: M:System.Windows.Interop.HwndSource.CreateHandleRef
   id: CreateHandleRef
@@ -605,7 +577,7 @@ items:
   - csharp
   name: CreateHandleRef()
   nameWithType: HwndSource.CreateHandleRef()
-  fullName: System.Windows.Interop.HwndSource.CreateHandleRef()
+  fullName: HwndSource.CreateHandleRef()
   type: Method
   assemblies:
   - PresentationCore
@@ -637,9 +609,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.DefaultAcquireHwndFocusInMenuMode
   commentId: P:System.Windows.Interop.HwndSource.DefaultAcquireHwndFocusInMenuMode
   id: DefaultAcquireHwndFocusInMenuMode
@@ -648,7 +617,7 @@ items:
   - csharp
   name: DefaultAcquireHwndFocusInMenuMode
   nameWithType: HwndSource.DefaultAcquireHwndFocusInMenuMode
-  fullName: System.Windows.Interop.HwndSource.DefaultAcquireHwndFocusInMenuMode
+  fullName: HwndSource.DefaultAcquireHwndFocusInMenuMode
   type: Property
   assemblies:
   - PresentationCore
@@ -679,9 +648,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.Dispose
   commentId: M:System.Windows.Interop.HwndSource.Dispose
   id: Dispose
@@ -690,7 +656,7 @@ items:
   - csharp
   name: Dispose()
   nameWithType: HwndSource.Dispose()
-  fullName: System.Windows.Interop.HwndSource.Dispose()
+  fullName: HwndSource.Dispose()
   type: Method
   assemblies:
   - PresentationCore
@@ -719,9 +685,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.Disposed
   commentId: E:System.Windows.Interop.HwndSource.Disposed
   id: Disposed
@@ -730,7 +693,7 @@ items:
   - csharp
   name: Disposed
   nameWithType: HwndSource.Disposed
-  fullName: System.Windows.Interop.HwndSource.Disposed
+  fullName: HwndSource.Disposed
   type: Event
   assemblies:
   - PresentationCore
@@ -760,9 +723,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.DpiChanged
   commentId: E:System.Windows.Interop.HwndSource.DpiChanged
   id: DpiChanged
@@ -771,7 +731,7 @@ items:
   - csharp
   name: DpiChanged
   nameWithType: HwndSource.DpiChanged
-  fullName: System.Windows.Interop.HwndSource.DpiChanged
+  fullName: HwndSource.DpiChanged
   type: Event
   assemblies:
   - PresentationCore
@@ -790,9 +750,6 @@ items:
   - netframework-4.6.2
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.FromHwnd(System.IntPtr)
   commentId: M:System.Windows.Interop.HwndSource.FromHwnd(System.IntPtr)
   id: FromHwnd(System.IntPtr)
@@ -801,7 +758,7 @@ items:
   - csharp
   name: FromHwnd(IntPtr)
   nameWithType: HwndSource.FromHwnd(IntPtr)
-  fullName: System.Windows.Interop.HwndSource.FromHwnd(IntPtr)
+  fullName: HwndSource.FromHwnd(IntPtr)
   type: Method
   assemblies:
   - PresentationCore
@@ -841,9 +798,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.GetCompositionTargetCore
   commentId: M:System.Windows.Interop.HwndSource.GetCompositionTargetCore
   id: GetCompositionTargetCore
@@ -852,7 +806,7 @@ items:
   - csharp
   name: GetCompositionTargetCore()
   nameWithType: HwndSource.GetCompositionTargetCore()
-  fullName: System.Windows.Interop.HwndSource.GetCompositionTargetCore()
+  fullName: HwndSource.GetCompositionTargetCore()
   type: Method
   assemblies:
   - PresentationCore
@@ -889,8 +843,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Interop.HwndSource.Handle
   commentId: P:System.Windows.Interop.HwndSource.Handle
   id: Handle
@@ -899,7 +851,7 @@ items:
   - csharp
   name: Handle
   nameWithType: HwndSource.Handle
-  fullName: System.Windows.Interop.HwndSource.Handle
+  fullName: HwndSource.Handle
   type: Property
   assemblies:
   - PresentationCore
@@ -938,8 +890,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Interop.HwndSource.HasFocusWithinCore
   commentId: M:System.Windows.Interop.HwndSource.HasFocusWithinCore
   id: HasFocusWithinCore
@@ -948,7 +898,7 @@ items:
   - csharp
   name: HasFocusWithinCore()
   nameWithType: HwndSource.HasFocusWithinCore()
-  fullName: System.Windows.Interop.HwndSource.HasFocusWithinCore()
+  fullName: HwndSource.HasFocusWithinCore()
   type: Method
   assemblies:
   - PresentationCore
@@ -979,9 +929,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.IsDisposed
   commentId: P:System.Windows.Interop.HwndSource.IsDisposed
   id: IsDisposed
@@ -990,7 +937,7 @@ items:
   - csharp
   name: IsDisposed
   nameWithType: HwndSource.IsDisposed
-  fullName: System.Windows.Interop.HwndSource.IsDisposed
+  fullName: HwndSource.IsDisposed
   type: Property
   assemblies:
   - PresentationCore
@@ -1021,9 +968,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.KeyboardInputSiteCore
   commentId: P:System.Windows.Interop.HwndSource.KeyboardInputSiteCore
   id: KeyboardInputSiteCore
@@ -1032,7 +976,7 @@ items:
   - csharp
   name: KeyboardInputSiteCore
   nameWithType: HwndSource.KeyboardInputSiteCore
-  fullName: System.Windows.Interop.HwndSource.KeyboardInputSiteCore
+  fullName: HwndSource.KeyboardInputSiteCore
   type: Property
   assemblies:
   - PresentationCore
@@ -1070,9 +1014,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.OnDpiChanged(System.Windows.HwndDpiChangedEventArgs)
   commentId: M:System.Windows.Interop.HwndSource.OnDpiChanged(System.Windows.HwndDpiChangedEventArgs)
   id: OnDpiChanged(System.Windows.HwndDpiChangedEventArgs)
@@ -1081,7 +1022,7 @@ items:
   - csharp
   name: OnDpiChanged(HwndDpiChangedEventArgs)
   nameWithType: HwndSource.OnDpiChanged(HwndDpiChangedEventArgs)
-  fullName: System.Windows.Interop.HwndSource.OnDpiChanged(HwndDpiChangedEventArgs)
+  fullName: HwndSource.OnDpiChanged(HwndDpiChangedEventArgs)
   type: Method
   assemblies:
   - PresentationCore
@@ -1108,8 +1049,6 @@ items:
   - netframework-4.6.2
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Interop.HwndSource.OnMnemonicCore(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   commentId: M:System.Windows.Interop.HwndSource.OnMnemonicCore(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   id: OnMnemonicCore(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
@@ -1118,7 +1057,7 @@ items:
   - csharp
   name: OnMnemonicCore(MSG, ModifierKeys)
   nameWithType: HwndSource.OnMnemonicCore(MSG, ModifierKeys)
-  fullName: System.Windows.Interop.HwndSource.OnMnemonicCore(MSG, ModifierKeys)
+  fullName: HwndSource.OnMnemonicCore(MSG, ModifierKeys)
   type: Method
   assemblies:
   - PresentationCore
@@ -1163,8 +1102,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Interop.HwndSource.RegisterKeyboardInputSinkCore(System.Windows.Interop.IKeyboardInputSink)
   commentId: M:System.Windows.Interop.HwndSource.RegisterKeyboardInputSinkCore(System.Windows.Interop.IKeyboardInputSink)
   id: RegisterKeyboardInputSinkCore(System.Windows.Interop.IKeyboardInputSink)
@@ -1173,7 +1110,7 @@ items:
   - csharp
   name: RegisterKeyboardInputSinkCore(IKeyboardInputSink)
   nameWithType: HwndSource.RegisterKeyboardInputSinkCore(IKeyboardInputSink)
-  fullName: System.Windows.Interop.HwndSource.RegisterKeyboardInputSinkCore(IKeyboardInputSink)
+  fullName: HwndSource.RegisterKeyboardInputSinkCore(IKeyboardInputSink)
   type: Method
   assemblies:
   - PresentationCore
@@ -1212,9 +1149,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.RemoveHook(System.Windows.Interop.HwndSourceHook)
   commentId: M:System.Windows.Interop.HwndSource.RemoveHook(System.Windows.Interop.HwndSourceHook)
   id: RemoveHook(System.Windows.Interop.HwndSourceHook)
@@ -1223,7 +1157,7 @@ items:
   - csharp
   name: RemoveHook(HwndSourceHook)
   nameWithType: HwndSource.RemoveHook(HwndSourceHook)
-  fullName: System.Windows.Interop.HwndSource.RemoveHook(HwndSourceHook)
+  fullName: HwndSource.RemoveHook(HwndSourceHook)
   type: Method
   assemblies:
   - PresentationCore
@@ -1263,9 +1197,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.RestoreFocusMode
   commentId: P:System.Windows.Interop.HwndSource.RestoreFocusMode
   id: RestoreFocusMode
@@ -1274,7 +1205,7 @@ items:
   - csharp
   name: RestoreFocusMode
   nameWithType: HwndSource.RestoreFocusMode
-  fullName: System.Windows.Interop.HwndSource.RestoreFocusMode
+  fullName: HwndSource.RestoreFocusMode
   type: Property
   assemblies:
   - PresentationCore
@@ -1305,9 +1236,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.RootVisual
   commentId: P:System.Windows.Interop.HwndSource.RootVisual
   id: RootVisual
@@ -1316,7 +1244,7 @@ items:
   - csharp
   name: RootVisual
   nameWithType: HwndSource.RootVisual
-  fullName: System.Windows.Interop.HwndSource.RootVisual
+  fullName: HwndSource.RootVisual
   type: Property
   assemblies:
   - PresentationCore
@@ -1355,8 +1283,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Interop.HwndSource.SizeToContent
   commentId: P:System.Windows.Interop.HwndSource.SizeToContent
   id: SizeToContent
@@ -1365,7 +1291,7 @@ items:
   - csharp
   name: SizeToContent
   nameWithType: HwndSource.SizeToContent
-  fullName: System.Windows.Interop.HwndSource.SizeToContent
+  fullName: HwndSource.SizeToContent
   type: Property
   assemblies:
   - PresentationCore
@@ -1396,9 +1322,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.SizeToContentChanged
   commentId: E:System.Windows.Interop.HwndSource.SizeToContentChanged
   id: SizeToContentChanged
@@ -1407,7 +1330,7 @@ items:
   - csharp
   name: SizeToContentChanged
   nameWithType: HwndSource.SizeToContentChanged
-  fullName: System.Windows.Interop.HwndSource.SizeToContentChanged
+  fullName: HwndSource.SizeToContentChanged
   type: Event
   assemblies:
   - PresentationCore
@@ -1437,8 +1360,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Interop.HwndSource.TabIntoCore(System.Windows.Input.TraversalRequest)
   commentId: M:System.Windows.Interop.HwndSource.TabIntoCore(System.Windows.Input.TraversalRequest)
   id: TabIntoCore(System.Windows.Input.TraversalRequest)
@@ -1447,7 +1368,7 @@ items:
   - csharp
   name: TabIntoCore(TraversalRequest)
   nameWithType: HwndSource.TabIntoCore(TraversalRequest)
-  fullName: System.Windows.Interop.HwndSource.TabIntoCore(TraversalRequest)
+  fullName: HwndSource.TabIntoCore(TraversalRequest)
   type: Method
   assemblies:
   - PresentationCore
@@ -1484,9 +1405,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.TranslateAcceleratorCore(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   commentId: M:System.Windows.Interop.HwndSource.TranslateAcceleratorCore(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   id: TranslateAcceleratorCore(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
@@ -1495,7 +1413,7 @@ items:
   - csharp
   name: TranslateAcceleratorCore(MSG, ModifierKeys)
   nameWithType: HwndSource.TranslateAcceleratorCore(MSG, ModifierKeys)
-  fullName: System.Windows.Interop.HwndSource.TranslateAcceleratorCore(MSG, ModifierKeys)
+  fullName: HwndSource.TranslateAcceleratorCore(MSG, ModifierKeys)
   type: Method
   assemblies:
   - PresentationCore
@@ -1537,9 +1455,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.TranslateCharCore(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   commentId: M:System.Windows.Interop.HwndSource.TranslateCharCore(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   id: TranslateCharCore(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
@@ -1548,7 +1463,7 @@ items:
   - csharp
   name: TranslateCharCore(MSG, ModifierKeys)
   nameWithType: HwndSource.TranslateCharCore(MSG, ModifierKeys)
-  fullName: System.Windows.Interop.HwndSource.TranslateCharCore(MSG, ModifierKeys)
+  fullName: HwndSource.TranslateCharCore(MSG, ModifierKeys)
   type: Method
   assemblies:
   - PresentationCore
@@ -1590,9 +1505,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.UsesPerPixelOpacity
   commentId: P:System.Windows.Interop.HwndSource.UsesPerPixelOpacity
   id: UsesPerPixelOpacity
@@ -1601,7 +1513,7 @@ items:
   - csharp
   name: UsesPerPixelOpacity
   nameWithType: HwndSource.UsesPerPixelOpacity
-  fullName: System.Windows.Interop.HwndSource.UsesPerPixelOpacity
+  fullName: HwndSource.UsesPerPixelOpacity
   type: Property
   assemblies:
   - PresentationCore
@@ -1637,8 +1549,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Interop.HwndSource.System#Windows#Interop#IKeyboardInputSink#HasFocusWithin
   commentId: M:System.Windows.Interop.HwndSource.System#Windows#Interop#IKeyboardInputSink#HasFocusWithin
   id: System#Windows#Interop#IKeyboardInputSink#HasFocusWithin
@@ -1648,7 +1558,7 @@ items:
   - csharp
   name: IKeyboardInputSink.HasFocusWithin()
   nameWithType: HwndSource.IKeyboardInputSink.HasFocusWithin()
-  fullName: System.Windows.Interop.HwndSource.IKeyboardInputSink.HasFocusWithin()
+  fullName: HwndSource.IKeyboardInputSink.HasFocusWithin()
   type: Method
   assemblies:
   - PresentationCore
@@ -1680,9 +1590,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.System#Windows#Interop#IKeyboardInputSink#KeyboardInputSite
   commentId: P:System.Windows.Interop.HwndSource.System#Windows#Interop#IKeyboardInputSink#KeyboardInputSite
   id: System#Windows#Interop#IKeyboardInputSink#KeyboardInputSite
@@ -1692,7 +1599,7 @@ items:
   - csharp
   name: IKeyboardInputSink.KeyboardInputSite
   nameWithType: HwndSource.IKeyboardInputSink.KeyboardInputSite
-  fullName: System.Windows.Interop.HwndSource.IKeyboardInputSink.KeyboardInputSite
+  fullName: HwndSource.IKeyboardInputSink.KeyboardInputSite
   type: Property
   assemblies:
   - PresentationCore
@@ -1728,9 +1635,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.System#Windows#Interop#IKeyboardInputSink#OnMnemonic(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   commentId: M:System.Windows.Interop.HwndSource.System#Windows#Interop#IKeyboardInputSink#OnMnemonic(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   id: System#Windows#Interop#IKeyboardInputSink#OnMnemonic(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
@@ -1740,7 +1644,7 @@ items:
   - csharp
   name: IKeyboardInputSink.OnMnemonic(MSG, ModifierKeys)
   nameWithType: HwndSource.IKeyboardInputSink.OnMnemonic(MSG, ModifierKeys)
-  fullName: System.Windows.Interop.HwndSource.IKeyboardInputSink.OnMnemonic(MSG, ModifierKeys)
+  fullName: HwndSource.IKeyboardInputSink.OnMnemonic(MSG, ModifierKeys)
   type: Method
   assemblies:
   - PresentationCore
@@ -1783,9 +1687,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.System#Windows#Interop#IKeyboardInputSink#RegisterKeyboardInputSink(System.Windows.Interop.IKeyboardInputSink)
   commentId: M:System.Windows.Interop.HwndSource.System#Windows#Interop#IKeyboardInputSink#RegisterKeyboardInputSink(System.Windows.Interop.IKeyboardInputSink)
   id: System#Windows#Interop#IKeyboardInputSink#RegisterKeyboardInputSink(System.Windows.Interop.IKeyboardInputSink)
@@ -1795,7 +1696,7 @@ items:
   - csharp
   name: IKeyboardInputSink.RegisterKeyboardInputSink(IKeyboardInputSink)
   nameWithType: HwndSource.IKeyboardInputSink.RegisterKeyboardInputSink(IKeyboardInputSink)
-  fullName: System.Windows.Interop.HwndSource.IKeyboardInputSink.RegisterKeyboardInputSink(IKeyboardInputSink)
+  fullName: HwndSource.IKeyboardInputSink.RegisterKeyboardInputSink(IKeyboardInputSink)
   type: Method
   assemblies:
   - PresentationCore
@@ -1835,8 +1736,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Interop.HwndSource.System#Windows#Interop#IKeyboardInputSink#TabInto(System.Windows.Input.TraversalRequest)
   commentId: M:System.Windows.Interop.HwndSource.System#Windows#Interop#IKeyboardInputSink#TabInto(System.Windows.Input.TraversalRequest)
   id: System#Windows#Interop#IKeyboardInputSink#TabInto(System.Windows.Input.TraversalRequest)
@@ -1846,7 +1745,7 @@ items:
   - csharp
   name: IKeyboardInputSink.TabInto(TraversalRequest)
   nameWithType: HwndSource.IKeyboardInputSink.TabInto(TraversalRequest)
-  fullName: System.Windows.Interop.HwndSource.IKeyboardInputSink.TabInto(TraversalRequest)
+  fullName: HwndSource.IKeyboardInputSink.TabInto(TraversalRequest)
   type: Method
   assemblies:
   - PresentationCore
@@ -1881,9 +1780,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Interop.HwndSource.System#Windows#Interop#IKeyboardInputSink#TranslateAccelerator(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   commentId: M:System.Windows.Interop.HwndSource.System#Windows#Interop#IKeyboardInputSink#TranslateAccelerator(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   id: System#Windows#Interop#IKeyboardInputSink#TranslateAccelerator(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
@@ -1893,7 +1789,7 @@ items:
   - csharp
   name: IKeyboardInputSink.TranslateAccelerator(MSG, ModifierKeys)
   nameWithType: HwndSource.IKeyboardInputSink.TranslateAccelerator(MSG, ModifierKeys)
-  fullName: System.Windows.Interop.HwndSource.IKeyboardInputSink.TranslateAccelerator(MSG, ModifierKeys)
+  fullName: HwndSource.IKeyboardInputSink.TranslateAccelerator(MSG, ModifierKeys)
   type: Method
   assemblies:
   - PresentationCore
@@ -1936,8 +1832,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Interop.HwndSource.System#Windows#Interop#IKeyboardInputSink#TranslateChar(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   commentId: M:System.Windows.Interop.HwndSource.System#Windows#Interop#IKeyboardInputSink#TranslateChar(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   id: System#Windows#Interop#IKeyboardInputSink#TranslateChar(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
@@ -1947,7 +1841,7 @@ items:
   - csharp
   name: IKeyboardInputSink.TranslateChar(MSG, ModifierKeys)
   nameWithType: HwndSource.IKeyboardInputSink.TranslateChar(MSG, ModifierKeys)
-  fullName: System.Windows.Interop.HwndSource.IKeyboardInputSink.TranslateChar(MSG, ModifierKeys)
+  fullName: HwndSource.IKeyboardInputSink.TranslateChar(MSG, ModifierKeys)
   type: Method
   assemblies:
   - PresentationCore
@@ -1990,9 +1884,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 references:
 - uid: System.Windows.PresentationSource
   parent: System.Windows
@@ -2017,7 +1908,7 @@ references:
   isExternal: false
   name: HwndSource(HwndSourceParameters)
   nameWithType: HwndSource.HwndSource(HwndSourceParameters)
-  fullName: System.Windows.Interop.HwndSource.HwndSource(HwndSourceParameters)
+  fullName: HwndSource.HwndSource(HwndSourceParameters)
 - uid: System.Windows.Interop.HwndSourceParameters
   parent: System.Windows.Interop
   isExternal: false
@@ -2029,7 +1920,7 @@ references:
   isExternal: false
   name: HwndSource(Int32, Int32, Int32, Int32, Int32, String, IntPtr)
   nameWithType: HwndSource.HwndSource(Int32, Int32, Int32, Int32, Int32, String, IntPtr)
-  fullName: System.Windows.Interop.HwndSource.HwndSource(Int32, Int32, Int32, Int32, Int32, String, IntPtr)
+  fullName: HwndSource.HwndSource(Int32, Int32, Int32, Int32, Int32, String, IntPtr)
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -2053,13 +1944,13 @@ references:
   isExternal: false
   name: HwndSource(Int32, Int32, Int32, Int32, Int32, Int32, Int32, String, IntPtr)
   nameWithType: HwndSource.HwndSource(Int32, Int32, Int32, Int32, Int32, Int32, Int32, String, IntPtr)
-  fullName: System.Windows.Interop.HwndSource.HwndSource(Int32, Int32, Int32, Int32, Int32, Int32, Int32, String, IntPtr)
+  fullName: HwndSource.HwndSource(Int32, Int32, Int32, Int32, Int32, Int32, Int32, String, IntPtr)
 - uid: System.Windows.Interop.HwndSource.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.String,System.IntPtr,System.Boolean)
   parent: System.Windows.Interop.HwndSource
   isExternal: false
   name: HwndSource(Int32, Int32, Int32, Int32, Int32, Int32, Int32, String, IntPtr, Boolean)
   nameWithType: HwndSource.HwndSource(Int32, Int32, Int32, Int32, Int32, Int32, Int32, String, IntPtr, Boolean)
-  fullName: System.Windows.Interop.HwndSource.HwndSource(Int32, Int32, Int32, Int32, Int32, Int32, Int32, String, IntPtr, Boolean)
+  fullName: HwndSource.HwndSource(Int32, Int32, Int32, Int32, Int32, Int32, Int32, String, IntPtr, Boolean)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -2071,13 +1962,13 @@ references:
   isExternal: false
   name: AcquireHwndFocusInMenuMode
   nameWithType: HwndSource.AcquireHwndFocusInMenuMode
-  fullName: System.Windows.Interop.HwndSource.AcquireHwndFocusInMenuMode
+  fullName: HwndSource.AcquireHwndFocusInMenuMode
 - uid: System.Windows.Interop.HwndSource.AddHook(System.Windows.Interop.HwndSourceHook)
   parent: System.Windows.Interop.HwndSource
   isExternal: false
   name: AddHook(HwndSourceHook)
   nameWithType: HwndSource.AddHook(HwndSourceHook)
-  fullName: System.Windows.Interop.HwndSource.AddHook(HwndSourceHook)
+  fullName: HwndSource.AddHook(HwndSourceHook)
 - uid: System.Windows.Interop.HwndSourceHook
   parent: System.Windows.Interop
   isExternal: false
@@ -2089,7 +1980,7 @@ references:
   isExternal: false
   name: AutoResized
   nameWithType: HwndSource.AutoResized
-  fullName: System.Windows.Interop.HwndSource.AutoResized
+  fullName: HwndSource.AutoResized
 - uid: System.Windows.AutoResizedEventHandler
   parent: System.Windows
   isExternal: false
@@ -2101,7 +1992,7 @@ references:
   isExternal: false
   name: ChildKeyboardInputSinks
   nameWithType: HwndSource.ChildKeyboardInputSinks
-  fullName: System.Windows.Interop.HwndSource.ChildKeyboardInputSinks
+  fullName: HwndSource.ChildKeyboardInputSinks
 - uid: System.Collections.Generic.IEnumerable`1
   name: IEnumerable<T>
   nameWithType: IEnumerable<T>
@@ -2136,7 +2027,7 @@ references:
   isExternal: false
   name: CompositionTarget
   nameWithType: HwndSource.CompositionTarget
-  fullName: System.Windows.Interop.HwndSource.CompositionTarget
+  fullName: HwndSource.CompositionTarget
 - uid: System.Windows.Interop.HwndTarget
   parent: System.Windows.Interop
   isExternal: false
@@ -2148,7 +2039,7 @@ references:
   isExternal: false
   name: CreateHandleRef()
   nameWithType: HwndSource.CreateHandleRef()
-  fullName: System.Windows.Interop.HwndSource.CreateHandleRef()
+  fullName: HwndSource.CreateHandleRef()
 - uid: System.Runtime.InteropServices.HandleRef
   parent: System.Runtime.InteropServices
   isExternal: false
@@ -2160,19 +2051,19 @@ references:
   isExternal: false
   name: DefaultAcquireHwndFocusInMenuMode
   nameWithType: HwndSource.DefaultAcquireHwndFocusInMenuMode
-  fullName: System.Windows.Interop.HwndSource.DefaultAcquireHwndFocusInMenuMode
+  fullName: HwndSource.DefaultAcquireHwndFocusInMenuMode
 - uid: System.Windows.Interop.HwndSource.Dispose
   parent: System.Windows.Interop.HwndSource
   isExternal: false
   name: Dispose()
   nameWithType: HwndSource.Dispose()
-  fullName: System.Windows.Interop.HwndSource.Dispose()
+  fullName: HwndSource.Dispose()
 - uid: System.Windows.Interop.HwndSource.Disposed
   parent: System.Windows.Interop.HwndSource
   isExternal: false
   name: Disposed
   nameWithType: HwndSource.Disposed
-  fullName: System.Windows.Interop.HwndSource.Disposed
+  fullName: HwndSource.Disposed
 - uid: System.EventHandler
   parent: System
   isExternal: false
@@ -2184,7 +2075,7 @@ references:
   isExternal: false
   name: DpiChanged
   nameWithType: HwndSource.DpiChanged
-  fullName: System.Windows.Interop.HwndSource.DpiChanged
+  fullName: HwndSource.DpiChanged
 - uid: System.Windows.HwndDpiChangedEventHandler
   parent: System.Windows
   isExternal: false
@@ -2196,7 +2087,7 @@ references:
   isExternal: false
   name: FromHwnd(IntPtr)
   nameWithType: HwndSource.FromHwnd(IntPtr)
-  fullName: System.Windows.Interop.HwndSource.FromHwnd(IntPtr)
+  fullName: HwndSource.FromHwnd(IntPtr)
 - uid: System.Windows.Interop.HwndSource
   parent: System.Windows.Interop
   isExternal: false
@@ -2208,7 +2099,7 @@ references:
   isExternal: false
   name: GetCompositionTargetCore()
   nameWithType: HwndSource.GetCompositionTargetCore()
-  fullName: System.Windows.Interop.HwndSource.GetCompositionTargetCore()
+  fullName: HwndSource.GetCompositionTargetCore()
 - uid: System.Windows.Media.CompositionTarget
   parent: System.Windows.Media
   isExternal: false
@@ -2220,25 +2111,25 @@ references:
   isExternal: false
   name: Handle
   nameWithType: HwndSource.Handle
-  fullName: System.Windows.Interop.HwndSource.Handle
+  fullName: HwndSource.Handle
 - uid: System.Windows.Interop.HwndSource.HasFocusWithinCore
   parent: System.Windows.Interop.HwndSource
   isExternal: false
   name: HasFocusWithinCore()
   nameWithType: HwndSource.HasFocusWithinCore()
-  fullName: System.Windows.Interop.HwndSource.HasFocusWithinCore()
+  fullName: HwndSource.HasFocusWithinCore()
 - uid: System.Windows.Interop.HwndSource.IsDisposed
   parent: System.Windows.Interop.HwndSource
   isExternal: false
   name: IsDisposed
   nameWithType: HwndSource.IsDisposed
-  fullName: System.Windows.Interop.HwndSource.IsDisposed
+  fullName: HwndSource.IsDisposed
 - uid: System.Windows.Interop.HwndSource.KeyboardInputSiteCore
   parent: System.Windows.Interop.HwndSource
   isExternal: false
   name: KeyboardInputSiteCore
   nameWithType: HwndSource.KeyboardInputSiteCore
-  fullName: System.Windows.Interop.HwndSource.KeyboardInputSiteCore
+  fullName: HwndSource.KeyboardInputSiteCore
 - uid: System.Windows.Interop.IKeyboardInputSite
   parent: System.Windows.Interop
   isExternal: false
@@ -2250,7 +2141,7 @@ references:
   isExternal: false
   name: OnDpiChanged(HwndDpiChangedEventArgs)
   nameWithType: HwndSource.OnDpiChanged(HwndDpiChangedEventArgs)
-  fullName: System.Windows.Interop.HwndSource.OnDpiChanged(HwndDpiChangedEventArgs)
+  fullName: HwndSource.OnDpiChanged(HwndDpiChangedEventArgs)
 - uid: System.Windows.HwndDpiChangedEventArgs
   parent: System.Windows
   isExternal: false
@@ -2262,7 +2153,7 @@ references:
   isExternal: false
   name: OnMnemonicCore(MSG, ModifierKeys)
   nameWithType: HwndSource.OnMnemonicCore(MSG, ModifierKeys)
-  fullName: System.Windows.Interop.HwndSource.OnMnemonicCore(MSG, ModifierKeys)
+  fullName: HwndSource.OnMnemonicCore(MSG, ModifierKeys)
 - uid: System.Windows.Interop.MSG
   parent: System.Windows.Interop
   isExternal: false
@@ -2280,19 +2171,19 @@ references:
   isExternal: false
   name: RegisterKeyboardInputSinkCore(IKeyboardInputSink)
   nameWithType: HwndSource.RegisterKeyboardInputSinkCore(IKeyboardInputSink)
-  fullName: System.Windows.Interop.HwndSource.RegisterKeyboardInputSinkCore(IKeyboardInputSink)
+  fullName: HwndSource.RegisterKeyboardInputSinkCore(IKeyboardInputSink)
 - uid: System.Windows.Interop.HwndSource.RemoveHook(System.Windows.Interop.HwndSourceHook)
   parent: System.Windows.Interop.HwndSource
   isExternal: false
   name: RemoveHook(HwndSourceHook)
   nameWithType: HwndSource.RemoveHook(HwndSourceHook)
-  fullName: System.Windows.Interop.HwndSource.RemoveHook(HwndSourceHook)
+  fullName: HwndSource.RemoveHook(HwndSourceHook)
 - uid: System.Windows.Interop.HwndSource.RestoreFocusMode
   parent: System.Windows.Interop.HwndSource
   isExternal: false
   name: RestoreFocusMode
   nameWithType: HwndSource.RestoreFocusMode
-  fullName: System.Windows.Interop.HwndSource.RestoreFocusMode
+  fullName: HwndSource.RestoreFocusMode
 - uid: System.Windows.Input.RestoreFocusMode
   parent: System.Windows.Input
   isExternal: false
@@ -2304,7 +2195,7 @@ references:
   isExternal: false
   name: RootVisual
   nameWithType: HwndSource.RootVisual
-  fullName: System.Windows.Interop.HwndSource.RootVisual
+  fullName: HwndSource.RootVisual
 - uid: System.Windows.Media.Visual
   parent: System.Windows.Media
   isExternal: false
@@ -2316,7 +2207,7 @@ references:
   isExternal: false
   name: SizeToContent
   nameWithType: HwndSource.SizeToContent
-  fullName: System.Windows.Interop.HwndSource.SizeToContent
+  fullName: HwndSource.SizeToContent
 - uid: System.Windows.SizeToContent
   parent: System.Windows
   isExternal: false
@@ -2328,13 +2219,13 @@ references:
   isExternal: false
   name: SizeToContentChanged
   nameWithType: HwndSource.SizeToContentChanged
-  fullName: System.Windows.Interop.HwndSource.SizeToContentChanged
+  fullName: HwndSource.SizeToContentChanged
 - uid: System.Windows.Interop.HwndSource.TabIntoCore(System.Windows.Input.TraversalRequest)
   parent: System.Windows.Interop.HwndSource
   isExternal: false
   name: TabIntoCore(TraversalRequest)
   nameWithType: HwndSource.TabIntoCore(TraversalRequest)
-  fullName: System.Windows.Interop.HwndSource.TabIntoCore(TraversalRequest)
+  fullName: HwndSource.TabIntoCore(TraversalRequest)
 - uid: System.Windows.Input.TraversalRequest
   parent: System.Windows.Input
   isExternal: false
@@ -2346,67 +2237,67 @@ references:
   isExternal: false
   name: TranslateAcceleratorCore(MSG, ModifierKeys)
   nameWithType: HwndSource.TranslateAcceleratorCore(MSG, ModifierKeys)
-  fullName: System.Windows.Interop.HwndSource.TranslateAcceleratorCore(MSG, ModifierKeys)
+  fullName: HwndSource.TranslateAcceleratorCore(MSG, ModifierKeys)
 - uid: System.Windows.Interop.HwndSource.TranslateCharCore(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   parent: System.Windows.Interop.HwndSource
   isExternal: false
   name: TranslateCharCore(MSG, ModifierKeys)
   nameWithType: HwndSource.TranslateCharCore(MSG, ModifierKeys)
-  fullName: System.Windows.Interop.HwndSource.TranslateCharCore(MSG, ModifierKeys)
+  fullName: HwndSource.TranslateCharCore(MSG, ModifierKeys)
 - uid: System.Windows.Interop.HwndSource.UsesPerPixelOpacity
   parent: System.Windows.Interop.HwndSource
   isExternal: false
   name: UsesPerPixelOpacity
   nameWithType: HwndSource.UsesPerPixelOpacity
-  fullName: System.Windows.Interop.HwndSource.UsesPerPixelOpacity
+  fullName: HwndSource.UsesPerPixelOpacity
 - uid: System.Windows.Interop.HwndSource.System#Windows#Interop#IKeyboardInputSink#HasFocusWithin
   parent: System.Windows.Interop.HwndSource
   isExternal: false
   name: IKeyboardInputSink.HasFocusWithin()
   nameWithType: HwndSource.IKeyboardInputSink.HasFocusWithin()
-  fullName: System.Windows.Interop.HwndSource.IKeyboardInputSink.HasFocusWithin()
+  fullName: HwndSource.IKeyboardInputSink.HasFocusWithin()
 - uid: System.Windows.Interop.HwndSource.System#Windows#Interop#IKeyboardInputSink#KeyboardInputSite
   parent: System.Windows.Interop.HwndSource
   isExternal: false
   name: IKeyboardInputSink.KeyboardInputSite
   nameWithType: HwndSource.IKeyboardInputSink.KeyboardInputSite
-  fullName: System.Windows.Interop.HwndSource.IKeyboardInputSink.KeyboardInputSite
+  fullName: HwndSource.IKeyboardInputSink.KeyboardInputSite
 - uid: System.Windows.Interop.HwndSource.System#Windows#Interop#IKeyboardInputSink#OnMnemonic(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   parent: System.Windows.Interop.HwndSource
   isExternal: false
   name: IKeyboardInputSink.OnMnemonic(MSG, ModifierKeys)
   nameWithType: HwndSource.IKeyboardInputSink.OnMnemonic(MSG, ModifierKeys)
-  fullName: System.Windows.Interop.HwndSource.IKeyboardInputSink.OnMnemonic(MSG, ModifierKeys)
+  fullName: HwndSource.IKeyboardInputSink.OnMnemonic(MSG, ModifierKeys)
 - uid: System.Windows.Interop.HwndSource.System#Windows#Interop#IKeyboardInputSink#RegisterKeyboardInputSink(System.Windows.Interop.IKeyboardInputSink)
   parent: System.Windows.Interop.HwndSource
   isExternal: false
   name: IKeyboardInputSink.RegisterKeyboardInputSink(IKeyboardInputSink)
   nameWithType: HwndSource.IKeyboardInputSink.RegisterKeyboardInputSink(IKeyboardInputSink)
-  fullName: System.Windows.Interop.HwndSource.IKeyboardInputSink.RegisterKeyboardInputSink(IKeyboardInputSink)
+  fullName: HwndSource.IKeyboardInputSink.RegisterKeyboardInputSink(IKeyboardInputSink)
 - uid: System.Windows.Interop.HwndSource.System#Windows#Interop#IKeyboardInputSink#TabInto(System.Windows.Input.TraversalRequest)
   parent: System.Windows.Interop.HwndSource
   isExternal: false
   name: IKeyboardInputSink.TabInto(TraversalRequest)
   nameWithType: HwndSource.IKeyboardInputSink.TabInto(TraversalRequest)
-  fullName: System.Windows.Interop.HwndSource.IKeyboardInputSink.TabInto(TraversalRequest)
+  fullName: HwndSource.IKeyboardInputSink.TabInto(TraversalRequest)
 - uid: System.Windows.Interop.HwndSource.System#Windows#Interop#IKeyboardInputSink#TranslateAccelerator(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   parent: System.Windows.Interop.HwndSource
   isExternal: false
   name: IKeyboardInputSink.TranslateAccelerator(MSG, ModifierKeys)
   nameWithType: HwndSource.IKeyboardInputSink.TranslateAccelerator(MSG, ModifierKeys)
-  fullName: System.Windows.Interop.HwndSource.IKeyboardInputSink.TranslateAccelerator(MSG, ModifierKeys)
+  fullName: HwndSource.IKeyboardInputSink.TranslateAccelerator(MSG, ModifierKeys)
 - uid: System.Windows.Interop.HwndSource.System#Windows#Interop#IKeyboardInputSink#TranslateChar(System.Windows.Interop.MSG@,System.Windows.Input.ModifierKeys)
   parent: System.Windows.Interop.HwndSource
   isExternal: false
   name: IKeyboardInputSink.TranslateChar(MSG, ModifierKeys)
   nameWithType: HwndSource.IKeyboardInputSink.TranslateChar(MSG, ModifierKeys)
-  fullName: System.Windows.Interop.HwndSource.IKeyboardInputSink.TranslateChar(MSG, ModifierKeys)
+  fullName: HwndSource.IKeyboardInputSink.TranslateChar(MSG, ModifierKeys)
 - uid: System.Windows.Interop.HwndSource.#ctor*
   parent: System.Windows.Interop.HwndSource
   isExternal: false
   name: HwndSource
   nameWithType: HwndSource.HwndSource
-  fullName: System.Windows.Interop.HwndSource.HwndSource
+  fullName: HwndSource.HwndSource
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2421,7 +2312,7 @@ references:
   isExternal: false
   name: AcquireHwndFocusInMenuMode
   nameWithType: HwndSource.AcquireHwndFocusInMenuMode
-  fullName: System.Windows.Interop.HwndSource.AcquireHwndFocusInMenuMode
+  fullName: HwndSource.AcquireHwndFocusInMenuMode
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2436,7 +2327,7 @@ references:
   isExternal: false
   name: AddHook
   nameWithType: HwndSource.AddHook
-  fullName: System.Windows.Interop.HwndSource.AddHook
+  fullName: HwndSource.AddHook
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2451,7 +2342,7 @@ references:
   isExternal: false
   name: ChildKeyboardInputSinks
   nameWithType: HwndSource.ChildKeyboardInputSinks
-  fullName: System.Windows.Interop.HwndSource.ChildKeyboardInputSinks
+  fullName: HwndSource.ChildKeyboardInputSinks
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2466,7 +2357,7 @@ references:
   isExternal: false
   name: CompositionTarget
   nameWithType: HwndSource.CompositionTarget
-  fullName: System.Windows.Interop.HwndSource.CompositionTarget
+  fullName: HwndSource.CompositionTarget
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2481,7 +2372,7 @@ references:
   isExternal: false
   name: CreateHandleRef
   nameWithType: HwndSource.CreateHandleRef
-  fullName: System.Windows.Interop.HwndSource.CreateHandleRef
+  fullName: HwndSource.CreateHandleRef
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2496,7 +2387,7 @@ references:
   isExternal: false
   name: DefaultAcquireHwndFocusInMenuMode
   nameWithType: HwndSource.DefaultAcquireHwndFocusInMenuMode
-  fullName: System.Windows.Interop.HwndSource.DefaultAcquireHwndFocusInMenuMode
+  fullName: HwndSource.DefaultAcquireHwndFocusInMenuMode
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2511,7 +2402,7 @@ references:
   isExternal: false
   name: Dispose
   nameWithType: HwndSource.Dispose
-  fullName: System.Windows.Interop.HwndSource.Dispose
+  fullName: HwndSource.Dispose
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2526,7 +2417,7 @@ references:
   isExternal: false
   name: FromHwnd
   nameWithType: HwndSource.FromHwnd
-  fullName: System.Windows.Interop.HwndSource.FromHwnd
+  fullName: HwndSource.FromHwnd
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2541,7 +2432,7 @@ references:
   isExternal: false
   name: GetCompositionTargetCore
   nameWithType: HwndSource.GetCompositionTargetCore
-  fullName: System.Windows.Interop.HwndSource.GetCompositionTargetCore
+  fullName: HwndSource.GetCompositionTargetCore
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2556,7 +2447,7 @@ references:
   isExternal: false
   name: Handle
   nameWithType: HwndSource.Handle
-  fullName: System.Windows.Interop.HwndSource.Handle
+  fullName: HwndSource.Handle
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2571,7 +2462,7 @@ references:
   isExternal: false
   name: HasFocusWithinCore
   nameWithType: HwndSource.HasFocusWithinCore
-  fullName: System.Windows.Interop.HwndSource.HasFocusWithinCore
+  fullName: HwndSource.HasFocusWithinCore
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2586,7 +2477,7 @@ references:
   isExternal: false
   name: IsDisposed
   nameWithType: HwndSource.IsDisposed
-  fullName: System.Windows.Interop.HwndSource.IsDisposed
+  fullName: HwndSource.IsDisposed
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2601,7 +2492,7 @@ references:
   isExternal: false
   name: KeyboardInputSiteCore
   nameWithType: HwndSource.KeyboardInputSiteCore
-  fullName: System.Windows.Interop.HwndSource.KeyboardInputSiteCore
+  fullName: HwndSource.KeyboardInputSiteCore
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2616,7 +2507,7 @@ references:
   isExternal: false
   name: OnDpiChanged
   nameWithType: HwndSource.OnDpiChanged
-  fullName: System.Windows.Interop.HwndSource.OnDpiChanged
+  fullName: HwndSource.OnDpiChanged
   monikers:
   - netframework-4.6.2
   - netframework-4.7
@@ -2626,7 +2517,7 @@ references:
   isExternal: false
   name: OnMnemonicCore
   nameWithType: HwndSource.OnMnemonicCore
-  fullName: System.Windows.Interop.HwndSource.OnMnemonicCore
+  fullName: HwndSource.OnMnemonicCore
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2641,7 +2532,7 @@ references:
   isExternal: false
   name: RegisterKeyboardInputSinkCore
   nameWithType: HwndSource.RegisterKeyboardInputSinkCore
-  fullName: System.Windows.Interop.HwndSource.RegisterKeyboardInputSinkCore
+  fullName: HwndSource.RegisterKeyboardInputSinkCore
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2656,7 +2547,7 @@ references:
   isExternal: false
   name: RemoveHook
   nameWithType: HwndSource.RemoveHook
-  fullName: System.Windows.Interop.HwndSource.RemoveHook
+  fullName: HwndSource.RemoveHook
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2671,7 +2562,7 @@ references:
   isExternal: false
   name: RestoreFocusMode
   nameWithType: HwndSource.RestoreFocusMode
-  fullName: System.Windows.Interop.HwndSource.RestoreFocusMode
+  fullName: HwndSource.RestoreFocusMode
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2686,7 +2577,7 @@ references:
   isExternal: false
   name: RootVisual
   nameWithType: HwndSource.RootVisual
-  fullName: System.Windows.Interop.HwndSource.RootVisual
+  fullName: HwndSource.RootVisual
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2701,7 +2592,7 @@ references:
   isExternal: false
   name: SizeToContent
   nameWithType: HwndSource.SizeToContent
-  fullName: System.Windows.Interop.HwndSource.SizeToContent
+  fullName: HwndSource.SizeToContent
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2716,7 +2607,7 @@ references:
   isExternal: false
   name: TabIntoCore
   nameWithType: HwndSource.TabIntoCore
-  fullName: System.Windows.Interop.HwndSource.TabIntoCore
+  fullName: HwndSource.TabIntoCore
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2731,7 +2622,7 @@ references:
   isExternal: false
   name: TranslateAcceleratorCore
   nameWithType: HwndSource.TranslateAcceleratorCore
-  fullName: System.Windows.Interop.HwndSource.TranslateAcceleratorCore
+  fullName: HwndSource.TranslateAcceleratorCore
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2746,7 +2637,7 @@ references:
   isExternal: false
   name: TranslateCharCore
   nameWithType: HwndSource.TranslateCharCore
-  fullName: System.Windows.Interop.HwndSource.TranslateCharCore
+  fullName: HwndSource.TranslateCharCore
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2761,7 +2652,7 @@ references:
   isExternal: false
   name: UsesPerPixelOpacity
   nameWithType: HwndSource.UsesPerPixelOpacity
-  fullName: System.Windows.Interop.HwndSource.UsesPerPixelOpacity
+  fullName: HwndSource.UsesPerPixelOpacity
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2776,7 +2667,7 @@ references:
   isExternal: false
   name: System.Windows.Interop.IKeyboardInputSink.HasFocusWithin
   nameWithType: HwndSource.System.Windows.Interop.IKeyboardInputSink.HasFocusWithin
-  fullName: System.Windows.Interop.HwndSource.System.Windows.Interop.IKeyboardInputSink.HasFocusWithin
+  fullName: HwndSource.System.Windows.Interop.IKeyboardInputSink.HasFocusWithin
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2791,7 +2682,7 @@ references:
   isExternal: false
   name: System.Windows.Interop.IKeyboardInputSink.KeyboardInputSite
   nameWithType: HwndSource.System.Windows.Interop.IKeyboardInputSink.KeyboardInputSite
-  fullName: System.Windows.Interop.HwndSource.System.Windows.Interop.IKeyboardInputSink.KeyboardInputSite
+  fullName: HwndSource.System.Windows.Interop.IKeyboardInputSink.KeyboardInputSite
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2806,7 +2697,7 @@ references:
   isExternal: false
   name: System.Windows.Interop.IKeyboardInputSink.OnMnemonic
   nameWithType: HwndSource.System.Windows.Interop.IKeyboardInputSink.OnMnemonic
-  fullName: System.Windows.Interop.HwndSource.System.Windows.Interop.IKeyboardInputSink.OnMnemonic
+  fullName: HwndSource.System.Windows.Interop.IKeyboardInputSink.OnMnemonic
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2821,7 +2712,7 @@ references:
   isExternal: false
   name: System.Windows.Interop.IKeyboardInputSink.RegisterKeyboardInputSink
   nameWithType: HwndSource.System.Windows.Interop.IKeyboardInputSink.RegisterKeyboardInputSink
-  fullName: System.Windows.Interop.HwndSource.System.Windows.Interop.IKeyboardInputSink.RegisterKeyboardInputSink
+  fullName: HwndSource.System.Windows.Interop.IKeyboardInputSink.RegisterKeyboardInputSink
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2836,7 +2727,7 @@ references:
   isExternal: false
   name: System.Windows.Interop.IKeyboardInputSink.TabInto
   nameWithType: HwndSource.System.Windows.Interop.IKeyboardInputSink.TabInto
-  fullName: System.Windows.Interop.HwndSource.System.Windows.Interop.IKeyboardInputSink.TabInto
+  fullName: HwndSource.System.Windows.Interop.IKeyboardInputSink.TabInto
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2851,7 +2742,7 @@ references:
   isExternal: false
   name: System.Windows.Interop.IKeyboardInputSink.TranslateAccelerator
   nameWithType: HwndSource.System.Windows.Interop.IKeyboardInputSink.TranslateAccelerator
-  fullName: System.Windows.Interop.HwndSource.System.Windows.Interop.IKeyboardInputSink.TranslateAccelerator
+  fullName: HwndSource.System.Windows.Interop.IKeyboardInputSink.TranslateAccelerator
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2866,7 +2757,7 @@ references:
   isExternal: false
   name: System.Windows.Interop.IKeyboardInputSink.TranslateChar
   nameWithType: HwndSource.System.Windows.Interop.IKeyboardInputSink.TranslateChar
-  fullName: System.Windows.Interop.HwndSource.System.Windows.Interop.IKeyboardInputSink.TranslateChar
+  fullName: HwndSource.System.Windows.Interop.IKeyboardInputSink.TranslateChar
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -2876,3 +2767,15 @@ references:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Interop/HwndSource.xml
+- uid: System.IDisposable
+  parent: System
+  isExternal: false
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: System.Windows.Interop.IWin32Window
+  parent: System.Windows.Interop
+  isExternal: false
+  name: IWin32Window
+  nameWithType: IWin32Window
+  fullName: System.Windows.Interop.IWin32Window

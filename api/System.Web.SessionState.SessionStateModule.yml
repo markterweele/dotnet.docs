@@ -53,8 +53,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.SessionState/SessionStateModule.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.SessionState.SessionStateModule.#ctor
   commentId: M:System.Web.SessionState.SessionStateModule.#ctor
   id: '#ctor'
@@ -63,7 +61,7 @@ items:
   - csharp
   name: SessionStateModule()
   nameWithType: SessionStateModule.SessionStateModule()
-  fullName: System.Web.SessionState.SessionStateModule.SessionStateModule()
+  fullName: SessionStateModule.SessionStateModule()
   type: Constructor
   assemblies:
   - System.Web
@@ -92,8 +90,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.SessionState/SessionStateModule.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.SessionState.SessionStateModule.Dispose
   commentId: M:System.Web.SessionState.SessionStateModule.Dispose
   id: Dispose
@@ -102,7 +98,7 @@ items:
   - csharp
   name: Dispose()
   nameWithType: SessionStateModule.Dispose()
-  fullName: System.Web.SessionState.SessionStateModule.Dispose()
+  fullName: SessionStateModule.Dispose()
   type: Method
   assemblies:
   - System.Web
@@ -131,8 +127,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.SessionState/SessionStateModule.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.SessionState.SessionStateModule.End
   commentId: E:System.Web.SessionState.SessionStateModule.End
   id: End
@@ -141,13 +135,13 @@ items:
   - csharp
   name: End
   nameWithType: SessionStateModule.End
-  fullName: System.Web.SessionState.SessionStateModule.End
+  fullName: SessionStateModule.End
   type: Event
   assemblies:
   - System.Web
   namespace: System.Web.SessionState
   summary: Occurs when a session ends.
-  remarks: "The <xref:System.Web.SessionState.SessionStateModule.End> event is raised at the end of a request when the <xref:System.Web.SessionState.HttpSessionState.Abandon%2A> method has been called or when the session has expired. A session expires when the number of minutes specified by the <xref:System.Web.SessionState.HttpSessionState.Timeout%2A> property passes without a request being made for the session.  \n  \n The **Session_OnEnd** event is used to perform any cleanup work for a session such as disposing of resources used by the session.  \n  \n You can specify a handler for the <xref:System.Web.SessionState.SessionStateModule.End> event by adding a public subroutine named **Session_OnEnd** to the Global.asax file.  \n  \n> [!NOTE]\n>  The **Session_OnEnd** event is only supported when the session-state <xref:System.Web.SessionState.HttpSessionState.Mode%2A?displayProperty=fullName> property value is <xref:System.Web.SessionState.SessionStateMode>, which is the default. If the session-state <xref:System.Web.SessionState.HttpSessionState.Mode%2A> is set to <xref:System.Web.SessionState.SessionStateMode> or <xref:System.Web.SessionState.SessionStateMode>, then the **Session_OnEnd** event in the Global.asax file is ignored. If the session state <xref:System.Web.SessionState.HttpSessionState.Mode%2A> property value is <xref:System.Web.SessionState.SessionStateMode>, then support for the **Session_OnEnd** event is determined by the custom session-state store provider.  \n  \n Though the <xref:System.Web.SessionState.SessionStateModule.End> event is public, you can only handle it by adding an event handler in the Global.asax file. This restriction is implemented because <xref:System.Web.HttpApplication> instances are reused for performance. When a session expires, only the **Session_OnEnd** event specified in the Global.asax file is executed, to prevent code from calling  an <xref:System.Web.SessionState.SessionStateModule.End> event handler associated with an <xref:System.Web.HttpApplication> instance that is currently in use.  \n  \n For more information about the Global.asax file, see [Global.asax Syntax](http://msdn.microsoft.com/en-us/9ade9d4d-4d52-4e88-af52-53a9ffa26582)."
+  remarks: "The <xref:System.Web.SessionState.SessionStateModule.End> event is raised at the end of a request when the <xref:System.Web.SessionState.HttpSessionState.Abandon%2A> method has been called or when the session has expired. A session expires when the number of minutes specified by the <xref:System.Web.SessionState.HttpSessionState.Timeout%2A> property passes without a request being made for the session.  \n  \n The **Session_OnEnd** event is used to perform any cleanup work for a session such as disposing of resources used by the session.  \n  \n You can specify a handler for the <xref:System.Web.SessionState.SessionStateModule.End> event by adding a public subroutine named **Session_OnEnd** to the Global.asax file.  \n  \n> [!NOTE]\n>  The **Session_OnEnd** event is only supported when the session-state <xref:System.Web.SessionState.HttpSessionState.Mode%2A?displayProperty=fullName> property value is <xref:System.Web.SessionState.SessionStateMode.InProc>, which is the default. If the session-state <xref:System.Web.SessionState.HttpSessionState.Mode%2A> is set to <xref:System.Web.SessionState.SessionStateMode.StateServer> or <xref:System.Web.SessionState.SessionStateMode.SQLServer>, then the **Session_OnEnd** event in the Global.asax file is ignored. If the session state <xref:System.Web.SessionState.HttpSessionState.Mode%2A> property value is <xref:System.Web.SessionState.SessionStateMode.Custom>, then support for the **Session_OnEnd** event is determined by the custom session-state store provider.  \n  \n Though the <xref:System.Web.SessionState.SessionStateModule.End> event is public, you can only handle it by adding an event handler in the Global.asax file. This restriction is implemented because <xref:System.Web.HttpApplication> instances are reused for performance. When a session expires, only the **Session_OnEnd** event specified in the Global.asax file is executed, to prevent code from calling  an <xref:System.Web.SessionState.SessionStateModule.End> event handler associated with an <xref:System.Web.HttpApplication> instance that is currently in use.  \n  \n For more information about the Global.asax file, see [Global.asax Syntax](http://msdn.microsoft.com/en-us/9ade9d4d-4d52-4e88-af52-53a9ffa26582)."
   example:
   - "The following code example shows the contents of a Global.asax file with the **Session_OnStart** and **Session_OnEnd** events defined.  \n  \n```vb  \n<script language=\"VB\" runat=\"server\">  \nPublic Sub Session_OnStart()  \n  \nEnd Sub  \n  \nPublic Sub Session_OnEnd()  \n  \nEnd Sub  \n</script>  \n```  \n  \n```csharp  \n<script language=\"C#\" runat=\"server\">  \npublic void Session_OnStart()  \n{  \n  \n}  \n  \npublic void Session_OnEnd()  \n{  \n  \n}  \n</script>  \n```"
   syntax:
@@ -173,8 +167,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.SessionState/SessionStateModule.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.SessionState.SessionStateModule.Init(System.Web.HttpApplication)
   commentId: M:System.Web.SessionState.SessionStateModule.Init(System.Web.HttpApplication)
   id: Init(System.Web.HttpApplication)
@@ -183,7 +175,7 @@ items:
   - csharp
   name: Init(HttpApplication)
   nameWithType: SessionStateModule.Init(HttpApplication)
-  fullName: System.Web.SessionState.SessionStateModule.Init(HttpApplication)
+  fullName: SessionStateModule.Init(HttpApplication)
   type: Method
   assemblies:
   - System.Web
@@ -221,8 +213,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.SessionState/SessionStateModule.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.SessionState.SessionStateModule.ReleaseSessionState(System.Web.HttpContext)
   commentId: M:System.Web.SessionState.SessionStateModule.ReleaseSessionState(System.Web.HttpContext)
   id: ReleaseSessionState(System.Web.HttpContext)
@@ -231,7 +221,7 @@ items:
   - csharp
   name: ReleaseSessionState(HttpContext)
   nameWithType: SessionStateModule.ReleaseSessionState(HttpContext)
-  fullName: System.Web.SessionState.SessionStateModule.ReleaseSessionState(HttpContext)
+  fullName: SessionStateModule.ReleaseSessionState(HttpContext)
   type: Method
   assemblies:
   - System.Web
@@ -252,8 +242,6 @@ items:
   - netframework-4.6.2
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.SessionState/SessionStateModule.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.SessionState.SessionStateModule.ReleaseSessionStateAsync(System.Web.HttpContext)
   commentId: M:System.Web.SessionState.SessionStateModule.ReleaseSessionStateAsync(System.Web.HttpContext)
   id: ReleaseSessionStateAsync(System.Web.HttpContext)
@@ -262,7 +250,7 @@ items:
   - csharp
   name: ReleaseSessionStateAsync(HttpContext)
   nameWithType: SessionStateModule.ReleaseSessionStateAsync(HttpContext)
-  fullName: System.Web.SessionState.SessionStateModule.ReleaseSessionStateAsync(HttpContext)
+  fullName: SessionStateModule.ReleaseSessionStateAsync(HttpContext)
   type: Method
   assemblies:
   - System.Web
@@ -286,8 +274,6 @@ items:
   - netframework-4.6.2
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.SessionState/SessionStateModule.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.SessionState.SessionStateModule.Start
   commentId: E:System.Web.SessionState.SessionStateModule.Start
   id: Start
@@ -296,7 +282,7 @@ items:
   - csharp
   name: Start
   nameWithType: SessionStateModule.Start
-  fullName: System.Web.SessionState.SessionStateModule.Start
+  fullName: SessionStateModule.Start
   type: Event
   assemblies:
   - System.Web
@@ -328,8 +314,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.SessionState/SessionStateModule.xml
-  ms.author: riande
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -354,19 +338,19 @@ references:
   isExternal: false
   name: SessionStateModule()
   nameWithType: SessionStateModule.SessionStateModule()
-  fullName: System.Web.SessionState.SessionStateModule.SessionStateModule()
+  fullName: SessionStateModule.SessionStateModule()
 - uid: System.Web.SessionState.SessionStateModule.Dispose
   parent: System.Web.SessionState.SessionStateModule
   isExternal: false
   name: Dispose()
   nameWithType: SessionStateModule.Dispose()
-  fullName: System.Web.SessionState.SessionStateModule.Dispose()
+  fullName: SessionStateModule.Dispose()
 - uid: System.Web.SessionState.SessionStateModule.End
   parent: System.Web.SessionState.SessionStateModule
   isExternal: false
   name: End
   nameWithType: SessionStateModule.End
-  fullName: System.Web.SessionState.SessionStateModule.End
+  fullName: SessionStateModule.End
 - uid: System.EventHandler
   parent: System
   isExternal: false
@@ -378,7 +362,7 @@ references:
   isExternal: false
   name: Init(HttpApplication)
   nameWithType: SessionStateModule.Init(HttpApplication)
-  fullName: System.Web.SessionState.SessionStateModule.Init(HttpApplication)
+  fullName: SessionStateModule.Init(HttpApplication)
 - uid: System.Web.HttpApplication
   parent: System.Web
   isExternal: false
@@ -390,7 +374,7 @@ references:
   isExternal: false
   name: ReleaseSessionState(HttpContext)
   nameWithType: SessionStateModule.ReleaseSessionState(HttpContext)
-  fullName: System.Web.SessionState.SessionStateModule.ReleaseSessionState(HttpContext)
+  fullName: SessionStateModule.ReleaseSessionState(HttpContext)
 - uid: System.Web.HttpContext
   parent: System.Web
   isExternal: false
@@ -402,7 +386,7 @@ references:
   isExternal: false
   name: ReleaseSessionStateAsync(HttpContext)
   nameWithType: SessionStateModule.ReleaseSessionStateAsync(HttpContext)
-  fullName: System.Web.SessionState.SessionStateModule.ReleaseSessionStateAsync(HttpContext)
+  fullName: SessionStateModule.ReleaseSessionStateAsync(HttpContext)
 - uid: System.Threading.Tasks.Task
   parent: System.Threading.Tasks
   isExternal: false
@@ -414,13 +398,13 @@ references:
   isExternal: false
   name: Start
   nameWithType: SessionStateModule.Start
-  fullName: System.Web.SessionState.SessionStateModule.Start
+  fullName: SessionStateModule.Start
 - uid: System.Web.SessionState.SessionStateModule.#ctor*
   parent: System.Web.SessionState.SessionStateModule
   isExternal: false
   name: SessionStateModule
   nameWithType: SessionStateModule.SessionStateModule
-  fullName: System.Web.SessionState.SessionStateModule.SessionStateModule
+  fullName: SessionStateModule.SessionStateModule
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -435,7 +419,7 @@ references:
   isExternal: false
   name: Dispose
   nameWithType: SessionStateModule.Dispose
-  fullName: System.Web.SessionState.SessionStateModule.Dispose
+  fullName: SessionStateModule.Dispose
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -450,7 +434,7 @@ references:
   isExternal: false
   name: Init
   nameWithType: SessionStateModule.Init
-  fullName: System.Web.SessionState.SessionStateModule.Init
+  fullName: SessionStateModule.Init
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -465,7 +449,7 @@ references:
   isExternal: false
   name: ReleaseSessionState
   nameWithType: SessionStateModule.ReleaseSessionState
-  fullName: System.Web.SessionState.SessionStateModule.ReleaseSessionState
+  fullName: SessionStateModule.ReleaseSessionState
   monikers:
   - netframework-4.6.2
   - netframework-4.7
@@ -475,8 +459,14 @@ references:
   isExternal: false
   name: ReleaseSessionStateAsync
   nameWithType: SessionStateModule.ReleaseSessionStateAsync
-  fullName: System.Web.SessionState.SessionStateModule.ReleaseSessionStateAsync
+  fullName: SessionStateModule.ReleaseSessionStateAsync
   monikers:
   - netframework-4.6.2
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.SessionState/SessionStateModule.xml
+- uid: System.Web.SessionState.ISessionStateModule
+  parent: System.Web.SessionState
+  isExternal: false
+  name: ISessionStateModule
+  nameWithType: ISessionStateModule
+  fullName: System.Web.SessionState.ISessionStateModule

@@ -18,7 +18,7 @@ items:
   assemblies:
   - System.Web
   namespace: System.Web.Caching
-  summary: Establishes a relationship between an item stored in an ASP.NET application's <xref href="System.Web.Caching.Cache"></xref> object and either a specific SQL Server database table or the results of a [!INCLUDE[sqprsqlong](~/includes/sqprsqlong-md.md)] query. This class cannot be inherited.
+  summary: Establishes a relationship between an item stored in an ASP.NET application's <xref href="System.Web.Caching.Cache"></xref> object and either a specific SQL Server database table or the results of a SQL Server 2005 query. This class cannot be inherited.
   remarks: "On all supported versions of SQL Server (Microsoft SQL Server 7.0, Microsoft SQL Server 2000, and SQL Server 2005) the <xref:System.Web.Caching.SqlCacheDependency> class monitors a specific SQL Server database table. When the table changes, items associated with the table are removed from the <xref:System.Web.Caching.Cache>, and a new version of the item is added to the <xref:System.Web.Caching.Cache>.  \n  \n The <xref:System.Web.Caching.SqlCacheDependency> class also supports integration with the <xref:System.Data.SqlClient.SqlDependency?displayProperty=fullName> class when using a [!INCLUDE[sqprsqlong](~/includes/sqprsqlong-md.md)] database. The query notification mechanism of [!INCLUDE[sqprsqlong](~/includes/sqprsqlong-md.md)] detects changes to data that invalidate the results of an SQL query and removes any cached items associated with the SQL query from the <xref:System.Web.Caching.Cache?displayProperty=fullName>.  \n  \n You can use the <xref:System.Web.Caching.SqlCacheDependency> class to add items to your application's <xref:System.Web.Caching.Cache> that are dependent on either a SQL Server database table or on an SQL query when using [!INCLUDE[sqprsqlong](~/includes/sqprsqlong-md.md)]. You can also use this class with the  directive to make an output-cached page or a user control dependent on a SQL Server database table. Finally, you can use the <xref:System.Web.Caching.SqlCacheDependency> class with the  page directive to make an output-cached page dependent on the results of an SQL query when using [!INCLUDE[sqprsqlong](~/includes/sqprsqlong-md.md)]. Query notification using [!INCLUDE[sqprsqlong](~/includes/sqprsqlong-md.md)] is not supported on the  directive for user controls.  \n  \n> [!NOTE]\n>  For this class to work correctly when using table-based notifications, the database and any tables that you want to make dependencies on must have notifications enabled. You can enable notifications by calling methods of the <xref:System.Web.Caching.SqlCacheDependencyAdmin> class or by using the  command-line tool. In addition, the proper configuration settings must be included in the application's Web.config file.  \n>   \n>  Using a <xref:System.Web.Caching.SqlCacheDependency> object with [!INCLUDE[sqprsqlong](~/includes/sqprsqlong-md.md)] query notification does not require any explicit configuration. Consult the [!INCLUDE[sqprsqlong](~/includes/sqprsqlong-md.md)] Books Online for information about restrictions on the types of Transact-SQL queries that are allowed when using query notification.  \n  \n The following example shows an ASP.NET Web.config file that enables table-based dependencies on a SQL Server database table.  \n  \n```  \n<configuration>  \n  <connectionStrings>  \n    <add name=\"Northwind\" connectionString=\"Data Source=(local); Initial Catalog=northwind; Integrated Security=true\"; providerName=\"System.Data.SqlClient\" />  \n  </connectionStrings>  \n  <system.web>  \n    <caching>  \n      <sqlCacheDependency enabled = \"true\" pollTime = \"60000\" >  \n        <databases>  \n          <add name=\"northwind\"   \n            connectionStringName=\"Northwind\"  \n            pollTime=\"9000000\"  \n            />  \n        </databases>  \n      </sqlCacheDependency>  \n    </caching>  \n  </system.web>  \n</configuration>  \n```"
   example:
   - "The following code example uses the <xref:System.Web.UI.WebControls.SqlDataSource> and <xref:System.Web.UI.WebControls.GridView> controls to display a database table. When the page is loaded, the page attempts to create a <xref:System.Web.Caching.SqlCacheDependency> object. After the <xref:System.Web.Caching.SqlCacheDependency> object is created, the page adds an item to the `Cache` with a dependency on the <xref:System.Web.Caching.SqlCacheDependency> object. You should use exception handling similar to that shown here.  \n  \n <!-- TODO: review snippet reference [!code-csharp[CachingSamples_SqlCacheDependency#1](~/samples/snippets/csharp/VS_Snippets_WebNet/CachingSamples_SqlCacheDependency/CS/sqlcachedepsamplecs.aspx#1)]  -->\n <!-- TODO: review snippet reference [!code-vb[CachingSamples_SqlCacheDependency#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/CachingSamples_SqlCacheDependency/VB/sqlcachedepsamplevb.aspx#1)]  -->"
@@ -64,8 +64,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Caching/SqlCacheDependency.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.Caching.SqlCacheDependency.#ctor(System.Data.SqlClient.SqlCommand)
   commentId: M:System.Web.Caching.SqlCacheDependency.#ctor(System.Data.SqlClient.SqlCommand)
   id: '#ctor(System.Data.SqlClient.SqlCommand)'
@@ -74,7 +72,7 @@ items:
   - csharp
   name: SqlCacheDependency(SqlCommand)
   nameWithType: SqlCacheDependency.SqlCacheDependency(SqlCommand)
-  fullName: System.Web.Caching.SqlCacheDependency.SqlCacheDependency(SqlCommand)
+  fullName: SqlCacheDependency.SqlCacheDependency(SqlCommand)
   type: Constructor
   assemblies:
   - System.Web
@@ -112,8 +110,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Caching/SqlCacheDependency.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.Caching.SqlCacheDependency.#ctor(System.String,System.String)
   commentId: M:System.Web.Caching.SqlCacheDependency.#ctor(System.String,System.String)
   id: '#ctor(System.String,System.String)'
@@ -122,7 +118,7 @@ items:
   - csharp
   name: SqlCacheDependency(String, String)
   nameWithType: SqlCacheDependency.SqlCacheDependency(String, String)
-  fullName: System.Web.Caching.SqlCacheDependency.SqlCacheDependency(String, String)
+  fullName: SqlCacheDependency.SqlCacheDependency(String, String)
   type: Constructor
   assemblies:
   - System.Web
@@ -177,8 +173,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Caching/SqlCacheDependency.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.Caching.SqlCacheDependency.CreateOutputCacheDependency(System.String)
   commentId: M:System.Web.Caching.SqlCacheDependency.CreateOutputCacheDependency(System.String)
   id: CreateOutputCacheDependency(System.String)
@@ -187,7 +181,7 @@ items:
   - csharp
   name: CreateOutputCacheDependency(String)
   nameWithType: SqlCacheDependency.CreateOutputCacheDependency(String)
-  fullName: System.Web.Caching.SqlCacheDependency.CreateOutputCacheDependency(String)
+  fullName: SqlCacheDependency.CreateOutputCacheDependency(String)
   type: Method
   assemblies:
   - System.Web
@@ -222,8 +216,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Caching/SqlCacheDependency.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.Caching.SqlCacheDependency.DependencyDispose
   commentId: M:System.Web.Caching.SqlCacheDependency.DependencyDispose
   id: DependencyDispose
@@ -232,7 +224,7 @@ items:
   - csharp
   name: DependencyDispose()
   nameWithType: SqlCacheDependency.DependencyDispose()
-  fullName: System.Web.Caching.SqlCacheDependency.DependencyDispose()
+  fullName: SqlCacheDependency.DependencyDispose()
   type: Method
   assemblies:
   - System.Web
@@ -267,7 +259,7 @@ items:
   - csharp
   name: GetUniqueID()
   nameWithType: SqlCacheDependency.GetUniqueID()
-  fullName: System.Web.Caching.SqlCacheDependency.GetUniqueID()
+  fullName: SqlCacheDependency.GetUniqueID()
   type: Method
   assemblies:
   - System.Web
@@ -299,9 +291,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Caching/SqlCacheDependency.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Web.Caching.CacheDependency
   parent: System.Web.Caching
@@ -350,7 +339,7 @@ references:
   isExternal: false
   name: SqlCacheDependency(SqlCommand)
   nameWithType: SqlCacheDependency.SqlCacheDependency(SqlCommand)
-  fullName: System.Web.Caching.SqlCacheDependency.SqlCacheDependency(SqlCommand)
+  fullName: SqlCacheDependency.SqlCacheDependency(SqlCommand)
 - uid: System.Data.SqlClient.SqlCommand
   parent: System.Data.SqlClient
   isExternal: false
@@ -362,7 +351,7 @@ references:
   isExternal: false
   name: SqlCacheDependency(String, String)
   nameWithType: SqlCacheDependency.SqlCacheDependency(String, String)
-  fullName: System.Web.Caching.SqlCacheDependency.SqlCacheDependency(String, String)
+  fullName: SqlCacheDependency.SqlCacheDependency(String, String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -374,25 +363,25 @@ references:
   isExternal: false
   name: CreateOutputCacheDependency(String)
   nameWithType: SqlCacheDependency.CreateOutputCacheDependency(String)
-  fullName: System.Web.Caching.SqlCacheDependency.CreateOutputCacheDependency(String)
+  fullName: SqlCacheDependency.CreateOutputCacheDependency(String)
 - uid: System.Web.Caching.SqlCacheDependency.DependencyDispose
   parent: System.Web.Caching.SqlCacheDependency
   isExternal: false
   name: DependencyDispose()
   nameWithType: SqlCacheDependency.DependencyDispose()
-  fullName: System.Web.Caching.SqlCacheDependency.DependencyDispose()
+  fullName: SqlCacheDependency.DependencyDispose()
 - uid: System.Web.Caching.SqlCacheDependency.GetUniqueID
   parent: System.Web.Caching.SqlCacheDependency
   isExternal: false
   name: GetUniqueID()
   nameWithType: SqlCacheDependency.GetUniqueID()
-  fullName: System.Web.Caching.SqlCacheDependency.GetUniqueID()
+  fullName: SqlCacheDependency.GetUniqueID()
 - uid: System.Web.Caching.SqlCacheDependency.#ctor*
   parent: System.Web.Caching.SqlCacheDependency
   isExternal: false
   name: SqlCacheDependency
   nameWithType: SqlCacheDependency.SqlCacheDependency
-  fullName: System.Web.Caching.SqlCacheDependency.SqlCacheDependency
+  fullName: SqlCacheDependency.SqlCacheDependency
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -407,7 +396,7 @@ references:
   isExternal: false
   name: CreateOutputCacheDependency
   nameWithType: SqlCacheDependency.CreateOutputCacheDependency
-  fullName: System.Web.Caching.SqlCacheDependency.CreateOutputCacheDependency
+  fullName: SqlCacheDependency.CreateOutputCacheDependency
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -422,7 +411,7 @@ references:
   isExternal: false
   name: DependencyDispose
   nameWithType: SqlCacheDependency.DependencyDispose
-  fullName: System.Web.Caching.SqlCacheDependency.DependencyDispose
+  fullName: SqlCacheDependency.DependencyDispose
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -437,7 +426,7 @@ references:
   isExternal: false
   name: GetUniqueID
   nameWithType: SqlCacheDependency.GetUniqueID
-  fullName: System.Web.Caching.SqlCacheDependency.GetUniqueID
+  fullName: SqlCacheDependency.GetUniqueID
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

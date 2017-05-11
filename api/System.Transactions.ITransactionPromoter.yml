@@ -14,13 +14,18 @@ items:
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Describes a delegated transaction for an existing transaction that can be escalated to be managed by the MSDTC when needed.
   remarks: When you want to implement a resource manager, you should not implement the <xref:System.Transactions.ITransactionPromoter> interface directly. Instead, you should implement <xref:System.Transactions.ISinglePhaseNotification> inteface which inherits the single <xref:System.Transactions.ITransactionPromoter.Promote%2A> method of this interface. For more information on implementing a resource manager, see [Implementing A Resource Manager](http://msdn.microsoft.com/en-us/81509719-d579-4530-831e-42e1acdef63e).
   syntax:
     content: public interface ITransactionPromoter
+  derivedClasses:
+  - System.Transactions.IPromotableSinglePhaseNotification
+  - System.Transactions.ISimpleTransactionSuperior
   implements: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -33,6 +38,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -45,7 +51,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/ITransactionPromoter.xml
-  manager: ghogen
 - uid: System.Transactions.ITransactionPromoter.Promote
   commentId: M:System.Transactions.ITransactionPromoter.Promote
   id: Promote
@@ -54,11 +59,12 @@ items:
   - csharp
   name: Promote()
   nameWithType: ITransactionPromoter.Promote()
-  fullName: System.Transactions.ITransactionPromoter.Promote()
+  fullName: ITransactionPromoter.Promote()
   type: Method
   assemblies:
   - System.Transactions
   - netstandard
+  - System.Transactions.Local
   namespace: System.Transactions
   summary: Notifies an enlisted object that an escalation of the delegated transaction has been requested.
   remarks: A <xref:System.Transactions.TransactionPromotionException> should be thrown by an implementation of <xref:System.Transactions.IPromotableSinglePhaseNotification> interface to indicate that a call to <xref:System.Transactions.ITransactionPromoter.Promote%2A> has failed.
@@ -71,6 +77,7 @@ items:
   overload: System.Transactions.ITransactionPromoter.Promote*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -83,6 +90,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -95,14 +103,13 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Transactions/ITransactionPromoter.xml
-  manager: ghogen
 references:
 - uid: System.Transactions.ITransactionPromoter.Promote
   parent: System.Transactions.ITransactionPromoter
   isExternal: false
   name: Promote()
   nameWithType: ITransactionPromoter.Promote()
-  fullName: System.Transactions.ITransactionPromoter.Promote()
+  fullName: ITransactionPromoter.Promote()
 - uid: System.Byte
   name: Byte
   nameWithType: Byte
@@ -126,8 +133,9 @@ references:
   isExternal: false
   name: Promote
   nameWithType: ITransactionPromoter.Promote
-  fullName: System.Transactions.ITransactionPromoter.Promote
+  fullName: ITransactionPromoter.Promote
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

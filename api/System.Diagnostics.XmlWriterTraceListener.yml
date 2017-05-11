@@ -29,7 +29,7 @@ items:
   - System
   namespace: System.Diagnostics
   summary: Directs tracing or debugging output as XML-encoded data to a <xref href="System.IO.TextWriter"></xref> or to a <xref href="System.IO.Stream"></xref>, such as a <xref href="System.IO.FileStream"></xref>.
-  remarks: "> [!NOTE]\n>  You must have unmanaged code permission to create an instance of the <xref:System.Diagnostics.XmlWriterTraceListener> class.  \n  \n The <xref:System.Diagnostics.XmlWriterTraceListener> class converts tracing and debugging information into an XML-encoded text stream. The description of the XML output is shown in the tables that follow. You can use the [Service Trace Viewer Tool (SvcTraceViewer.exe)](http://go.microsoft.com/fwlink/p/?LinkId=240129) to display the XML output.  \n  \n You can enable or disable an <xref:System.Diagnostics.XmlWriterTraceListener> through the application configuration file and then use the configured <xref:System.Diagnostics.XmlWriterTraceListener> in your application. Alternately, you can create an <xref:System.Diagnostics.XmlWriterTraceListener> in your code.  \n  \n To configure an <xref:System.Diagnostics.XmlWriterTraceListener>, edit the configuration file that corresponds to the name of your application. In this file, you can add or remove a listener, set the properties for a listener, or remove listeners. The configuration file should be formatted like the following example.  \n  \n```  \n<configuration>  \n  <system.diagnostics>  \n    <trace autoflush=\"false\" indentsize=\"4\">  \n      <listeners>  \n        <add name=\"xmlListener\"   \n          type=\"System.Diagnostics.XmlWriterTraceListener\"   \n          initializeData=\"xmlOutput.xml\"   \n          traceOutputOptions=\"ProcessId, DateTime\" />  \n        <remove name=\"Default\" />  \n      </listeners>  \n    </trace>  \n  </system.diagnostics>  \n</configuration>  \n```  \n  \n The <xref:System.Diagnostics.XmlWriterTraceListener> class inherits the <xref:System.Diagnostics.TraceListener.Filter%2A> property from the base class <xref:System.Diagnostics.TraceListener>.  The <xref:System.Diagnostics.TraceListener.Filter%2A> property allows an additional level of trace output filtering at the listener.  If there is a filter present, the `Trace` methods of the trace listener call the <xref:System.Diagnostics.TraceFilter.ShouldTrace%2A> method of the filter to determine whether to emit the trace.  \n  \n> [!NOTE]\n>  If an attempt is made to write to a file that is in use or unavailable, the file name is automatically prefixed by a GUID.  \n  \n> [!NOTE]\n>  Listener methods are intended to be called by methods of the <xref:System.Diagnostics.Debug>, <xref:System.Diagnostics.Trace>, and <xref:System.Diagnostics.TraceSource> classes.  The listener methods are not intended to be called directly from application code. The <xref:System.Diagnostics.XmlWriterTraceListener> listener is primarily intended for use by the <xref:System.Diagnostics.TraceSource> class. The <xref:System.Diagnostics.XmlWriterTraceListener.Write%2A> and <xref:System.Diagnostics.XmlWriterTraceListener.WriteLine%2A> methods can be called by the <xref:System.Diagnostics.Trace> and <xref:System.Diagnostics.Debug> classes, and default values are provided for the XML elements that <xref:System.Diagnostics.Trace> and <xref:System.Diagnostics.Debug> do not supply values for.  \n  \n The following table describes the elements and attributes of the XML output.  \n  \n|Element|Attributes|Output|Notes|  \n|-------------|----------------|------------|-----------|  \n|`CallStack`|None|Depends on the presence of the <xref:System.Diagnostics.TraceOptions> flag in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.|Special characters such as > or < are replaced with escape sequences. See the escaped character translation table that follows.|  \n|`Computer`|None|Always present.|The value of the <xref:System.Environment.MachineName%2A> property.|  \n|`Correlation`|`ActivityID`|Always present|If not specified, the default is an empty GUID.|  \n||`RelatedActivityID`|Depends on the presence of the `relatedActivityId` parameter in the Trace method call.|The `relatedActivityId` parameter of the <xref:System.Diagnostics.XmlWriterTraceListener.TraceTransfer%2A> method.|  \n|`DataItem`|None|Depends on the `data` parameter of the <xref:System.Diagnostics.XmlWriterTraceListener.TraceData%2A> method.|This element can contain an array of elements or one element, so the values are written as a set of `DataItem` nodes under the `TraceData` element.<br /><br /> The data output uses the `ToString` method of the passed-in data objects.|  \n|`EventID`|None|Always present.|Parameter input (`id`).|  \n|`Execution`|`ProcessName`|Always present.|From the <xref:System.Diagnostics.TraceEventCache>.|  \n||`ProcessID`|Always present.|From the <xref:System.Diagnostics.TraceEventCache>. On Windows 98 and Windows Me operating systems, if `ProcessID` is greater than 2,147,483,647 it is a positive representation of a negative number and should be converted to obtain the correct process identifier.|  \n||`ThreadID`|Always present.|From the <xref:System.Diagnostics.TraceEventCache>.|  \n|`Level`|None|Always present.|Parameter input (the numeric value of `eventType`). Parameter values greater than 255 are output as 255.|  \n|`LogicalOperationStack`|None|Depends on the presence of the <xref:System.Diagnostics.TraceOptions> flag in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.|There can be more than one logical operation, so the values are written as `LogicalOperation` nodes under the `LogicalOperationStack` element.|  \n|`Message`|None|Depends on the presence of a message in the Trace method call.|This element is a formatted message if formatting arguments are provided.|  \n|`Source`|`Name`|Always present.|Parameter input.|  \n|`SubType`|`Name`|Always present.|Parameter input.|  \n|`TimeCreated`|`SystemTime`|Always present.|If not present in the <xref:System.Diagnostics.TraceEventCache>, the default is the current time.|  \n|`TimeStamp`|None|Depends on the presence of the <xref:System.Diagnostics.TraceOptions> flag in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.|From the <xref:System.Diagnostics.TraceEventCache>.|  \n|`Type`|None|Always present.|Always the value 3.|  \n  \n The following table shows the characters that are escaped in the XML output. Escaping occurs in all the elements and attributes with the exception of the `DataItem` element, which is not escaped if the object passed to the `data` parameter of the <xref:System.Diagnostics.XmlWriterTraceListener.TraceData%2A> method is an <xref:System.Xml.XPath.XPathNavigator> object. If an <xref:System.Xml.XPath.XPathNavigator> is used for the data object, the <xref:System.Xml.XPath.XPathNavigator.MoveToRoot%2A> method is called and the entire root node is traced as unescaped data.  \n  \n|Escaped character|Value|  \n|-----------------------|-----------|  \n|&|&amp;|  \n|\\<|&lt;|  \n|>|&gt;|  \n|\"|&quot;|  \n|\\|&apos;|  \n|0xD|&\\#xD;|  \n|0xA|&\\#xA;|"
+  remarks: "> [!NOTE]\n>  You must have unmanaged code permission to create an instance of the <xref:System.Diagnostics.XmlWriterTraceListener> class.  \n  \n The <xref:System.Diagnostics.XmlWriterTraceListener> class converts tracing and debugging information into an XML-encoded text stream. The description of the XML output is shown in the tables that follow. You can use the [Service Trace Viewer Tool (SvcTraceViewer.exe)](http://go.microsoft.com/fwlink/p/?LinkId=240129) to display the XML output.  \n  \n You can enable or disable an <xref:System.Diagnostics.XmlWriterTraceListener> through the application configuration file and then use the configured <xref:System.Diagnostics.XmlWriterTraceListener> in your application. Alternately, you can create an <xref:System.Diagnostics.XmlWriterTraceListener> in your code.  \n  \n To configure an <xref:System.Diagnostics.XmlWriterTraceListener>, edit the configuration file that corresponds to the name of your application. In this file, you can add or remove a listener, set the properties for a listener, or remove listeners. The configuration file should be formatted like the following example.  \n  \n```  \n<configuration>  \n  <system.diagnostics>  \n    <trace autoflush=\"false\" indentsize=\"4\">  \n      <listeners>  \n        <add name=\"xmlListener\"   \n          type=\"System.Diagnostics.XmlWriterTraceListener\"   \n          initializeData=\"xmlOutput.xml\"   \n          traceOutputOptions=\"ProcessId, DateTime\" />  \n        <remove name=\"Default\" />  \n      </listeners>  \n    </trace>  \n  </system.diagnostics>  \n</configuration>  \n```  \n  \n The <xref:System.Diagnostics.XmlWriterTraceListener> class inherits the <xref:System.Diagnostics.TraceListener.Filter%2A> property from the base class <xref:System.Diagnostics.TraceListener>.  The <xref:System.Diagnostics.TraceListener.Filter%2A> property allows an additional level of trace output filtering at the listener.  If there is a filter present, the `Trace` methods of the trace listener call the <xref:System.Diagnostics.TraceFilter.ShouldTrace%2A> method of the filter to determine whether to emit the trace.  \n  \n> [!NOTE]\n>  If an attempt is made to write to a file that is in use or unavailable, the file name is automatically prefixed by a GUID.  \n  \n> [!NOTE]\n>  Listener methods are intended to be called by methods of the <xref:System.Diagnostics.Debug>, <xref:System.Diagnostics.Trace>, and <xref:System.Diagnostics.TraceSource> classes.  The listener methods are not intended to be called directly from application code. The <xref:System.Diagnostics.XmlWriterTraceListener> listener is primarily intended for use by the <xref:System.Diagnostics.TraceSource> class. The <xref:System.Diagnostics.XmlWriterTraceListener.Write%2A> and <xref:System.Diagnostics.XmlWriterTraceListener.WriteLine%2A> methods can be called by the <xref:System.Diagnostics.Trace> and <xref:System.Diagnostics.Debug> classes, and default values are provided for the XML elements that <xref:System.Diagnostics.Trace> and <xref:System.Diagnostics.Debug> do not supply values for.  \n  \n The following table describes the elements and attributes of the XML output.  \n  \n|Element|Attributes|Output|Notes|  \n|-------------|----------------|------------|-----------|  \n|`CallStack`|None|Depends on the presence of the <xref:System.Diagnostics.TraceOptions.Callstack> flag in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.|Special characters such as > or < are replaced with escape sequences. See the escaped character translation table that follows.|  \n|`Computer`|None|Always present.|The value of the <xref:System.Environment.MachineName%2A> property.|  \n|`Correlation`|`ActivityID`|Always present|If not specified, the default is an empty GUID.|  \n||`RelatedActivityID`|Depends on the presence of the `relatedActivityId` parameter in the Trace method call.|The `relatedActivityId` parameter of the <xref:System.Diagnostics.XmlWriterTraceListener.TraceTransfer%2A> method.|  \n|`DataItem`|None|Depends on the `data` parameter of the <xref:System.Diagnostics.XmlWriterTraceListener.TraceData%2A> method.|This element can contain an array of elements or one element, so the values are written as a set of `DataItem` nodes under the `TraceData` element.<br /><br /> The data output uses the `ToString` method of the passed-in data objects.|  \n|`EventID`|None|Always present.|Parameter input (`id`).|  \n|`Execution`|`ProcessName`|Always present.|From the <xref:System.Diagnostics.TraceEventCache>.|  \n||`ProcessID`|Always present.|From the <xref:System.Diagnostics.TraceEventCache>. On Windows 98 and Windows Me operating systems, if `ProcessID` is greater than 2,147,483,647 it is a positive representation of a negative number and should be converted to obtain the correct process identifier.|  \n||`ThreadID`|Always present.|From the <xref:System.Diagnostics.TraceEventCache>.|  \n|`Level`|None|Always present.|Parameter input (the numeric value of `eventType`). Parameter values greater than 255 are output as 255.|  \n|`LogicalOperationStack`|None|Depends on the presence of the <xref:System.Diagnostics.TraceOptions.LogicalOperationStack> flag in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.|There can be more than one logical operation, so the values are written as `LogicalOperation` nodes under the `LogicalOperationStack` element.|  \n|`Message`|None|Depends on the presence of a message in the Trace method call.|This element is a formatted message if formatting arguments are provided.|  \n|`Source`|`Name`|Always present.|Parameter input.|  \n|`SubType`|`Name`|Always present.|Parameter input.|  \n|`TimeCreated`|`SystemTime`|Always present.|If not present in the <xref:System.Diagnostics.TraceEventCache>, the default is the current time.|  \n|`TimeStamp`|None|Depends on the presence of the <xref:System.Diagnostics.TraceOptions.Timestamp> flag in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.|From the <xref:System.Diagnostics.TraceEventCache>.|  \n|`Type`|None|Always present.|Always the value 3.|  \n  \n The following table shows the characters that are escaped in the XML output. Escaping occurs in all the elements and attributes with the exception of the `DataItem` element, which is not escaped if the object passed to the `data` parameter of the <xref:System.Diagnostics.XmlWriterTraceListener.TraceData%2A> method is an <xref:System.Xml.XPath.XPathNavigator> object. If an <xref:System.Xml.XPath.XPathNavigator> is used for the data object, the <xref:System.Xml.XPath.XPathNavigator.MoveToRoot%2A> method is called and the entire root node is traced as unescaped data.  \n  \n|Escaped character|Value|  \n|-----------------------|-----------|  \n|&|&amp;|  \n|\\<|&lt;|  \n|>|&gt;|  \n|\"|&quot;|  \n|\\|&apos;|  \n|0xD|&\\#xD;|  \n|0xA|&\\#xA;|"
   example:
   - "The following code example shows the use of the <xref:System.Diagnostics.XmlWriterTraceListener> class to write both escaped and non-escaped data to file logs.  \n  \n [!code-csharp[System.Diagnostics.XmlWriterTraceListener#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Diagnostics.XmlWriterTraceListener/CS/program.cs#1)]\n [!code-vb[System.Diagnostics.XmlWriterTraceListener#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Diagnostics.XmlWriterTraceListener/VB/module1.vb#1)]"
   syntax:
@@ -88,9 +88,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/XmlWriterTraceListener.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.XmlWriterTraceListener.#ctor(System.IO.Stream)
   commentId: M:System.Diagnostics.XmlWriterTraceListener.#ctor(System.IO.Stream)
   id: '#ctor(System.IO.Stream)'
@@ -99,7 +96,7 @@ items:
   - csharp
   name: XmlWriterTraceListener(Stream)
   nameWithType: XmlWriterTraceListener.XmlWriterTraceListener(Stream)
-  fullName: System.Diagnostics.XmlWriterTraceListener.XmlWriterTraceListener(Stream)
+  fullName: XmlWriterTraceListener.XmlWriterTraceListener(Stream)
   type: Constructor
   assemblies:
   - System
@@ -136,9 +133,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/XmlWriterTraceListener.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.XmlWriterTraceListener.#ctor(System.IO.TextWriter)
   commentId: M:System.Diagnostics.XmlWriterTraceListener.#ctor(System.IO.TextWriter)
   id: '#ctor(System.IO.TextWriter)'
@@ -147,7 +141,7 @@ items:
   - csharp
   name: XmlWriterTraceListener(TextWriter)
   nameWithType: XmlWriterTraceListener.XmlWriterTraceListener(TextWriter)
-  fullName: System.Diagnostics.XmlWriterTraceListener.XmlWriterTraceListener(TextWriter)
+  fullName: XmlWriterTraceListener.XmlWriterTraceListener(TextWriter)
   type: Constructor
   assemblies:
   - System
@@ -184,9 +178,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/XmlWriterTraceListener.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.XmlWriterTraceListener.#ctor(System.String)
   commentId: M:System.Diagnostics.XmlWriterTraceListener.#ctor(System.String)
   id: '#ctor(System.String)'
@@ -195,7 +186,7 @@ items:
   - csharp
   name: XmlWriterTraceListener(String)
   nameWithType: XmlWriterTraceListener.XmlWriterTraceListener(String)
-  fullName: System.Diagnostics.XmlWriterTraceListener.XmlWriterTraceListener(String)
+  fullName: XmlWriterTraceListener.XmlWriterTraceListener(String)
   type: Constructor
   assemblies:
   - System
@@ -232,9 +223,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/XmlWriterTraceListener.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.XmlWriterTraceListener.#ctor(System.IO.Stream,System.String)
   commentId: M:System.Diagnostics.XmlWriterTraceListener.#ctor(System.IO.Stream,System.String)
   id: '#ctor(System.IO.Stream,System.String)'
@@ -243,7 +231,7 @@ items:
   - csharp
   name: XmlWriterTraceListener(Stream, String)
   nameWithType: XmlWriterTraceListener.XmlWriterTraceListener(Stream, String)
-  fullName: System.Diagnostics.XmlWriterTraceListener.XmlWriterTraceListener(Stream, String)
+  fullName: XmlWriterTraceListener.XmlWriterTraceListener(Stream, String)
   type: Constructor
   assemblies:
   - System
@@ -283,9 +271,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/XmlWriterTraceListener.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.XmlWriterTraceListener.#ctor(System.IO.TextWriter,System.String)
   commentId: M:System.Diagnostics.XmlWriterTraceListener.#ctor(System.IO.TextWriter,System.String)
   id: '#ctor(System.IO.TextWriter,System.String)'
@@ -294,7 +279,7 @@ items:
   - csharp
   name: XmlWriterTraceListener(TextWriter, String)
   nameWithType: XmlWriterTraceListener.XmlWriterTraceListener(TextWriter, String)
-  fullName: System.Diagnostics.XmlWriterTraceListener.XmlWriterTraceListener(TextWriter, String)
+  fullName: XmlWriterTraceListener.XmlWriterTraceListener(TextWriter, String)
   type: Constructor
   assemblies:
   - System
@@ -334,9 +319,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/XmlWriterTraceListener.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.XmlWriterTraceListener.#ctor(System.String,System.String)
   commentId: M:System.Diagnostics.XmlWriterTraceListener.#ctor(System.String,System.String)
   id: '#ctor(System.String,System.String)'
@@ -345,7 +327,7 @@ items:
   - csharp
   name: XmlWriterTraceListener(String, String)
   nameWithType: XmlWriterTraceListener.XmlWriterTraceListener(String, String)
-  fullName: System.Diagnostics.XmlWriterTraceListener.XmlWriterTraceListener(String, String)
+  fullName: XmlWriterTraceListener.XmlWriterTraceListener(String, String)
   type: Constructor
   assemblies:
   - System
@@ -385,9 +367,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/XmlWriterTraceListener.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.XmlWriterTraceListener.Close
   commentId: M:System.Diagnostics.XmlWriterTraceListener.Close
   id: Close
@@ -396,7 +375,7 @@ items:
   - csharp
   name: Close()
   nameWithType: XmlWriterTraceListener.Close()
-  fullName: System.Diagnostics.XmlWriterTraceListener.Close()
+  fullName: XmlWriterTraceListener.Close()
   type: Method
   assemblies:
   - System
@@ -426,9 +405,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/XmlWriterTraceListener.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.XmlWriterTraceListener.Fail(System.String,System.String)
   commentId: M:System.Diagnostics.XmlWriterTraceListener.Fail(System.String,System.String)
   id: Fail(System.String,System.String)
@@ -437,7 +413,7 @@ items:
   - csharp
   name: Fail(String, String)
   nameWithType: XmlWriterTraceListener.Fail(String, String)
-  fullName: System.Diagnostics.XmlWriterTraceListener.Fail(String, String)
+  fullName: XmlWriterTraceListener.Fail(String, String)
   type: Method
   assemblies:
   - System
@@ -474,9 +450,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/XmlWriterTraceListener.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.XmlWriterTraceListener.TraceData(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.Object)
   commentId: M:System.Diagnostics.XmlWriterTraceListener.TraceData(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.Object)
   id: TraceData(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.Object)
@@ -485,7 +458,7 @@ items:
   - csharp
   name: TraceData(TraceEventCache, String, TraceEventType, Int32, Object)
   nameWithType: XmlWriterTraceListener.TraceData(TraceEventCache, String, TraceEventType, Int32, Object)
-  fullName: System.Diagnostics.XmlWriterTraceListener.TraceData(TraceEventCache, String, TraceEventType, Int32, Object)
+  fullName: XmlWriterTraceListener.TraceData(TraceEventCache, String, TraceEventType, Int32, Object)
   type: Method
   assemblies:
   - System
@@ -531,9 +504,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/XmlWriterTraceListener.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.XmlWriterTraceListener.TraceData(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.Object[])
   commentId: M:System.Diagnostics.XmlWriterTraceListener.TraceData(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.Object[])
   id: TraceData(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.Object[])
@@ -542,7 +512,7 @@ items:
   - csharp
   name: TraceData(TraceEventCache, String, TraceEventType, Int32, Object[])
   nameWithType: XmlWriterTraceListener.TraceData(TraceEventCache, String, TraceEventType, Int32, Object[])
-  fullName: System.Diagnostics.XmlWriterTraceListener.TraceData(TraceEventCache, String, TraceEventType, Int32, Object[])
+  fullName: XmlWriterTraceListener.TraceData(TraceEventCache, String, TraceEventType, Int32, Object[])
   type: Method
   assemblies:
   - System
@@ -588,9 +558,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/XmlWriterTraceListener.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.XmlWriterTraceListener.TraceEvent(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.String)
   commentId: M:System.Diagnostics.XmlWriterTraceListener.TraceEvent(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.String)
   id: TraceEvent(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.String)
@@ -599,7 +566,7 @@ items:
   - csharp
   name: TraceEvent(TraceEventCache, String, TraceEventType, Int32, String)
   nameWithType: XmlWriterTraceListener.TraceEvent(TraceEventCache, String, TraceEventType, Int32, String)
-  fullName: System.Diagnostics.XmlWriterTraceListener.TraceEvent(TraceEventCache, String, TraceEventType, Int32, String)
+  fullName: XmlWriterTraceListener.TraceEvent(TraceEventCache, String, TraceEventType, Int32, String)
   type: Method
   assemblies:
   - System
@@ -645,9 +612,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/XmlWriterTraceListener.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.XmlWriterTraceListener.TraceEvent(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.String,System.Object[])
   commentId: M:System.Diagnostics.XmlWriterTraceListener.TraceEvent(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.String,System.Object[])
   id: TraceEvent(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.String,System.Object[])
@@ -656,13 +620,13 @@ items:
   - csharp
   name: TraceEvent(TraceEventCache, String, TraceEventType, Int32, String, Object[])
   nameWithType: XmlWriterTraceListener.TraceEvent(TraceEventCache, String, TraceEventType, Int32, String, Object[])
-  fullName: System.Diagnostics.XmlWriterTraceListener.TraceEvent(TraceEventCache, String, TraceEventType, Int32, String, Object[])
+  fullName: XmlWriterTraceListener.TraceEvent(TraceEventCache, String, TraceEventType, Int32, String, Object[])
   type: Method
   assemblies:
   - System
   namespace: System.Diagnostics
   summary: Writes trace information, a formatted message, and event information to the file or stream.
-  remarks: "The `eventCache`, `source`, `eventType`, and `id` parameters are used in the header and footer of the trace. The `id` parameter is converted to an unsigned integer before writing, so a negative `id` value is written as a large positive integer. The [String.Format(String, Object\\<xref:System.String.Format%28System.String%2CSystem.Object%5B%5D%29?displayProperty=fullName> method is called, passing in the `format` string and `args` array as parameters, to format the `args` object array as the `Message` element.  \n  \n> [!IMPORTANT]\n>  This method is not intended to be called directly by application code.  It is called by methods of the <xref:System.Diagnostics.Debug>, <xref:System.Diagnostics.Trace>, and <xref:System.Diagnostics.TraceSource> classes to write trace data."
+  remarks: "The `eventCache`, `source`, `eventType`, and `id` parameters are used in the header and footer of the trace. The `id` parameter is converted to an unsigned integer before writing, so a negative `id` value is written as a large positive integer. The <xref:System.String.Format%28System.String%2CSystem.Object%5B%5D%29?displayProperty=fullName> method is called, passing in the `format` string and `args` array as parameters, to format the `args` object array as the `Message` element.  \n  \n> [!IMPORTANT]\n>  This method is not intended to be called directly by application code.  It is called by methods of the <xref:System.Diagnostics.Debug>, <xref:System.Diagnostics.Trace>, and <xref:System.Diagnostics.TraceSource> classes to write trace data."
   syntax:
     content: public override void TraceEvent (System.Diagnostics.TraceEventCache eventCache, string source, System.Diagnostics.TraceEventType eventType, int id, string format, object[] args);
     parameters:
@@ -705,9 +669,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/XmlWriterTraceListener.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.XmlWriterTraceListener.TraceTransfer(System.Diagnostics.TraceEventCache,System.String,System.Int32,System.String,System.Guid)
   commentId: M:System.Diagnostics.XmlWriterTraceListener.TraceTransfer(System.Diagnostics.TraceEventCache,System.String,System.Int32,System.String,System.Guid)
   id: TraceTransfer(System.Diagnostics.TraceEventCache,System.String,System.Int32,System.String,System.Guid)
@@ -716,13 +677,13 @@ items:
   - csharp
   name: TraceTransfer(TraceEventCache, String, Int32, String, Guid)
   nameWithType: XmlWriterTraceListener.TraceTransfer(TraceEventCache, String, Int32, String, Guid)
-  fullName: System.Diagnostics.XmlWriterTraceListener.TraceTransfer(TraceEventCache, String, Int32, String, Guid)
+  fullName: XmlWriterTraceListener.TraceTransfer(TraceEventCache, String, Int32, String, Guid)
   type: Method
   assemblies:
   - System
   namespace: System.Diagnostics
   summary: Writes trace information including the identity of a related activity, a message, and event information to the file or stream.
-  remarks: "The <xref:System.Diagnostics.XmlWriterTraceListener.TraceTransfer%2A> method is used for the correlation of related traces. The `eventCache`, `source`, `id`, and `relatedActivityId` parameters are used in the header and footer of the trace. The `id` parameter is converted to an unsigned integer before writing, so a negative `id` value is written as a large positive integer. The `message` parameter is written as the `Message` element. The <xref:System.Guid.ToString%28System.String%29?displayProperty=fullName> method is called to convert the `relatedActivityId`value to a \"B\" formatted string, which appears in the header. The `SubTypeName` element in the footer identifies the trace event type as a <xref:System.Diagnostics.TraceEventType>.  \n  \n> [!IMPORTANT]\n>  The <xref:System.Diagnostics.XmlWriterTraceListener.TraceTransfer%2A> method is not intended to be called by application code.  It is intended to be called by a <xref:System.Diagnostics.TraceSource> object to emit the trace information for its <xref:System.Diagnostics.TraceSource.TraceTransfer%2A> method."
+  remarks: "The <xref:System.Diagnostics.XmlWriterTraceListener.TraceTransfer%2A> method is used for the correlation of related traces. The `eventCache`, `source`, `id`, and `relatedActivityId` parameters are used in the header and footer of the trace. The `id` parameter is converted to an unsigned integer before writing, so a negative `id` value is written as a large positive integer. The `message` parameter is written as the `Message` element. The <xref:System.Guid.ToString%28System.String%29?displayProperty=fullName> method is called to convert the `relatedActivityId`value to a \"B\" formatted string, which appears in the header. The `SubTypeName` element in the footer identifies the trace event type as a <xref:System.Diagnostics.TraceEventType.Transfer>.  \n  \n> [!IMPORTANT]\n>  The <xref:System.Diagnostics.XmlWriterTraceListener.TraceTransfer%2A> method is not intended to be called by application code.  It is intended to be called by a <xref:System.Diagnostics.TraceSource> object to emit the trace information for its <xref:System.Diagnostics.TraceSource.TraceTransfer%2A> method."
   syntax:
     content: public override void TraceTransfer (System.Diagnostics.TraceEventCache eventCache, string source, int id, string message, Guid relatedActivityId);
     parameters:
@@ -762,9 +723,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/XmlWriterTraceListener.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.XmlWriterTraceListener.Write(System.String)
   commentId: M:System.Diagnostics.XmlWriterTraceListener.Write(System.String)
   id: Write(System.String)
@@ -773,7 +731,7 @@ items:
   - csharp
   name: Write(String)
   nameWithType: XmlWriterTraceListener.Write(String)
-  fullName: System.Diagnostics.XmlWriterTraceListener.Write(String)
+  fullName: XmlWriterTraceListener.Write(String)
   type: Method
   assemblies:
   - System
@@ -807,9 +765,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/XmlWriterTraceListener.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Diagnostics.XmlWriterTraceListener.WriteLine(System.String)
   commentId: M:System.Diagnostics.XmlWriterTraceListener.WriteLine(System.String)
   id: WriteLine(System.String)
@@ -818,7 +773,7 @@ items:
   - csharp
   name: WriteLine(String)
   nameWithType: XmlWriterTraceListener.WriteLine(String)
-  fullName: System.Diagnostics.XmlWriterTraceListener.WriteLine(String)
+  fullName: XmlWriterTraceListener.WriteLine(String)
   type: Method
   assemblies:
   - System
@@ -852,9 +807,6 @@ items:
   - netframework-4.7
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Diagnostics/XmlWriterTraceListener.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Diagnostics.TextWriterTraceListener
   parent: System.Diagnostics
@@ -873,7 +825,7 @@ references:
   isExternal: false
   name: XmlWriterTraceListener(Stream)
   nameWithType: XmlWriterTraceListener.XmlWriterTraceListener(Stream)
-  fullName: System.Diagnostics.XmlWriterTraceListener.XmlWriterTraceListener(Stream)
+  fullName: XmlWriterTraceListener.XmlWriterTraceListener(Stream)
 - uid: System.IO.Stream
   parent: System.IO
   isExternal: false
@@ -885,7 +837,7 @@ references:
   isExternal: false
   name: XmlWriterTraceListener(TextWriter)
   nameWithType: XmlWriterTraceListener.XmlWriterTraceListener(TextWriter)
-  fullName: System.Diagnostics.XmlWriterTraceListener.XmlWriterTraceListener(TextWriter)
+  fullName: XmlWriterTraceListener.XmlWriterTraceListener(TextWriter)
 - uid: System.IO.TextWriter
   parent: System.IO
   isExternal: false
@@ -897,7 +849,7 @@ references:
   isExternal: false
   name: XmlWriterTraceListener(String)
   nameWithType: XmlWriterTraceListener.XmlWriterTraceListener(String)
-  fullName: System.Diagnostics.XmlWriterTraceListener.XmlWriterTraceListener(String)
+  fullName: XmlWriterTraceListener.XmlWriterTraceListener(String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -909,37 +861,37 @@ references:
   isExternal: false
   name: XmlWriterTraceListener(Stream, String)
   nameWithType: XmlWriterTraceListener.XmlWriterTraceListener(Stream, String)
-  fullName: System.Diagnostics.XmlWriterTraceListener.XmlWriterTraceListener(Stream, String)
+  fullName: XmlWriterTraceListener.XmlWriterTraceListener(Stream, String)
 - uid: System.Diagnostics.XmlWriterTraceListener.#ctor(System.IO.TextWriter,System.String)
   parent: System.Diagnostics.XmlWriterTraceListener
   isExternal: false
   name: XmlWriterTraceListener(TextWriter, String)
   nameWithType: XmlWriterTraceListener.XmlWriterTraceListener(TextWriter, String)
-  fullName: System.Diagnostics.XmlWriterTraceListener.XmlWriterTraceListener(TextWriter, String)
+  fullName: XmlWriterTraceListener.XmlWriterTraceListener(TextWriter, String)
 - uid: System.Diagnostics.XmlWriterTraceListener.#ctor(System.String,System.String)
   parent: System.Diagnostics.XmlWriterTraceListener
   isExternal: false
   name: XmlWriterTraceListener(String, String)
   nameWithType: XmlWriterTraceListener.XmlWriterTraceListener(String, String)
-  fullName: System.Diagnostics.XmlWriterTraceListener.XmlWriterTraceListener(String, String)
+  fullName: XmlWriterTraceListener.XmlWriterTraceListener(String, String)
 - uid: System.Diagnostics.XmlWriterTraceListener.Close
   parent: System.Diagnostics.XmlWriterTraceListener
   isExternal: false
   name: Close()
   nameWithType: XmlWriterTraceListener.Close()
-  fullName: System.Diagnostics.XmlWriterTraceListener.Close()
+  fullName: XmlWriterTraceListener.Close()
 - uid: System.Diagnostics.XmlWriterTraceListener.Fail(System.String,System.String)
   parent: System.Diagnostics.XmlWriterTraceListener
   isExternal: false
   name: Fail(String, String)
   nameWithType: XmlWriterTraceListener.Fail(String, String)
-  fullName: System.Diagnostics.XmlWriterTraceListener.Fail(String, String)
+  fullName: XmlWriterTraceListener.Fail(String, String)
 - uid: System.Diagnostics.XmlWriterTraceListener.TraceData(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.Object)
   parent: System.Diagnostics.XmlWriterTraceListener
   isExternal: false
   name: TraceData(TraceEventCache, String, TraceEventType, Int32, Object)
   nameWithType: XmlWriterTraceListener.TraceData(TraceEventCache, String, TraceEventType, Int32, Object)
-  fullName: System.Diagnostics.XmlWriterTraceListener.TraceData(TraceEventCache, String, TraceEventType, Int32, Object)
+  fullName: XmlWriterTraceListener.TraceData(TraceEventCache, String, TraceEventType, Int32, Object)
 - uid: System.Diagnostics.TraceEventCache
   parent: System.Diagnostics
   isExternal: false
@@ -969,7 +921,7 @@ references:
   isExternal: false
   name: TraceData(TraceEventCache, String, TraceEventType, Int32, Object[])
   nameWithType: XmlWriterTraceListener.TraceData(TraceEventCache, String, TraceEventType, Int32, Object[])
-  fullName: System.Diagnostics.XmlWriterTraceListener.TraceData(TraceEventCache, String, TraceEventType, Int32, Object[])
+  fullName: XmlWriterTraceListener.TraceData(TraceEventCache, String, TraceEventType, Int32, Object[])
 - uid: System.Object[]
   parent: System
   isExternal: false
@@ -989,19 +941,19 @@ references:
   isExternal: false
   name: TraceEvent(TraceEventCache, String, TraceEventType, Int32, String)
   nameWithType: XmlWriterTraceListener.TraceEvent(TraceEventCache, String, TraceEventType, Int32, String)
-  fullName: System.Diagnostics.XmlWriterTraceListener.TraceEvent(TraceEventCache, String, TraceEventType, Int32, String)
+  fullName: XmlWriterTraceListener.TraceEvent(TraceEventCache, String, TraceEventType, Int32, String)
 - uid: System.Diagnostics.XmlWriterTraceListener.TraceEvent(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.String,System.Object[])
   parent: System.Diagnostics.XmlWriterTraceListener
   isExternal: false
   name: TraceEvent(TraceEventCache, String, TraceEventType, Int32, String, Object[])
   nameWithType: XmlWriterTraceListener.TraceEvent(TraceEventCache, String, TraceEventType, Int32, String, Object[])
-  fullName: System.Diagnostics.XmlWriterTraceListener.TraceEvent(TraceEventCache, String, TraceEventType, Int32, String, Object[])
+  fullName: XmlWriterTraceListener.TraceEvent(TraceEventCache, String, TraceEventType, Int32, String, Object[])
 - uid: System.Diagnostics.XmlWriterTraceListener.TraceTransfer(System.Diagnostics.TraceEventCache,System.String,System.Int32,System.String,System.Guid)
   parent: System.Diagnostics.XmlWriterTraceListener
   isExternal: false
   name: TraceTransfer(TraceEventCache, String, Int32, String, Guid)
   nameWithType: XmlWriterTraceListener.TraceTransfer(TraceEventCache, String, Int32, String, Guid)
-  fullName: System.Diagnostics.XmlWriterTraceListener.TraceTransfer(TraceEventCache, String, Int32, String, Guid)
+  fullName: XmlWriterTraceListener.TraceTransfer(TraceEventCache, String, Int32, String, Guid)
 - uid: System.Guid
   parent: System
   isExternal: false
@@ -1013,19 +965,19 @@ references:
   isExternal: false
   name: Write(String)
   nameWithType: XmlWriterTraceListener.Write(String)
-  fullName: System.Diagnostics.XmlWriterTraceListener.Write(String)
+  fullName: XmlWriterTraceListener.Write(String)
 - uid: System.Diagnostics.XmlWriterTraceListener.WriteLine(System.String)
   parent: System.Diagnostics.XmlWriterTraceListener
   isExternal: false
   name: WriteLine(String)
   nameWithType: XmlWriterTraceListener.WriteLine(String)
-  fullName: System.Diagnostics.XmlWriterTraceListener.WriteLine(String)
+  fullName: XmlWriterTraceListener.WriteLine(String)
 - uid: System.Diagnostics.XmlWriterTraceListener.#ctor*
   parent: System.Diagnostics.XmlWriterTraceListener
   isExternal: false
   name: XmlWriterTraceListener
   nameWithType: XmlWriterTraceListener.XmlWriterTraceListener
-  fullName: System.Diagnostics.XmlWriterTraceListener.XmlWriterTraceListener
+  fullName: XmlWriterTraceListener.XmlWriterTraceListener
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1041,7 +993,7 @@ references:
   isExternal: false
   name: Close
   nameWithType: XmlWriterTraceListener.Close
-  fullName: System.Diagnostics.XmlWriterTraceListener.Close
+  fullName: XmlWriterTraceListener.Close
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1057,7 +1009,7 @@ references:
   isExternal: false
   name: Fail
   nameWithType: XmlWriterTraceListener.Fail
-  fullName: System.Diagnostics.XmlWriterTraceListener.Fail
+  fullName: XmlWriterTraceListener.Fail
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1073,7 +1025,7 @@ references:
   isExternal: false
   name: TraceData
   nameWithType: XmlWriterTraceListener.TraceData
-  fullName: System.Diagnostics.XmlWriterTraceListener.TraceData
+  fullName: XmlWriterTraceListener.TraceData
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1089,7 +1041,7 @@ references:
   isExternal: false
   name: TraceEvent
   nameWithType: XmlWriterTraceListener.TraceEvent
-  fullName: System.Diagnostics.XmlWriterTraceListener.TraceEvent
+  fullName: XmlWriterTraceListener.TraceEvent
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1105,7 +1057,7 @@ references:
   isExternal: false
   name: TraceTransfer
   nameWithType: XmlWriterTraceListener.TraceTransfer
-  fullName: System.Diagnostics.XmlWriterTraceListener.TraceTransfer
+  fullName: XmlWriterTraceListener.TraceTransfer
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1121,7 +1073,7 @@ references:
   isExternal: false
   name: Write
   nameWithType: XmlWriterTraceListener.Write
-  fullName: System.Diagnostics.XmlWriterTraceListener.Write
+  fullName: XmlWriterTraceListener.Write
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1137,7 +1089,7 @@ references:
   isExternal: false
   name: WriteLine
   nameWithType: XmlWriterTraceListener.WriteLine
-  fullName: System.Diagnostics.XmlWriterTraceListener.WriteLine
+  fullName: XmlWriterTraceListener.WriteLine
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

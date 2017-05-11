@@ -30,11 +30,12 @@ items:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Represents a reader that can read a sequential series of characters.
   remarks: "<xref:System.IO.TextReader> is the abstract base class of <xref:System.IO.StreamReader> and <xref:System.IO.StringReader>, which read characters from streams and strings, respectively. Use these derived classes to open a text file for reading a specified range of characters, or to create a reader based on an existing stream.  \n  \n> [!IMPORTANT]\n>  This type implements the <xref:System.IDisposable> interface. When you have finished using any type that derives from this type, you should dispose of it either directly or indirectly. To dispose of the type directly, call its <xref:System.IO.TextReader.Dispose%2A> method in a `try`/`catch` block. To dispose of it indirectly, use a language construct such as `using` (in C#) or `Using` (in Visual Basic). For more information, see Dispose and the “Using an Object that Implements IDisposable” section in the <xref:System.IDisposable> interface topic."
   example:
-  - "The <xref:System.IO.TextReader> class is an abstract class. Therefore, you do not instantiate it in your code. The <xref:System.IO.StreamReader> class derives from <xref:System.IO.TextReader> and provides implementations of the members for reading from a stream. The following example shows how to read all the characters in a file by using the [StreamReader.ReadAsync(Char\\<xref:System.IO.StreamReader.ReadAsync%28System.Char%5B%5D%2CSystem.Int32%2CSystem.Int32%29?displayProperty=fullName> method. It checks whether each character is a letter, digit, or white space before adding the character to an instance of the <xref:System.Text.StringBuilder> class.  \n  \n [!code-csharp[System.IO.StreamReader#42](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.StreamReader/CS/example42.cs#42)]\n [!code-vb[System.IO.StreamReader#42](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.StreamReader/VB/example42.vb#42)]"
+  - "The <xref:System.IO.TextReader> class is an abstract class. Therefore, you do not instantiate it in your code. The <xref:System.IO.StreamReader> class derives from <xref:System.IO.TextReader> and provides implementations of the members for reading from a stream. The following example shows how to read all the characters in a file by using the <xref:System.IO.StreamReader.ReadAsync%28System.Char%5B%5D%2CSystem.Int32%2CSystem.Int32%29?displayProperty=fullName> method. It checks whether each character is a letter, digit, or white space before adding the character to an instance of the <xref:System.Text.StringBuilder> class.  \n  \n [!code-csharp[System.IO.StreamReader#42](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.StreamReader/CS/example42.cs#42)]\n [!code-vb[System.IO.StreamReader#42](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.StreamReader/VB/example42.vb#42)]"
   syntax:
     content: >-
       [System.Runtime.InteropServices.ComVisible(true)]
@@ -59,7 +60,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -80,7 +82,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -100,9 +103,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/TextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.TextReader.#ctor
   commentId: M:System.IO.TextReader.#ctor
   id: '#ctor'
@@ -111,12 +111,13 @@ items:
   - csharp
   name: TextReader()
   nameWithType: TextReader.TextReader()
-  fullName: System.IO.TextReader.TextReader()
+  fullName: TextReader.TextReader()
   type: Constructor
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Initializes a new instance of the <xref href="System.IO.TextReader"></xref> class.
   remarks: Use this constructor for derived classes.
@@ -127,7 +128,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -148,7 +150,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -168,9 +171,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/TextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.TextReader.Close
   commentId: M:System.IO.TextReader.Close
   id: Close
@@ -179,11 +179,12 @@ items:
   - csharp
   name: Close()
   nameWithType: TextReader.Close()
-  fullName: System.IO.TextReader.Close()
+  fullName: TextReader.Close()
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Closes the <xref href="System.IO.TextReader"></xref> and releases any system resources associated with the `TextReader`.
   remarks: "This implementation of `Close` calls the <xref:System.IO.StringReader.Dispose%28System.Boolean%29?displayProperty=fullName> method and passes it a `true` value.  \n  \n Flushing the text reader will not flush its underlying encoder unless you explicitly call `Close`. Setting the <xref:System.IO.StreamWriter.AutoFlush%2A?displayProperty=fullName> property to `true` means that data will be flushed from the buffer to the stream, but the encoder state will not be flushed. This allows the encoder to keep its state (partial characters) so that it can encode the next block of characters correctly. This scenario affects UTF8 and UTF7 where certain characters can be encoded only after the encoder receives the adjacent character or characters.  \n  \n> [!NOTE]\n>  In derived classes, do not override the <xref:System.IO.TextReader.Close%2A> method. Instead, override the <xref:System.IO.TextReader.Dispose%28System.Boolean%29?displayProperty=fullName> method to add code for releasing resources."
@@ -193,6 +194,7 @@ items:
   overload: System.IO.TextReader.Close*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -205,6 +207,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -217,9 +220,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/TextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.TextReader.Dispose
   commentId: M:System.IO.TextReader.Dispose
   id: Dispose
@@ -228,12 +228,13 @@ items:
   - csharp
   name: Dispose()
   nameWithType: TextReader.Dispose()
-  fullName: System.IO.TextReader.Dispose()
+  fullName: TextReader.Dispose()
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Releases all resources used by the <xref href="System.IO.TextReader"></xref> object.
   remarks: "Call <xref:System.IO.TextReader.Dispose%2A> when you are finished using the <xref:System.IO.TextReader>. The <xref:System.IO.TextReader.Dispose%2A> method leaves the <xref:System.IO.TextReader> in an unusable state. After calling <xref:System.IO.TextReader.Dispose%2A>, you must release all references to the <xref:System.IO.TextReader> so the garbage collector can reclaim the memory that the <xref:System.IO.TextReader> was occupying.  \n  \n For more information, see [Cleaning Up Unmanaged Resources](~/docs/standard/garbage-collection/unmanaged.md) and [Implementing a Dispose Method](~/docs/standard/garbage-collection/implementing-dispose.md).  \n  \n> [!NOTE]\n>  Always call <xref:System.IO.TextReader.Dispose%2A> before you release your last reference to the <xref:System.IO.TextReader>. Otherwise, the resources it is using will not be freed until the garbage collector calls the <xref:System.IO.TextReader> object's <xref:System.Object.Finalize%2A> method."
@@ -244,7 +245,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -265,7 +267,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -285,9 +288,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/TextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.TextReader.Dispose(System.Boolean)
   commentId: M:System.IO.TextReader.Dispose(System.Boolean)
   id: Dispose(System.Boolean)
@@ -296,12 +296,13 @@ items:
   - csharp
   name: Dispose(Boolean)
   nameWithType: TextReader.Dispose(Boolean)
-  fullName: System.IO.TextReader.Dispose(Boolean)
+  fullName: TextReader.Dispose(Boolean)
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Releases the unmanaged resources used by the <xref href="System.IO.TextReader"></xref> and optionally releases the managed resources.
   remarks: "This method is called by the public `Dispose` method and the <xref:System.Object.Finalize%2A> method. By default, this method specifies the `disposing` parameter as `true`. <xref:System.Object.Finalize%2A> specifies the `disposing` parameter as `false`.  \n  \n When the `disposing` parameter is `true`, this method releases all resources held by any managed objects that this <xref:System.IO.TextReader> references. This method invokes the `Dispose` method of each referenced object."
@@ -315,7 +316,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -336,7 +338,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -356,9 +359,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/TextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.TextReader.Null
   commentId: F:System.IO.TextReader.Null
   id: "Null"
@@ -367,12 +367,13 @@ items:
   - csharp
   name: "Null"
   nameWithType: TextReader.Null
-  fullName: System.IO.TextReader.Null
+  fullName: TextReader.Null
   type: Field
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Provides a `TextReader` with no data to read from.
   remarks: "Reading from the <xref:System.IO.TextReader.Null> text reader is similar to reading from the end of a stream:  \n  \n-   The <xref:System.IO.TextReader.Read%2A> and <xref:System.IO.TextReader.Peek%2A> methods return -1.  \n  \n-   The <xref:System.IO.TextReader.ReadBlock%2A> method returns zero.  \n  \n-   The <xref:System.IO.TextReader.ReadLine%2A> method returns `null`.  \n  \n-   The <xref:System.IO.TextReader.ReadToEnd%2A> method returns an empty string."
@@ -384,7 +385,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -405,7 +407,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -425,9 +428,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/TextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.TextReader.Peek
   commentId: M:System.IO.TextReader.Peek
   id: Peek
@@ -436,12 +436,13 @@ items:
   - csharp
   name: Peek()
   nameWithType: TextReader.Peek()
-  fullName: System.IO.TextReader.Peek()
+  fullName: TextReader.Peek()
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Reads the next character without changing the state of the reader or the character source. Returns the next available character without actually reading it from the reader.
   remarks: "The <xref:System.IO.TextReader.Peek%2A> method returns an integer value in order to determine whether the end of the file, or another error has occurred. This allows a user to first check if the returned value is -1 before casting it to a <xref:System.Char> type.  \n  \n The current position of the <xref:System.IO.TextReader> is not changed by this operation. The returned value is -1 if no more characters are available. The default implementation returns -1.  \n  \n The <xref:System.IO.TextReader> class is an abstract class. Therefore, you do not instantiate it in your code. For an example of using the <xref:System.IO.TextReader.Peek%2A> method, see the <xref:System.IO.StreamReader.Peek%2A?displayProperty=fullName> method."
@@ -461,7 +462,8 @@ items:
     description: An I/O error occurs.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -482,7 +484,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -502,9 +505,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/TextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.TextReader.Read
   commentId: M:System.IO.TextReader.Read
   id: Read
@@ -513,12 +513,13 @@ items:
   - csharp
   name: Read()
   nameWithType: TextReader.Read()
-  fullName: System.IO.TextReader.Read()
+  fullName: TextReader.Read()
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Reads the next character from the text reader and advances the character position by one character.
   remarks: The <xref:System.IO.TextReader> class is an abstract class. Therefore, you do not instantiate it in your code. For an example of using the <xref:System.IO.TextReader.Read%2A> method, see the <xref:System.IO.StreamReader.Read%2A?displayProperty=fullName> method.
@@ -538,7 +539,8 @@ items:
     description: An I/O error occurs.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -559,7 +561,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -579,9 +582,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/TextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.TextReader.Read(System.Char[],System.Int32,System.Int32)
   commentId: M:System.IO.TextReader.Read(System.Char[],System.Int32,System.Int32)
   id: Read(System.Char[],System.Int32,System.Int32)
@@ -590,15 +590,16 @@ items:
   - csharp
   name: Read(Char[], Int32, Int32)
   nameWithType: TextReader.Read(Char[], Int32, Int32)
-  fullName: System.IO.TextReader.Read(Char[], Int32, Int32)
+  fullName: TextReader.Read(Char[], Int32, Int32)
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Reads a specified maximum number of characters from the current reader and writes the data to a buffer, beginning at the specified index.
-  remarks: "This method returns after either `count` characters are read or the end of the file is reached. <xref:System.IO.TextReader.ReadBlock%2A> is a blocking version of this method.  \n  \n The <xref:System.IO.TextReader> class is an abstract class. Therefore, you do not instantiate it in your code. For an example of using the [Read Method (Char\\<xref:System.IO.TextReader.Read%2A> method, see the <xref:System.IO.StreamReader.Read%2A?displayProperty=fullName> method."
+  remarks: "This method returns after either `count` characters are read or the end of the file is reached. <xref:System.IO.TextReader.ReadBlock%2A> is a blocking version of this method.  \n  \n The <xref:System.IO.TextReader> class is an abstract class. Therefore, you do not instantiate it in your code. For an example of using the <xref:System.IO.TextReader.Read%2A> method, see the <xref:System.IO.StreamReader.Read%2A?displayProperty=fullName> method."
   syntax:
     content: public virtual int Read (char[] buffer, int index, int count);
     parameters:
@@ -633,7 +634,8 @@ items:
     description: An I/O error occurs.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -654,7 +656,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -674,9 +677,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/TextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.TextReader.ReadAsync(System.Char[],System.Int32,System.Int32)
   commentId: M:System.IO.TextReader.ReadAsync(System.Char[],System.Int32,System.Int32)
   id: ReadAsync(System.Char[],System.Int32,System.Int32)
@@ -685,12 +685,13 @@ items:
   - csharp
   name: ReadAsync(Char[], Int32, Int32)
   nameWithType: TextReader.ReadAsync(Char[], Int32, Int32)
-  fullName: System.IO.TextReader.ReadAsync(Char[], Int32, Int32)
+  fullName: TextReader.ReadAsync(Char[], Int32, Int32)
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Reads a specified maximum number of characters from the current text reader asynchronously and writes the data to a buffer, beginning at the specified index.
   remarks: "The task completes after either the number of characters specified by the `count` parameter are read or the end of the file is reached.  \n  \n The <xref:System.IO.TextReader> class is an abstract class. Therefore, you do not instantiate it in your code. For an example of using the <xref:System.IO.TextReader.ReadAsync%2A> method, see the <xref:System.IO.StreamReader.ReadAsync%2A?displayProperty=fullName> method."
@@ -733,7 +734,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -754,7 +756,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -774,9 +777,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/TextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.TextReader.ReadBlock(System.Char[],System.Int32,System.Int32)
   commentId: M:System.IO.TextReader.ReadBlock(System.Char[],System.Int32,System.Int32)
   id: ReadBlock(System.Char[],System.Int32,System.Int32)
@@ -785,12 +785,13 @@ items:
   - csharp
   name: ReadBlock(Char[], Int32, Int32)
   nameWithType: TextReader.ReadBlock(Char[], Int32, Int32)
-  fullName: System.IO.TextReader.ReadBlock(Char[], Int32, Int32)
+  fullName: TextReader.ReadBlock(Char[], Int32, Int32)
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Reads a specified maximum number of characters from the current text reader and writes the data to a buffer, beginning at the specified index.
   remarks: "The position of the underlying text reader is advanced by the number of characters that were read into `buffer`.  \n  \n The method blocks until either `count` characters are read, or all characters have been read. This is a blocking version of <xref:System.IO.TextReader.Read%2A>."
@@ -828,7 +829,8 @@ items:
     description: An I/O error occurs.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -849,7 +851,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -869,9 +872,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/TextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.TextReader.ReadBlockAsync(System.Char[],System.Int32,System.Int32)
   commentId: M:System.IO.TextReader.ReadBlockAsync(System.Char[],System.Int32,System.Int32)
   id: ReadBlockAsync(System.Char[],System.Int32,System.Int32)
@@ -880,12 +880,13 @@ items:
   - csharp
   name: ReadBlockAsync(Char[], Int32, Int32)
   nameWithType: TextReader.ReadBlockAsync(Char[], Int32, Int32)
-  fullName: System.IO.TextReader.ReadBlockAsync(Char[], Int32, Int32)
+  fullName: TextReader.ReadBlockAsync(Char[], Int32, Int32)
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Reads a specified maximum number of characters from the current text reader asynchronously and writes the data to a buffer, beginning at the specified index.
   remarks: The task does not complete until either the number of characters specified by the `count` parameter are read, or the end of the text has been reached.
@@ -928,7 +929,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -949,7 +951,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -969,9 +972,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/TextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.TextReader.ReadLine
   commentId: M:System.IO.TextReader.ReadLine
   id: ReadLine
@@ -980,12 +980,13 @@ items:
   - csharp
   name: ReadLine()
   nameWithType: TextReader.ReadLine()
-  fullName: System.IO.TextReader.ReadLine()
+  fullName: TextReader.ReadLine()
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Reads a line of characters from the text reader and returns the data as a string.
   remarks: "A line is defined as a sequence of characters followed by a carriage return (0x000d), a line feed (0x000a), a carriage return followed by a line feed, <xref:System.Environment.NewLine%2A?displayProperty=fullName>, or the end-of-stream marker. The string that is returned does not contain the terminating carriage return or line feed. The return value is `null` if the end of the input stream has been reached.  \n  \n If the method throws an <xref:System.OutOfMemoryException> exception, the reader's position in the underlying <xref:System.IO.Stream> is advanced by the number of characters the method was able to read, but the characters that were already read into the internal <xref:System.IO.TextReader.ReadLine%2A> buffer are discarded. Because the position of the reader in the stream cannot be changed, the characters that were already read are unrecoverable and can be accessed only by reinitializing the <xref:System.IO.TextReader> object. If the initial position within the stream is unknown or the stream does not support seeking, the underlying <xref:System.IO.Stream> also needs to be reinitialized.  \n  \n To avoid such a situation and produce robust code you should use the <xref:System.IO.TextReader.Read%2A> method and store the read characters in a preallocated buffer.  \n  \n The <xref:System.IO.TextReader> class is an abstract class. Therefore, you do not instantiate it in your code. For an example of using the <xref:System.IO.TextReader.ReadLine%2A> method, see the <xref:System.IO.StreamReader.ReadLine%2A?displayProperty=fullName> method."
@@ -1011,7 +1012,8 @@ items:
     description: The number of characters in the next line is larger than <xref href="System.Int32.MaxValue"></xref>
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1032,7 +1034,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1052,9 +1055,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/TextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.TextReader.ReadLineAsync
   commentId: M:System.IO.TextReader.ReadLineAsync
   id: ReadLineAsync
@@ -1063,12 +1063,13 @@ items:
   - csharp
   name: ReadLineAsync()
   nameWithType: TextReader.ReadLineAsync()
-  fullName: System.IO.TextReader.ReadLineAsync()
+  fullName: TextReader.ReadLineAsync()
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Reads a line of characters asynchronously and returns the data as a string.
   remarks: "The <xref:System.IO.TextReader> class is an abstract class. Therefore, you do not instantiate it in your code. For an example of using the <xref:System.IO.TextReader.ReadLineAsync%2A> method, see the <xref:System.IO.StreamReader.ReadLineAsync%2A?displayProperty=fullName> method.  \n  \n If the current <xref:System.IO.TextReader> represents the standard input stream returned by the <xref:System.Console.In%2A?displayProperty=fullName> property, the <xref:System.IO.TextReader.ReadLineAsync%2A> method executes synchronously rather than asynchronously."
@@ -1096,7 +1097,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1117,7 +1119,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1137,9 +1140,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/TextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.TextReader.ReadToEnd
   commentId: M:System.IO.TextReader.ReadToEnd
   id: ReadToEnd
@@ -1148,12 +1148,13 @@ items:
   - csharp
   name: ReadToEnd()
   nameWithType: TextReader.ReadToEnd()
-  fullName: System.IO.TextReader.ReadToEnd()
+  fullName: TextReader.ReadToEnd()
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Reads all characters from the current position to the end of the text reader and returns them as one string.
   remarks: "If the method throws an <xref:System.OutOfMemoryException> exception, the reader's position in the underlying <xref:System.IO.Stream> is advanced by the number of characters the method was able to read, but the characters that were already read into the internal <xref:System.IO.TextReader.ReadToEnd%2A> buffer are discarded. Because the position of the reader in the stream cannot be changed, the characters that were already read are unrecoverable and can be accessed only by reinitializing the <xref:System.IO.TextReader>. If the initial position within the stream is unknown or the stream does not support seeking, the underlying <xref:System.IO.Stream> also needs to be reinitialized.  \n  \n To avoid such a situation and produce robust code you should use the <xref:System.IO.TextReader.Read%2A> method and store the read characters in a preallocated buffer.  \n  \n The <xref:System.IO.TextReader> class is an abstract class. Therefore, you do not instantiate it in your code. For an example of using the <xref:System.IO.TextReader.ReadToEnd%2A> method, see the <xref:System.IO.StreamReader.ReadToEnd%2A?displayProperty=fullName> method."
@@ -1179,7 +1180,8 @@ items:
     description: The number of characters in the next line is larger than <xref href="System.Int32.MaxValue"></xref>
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1200,7 +1202,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1220,9 +1223,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/TextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.TextReader.ReadToEndAsync
   commentId: M:System.IO.TextReader.ReadToEndAsync
   id: ReadToEndAsync
@@ -1231,12 +1231,13 @@ items:
   - csharp
   name: ReadToEndAsync()
   nameWithType: TextReader.ReadToEndAsync()
-  fullName: System.IO.TextReader.ReadToEndAsync()
+  fullName: TextReader.ReadToEndAsync()
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Reads all characters from the current position to the end of the text reader asynchronously and returns them as one string.
   remarks: The <xref:System.IO.TextReader> class is an abstract class. Therefore, you do not instantiate it in your code. For an example of using the <xref:System.IO.TextReader.ReadToEndAsync%2A> method, see the <xref:System.IO.StreamReader.ReadToEndAsync%2A?displayProperty=fullName> method.
@@ -1264,7 +1265,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1285,7 +1287,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1305,9 +1308,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/TextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.TextReader.Synchronized(System.IO.TextReader)
   commentId: M:System.IO.TextReader.Synchronized(System.IO.TextReader)
   id: Synchronized(System.IO.TextReader)
@@ -1316,11 +1316,12 @@ items:
   - csharp
   name: Synchronized(TextReader)
   nameWithType: TextReader.Synchronized(TextReader)
-  fullName: System.IO.TextReader.Synchronized(TextReader)
+  fullName: TextReader.Synchronized(TextReader)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Creates a thread-safe wrapper around the specified `TextReader`.
   remarks: The current method returns a class that wraps around the specified <xref:System.IO.TextReader> instance and restricts access to it by multiple threads. All reads from the returned wrapper will be thread safe.
@@ -1339,6 +1340,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: <code>reader</code> is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1351,6 +1353,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1363,9 +1366,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/TextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -1420,25 +1420,25 @@ references:
   isExternal: false
   name: TextReader()
   nameWithType: TextReader.TextReader()
-  fullName: System.IO.TextReader.TextReader()
+  fullName: TextReader.TextReader()
 - uid: System.IO.TextReader.Close
   parent: System.IO.TextReader
   isExternal: false
   name: Close()
   nameWithType: TextReader.Close()
-  fullName: System.IO.TextReader.Close()
+  fullName: TextReader.Close()
 - uid: System.IO.TextReader.Dispose
   parent: System.IO.TextReader
   isExternal: false
   name: Dispose()
   nameWithType: TextReader.Dispose()
-  fullName: System.IO.TextReader.Dispose()
+  fullName: TextReader.Dispose()
 - uid: System.IO.TextReader.Dispose(System.Boolean)
   parent: System.IO.TextReader
   isExternal: false
   name: Dispose(Boolean)
   nameWithType: TextReader.Dispose(Boolean)
-  fullName: System.IO.TextReader.Dispose(Boolean)
+  fullName: TextReader.Dispose(Boolean)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -1450,7 +1450,7 @@ references:
   isExternal: false
   name: "Null"
   nameWithType: TextReader.Null
-  fullName: System.IO.TextReader.Null
+  fullName: TextReader.Null
 - uid: System.IO.TextReader
   parent: System.IO
   isExternal: false
@@ -1462,7 +1462,7 @@ references:
   isExternal: false
   name: Peek()
   nameWithType: TextReader.Peek()
-  fullName: System.IO.TextReader.Peek()
+  fullName: TextReader.Peek()
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -1474,13 +1474,13 @@ references:
   isExternal: false
   name: Read()
   nameWithType: TextReader.Read()
-  fullName: System.IO.TextReader.Read()
+  fullName: TextReader.Read()
 - uid: System.IO.TextReader.Read(System.Char[],System.Int32,System.Int32)
   parent: System.IO.TextReader
   isExternal: false
   name: Read(Char[], Int32, Int32)
   nameWithType: TextReader.Read(Char[], Int32, Int32)
-  fullName: System.IO.TextReader.Read(Char[], Int32, Int32)
+  fullName: TextReader.Read(Char[], Int32, Int32)
 - uid: System.Char
   name: Char
   nameWithType: Char
@@ -1504,7 +1504,7 @@ references:
   isExternal: false
   name: ReadAsync(Char[], Int32, Int32)
   nameWithType: TextReader.ReadAsync(Char[], Int32, Int32)
-  fullName: System.IO.TextReader.ReadAsync(Char[], Int32, Int32)
+  fullName: TextReader.ReadAsync(Char[], Int32, Int32)
 - uid: System.Threading.Tasks.Task`1
   name: Task<TResult>
   nameWithType: Task<TResult>
@@ -1535,19 +1535,19 @@ references:
   isExternal: false
   name: ReadBlock(Char[], Int32, Int32)
   nameWithType: TextReader.ReadBlock(Char[], Int32, Int32)
-  fullName: System.IO.TextReader.ReadBlock(Char[], Int32, Int32)
+  fullName: TextReader.ReadBlock(Char[], Int32, Int32)
 - uid: System.IO.TextReader.ReadBlockAsync(System.Char[],System.Int32,System.Int32)
   parent: System.IO.TextReader
   isExternal: false
   name: ReadBlockAsync(Char[], Int32, Int32)
   nameWithType: TextReader.ReadBlockAsync(Char[], Int32, Int32)
-  fullName: System.IO.TextReader.ReadBlockAsync(Char[], Int32, Int32)
+  fullName: TextReader.ReadBlockAsync(Char[], Int32, Int32)
 - uid: System.IO.TextReader.ReadLine
   parent: System.IO.TextReader
   isExternal: false
   name: ReadLine()
   nameWithType: TextReader.ReadLine()
-  fullName: System.IO.TextReader.ReadLine()
+  fullName: TextReader.ReadLine()
 - uid: System.String
   parent: System
   isExternal: false
@@ -1559,7 +1559,7 @@ references:
   isExternal: false
   name: ReadLineAsync()
   nameWithType: TextReader.ReadLineAsync()
-  fullName: System.IO.TextReader.ReadLineAsync()
+  fullName: TextReader.ReadLineAsync()
 - uid: System.Threading.Tasks.Task{System.String}
   parent: System.Threading.Tasks
   isExternal: false
@@ -1586,28 +1586,29 @@ references:
   isExternal: false
   name: ReadToEnd()
   nameWithType: TextReader.ReadToEnd()
-  fullName: System.IO.TextReader.ReadToEnd()
+  fullName: TextReader.ReadToEnd()
 - uid: System.IO.TextReader.ReadToEndAsync
   parent: System.IO.TextReader
   isExternal: false
   name: ReadToEndAsync()
   nameWithType: TextReader.ReadToEndAsync()
-  fullName: System.IO.TextReader.ReadToEndAsync()
+  fullName: TextReader.ReadToEndAsync()
 - uid: System.IO.TextReader.Synchronized(System.IO.TextReader)
   parent: System.IO.TextReader
   isExternal: false
   name: Synchronized(TextReader)
   nameWithType: TextReader.Synchronized(TextReader)
-  fullName: System.IO.TextReader.Synchronized(TextReader)
+  fullName: TextReader.Synchronized(TextReader)
 - uid: System.IO.TextReader.#ctor*
   parent: System.IO.TextReader
   isExternal: false
   name: TextReader
   nameWithType: TextReader.TextReader
-  fullName: System.IO.TextReader.TextReader
+  fullName: TextReader.TextReader
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1632,8 +1633,9 @@ references:
   isExternal: false
   name: Close
   nameWithType: TextReader.Close
-  fullName: System.IO.TextReader.Close
+  fullName: TextReader.Close
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1651,10 +1653,11 @@ references:
   isExternal: false
   name: Dispose
   nameWithType: TextReader.Dispose
-  fullName: System.IO.TextReader.Dispose
+  fullName: TextReader.Dispose
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1679,10 +1682,11 @@ references:
   isExternal: false
   name: Peek
   nameWithType: TextReader.Peek
-  fullName: System.IO.TextReader.Peek
+  fullName: TextReader.Peek
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1707,10 +1711,11 @@ references:
   isExternal: false
   name: Read
   nameWithType: TextReader.Read
-  fullName: System.IO.TextReader.Read
+  fullName: TextReader.Read
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1735,10 +1740,11 @@ references:
   isExternal: false
   name: ReadAsync
   nameWithType: TextReader.ReadAsync
-  fullName: System.IO.TextReader.ReadAsync
+  fullName: TextReader.ReadAsync
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1763,10 +1769,11 @@ references:
   isExternal: false
   name: ReadBlock
   nameWithType: TextReader.ReadBlock
-  fullName: System.IO.TextReader.ReadBlock
+  fullName: TextReader.ReadBlock
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1791,10 +1798,11 @@ references:
   isExternal: false
   name: ReadBlockAsync
   nameWithType: TextReader.ReadBlockAsync
-  fullName: System.IO.TextReader.ReadBlockAsync
+  fullName: TextReader.ReadBlockAsync
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1819,10 +1827,11 @@ references:
   isExternal: false
   name: ReadLine
   nameWithType: TextReader.ReadLine
-  fullName: System.IO.TextReader.ReadLine
+  fullName: TextReader.ReadLine
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1847,10 +1856,11 @@ references:
   isExternal: false
   name: ReadLineAsync
   nameWithType: TextReader.ReadLineAsync
-  fullName: System.IO.TextReader.ReadLineAsync
+  fullName: TextReader.ReadLineAsync
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1875,10 +1885,11 @@ references:
   isExternal: false
   name: ReadToEnd
   nameWithType: TextReader.ReadToEnd
-  fullName: System.IO.TextReader.ReadToEnd
+  fullName: TextReader.ReadToEnd
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1903,10 +1914,11 @@ references:
   isExternal: false
   name: ReadToEndAsync
   nameWithType: TextReader.ReadToEndAsync
-  fullName: System.IO.TextReader.ReadToEndAsync
+  fullName: TextReader.ReadToEndAsync
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1931,8 +1943,9 @@ references:
   isExternal: false
   name: Synchronized
   nameWithType: TextReader.Synchronized
-  fullName: System.IO.TextReader.Synchronized
+  fullName: TextReader.Synchronized
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1945,3 +1958,9 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/TextReader.xml
+- uid: System.IDisposable
+  parent: System
+  isExternal: false
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable

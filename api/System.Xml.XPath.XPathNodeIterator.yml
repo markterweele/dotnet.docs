@@ -22,6 +22,7 @@ items:
   - System.Xml.XPath
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml.XPath
   summary: Provides an iterator over a selected set of nodes.
   remarks: "An <xref:System.Xml.XPath.XPathNodeIterator> object returned by the <xref:System.Xml.XPath.XPathNavigator> class is not positioned on the first node in a selected set of nodes. A call to the <xref:System.Xml.XPath.XPathNodeIterator.MoveNext%2A> method of the <xref:System.Xml.XPath.XPathNodeIterator> class must be made to position the <xref:System.Xml.XPath.XPathNodeIterator> object on the first node in the selected set of nodes.  \n  \n When using the <xref:System.Xml.XPath.XPathNodeIterator>, if you edit the current node or any of its ancestors, your current position is lost. If you want to edit a number of nodes that you have selected, create a <xref:System.Xml.XPath.XPathNavigator> array, copy all of the nodes from the <xref:System.Xml.XPath.XPathNodeIterator> into the array, then iterate through the array and modify the nodes.  \n  \n There are two ways to iterate over an <xref:System.Xml.XPath.XPathNavigator> collection by using the <xref:System.Xml.XPath.XPathNodeIterator> class.  \n  \n One way is to use the <xref:System.Xml.XPath.XPathNodeIterator.MoveNext%2A> method and then call <xref:System.Xml.XPath.XPathNodeIterator.Current%2A> to get the current <xref:System.Xml.XPath.XPathNavigator> instance, as in the following example:  \n  \n [!code-cpp[XPathNavigatorMethods#55](~/samples/snippets/cpp/VS_Snippets_Data/XPathNavigatorMethods/CPP/xpathnavigatormethods.cpp#55)]\n [!code-csharp[XPathNavigatorMethods#55](~/samples/snippets/csharp/VS_Snippets_Data/XPathNavigatorMethods/CS/xpathnavigatormethods.cs#55)]\n [!code-vb[XPathNavigatorMethods#55](~/samples/snippets/visualbasic/VS_Snippets_Data/XPathNavigatorMethods/VB/xpathnavigatormethods.vb#55)]  \n  \n Another way is to use a `foreach` loop to call the <xref:System.Xml.XPath.XPathNodeIterator.GetEnumerator%2A> method and use the returned <xref:System.Collections.IEnumerator> interface to enumerate the nodes, as in the following example:  \n  \n [!code-cpp[XPathNavigatorMethods#56](~/samples/snippets/cpp/VS_Snippets_Data/XPathNavigatorMethods/CPP/xpathnavigatormethods.cpp#56)]\n [!code-csharp[XPathNavigatorMethods#56](~/samples/snippets/csharp/VS_Snippets_Data/XPathNavigatorMethods/CS/xpathnavigatormethods.cs#56)]\n [!code-vb[XPathNavigatorMethods#56](~/samples/snippets/visualbasic/VS_Snippets_Data/XPathNavigatorMethods/VB/xpathnavigatormethods.vb#56)]  \n  \n You should either use <xref:System.Xml.XPath.XPathNodeIterator.MoveNext%2A> and <xref:System.Xml.XPath.XPathNodeIterator.Current%2A> or use <xref:System.Xml.XPath.XPathNodeIterator.GetEnumerator%2A>. Combining these two approaches can cause unexpected results. For example, if the <xref:System.Xml.XPath.XPathNodeIterator.MoveNext%2A> method is called first, and then the <xref:System.Xml.XPath.XPathNodeIterator.GetEnumerator%2A> method is called in the `foreach` loop, the `foreach` loop will not start enumerating the results from the beginning of the collection, but from the position after the <xref:System.Xml.XPath.XPathNodeIterator.Current%2A> method."
@@ -50,7 +51,8 @@ items:
   attributes: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -64,7 +66,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -77,9 +80,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml.XPath/XPathNodeIterator.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Xml.XPath.XPathNodeIterator.#ctor
   commentId: M:System.Xml.XPath.XPathNodeIterator.#ctor
   id: '#ctor'
@@ -88,12 +88,13 @@ items:
   - csharp
   name: XPathNodeIterator()
   nameWithType: XPathNodeIterator.XPathNodeIterator()
-  fullName: System.Xml.XPath.XPathNodeIterator.XPathNodeIterator()
+  fullName: XPathNodeIterator.XPathNodeIterator()
   type: Constructor
   assemblies:
   - System.Xml.XPath
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml.XPath
   summary: Initializes a new instance of the <xref href="System.Xml.XPath.XPathNodeIterator"></xref> class.
   remarks: This constructor is called by derived class constructors to initialize state in this type.
@@ -104,7 +105,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -118,7 +120,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -131,9 +134,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml.XPath/XPathNodeIterator.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Xml.XPath.XPathNodeIterator.Clone
   commentId: M:System.Xml.XPath.XPathNodeIterator.Clone
   id: Clone
@@ -142,12 +142,13 @@ items:
   - csharp
   name: Clone()
   nameWithType: XPathNodeIterator.Clone()
-  fullName: System.Xml.XPath.XPathNodeIterator.Clone()
+  fullName: XPathNodeIterator.Clone()
   type: Method
   assemblies:
   - System.Xml.XPath
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml.XPath
   summary: When overridden in a derived class, returns a clone of this <xref href="System.Xml.XPath.XPathNodeIterator"></xref> object.
   remarks: The cloned <xref:System.Xml.XPath.XPathNodeIterator> object is positioned at the same node in the node set if calls have been made to the <xref:System.Xml.XPath.XPathNodeIterator.MoveNext%2A> method. The cloned <xref:System.Xml.XPath.XPathNodeIterator> object is not affected by subsequent changes to this <xref:System.Xml.XPath.XPathNodeIterator> object.
@@ -161,7 +162,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -175,7 +177,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -188,9 +191,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml.XPath/XPathNodeIterator.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Xml.XPath.XPathNodeIterator.Count
   commentId: P:System.Xml.XPath.XPathNodeIterator.Count
   id: Count
@@ -199,12 +199,13 @@ items:
   - csharp
   name: Count
   nameWithType: XPathNodeIterator.Count
-  fullName: System.Xml.XPath.XPathNodeIterator.Count
+  fullName: XPathNodeIterator.Count
   type: Property
   assemblies:
   - System.Xml.XPath
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml.XPath
   summary: Gets the index of the last node in the selected set of nodes.
   remarks: The <xref:System.Xml.XPath.XPathNodeIterator.Count%2A> property does not affect the position of the <xref:System.Xml.XPath.XPathNodeIterator>.
@@ -217,7 +218,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -231,7 +233,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -244,9 +247,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml.XPath/XPathNodeIterator.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Xml.XPath.XPathNodeIterator.Current
   commentId: P:System.Xml.XPath.XPathNodeIterator.Current
   id: Current
@@ -255,12 +255,13 @@ items:
   - csharp
   name: Current
   nameWithType: XPathNodeIterator.Current
-  fullName: System.Xml.XPath.XPathNodeIterator.Current
+  fullName: XPathNodeIterator.Current
   type: Property
   assemblies:
   - System.Xml.XPath
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml.XPath
   summary: When overridden in a derived class, gets the <xref href="System.Xml.XPath.XPathNavigator"></xref> object for this <xref href="System.Xml.XPath.XPathNodeIterator"></xref>, positioned on the current context node.
   remarks: "You can use the properties of the returned <xref:System.Xml.XPath.XPathNavigator> object to obtain information on the current node. However, the returned <xref:System.Xml.XPath.XPathNavigator> object should not be modified. The returned <xref:System.Xml.XPath.XPathNavigator> object cannot be moved away from the selected node set.  \n  \n Alternatively, you can clone the <xref:System.Xml.XPath.XPathNavigator> object using the <xref:System.Xml.XPath.XPathNavigator.Clone%2A> method of the <xref:System.Xml.XPath.XPathNavigator> class. The cloned <xref:System.Xml.XPath.XPathNavigator> object can then be moved away from the selected node set. This method of cloning the <xref:System.Xml.XPath.XPathNavigator> object might affect the performance of the XPath query.  \n  \n If the <xref:System.Xml.XPath.XPathNavigator.SelectAncestors%2A>, <xref:System.Xml.XPath.XPathNavigator.SelectDescendants%2A>, and <xref:System.Xml.XPath.XPathNavigator.SelectChildren%2A> methods result in no nodes being selected, the <xref:System.Xml.XPath.XPathNodeIterator.Current%2A> property might not be pointing to the context node.  \n  \n To test whether nodes have been selected, use the <xref:System.Xml.XPath.XPathNodeIterator.Count%2A> property as shown in the following example."
@@ -275,7 +276,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -289,7 +291,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -302,9 +305,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml.XPath/XPathNodeIterator.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Xml.XPath.XPathNodeIterator.CurrentPosition
   commentId: P:System.Xml.XPath.XPathNodeIterator.CurrentPosition
   id: CurrentPosition
@@ -313,12 +313,13 @@ items:
   - csharp
   name: CurrentPosition
   nameWithType: XPathNodeIterator.CurrentPosition
-  fullName: System.Xml.XPath.XPathNodeIterator.CurrentPosition
+  fullName: XPathNodeIterator.CurrentPosition
   type: Property
   assemblies:
   - System.Xml.XPath
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml.XPath
   summary: When overridden in a derived class, gets the index of the current position in the selected set of nodes.
   remarks: The index is 1-based. Therefore, the first node has an index of 1. An index of 0 indicates there are no selected nodes. This property always returns a positive integer.
@@ -331,7 +332,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -345,7 +347,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -358,9 +361,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml.XPath/XPathNodeIterator.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Xml.XPath.XPathNodeIterator.GetEnumerator
   commentId: M:System.Xml.XPath.XPathNodeIterator.GetEnumerator
   id: GetEnumerator
@@ -369,12 +369,13 @@ items:
   - csharp
   name: GetEnumerator()
   nameWithType: XPathNodeIterator.GetEnumerator()
-  fullName: System.Xml.XPath.XPathNodeIterator.GetEnumerator()
+  fullName: XPathNodeIterator.GetEnumerator()
   type: Method
   assemblies:
   - System.Xml.XPath
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml.XPath
   summary: Returns an <xref href="System.Collections.IEnumerator"></xref> object to iterate through the selected node set.
   remarks: "The enumerator is positioned on the current position of the <xref:System.Xml.XPath.XPathNodeIterator> object.  \n  \n There are two ways to iterate over an <xref:System.Xml.XPath.XPathNavigator> collection by using the <xref:System.Xml.XPath.XPathNodeIterator> class.  \n  \n One way is to use the <xref:System.Xml.XPath.XPathNodeIterator.MoveNext%2A> method and then call <xref:System.Xml.XPath.XPathNodeIterator.Current%2A> to get the current <xref:System.Xml.XPath.XPathNavigator> instance, as in the following example:  \n  \n [!code-cpp[XPathNavigatorMethods#55](~/samples/snippets/cpp/VS_Snippets_Data/XPathNavigatorMethods/CPP/xpathnavigatormethods.cpp#55)]\n [!code-csharp[XPathNavigatorMethods#55](~/samples/snippets/csharp/VS_Snippets_Data/XPathNavigatorMethods/CS/xpathnavigatormethods.cs#55)]\n [!code-vb[XPathNavigatorMethods#55](~/samples/snippets/visualbasic/VS_Snippets_Data/XPathNavigatorMethods/VB/xpathnavigatormethods.vb#55)]  \n  \n Another way is to use a `foreach` loop to call the <xref:System.Xml.XPath.XPathNodeIterator.GetEnumerator%2A> method and use the returned <xref:System.Collections.IEnumerator> interface to enumerate the nodes, as in the following example:  \n  \n [!code-cpp[XPathNavigatorMethods#56](~/samples/snippets/cpp/VS_Snippets_Data/XPathNavigatorMethods/CPP/xpathnavigatormethods.cpp#56)]\n [!code-csharp[XPathNavigatorMethods#56](~/samples/snippets/csharp/VS_Snippets_Data/XPathNavigatorMethods/CS/xpathnavigatormethods.cs#56)]\n [!code-vb[XPathNavigatorMethods#56](~/samples/snippets/visualbasic/VS_Snippets_Data/XPathNavigatorMethods/VB/xpathnavigatormethods.vb#56)]  \n  \n You should either use the <xref:System.Xml.XPath.XPathNodeIterator.MoveNext%2A> method and <xref:System.Xml.XPath.XPathNodeIterator.Current%2A> or use the <xref:System.Xml.XPath.XPathNodeIterator.GetEnumerator%2A> method. Combining these two approaches can cause unexpected results. For example, if the <xref:System.Xml.XPath.XPathNodeIterator.MoveNext%2A> method is called first, and then the <xref:System.Xml.XPath.XPathNodeIterator.GetEnumerator%2A> method is called in the `foreach` loop, the `foreach` loop will not start enumerating the results from the beginning of the collection, but from the position after the <xref:System.Xml.XPath.XPathNodeIterator.Current%2A> method."
@@ -388,7 +389,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -402,7 +404,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -415,9 +418,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml.XPath/XPathNodeIterator.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Xml.XPath.XPathNodeIterator.MoveNext
   commentId: M:System.Xml.XPath.XPathNodeIterator.MoveNext
   id: MoveNext
@@ -426,12 +426,13 @@ items:
   - csharp
   name: MoveNext()
   nameWithType: XPathNodeIterator.MoveNext()
-  fullName: System.Xml.XPath.XPathNodeIterator.MoveNext()
+  fullName: XPathNodeIterator.MoveNext()
   type: Method
   assemblies:
   - System.Xml.XPath
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml.XPath
   summary: When overridden in a derived class, moves the <xref href="System.Xml.XPath.XPathNavigator"></xref> object returned by the <xref href="System.Xml.XPath.XPathNodeIterator.Current"></xref> property to the next node in the selected node set.
   remarks: "The <xref:System.Xml.XPath.XPathNodeIterator> object is positioned on the first node in the selected node set only after the initial call to the <xref:System.Xml.XPath.XPathNodeIterator.MoveNext%2A> method. The node set is created in document order. Therefore, calling the <xref:System.Xml.XPath.XPathNodeIterator.MoveNext%2A> method moves to the next node in document order.  \n  \n There are two ways to iterate over an <xref:System.Xml.XPath.XPathNavigator> collection by using the <xref:System.Xml.XPath.XPathNodeIterator> class.  \n  \n One way is to use the <xref:System.Xml.XPath.XPathNodeIterator.MoveNext%2A> method and then call <xref:System.Xml.XPath.XPathNodeIterator.Current%2A> to get the current <xref:System.Xml.XPath.XPathNavigator> instance, as in the following example:  \n  \n [!code-cpp[XPathNavigatorMethods#55](~/samples/snippets/cpp/VS_Snippets_Data/XPathNavigatorMethods/CPP/xpathnavigatormethods.cpp#55)]\n [!code-csharp[XPathNavigatorMethods#55](~/samples/snippets/csharp/VS_Snippets_Data/XPathNavigatorMethods/CS/xpathnavigatormethods.cs#55)]\n [!code-vb[XPathNavigatorMethods#55](~/samples/snippets/visualbasic/VS_Snippets_Data/XPathNavigatorMethods/VB/xpathnavigatormethods.vb#55)]  \n  \n Another way is to use a `foreach` loop to call the <xref:System.Xml.XPath.XPathNodeIterator.GetEnumerator%2A> method and use the returned <xref:System.Collections.IEnumerator> interface to enumerate the nodes, as in the following example:  \n  \n [!code-cpp[XPathNavigatorMethods#56](~/samples/snippets/cpp/VS_Snippets_Data/XPathNavigatorMethods/CPP/xpathnavigatormethods.cpp#56)]\n [!code-csharp[XPathNavigatorMethods#56](~/samples/snippets/csharp/VS_Snippets_Data/XPathNavigatorMethods/CS/xpathnavigatormethods.cs#56)]\n [!code-vb[XPathNavigatorMethods#56](~/samples/snippets/visualbasic/VS_Snippets_Data/XPathNavigatorMethods/VB/xpathnavigatormethods.vb#56)]  \n  \n You should either use the <xref:System.Xml.XPath.XPathNodeIterator.MoveNext%2A> method and <xref:System.Xml.XPath.XPathNodeIterator.Current%2A> or use the <xref:System.Xml.XPath.XPathNodeIterator.GetEnumerator%2A> method. Combining these two approaches can cause unexpected results. For example, if the <xref:System.Xml.XPath.XPathNodeIterator.MoveNext%2A> method is called first, and then the <xref:System.Xml.XPath.XPathNodeIterator.GetEnumerator%2A> method is called in the `foreach` loop, the `foreach` loop will not start enumerating the results from the beginning of the collection, but from the position after the <xref:System.Xml.XPath.XPathNodeIterator.Current%2A> method."
@@ -447,7 +448,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -461,7 +463,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -474,9 +477,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml.XPath/XPathNodeIterator.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Xml.XPath.XPathNodeIterator.System#ICloneable#Clone
   commentId: M:System.Xml.XPath.XPathNodeIterator.System#ICloneable#Clone
   id: System#ICloneable#Clone
@@ -486,11 +486,12 @@ items:
   - csharp
   name: ICloneable.Clone()
   nameWithType: XPathNodeIterator.ICloneable.Clone()
-  fullName: System.Xml.XPath.XPathNodeIterator.ICloneable.Clone()
+  fullName: XPathNodeIterator.ICloneable.Clone()
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml.XPath
   summary: Creates a new object that is a copy of the current instance.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Xml.XPath.XPathNodeIterator> instance is cast to an <xref:System.ICloneable> interface.
@@ -503,6 +504,7 @@ items:
   overload: System.Xml.XPath.XPathNodeIterator.System#ICloneable#Clone*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -515,6 +517,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -527,9 +530,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml.XPath/XPathNodeIterator.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -542,13 +542,13 @@ references:
   isExternal: false
   name: XPathNodeIterator()
   nameWithType: XPathNodeIterator.XPathNodeIterator()
-  fullName: System.Xml.XPath.XPathNodeIterator.XPathNodeIterator()
+  fullName: XPathNodeIterator.XPathNodeIterator()
 - uid: System.Xml.XPath.XPathNodeIterator.Clone
   parent: System.Xml.XPath.XPathNodeIterator
   isExternal: false
   name: Clone()
   nameWithType: XPathNodeIterator.Clone()
-  fullName: System.Xml.XPath.XPathNodeIterator.Clone()
+  fullName: XPathNodeIterator.Clone()
 - uid: System.Xml.XPath.XPathNodeIterator
   parent: System.Xml.XPath
   isExternal: false
@@ -560,7 +560,7 @@ references:
   isExternal: false
   name: Count
   nameWithType: XPathNodeIterator.Count
-  fullName: System.Xml.XPath.XPathNodeIterator.Count
+  fullName: XPathNodeIterator.Count
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -572,7 +572,7 @@ references:
   isExternal: false
   name: Current
   nameWithType: XPathNodeIterator.Current
-  fullName: System.Xml.XPath.XPathNodeIterator.Current
+  fullName: XPathNodeIterator.Current
 - uid: System.Xml.XPath.XPathNavigator
   parent: System.Xml.XPath
   isExternal: false
@@ -584,13 +584,13 @@ references:
   isExternal: false
   name: CurrentPosition
   nameWithType: XPathNodeIterator.CurrentPosition
-  fullName: System.Xml.XPath.XPathNodeIterator.CurrentPosition
+  fullName: XPathNodeIterator.CurrentPosition
 - uid: System.Xml.XPath.XPathNodeIterator.GetEnumerator
   parent: System.Xml.XPath.XPathNodeIterator
   isExternal: false
   name: GetEnumerator()
   nameWithType: XPathNodeIterator.GetEnumerator()
-  fullName: System.Xml.XPath.XPathNodeIterator.GetEnumerator()
+  fullName: XPathNodeIterator.GetEnumerator()
 - uid: System.Collections.IEnumerator
   parent: System.Collections
   isExternal: false
@@ -602,7 +602,7 @@ references:
   isExternal: false
   name: MoveNext()
   nameWithType: XPathNodeIterator.MoveNext()
-  fullName: System.Xml.XPath.XPathNodeIterator.MoveNext()
+  fullName: XPathNodeIterator.MoveNext()
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -614,16 +614,17 @@ references:
   isExternal: false
   name: ICloneable.Clone()
   nameWithType: XPathNodeIterator.ICloneable.Clone()
-  fullName: System.Xml.XPath.XPathNodeIterator.ICloneable.Clone()
+  fullName: XPathNodeIterator.ICloneable.Clone()
 - uid: System.Xml.XPath.XPathNodeIterator.#ctor*
   parent: System.Xml.XPath.XPathNodeIterator
   isExternal: false
   name: XPathNodeIterator
   nameWithType: XPathNodeIterator.XPathNodeIterator
-  fullName: System.Xml.XPath.XPathNodeIterator.XPathNodeIterator
+  fullName: XPathNodeIterator.XPathNodeIterator
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -641,10 +642,11 @@ references:
   isExternal: false
   name: Clone
   nameWithType: XPathNodeIterator.Clone
-  fullName: System.Xml.XPath.XPathNodeIterator.Clone
+  fullName: XPathNodeIterator.Clone
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -662,10 +664,11 @@ references:
   isExternal: false
   name: Count
   nameWithType: XPathNodeIterator.Count
-  fullName: System.Xml.XPath.XPathNodeIterator.Count
+  fullName: XPathNodeIterator.Count
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -683,10 +686,11 @@ references:
   isExternal: false
   name: Current
   nameWithType: XPathNodeIterator.Current
-  fullName: System.Xml.XPath.XPathNodeIterator.Current
+  fullName: XPathNodeIterator.Current
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -704,10 +708,11 @@ references:
   isExternal: false
   name: CurrentPosition
   nameWithType: XPathNodeIterator.CurrentPosition
-  fullName: System.Xml.XPath.XPathNodeIterator.CurrentPosition
+  fullName: XPathNodeIterator.CurrentPosition
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -725,10 +730,11 @@ references:
   isExternal: false
   name: GetEnumerator
   nameWithType: XPathNodeIterator.GetEnumerator
-  fullName: System.Xml.XPath.XPathNodeIterator.GetEnumerator
+  fullName: XPathNodeIterator.GetEnumerator
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -746,10 +752,11 @@ references:
   isExternal: false
   name: MoveNext
   nameWithType: XPathNodeIterator.MoveNext
-  fullName: System.Xml.XPath.XPathNodeIterator.MoveNext
+  fullName: XPathNodeIterator.MoveNext
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -767,8 +774,9 @@ references:
   isExternal: false
   name: System.ICloneable.Clone
   nameWithType: XPathNodeIterator.System.ICloneable.Clone
-  fullName: System.Xml.XPath.XPathNodeIterator.System.ICloneable.Clone
+  fullName: XPathNodeIterator.System.ICloneable.Clone
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -786,22 +794,34 @@ references:
   isExternal: false
   name: Cast<TResult>(IEnumerable)
   nameWithType: Enumerable.Cast<TResult>(IEnumerable)
-  fullName: System.Linq.Enumerable.Cast<TResult>(IEnumerable)
+  fullName: Enumerable.Cast<TResult>(IEnumerable)
 - uid: System.Linq.Enumerable.OfType``1(System.Collections.IEnumerable)
   parent: System.Linq.Enumerable
   isExternal: false
   name: OfType<TResult>(IEnumerable)
   nameWithType: Enumerable.OfType<TResult>(IEnumerable)
-  fullName: System.Linq.Enumerable.OfType<TResult>(IEnumerable)
+  fullName: Enumerable.OfType<TResult>(IEnumerable)
 - uid: System.Linq.ParallelEnumerable.AsParallel(System.Collections.IEnumerable)
   parent: System.Linq.ParallelEnumerable
   isExternal: false
   name: AsParallel(IEnumerable)
   nameWithType: ParallelEnumerable.AsParallel(IEnumerable)
-  fullName: System.Linq.ParallelEnumerable.AsParallel(IEnumerable)
+  fullName: ParallelEnumerable.AsParallel(IEnumerable)
 - uid: System.Linq.Queryable.AsQueryable(System.Collections.IEnumerable)
   parent: System.Linq.Queryable
   isExternal: false
   name: AsQueryable(IEnumerable)
   nameWithType: Queryable.AsQueryable(IEnumerable)
-  fullName: System.Linq.Queryable.AsQueryable(IEnumerable)
+  fullName: Queryable.AsQueryable(IEnumerable)
+- uid: System.Collections.IEnumerable
+  parent: System.Collections
+  isExternal: false
+  name: IEnumerable
+  nameWithType: IEnumerable
+  fullName: System.Collections.IEnumerable
+- uid: System.ICloneable
+  parent: System
+  isExternal: false
+  name: ICloneable
+  nameWithType: ICloneable
+  fullName: System.ICloneable

@@ -104,7 +104,7 @@ items:
   summary: Manages ASP.NET Ajax script libraries and script files, partial-page rendering, and client proxy class generation for Web and application services.
   remarks: "In this topic:  \n  \n-   [Introduction](#introduction)  \n  \n-   [Partial-Page Rendering](#partial_page_rendering)  \n  \n-   [Using the ScriptManager Control with Master Pages, User Controls, and Other Child Components](#using_the_scriptmanager_control_with_master_pages__user_controls__and_other_child_components)  \n  \n-   [Script Management and Registration](#script_management_and_registration)  \n  \n-   [Web Service References](#web_service_references)  \n  \n-   [Localization](#localization)  \n  \n-   [Error Handling](#error_handling)  \n  \n-   [Declarative Syntax](#declarative_syntax)  \n  \n<a name=\"introduction\"></a>   \n## Introduction  \n The <xref:System.Web.UI.ScriptManager> control is central to Ajax functionality in ASP.NET. The control manages all ASP.NET Ajax resources on a page. This includes downloading [!INCLUDE[atlaslib_current_ext](~/includes/atlaslib-current-ext-md.md)] scripts to the browser and coordinating partial-page updates that are enabled by using <xref:System.Web.UI.UpdatePanel> controls. In addition, the <xref:System.Web.UI.ScriptManager> control enables you to do the following:  \n  \n-   Register script that is compatible with partial-page updates. In order to manage dependencies between your script and the core library, any script that you register is loaded after the [!INCLUDE[atlaslib_current_ext](~/includes/atlaslib-current-ext-md.md)] script.  \n  \n-   Specify whether release or debug scripts are sent to the browser.  \n  \n-   Provide access to Web service methods from script by registering Web services with the <xref:System.Web.UI.ScriptManager> control.  \n  \n-   Provide access to ASP.NET authentication, role, and profile application services from client script by registering these services with the <xref:System.Web.UI.ScriptManager> control.  \n  \n-   Enable culture-specific display of ECMAScript (JavaScript) , , and  functions in the browser.  \n  \n-   Access localization resources for embedded script files or for stand-alone script files by using the <xref:System.Web.UI.ScriptReferenceBase.ResourceUICultures%2A> property of the <xref:System.Web.UI.ScriptReference> control.  \n  \n-   Register server controls that implement the <xref:System.Web.UI.IExtenderControl> or <xref:System.Web.UI.IScriptControl> interfaces with the <xref:System.Web.UI.ScriptManager> control so that script required by client components and behaviors is rendered.  \n  \n<a name=\"partial_page_rendering\"></a>   \n## Partial-Page Rendering  \n The ability of an ASP.NET page to support partial-page rendering is controlled by the following factors:  \n  \n-   The <xref:System.Web.UI.ScriptManager> control's <xref:System.Web.UI.ScriptManager.EnablePartialRendering%2A> property must be `true` (the default value).  \n  \n-   There must be at least one <xref:System.Web.UI.UpdatePanel> control on the page.  \n  \n-   The <xref:System.Web.UI.ScriptManager.SupportsPartialRendering%2A> property must be `true` (the default value). If the <xref:System.Web.UI.ScriptManager.SupportsPartialRendering%2A> property is not set explicitly, its value is based on browser capabilities.  \n  \n You can override the value of the <xref:System.Web.UI.ScriptManager.EnablePartialRendering%2A> property at run time during or before the page's <xref:System.Web.UI.Control.Init> event. If you try to change this property after the page's <xref:System.Web.UI.Control.Init> event has occurred, an <xref:System.InvalidOperationException> exception is thrown.  \n  \n When partial-page rendering is supported, the <xref:System.Web.UI.ScriptManager> control renders script to enable asynchronous postbacks and partial-page updates. The regions of the page to be updated are designated by using <xref:System.Web.UI.UpdatePanel> controls. The <xref:System.Web.UI.ScriptManager> control handles the asynchronous postbacks and refreshes only the regions of the page that have to be updated. For more information about partial-page rendering, see [Partial-Page Rendering Overview](http://msdn.microsoft.com/library/5c12736d-d9e9-464a-9388-3fe0f9f49e49). For more information about the conditions that cause an update, see [UpdatePanel Control Overview](http://msdn.microsoft.com/library/29a2265d-9674-4c19-b70e-e5560ee9689a).  \n  \n<a name=\"using_the_scriptmanager_control_with_master_pages__user_controls__and_other_child_components\"></a>   \n## Using the ScriptManager Control with Master Pages, User Controls, and Other Child Components  \n A page can contain only one <xref:System.Web.UI.ScriptManager> control in its hierarchy. To register services and scripts for nested pages, user controls, or components when the parent page already has a <xref:System.Web.UI.ScriptManager> control, use the <xref:System.Web.UI.ScriptManagerProxy> control. For more information, see [Using the UpdatePanel Control with Master Pages](http://msdn.microsoft.com/library/b1c974d5-a6b2-4bb3-a3cc-61dd9dc0e1d6)  \n  \n<a name=\"script_management_and_registration\"></a>   \n## Script Management and Registration  \n The <xref:System.Web.UI.ScriptManager> control enables you to register script that is then rendered as part of the page. The <xref:System.Web.UI.ScriptManager> control registration methods can be broken into the following three categories:  \n  \n-   Registration methods that guarantee that script dependencies on the [!INCLUDE[atlaslib_current_ext](~/includes/atlaslib-current-ext-md.md)] are maintained.  \n  \n-   Registration methods that are not dependent on the [!INCLUDE[atlaslib_current_ext](~/includes/atlaslib-current-ext-md.md)], but that are compatible with <xref:System.Web.UI.UpdatePanel> controls.  \n  \n-   Registration methods that support working with <xref:System.Web.UI.UpdatePanel> controls.  \n  \n For more information about how to create and use Ajax script in ASP.NET, see [Creating Custom Client Script by Using the Microsoft Ajax Library](http://msdn.microsoft.com/library/285e3a65-b42e-42c5-952d-baf184057899).  \n  \n### Registering Script That Is Dependent on the Microsoft Ajax Library  \n You can use the following methods to register script files in a way that guarantees that any dependencies on the [!INCLUDE[atlaslib_current_ext](~/includes/atlaslib-current-ext-md.md)] are maintained.  \n  \n|Method|Definition|  \n|------------|----------------|  \n|<xref:System.Web.UI.ScriptManager.RegisterScriptControl%2A>|Registers a server control that implements the <xref:System.Web.UI.IScriptControl> interface that is used to define a  client object. The <xref:System.Web.UI.ScriptManager> control renders script that supports the client object.|  \n|<xref:System.Web.UI.ScriptManager.RegisterExtenderControl%2A>|Registers a server control that implements the <xref:System.Web.UI.IExtenderControl> interface that is used to define a  client object. The <xref:System.Web.UI.ScriptManager> control renders script that supports the client object.|  \n  \n### Registering Partial-Page Update Compatible Scripts  \n You can use the following methods to register script files that are not dependent on the [!INCLUDE[atlaslib_current_ext](~/includes/atlaslib-current-ext-md.md)] but that are compatible with <xref:System.Web.UI.UpdatePanel> controls. These methods correspond to similar methods of the <xref:System.Web.UI.ClientScriptManager> control. If you are rendering script for use inside an <xref:System.Web.UI.UpdatePanel> control, make sure that you call the methods of the <xref:System.Web.UI.ScriptManager> control.  \n  \n|Method|Definition|  \n|------------|----------------|  \n|<xref:System.Web.UI.ScriptManager.RegisterArrayDeclaration%2A>|Adds a value to a JavaScript array. If the array does not exist, it is created.|  \n|<xref:System.Web.UI.ScriptManager.RegisterClientScriptBlock%2A>|Renders a `script` element after the page's opening `<form>` tag. The script is specified as a string parameter.|  \n|<xref:System.Web.UI.ScriptManager.RegisterClientScriptInclude%2A>|Renders a `script` element after the page's opening `<form>` tag. The script content is specified by setting the `src` attribute to a URL that points to a script file.|  \n|<xref:System.Web.UI.ScriptManager.RegisterClientScriptResource%2A>|Renders a `script` element after the page's opening `<form>` tag. The script content is specified with a resource name in an assembly. The `src` attribute is automatically populated with a URL by a call to an HTTP handler that retrieves the named script from the assembly.|  \n|<xref:System.Web.UI.ScriptManager.RegisterExpandoAttribute%2A>|Renders a custom name/value attribute pair (an expando) in the markup for a specified control.|  \n|<xref:System.Web.UI.ScriptManager.RegisterHiddenField%2A>|Renders a hidden field.|  \n|<xref:System.Web.UI.ScriptManager.RegisterOnSubmitStatement%2A>|Registers a script that is executed in response to the `form` element's `submit` event. The `onSubmit` attribute references the specified script.|  \n|<xref:System.Web.UI.ScriptManager.RegisterStartupScript%2A>|Renders a startup script block just before the page's closing `</form>` tag. The script to render is specified as a string parameter.|  \n  \n When you register methods, you specify a type/key pair for that script. If a script with the same type/key pair is already registered, a new script is not registered. Similarly, if you register a script with a type/resource name pair that already exists, the `script` element that references the resource is not added again. When you register an expando attribute of a previously registered attribute, an exception is thrown. Duplicate registration of array values is allowed.  \n  \n When you call the <xref:System.Web.UI.ScriptManager.RegisterClientScriptInclude%2A> or the <xref:System.Web.UI.ScriptManager.RegisterClientScriptResource%2A> method, avoid registering script that executes inline functions. Instead, register script that contains function definitions like event handlers or custom class definitions for your application.  \n  \n### Registration Methods for UpdatePanel Controls  \n You can use the following methods to customize partial-page updates when you use <xref:System.Web.UI.UpdatePanel> controls.  \n  \n|Method|Definition|  \n|------------|----------------|  \n|<xref:System.Web.UI.ScriptManager.RegisterAsyncPostBackControl%2A>|Registers a control as a trigger for asynchronous postbacks.|  \n|<xref:System.Web.UI.ScriptManager.RegisterDataItem%2A>|Sends custom data to controls during partial-page rendering.|  \n|<xref:System.Web.UI.ScriptManager.RegisterDispose%2A>|Registers a dispose script for a control that is inside an <xref:System.Web.UI.UpdatePanel> control. The script is executed when the <xref:System.Web.UI.UpdatePanel> control is updated or deleted. The dispose method is used for client components that are part of the [!INCLUDE[atlaslib_current_ext](~/includes/atlaslib-current-ext-md.md)] and that have to free resources when a component is no longer used.|  \n|<xref:System.Web.UI.ScriptManager.RegisterPostBackControl%2A>|Registers a control as a trigger for a full postback. This method is used for controls inside an <xref:System.Web.UI.UpdatePanel> control that would otherwise perform asynchronous postbacks.|  \n  \n<a name=\"web_service_references\"></a>   \n## Web Service References  \n You can register a Web service to be called from client script by creating a <xref:System.Web.UI.ServiceReference> object and adding it to the <xref:System.Web.UI.ScriptManager.Services%2A> collection of the <xref:System.Web.UI.ScriptManager> control. ASP.NET generates a client proxy object for each <xref:System.Web.UI.ServiceReference> object in the <xref:System.Web.UI.ScriptManager.Services%2A> collection. You can programmatically add <xref:System.Web.UI.ServiceReference> objects to the <xref:System.Web.UI.ScriptManager.Services%2A> collection to register Web services at run time.  \n  \n For more information about how to access Web services in script, see [Exposing Web Services to Client Script in ASP.NET AJAX](http://msdn.microsoft.com/en-us/fe3f6e9e-0acd-44c9-bf0f-0a8598fc13b8) and [Calling Web Services from Client Script in ASP.NET AJAX](http://msdn.microsoft.com/en-us/fc06c224-f01a-45be-94af-bd71afbc07b0).  \n  \n<a name=\"localization\"></a>   \n## Localization  \n The <xref:System.Web.UI.ScriptManager> control generates references in the rendered page that point to the appropriate localized script files, which are either script files embedded in assemblies or stand-alone script files.  \n  \n When the <xref:System.Web.UI.ScriptManager.EnableScriptLocalization%2A> property is set to `true`, the <xref:System.Web.UI.ScriptManager> control retrieves localized resources (such as localized strings) for the current culture, if they exist. The <xref:System.Web.UI.ScriptManager> control provides the following functionality for using localized resources:  \n  \n-   **Script files that are embedded in an assembly**. The <xref:System.Web.UI.ScriptManager> control determines which culture-specific or fallback-culture script file to send to the browser. It does this by using the culture-specific <xref:System.Resources.NeutralResourcesLanguageAttribute> assembly attribute, the resources packaged with the assembly, and the UI culture of the browser (if any).  \n  \n-   **Stand-alone script files**. The <xref:System.Web.UI.ScriptManager> control defines the list of UI cultures that are supported by using the <xref:System.Web.UI.ScriptReferenceBase.ResourceUICultures%2A> property of the <xref:System.Web.UI.ScriptReference> object.  \n  \n-   **In debug mode**. The <xref:System.Web.UI.ScriptManager> control tries to render a culture-specific script file that contains debug information. For example, if the page is in debug mode and the current culture is set to en-MX, the control renders a script file that has a name such as `scriptname`.en-MX.debug.js, if the file exists. If the file does not exist, the debug file for the appropriate fallback culture is rendered  \n  \n For more information about how to localize resources, see [Localizing Resources for Component Libraries Overview](http://msdn.microsoft.com/library/e6b15435-57c1-4dd1-9bd3-5d4c509685bb).  \n  \n<a name=\"error_handling\"></a>   \n## Error Handling  \n When a page error occurs during asynchronous postbacks, the <xref:System.Web.UI.ScriptManager.AsyncPostBackError> event is raised. The way in which errors on the server are sent to the client depends on the <xref:System.Web.UI.ScriptManager.AllowCustomErrorsRedirect%2A> property, the <xref:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage%2A> property, and the custom errors section of the Web.config file. For more information, see [Customizing Error Handling for UpdatePanel Controls](http://msdn.microsoft.com/library/e15e7ffb-e4b2-4a89-b99e-16624a5861d0).  \n  \n<a name=\"declarative_syntax\"></a>   \n## Declarative Syntax  \n  \n```  \n<asp:ScriptManager  \n    AllowCustomErrorsRedirect=\"True|False\"  \n    AsyncPostBackErrorMessage=\"string\"  \n    AsyncPostBackTimeout=\"integer\"  \n    AuthenticationService-Path=\"uri\"  \n    EnablePageMethods=\"True|False\"  \n    EnablePartialRendering=\"True|False\"  \n    EnableScriptGlobalization=\"True|False\"  \n    EnableScriptLocalization=\"True|False\"  \n    EnableTheming=\"True|False\"  \n    EnableViewState=\"True|False\"  \n    ID=\"string\"  \n    LoadScriptsBeforeUI=\"True|False\"  \n    OnAsyncPostBackError=\"AsyncPostBackError event handler\"  \n    OnDataBinding=\"DataBinding event handler\"  \n    OnDisposed=\"Disposed event handler\"  \n    OnInit=\"Init event handler\"  \n    OnLoad=\"Load event handler\"  \n    OnPreRender=\"PreRender event handler\"  \n    OnResolveScriptReference=\"ResolveScriptReference event handler\"  \n    OnUnload=\"Unload event handler\"  \n    ProfileService-LoadProperties=\"string\"  \n    ProfileService-Path=\"uri\"  \n    RoleService-LoadRoles=\"True|False\"  \n    RoleService-Path=\"uri\"  \n    runat=\"server\"  \n    ScriptMode=\"Auto|Inherit|Debug|Release\"  \n    ScriptPath=\"string\"  \n    SkinID=\"string\"  \n    SupportsPartialRendering=\"True|False\"  \n    Visible=\"True|False\"  \n>  \n        <AuthenticationService  \n            Path=\"uri\"  \n        />  \n        <ProfileService  \n            LoadProperties=\"string\"  \n            Path=\"uri\"  \n        />  \n        <RoleService  \n            LoadRoles=\"True|False\"  \n            Path=\"uri\"  \n        />  \n        <Scripts>  \n            <asp:ScriptReference  \n                Assembly=\"string\"  \n                IgnoreScriptPath=\"True|False\"  \n                Name=\"string\"  \n                NotifyScriptLoaded=\"True|False\"  \n                Path=\"string\"  \n                ResourceUICultures=\"string\"  \n                ScriptMode=\"Auto|Debug|Inherit|Release\"  \n            />  \n        </Scripts>  \n        <Services>  \n            <asp:ServiceReference  \n                InlineScript=\"True|False\"  \n                Path=\"string\"  \n            />  \n        </Services>  \n</asp:ScriptManager>  \n```"
   example:
-  - "The following examples show different scenarios for using the <xref:System.Web.UI.ScriptManager> control.  \n  \n **Enabling Partial-Page Updates**  \n  \n The following example shows how to use the <xref:System.Web.UI.ScriptManager> control to enable partial-page updates. In this example, a <xref:System.Web.UI.WebControls.Calendar> and a <xref:System.Web.UI.WebControls.DropDownList> control are inside an <xref:System.Web.UI.UpdatePanel> control. By default, the value of the <xref:System.Web.UI.UpdatePanel.UpdateMode%2A> property is <xref:System.Web.UI.UpdatePanelUpdateMode>, and the value of the <xref:System.Web.UI.UpdatePanel.ChildrenAsTriggers%2A> property is `true`. Therefore, child controls of the panel cause an asynchronous postback.  \n  \n <!-- TODO: review snippet reference [!code-csharp[System.Web.UI.UpdatePanel#1](~/samples/snippets/csharp/VS_Snippets_Atlas/System.Web.UI.UpdatePanel/CS/UpdatePanelExample1CS.aspx#1)]  -->\n <!-- TODO: review snippet reference [!code-vb[System.Web.UI.UpdatePanel#1](~/samples/snippets/visualbasic/VS_Snippets_Atlas/System.Web.UI.UpdatePanel/VB/UpdatePanelExample1VB.aspx#1)]  -->  \n  \n **Handling Partial-Page Update Errors and Registering Script**  \n  \n The following example shows how to provide custom error handling during partial-page updates. By default, when an error occurs during partial-page updates, a JavaScript message box is displayed. This example demonstrates how to use custom error handling by providing a handler for the <xref:System.Web.UI.ScriptManager.AsyncPostBackError> event, and by setting the <xref:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage%2A> property in the event handler. You can also set the <xref:System.Web.UI.ScriptManager.AllowCustomErrorsRedirect%2A> property to specify how the custom errors section of the Web.config file is used when an error occurs during partial-page updates. In this example, the default value of the <xref:System.Web.UI.ScriptManager.AllowCustomErrorsRedirect%2A> property is used. This means that if the Web.config file contains a  element, that element determines how errors are displayed. For more information, see [customErrors Element (ASP.NET Settings Schema)](http://msdn.microsoft.com/en-us/288c32e2-df1f-4548-abda-de6b4cb989a6).  \n  \n <!-- TODO: review snippet reference [!code-csharp[System.Web.UI.ScriptManager.OnAsyncPostBackError#1](~/samples/snippets/csharp/VS_Snippets_Atlas/System.Web.UI.ScriptManager.OnAsyncPostBackError/CS/default.aspx#1)]  -->\n <!-- TODO: review snippet reference [!code-vb[System.Web.UI.ScriptManager.OnAsyncPostBackError#1](~/samples/snippets/visualbasic/VS_Snippets_Atlas/System.Web.UI.ScriptManager.OnAsyncPostBackError/VB/default.aspx#1)]  -->  \n  \n **Globalizing the Date and Time That Are Displayed in the Browser**  \n  \n The following example shows how to set the <xref:System.Web.UI.ScriptManager.EnableScriptGlobalization%2A> property so that client script can display a culture-specific date and time in the browser. In the example, the `Culture` attribute of the  directive is set to `auto`. As a result, the first language that is specified in the current browser settings determines the culture and UI culture for the page. For more information, see [How to: Set the Culture and UI Culture for ASP.NET Web Page Globalization](http://msdn.microsoft.com/library/76091f86-f967-4687-a40f-de87bd8cc9a0).  \n  \n <!-- TODO: review snippet reference [!code-csharp[System.Web.UI.ScriptManager.EnableScriptGlobalization#1](~/samples/snippets/csharp/VS_Snippets_Atlas/System.Web.UI.ScriptManager.EnableScriptGlobalization/CS/default.aspx#1)]  -->\n <!-- TODO: review snippet reference [!code-vb[System.Web.UI.ScriptManager.EnableScriptGlobalization#1](~/samples/snippets/visualbasic/VS_Snippets_Atlas/System.Web.UI.ScriptManager.EnableScriptGlobalization/VB/default.aspx#1)]  -->"
+  - "The following examples show different scenarios for using the <xref:System.Web.UI.ScriptManager> control.  \n  \n **Enabling Partial-Page Updates**  \n  \n The following example shows how to use the <xref:System.Web.UI.ScriptManager> control to enable partial-page updates. In this example, a <xref:System.Web.UI.WebControls.Calendar> and a <xref:System.Web.UI.WebControls.DropDownList> control are inside an <xref:System.Web.UI.UpdatePanel> control. By default, the value of the <xref:System.Web.UI.UpdatePanel.UpdateMode%2A> property is <xref:System.Web.UI.UpdatePanelUpdateMode.Always>, and the value of the <xref:System.Web.UI.UpdatePanel.ChildrenAsTriggers%2A> property is `true`. Therefore, child controls of the panel cause an asynchronous postback.  \n  \n <!-- TODO: review snippet reference [!code-csharp[System.Web.UI.UpdatePanel#1](~/samples/snippets/csharp/VS_Snippets_Atlas/System.Web.UI.UpdatePanel/CS/UpdatePanelExample1CS.aspx#1)]  -->\n <!-- TODO: review snippet reference [!code-vb[System.Web.UI.UpdatePanel#1](~/samples/snippets/visualbasic/VS_Snippets_Atlas/System.Web.UI.UpdatePanel/VB/UpdatePanelExample1VB.aspx#1)]  -->  \n  \n **Handling Partial-Page Update Errors and Registering Script**  \n  \n The following example shows how to provide custom error handling during partial-page updates. By default, when an error occurs during partial-page updates, a JavaScript message box is displayed. This example demonstrates how to use custom error handling by providing a handler for the <xref:System.Web.UI.ScriptManager.AsyncPostBackError> event, and by setting the <xref:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage%2A> property in the event handler. You can also set the <xref:System.Web.UI.ScriptManager.AllowCustomErrorsRedirect%2A> property to specify how the custom errors section of the Web.config file is used when an error occurs during partial-page updates. In this example, the default value of the <xref:System.Web.UI.ScriptManager.AllowCustomErrorsRedirect%2A> property is used. This means that if the Web.config file contains a  element, that element determines how errors are displayed. For more information, see [customErrors Element (ASP.NET Settings Schema)](http://msdn.microsoft.com/en-us/288c32e2-df1f-4548-abda-de6b4cb989a6).  \n  \n <!-- TODO: review snippet reference [!code-csharp[System.Web.UI.ScriptManager.OnAsyncPostBackError#1](~/samples/snippets/csharp/VS_Snippets_Atlas/System.Web.UI.ScriptManager.OnAsyncPostBackError/CS/default.aspx#1)]  -->\n <!-- TODO: review snippet reference [!code-vb[System.Web.UI.ScriptManager.OnAsyncPostBackError#1](~/samples/snippets/visualbasic/VS_Snippets_Atlas/System.Web.UI.ScriptManager.OnAsyncPostBackError/VB/default.aspx#1)]  -->  \n  \n **Globalizing the Date and Time That Are Displayed in the Browser**  \n  \n The following example shows how to set the <xref:System.Web.UI.ScriptManager.EnableScriptGlobalization%2A> property so that client script can display a culture-specific date and time in the browser. In the example, the `Culture` attribute of the  directive is set to `auto`. As a result, the first language that is specified in the current browser settings determines the culture and UI culture for the page. For more information, see [How to: Set the Culture and UI Culture for ASP.NET Web Page Globalization](http://msdn.microsoft.com/library/76091f86-f967-4687-a40f-de87bd8cc9a0).  \n  \n <!-- TODO: review snippet reference [!code-csharp[System.Web.UI.ScriptManager.EnableScriptGlobalization#1](~/samples/snippets/csharp/VS_Snippets_Atlas/System.Web.UI.ScriptManager.EnableScriptGlobalization/CS/default.aspx#1)]  -->\n <!-- TODO: review snippet reference [!code-vb[System.Web.UI.ScriptManager.EnableScriptGlobalization#1](~/samples/snippets/visualbasic/VS_Snippets_Atlas/System.Web.UI.ScriptManager.EnableScriptGlobalization/VB/default.aspx#1)]  -->"
   syntax:
     content: >-
       [System.Drawing.ToolboxBitmap(typeof(EmbeddedResourceFinder), "System.Web.Resources.ScriptManager.bmp")]
@@ -252,8 +252,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.#ctor
   commentId: M:System.Web.UI.ScriptManager.#ctor
   id: '#ctor'
@@ -262,7 +260,7 @@ items:
   - csharp
   name: ScriptManager()
   nameWithType: ScriptManager.ScriptManager()
-  fullName: System.Web.UI.ScriptManager.ScriptManager()
+  fullName: ScriptManager.ScriptManager()
   type: Constructor
   assemblies:
   - System.Web.Extensions
@@ -291,8 +289,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.AddHistoryPoint(System.Collections.Specialized.NameValueCollection,System.String)
   commentId: M:System.Web.UI.ScriptManager.AddHistoryPoint(System.Collections.Specialized.NameValueCollection,System.String)
   id: AddHistoryPoint(System.Collections.Specialized.NameValueCollection,System.String)
@@ -301,7 +297,7 @@ items:
   - csharp
   name: AddHistoryPoint(NameValueCollection, String)
   nameWithType: ScriptManager.AddHistoryPoint(NameValueCollection, String)
-  fullName: System.Web.UI.ScriptManager.AddHistoryPoint(NameValueCollection, String)
+  fullName: ScriptManager.AddHistoryPoint(NameValueCollection, String)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -336,8 +332,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.AddHistoryPoint(System.String,System.String)
   commentId: M:System.Web.UI.ScriptManager.AddHistoryPoint(System.String,System.String)
   id: AddHistoryPoint(System.String,System.String)
@@ -346,7 +340,7 @@ items:
   - csharp
   name: AddHistoryPoint(String, String)
   nameWithType: ScriptManager.AddHistoryPoint(String, String)
-  fullName: System.Web.UI.ScriptManager.AddHistoryPoint(String, String)
+  fullName: ScriptManager.AddHistoryPoint(String, String)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -381,8 +375,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.AddHistoryPoint(System.String,System.String,System.String)
   commentId: M:System.Web.UI.ScriptManager.AddHistoryPoint(System.String,System.String,System.String)
   id: AddHistoryPoint(System.String,System.String,System.String)
@@ -391,7 +383,7 @@ items:
   - csharp
   name: AddHistoryPoint(String, String, String)
   nameWithType: ScriptManager.AddHistoryPoint(String, String, String)
-  fullName: System.Web.UI.ScriptManager.AddHistoryPoint(String, String, String)
+  fullName: ScriptManager.AddHistoryPoint(String, String, String)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -429,8 +421,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.AjaxFrameworkAssembly
   commentId: P:System.Web.UI.ScriptManager.AjaxFrameworkAssembly
   id: AjaxFrameworkAssembly
@@ -439,7 +429,7 @@ items:
   - csharp
   name: AjaxFrameworkAssembly
   nameWithType: ScriptManager.AjaxFrameworkAssembly
-  fullName: System.Web.UI.ScriptManager.AjaxFrameworkAssembly
+  fullName: ScriptManager.AjaxFrameworkAssembly
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -474,8 +464,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.AjaxFrameworkMode
   commentId: P:System.Web.UI.ScriptManager.AjaxFrameworkMode
   id: AjaxFrameworkMode
@@ -484,7 +472,7 @@ items:
   - csharp
   name: AjaxFrameworkMode
   nameWithType: ScriptManager.AjaxFrameworkMode
-  fullName: System.Web.UI.ScriptManager.AjaxFrameworkMode
+  fullName: ScriptManager.AjaxFrameworkMode
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -518,8 +506,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.AllowCustomErrorsRedirect
   commentId: P:System.Web.UI.ScriptManager.AllowCustomErrorsRedirect
   id: AllowCustomErrorsRedirect
@@ -528,7 +514,7 @@ items:
   - csharp
   name: AllowCustomErrorsRedirect
   nameWithType: ScriptManager.AllowCustomErrorsRedirect
-  fullName: System.Web.UI.ScriptManager.AllowCustomErrorsRedirect
+  fullName: ScriptManager.AllowCustomErrorsRedirect
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -560,8 +546,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.AsyncPostBackError
   commentId: E:System.Web.UI.ScriptManager.AsyncPostBackError
   id: AsyncPostBackError
@@ -570,7 +554,7 @@ items:
   - csharp
   name: AsyncPostBackError
   nameWithType: ScriptManager.AsyncPostBackError
-  fullName: System.Web.UI.ScriptManager.AsyncPostBackError
+  fullName: ScriptManager.AsyncPostBackError
   type: Event
   assemblies:
   - System.Web.Extensions
@@ -603,8 +587,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.AsyncPostBackErrorMessage
   commentId: P:System.Web.UI.ScriptManager.AsyncPostBackErrorMessage
   id: AsyncPostBackErrorMessage
@@ -613,7 +595,7 @@ items:
   - csharp
   name: AsyncPostBackErrorMessage
   nameWithType: ScriptManager.AsyncPostBackErrorMessage
-  fullName: System.Web.UI.ScriptManager.AsyncPostBackErrorMessage
+  fullName: ScriptManager.AsyncPostBackErrorMessage
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -647,8 +629,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.AsyncPostBackSourceElementID
   commentId: P:System.Web.UI.ScriptManager.AsyncPostBackSourceElementID
   id: AsyncPostBackSourceElementID
@@ -657,7 +637,7 @@ items:
   - csharp
   name: AsyncPostBackSourceElementID
   nameWithType: ScriptManager.AsyncPostBackSourceElementID
-  fullName: System.Web.UI.ScriptManager.AsyncPostBackSourceElementID
+  fullName: ScriptManager.AsyncPostBackSourceElementID
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -693,8 +673,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.AsyncPostBackTimeout
   commentId: P:System.Web.UI.ScriptManager.AsyncPostBackTimeout
   id: AsyncPostBackTimeout
@@ -703,7 +681,7 @@ items:
   - csharp
   name: AsyncPostBackTimeout
   nameWithType: ScriptManager.AsyncPostBackTimeout
-  fullName: System.Web.UI.ScriptManager.AsyncPostBackTimeout
+  fullName: ScriptManager.AsyncPostBackTimeout
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -734,8 +712,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.AuthenticationService
   commentId: P:System.Web.UI.ScriptManager.AuthenticationService
   id: AuthenticationService
@@ -744,7 +720,7 @@ items:
   - csharp
   name: AuthenticationService
   nameWithType: ScriptManager.AuthenticationService
-  fullName: System.Web.UI.ScriptManager.AuthenticationService
+  fullName: ScriptManager.AuthenticationService
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -780,8 +756,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.ClientNavigateHandler
   commentId: P:System.Web.UI.ScriptManager.ClientNavigateHandler
   id: ClientNavigateHandler
@@ -790,7 +764,7 @@ items:
   - csharp
   name: ClientNavigateHandler
   nameWithType: ScriptManager.ClientNavigateHandler
-  fullName: System.Web.UI.ScriptManager.ClientNavigateHandler
+  fullName: ScriptManager.ClientNavigateHandler
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -821,8 +795,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.CompositeScript
   commentId: P:System.Web.UI.ScriptManager.CompositeScript
   id: CompositeScript
@@ -831,7 +803,7 @@ items:
   - csharp
   name: CompositeScript
   nameWithType: ScriptManager.CompositeScript
-  fullName: System.Web.UI.ScriptManager.CompositeScript
+  fullName: ScriptManager.CompositeScript
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -867,8 +839,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.EmptyPageUrl
   commentId: P:System.Web.UI.ScriptManager.EmptyPageUrl
   id: EmptyPageUrl
@@ -877,7 +847,7 @@ items:
   - csharp
   name: EmptyPageUrl
   nameWithType: ScriptManager.EmptyPageUrl
-  fullName: System.Web.UI.ScriptManager.EmptyPageUrl
+  fullName: ScriptManager.EmptyPageUrl
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -909,8 +879,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.EnableCdn
   commentId: P:System.Web.UI.ScriptManager.EnableCdn
   id: EnableCdn
@@ -919,7 +887,7 @@ items:
   - csharp
   name: EnableCdn
   nameWithType: ScriptManager.EnableCdn
-  fullName: System.Web.UI.ScriptManager.EnableCdn
+  fullName: ScriptManager.EnableCdn
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -951,8 +919,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.EnableCdnFallback
   commentId: P:System.Web.UI.ScriptManager.EnableCdnFallback
   id: EnableCdnFallback
@@ -961,7 +927,7 @@ items:
   - csharp
   name: EnableCdnFallback
   nameWithType: ScriptManager.EnableCdnFallback
-  fullName: System.Web.UI.ScriptManager.EnableCdnFallback
+  fullName: ScriptManager.EnableCdnFallback
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -992,8 +958,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.EnableHistory
   commentId: P:System.Web.UI.ScriptManager.EnableHistory
   id: EnableHistory
@@ -1002,7 +966,7 @@ items:
   - csharp
   name: EnableHistory
   nameWithType: ScriptManager.EnableHistory
-  fullName: System.Web.UI.ScriptManager.EnableHistory
+  fullName: ScriptManager.EnableHistory
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -1013,7 +977,7 @@ items:
     content: public bool EnableHistory { get; set; }
     return:
       type: System.Boolean
-      description: '`true` if the Web page supports adding history points to the browser''s history stack; otherwise, `false`.'
+      description: "`true` if the Web page supports adding history points to the browser's history stack; otherwise, `false`."
   overload: System.Web.UI.ScriptManager.EnableHistory*
   exceptions: []
   attributes: []
@@ -1034,8 +998,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.EnablePageMethods
   commentId: P:System.Web.UI.ScriptManager.EnablePageMethods
   id: EnablePageMethods
@@ -1044,7 +1006,7 @@ items:
   - csharp
   name: EnablePageMethods
   nameWithType: ScriptManager.EnablePageMethods
-  fullName: System.Web.UI.ScriptManager.EnablePageMethods
+  fullName: ScriptManager.EnablePageMethods
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -1076,8 +1038,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.EnablePartialRendering
   commentId: P:System.Web.UI.ScriptManager.EnablePartialRendering
   id: EnablePartialRendering
@@ -1086,7 +1046,7 @@ items:
   - csharp
   name: EnablePartialRendering
   nameWithType: ScriptManager.EnablePartialRendering
-  fullName: System.Web.UI.ScriptManager.EnablePartialRendering
+  fullName: ScriptManager.EnablePartialRendering
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -1121,8 +1081,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.EnableScriptGlobalization
   commentId: P:System.Web.UI.ScriptManager.EnableScriptGlobalization
   id: EnableScriptGlobalization
@@ -1131,7 +1089,7 @@ items:
   - csharp
   name: EnableScriptGlobalization
   nameWithType: ScriptManager.EnableScriptGlobalization
-  fullName: System.Web.UI.ScriptManager.EnableScriptGlobalization
+  fullName: ScriptManager.EnableScriptGlobalization
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -1163,8 +1121,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.EnableScriptLocalization
   commentId: P:System.Web.UI.ScriptManager.EnableScriptLocalization
   id: EnableScriptLocalization
@@ -1173,7 +1129,7 @@ items:
   - csharp
   name: EnableScriptLocalization
   nameWithType: ScriptManager.EnableScriptLocalization
-  fullName: System.Web.UI.ScriptManager.EnableScriptLocalization
+  fullName: ScriptManager.EnableScriptLocalization
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -1205,8 +1161,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.EnableSecureHistoryState
   commentId: P:System.Web.UI.ScriptManager.EnableSecureHistoryState
   id: EnableSecureHistoryState
@@ -1215,7 +1169,7 @@ items:
   - csharp
   name: EnableSecureHistoryState
   nameWithType: ScriptManager.EnableSecureHistoryState
-  fullName: System.Web.UI.ScriptManager.EnableSecureHistoryState
+  fullName: ScriptManager.EnableSecureHistoryState
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -1250,8 +1204,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.GetCurrent(System.Web.UI.Page)
   commentId: M:System.Web.UI.ScriptManager.GetCurrent(System.Web.UI.Page)
   id: GetCurrent(System.Web.UI.Page)
@@ -1260,7 +1212,7 @@ items:
   - csharp
   name: GetCurrent(Page)
   nameWithType: ScriptManager.GetCurrent(Page)
-  fullName: System.Web.UI.ScriptManager.GetCurrent(Page)
+  fullName: ScriptManager.GetCurrent(Page)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -1298,8 +1250,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.GetRegisteredArrayDeclarations
   commentId: M:System.Web.UI.ScriptManager.GetRegisteredArrayDeclarations
   id: GetRegisteredArrayDeclarations
@@ -1308,7 +1258,7 @@ items:
   - csharp
   name: GetRegisteredArrayDeclarations()
   nameWithType: ScriptManager.GetRegisteredArrayDeclarations()
-  fullName: System.Web.UI.ScriptManager.GetRegisteredArrayDeclarations()
+  fullName: ScriptManager.GetRegisteredArrayDeclarations()
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -1339,8 +1289,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.GetRegisteredClientScriptBlocks
   commentId: M:System.Web.UI.ScriptManager.GetRegisteredClientScriptBlocks
   id: GetRegisteredClientScriptBlocks
@@ -1349,7 +1297,7 @@ items:
   - csharp
   name: GetRegisteredClientScriptBlocks()
   nameWithType: ScriptManager.GetRegisteredClientScriptBlocks()
-  fullName: System.Web.UI.ScriptManager.GetRegisteredClientScriptBlocks()
+  fullName: ScriptManager.GetRegisteredClientScriptBlocks()
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -1381,8 +1329,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.GetRegisteredDisposeScripts
   commentId: M:System.Web.UI.ScriptManager.GetRegisteredDisposeScripts
   id: GetRegisteredDisposeScripts
@@ -1391,7 +1337,7 @@ items:
   - csharp
   name: GetRegisteredDisposeScripts()
   nameWithType: ScriptManager.GetRegisteredDisposeScripts()
-  fullName: System.Web.UI.ScriptManager.GetRegisteredDisposeScripts()
+  fullName: ScriptManager.GetRegisteredDisposeScripts()
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -1423,8 +1369,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.GetRegisteredExpandoAttributes
   commentId: M:System.Web.UI.ScriptManager.GetRegisteredExpandoAttributes
   id: GetRegisteredExpandoAttributes
@@ -1433,7 +1377,7 @@ items:
   - csharp
   name: GetRegisteredExpandoAttributes()
   nameWithType: ScriptManager.GetRegisteredExpandoAttributes()
-  fullName: System.Web.UI.ScriptManager.GetRegisteredExpandoAttributes()
+  fullName: ScriptManager.GetRegisteredExpandoAttributes()
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -1467,8 +1411,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.GetRegisteredHiddenFields
   commentId: M:System.Web.UI.ScriptManager.GetRegisteredHiddenFields
   id: GetRegisteredHiddenFields
@@ -1477,7 +1419,7 @@ items:
   - csharp
   name: GetRegisteredHiddenFields()
   nameWithType: ScriptManager.GetRegisteredHiddenFields()
-  fullName: System.Web.UI.ScriptManager.GetRegisteredHiddenFields()
+  fullName: ScriptManager.GetRegisteredHiddenFields()
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -1508,8 +1450,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.GetRegisteredOnSubmitStatements
   commentId: M:System.Web.UI.ScriptManager.GetRegisteredOnSubmitStatements
   id: GetRegisteredOnSubmitStatements
@@ -1518,7 +1458,7 @@ items:
   - csharp
   name: GetRegisteredOnSubmitStatements()
   nameWithType: ScriptManager.GetRegisteredOnSubmitStatements()
-  fullName: System.Web.UI.ScriptManager.GetRegisteredOnSubmitStatements()
+  fullName: ScriptManager.GetRegisteredOnSubmitStatements()
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -1552,8 +1492,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.GetRegisteredStartupScripts
   commentId: M:System.Web.UI.ScriptManager.GetRegisteredStartupScripts
   id: GetRegisteredStartupScripts
@@ -1562,7 +1500,7 @@ items:
   - csharp
   name: GetRegisteredStartupScripts()
   nameWithType: ScriptManager.GetRegisteredStartupScripts()
-  fullName: System.Web.UI.ScriptManager.GetRegisteredStartupScripts()
+  fullName: ScriptManager.GetRegisteredStartupScripts()
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -1596,8 +1534,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.GetStateString
   commentId: M:System.Web.UI.ScriptManager.GetStateString
   id: GetStateString
@@ -1606,7 +1542,7 @@ items:
   - csharp
   name: GetStateString()
   nameWithType: ScriptManager.GetStateString()
-  fullName: System.Web.UI.ScriptManager.GetStateString()
+  fullName: ScriptManager.GetStateString()
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -1637,8 +1573,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.IsDebuggingEnabled
   commentId: P:System.Web.UI.ScriptManager.IsDebuggingEnabled
   id: IsDebuggingEnabled
@@ -1647,7 +1581,7 @@ items:
   - csharp
   name: IsDebuggingEnabled
   nameWithType: ScriptManager.IsDebuggingEnabled
-  fullName: System.Web.UI.ScriptManager.IsDebuggingEnabled
+  fullName: ScriptManager.IsDebuggingEnabled
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -1683,8 +1617,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.IsInAsyncPostBack
   commentId: P:System.Web.UI.ScriptManager.IsInAsyncPostBack
   id: IsInAsyncPostBack
@@ -1693,7 +1625,7 @@ items:
   - csharp
   name: IsInAsyncPostBack
   nameWithType: ScriptManager.IsInAsyncPostBack
-  fullName: System.Web.UI.ScriptManager.IsInAsyncPostBack
+  fullName: ScriptManager.IsInAsyncPostBack
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -1729,8 +1661,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.IsNavigating
   commentId: P:System.Web.UI.ScriptManager.IsNavigating
   id: IsNavigating
@@ -1739,7 +1669,7 @@ items:
   - csharp
   name: IsNavigating
   nameWithType: ScriptManager.IsNavigating
-  fullName: System.Web.UI.ScriptManager.IsNavigating
+  fullName: ScriptManager.IsNavigating
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -1775,8 +1705,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.LoadPostData(System.String,System.Collections.Specialized.NameValueCollection)
   commentId: M:System.Web.UI.ScriptManager.LoadPostData(System.String,System.Collections.Specialized.NameValueCollection)
   id: LoadPostData(System.String,System.Collections.Specialized.NameValueCollection)
@@ -1785,7 +1713,7 @@ items:
   - csharp
   name: LoadPostData(String, NameValueCollection)
   nameWithType: ScriptManager.LoadPostData(String, NameValueCollection)
-  fullName: System.Web.UI.ScriptManager.LoadPostData(String, NameValueCollection)
+  fullName: ScriptManager.LoadPostData(String, NameValueCollection)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -1803,7 +1731,7 @@ items:
       description: The collection of all the incoming post data.
     return:
       type: System.Boolean
-      description: '`true` if the <xref href="System.Web.UI.ScriptManager"></xref> control''s state has changed as a result of a postback; otherwise, `false`.'
+      description: "`true` if the <xref href=\"System.Web.UI.ScriptManager\"></xref> control's state has changed as a result of a postback; otherwise, `false`."
   overload: System.Web.UI.ScriptManager.LoadPostData*
   exceptions: []
   version:
@@ -1823,8 +1751,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.LoadScriptsBeforeUI
   commentId: P:System.Web.UI.ScriptManager.LoadScriptsBeforeUI
   id: LoadScriptsBeforeUI
@@ -1833,7 +1759,7 @@ items:
   - csharp
   name: LoadScriptsBeforeUI
   nameWithType: ScriptManager.LoadScriptsBeforeUI
-  fullName: System.Web.UI.ScriptManager.LoadScriptsBeforeUI
+  fullName: ScriptManager.LoadScriptsBeforeUI
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -1865,8 +1791,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.Navigate
   commentId: E:System.Web.UI.ScriptManager.Navigate
   id: Navigate
@@ -1875,7 +1799,7 @@ items:
   - csharp
   name: Navigate
   nameWithType: ScriptManager.Navigate
-  fullName: System.Web.UI.ScriptManager.Navigate
+  fullName: ScriptManager.Navigate
   type: Event
   assemblies:
   - System.Web.Extensions
@@ -1906,8 +1830,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.OnAsyncPostBackError(System.Web.UI.AsyncPostBackErrorEventArgs)
   commentId: M:System.Web.UI.ScriptManager.OnAsyncPostBackError(System.Web.UI.AsyncPostBackErrorEventArgs)
   id: OnAsyncPostBackError(System.Web.UI.AsyncPostBackErrorEventArgs)
@@ -1916,7 +1838,7 @@ items:
   - csharp
   name: OnAsyncPostBackError(AsyncPostBackErrorEventArgs)
   nameWithType: ScriptManager.OnAsyncPostBackError(AsyncPostBackErrorEventArgs)
-  fullName: System.Web.UI.ScriptManager.OnAsyncPostBackError(AsyncPostBackErrorEventArgs)
+  fullName: ScriptManager.OnAsyncPostBackError(AsyncPostBackErrorEventArgs)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -1950,8 +1872,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.OnInit(System.EventArgs)
   commentId: M:System.Web.UI.ScriptManager.OnInit(System.EventArgs)
   id: OnInit(System.EventArgs)
@@ -1960,7 +1880,7 @@ items:
   - csharp
   name: OnInit(EventArgs)
   nameWithType: ScriptManager.OnInit(EventArgs)
-  fullName: System.Web.UI.ScriptManager.OnInit(EventArgs)
+  fullName: ScriptManager.OnInit(EventArgs)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -1994,8 +1914,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.OnPreRender(System.EventArgs)
   commentId: M:System.Web.UI.ScriptManager.OnPreRender(System.EventArgs)
   id: OnPreRender(System.EventArgs)
@@ -2004,7 +1922,7 @@ items:
   - csharp
   name: OnPreRender(EventArgs)
   nameWithType: ScriptManager.OnPreRender(EventArgs)
-  fullName: System.Web.UI.ScriptManager.OnPreRender(EventArgs)
+  fullName: ScriptManager.OnPreRender(EventArgs)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -2039,8 +1957,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.OnResolveCompositeScriptReference(System.Web.UI.CompositeScriptReferenceEventArgs)
   commentId: M:System.Web.UI.ScriptManager.OnResolveCompositeScriptReference(System.Web.UI.CompositeScriptReferenceEventArgs)
   id: OnResolveCompositeScriptReference(System.Web.UI.CompositeScriptReferenceEventArgs)
@@ -2049,7 +1965,7 @@ items:
   - csharp
   name: OnResolveCompositeScriptReference(CompositeScriptReferenceEventArgs)
   nameWithType: ScriptManager.OnResolveCompositeScriptReference(CompositeScriptReferenceEventArgs)
-  fullName: System.Web.UI.ScriptManager.OnResolveCompositeScriptReference(CompositeScriptReferenceEventArgs)
+  fullName: ScriptManager.OnResolveCompositeScriptReference(CompositeScriptReferenceEventArgs)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -2080,8 +1996,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.OnResolveScriptReference(System.Web.UI.ScriptReferenceEventArgs)
   commentId: M:System.Web.UI.ScriptManager.OnResolveScriptReference(System.Web.UI.ScriptReferenceEventArgs)
   id: OnResolveScriptReference(System.Web.UI.ScriptReferenceEventArgs)
@@ -2090,7 +2004,7 @@ items:
   - csharp
   name: OnResolveScriptReference(ScriptReferenceEventArgs)
   nameWithType: ScriptManager.OnResolveScriptReference(ScriptReferenceEventArgs)
-  fullName: System.Web.UI.ScriptManager.OnResolveScriptReference(ScriptReferenceEventArgs)
+  fullName: ScriptManager.OnResolveScriptReference(ScriptReferenceEventArgs)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -2122,8 +2036,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.ProfileService
   commentId: P:System.Web.UI.ScriptManager.ProfileService
   id: ProfileService
@@ -2132,7 +2044,7 @@ items:
   - csharp
   name: ProfileService
   nameWithType: ScriptManager.ProfileService
-  fullName: System.Web.UI.ScriptManager.ProfileService
+  fullName: ScriptManager.ProfileService
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -2168,8 +2080,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RaisePostBackEvent(System.String)
   commentId: M:System.Web.UI.ScriptManager.RaisePostBackEvent(System.String)
   id: RaisePostBackEvent(System.String)
@@ -2178,7 +2088,7 @@ items:
   - csharp
   name: RaisePostBackEvent(String)
   nameWithType: ScriptManager.RaisePostBackEvent(String)
-  fullName: System.Web.UI.ScriptManager.RaisePostBackEvent(String)
+  fullName: ScriptManager.RaisePostBackEvent(String)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -2209,8 +2119,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RaisePostDataChangedEvent
   commentId: M:System.Web.UI.ScriptManager.RaisePostDataChangedEvent
   id: RaisePostDataChangedEvent
@@ -2219,7 +2127,7 @@ items:
   - csharp
   name: RaisePostDataChangedEvent()
   nameWithType: ScriptManager.RaisePostDataChangedEvent()
-  fullName: System.Web.UI.ScriptManager.RaisePostDataChangedEvent()
+  fullName: ScriptManager.RaisePostDataChangedEvent()
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -2248,8 +2156,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterArrayDeclaration(System.Web.UI.Control,System.String,System.String)
   commentId: M:System.Web.UI.ScriptManager.RegisterArrayDeclaration(System.Web.UI.Control,System.String,System.String)
   id: RegisterArrayDeclaration(System.Web.UI.Control,System.String,System.String)
@@ -2258,7 +2164,7 @@ items:
   - csharp
   name: RegisterArrayDeclaration(Control, String, String)
   nameWithType: ScriptManager.RegisterArrayDeclaration(Control, String, String)
-  fullName: System.Web.UI.ScriptManager.RegisterArrayDeclaration(Control, String, String)
+  fullName: ScriptManager.RegisterArrayDeclaration(Control, String, String)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -2299,8 +2205,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterArrayDeclaration(System.Web.UI.Page,System.String,System.String)
   commentId: M:System.Web.UI.ScriptManager.RegisterArrayDeclaration(System.Web.UI.Page,System.String,System.String)
   id: RegisterArrayDeclaration(System.Web.UI.Page,System.String,System.String)
@@ -2309,7 +2213,7 @@ items:
   - csharp
   name: RegisterArrayDeclaration(Page, String, String)
   nameWithType: ScriptManager.RegisterArrayDeclaration(Page, String, String)
-  fullName: System.Web.UI.ScriptManager.RegisterArrayDeclaration(Page, String, String)
+  fullName: ScriptManager.RegisterArrayDeclaration(Page, String, String)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -2350,8 +2254,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterAsyncPostBackControl(System.Web.UI.Control)
   commentId: M:System.Web.UI.ScriptManager.RegisterAsyncPostBackControl(System.Web.UI.Control)
   id: RegisterAsyncPostBackControl(System.Web.UI.Control)
@@ -2360,7 +2262,7 @@ items:
   - csharp
   name: RegisterAsyncPostBackControl(Control)
   nameWithType: ScriptManager.RegisterAsyncPostBackControl(Control)
-  fullName: System.Web.UI.ScriptManager.RegisterAsyncPostBackControl(Control)
+  fullName: ScriptManager.RegisterAsyncPostBackControl(Control)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -2400,8 +2302,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterClientScriptBlock(System.Web.UI.Control,System.Type,System.String,System.String,System.Boolean)
   commentId: M:System.Web.UI.ScriptManager.RegisterClientScriptBlock(System.Web.UI.Control,System.Type,System.String,System.String,System.Boolean)
   id: RegisterClientScriptBlock(System.Web.UI.Control,System.Type,System.String,System.String,System.Boolean)
@@ -2410,7 +2310,7 @@ items:
   - csharp
   name: RegisterClientScriptBlock(Control, Type, String, String, Boolean)
   nameWithType: ScriptManager.RegisterClientScriptBlock(Control, Type, String, String, Boolean)
-  fullName: System.Web.UI.ScriptManager.RegisterClientScriptBlock(Control, Type, String, String, Boolean)
+  fullName: ScriptManager.RegisterClientScriptBlock(Control, Type, String, String, Boolean)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -2462,8 +2362,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterClientScriptBlock(System.Web.UI.Page,System.Type,System.String,System.String,System.Boolean)
   commentId: M:System.Web.UI.ScriptManager.RegisterClientScriptBlock(System.Web.UI.Page,System.Type,System.String,System.String,System.Boolean)
   id: RegisterClientScriptBlock(System.Web.UI.Page,System.Type,System.String,System.String,System.Boolean)
@@ -2472,7 +2370,7 @@ items:
   - csharp
   name: RegisterClientScriptBlock(Page, Type, String, String, Boolean)
   nameWithType: ScriptManager.RegisterClientScriptBlock(Page, Type, String, String, Boolean)
-  fullName: System.Web.UI.ScriptManager.RegisterClientScriptBlock(Page, Type, String, String, Boolean)
+  fullName: ScriptManager.RegisterClientScriptBlock(Page, Type, String, String, Boolean)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -2519,8 +2417,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterClientScriptInclude(System.Web.UI.Control,System.Type,System.String,System.String)
   commentId: M:System.Web.UI.ScriptManager.RegisterClientScriptInclude(System.Web.UI.Control,System.Type,System.String,System.String)
   id: RegisterClientScriptInclude(System.Web.UI.Control,System.Type,System.String,System.String)
@@ -2529,7 +2425,7 @@ items:
   - csharp
   name: RegisterClientScriptInclude(Control, Type, String, String)
   nameWithType: ScriptManager.RegisterClientScriptInclude(Control, Type, String, String)
-  fullName: System.Web.UI.ScriptManager.RegisterClientScriptInclude(Control, Type, String, String)
+  fullName: ScriptManager.RegisterClientScriptInclude(Control, Type, String, String)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -2578,8 +2474,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterClientScriptInclude(System.Web.UI.Page,System.Type,System.String,System.String)
   commentId: M:System.Web.UI.ScriptManager.RegisterClientScriptInclude(System.Web.UI.Page,System.Type,System.String,System.String)
   id: RegisterClientScriptInclude(System.Web.UI.Page,System.Type,System.String,System.String)
@@ -2588,7 +2482,7 @@ items:
   - csharp
   name: RegisterClientScriptInclude(Page, Type, String, String)
   nameWithType: ScriptManager.RegisterClientScriptInclude(Page, Type, String, String)
-  fullName: System.Web.UI.ScriptManager.RegisterClientScriptInclude(Page, Type, String, String)
+  fullName: ScriptManager.RegisterClientScriptInclude(Page, Type, String, String)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -2635,8 +2529,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterClientScriptResource(System.Web.UI.Page,System.Type,System.String)
   commentId: M:System.Web.UI.ScriptManager.RegisterClientScriptResource(System.Web.UI.Page,System.Type,System.String)
   id: RegisterClientScriptResource(System.Web.UI.Page,System.Type,System.String)
@@ -2645,7 +2537,7 @@ items:
   - csharp
   name: RegisterClientScriptResource(Page, Type, String)
   nameWithType: ScriptManager.RegisterClientScriptResource(Page, Type, String)
-  fullName: System.Web.UI.ScriptManager.RegisterClientScriptResource(Page, Type, String)
+  fullName: ScriptManager.RegisterClientScriptResource(Page, Type, String)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -2686,8 +2578,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterClientScriptResource(System.Web.UI.Control,System.Type,System.String)
   commentId: M:System.Web.UI.ScriptManager.RegisterClientScriptResource(System.Web.UI.Control,System.Type,System.String)
   id: RegisterClientScriptResource(System.Web.UI.Control,System.Type,System.String)
@@ -2696,7 +2586,7 @@ items:
   - csharp
   name: RegisterClientScriptResource(Control, Type, String)
   nameWithType: ScriptManager.RegisterClientScriptResource(Control, Type, String)
-  fullName: System.Web.UI.ScriptManager.RegisterClientScriptResource(Control, Type, String)
+  fullName: ScriptManager.RegisterClientScriptResource(Control, Type, String)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -2740,8 +2630,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterDataItem(System.Web.UI.Control,System.String)
   commentId: M:System.Web.UI.ScriptManager.RegisterDataItem(System.Web.UI.Control,System.String)
   id: RegisterDataItem(System.Web.UI.Control,System.String)
@@ -2750,7 +2638,7 @@ items:
   - csharp
   name: RegisterDataItem(Control, String)
   nameWithType: ScriptManager.RegisterDataItem(Control, String)
-  fullName: System.Web.UI.ScriptManager.RegisterDataItem(Control, String)
+  fullName: ScriptManager.RegisterDataItem(Control, String)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -2796,8 +2684,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterDataItem(System.Web.UI.Control,System.String,System.Boolean)
   commentId: M:System.Web.UI.ScriptManager.RegisterDataItem(System.Web.UI.Control,System.String,System.Boolean)
   id: RegisterDataItem(System.Web.UI.Control,System.String,System.Boolean)
@@ -2806,7 +2692,7 @@ items:
   - csharp
   name: RegisterDataItem(Control, String, Boolean)
   nameWithType: ScriptManager.RegisterDataItem(Control, String, Boolean)
-  fullName: System.Web.UI.ScriptManager.RegisterDataItem(Control, String, Boolean)
+  fullName: ScriptManager.RegisterDataItem(Control, String, Boolean)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -2855,8 +2741,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterDispose(System.Web.UI.Control,System.String)
   commentId: M:System.Web.UI.ScriptManager.RegisterDispose(System.Web.UI.Control,System.String)
   id: RegisterDispose(System.Web.UI.Control,System.String)
@@ -2865,7 +2749,7 @@ items:
   - csharp
   name: RegisterDispose(Control, String)
   nameWithType: ScriptManager.RegisterDispose(Control, String)
-  fullName: System.Web.UI.ScriptManager.RegisterDispose(Control, String)
+  fullName: ScriptManager.RegisterDispose(Control, String)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -2906,8 +2790,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterExpandoAttribute(System.Web.UI.Control,System.String,System.String,System.String,System.Boolean)
   commentId: M:System.Web.UI.ScriptManager.RegisterExpandoAttribute(System.Web.UI.Control,System.String,System.String,System.String,System.Boolean)
   id: RegisterExpandoAttribute(System.Web.UI.Control,System.String,System.String,System.String,System.Boolean)
@@ -2916,7 +2798,7 @@ items:
   - csharp
   name: RegisterExpandoAttribute(Control, String, String, String, Boolean)
   nameWithType: ScriptManager.RegisterExpandoAttribute(Control, String, String, String, Boolean)
-  fullName: System.Web.UI.ScriptManager.RegisterExpandoAttribute(Control, String, String, String, Boolean)
+  fullName: ScriptManager.RegisterExpandoAttribute(Control, String, String, String, Boolean)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -2966,8 +2848,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterExtenderControl``1(``0,System.Web.UI.Control)
   commentId: M:System.Web.UI.ScriptManager.RegisterExtenderControl``1(``0,System.Web.UI.Control)
   id: RegisterExtenderControl``1(``0,System.Web.UI.Control)
@@ -2976,7 +2856,7 @@ items:
   - csharp
   name: RegisterExtenderControl<TExtenderControl>(TExtenderControl, Control)
   nameWithType: ScriptManager.RegisterExtenderControl<TExtenderControl>(TExtenderControl, Control)
-  fullName: System.Web.UI.ScriptManager.RegisterExtenderControl<TExtenderControl>(TExtenderControl, Control)
+  fullName: ScriptManager.RegisterExtenderControl<TExtenderControl>(TExtenderControl, Control)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -2992,6 +2872,9 @@ items:
     - id: targetControl
       type: System.Web.UI.Control
       description: The script control that the extender control extends.
+    typeParameters:
+    - id: TExtenderControl
+      description: A control that implements the <xref href="System.Web.UI.IExtenderControl"></xref> interface.
   overload: System.Web.UI.ScriptManager.RegisterExtenderControl``1*
   exceptions:
   - type: System.ArgumentNullException
@@ -3014,8 +2897,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterHiddenField(System.Web.UI.Control,System.String,System.String)
   commentId: M:System.Web.UI.ScriptManager.RegisterHiddenField(System.Web.UI.Control,System.String,System.String)
   id: RegisterHiddenField(System.Web.UI.Control,System.String,System.String)
@@ -3024,7 +2905,7 @@ items:
   - csharp
   name: RegisterHiddenField(Control, String, String)
   nameWithType: ScriptManager.RegisterHiddenField(Control, String, String)
-  fullName: System.Web.UI.ScriptManager.RegisterHiddenField(Control, String, String)
+  fullName: ScriptManager.RegisterHiddenField(Control, String, String)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -3068,8 +2949,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterHiddenField(System.Web.UI.Page,System.String,System.String)
   commentId: M:System.Web.UI.ScriptManager.RegisterHiddenField(System.Web.UI.Page,System.String,System.String)
   id: RegisterHiddenField(System.Web.UI.Page,System.String,System.String)
@@ -3078,7 +2957,7 @@ items:
   - csharp
   name: RegisterHiddenField(Page, String, String)
   nameWithType: ScriptManager.RegisterHiddenField(Page, String, String)
-  fullName: System.Web.UI.ScriptManager.RegisterHiddenField(Page, String, String)
+  fullName: ScriptManager.RegisterHiddenField(Page, String, String)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -3119,8 +2998,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterNamedClientScriptResource(System.Web.UI.Control,System.String)
   commentId: M:System.Web.UI.ScriptManager.RegisterNamedClientScriptResource(System.Web.UI.Control,System.String)
   id: RegisterNamedClientScriptResource(System.Web.UI.Control,System.String)
@@ -3129,7 +3006,7 @@ items:
   - csharp
   name: RegisterNamedClientScriptResource(Control, String)
   nameWithType: ScriptManager.RegisterNamedClientScriptResource(Control, String)
-  fullName: System.Web.UI.ScriptManager.RegisterNamedClientScriptResource(Control, String)
+  fullName: ScriptManager.RegisterNamedClientScriptResource(Control, String)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -3163,8 +3040,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterNamedClientScriptResource(System.Web.UI.Page,System.String)
   commentId: M:System.Web.UI.ScriptManager.RegisterNamedClientScriptResource(System.Web.UI.Page,System.String)
   id: RegisterNamedClientScriptResource(System.Web.UI.Page,System.String)
@@ -3173,7 +3048,7 @@ items:
   - csharp
   name: RegisterNamedClientScriptResource(Page, String)
   nameWithType: ScriptManager.RegisterNamedClientScriptResource(Page, String)
-  fullName: System.Web.UI.ScriptManager.RegisterNamedClientScriptResource(Page, String)
+  fullName: ScriptManager.RegisterNamedClientScriptResource(Page, String)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -3207,8 +3082,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterOnSubmitStatement(System.Web.UI.Page,System.Type,System.String,System.String)
   commentId: M:System.Web.UI.ScriptManager.RegisterOnSubmitStatement(System.Web.UI.Page,System.Type,System.String,System.String)
   id: RegisterOnSubmitStatement(System.Web.UI.Page,System.Type,System.String,System.String)
@@ -3217,7 +3090,7 @@ items:
   - csharp
   name: RegisterOnSubmitStatement(Page, Type, String, String)
   nameWithType: ScriptManager.RegisterOnSubmitStatement(Page, Type, String, String)
-  fullName: System.Web.UI.ScriptManager.RegisterOnSubmitStatement(Page, Type, String, String)
+  fullName: ScriptManager.RegisterOnSubmitStatement(Page, Type, String, String)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -3261,8 +3134,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterOnSubmitStatement(System.Web.UI.Control,System.Type,System.String,System.String)
   commentId: M:System.Web.UI.ScriptManager.RegisterOnSubmitStatement(System.Web.UI.Control,System.Type,System.String,System.String)
   id: RegisterOnSubmitStatement(System.Web.UI.Control,System.Type,System.String,System.String)
@@ -3271,7 +3142,7 @@ items:
   - csharp
   name: RegisterOnSubmitStatement(Control, Type, String, String)
   nameWithType: ScriptManager.RegisterOnSubmitStatement(Control, Type, String, String)
-  fullName: System.Web.UI.ScriptManager.RegisterOnSubmitStatement(Control, Type, String, String)
+  fullName: ScriptManager.RegisterOnSubmitStatement(Control, Type, String, String)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -3318,8 +3189,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterPostBackControl(System.Web.UI.Control)
   commentId: M:System.Web.UI.ScriptManager.RegisterPostBackControl(System.Web.UI.Control)
   id: RegisterPostBackControl(System.Web.UI.Control)
@@ -3328,7 +3197,7 @@ items:
   - csharp
   name: RegisterPostBackControl(Control)
   nameWithType: ScriptManager.RegisterPostBackControl(Control)
-  fullName: System.Web.UI.ScriptManager.RegisterPostBackControl(Control)
+  fullName: ScriptManager.RegisterPostBackControl(Control)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -3360,8 +3229,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterScriptControl``1(``0)
   commentId: M:System.Web.UI.ScriptManager.RegisterScriptControl``1(``0)
   id: RegisterScriptControl``1(``0)
@@ -3370,7 +3237,7 @@ items:
   - csharp
   name: RegisterScriptControl<TScriptControl>(TScriptControl)
   nameWithType: ScriptManager.RegisterScriptControl<TScriptControl>(TScriptControl)
-  fullName: System.Web.UI.ScriptManager.RegisterScriptControl<TScriptControl>(TScriptControl)
+  fullName: ScriptManager.RegisterScriptControl<TScriptControl>(TScriptControl)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -3383,6 +3250,9 @@ items:
     - id: scriptControl
       type: TScriptControl
       description: The script control to register.
+    typeParameters:
+    - id: TScriptControl
+      description: A control that implements the <xref href="System.Web.UI.IScriptControl"></xref> interface.
   overload: System.Web.UI.ScriptManager.RegisterScriptControl``1*
   exceptions:
   - type: System.ArgumentNullException
@@ -3405,8 +3275,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterScriptDescriptors(System.Web.UI.IExtenderControl)
   commentId: M:System.Web.UI.ScriptManager.RegisterScriptDescriptors(System.Web.UI.IExtenderControl)
   id: RegisterScriptDescriptors(System.Web.UI.IExtenderControl)
@@ -3415,7 +3283,7 @@ items:
   - csharp
   name: RegisterScriptDescriptors(IExtenderControl)
   nameWithType: ScriptManager.RegisterScriptDescriptors(IExtenderControl)
-  fullName: System.Web.UI.ScriptManager.RegisterScriptDescriptors(IExtenderControl)
+  fullName: ScriptManager.RegisterScriptDescriptors(IExtenderControl)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -3447,8 +3315,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterScriptDescriptors(System.Web.UI.IScriptControl)
   commentId: M:System.Web.UI.ScriptManager.RegisterScriptDescriptors(System.Web.UI.IScriptControl)
   id: RegisterScriptDescriptors(System.Web.UI.IScriptControl)
@@ -3457,7 +3323,7 @@ items:
   - csharp
   name: RegisterScriptDescriptors(IScriptControl)
   nameWithType: ScriptManager.RegisterScriptDescriptors(IScriptControl)
-  fullName: System.Web.UI.ScriptManager.RegisterScriptDescriptors(IScriptControl)
+  fullName: ScriptManager.RegisterScriptDescriptors(IScriptControl)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -3489,8 +3355,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterStartupScript(System.Web.UI.Control,System.Type,System.String,System.String,System.Boolean)
   commentId: M:System.Web.UI.ScriptManager.RegisterStartupScript(System.Web.UI.Control,System.Type,System.String,System.String,System.Boolean)
   id: RegisterStartupScript(System.Web.UI.Control,System.Type,System.String,System.String,System.Boolean)
@@ -3499,7 +3363,7 @@ items:
   - csharp
   name: RegisterStartupScript(Control, Type, String, String, Boolean)
   nameWithType: ScriptManager.RegisterStartupScript(Control, Type, String, String, Boolean)
-  fullName: System.Web.UI.ScriptManager.RegisterStartupScript(Control, Type, String, String, Boolean)
+  fullName: ScriptManager.RegisterStartupScript(Control, Type, String, String, Boolean)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -3549,8 +3413,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RegisterStartupScript(System.Web.UI.Page,System.Type,System.String,System.String,System.Boolean)
   commentId: M:System.Web.UI.ScriptManager.RegisterStartupScript(System.Web.UI.Page,System.Type,System.String,System.String,System.Boolean)
   id: RegisterStartupScript(System.Web.UI.Page,System.Type,System.String,System.String,System.Boolean)
@@ -3559,7 +3421,7 @@ items:
   - csharp
   name: RegisterStartupScript(Page, Type, String, String, Boolean)
   nameWithType: ScriptManager.RegisterStartupScript(Page, Type, String, String, Boolean)
-  fullName: System.Web.UI.ScriptManager.RegisterStartupScript(Page, Type, String, String, Boolean)
+  fullName: ScriptManager.RegisterStartupScript(Page, Type, String, String, Boolean)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -3603,8 +3465,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.Render(System.Web.UI.HtmlTextWriter)
   commentId: M:System.Web.UI.ScriptManager.Render(System.Web.UI.HtmlTextWriter)
   id: Render(System.Web.UI.HtmlTextWriter)
@@ -3613,7 +3473,7 @@ items:
   - csharp
   name: Render(HtmlTextWriter)
   nameWithType: ScriptManager.Render(HtmlTextWriter)
-  fullName: System.Web.UI.ScriptManager.Render(HtmlTextWriter)
+  fullName: ScriptManager.Render(HtmlTextWriter)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -3645,8 +3505,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.ResolveCompositeScriptReference
   commentId: E:System.Web.UI.ScriptManager.ResolveCompositeScriptReference
   id: ResolveCompositeScriptReference
@@ -3655,7 +3513,7 @@ items:
   - csharp
   name: ResolveCompositeScriptReference
   nameWithType: ScriptManager.ResolveCompositeScriptReference
-  fullName: System.Web.UI.ScriptManager.ResolveCompositeScriptReference
+  fullName: ScriptManager.ResolveCompositeScriptReference
   type: Event
   assemblies:
   - System.Web.Extensions
@@ -3685,8 +3543,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.ResolveScriptReference
   commentId: E:System.Web.UI.ScriptManager.ResolveScriptReference
   id: ResolveScriptReference
@@ -3695,7 +3551,7 @@ items:
   - csharp
   name: ResolveScriptReference
   nameWithType: ScriptManager.ResolveScriptReference
-  fullName: System.Web.UI.ScriptManager.ResolveScriptReference
+  fullName: ScriptManager.ResolveScriptReference
   type: Event
   assemblies:
   - System.Web.Extensions
@@ -3726,8 +3582,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.RoleService
   commentId: P:System.Web.UI.ScriptManager.RoleService
   id: RoleService
@@ -3736,7 +3590,7 @@ items:
   - csharp
   name: RoleService
   nameWithType: ScriptManager.RoleService
-  fullName: System.Web.UI.ScriptManager.RoleService
+  fullName: ScriptManager.RoleService
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -3772,8 +3626,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.ScriptMode
   commentId: P:System.Web.UI.ScriptManager.ScriptMode
   id: ScriptMode
@@ -3782,13 +3634,13 @@ items:
   - csharp
   name: ScriptMode
   nameWithType: ScriptManager.ScriptMode
-  fullName: System.Web.UI.ScriptManager.ScriptMode
+  fullName: ScriptManager.ScriptMode
   type: Property
   assemblies:
   - System.Web.Extensions
   namespace: System.Web.UI
   summary: Gets or sets a value that specifies whether debug or release versions of client script libraries are rendered.
-  remarks: "The <xref:System.Web.UI.ScriptManager.ScriptMode%2A> property specifies whether the <xref:System.Web.UI.ScriptManager> control should render debug or release versions of client script libraries. This value can be superseded by values that are set in the configuration file and in the page directive.  \n  \n The following table lists the valid values for this property.  \n  \n|Value|Definition|  \n|-----------|----------------|  \n|<xref:System.Web.UI.ScriptMode>|Debug versions of client script libraries are used in the Web page when the `retail` attribute of the  configuration element is set to `false`. Otherwise, the release versions of client script libraries are used.|  \n|<xref:System.Web.UI.ScriptMode>|When applied to the <xref:System.Web.UI.ScriptManager.ScriptMode%2A> property of the <xref:System.Web.UI.ScriptManager> object, this value is the same as <xref:System.Web.UI.ScriptMode>.|  \n|<xref:System.Web.UI.ScriptMode>|Debug versions of client script libraries are used in the Web page unless the `retail` attribute of the  configuration element is set to `true`.|  \n|<xref:System.Web.UI.ScriptMode>|Release versions of client script libraries are used in the Web page unless the `retail` attribute of the  configuration element is set to `false`.|  \n  \n> [!NOTE]\n>  The `debug` attribute of the  directive does not affect Ajax-enabled ASP.NET applications. The <xref:System.Web.UI.ScriptManager> control uses only the settings in the Web.config file and in its <xref:System.Web.UI.ScriptManager.IsDebuggingEnabled%2A> and <xref:System.Web.UI.ScriptManager.ScriptMode%2A> properties to determine whether to render debug scripts.  \n  \n For more information, see [Debugging and Tracing Ajax Applications Overview](http://msdn.microsoft.com/library/92684ea0-7bb4-4a34-9203-3aa6394ce375)."
+  remarks: "The <xref:System.Web.UI.ScriptManager.ScriptMode%2A> property specifies whether the <xref:System.Web.UI.ScriptManager> control should render debug or release versions of client script libraries. This value can be superseded by values that are set in the configuration file and in the page directive.  \n  \n The following table lists the valid values for this property.  \n  \n|Value|Definition|  \n|-----------|----------------|  \n|<xref:System.Web.UI.ScriptMode.Auto>|Debug versions of client script libraries are used in the Web page when the `retail` attribute of the  configuration element is set to `false`. Otherwise, the release versions of client script libraries are used.|  \n|<xref:System.Web.UI.ScriptMode.Inherit>|When applied to the <xref:System.Web.UI.ScriptManager.ScriptMode%2A> property of the <xref:System.Web.UI.ScriptManager> object, this value is the same as <xref:System.Web.UI.ScriptMode.Auto>.|  \n|<xref:System.Web.UI.ScriptMode.Debug>|Debug versions of client script libraries are used in the Web page unless the `retail` attribute of the  configuration element is set to `true`.|  \n|<xref:System.Web.UI.ScriptMode.Release>|Release versions of client script libraries are used in the Web page unless the `retail` attribute of the  configuration element is set to `false`.|  \n  \n> [!NOTE]\n>  The `debug` attribute of the  directive does not affect Ajax-enabled ASP.NET applications. The <xref:System.Web.UI.ScriptManager> control uses only the settings in the Web.config file and in its <xref:System.Web.UI.ScriptManager.IsDebuggingEnabled%2A> and <xref:System.Web.UI.ScriptManager.ScriptMode%2A> properties to determine whether to render debug scripts.  \n  \n For more information, see [Debugging and Tracing Ajax Applications Overview](http://msdn.microsoft.com/library/92684ea0-7bb4-4a34-9203-3aa6394ce375)."
   syntax:
     content: public System.Web.UI.ScriptMode ScriptMode { get; set; }
     return:
@@ -3817,8 +3669,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.ScriptPath
   commentId: P:System.Web.UI.ScriptManager.ScriptPath
   id: ScriptPath
@@ -3827,7 +3677,7 @@ items:
   - csharp
   name: ScriptPath
   nameWithType: ScriptManager.ScriptPath
-  fullName: System.Web.UI.ScriptManager.ScriptPath
+  fullName: ScriptManager.ScriptPath
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -3863,8 +3713,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.ScriptResourceMapping
   commentId: P:System.Web.UI.ScriptManager.ScriptResourceMapping
   id: ScriptResourceMapping
@@ -3873,7 +3721,7 @@ items:
   - csharp
   name: ScriptResourceMapping
   nameWithType: ScriptManager.ScriptResourceMapping
-  fullName: System.Web.UI.ScriptManager.ScriptResourceMapping
+  fullName: ScriptManager.ScriptResourceMapping
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -3906,8 +3754,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.Scripts
   commentId: P:System.Web.UI.ScriptManager.Scripts
   id: Scripts
@@ -3916,7 +3762,7 @@ items:
   - csharp
   name: Scripts
   nameWithType: ScriptManager.Scripts
-  fullName: System.Web.UI.ScriptManager.Scripts
+  fullName: ScriptManager.Scripts
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -3952,8 +3798,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.Services
   commentId: P:System.Web.UI.ScriptManager.Services
   id: Services
@@ -3962,7 +3806,7 @@ items:
   - csharp
   name: Services
   nameWithType: ScriptManager.Services
-  fullName: System.Web.UI.ScriptManager.Services
+  fullName: ScriptManager.Services
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -3998,8 +3842,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.SetFocus(System.String)
   commentId: M:System.Web.UI.ScriptManager.SetFocus(System.String)
   id: SetFocus(System.String)
@@ -4008,7 +3850,7 @@ items:
   - csharp
   name: SetFocus(String)
   nameWithType: ScriptManager.SetFocus(String)
-  fullName: System.Web.UI.ScriptManager.SetFocus(String)
+  fullName: ScriptManager.SetFocus(String)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -4040,8 +3882,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.SetFocus(System.Web.UI.Control)
   commentId: M:System.Web.UI.ScriptManager.SetFocus(System.Web.UI.Control)
   id: SetFocus(System.Web.UI.Control)
@@ -4050,7 +3890,7 @@ items:
   - csharp
   name: SetFocus(Control)
   nameWithType: ScriptManager.SetFocus(Control)
-  fullName: System.Web.UI.ScriptManager.SetFocus(Control)
+  fullName: ScriptManager.SetFocus(Control)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -4082,8 +3922,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.SupportsPartialRendering
   commentId: P:System.Web.UI.ScriptManager.SupportsPartialRendering
   id: SupportsPartialRendering
@@ -4092,7 +3930,7 @@ items:
   - csharp
   name: SupportsPartialRendering
   nameWithType: ScriptManager.SupportsPartialRendering
-  fullName: System.Web.UI.ScriptManager.SupportsPartialRendering
+  fullName: ScriptManager.SupportsPartialRendering
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -4131,8 +3969,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.Visible
   commentId: P:System.Web.UI.ScriptManager.Visible
   id: Visible
@@ -4141,7 +3977,7 @@ items:
   - csharp
   name: Visible
   nameWithType: ScriptManager.Visible
-  fullName: System.Web.UI.ScriptManager.Visible
+  fullName: ScriptManager.Visible
   type: Property
   assemblies:
   - System.Web.Extensions
@@ -4180,8 +4016,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.System#Web#UI#IPostBackDataHandler#LoadPostData(System.String,System.Collections.Specialized.NameValueCollection)
   commentId: M:System.Web.UI.ScriptManager.System#Web#UI#IPostBackDataHandler#LoadPostData(System.String,System.Collections.Specialized.NameValueCollection)
   id: System#Web#UI#IPostBackDataHandler#LoadPostData(System.String,System.Collections.Specialized.NameValueCollection)
@@ -4191,7 +4025,7 @@ items:
   - csharp
   name: IPostBackDataHandler.LoadPostData(String, NameValueCollection)
   nameWithType: ScriptManager.IPostBackDataHandler.LoadPostData(String, NameValueCollection)
-  fullName: System.Web.UI.ScriptManager.IPostBackDataHandler.LoadPostData(String, NameValueCollection)
+  fullName: ScriptManager.IPostBackDataHandler.LoadPostData(String, NameValueCollection)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -4209,7 +4043,7 @@ items:
       description: A collection of all incoming post data.
     return:
       type: System.Boolean
-      description: '`true` if the <xref href="System.Web.UI.ScriptManager"></xref> control''s state has changed as a result of a postback; otherwise, `false`.'
+      description: "`true` if the <xref href=\"System.Web.UI.ScriptManager\"></xref> control's state has changed as a result of a postback; otherwise, `false`."
   overload: System.Web.UI.ScriptManager.System#Web#UI#IPostBackDataHandler#LoadPostData*
   exceptions: []
   version:
@@ -4229,8 +4063,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.System#Web#UI#IPostBackDataHandler#RaisePostDataChangedEvent
   commentId: M:System.Web.UI.ScriptManager.System#Web#UI#IPostBackDataHandler#RaisePostDataChangedEvent
   id: System#Web#UI#IPostBackDataHandler#RaisePostDataChangedEvent
@@ -4240,7 +4072,7 @@ items:
   - csharp
   name: IPostBackDataHandler.RaisePostDataChangedEvent()
   nameWithType: ScriptManager.IPostBackDataHandler.RaisePostDataChangedEvent()
-  fullName: System.Web.UI.ScriptManager.IPostBackDataHandler.RaisePostDataChangedEvent()
+  fullName: ScriptManager.IPostBackDataHandler.RaisePostDataChangedEvent()
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -4269,8 +4101,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.UI.ScriptManager.System#Web#UI#IPostBackEventHandler#RaisePostBackEvent(System.String)
   commentId: M:System.Web.UI.ScriptManager.System#Web#UI#IPostBackEventHandler#RaisePostBackEvent(System.String)
   id: System#Web#UI#IPostBackEventHandler#RaisePostBackEvent(System.String)
@@ -4280,7 +4110,7 @@ items:
   - csharp
   name: IPostBackEventHandler.RaisePostBackEvent(String)
   nameWithType: ScriptManager.IPostBackEventHandler.RaisePostBackEvent(String)
-  fullName: System.Web.UI.ScriptManager.IPostBackEventHandler.RaisePostBackEvent(String)
+  fullName: ScriptManager.IPostBackEventHandler.RaisePostBackEvent(String)
   type: Method
   assemblies:
   - System.Web.Extensions
@@ -4311,8 +4141,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI/ScriptManager.xml
-  ms.author: riande
-  manager: wpickett
 references:
 - uid: System.Web.UI.Control
   parent: System.Web.UI
@@ -4355,13 +4183,13 @@ references:
   isExternal: false
   name: ScriptManager()
   nameWithType: ScriptManager.ScriptManager()
-  fullName: System.Web.UI.ScriptManager.ScriptManager()
+  fullName: ScriptManager.ScriptManager()
 - uid: System.Web.UI.ScriptManager.AddHistoryPoint(System.Collections.Specialized.NameValueCollection,System.String)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: AddHistoryPoint(NameValueCollection, String)
   nameWithType: ScriptManager.AddHistoryPoint(NameValueCollection, String)
-  fullName: System.Web.UI.ScriptManager.AddHistoryPoint(NameValueCollection, String)
+  fullName: ScriptManager.AddHistoryPoint(NameValueCollection, String)
 - uid: System.Collections.Specialized.NameValueCollection
   parent: System.Collections.Specialized
   isExternal: false
@@ -4379,19 +4207,19 @@ references:
   isExternal: false
   name: AddHistoryPoint(String, String)
   nameWithType: ScriptManager.AddHistoryPoint(String, String)
-  fullName: System.Web.UI.ScriptManager.AddHistoryPoint(String, String)
+  fullName: ScriptManager.AddHistoryPoint(String, String)
 - uid: System.Web.UI.ScriptManager.AddHistoryPoint(System.String,System.String,System.String)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: AddHistoryPoint(String, String, String)
   nameWithType: ScriptManager.AddHistoryPoint(String, String, String)
-  fullName: System.Web.UI.ScriptManager.AddHistoryPoint(String, String, String)
+  fullName: ScriptManager.AddHistoryPoint(String, String, String)
 - uid: System.Web.UI.ScriptManager.AjaxFrameworkAssembly
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: AjaxFrameworkAssembly
   nameWithType: ScriptManager.AjaxFrameworkAssembly
-  fullName: System.Web.UI.ScriptManager.AjaxFrameworkAssembly
+  fullName: ScriptManager.AjaxFrameworkAssembly
 - uid: System.Reflection.Assembly
   parent: System.Reflection
   isExternal: false
@@ -4403,7 +4231,7 @@ references:
   isExternal: false
   name: AjaxFrameworkMode
   nameWithType: ScriptManager.AjaxFrameworkMode
-  fullName: System.Web.UI.ScriptManager.AjaxFrameworkMode
+  fullName: ScriptManager.AjaxFrameworkMode
 - uid: System.Web.UI.AjaxFrameworkMode
   parent: System.Web.UI
   isExternal: false
@@ -4415,7 +4243,7 @@ references:
   isExternal: false
   name: AllowCustomErrorsRedirect
   nameWithType: ScriptManager.AllowCustomErrorsRedirect
-  fullName: System.Web.UI.ScriptManager.AllowCustomErrorsRedirect
+  fullName: ScriptManager.AllowCustomErrorsRedirect
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -4427,7 +4255,7 @@ references:
   isExternal: false
   name: AsyncPostBackError
   nameWithType: ScriptManager.AsyncPostBackError
-  fullName: System.Web.UI.ScriptManager.AsyncPostBackError
+  fullName: ScriptManager.AsyncPostBackError
 - uid: System.EventHandler`1
   name: EventHandler<TEventArgs>
   nameWithType: EventHandler<TEventArgs>
@@ -4462,19 +4290,19 @@ references:
   isExternal: false
   name: AsyncPostBackErrorMessage
   nameWithType: ScriptManager.AsyncPostBackErrorMessage
-  fullName: System.Web.UI.ScriptManager.AsyncPostBackErrorMessage
+  fullName: ScriptManager.AsyncPostBackErrorMessage
 - uid: System.Web.UI.ScriptManager.AsyncPostBackSourceElementID
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: AsyncPostBackSourceElementID
   nameWithType: ScriptManager.AsyncPostBackSourceElementID
-  fullName: System.Web.UI.ScriptManager.AsyncPostBackSourceElementID
+  fullName: ScriptManager.AsyncPostBackSourceElementID
 - uid: System.Web.UI.ScriptManager.AsyncPostBackTimeout
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: AsyncPostBackTimeout
   nameWithType: ScriptManager.AsyncPostBackTimeout
-  fullName: System.Web.UI.ScriptManager.AsyncPostBackTimeout
+  fullName: ScriptManager.AsyncPostBackTimeout
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -4486,7 +4314,7 @@ references:
   isExternal: false
   name: AuthenticationService
   nameWithType: ScriptManager.AuthenticationService
-  fullName: System.Web.UI.ScriptManager.AuthenticationService
+  fullName: ScriptManager.AuthenticationService
 - uid: System.Web.UI.AuthenticationServiceManager
   parent: System.Web.UI
   isExternal: false
@@ -4498,13 +4326,13 @@ references:
   isExternal: false
   name: ClientNavigateHandler
   nameWithType: ScriptManager.ClientNavigateHandler
-  fullName: System.Web.UI.ScriptManager.ClientNavigateHandler
+  fullName: ScriptManager.ClientNavigateHandler
 - uid: System.Web.UI.ScriptManager.CompositeScript
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: CompositeScript
   nameWithType: ScriptManager.CompositeScript
-  fullName: System.Web.UI.ScriptManager.CompositeScript
+  fullName: ScriptManager.CompositeScript
 - uid: System.Web.UI.CompositeScriptReference
   parent: System.Web.UI
   isExternal: false
@@ -4516,61 +4344,61 @@ references:
   isExternal: false
   name: EmptyPageUrl
   nameWithType: ScriptManager.EmptyPageUrl
-  fullName: System.Web.UI.ScriptManager.EmptyPageUrl
+  fullName: ScriptManager.EmptyPageUrl
 - uid: System.Web.UI.ScriptManager.EnableCdn
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: EnableCdn
   nameWithType: ScriptManager.EnableCdn
-  fullName: System.Web.UI.ScriptManager.EnableCdn
+  fullName: ScriptManager.EnableCdn
 - uid: System.Web.UI.ScriptManager.EnableCdnFallback
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: EnableCdnFallback
   nameWithType: ScriptManager.EnableCdnFallback
-  fullName: System.Web.UI.ScriptManager.EnableCdnFallback
+  fullName: ScriptManager.EnableCdnFallback
 - uid: System.Web.UI.ScriptManager.EnableHistory
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: EnableHistory
   nameWithType: ScriptManager.EnableHistory
-  fullName: System.Web.UI.ScriptManager.EnableHistory
+  fullName: ScriptManager.EnableHistory
 - uid: System.Web.UI.ScriptManager.EnablePageMethods
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: EnablePageMethods
   nameWithType: ScriptManager.EnablePageMethods
-  fullName: System.Web.UI.ScriptManager.EnablePageMethods
+  fullName: ScriptManager.EnablePageMethods
 - uid: System.Web.UI.ScriptManager.EnablePartialRendering
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: EnablePartialRendering
   nameWithType: ScriptManager.EnablePartialRendering
-  fullName: System.Web.UI.ScriptManager.EnablePartialRendering
+  fullName: ScriptManager.EnablePartialRendering
 - uid: System.Web.UI.ScriptManager.EnableScriptGlobalization
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: EnableScriptGlobalization
   nameWithType: ScriptManager.EnableScriptGlobalization
-  fullName: System.Web.UI.ScriptManager.EnableScriptGlobalization
+  fullName: ScriptManager.EnableScriptGlobalization
 - uid: System.Web.UI.ScriptManager.EnableScriptLocalization
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: EnableScriptLocalization
   nameWithType: ScriptManager.EnableScriptLocalization
-  fullName: System.Web.UI.ScriptManager.EnableScriptLocalization
+  fullName: ScriptManager.EnableScriptLocalization
 - uid: System.Web.UI.ScriptManager.EnableSecureHistoryState
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: EnableSecureHistoryState
   nameWithType: ScriptManager.EnableSecureHistoryState
-  fullName: System.Web.UI.ScriptManager.EnableSecureHistoryState
+  fullName: ScriptManager.EnableSecureHistoryState
 - uid: System.Web.UI.ScriptManager.GetCurrent(System.Web.UI.Page)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: GetCurrent(Page)
   nameWithType: ScriptManager.GetCurrent(Page)
-  fullName: System.Web.UI.ScriptManager.GetCurrent(Page)
+  fullName: ScriptManager.GetCurrent(Page)
 - uid: System.Web.UI.ScriptManager
   parent: System.Web.UI
   isExternal: false
@@ -4588,7 +4416,7 @@ references:
   isExternal: false
   name: GetRegisteredArrayDeclarations()
   nameWithType: ScriptManager.GetRegisteredArrayDeclarations()
-  fullName: System.Web.UI.ScriptManager.GetRegisteredArrayDeclarations()
+  fullName: ScriptManager.GetRegisteredArrayDeclarations()
 - uid: System.Collections.ObjectModel.ReadOnlyCollection`1
   name: ReadOnlyCollection<T>
   nameWithType: ReadOnlyCollection<T>
@@ -4623,7 +4451,7 @@ references:
   isExternal: false
   name: GetRegisteredClientScriptBlocks()
   nameWithType: ScriptManager.GetRegisteredClientScriptBlocks()
-  fullName: System.Web.UI.ScriptManager.GetRegisteredClientScriptBlocks()
+  fullName: ScriptManager.GetRegisteredClientScriptBlocks()
 - uid: System.Web.UI.RegisteredScript
   name: RegisteredScript
   nameWithType: RegisteredScript
@@ -4654,7 +4482,7 @@ references:
   isExternal: false
   name: GetRegisteredDisposeScripts()
   nameWithType: ScriptManager.GetRegisteredDisposeScripts()
-  fullName: System.Web.UI.ScriptManager.GetRegisteredDisposeScripts()
+  fullName: ScriptManager.GetRegisteredDisposeScripts()
 - uid: System.Web.UI.RegisteredDisposeScript
   name: RegisteredDisposeScript
   nameWithType: RegisteredDisposeScript
@@ -4685,7 +4513,7 @@ references:
   isExternal: false
   name: GetRegisteredExpandoAttributes()
   nameWithType: ScriptManager.GetRegisteredExpandoAttributes()
-  fullName: System.Web.UI.ScriptManager.GetRegisteredExpandoAttributes()
+  fullName: ScriptManager.GetRegisteredExpandoAttributes()
 - uid: System.Web.UI.RegisteredExpandoAttribute
   name: RegisteredExpandoAttribute
   nameWithType: RegisteredExpandoAttribute
@@ -4716,7 +4544,7 @@ references:
   isExternal: false
   name: GetRegisteredHiddenFields()
   nameWithType: ScriptManager.GetRegisteredHiddenFields()
-  fullName: System.Web.UI.ScriptManager.GetRegisteredHiddenFields()
+  fullName: ScriptManager.GetRegisteredHiddenFields()
 - uid: System.Web.UI.RegisteredHiddenField
   name: RegisteredHiddenField
   nameWithType: RegisteredHiddenField
@@ -4747,55 +4575,55 @@ references:
   isExternal: false
   name: GetRegisteredOnSubmitStatements()
   nameWithType: ScriptManager.GetRegisteredOnSubmitStatements()
-  fullName: System.Web.UI.ScriptManager.GetRegisteredOnSubmitStatements()
+  fullName: ScriptManager.GetRegisteredOnSubmitStatements()
 - uid: System.Web.UI.ScriptManager.GetRegisteredStartupScripts
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: GetRegisteredStartupScripts()
   nameWithType: ScriptManager.GetRegisteredStartupScripts()
-  fullName: System.Web.UI.ScriptManager.GetRegisteredStartupScripts()
+  fullName: ScriptManager.GetRegisteredStartupScripts()
 - uid: System.Web.UI.ScriptManager.GetStateString
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: GetStateString()
   nameWithType: ScriptManager.GetStateString()
-  fullName: System.Web.UI.ScriptManager.GetStateString()
+  fullName: ScriptManager.GetStateString()
 - uid: System.Web.UI.ScriptManager.IsDebuggingEnabled
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: IsDebuggingEnabled
   nameWithType: ScriptManager.IsDebuggingEnabled
-  fullName: System.Web.UI.ScriptManager.IsDebuggingEnabled
+  fullName: ScriptManager.IsDebuggingEnabled
 - uid: System.Web.UI.ScriptManager.IsInAsyncPostBack
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: IsInAsyncPostBack
   nameWithType: ScriptManager.IsInAsyncPostBack
-  fullName: System.Web.UI.ScriptManager.IsInAsyncPostBack
+  fullName: ScriptManager.IsInAsyncPostBack
 - uid: System.Web.UI.ScriptManager.IsNavigating
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: IsNavigating
   nameWithType: ScriptManager.IsNavigating
-  fullName: System.Web.UI.ScriptManager.IsNavigating
+  fullName: ScriptManager.IsNavigating
 - uid: System.Web.UI.ScriptManager.LoadPostData(System.String,System.Collections.Specialized.NameValueCollection)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: LoadPostData(String, NameValueCollection)
   nameWithType: ScriptManager.LoadPostData(String, NameValueCollection)
-  fullName: System.Web.UI.ScriptManager.LoadPostData(String, NameValueCollection)
+  fullName: ScriptManager.LoadPostData(String, NameValueCollection)
 - uid: System.Web.UI.ScriptManager.LoadScriptsBeforeUI
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: LoadScriptsBeforeUI
   nameWithType: ScriptManager.LoadScriptsBeforeUI
-  fullName: System.Web.UI.ScriptManager.LoadScriptsBeforeUI
+  fullName: ScriptManager.LoadScriptsBeforeUI
 - uid: System.Web.UI.ScriptManager.Navigate
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: Navigate
   nameWithType: ScriptManager.Navigate
-  fullName: System.Web.UI.ScriptManager.Navigate
+  fullName: ScriptManager.Navigate
 - uid: System.Web.UI.HistoryEventArgs
   name: HistoryEventArgs
   nameWithType: HistoryEventArgs
@@ -4826,13 +4654,13 @@ references:
   isExternal: false
   name: OnAsyncPostBackError(AsyncPostBackErrorEventArgs)
   nameWithType: ScriptManager.OnAsyncPostBackError(AsyncPostBackErrorEventArgs)
-  fullName: System.Web.UI.ScriptManager.OnAsyncPostBackError(AsyncPostBackErrorEventArgs)
+  fullName: ScriptManager.OnAsyncPostBackError(AsyncPostBackErrorEventArgs)
 - uid: System.Web.UI.ScriptManager.OnInit(System.EventArgs)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: OnInit(EventArgs)
   nameWithType: ScriptManager.OnInit(EventArgs)
-  fullName: System.Web.UI.ScriptManager.OnInit(EventArgs)
+  fullName: ScriptManager.OnInit(EventArgs)
 - uid: System.EventArgs
   parent: System
   isExternal: false
@@ -4844,13 +4672,13 @@ references:
   isExternal: false
   name: OnPreRender(EventArgs)
   nameWithType: ScriptManager.OnPreRender(EventArgs)
-  fullName: System.Web.UI.ScriptManager.OnPreRender(EventArgs)
+  fullName: ScriptManager.OnPreRender(EventArgs)
 - uid: System.Web.UI.ScriptManager.OnResolveCompositeScriptReference(System.Web.UI.CompositeScriptReferenceEventArgs)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: OnResolveCompositeScriptReference(CompositeScriptReferenceEventArgs)
   nameWithType: ScriptManager.OnResolveCompositeScriptReference(CompositeScriptReferenceEventArgs)
-  fullName: System.Web.UI.ScriptManager.OnResolveCompositeScriptReference(CompositeScriptReferenceEventArgs)
+  fullName: ScriptManager.OnResolveCompositeScriptReference(CompositeScriptReferenceEventArgs)
 - uid: System.Web.UI.CompositeScriptReferenceEventArgs
   parent: System.Web.UI
   isExternal: false
@@ -4862,7 +4690,7 @@ references:
   isExternal: false
   name: OnResolveScriptReference(ScriptReferenceEventArgs)
   nameWithType: ScriptManager.OnResolveScriptReference(ScriptReferenceEventArgs)
-  fullName: System.Web.UI.ScriptManager.OnResolveScriptReference(ScriptReferenceEventArgs)
+  fullName: ScriptManager.OnResolveScriptReference(ScriptReferenceEventArgs)
 - uid: System.Web.UI.ScriptReferenceEventArgs
   parent: System.Web.UI
   isExternal: false
@@ -4874,7 +4702,7 @@ references:
   isExternal: false
   name: ProfileService
   nameWithType: ScriptManager.ProfileService
-  fullName: System.Web.UI.ScriptManager.ProfileService
+  fullName: ScriptManager.ProfileService
 - uid: System.Web.UI.ProfileServiceManager
   parent: System.Web.UI
   isExternal: false
@@ -4886,37 +4714,37 @@ references:
   isExternal: false
   name: RaisePostBackEvent(String)
   nameWithType: ScriptManager.RaisePostBackEvent(String)
-  fullName: System.Web.UI.ScriptManager.RaisePostBackEvent(String)
+  fullName: ScriptManager.RaisePostBackEvent(String)
 - uid: System.Web.UI.ScriptManager.RaisePostDataChangedEvent
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RaisePostDataChangedEvent()
   nameWithType: ScriptManager.RaisePostDataChangedEvent()
-  fullName: System.Web.UI.ScriptManager.RaisePostDataChangedEvent()
+  fullName: ScriptManager.RaisePostDataChangedEvent()
 - uid: System.Web.UI.ScriptManager.RegisterArrayDeclaration(System.Web.UI.Control,System.String,System.String)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RegisterArrayDeclaration(Control, String, String)
   nameWithType: ScriptManager.RegisterArrayDeclaration(Control, String, String)
-  fullName: System.Web.UI.ScriptManager.RegisterArrayDeclaration(Control, String, String)
+  fullName: ScriptManager.RegisterArrayDeclaration(Control, String, String)
 - uid: System.Web.UI.ScriptManager.RegisterArrayDeclaration(System.Web.UI.Page,System.String,System.String)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RegisterArrayDeclaration(Page, String, String)
   nameWithType: ScriptManager.RegisterArrayDeclaration(Page, String, String)
-  fullName: System.Web.UI.ScriptManager.RegisterArrayDeclaration(Page, String, String)
+  fullName: ScriptManager.RegisterArrayDeclaration(Page, String, String)
 - uid: System.Web.UI.ScriptManager.RegisterAsyncPostBackControl(System.Web.UI.Control)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RegisterAsyncPostBackControl(Control)
   nameWithType: ScriptManager.RegisterAsyncPostBackControl(Control)
-  fullName: System.Web.UI.ScriptManager.RegisterAsyncPostBackControl(Control)
+  fullName: ScriptManager.RegisterAsyncPostBackControl(Control)
 - uid: System.Web.UI.ScriptManager.RegisterClientScriptBlock(System.Web.UI.Control,System.Type,System.String,System.String,System.Boolean)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RegisterClientScriptBlock(Control, Type, String, String, Boolean)
   nameWithType: ScriptManager.RegisterClientScriptBlock(Control, Type, String, String, Boolean)
-  fullName: System.Web.UI.ScriptManager.RegisterClientScriptBlock(Control, Type, String, String, Boolean)
+  fullName: ScriptManager.RegisterClientScriptBlock(Control, Type, String, String, Boolean)
 - uid: System.Type
   parent: System
   isExternal: false
@@ -4928,61 +4756,61 @@ references:
   isExternal: false
   name: RegisterClientScriptBlock(Page, Type, String, String, Boolean)
   nameWithType: ScriptManager.RegisterClientScriptBlock(Page, Type, String, String, Boolean)
-  fullName: System.Web.UI.ScriptManager.RegisterClientScriptBlock(Page, Type, String, String, Boolean)
+  fullName: ScriptManager.RegisterClientScriptBlock(Page, Type, String, String, Boolean)
 - uid: System.Web.UI.ScriptManager.RegisterClientScriptInclude(System.Web.UI.Control,System.Type,System.String,System.String)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RegisterClientScriptInclude(Control, Type, String, String)
   nameWithType: ScriptManager.RegisterClientScriptInclude(Control, Type, String, String)
-  fullName: System.Web.UI.ScriptManager.RegisterClientScriptInclude(Control, Type, String, String)
+  fullName: ScriptManager.RegisterClientScriptInclude(Control, Type, String, String)
 - uid: System.Web.UI.ScriptManager.RegisterClientScriptInclude(System.Web.UI.Page,System.Type,System.String,System.String)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RegisterClientScriptInclude(Page, Type, String, String)
   nameWithType: ScriptManager.RegisterClientScriptInclude(Page, Type, String, String)
-  fullName: System.Web.UI.ScriptManager.RegisterClientScriptInclude(Page, Type, String, String)
+  fullName: ScriptManager.RegisterClientScriptInclude(Page, Type, String, String)
 - uid: System.Web.UI.ScriptManager.RegisterClientScriptResource(System.Web.UI.Page,System.Type,System.String)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RegisterClientScriptResource(Page, Type, String)
   nameWithType: ScriptManager.RegisterClientScriptResource(Page, Type, String)
-  fullName: System.Web.UI.ScriptManager.RegisterClientScriptResource(Page, Type, String)
+  fullName: ScriptManager.RegisterClientScriptResource(Page, Type, String)
 - uid: System.Web.UI.ScriptManager.RegisterClientScriptResource(System.Web.UI.Control,System.Type,System.String)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RegisterClientScriptResource(Control, Type, String)
   nameWithType: ScriptManager.RegisterClientScriptResource(Control, Type, String)
-  fullName: System.Web.UI.ScriptManager.RegisterClientScriptResource(Control, Type, String)
+  fullName: ScriptManager.RegisterClientScriptResource(Control, Type, String)
 - uid: System.Web.UI.ScriptManager.RegisterDataItem(System.Web.UI.Control,System.String)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RegisterDataItem(Control, String)
   nameWithType: ScriptManager.RegisterDataItem(Control, String)
-  fullName: System.Web.UI.ScriptManager.RegisterDataItem(Control, String)
+  fullName: ScriptManager.RegisterDataItem(Control, String)
 - uid: System.Web.UI.ScriptManager.RegisterDataItem(System.Web.UI.Control,System.String,System.Boolean)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RegisterDataItem(Control, String, Boolean)
   nameWithType: ScriptManager.RegisterDataItem(Control, String, Boolean)
-  fullName: System.Web.UI.ScriptManager.RegisterDataItem(Control, String, Boolean)
+  fullName: ScriptManager.RegisterDataItem(Control, String, Boolean)
 - uid: System.Web.UI.ScriptManager.RegisterDispose(System.Web.UI.Control,System.String)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RegisterDispose(Control, String)
   nameWithType: ScriptManager.RegisterDispose(Control, String)
-  fullName: System.Web.UI.ScriptManager.RegisterDispose(Control, String)
+  fullName: ScriptManager.RegisterDispose(Control, String)
 - uid: System.Web.UI.ScriptManager.RegisterExpandoAttribute(System.Web.UI.Control,System.String,System.String,System.String,System.Boolean)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RegisterExpandoAttribute(Control, String, String, String, Boolean)
   nameWithType: ScriptManager.RegisterExpandoAttribute(Control, String, String, String, Boolean)
-  fullName: System.Web.UI.ScriptManager.RegisterExpandoAttribute(Control, String, String, String, Boolean)
+  fullName: ScriptManager.RegisterExpandoAttribute(Control, String, String, String, Boolean)
 - uid: System.Web.UI.ScriptManager.RegisterExtenderControl``1(``0,System.Web.UI.Control)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RegisterExtenderControl<TExtenderControl>(TExtenderControl, Control)
   nameWithType: ScriptManager.RegisterExtenderControl<TExtenderControl>(TExtenderControl, Control)
-  fullName: System.Web.UI.ScriptManager.RegisterExtenderControl<TExtenderControl>(TExtenderControl, Control)
+  fullName: ScriptManager.RegisterExtenderControl<TExtenderControl>(TExtenderControl, Control)
 - uid: TExtenderControl
   isExternal: true
   name: TExtenderControl
@@ -4993,49 +4821,49 @@ references:
   isExternal: false
   name: RegisterHiddenField(Control, String, String)
   nameWithType: ScriptManager.RegisterHiddenField(Control, String, String)
-  fullName: System.Web.UI.ScriptManager.RegisterHiddenField(Control, String, String)
+  fullName: ScriptManager.RegisterHiddenField(Control, String, String)
 - uid: System.Web.UI.ScriptManager.RegisterHiddenField(System.Web.UI.Page,System.String,System.String)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RegisterHiddenField(Page, String, String)
   nameWithType: ScriptManager.RegisterHiddenField(Page, String, String)
-  fullName: System.Web.UI.ScriptManager.RegisterHiddenField(Page, String, String)
+  fullName: ScriptManager.RegisterHiddenField(Page, String, String)
 - uid: System.Web.UI.ScriptManager.RegisterNamedClientScriptResource(System.Web.UI.Control,System.String)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RegisterNamedClientScriptResource(Control, String)
   nameWithType: ScriptManager.RegisterNamedClientScriptResource(Control, String)
-  fullName: System.Web.UI.ScriptManager.RegisterNamedClientScriptResource(Control, String)
+  fullName: ScriptManager.RegisterNamedClientScriptResource(Control, String)
 - uid: System.Web.UI.ScriptManager.RegisterNamedClientScriptResource(System.Web.UI.Page,System.String)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RegisterNamedClientScriptResource(Page, String)
   nameWithType: ScriptManager.RegisterNamedClientScriptResource(Page, String)
-  fullName: System.Web.UI.ScriptManager.RegisterNamedClientScriptResource(Page, String)
+  fullName: ScriptManager.RegisterNamedClientScriptResource(Page, String)
 - uid: System.Web.UI.ScriptManager.RegisterOnSubmitStatement(System.Web.UI.Page,System.Type,System.String,System.String)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RegisterOnSubmitStatement(Page, Type, String, String)
   nameWithType: ScriptManager.RegisterOnSubmitStatement(Page, Type, String, String)
-  fullName: System.Web.UI.ScriptManager.RegisterOnSubmitStatement(Page, Type, String, String)
+  fullName: ScriptManager.RegisterOnSubmitStatement(Page, Type, String, String)
 - uid: System.Web.UI.ScriptManager.RegisterOnSubmitStatement(System.Web.UI.Control,System.Type,System.String,System.String)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RegisterOnSubmitStatement(Control, Type, String, String)
   nameWithType: ScriptManager.RegisterOnSubmitStatement(Control, Type, String, String)
-  fullName: System.Web.UI.ScriptManager.RegisterOnSubmitStatement(Control, Type, String, String)
+  fullName: ScriptManager.RegisterOnSubmitStatement(Control, Type, String, String)
 - uid: System.Web.UI.ScriptManager.RegisterPostBackControl(System.Web.UI.Control)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RegisterPostBackControl(Control)
   nameWithType: ScriptManager.RegisterPostBackControl(Control)
-  fullName: System.Web.UI.ScriptManager.RegisterPostBackControl(Control)
+  fullName: ScriptManager.RegisterPostBackControl(Control)
 - uid: System.Web.UI.ScriptManager.RegisterScriptControl``1(``0)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RegisterScriptControl<TScriptControl>(TScriptControl)
   nameWithType: ScriptManager.RegisterScriptControl<TScriptControl>(TScriptControl)
-  fullName: System.Web.UI.ScriptManager.RegisterScriptControl<TScriptControl>(TScriptControl)
+  fullName: ScriptManager.RegisterScriptControl<TScriptControl>(TScriptControl)
 - uid: TScriptControl
   isExternal: true
   name: TScriptControl
@@ -5046,7 +4874,7 @@ references:
   isExternal: false
   name: RegisterScriptDescriptors(IExtenderControl)
   nameWithType: ScriptManager.RegisterScriptDescriptors(IExtenderControl)
-  fullName: System.Web.UI.ScriptManager.RegisterScriptDescriptors(IExtenderControl)
+  fullName: ScriptManager.RegisterScriptDescriptors(IExtenderControl)
 - uid: System.Web.UI.IExtenderControl
   parent: System.Web.UI
   isExternal: false
@@ -5058,7 +4886,7 @@ references:
   isExternal: false
   name: RegisterScriptDescriptors(IScriptControl)
   nameWithType: ScriptManager.RegisterScriptDescriptors(IScriptControl)
-  fullName: System.Web.UI.ScriptManager.RegisterScriptDescriptors(IScriptControl)
+  fullName: ScriptManager.RegisterScriptDescriptors(IScriptControl)
 - uid: System.Web.UI.IScriptControl
   parent: System.Web.UI
   isExternal: false
@@ -5070,19 +4898,19 @@ references:
   isExternal: false
   name: RegisterStartupScript(Control, Type, String, String, Boolean)
   nameWithType: ScriptManager.RegisterStartupScript(Control, Type, String, String, Boolean)
-  fullName: System.Web.UI.ScriptManager.RegisterStartupScript(Control, Type, String, String, Boolean)
+  fullName: ScriptManager.RegisterStartupScript(Control, Type, String, String, Boolean)
 - uid: System.Web.UI.ScriptManager.RegisterStartupScript(System.Web.UI.Page,System.Type,System.String,System.String,System.Boolean)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: RegisterStartupScript(Page, Type, String, String, Boolean)
   nameWithType: ScriptManager.RegisterStartupScript(Page, Type, String, String, Boolean)
-  fullName: System.Web.UI.ScriptManager.RegisterStartupScript(Page, Type, String, String, Boolean)
+  fullName: ScriptManager.RegisterStartupScript(Page, Type, String, String, Boolean)
 - uid: System.Web.UI.ScriptManager.Render(System.Web.UI.HtmlTextWriter)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: Render(HtmlTextWriter)
   nameWithType: ScriptManager.Render(HtmlTextWriter)
-  fullName: System.Web.UI.ScriptManager.Render(HtmlTextWriter)
+  fullName: ScriptManager.Render(HtmlTextWriter)
 - uid: System.Web.UI.HtmlTextWriter
   parent: System.Web.UI
   isExternal: false
@@ -5094,7 +4922,7 @@ references:
   isExternal: false
   name: ResolveCompositeScriptReference
   nameWithType: ScriptManager.ResolveCompositeScriptReference
-  fullName: System.Web.UI.ScriptManager.ResolveCompositeScriptReference
+  fullName: ScriptManager.ResolveCompositeScriptReference
 - uid: System.EventHandler{System.Web.UI.CompositeScriptReferenceEventArgs}
   parent: System
   isExternal: false
@@ -5121,7 +4949,7 @@ references:
   isExternal: false
   name: ResolveScriptReference
   nameWithType: ScriptManager.ResolveScriptReference
-  fullName: System.Web.UI.ScriptManager.ResolveScriptReference
+  fullName: ScriptManager.ResolveScriptReference
 - uid: System.EventHandler{System.Web.UI.ScriptReferenceEventArgs}
   parent: System
   isExternal: false
@@ -5148,7 +4976,7 @@ references:
   isExternal: false
   name: RoleService
   nameWithType: ScriptManager.RoleService
-  fullName: System.Web.UI.ScriptManager.RoleService
+  fullName: ScriptManager.RoleService
 - uid: System.Web.UI.RoleServiceManager
   parent: System.Web.UI
   isExternal: false
@@ -5160,7 +4988,7 @@ references:
   isExternal: false
   name: ScriptMode
   nameWithType: ScriptManager.ScriptMode
-  fullName: System.Web.UI.ScriptManager.ScriptMode
+  fullName: ScriptManager.ScriptMode
 - uid: System.Web.UI.ScriptMode
   parent: System.Web.UI
   isExternal: false
@@ -5172,13 +5000,13 @@ references:
   isExternal: false
   name: ScriptPath
   nameWithType: ScriptManager.ScriptPath
-  fullName: System.Web.UI.ScriptManager.ScriptPath
+  fullName: ScriptManager.ScriptPath
 - uid: System.Web.UI.ScriptManager.ScriptResourceMapping
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: ScriptResourceMapping
   nameWithType: ScriptManager.ScriptResourceMapping
-  fullName: System.Web.UI.ScriptManager.ScriptResourceMapping
+  fullName: ScriptManager.ScriptResourceMapping
 - uid: System.Web.UI.ScriptResourceMapping
   parent: System.Web.UI
   isExternal: false
@@ -5190,7 +5018,7 @@ references:
   isExternal: false
   name: Scripts
   nameWithType: ScriptManager.Scripts
-  fullName: System.Web.UI.ScriptManager.Scripts
+  fullName: ScriptManager.Scripts
 - uid: System.Web.UI.ScriptReferenceCollection
   parent: System.Web.UI
   isExternal: false
@@ -5202,7 +5030,7 @@ references:
   isExternal: false
   name: Services
   nameWithType: ScriptManager.Services
-  fullName: System.Web.UI.ScriptManager.Services
+  fullName: ScriptManager.Services
 - uid: System.Web.UI.ServiceReferenceCollection
   parent: System.Web.UI
   isExternal: false
@@ -5214,49 +5042,49 @@ references:
   isExternal: false
   name: SetFocus(String)
   nameWithType: ScriptManager.SetFocus(String)
-  fullName: System.Web.UI.ScriptManager.SetFocus(String)
+  fullName: ScriptManager.SetFocus(String)
 - uid: System.Web.UI.ScriptManager.SetFocus(System.Web.UI.Control)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: SetFocus(Control)
   nameWithType: ScriptManager.SetFocus(Control)
-  fullName: System.Web.UI.ScriptManager.SetFocus(Control)
+  fullName: ScriptManager.SetFocus(Control)
 - uid: System.Web.UI.ScriptManager.SupportsPartialRendering
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: SupportsPartialRendering
   nameWithType: ScriptManager.SupportsPartialRendering
-  fullName: System.Web.UI.ScriptManager.SupportsPartialRendering
+  fullName: ScriptManager.SupportsPartialRendering
 - uid: System.Web.UI.ScriptManager.Visible
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: Visible
   nameWithType: ScriptManager.Visible
-  fullName: System.Web.UI.ScriptManager.Visible
+  fullName: ScriptManager.Visible
 - uid: System.Web.UI.ScriptManager.System#Web#UI#IPostBackDataHandler#LoadPostData(System.String,System.Collections.Specialized.NameValueCollection)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: IPostBackDataHandler.LoadPostData(String, NameValueCollection)
   nameWithType: ScriptManager.IPostBackDataHandler.LoadPostData(String, NameValueCollection)
-  fullName: System.Web.UI.ScriptManager.IPostBackDataHandler.LoadPostData(String, NameValueCollection)
+  fullName: ScriptManager.IPostBackDataHandler.LoadPostData(String, NameValueCollection)
 - uid: System.Web.UI.ScriptManager.System#Web#UI#IPostBackDataHandler#RaisePostDataChangedEvent
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: IPostBackDataHandler.RaisePostDataChangedEvent()
   nameWithType: ScriptManager.IPostBackDataHandler.RaisePostDataChangedEvent()
-  fullName: System.Web.UI.ScriptManager.IPostBackDataHandler.RaisePostDataChangedEvent()
+  fullName: ScriptManager.IPostBackDataHandler.RaisePostDataChangedEvent()
 - uid: System.Web.UI.ScriptManager.System#Web#UI#IPostBackEventHandler#RaisePostBackEvent(System.String)
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: IPostBackEventHandler.RaisePostBackEvent(String)
   nameWithType: ScriptManager.IPostBackEventHandler.RaisePostBackEvent(String)
-  fullName: System.Web.UI.ScriptManager.IPostBackEventHandler.RaisePostBackEvent(String)
+  fullName: ScriptManager.IPostBackEventHandler.RaisePostBackEvent(String)
 - uid: System.Web.UI.ScriptManager.AddHistoryPoint*
   parent: System.Web.UI.ScriptManager
   isExternal: false
   name: AddHistoryPoint
   nameWithType: ScriptManager.AddHistoryPoint
-  fullName: System.Web.UI.ScriptManager.AddHistoryPoint
+  fullName: ScriptManager.AddHistoryPoint
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5271,7 +5099,7 @@ references:
   isExternal: false
   name: ScriptManager
   nameWithType: ScriptManager.ScriptManager
-  fullName: System.Web.UI.ScriptManager.ScriptManager
+  fullName: ScriptManager.ScriptManager
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5286,7 +5114,7 @@ references:
   isExternal: false
   name: AjaxFrameworkAssembly
   nameWithType: ScriptManager.AjaxFrameworkAssembly
-  fullName: System.Web.UI.ScriptManager.AjaxFrameworkAssembly
+  fullName: ScriptManager.AjaxFrameworkAssembly
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5301,7 +5129,7 @@ references:
   isExternal: false
   name: AjaxFrameworkMode
   nameWithType: ScriptManager.AjaxFrameworkMode
-  fullName: System.Web.UI.ScriptManager.AjaxFrameworkMode
+  fullName: ScriptManager.AjaxFrameworkMode
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5316,7 +5144,7 @@ references:
   isExternal: false
   name: AllowCustomErrorsRedirect
   nameWithType: ScriptManager.AllowCustomErrorsRedirect
-  fullName: System.Web.UI.ScriptManager.AllowCustomErrorsRedirect
+  fullName: ScriptManager.AllowCustomErrorsRedirect
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5331,7 +5159,7 @@ references:
   isExternal: false
   name: AsyncPostBackErrorMessage
   nameWithType: ScriptManager.AsyncPostBackErrorMessage
-  fullName: System.Web.UI.ScriptManager.AsyncPostBackErrorMessage
+  fullName: ScriptManager.AsyncPostBackErrorMessage
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5346,7 +5174,7 @@ references:
   isExternal: false
   name: AsyncPostBackSourceElementID
   nameWithType: ScriptManager.AsyncPostBackSourceElementID
-  fullName: System.Web.UI.ScriptManager.AsyncPostBackSourceElementID
+  fullName: ScriptManager.AsyncPostBackSourceElementID
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5361,7 +5189,7 @@ references:
   isExternal: false
   name: AsyncPostBackTimeout
   nameWithType: ScriptManager.AsyncPostBackTimeout
-  fullName: System.Web.UI.ScriptManager.AsyncPostBackTimeout
+  fullName: ScriptManager.AsyncPostBackTimeout
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5376,7 +5204,7 @@ references:
   isExternal: false
   name: AuthenticationService
   nameWithType: ScriptManager.AuthenticationService
-  fullName: System.Web.UI.ScriptManager.AuthenticationService
+  fullName: ScriptManager.AuthenticationService
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5391,7 +5219,7 @@ references:
   isExternal: false
   name: ClientNavigateHandler
   nameWithType: ScriptManager.ClientNavigateHandler
-  fullName: System.Web.UI.ScriptManager.ClientNavigateHandler
+  fullName: ScriptManager.ClientNavigateHandler
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5406,7 +5234,7 @@ references:
   isExternal: false
   name: CompositeScript
   nameWithType: ScriptManager.CompositeScript
-  fullName: System.Web.UI.ScriptManager.CompositeScript
+  fullName: ScriptManager.CompositeScript
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5421,7 +5249,7 @@ references:
   isExternal: false
   name: EmptyPageUrl
   nameWithType: ScriptManager.EmptyPageUrl
-  fullName: System.Web.UI.ScriptManager.EmptyPageUrl
+  fullName: ScriptManager.EmptyPageUrl
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5436,7 +5264,7 @@ references:
   isExternal: false
   name: EnableCdn
   nameWithType: ScriptManager.EnableCdn
-  fullName: System.Web.UI.ScriptManager.EnableCdn
+  fullName: ScriptManager.EnableCdn
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5451,7 +5279,7 @@ references:
   isExternal: false
   name: EnableCdnFallback
   nameWithType: ScriptManager.EnableCdnFallback
-  fullName: System.Web.UI.ScriptManager.EnableCdnFallback
+  fullName: ScriptManager.EnableCdnFallback
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5466,7 +5294,7 @@ references:
   isExternal: false
   name: EnableHistory
   nameWithType: ScriptManager.EnableHistory
-  fullName: System.Web.UI.ScriptManager.EnableHistory
+  fullName: ScriptManager.EnableHistory
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5481,7 +5309,7 @@ references:
   isExternal: false
   name: EnablePageMethods
   nameWithType: ScriptManager.EnablePageMethods
-  fullName: System.Web.UI.ScriptManager.EnablePageMethods
+  fullName: ScriptManager.EnablePageMethods
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5496,7 +5324,7 @@ references:
   isExternal: false
   name: EnablePartialRendering
   nameWithType: ScriptManager.EnablePartialRendering
-  fullName: System.Web.UI.ScriptManager.EnablePartialRendering
+  fullName: ScriptManager.EnablePartialRendering
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5511,7 +5339,7 @@ references:
   isExternal: false
   name: EnableScriptGlobalization
   nameWithType: ScriptManager.EnableScriptGlobalization
-  fullName: System.Web.UI.ScriptManager.EnableScriptGlobalization
+  fullName: ScriptManager.EnableScriptGlobalization
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5526,7 +5354,7 @@ references:
   isExternal: false
   name: EnableScriptLocalization
   nameWithType: ScriptManager.EnableScriptLocalization
-  fullName: System.Web.UI.ScriptManager.EnableScriptLocalization
+  fullName: ScriptManager.EnableScriptLocalization
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5541,7 +5369,7 @@ references:
   isExternal: false
   name: EnableSecureHistoryState
   nameWithType: ScriptManager.EnableSecureHistoryState
-  fullName: System.Web.UI.ScriptManager.EnableSecureHistoryState
+  fullName: ScriptManager.EnableSecureHistoryState
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5556,7 +5384,7 @@ references:
   isExternal: false
   name: GetCurrent
   nameWithType: ScriptManager.GetCurrent
-  fullName: System.Web.UI.ScriptManager.GetCurrent
+  fullName: ScriptManager.GetCurrent
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5571,7 +5399,7 @@ references:
   isExternal: false
   name: GetRegisteredArrayDeclarations
   nameWithType: ScriptManager.GetRegisteredArrayDeclarations
-  fullName: System.Web.UI.ScriptManager.GetRegisteredArrayDeclarations
+  fullName: ScriptManager.GetRegisteredArrayDeclarations
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5586,7 +5414,7 @@ references:
   isExternal: false
   name: GetRegisteredClientScriptBlocks
   nameWithType: ScriptManager.GetRegisteredClientScriptBlocks
-  fullName: System.Web.UI.ScriptManager.GetRegisteredClientScriptBlocks
+  fullName: ScriptManager.GetRegisteredClientScriptBlocks
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5601,7 +5429,7 @@ references:
   isExternal: false
   name: GetRegisteredDisposeScripts
   nameWithType: ScriptManager.GetRegisteredDisposeScripts
-  fullName: System.Web.UI.ScriptManager.GetRegisteredDisposeScripts
+  fullName: ScriptManager.GetRegisteredDisposeScripts
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5616,7 +5444,7 @@ references:
   isExternal: false
   name: GetRegisteredExpandoAttributes
   nameWithType: ScriptManager.GetRegisteredExpandoAttributes
-  fullName: System.Web.UI.ScriptManager.GetRegisteredExpandoAttributes
+  fullName: ScriptManager.GetRegisteredExpandoAttributes
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5631,7 +5459,7 @@ references:
   isExternal: false
   name: GetRegisteredHiddenFields
   nameWithType: ScriptManager.GetRegisteredHiddenFields
-  fullName: System.Web.UI.ScriptManager.GetRegisteredHiddenFields
+  fullName: ScriptManager.GetRegisteredHiddenFields
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5646,7 +5474,7 @@ references:
   isExternal: false
   name: GetRegisteredOnSubmitStatements
   nameWithType: ScriptManager.GetRegisteredOnSubmitStatements
-  fullName: System.Web.UI.ScriptManager.GetRegisteredOnSubmitStatements
+  fullName: ScriptManager.GetRegisteredOnSubmitStatements
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5661,7 +5489,7 @@ references:
   isExternal: false
   name: GetRegisteredStartupScripts
   nameWithType: ScriptManager.GetRegisteredStartupScripts
-  fullName: System.Web.UI.ScriptManager.GetRegisteredStartupScripts
+  fullName: ScriptManager.GetRegisteredStartupScripts
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5676,7 +5504,7 @@ references:
   isExternal: false
   name: GetStateString
   nameWithType: ScriptManager.GetStateString
-  fullName: System.Web.UI.ScriptManager.GetStateString
+  fullName: ScriptManager.GetStateString
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5691,7 +5519,7 @@ references:
   isExternal: false
   name: IsDebuggingEnabled
   nameWithType: ScriptManager.IsDebuggingEnabled
-  fullName: System.Web.UI.ScriptManager.IsDebuggingEnabled
+  fullName: ScriptManager.IsDebuggingEnabled
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5706,7 +5534,7 @@ references:
   isExternal: false
   name: IsInAsyncPostBack
   nameWithType: ScriptManager.IsInAsyncPostBack
-  fullName: System.Web.UI.ScriptManager.IsInAsyncPostBack
+  fullName: ScriptManager.IsInAsyncPostBack
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5721,7 +5549,7 @@ references:
   isExternal: false
   name: IsNavigating
   nameWithType: ScriptManager.IsNavigating
-  fullName: System.Web.UI.ScriptManager.IsNavigating
+  fullName: ScriptManager.IsNavigating
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5736,7 +5564,7 @@ references:
   isExternal: false
   name: LoadPostData
   nameWithType: ScriptManager.LoadPostData
-  fullName: System.Web.UI.ScriptManager.LoadPostData
+  fullName: ScriptManager.LoadPostData
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5751,7 +5579,7 @@ references:
   isExternal: false
   name: LoadScriptsBeforeUI
   nameWithType: ScriptManager.LoadScriptsBeforeUI
-  fullName: System.Web.UI.ScriptManager.LoadScriptsBeforeUI
+  fullName: ScriptManager.LoadScriptsBeforeUI
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5766,7 +5594,7 @@ references:
   isExternal: false
   name: OnAsyncPostBackError
   nameWithType: ScriptManager.OnAsyncPostBackError
-  fullName: System.Web.UI.ScriptManager.OnAsyncPostBackError
+  fullName: ScriptManager.OnAsyncPostBackError
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5781,7 +5609,7 @@ references:
   isExternal: false
   name: OnInit
   nameWithType: ScriptManager.OnInit
-  fullName: System.Web.UI.ScriptManager.OnInit
+  fullName: ScriptManager.OnInit
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5796,7 +5624,7 @@ references:
   isExternal: false
   name: OnPreRender
   nameWithType: ScriptManager.OnPreRender
-  fullName: System.Web.UI.ScriptManager.OnPreRender
+  fullName: ScriptManager.OnPreRender
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5811,7 +5639,7 @@ references:
   isExternal: false
   name: OnResolveCompositeScriptReference
   nameWithType: ScriptManager.OnResolveCompositeScriptReference
-  fullName: System.Web.UI.ScriptManager.OnResolveCompositeScriptReference
+  fullName: ScriptManager.OnResolveCompositeScriptReference
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5826,7 +5654,7 @@ references:
   isExternal: false
   name: OnResolveScriptReference
   nameWithType: ScriptManager.OnResolveScriptReference
-  fullName: System.Web.UI.ScriptManager.OnResolveScriptReference
+  fullName: ScriptManager.OnResolveScriptReference
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5841,7 +5669,7 @@ references:
   isExternal: false
   name: ProfileService
   nameWithType: ScriptManager.ProfileService
-  fullName: System.Web.UI.ScriptManager.ProfileService
+  fullName: ScriptManager.ProfileService
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5856,7 +5684,7 @@ references:
   isExternal: false
   name: RaisePostBackEvent
   nameWithType: ScriptManager.RaisePostBackEvent
-  fullName: System.Web.UI.ScriptManager.RaisePostBackEvent
+  fullName: ScriptManager.RaisePostBackEvent
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5871,7 +5699,7 @@ references:
   isExternal: false
   name: RaisePostDataChangedEvent
   nameWithType: ScriptManager.RaisePostDataChangedEvent
-  fullName: System.Web.UI.ScriptManager.RaisePostDataChangedEvent
+  fullName: ScriptManager.RaisePostDataChangedEvent
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5886,7 +5714,7 @@ references:
   isExternal: false
   name: RegisterArrayDeclaration
   nameWithType: ScriptManager.RegisterArrayDeclaration
-  fullName: System.Web.UI.ScriptManager.RegisterArrayDeclaration
+  fullName: ScriptManager.RegisterArrayDeclaration
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5901,7 +5729,7 @@ references:
   isExternal: false
   name: RegisterAsyncPostBackControl
   nameWithType: ScriptManager.RegisterAsyncPostBackControl
-  fullName: System.Web.UI.ScriptManager.RegisterAsyncPostBackControl
+  fullName: ScriptManager.RegisterAsyncPostBackControl
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5916,7 +5744,7 @@ references:
   isExternal: false
   name: RegisterClientScriptBlock
   nameWithType: ScriptManager.RegisterClientScriptBlock
-  fullName: System.Web.UI.ScriptManager.RegisterClientScriptBlock
+  fullName: ScriptManager.RegisterClientScriptBlock
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5931,7 +5759,7 @@ references:
   isExternal: false
   name: RegisterClientScriptInclude
   nameWithType: ScriptManager.RegisterClientScriptInclude
-  fullName: System.Web.UI.ScriptManager.RegisterClientScriptInclude
+  fullName: ScriptManager.RegisterClientScriptInclude
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5946,7 +5774,7 @@ references:
   isExternal: false
   name: RegisterClientScriptResource
   nameWithType: ScriptManager.RegisterClientScriptResource
-  fullName: System.Web.UI.ScriptManager.RegisterClientScriptResource
+  fullName: ScriptManager.RegisterClientScriptResource
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5961,7 +5789,7 @@ references:
   isExternal: false
   name: RegisterDataItem
   nameWithType: ScriptManager.RegisterDataItem
-  fullName: System.Web.UI.ScriptManager.RegisterDataItem
+  fullName: ScriptManager.RegisterDataItem
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5976,7 +5804,7 @@ references:
   isExternal: false
   name: RegisterDispose
   nameWithType: ScriptManager.RegisterDispose
-  fullName: System.Web.UI.ScriptManager.RegisterDispose
+  fullName: ScriptManager.RegisterDispose
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5991,7 +5819,7 @@ references:
   isExternal: false
   name: RegisterExpandoAttribute
   nameWithType: ScriptManager.RegisterExpandoAttribute
-  fullName: System.Web.UI.ScriptManager.RegisterExpandoAttribute
+  fullName: ScriptManager.RegisterExpandoAttribute
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6006,7 +5834,7 @@ references:
   isExternal: false
   name: RegisterExtenderControl<TExtenderControl>
   nameWithType: ScriptManager.RegisterExtenderControl<TExtenderControl>
-  fullName: System.Web.UI.ScriptManager.RegisterExtenderControl<TExtenderControl>
+  fullName: ScriptManager.RegisterExtenderControl<TExtenderControl>
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6021,7 +5849,7 @@ references:
   isExternal: false
   name: RegisterHiddenField
   nameWithType: ScriptManager.RegisterHiddenField
-  fullName: System.Web.UI.ScriptManager.RegisterHiddenField
+  fullName: ScriptManager.RegisterHiddenField
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6036,7 +5864,7 @@ references:
   isExternal: false
   name: RegisterNamedClientScriptResource
   nameWithType: ScriptManager.RegisterNamedClientScriptResource
-  fullName: System.Web.UI.ScriptManager.RegisterNamedClientScriptResource
+  fullName: ScriptManager.RegisterNamedClientScriptResource
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6051,7 +5879,7 @@ references:
   isExternal: false
   name: RegisterOnSubmitStatement
   nameWithType: ScriptManager.RegisterOnSubmitStatement
-  fullName: System.Web.UI.ScriptManager.RegisterOnSubmitStatement
+  fullName: ScriptManager.RegisterOnSubmitStatement
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6066,7 +5894,7 @@ references:
   isExternal: false
   name: RegisterPostBackControl
   nameWithType: ScriptManager.RegisterPostBackControl
-  fullName: System.Web.UI.ScriptManager.RegisterPostBackControl
+  fullName: ScriptManager.RegisterPostBackControl
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6081,7 +5909,7 @@ references:
   isExternal: false
   name: RegisterScriptControl<TScriptControl>
   nameWithType: ScriptManager.RegisterScriptControl<TScriptControl>
-  fullName: System.Web.UI.ScriptManager.RegisterScriptControl<TScriptControl>
+  fullName: ScriptManager.RegisterScriptControl<TScriptControl>
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6096,7 +5924,7 @@ references:
   isExternal: false
   name: RegisterScriptDescriptors
   nameWithType: ScriptManager.RegisterScriptDescriptors
-  fullName: System.Web.UI.ScriptManager.RegisterScriptDescriptors
+  fullName: ScriptManager.RegisterScriptDescriptors
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6111,7 +5939,7 @@ references:
   isExternal: false
   name: RegisterStartupScript
   nameWithType: ScriptManager.RegisterStartupScript
-  fullName: System.Web.UI.ScriptManager.RegisterStartupScript
+  fullName: ScriptManager.RegisterStartupScript
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6126,7 +5954,7 @@ references:
   isExternal: false
   name: Render
   nameWithType: ScriptManager.Render
-  fullName: System.Web.UI.ScriptManager.Render
+  fullName: ScriptManager.Render
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6141,7 +5969,7 @@ references:
   isExternal: false
   name: RoleService
   nameWithType: ScriptManager.RoleService
-  fullName: System.Web.UI.ScriptManager.RoleService
+  fullName: ScriptManager.RoleService
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6156,7 +5984,7 @@ references:
   isExternal: false
   name: ScriptMode
   nameWithType: ScriptManager.ScriptMode
-  fullName: System.Web.UI.ScriptManager.ScriptMode
+  fullName: ScriptManager.ScriptMode
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6171,7 +5999,7 @@ references:
   isExternal: false
   name: ScriptPath
   nameWithType: ScriptManager.ScriptPath
-  fullName: System.Web.UI.ScriptManager.ScriptPath
+  fullName: ScriptManager.ScriptPath
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6186,7 +6014,7 @@ references:
   isExternal: false
   name: ScriptResourceMapping
   nameWithType: ScriptManager.ScriptResourceMapping
-  fullName: System.Web.UI.ScriptManager.ScriptResourceMapping
+  fullName: ScriptManager.ScriptResourceMapping
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6201,7 +6029,7 @@ references:
   isExternal: false
   name: Scripts
   nameWithType: ScriptManager.Scripts
-  fullName: System.Web.UI.ScriptManager.Scripts
+  fullName: ScriptManager.Scripts
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6216,7 +6044,7 @@ references:
   isExternal: false
   name: Services
   nameWithType: ScriptManager.Services
-  fullName: System.Web.UI.ScriptManager.Services
+  fullName: ScriptManager.Services
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6231,7 +6059,7 @@ references:
   isExternal: false
   name: SetFocus
   nameWithType: ScriptManager.SetFocus
-  fullName: System.Web.UI.ScriptManager.SetFocus
+  fullName: ScriptManager.SetFocus
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6246,7 +6074,7 @@ references:
   isExternal: false
   name: SupportsPartialRendering
   nameWithType: ScriptManager.SupportsPartialRendering
-  fullName: System.Web.UI.ScriptManager.SupportsPartialRendering
+  fullName: ScriptManager.SupportsPartialRendering
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6261,7 +6089,7 @@ references:
   isExternal: false
   name: Visible
   nameWithType: ScriptManager.Visible
-  fullName: System.Web.UI.ScriptManager.Visible
+  fullName: ScriptManager.Visible
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6276,7 +6104,7 @@ references:
   isExternal: false
   name: System.Web.UI.IPostBackDataHandler.LoadPostData
   nameWithType: ScriptManager.System.Web.UI.IPostBackDataHandler.LoadPostData
-  fullName: System.Web.UI.ScriptManager.System.Web.UI.IPostBackDataHandler.LoadPostData
+  fullName: ScriptManager.System.Web.UI.IPostBackDataHandler.LoadPostData
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6291,7 +6119,7 @@ references:
   isExternal: false
   name: System.Web.UI.IPostBackDataHandler.RaisePostDataChangedEvent
   nameWithType: ScriptManager.System.Web.UI.IPostBackDataHandler.RaisePostDataChangedEvent
-  fullName: System.Web.UI.ScriptManager.System.Web.UI.IPostBackDataHandler.RaisePostDataChangedEvent
+  fullName: ScriptManager.System.Web.UI.IPostBackDataHandler.RaisePostDataChangedEvent
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6306,7 +6134,7 @@ references:
   isExternal: false
   name: System.Web.UI.IPostBackEventHandler.RaisePostBackEvent
   nameWithType: ScriptManager.System.Web.UI.IPostBackEventHandler.RaisePostBackEvent
-  fullName: System.Web.UI.ScriptManager.System.Web.UI.IPostBackEventHandler.RaisePostBackEvent
+  fullName: ScriptManager.System.Web.UI.IPostBackEventHandler.RaisePostBackEvent
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -6321,16 +6149,28 @@ references:
   isExternal: false
   name: FindDataSourceControl(Control)
   nameWithType: DynamicDataExtensions.FindDataSourceControl(Control)
-  fullName: System.Web.DynamicData.DynamicDataExtensions.FindDataSourceControl(Control)
+  fullName: DynamicDataExtensions.FindDataSourceControl(Control)
 - uid: System.Web.DynamicData.DynamicDataExtensions.FindFieldTemplate(System.Web.UI.Control,System.String)
   parent: System.Web.DynamicData.DynamicDataExtensions
   isExternal: false
   name: FindFieldTemplate(Control, String)
   nameWithType: DynamicDataExtensions.FindFieldTemplate(Control, String)
-  fullName: System.Web.DynamicData.DynamicDataExtensions.FindFieldTemplate(Control, String)
+  fullName: DynamicDataExtensions.FindFieldTemplate(Control, String)
 - uid: System.Web.DynamicData.DynamicDataExtensions.FindMetaTable(System.Web.UI.Control)
   parent: System.Web.DynamicData.DynamicDataExtensions
   isExternal: false
   name: FindMetaTable(Control)
   nameWithType: DynamicDataExtensions.FindMetaTable(Control)
-  fullName: System.Web.DynamicData.DynamicDataExtensions.FindMetaTable(Control)
+  fullName: DynamicDataExtensions.FindMetaTable(Control)
+- uid: System.Web.UI.IPostBackDataHandler
+  parent: System.Web.UI
+  isExternal: false
+  name: IPostBackDataHandler
+  nameWithType: IPostBackDataHandler
+  fullName: System.Web.UI.IPostBackDataHandler
+- uid: System.Web.UI.IPostBackEventHandler
+  parent: System.Web.UI
+  isExternal: false
+  name: IPostBackEventHandler
+  nameWithType: IPostBackEventHandler
+  fullName: System.Web.UI.IPostBackEventHandler

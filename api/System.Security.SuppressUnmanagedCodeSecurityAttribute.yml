@@ -14,6 +14,7 @@ items:
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Security
   summary: Allows managed code to call into unmanaged code without a stack walk. This class cannot be inherited.
   remarks: "> [!CAUTION]\n>  Use this attribute with extreme care. Incorrect use can create security weaknesses.  \n  \n This attribute can be applied to methods that want to call into native code without incurring the performance loss of a run-time security check when doing so. The stack walk performed when calling unmanaged code is omitted at run time, resulting in substantial performance savings. Using this attribute in a class applies it to all contained methods.  \n  \n Generally, whenever managed code calls into unmanaged code (by PInvoke or COM interop into native code), there is a demand for the `UnmanagedCode` permission to ensure all callers have the necessary permission to allow this. By applying this explicit attribute, developers can suppress the demand at run time. The developer must take responsibility for assuring that the transition into unmanaged code is sufficiently protected by other means. The demand for the `UnmanagedCode` permission will still occur at link time. For example, if function A calls function B and function B is marked with <xref:System.Security.SuppressUnmanagedCodeSecurityAttribute>, function A will be checked for unmanaged code permission during just-in-time compilation, but not subsequently during run time.  \n  \n This attribute is only effective when applied to PInvoke methods (or classes that contain PInvoke methods) or the definition of an interface through which interop calls will be made. It will be ignored in all other contexts.  \n  \n This attribute is useful for implementing a class that provides access to system resources through unmanaged code. Code that does not have permission to access unmanaged code can call a class with this attribute to access unmanaged code. This is only safe if the writer of the class with this attribute has programmed the class to be secure. If not, this attribute is dangerous and can allow the code that uses it to be misused.  \n  \n This is not a declarative security attribute, but a regular attribute (it derives from <xref:System.Attribute>, not <xref:System.Security.Permissions.SecurityAttribute>)."
@@ -79,6 +80,7 @@ items:
   - type: System.AttributeUsageAttribute
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -91,6 +93,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -103,9 +106,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security/SuppressUnmanagedCodeSecurityAttribute.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.SuppressUnmanagedCodeSecurityAttribute.#ctor
   commentId: M:System.Security.SuppressUnmanagedCodeSecurityAttribute.#ctor
   id: '#ctor'
@@ -114,11 +114,12 @@ items:
   - csharp
   name: SuppressUnmanagedCodeSecurityAttribute()
   nameWithType: SuppressUnmanagedCodeSecurityAttribute.SuppressUnmanagedCodeSecurityAttribute()
-  fullName: System.Security.SuppressUnmanagedCodeSecurityAttribute.SuppressUnmanagedCodeSecurityAttribute()
+  fullName: SuppressUnmanagedCodeSecurityAttribute.SuppressUnmanagedCodeSecurityAttribute()
   type: Constructor
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Security
   summary: Initializes a new instance of the <xref href="System.Security.SuppressUnmanagedCodeSecurityAttribute"></xref> class.
   remarks: The default constructor initializes any fields to their default values.
@@ -128,6 +129,7 @@ items:
   overload: System.Security.SuppressUnmanagedCodeSecurityAttribute.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -140,6 +142,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -152,9 +155,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security/SuppressUnmanagedCodeSecurityAttribute.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Attribute
   parent: System
@@ -167,14 +167,15 @@ references:
   isExternal: false
   name: SuppressUnmanagedCodeSecurityAttribute()
   nameWithType: SuppressUnmanagedCodeSecurityAttribute.SuppressUnmanagedCodeSecurityAttribute()
-  fullName: System.Security.SuppressUnmanagedCodeSecurityAttribute.SuppressUnmanagedCodeSecurityAttribute()
+  fullName: SuppressUnmanagedCodeSecurityAttribute.SuppressUnmanagedCodeSecurityAttribute()
 - uid: System.Security.SuppressUnmanagedCodeSecurityAttribute.#ctor*
   parent: System.Security.SuppressUnmanagedCodeSecurityAttribute
   isExternal: false
   name: SuppressUnmanagedCodeSecurityAttribute
   nameWithType: SuppressUnmanagedCodeSecurityAttribute.SuppressUnmanagedCodeSecurityAttribute
-  fullName: System.Security.SuppressUnmanagedCodeSecurityAttribute.SuppressUnmanagedCodeSecurityAttribute
+  fullName: SuppressUnmanagedCodeSecurityAttribute.SuppressUnmanagedCodeSecurityAttribute
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

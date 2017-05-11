@@ -15,6 +15,7 @@ items:
   - System.Xml.XmlSerializer
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml.Serialization
   summary: Instructs the <xref href="System.Xml.Serialization.XmlSerializer.Serialize(System.IO.TextWriter,System.Object)"></xref> method of the <xref href="System.Xml.Serialization.XmlSerializer"></xref> not to serialize the public field or public read/write property value.
   remarks: "The <xref:System.Xml.Serialization.XmlIgnoreAttribute> belongs to a family of attributes that controls how the <xref:System.Xml.Serialization.XmlSerializer> serializes or deserializes an object. If you apply the <xref:System.Xml.Serialization.XmlIgnoreAttribute> to any member of a class, the <xref:System.Xml.Serialization.XmlSerializer> ignores the member when serializing or deserializing an instance of the class. For a complete list of similar attributes, see [Attributes That Control XML Serialization](~/docs/framework/serialization/attributes-that-control-xml-serialization.md).  \n  \n You can override the behavior caused by the <xref:System.Xml.Serialization.XmlIgnoreAttribute> by creating an <xref:System.Xml.Serialization.XmlAttributes> object, and setting its <xref:System.Xml.Serialization.XmlAttributes.XmlIgnore%2A> property to `false`. You must <xref:System.Xml.Serialization.XmlAttributeOverrides.Add%2A> the <xref:System.Xml.Serialization.XmlAttributes> object to an instance of the <xref:System.Xml.Serialization.XmlAttributeOverrides> class. Lastly, you must use the <xref:System.Xml.Serialization.XmlAttributeOverrides> object to construct an instance of the <xref:System.Xml.Serialization.XmlSerializer> class before you call the <xref:System.Xml.Serialization.XmlSerializer.Serialize%2A> or <xref:System.Xml.Serialization.XmlSerializer.Deserialize%2A> methods.  \n  \n The [XML Schema Definition Tool (Xsd.exe)](~/docs/framework/serialization/xml-schema-definition-tool-xsd-exe.md) occasionally generates the <xref:System.Xml.Serialization.XmlIgnoreAttribute> when creating classes from a schema file (.xsd). This behavior occurs because value types cannot be set to `null`, but all XML data types can be. Therefore, the tool creates two fields when it encounters an XML type that maps to a value type: one to hold the value and another special field that takes the form of `fieldnameSpecified`, where the `fieldname` is replaced by the name of the field or property. Notice, however, that this special field is generated only when the schema specifies that the element has no minimum occurrence (minOccurs = \"0\") and that the element has no default value. The <xref:System.Xml.Serialization.XmlSerializer> sets and checks this special field to determine whether a value has been set for the field or property. Because the special field must not be serialized, the tool applies the <xref:System.Xml.Serialization.XmlIgnoreAttribute> to it.  \n  \n For more information about using attributes, see [Attributes](http://msdn.microsoft.com/library/30386922-1e00-4602-9ebf-526b271a8b87).  \n  \n> [!NOTE]\n>  You can use the word `XmlIgnore` in your code instead of the longer <xref:System.Xml.Serialization.XmlIgnoreAttribute>."
@@ -80,7 +81,8 @@ items:
   - type: System.AttributeUsageAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -94,7 +96,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -107,9 +110,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml.Serialization/XmlIgnoreAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.Xml.Serialization.XmlIgnoreAttribute.#ctor
   commentId: M:System.Xml.Serialization.XmlIgnoreAttribute.#ctor
   id: '#ctor'
@@ -118,12 +118,13 @@ items:
   - csharp
   name: XmlIgnoreAttribute()
   nameWithType: XmlIgnoreAttribute.XmlIgnoreAttribute()
-  fullName: System.Xml.Serialization.XmlIgnoreAttribute.XmlIgnoreAttribute()
+  fullName: XmlIgnoreAttribute.XmlIgnoreAttribute()
   type: Constructor
   assemblies:
   - System.Xml.XmlSerializer
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml.Serialization
   summary: Initializes a new instance of the <xref href="System.Xml.Serialization.XmlIgnoreAttribute"></xref> class.
   remarks: ''
@@ -136,7 +137,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -150,7 +152,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -163,9 +166,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml.Serialization/XmlIgnoreAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 references:
 - uid: System.Attribute
   parent: System
@@ -178,16 +178,17 @@ references:
   isExternal: false
   name: XmlIgnoreAttribute()
   nameWithType: XmlIgnoreAttribute.XmlIgnoreAttribute()
-  fullName: System.Xml.Serialization.XmlIgnoreAttribute.XmlIgnoreAttribute()
+  fullName: XmlIgnoreAttribute.XmlIgnoreAttribute()
 - uid: System.Xml.Serialization.XmlIgnoreAttribute.#ctor*
   parent: System.Xml.Serialization.XmlIgnoreAttribute
   isExternal: false
   name: XmlIgnoreAttribute
   nameWithType: XmlIgnoreAttribute.XmlIgnoreAttribute
-  fullName: System.Xml.Serialization.XmlIgnoreAttribute.XmlIgnoreAttribute
+  fullName: XmlIgnoreAttribute.XmlIgnoreAttribute
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

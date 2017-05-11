@@ -29,11 +29,12 @@ items:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading
   summary: Propagates notification that operations should be canceled.
   remarks: "A <xref:System.Threading.CancellationToken> enables cooperative cancellation between threads, thread pool work items, or <xref:System.Threading.Tasks.Task> objects. You create a cancellation token by instantiating a <xref:System.Threading.CancellationTokenSource> object, which manages cancellation tokens retrieved from its <xref:System.Threading.CancellationTokenSource.Token%2A?displayProperty=fullName> property. You then  pass the cancellation token to any number of threads, tasks, or operations that should receive notice of cancellation. The token cannot be used to initiate cancellation. When the owning object calls <xref:System.Threading.CancellationTokenSource.Cancel%2A?displayProperty=fullName>, the <xref:System.Threading.CancellationToken.IsCancellationRequested%2A> property on every copy of the cancellation token is set to `true`. The objects that receive the notification can respond in whatever manner is appropriate.  \n  \n For more information and code examples see [Cancellation in Managed Threads](~/docs/standard/threading/cancellation-in-managed-threads.md)."
   example:
-  - "The following example uses a random number generator to emulate a data collection application that reads 10 integral values from eleven different instruments. A value of zero indicates that the measurement has failed for one instrument, in which case the operation should be cancelled and no overall mean should be computed.  \n  \n To handle the possible cancellation of the operation, the example instantiates a <xref:System.Threading.CancellationTokenSource> object that generates a cancellation token which is passed to a <xref:System.Threading.Tasks.TaskFactory> object. The <xref:System.Threading.Tasks.TaskFactory> object in turn passes the cancellation token to each of the tasks responsible for collecting readings for a particular instrument. The [TaskFactory.ContinueWhenAll\\<TAntecedentResult, TResult>(Task\\<TAntecedentResult>\\[\\], Func<Task\\<TAntecedentResult>\\<xref:System.Threading.Tasks.TaskFactory.ContinueWhenAll%60%602%28System.Threading.Tasks.Task%7B%60%600%7D%5B%5D%2CSystem.Func%7BSystem.Threading.Tasks.Task%7B%60%600%7D%5B%5D%2C%60%601%7D%2CSystem.Threading.CancellationToken%29?displayProperty=fullName> method is called to ensure that the mean is computed only after all readings have been gathered successfully. If a task has not because it has been cancelled, the call to the <xref:System.Threading.Tasks.TaskFactory.ContinueWhenAll%2A?displayProperty=fullName> method throws an exception.  \n  \n [!code-csharp[System.Threading.CancellationTokenSource.Class#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.threading.cancellationtokensource.class/cs/cancel1.cs#1)]\n [!code-vb[System.Threading.CancellationTokenSource.Class#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.threading.cancellationtokensource.class/vb/cancel1.vb#1)]"
+  - "The following example uses a random number generator to emulate a data collection application that reads 10 integral values from eleven different instruments. A value of zero indicates that the measurement has failed for one instrument, in which case the operation should be cancelled and no overall mean should be computed.  \n  \n To handle the possible cancellation of the operation, the example instantiates a <xref:System.Threading.CancellationTokenSource> object that generates a cancellation token which is passed to a <xref:System.Threading.Tasks.TaskFactory> object. The <xref:System.Threading.Tasks.TaskFactory> object in turn passes the cancellation token to each of the tasks responsible for collecting readings for a particular instrument. The <xref:System.Threading.Tasks.TaskFactory.ContinueWhenAll%60%602%28System.Threading.Tasks.Task%7B%60%600%7D%5B%5D%2CSystem.Func%7BSystem.Threading.Tasks.Task%7B%60%600%7D%5B%5D%2C%60%601%7D%2CSystem.Threading.CancellationToken%29?displayProperty=fullName> method is called to ensure that the mean is computed only after all readings have been gathered successfully. If a task has not because it has been cancelled, the call to the <xref:System.Threading.Tasks.TaskFactory.ContinueWhenAll%2A?displayProperty=fullName> method throws an exception.  \n  \n [!code-csharp[System.Threading.CancellationTokenSource.Class#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.threading.cancellationtokensource.class/cs/cancel1.cs#1)]\n [!code-vb[System.Threading.CancellationTokenSource.Class#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.threading.cancellationtokensource.class/vb/cancel1.vb#1)]"
   syntax:
     content: >-
       [System.Runtime.InteropServices.ComVisible(false)]
@@ -47,7 +48,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -67,7 +69,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -86,9 +89,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading/CancellationToken.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.CancellationToken.#ctor(System.Boolean)
   commentId: M:System.Threading.CancellationToken.#ctor(System.Boolean)
   id: '#ctor(System.Boolean)'
@@ -97,12 +97,13 @@ items:
   - csharp
   name: CancellationToken(Boolean)
   nameWithType: CancellationToken.CancellationToken(Boolean)
-  fullName: System.Threading.CancellationToken.CancellationToken(Boolean)
+  fullName: CancellationToken.CancellationToken(Boolean)
   type: Constructor
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading
   summary: Initializes the <xref href="System.Threading.CancellationToken"></xref>.
   remarks: "Tokens created with this constructor will remain in the canceled state specified by the `canceled` parameter. If `canceled` is `false`, both <xref:System.Threading.CancellationToken.CanBeCanceled%2A> and <xref:System.Threading.CancellationToken.IsCancellationRequested%2A> will be `false`.  \n  \n If `canceled` is `true`, both <xref:System.Threading.CancellationToken.CanBeCanceled%2A> and <xref:System.Threading.CancellationToken.IsCancellationRequested%2A> will be `true`."
@@ -116,7 +117,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -136,7 +138,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -155,9 +158,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading/CancellationToken.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.CancellationToken.CanBeCanceled
   commentId: P:System.Threading.CancellationToken.CanBeCanceled
   id: CanBeCanceled
@@ -166,12 +166,13 @@ items:
   - csharp
   name: CanBeCanceled
   nameWithType: CancellationToken.CanBeCanceled
-  fullName: System.Threading.CancellationToken.CanBeCanceled
+  fullName: CancellationToken.CanBeCanceled
   type: Property
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading
   summary: Gets whether this token is capable of being in the canceled state.
   remarks: "If <xref:System.Threading.CancellationToken.CanBeCanceled%2A> returns `false`, it is guaranteed that the token will never transition into a canceled state, meaning that <xref:System.Threading.CancellationToken.IsCancellationRequested%2A> will never return `true`. A cancellation token that cannot be canceled is returned by the static <xref:System.Threading.CancellationToken.None%2A?displayProperty=fullName> property.  \n  \n You can optionally use this property to determine whether a cancellation token can be canceled before examing the value of the <xref:System.Threading.CancellationToken.IsCancellationRequested%2A> property to determine whether it has been canceled."
@@ -184,7 +185,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -204,7 +206,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -223,9 +226,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading/CancellationToken.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.CancellationToken.Equals(System.Object)
   commentId: M:System.Threading.CancellationToken.Equals(System.Object)
   id: Equals(System.Object)
@@ -234,12 +234,13 @@ items:
   - csharp
   name: Equals(Object)
   nameWithType: CancellationToken.Equals(Object)
-  fullName: System.Threading.CancellationToken.Equals(Object)
+  fullName: CancellationToken.Equals(Object)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading
   summary: Determines whether the current <xref href="System.Threading.CancellationToken"></xref> instance is equal to the specified <xref href="System.Object"></xref>.
   syntax:
@@ -258,7 +259,8 @@ items:
     description: An associated <xref href="System.Threading.CancellationTokenSource"></xref> has been disposed.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -278,7 +280,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -297,9 +300,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading/CancellationToken.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.CancellationToken.Equals(System.Threading.CancellationToken)
   commentId: M:System.Threading.CancellationToken.Equals(System.Threading.CancellationToken)
   id: Equals(System.Threading.CancellationToken)
@@ -308,12 +308,13 @@ items:
   - csharp
   name: Equals(CancellationToken)
   nameWithType: CancellationToken.Equals(CancellationToken)
-  fullName: System.Threading.CancellationToken.Equals(CancellationToken)
+  fullName: CancellationToken.Equals(CancellationToken)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading
   summary: Determines whether the current <xref href="System.Threading.CancellationToken"></xref> instance is equal to the specified token.
   syntax:
@@ -329,7 +330,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -349,7 +351,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -368,9 +371,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading/CancellationToken.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.CancellationToken.GetHashCode
   commentId: M:System.Threading.CancellationToken.GetHashCode
   id: GetHashCode
@@ -379,12 +379,13 @@ items:
   - csharp
   name: GetHashCode()
   nameWithType: CancellationToken.GetHashCode()
-  fullName: System.Threading.CancellationToken.GetHashCode()
+  fullName: CancellationToken.GetHashCode()
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading
   summary: Serves as a hash function for a <xref href="System.Threading.CancellationToken"></xref>.
   syntax:
@@ -397,7 +398,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -417,7 +419,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -436,9 +439,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading/CancellationToken.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.CancellationToken.IsCancellationRequested
   commentId: P:System.Threading.CancellationToken.IsCancellationRequested
   id: IsCancellationRequested
@@ -447,12 +447,13 @@ items:
   - csharp
   name: IsCancellationRequested
   nameWithType: CancellationToken.IsCancellationRequested
-  fullName: System.Threading.CancellationToken.IsCancellationRequested
+  fullName: CancellationToken.IsCancellationRequested
   type: Property
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading
   summary: Gets whether cancellation has been requested for this token.
   remarks: "This property indicates whether cancellation has been requested for this token, either through the token initially being constructed in a canceled state, or through calling <xref:System.Threading.CancellationTokenSource.Cancel%2A> on the token's associated <xref:System.Threading.CancellationTokenSource>.  \n  \n If this property is `true`, it only guarantees that cancellation has been requested. It does not guarantee that every registered handler has finished executing, nor that cancellation requests have finished propagating to all registered handlers. Additional synchronization may be required, particularly in situations where related objects are being canceled concurrently."
@@ -467,7 +468,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -487,7 +489,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -506,9 +509,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading/CancellationToken.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.CancellationToken.None
   commentId: P:System.Threading.CancellationToken.None
   id: None
@@ -517,12 +517,13 @@ items:
   - csharp
   name: None
   nameWithType: CancellationToken.None
-  fullName: System.Threading.CancellationToken.None
+  fullName: CancellationToken.None
   type: Property
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading
   summary: Returns an empty <xref href="System.Threading.CancellationToken"></xref> value.
   remarks: "The cancellation token returned by this property cannot be canceled; that is, its <xref:System.Threading.CancellationToken.CanBeCanceled%2A> property is `false`.  \n  \n You can also use the C#  [default(CancellationToken)](~/docs/csharp/language-reference/keywords/default.md) statement to create an empty cancellation token."
@@ -535,7 +536,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -555,7 +557,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -574,9 +577,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading/CancellationToken.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.CancellationToken.op_Equality(System.Threading.CancellationToken,System.Threading.CancellationToken)
   commentId: M:System.Threading.CancellationToken.op_Equality(System.Threading.CancellationToken,System.Threading.CancellationToken)
   id: op_Equality(System.Threading.CancellationToken,System.Threading.CancellationToken)
@@ -585,12 +585,13 @@ items:
   - csharp
   name: op_Equality(CancellationToken, CancellationToken)
   nameWithType: CancellationToken.op_Equality(CancellationToken, CancellationToken)
-  fullName: System.Threading.CancellationToken.op_Equality(CancellationToken, CancellationToken)
+  fullName: CancellationToken.op_Equality(CancellationToken, CancellationToken)
   type: Operator
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading
   summary: Determines whether two <xref href="System.Threading.CancellationToken"></xref> instances are equal.
   syntax:
@@ -612,7 +613,8 @@ items:
     description: An associated <xref href="System.Threading.CancellationTokenSource"></xref> has been disposed.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -632,7 +634,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -651,9 +654,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading/CancellationToken.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.CancellationToken.op_Inequality(System.Threading.CancellationToken,System.Threading.CancellationToken)
   commentId: M:System.Threading.CancellationToken.op_Inequality(System.Threading.CancellationToken,System.Threading.CancellationToken)
   id: op_Inequality(System.Threading.CancellationToken,System.Threading.CancellationToken)
@@ -662,12 +662,13 @@ items:
   - csharp
   name: op_Inequality(CancellationToken, CancellationToken)
   nameWithType: CancellationToken.op_Inequality(CancellationToken, CancellationToken)
-  fullName: System.Threading.CancellationToken.op_Inequality(CancellationToken, CancellationToken)
+  fullName: CancellationToken.op_Inequality(CancellationToken, CancellationToken)
   type: Operator
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading
   summary: Determines whether two <xref href="System.Threading.CancellationToken"></xref> instances are not equal.
   syntax:
@@ -689,7 +690,8 @@ items:
     description: An associated <xref href="System.Threading.CancellationTokenSource"></xref> has been disposed.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -709,7 +711,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -728,9 +731,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading/CancellationToken.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.CancellationToken.Register(System.Action)
   commentId: M:System.Threading.CancellationToken.Register(System.Action)
   id: Register(System.Action)
@@ -739,12 +739,13 @@ items:
   - csharp
   name: Register(Action)
   nameWithType: CancellationToken.Register(Action)
-  fullName: System.Threading.CancellationToken.Register(Action)
+  fullName: CancellationToken.Register(Action)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading
   summary: Registers a delegate that will be called when this <xref href="System.Threading.CancellationToken"></xref> is canceled.
   remarks: "If this token is already in the canceled state, the delegate will be run immediately and synchronously. Any exception the delegate generates will be propagated out of this method call.  \n  \n The current <xref:System.Threading.ExecutionContext>, if one exists, will be captured along with the delegate and will be used when executing it."
@@ -767,7 +768,8 @@ items:
     description: <code>callback</code> is null.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -787,7 +789,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -806,9 +809,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading/CancellationToken.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.CancellationToken.Register(System.Action,System.Boolean)
   commentId: M:System.Threading.CancellationToken.Register(System.Action,System.Boolean)
   id: Register(System.Action,System.Boolean)
@@ -817,12 +817,13 @@ items:
   - csharp
   name: Register(Action, Boolean)
   nameWithType: CancellationToken.Register(Action, Boolean)
-  fullName: System.Threading.CancellationToken.Register(Action, Boolean)
+  fullName: CancellationToken.Register(Action, Boolean)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading
   summary: Registers a delegate that will be called when this <xref href="System.Threading.CancellationToken"></xref> is canceled.
   remarks: "If this token is already in the canceled state, the delegate will be run immediately and synchronously. Any exception the delegate generates will be propogated out of this method call.  \n  \n If `useSynchronizationContext` is `true`, the current <xref:System.Threading.ExecutionContext>, if one exists, will be captured along with the delegate and will be used when executing it."
@@ -848,7 +849,8 @@ items:
     description: <code>callback</code> is null.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -868,7 +870,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -887,9 +890,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading/CancellationToken.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.CancellationToken.Register(System.Action{System.Object},System.Object)
   commentId: M:System.Threading.CancellationToken.Register(System.Action{System.Object},System.Object)
   id: Register(System.Action{System.Object},System.Object)
@@ -898,12 +898,13 @@ items:
   - csharp
   name: Register(Action<Object>, Object)
   nameWithType: CancellationToken.Register(Action<Object>, Object)
-  fullName: System.Threading.CancellationToken.Register(Action<Object>, Object)
+  fullName: CancellationToken.Register(Action<Object>, Object)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading
   summary: Registers a delegate that will be called when this <xref href="System.Threading.CancellationToken"></xref> is canceled.
   remarks: "If this token is already in the canceled state, the delegate will be run immediately and synchronously. Any exception the delegate generates will be propogated out of this method call.  \n  \n The current <xref:System.Threading.ExecutionContext>, if one exists, will be captured along with the delegate and will be used when executing it."
@@ -929,7 +930,8 @@ items:
     description: <code>callback</code> is null.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -949,7 +951,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -968,9 +971,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading/CancellationToken.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.CancellationToken.Register(System.Action{System.Object},System.Object,System.Boolean)
   commentId: M:System.Threading.CancellationToken.Register(System.Action{System.Object},System.Object,System.Boolean)
   id: Register(System.Action{System.Object},System.Object,System.Boolean)
@@ -979,12 +979,13 @@ items:
   - csharp
   name: Register(Action<Object>, Object, Boolean)
   nameWithType: CancellationToken.Register(Action<Object>, Object, Boolean)
-  fullName: System.Threading.CancellationToken.Register(Action<Object>, Object, Boolean)
+  fullName: CancellationToken.Register(Action<Object>, Object, Boolean)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading
   summary: Registers a delegate that will be called when this <xref href="System.Threading.CancellationToken"></xref> is canceled.
   remarks: "If this token is already in the canceled state, the delegate will be run immediately and synchronously. Any exception the delegate generates will be propogated out of this method call.  \n  \n The current <xref:System.Threading.ExecutionContext>, if one exists, will be captured along with the delegate and will be used when executing it."
@@ -1013,7 +1014,8 @@ items:
     description: <code>callback</code> is null.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1033,7 +1035,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1052,9 +1055,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading/CancellationToken.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.CancellationToken.ThrowIfCancellationRequested
   commentId: M:System.Threading.CancellationToken.ThrowIfCancellationRequested
   id: ThrowIfCancellationRequested
@@ -1063,12 +1063,13 @@ items:
   - csharp
   name: ThrowIfCancellationRequested()
   nameWithType: CancellationToken.ThrowIfCancellationRequested()
-  fullName: System.Threading.CancellationToken.ThrowIfCancellationRequested()
+  fullName: CancellationToken.ThrowIfCancellationRequested()
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading
   summary: Throws a <xref href="System.OperationCanceledException"></xref> if this token has had cancellation requested.
   remarks: "This method provides functionality equivalent to:  \n  \n C#  \n  \n```  \nif (token.IsCancellationRequested)   \n    throw new OperationCanceledException(token);  \n```  \n  \n```vb  \nIf token.IsCancellationRequested Then  \n    Throw New OperationCanceledException(token)  \nEnd If  \n```"
@@ -1085,7 +1086,8 @@ items:
     description: The associated <xref href="System.Threading.CancellationTokenSource"></xref> has been disposed.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1105,7 +1107,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1124,9 +1127,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading/CancellationToken.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.CancellationToken.WaitHandle
   commentId: P:System.Threading.CancellationToken.WaitHandle
   id: WaitHandle
@@ -1135,12 +1135,13 @@ items:
   - csharp
   name: WaitHandle
   nameWithType: CancellationToken.WaitHandle
-  fullName: System.Threading.CancellationToken.WaitHandle
+  fullName: CancellationToken.WaitHandle
   type: Property
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading
   summary: Gets a <xref href="System.Threading.WaitHandle"></xref> that is signaled when the token is canceled.
   remarks: Accessing this property causes a <xref:System.Threading.WaitHandle> to be instantiated. It is preferable to only use this property when necessary, and to then dispose the associated <xref:System.Threading.CancellationTokenSource> instance at the earliest opportunity (disposing the source will dispose of this allocated handle). The handle should not be closed or disposed directly.
@@ -1156,7 +1157,8 @@ items:
     description: The associated <xref href="System.Threading.CancellationTokenSource"></xref> has been disposed.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1176,7 +1178,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1195,9 +1198,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading/CancellationToken.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.ValueType
   parent: System
@@ -1228,7 +1228,7 @@ references:
   isExternal: false
   name: CancellationToken(Boolean)
   nameWithType: CancellationToken.CancellationToken(Boolean)
-  fullName: System.Threading.CancellationToken.CancellationToken(Boolean)
+  fullName: CancellationToken.CancellationToken(Boolean)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -1240,13 +1240,13 @@ references:
   isExternal: false
   name: CanBeCanceled
   nameWithType: CancellationToken.CanBeCanceled
-  fullName: System.Threading.CancellationToken.CanBeCanceled
+  fullName: CancellationToken.CanBeCanceled
 - uid: System.Threading.CancellationToken.Equals(System.Object)
   parent: System.Threading.CancellationToken
   isExternal: false
   name: Equals(Object)
   nameWithType: CancellationToken.Equals(Object)
-  fullName: System.Threading.CancellationToken.Equals(Object)
+  fullName: CancellationToken.Equals(Object)
 - uid: System.Object
   parent: System
   isExternal: false
@@ -1258,7 +1258,7 @@ references:
   isExternal: false
   name: Equals(CancellationToken)
   nameWithType: CancellationToken.Equals(CancellationToken)
-  fullName: System.Threading.CancellationToken.Equals(CancellationToken)
+  fullName: CancellationToken.Equals(CancellationToken)
 - uid: System.Threading.CancellationToken
   parent: System.Threading
   isExternal: false
@@ -1270,7 +1270,7 @@ references:
   isExternal: false
   name: GetHashCode()
   nameWithType: CancellationToken.GetHashCode()
-  fullName: System.Threading.CancellationToken.GetHashCode()
+  fullName: CancellationToken.GetHashCode()
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -1282,31 +1282,31 @@ references:
   isExternal: false
   name: IsCancellationRequested
   nameWithType: CancellationToken.IsCancellationRequested
-  fullName: System.Threading.CancellationToken.IsCancellationRequested
+  fullName: CancellationToken.IsCancellationRequested
 - uid: System.Threading.CancellationToken.None
   parent: System.Threading.CancellationToken
   isExternal: false
   name: None
   nameWithType: CancellationToken.None
-  fullName: System.Threading.CancellationToken.None
+  fullName: CancellationToken.None
 - uid: System.Threading.CancellationToken.op_Equality(System.Threading.CancellationToken,System.Threading.CancellationToken)
   parent: System.Threading.CancellationToken
   isExternal: false
   name: op_Equality(CancellationToken, CancellationToken)
   nameWithType: CancellationToken.op_Equality(CancellationToken, CancellationToken)
-  fullName: System.Threading.CancellationToken.op_Equality(CancellationToken, CancellationToken)
+  fullName: CancellationToken.op_Equality(CancellationToken, CancellationToken)
 - uid: System.Threading.CancellationToken.op_Inequality(System.Threading.CancellationToken,System.Threading.CancellationToken)
   parent: System.Threading.CancellationToken
   isExternal: false
   name: op_Inequality(CancellationToken, CancellationToken)
   nameWithType: CancellationToken.op_Inequality(CancellationToken, CancellationToken)
-  fullName: System.Threading.CancellationToken.op_Inequality(CancellationToken, CancellationToken)
+  fullName: CancellationToken.op_Inequality(CancellationToken, CancellationToken)
 - uid: System.Threading.CancellationToken.Register(System.Action)
   parent: System.Threading.CancellationToken
   isExternal: false
   name: Register(Action)
   nameWithType: CancellationToken.Register(Action)
-  fullName: System.Threading.CancellationToken.Register(Action)
+  fullName: CancellationToken.Register(Action)
 - uid: System.Threading.CancellationTokenRegistration
   parent: System.Threading
   isExternal: false
@@ -1324,13 +1324,13 @@ references:
   isExternal: false
   name: Register(Action, Boolean)
   nameWithType: CancellationToken.Register(Action, Boolean)
-  fullName: System.Threading.CancellationToken.Register(Action, Boolean)
+  fullName: CancellationToken.Register(Action, Boolean)
 - uid: System.Threading.CancellationToken.Register(System.Action{System.Object},System.Object)
   parent: System.Threading.CancellationToken
   isExternal: false
   name: Register(Action<Object>, Object)
   nameWithType: CancellationToken.Register(Action<Object>, Object)
-  fullName: System.Threading.CancellationToken.Register(Action<Object>, Object)
+  fullName: CancellationToken.Register(Action<Object>, Object)
 - uid: System.Action`1
   name: Action<T>
   nameWithType: Action<T>
@@ -1361,19 +1361,19 @@ references:
   isExternal: false
   name: Register(Action<Object>, Object, Boolean)
   nameWithType: CancellationToken.Register(Action<Object>, Object, Boolean)
-  fullName: System.Threading.CancellationToken.Register(Action<Object>, Object, Boolean)
+  fullName: CancellationToken.Register(Action<Object>, Object, Boolean)
 - uid: System.Threading.CancellationToken.ThrowIfCancellationRequested
   parent: System.Threading.CancellationToken
   isExternal: false
   name: ThrowIfCancellationRequested()
   nameWithType: CancellationToken.ThrowIfCancellationRequested()
-  fullName: System.Threading.CancellationToken.ThrowIfCancellationRequested()
+  fullName: CancellationToken.ThrowIfCancellationRequested()
 - uid: System.Threading.CancellationToken.WaitHandle
   parent: System.Threading.CancellationToken
   isExternal: false
   name: WaitHandle
   nameWithType: CancellationToken.WaitHandle
-  fullName: System.Threading.CancellationToken.WaitHandle
+  fullName: CancellationToken.WaitHandle
 - uid: System.Threading.WaitHandle
   parent: System.Threading
   isExternal: false
@@ -1385,10 +1385,11 @@ references:
   isExternal: false
   name: CancellationToken
   nameWithType: CancellationToken.CancellationToken
-  fullName: System.Threading.CancellationToken.CancellationToken
+  fullName: CancellationToken.CancellationToken
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1412,10 +1413,11 @@ references:
   isExternal: false
   name: CanBeCanceled
   nameWithType: CancellationToken.CanBeCanceled
-  fullName: System.Threading.CancellationToken.CanBeCanceled
+  fullName: CancellationToken.CanBeCanceled
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1439,10 +1441,11 @@ references:
   isExternal: false
   name: Equals
   nameWithType: CancellationToken.Equals
-  fullName: System.Threading.CancellationToken.Equals
+  fullName: CancellationToken.Equals
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1466,10 +1469,11 @@ references:
   isExternal: false
   name: GetHashCode
   nameWithType: CancellationToken.GetHashCode
-  fullName: System.Threading.CancellationToken.GetHashCode
+  fullName: CancellationToken.GetHashCode
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1493,10 +1497,11 @@ references:
   isExternal: false
   name: IsCancellationRequested
   nameWithType: CancellationToken.IsCancellationRequested
-  fullName: System.Threading.CancellationToken.IsCancellationRequested
+  fullName: CancellationToken.IsCancellationRequested
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1520,10 +1525,11 @@ references:
   isExternal: false
   name: None
   nameWithType: CancellationToken.None
-  fullName: System.Threading.CancellationToken.None
+  fullName: CancellationToken.None
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1547,10 +1553,11 @@ references:
   isExternal: false
   name: op_Equality
   nameWithType: CancellationToken.op_Equality
-  fullName: System.Threading.CancellationToken.op_Equality
+  fullName: CancellationToken.op_Equality
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1574,10 +1581,11 @@ references:
   isExternal: false
   name: op_Inequality
   nameWithType: CancellationToken.op_Inequality
-  fullName: System.Threading.CancellationToken.op_Inequality
+  fullName: CancellationToken.op_Inequality
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1601,10 +1609,11 @@ references:
   isExternal: false
   name: Register
   nameWithType: CancellationToken.Register
-  fullName: System.Threading.CancellationToken.Register
+  fullName: CancellationToken.Register
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1628,10 +1637,11 @@ references:
   isExternal: false
   name: ThrowIfCancellationRequested
   nameWithType: CancellationToken.ThrowIfCancellationRequested
-  fullName: System.Threading.CancellationToken.ThrowIfCancellationRequested
+  fullName: CancellationToken.ThrowIfCancellationRequested
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1655,10 +1665,11 @@ references:
   isExternal: false
   name: WaitHandle
   nameWithType: CancellationToken.WaitHandle
-  fullName: System.Threading.CancellationToken.WaitHandle
+  fullName: CancellationToken.WaitHandle
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

@@ -21,10 +21,10 @@ items:
   assemblies:
   - System.ServiceModel
   namespace: System.ServiceModel
-  summary: Indicates that an interface or a class defines a service contract in a [!INCLUDE[indigo1](~/includes/indigo1-md.md)] application.
+  summary: Indicates that an interface or a class defines a service contract in a Windows Communication Foundation (WCF) application.
   remarks: "Use the <xref:System.ServiceModel.ServiceContractAttribute> attribute on an interface (or class) to define a service contract. Then use the <xref:System.ServiceModel.OperationContractAttribute> attribute on one or more of the class (or interface) methods to define the contract's service operations. When the service contract is implemented and combined with a [Bindings](~/docs/framework/wcf/bindings.md) and an <xref:System.ServiceModel.EndpointAddress> object, the service contract is exposed for use by clients. For an overview of the process using simple examples, see [Getting Started Tutorial](~/docs/framework/wcf/getting-started-tutorial.md). For more information about creating service contracts, see [Designing and Implementing Services](~/docs/framework/wcf/designing-and-implementing-services.md).  \n  \n The information expressed by a <xref:System.ServiceModel.ServiceContractAttribute> and its interface is loosely related to the Web Services Description Language (WSDL) `<portType>` element. A service contract is used on the service side to specify what the service’s endpoint exposes to callers. It is also used on the client side to specify the contract of the endpoint with which the client communicates and, in the case of duplex contracts, to specify the callback contract (using the <xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A> property) that the client must implement in order to participate in a duplex conversation.  \n  \n> [!NOTE]\n>  An interface or class that is decorated with <xref:System.ServiceModel.ServiceContractAttribute> must also have at least one method marked with the <xref:System.ServiceModel.OperationContractAttribute> attribute to expose any functionality. See the Examples section for a code example of the simplest use of the two attributes to define and implement a service.  \n  \n Use the <xref:System.ServiceModel.ServiceContractAttribute> properties to modify the service contract.  \n  \n-   The <xref:System.ServiceModel.ServiceContractAttribute.ConfigurationName%2A> property specifies the name of the service element in the configuration file to use.  \n  \n-   The <xref:System.ServiceModel.ServiceContractAttribute.Name%2A> and <xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A> properties control the name and namespace of the contract in the WSDL `<portType>` element.  \n  \n-   The <xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A> property specifies whether the contract requires a binding that supports sessions.  \n  \n-   The <xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A> property specifies the return contract in a two-way (duplex) conversation.  \n  \n-   The <xref:System.ServiceModel.ServiceContractAttribute.HasProtectionLevel%2A> and <xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A> properties indicate whether all messages supporting the contract have a explicit <xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A> value, and if so, what that level is.  \n  \n Services implement service contracts, which represent the data exchange that a service type supports. A service class can implement a service contract (by implementing an interface marked with <xref:System.ServiceModel.ServiceContractAttribute> that has methods marked with <xref:System.ServiceModel.OperationContractAttribute>) or it can be marked with the <xref:System.ServiceModel.ServiceContractAttribute> and apply the <xref:System.ServiceModel.OperationContractAttribute> attribute to its own methods. (If a class implements an interface marked with <xref:System.ServiceModel.ServiceContractAttribute>, it cannot be itself marked with <xref:System.ServiceModel.ServiceContractAttribute>.) Methods on service types that are marked with the <xref:System.ServiceModel.OperationContractAttribute> are treated as part of a default service contract specified by the service type itself. For details about service operations, see <xref:System.ServiceModel.OperationContractAttribute>.  \n  \n By default, the <xref:System.ServiceModel.ServiceContractAttribute.Name%2A> and <xref:System.ServiceModel.ServiceContractAttribute.Namespace%2A> properties are the name of the contract type and `http://tempuri.org`, respectively, and <xref:System.ServiceModel.ServiceContractAttribute.ProtectionLevel%2A> is <xref:System.Net.Security.ProtectionLevel?displayProperty=fullName>. It is recommended that service contracts explicitly set their names, namespaces, and protection levels using these properties. Doing so accomplishes two goals. First, it builds a contract that is not directly connected to the managed type information, enabling you to refactor your managed code and namespaces without breaking the contract as it is expressed in WSDL. Second, explicitly requiring a certain level of protection on the contract itself enables the runtime to validate whether the binding configuration supports that level of security, preventing poor configuration from exposing sensitive information. For more information about protection levels, see [Understanding Protection Level](~/docs/framework/wcf/understanding-protection-level.md).  \n  \n To expose a service for use by client applications, create a host application to register your service endpoint with [!INCLUDE[indigo1](~/includes/indigo1-md.md)]. You can host [!INCLUDE[indigo2](~/includes/indigo2-md.md)] services using Windows Activation Services (WAS), in console applications, Windows Service applications, ASP.NET applications, Windows Forms applications, or any other kind of application domain.  \n  \n Hosting in the WAS is very similar to creating an ASP.NET application. For details, see [How to: Host a WCF Service in IIS](~/docs/framework/wcf/feature-details/how-to-host-a-wcf-service-in-iis.md).  \n  \n Clients either use the service contract interface (the interface marked with <xref:System.ServiceModel.ServiceContractAttribute>) to create a channel to the service or they use the client objects (which combine the type information of the service contract interface with the <xref:System.ServiceModel.ClientBase%601> class) to communicate with your service. For details on client channels to services, see the <xref:System.ServiceModel.ChannelFactory%601> class and [WCF Client Overview](~/docs/framework/wcf/wcf-client-overview.md).  \n  \n Using a <xref:System.ServiceModel.ServiceContractAttribute> class or interface to inherit from another <xref:System.ServiceModel.ServiceContractAttribute> class or interface extends the parent contract. For example, if an `IChildContract` interface is marked with <xref:System.ServiceModel.ServiceContractAttribute> and inherited from another service contract interface, `IParentContract`, the `IChildContract` service contract contains the methods of both `IParentContract` and `IChildContract`. Extending contracts (whether on classes or interfaces) is very similar to extending managed classes and interfaces.  \n  \n The most flexible approach to creating services is to define service contract interfaces first and then have your service class implement that interface. (This is also the simplest way to build your services if you must implement service contracts that have been defined by others.) Building services directly by marking a class with <xref:System.ServiceModel.ServiceContractAttribute> and its methods with <xref:System.ServiceModel.OperationContractAttribute> works when the service exposes only one contract (but that contract can be exposed by more than one endpoint).  \n  \n Use the <xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A>property to indicate another service contract that, when bound together with the original service contract, define a message exchange that can flow in two ways independently. For details, see <xref:System.ServiceModel.ServiceContractAttribute.CallbackContract%2A>."
   example:
-  - "The following code example shows how to apply the <xref:System.ServiceModel.ServiceContractAttribute> to an interface to define a service contract with one service method, indicated by the <xref:System.ServiceModel.OperationContractAttribute>. In this case, the protection level required of bindings for all messages is <xref:System.Net.Security.ProtectionLevel?displayProperty=fullName>.  \n  \n The code example then implements that contract on the `SampleService` class.  \n  \n [!code-csharp[ServiceContractAttribute#1](~/samples/snippets/csharp/VS_Snippets_CFX/servicecontractattribute/cs/services.cs#1)]\n [!code-vb[ServiceContractAttribute#1](~/samples/snippets/visualbasic/VS_Snippets_CFX/servicecontractattribute/vb/services.vb#1)]  \n  \n The following code example shows a simple configuration file for the preceding service that creates one endpoint.  \n  \n <!-- TODO: review snippet reference [!code[ServiceContractAttribute#2](~/samples/snippets/common/VS_Snippets_CFX/servicecontractattribute/common/hostapplication.exe.config#2)]  -->\n <!-- TODO: review snippet reference [!code-csharp[ServiceContractAttribute#2](~/samples/snippets/csharp/VS_Snippets_CFX/servicecontractattribute/cs/hostapplication.exe.config#2)]  -->\n <!-- TODO: review snippet reference [!code-vb[ServiceContractAttribute#2](~/samples/snippets/visualbasic/VS_Snippets_CFX/servicecontractattribute/vb/hostapplication.exe.config#2)]  -->  \n  \n The following code example shows a simple client that invokes the preceding `SampleService`.  \n  \n [!code-csharp[ServiceContractAttribute#3](~/samples/snippets/csharp/VS_Snippets_CFX/servicecontractattribute/cs/client.cs#3)]\n [!code-vb[ServiceContractAttribute#3](~/samples/snippets/visualbasic/VS_Snippets_CFX/servicecontractattribute/vb/client.vb#3)]"
+  - "The following code example shows how to apply the <xref:System.ServiceModel.ServiceContractAttribute> to an interface to define a service contract with one service method, indicated by the <xref:System.ServiceModel.OperationContractAttribute>. In this case, the protection level required of bindings for all messages is <xref:System.Net.Security.ProtectionLevel?displayProperty=fullName>.  \n  \n The code example then implements that contract on the `SampleService` class.  \n  \n [!code-csharp[ServiceContractAttribute#1](~/samples/snippets/csharp/VS_Snippets_CFX/servicecontractattribute/cs/services.cs#1)]\n [!code-vb[ServiceContractAttribute#1](~/samples/snippets/visualbasic/VS_Snippets_CFX/servicecontractattribute/vb/services.vb#1)]  \n  \n The following code example shows a simple configuration file for the preceding service that creates one endpoint.  \n  \n [!code-xml[ServiceContractAttribute#2](~/samples/snippets/csharp/VS_Snippets_CFX/servicecontractattribute/cs/hostapplication.exe.config#2)]   \n  \n The following code example shows a simple client that invokes the preceding `SampleService`.  \n  \n [!code-csharp[ServiceContractAttribute#3](~/samples/snippets/csharp/VS_Snippets_CFX/servicecontractattribute/cs/client.cs#3)]\n [!code-vb[ServiceContractAttribute#3](~/samples/snippets/visualbasic/VS_Snippets_CFX/servicecontractattribute/vb/client.vb#3)]"
   syntax:
     content: >-
       [System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Interface, Inherited=false)]
@@ -106,9 +106,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/ServiceContractAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.ServiceContractAttribute.#ctor
   commentId: M:System.ServiceModel.ServiceContractAttribute.#ctor
   id: '#ctor'
@@ -117,7 +114,7 @@ items:
   - csharp
   name: ServiceContractAttribute()
   nameWithType: ServiceContractAttribute.ServiceContractAttribute()
-  fullName: System.ServiceModel.ServiceContractAttribute.ServiceContractAttribute()
+  fullName: ServiceContractAttribute.ServiceContractAttribute()
   type: Constructor
   assemblies:
   - System.ServiceModel
@@ -152,9 +149,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/ServiceContractAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.ServiceContractAttribute.CallbackContract
   commentId: P:System.ServiceModel.ServiceContractAttribute.CallbackContract
   id: CallbackContract
@@ -163,7 +157,7 @@ items:
   - csharp
   name: CallbackContract
   nameWithType: ServiceContractAttribute.CallbackContract
-  fullName: System.ServiceModel.ServiceContractAttribute.CallbackContract
+  fullName: ServiceContractAttribute.CallbackContract
   type: Property
   assemblies:
   - System.ServiceModel
@@ -202,9 +196,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/ServiceContractAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.ServiceContractAttribute.ConfigurationName
   commentId: P:System.ServiceModel.ServiceContractAttribute.ConfigurationName
   id: ConfigurationName
@@ -213,7 +204,7 @@ items:
   - csharp
   name: ConfigurationName
   nameWithType: ServiceContractAttribute.ConfigurationName
-  fullName: System.ServiceModel.ServiceContractAttribute.ConfigurationName
+  fullName: ServiceContractAttribute.ConfigurationName
   type: Property
   assemblies:
   - System.ServiceModel
@@ -256,9 +247,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/ServiceContractAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.ServiceContractAttribute.HasProtectionLevel
   commentId: P:System.ServiceModel.ServiceContractAttribute.HasProtectionLevel
   id: HasProtectionLevel
@@ -267,7 +255,7 @@ items:
   - csharp
   name: HasProtectionLevel
   nameWithType: ServiceContractAttribute.HasProtectionLevel
-  fullName: System.ServiceModel.ServiceContractAttribute.HasProtectionLevel
+  fullName: ServiceContractAttribute.HasProtectionLevel
   type: Property
   assemblies:
   - System.ServiceModel
@@ -304,9 +292,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/ServiceContractAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.ServiceContractAttribute.Name
   commentId: P:System.ServiceModel.ServiceContractAttribute.Name
   id: Name
@@ -315,7 +300,7 @@ items:
   - csharp
   name: Name
   nameWithType: ServiceContractAttribute.Name
-  fullName: System.ServiceModel.ServiceContractAttribute.Name
+  fullName: ServiceContractAttribute.Name
   type: Property
   assemblies:
   - System.ServiceModel
@@ -360,9 +345,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/ServiceContractAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.ServiceContractAttribute.Namespace
   commentId: P:System.ServiceModel.ServiceContractAttribute.Namespace
   id: Namespace
@@ -371,7 +353,7 @@ items:
   - csharp
   name: Namespace
   nameWithType: ServiceContractAttribute.Namespace
-  fullName: System.ServiceModel.ServiceContractAttribute.Namespace
+  fullName: ServiceContractAttribute.Namespace
   type: Property
   assemblies:
   - System.ServiceModel
@@ -410,9 +392,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/ServiceContractAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.ServiceContractAttribute.ProtectionLevel
   commentId: P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel
   id: ProtectionLevel
@@ -421,7 +400,7 @@ items:
   - csharp
   name: ProtectionLevel
   nameWithType: ServiceContractAttribute.ProtectionLevel
-  fullName: System.ServiceModel.ServiceContractAttribute.ProtectionLevel
+  fullName: ServiceContractAttribute.ProtectionLevel
   type: Property
   assemblies:
   - System.ServiceModel
@@ -461,9 +440,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/ServiceContractAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.ServiceContractAttribute.SessionMode
   commentId: P:System.ServiceModel.ServiceContractAttribute.SessionMode
   id: SessionMode
@@ -472,13 +448,13 @@ items:
   - csharp
   name: SessionMode
   nameWithType: ServiceContractAttribute.SessionMode
-  fullName: System.ServiceModel.ServiceContractAttribute.SessionMode
+  fullName: ServiceContractAttribute.SessionMode
   type: Property
   assemblies:
   - System.ServiceModel
   namespace: System.ServiceModel
   summary: Gets or sets whether sessions are allowed, not allowed or required.
-  remarks: "Use the <xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A> property to require bindings that support sessions between endpoints. A session is a way of correlating a set of messages exchanged between two or more endpoints. If your service supports channel sessions, you can then use the <xref:System.ServiceModel.ServiceBehaviorAttribute.InstanceContextMode%2A> property to specify the relationship between instances your service contract implementation and the channel session. If a binding does not support sessions, an exception is thrown.  \n  \n For example, if the <xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A> property is set to <xref:System.ServiceModel.SessionMode?displayProperty=fullName> and the <xref:System.ServiceModel.ServiceBehaviorAttribute.InstanceContextMode%2A> property is set to <xref:System.ServiceModel.InstanceContextMode>, clients can use the same connection to make repeated calls to the same service object.  \n  \n For more information about sessions and service instances, see [Using Sessions](~/docs/framework/wcf/using-sessions.md) and [Sessions, Instancing, and Concurrency](../Topic/Sessions,%20Instancing,%20and%20Concurrency.md).  \n  \n> [!NOTE]\n>  A channel that supports sessions supports the default association of a service instance with a particular session. However, different session implementations support different features in addition to session-based instancing control. [!INCLUDE[indigo2](~/includes/indigo2-md.md)] provides four types of sessions that you can use to provide sessionful application behavior; each type of session provides additional behavior specific to the type of session it is.  \n  \n1.  The <xref:System.ServiceModel.Channels.SecurityBindingElement?displayProperty=fullName> supports security sessions, in which both ends of communication have agreed upon an encryption and/or digital signature process; all messages are correlated with that specific secure conversation. For more information, see [Securing Services](~/docs/framework/wcf/securing-services.md). For example, the <xref:System.ServiceModel.WSHttpBinding?displayProperty=fullName>, which contains support for both security sessions and reliable sessions, by default uses only a secure session which encrypts and digitally signs messages.  \n  \n2.  The <xref:System.ServiceModel.NetTcpBinding?displayProperty=fullName> supports the sessions exposed by the TCP/IP connections to ensure that all messages are correlated by the connection session at the socket level.  \n  \n3.  The <xref:System.ServiceModel.Channels.ReliableSessionBindingElement?displayProperty=fullName>, which implements the WS-ReliableMessaging specification, provides support for reliable sessions in which messages are delivered in order and exactly once, enabling confidence even when messages travel across multiple nodes during the conversation. For more information, see [Reliable Sessions](~/docs/framework/wcf/feature-details/reliable-sessions.md).  \n  \n4.  The <xref:System.ServiceModel.NetMsmqBinding?displayProperty=fullName> provides MSMQ datagram sessions. For more information, see [Queues in WCF](~/docs/framework/wcf/feature-details/queues-in-wcf.md).  \n  \n Remember that setting the <xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A> property does not specify the type of session the contract requires, only that it requires one."
+  remarks: "Use the <xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A> property to require bindings that support sessions between endpoints. A session is a way of correlating a set of messages exchanged between two or more endpoints. If your service supports channel sessions, you can then use the <xref:System.ServiceModel.ServiceBehaviorAttribute.InstanceContextMode%2A> property to specify the relationship between instances your service contract implementation and the channel session. If a binding does not support sessions, an exception is thrown.  \n  \n For example, if the <xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A> property is set to <xref:System.ServiceModel.SessionMode?displayProperty=fullName> and the <xref:System.ServiceModel.ServiceBehaviorAttribute.InstanceContextMode%2A> property is set to <xref:System.ServiceModel.InstanceContextMode.PerSession>, clients can use the same connection to make repeated calls to the same service object.  \n  \n For more information about sessions and service instances, see [Using Sessions](~/docs/framework/wcf/using-sessions.md) and [Sessions, Instancing, and Concurrency](~/docs/framework/wcf/feature-details/sessions-instancing-and-concurrency.md).  \n  \n> [!NOTE]\n>  A channel that supports sessions supports the default association of a service instance with a particular session. However, different session implementations support different features in addition to session-based instancing control. [!INCLUDE[indigo2](~/includes/indigo2-md.md)] provides four types of sessions that you can use to provide sessionful application behavior; each type of session provides additional behavior specific to the type of session it is.  \n  \n1.  The <xref:System.ServiceModel.Channels.SecurityBindingElement?displayProperty=fullName> supports security sessions, in which both ends of communication have agreed upon an encryption and/or digital signature process; all messages are correlated with that specific secure conversation. For more information, see [Securing Services](~/docs/framework/wcf/securing-services.md). For example, the <xref:System.ServiceModel.WSHttpBinding?displayProperty=fullName>, which contains support for both security sessions and reliable sessions, by default uses only a secure session which encrypts and digitally signs messages.  \n  \n2.  The <xref:System.ServiceModel.NetTcpBinding?displayProperty=fullName> supports the sessions exposed by the TCP/IP connections to ensure that all messages are correlated by the connection session at the socket level.  \n  \n3.  The <xref:System.ServiceModel.Channels.ReliableSessionBindingElement?displayProperty=fullName>, which implements the WS-ReliableMessaging specification, provides support for reliable sessions in which messages are delivered in order and exactly once, enabling confidence even when messages travel across multiple nodes during the conversation. For more information, see [Reliable Sessions](~/docs/framework/wcf/feature-details/reliable-sessions.md).  \n  \n4.  The <xref:System.ServiceModel.NetMsmqBinding?displayProperty=fullName> provides MSMQ datagram sessions. For more information, see [Queues in WCF](~/docs/framework/wcf/feature-details/queues-in-wcf.md).  \n  \n Remember that setting the <xref:System.ServiceModel.ServiceContractAttribute.SessionMode%2A> property does not specify the type of session the contract requires, only that it requires one."
   example:
   - "The following service contract requires that configured bindings use sessions when interacting with `SampleDuplexHello` service implementations.  \n  \n [!code-csharp[SCA.Session#1](~/samples/snippets/csharp/VS_Snippets_CFX/sca.session/cs/services.cs#1)]\n [!code-vb[SCA.Session#1](~/samples/snippets/visualbasic/VS_Snippets_CFX/sca.session/vb/services.vb#1)]"
   syntax:
@@ -514,9 +490,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/ServiceContractAttribute.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 references:
 - uid: System.Attribute
   parent: System
@@ -541,13 +514,13 @@ references:
   isExternal: false
   name: ServiceContractAttribute()
   nameWithType: ServiceContractAttribute.ServiceContractAttribute()
-  fullName: System.ServiceModel.ServiceContractAttribute.ServiceContractAttribute()
+  fullName: ServiceContractAttribute.ServiceContractAttribute()
 - uid: System.ServiceModel.ServiceContractAttribute.CallbackContract
   parent: System.ServiceModel.ServiceContractAttribute
   isExternal: false
   name: CallbackContract
   nameWithType: ServiceContractAttribute.CallbackContract
-  fullName: System.ServiceModel.ServiceContractAttribute.CallbackContract
+  fullName: ServiceContractAttribute.CallbackContract
 - uid: System.Type
   parent: System
   isExternal: false
@@ -559,7 +532,7 @@ references:
   isExternal: false
   name: ConfigurationName
   nameWithType: ServiceContractAttribute.ConfigurationName
-  fullName: System.ServiceModel.ServiceContractAttribute.ConfigurationName
+  fullName: ServiceContractAttribute.ConfigurationName
 - uid: System.String
   parent: System
   isExternal: false
@@ -571,7 +544,7 @@ references:
   isExternal: false
   name: HasProtectionLevel
   nameWithType: ServiceContractAttribute.HasProtectionLevel
-  fullName: System.ServiceModel.ServiceContractAttribute.HasProtectionLevel
+  fullName: ServiceContractAttribute.HasProtectionLevel
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -583,19 +556,19 @@ references:
   isExternal: false
   name: Name
   nameWithType: ServiceContractAttribute.Name
-  fullName: System.ServiceModel.ServiceContractAttribute.Name
+  fullName: ServiceContractAttribute.Name
 - uid: System.ServiceModel.ServiceContractAttribute.Namespace
   parent: System.ServiceModel.ServiceContractAttribute
   isExternal: false
   name: Namespace
   nameWithType: ServiceContractAttribute.Namespace
-  fullName: System.ServiceModel.ServiceContractAttribute.Namespace
+  fullName: ServiceContractAttribute.Namespace
 - uid: System.ServiceModel.ServiceContractAttribute.ProtectionLevel
   parent: System.ServiceModel.ServiceContractAttribute
   isExternal: false
   name: ProtectionLevel
   nameWithType: ServiceContractAttribute.ProtectionLevel
-  fullName: System.ServiceModel.ServiceContractAttribute.ProtectionLevel
+  fullName: ServiceContractAttribute.ProtectionLevel
 - uid: System.Net.Security.ProtectionLevel
   parent: System.Net.Security
   isExternal: false
@@ -607,7 +580,7 @@ references:
   isExternal: false
   name: SessionMode
   nameWithType: ServiceContractAttribute.SessionMode
-  fullName: System.ServiceModel.ServiceContractAttribute.SessionMode
+  fullName: ServiceContractAttribute.SessionMode
 - uid: System.ServiceModel.SessionMode
   parent: System.ServiceModel
   isExternal: false
@@ -619,7 +592,7 @@ references:
   isExternal: false
   name: ServiceContractAttribute
   nameWithType: ServiceContractAttribute.ServiceContractAttribute
-  fullName: System.ServiceModel.ServiceContractAttribute.ServiceContractAttribute
+  fullName: ServiceContractAttribute.ServiceContractAttribute
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -637,7 +610,7 @@ references:
   isExternal: false
   name: CallbackContract
   nameWithType: ServiceContractAttribute.CallbackContract
-  fullName: System.ServiceModel.ServiceContractAttribute.CallbackContract
+  fullName: ServiceContractAttribute.CallbackContract
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -655,7 +628,7 @@ references:
   isExternal: false
   name: ConfigurationName
   nameWithType: ServiceContractAttribute.ConfigurationName
-  fullName: System.ServiceModel.ServiceContractAttribute.ConfigurationName
+  fullName: ServiceContractAttribute.ConfigurationName
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -673,7 +646,7 @@ references:
   isExternal: false
   name: HasProtectionLevel
   nameWithType: ServiceContractAttribute.HasProtectionLevel
-  fullName: System.ServiceModel.ServiceContractAttribute.HasProtectionLevel
+  fullName: ServiceContractAttribute.HasProtectionLevel
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -691,7 +664,7 @@ references:
   isExternal: false
   name: Name
   nameWithType: ServiceContractAttribute.Name
-  fullName: System.ServiceModel.ServiceContractAttribute.Name
+  fullName: ServiceContractAttribute.Name
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -709,7 +682,7 @@ references:
   isExternal: false
   name: Namespace
   nameWithType: ServiceContractAttribute.Namespace
-  fullName: System.ServiceModel.ServiceContractAttribute.Namespace
+  fullName: ServiceContractAttribute.Namespace
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -727,7 +700,7 @@ references:
   isExternal: false
   name: ProtectionLevel
   nameWithType: ServiceContractAttribute.ProtectionLevel
-  fullName: System.ServiceModel.ServiceContractAttribute.ProtectionLevel
+  fullName: ServiceContractAttribute.ProtectionLevel
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -745,7 +718,7 @@ references:
   isExternal: false
   name: SessionMode
   nameWithType: ServiceContractAttribute.SessionMode
-  fullName: System.ServiceModel.ServiceContractAttribute.SessionMode
+  fullName: ServiceContractAttribute.SessionMode
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

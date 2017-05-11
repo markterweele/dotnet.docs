@@ -23,6 +23,7 @@ items:
   type: Class
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security
   summary: Allows the control and customization of security behavior for application domains.
   remarks: When you create a new <xref:System.AppDomain>, the common language runtime queries the <xref:System.AppDomainManager> for the presence of a <xref:System.Security.HostSecurityManager>, which participates in making security decisions for the <xref:System.AppDomain>.  Host providers should implement a host security manager that inherits from the <xref:System.Security.HostSecurityManager> class.
@@ -47,6 +48,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -58,6 +60,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -69,9 +72,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security/HostSecurityManager.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.HostSecurityManager.#ctor
   commentId: M:System.Security.HostSecurityManager.#ctor
   id: '#ctor'
@@ -80,10 +80,11 @@ items:
   - csharp
   name: HostSecurityManager()
   nameWithType: HostSecurityManager.HostSecurityManager()
-  fullName: System.Security.HostSecurityManager.HostSecurityManager()
+  fullName: HostSecurityManager.HostSecurityManager()
   type: Constructor
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security
   summary: Initializes a new instance of the <xref href="System.Security.HostSecurityManager"></xref> class.
   syntax:
@@ -92,6 +93,7 @@ items:
   overload: System.Security.HostSecurityManager.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -103,6 +105,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -114,9 +117,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security/HostSecurityManager.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.HostSecurityManager.DetermineApplicationTrust(System.Security.Policy.Evidence,System.Security.Policy.Evidence,System.Security.Policy.TrustManagerContext)
   commentId: M:System.Security.HostSecurityManager.DetermineApplicationTrust(System.Security.Policy.Evidence,System.Security.Policy.Evidence,System.Security.Policy.TrustManagerContext)
   id: DetermineApplicationTrust(System.Security.Policy.Evidence,System.Security.Policy.Evidence,System.Security.Policy.TrustManagerContext)
@@ -125,10 +125,11 @@ items:
   - csharp
   name: DetermineApplicationTrust(Evidence, Evidence, TrustManagerContext)
   nameWithType: HostSecurityManager.DetermineApplicationTrust(Evidence, Evidence, TrustManagerContext)
-  fullName: System.Security.HostSecurityManager.DetermineApplicationTrust(Evidence, Evidence, TrustManagerContext)
+  fullName: HostSecurityManager.DetermineApplicationTrust(Evidence, Evidence, TrustManagerContext)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security
   summary: Determines whether an application should be executed.
   remarks: "This method can be overridden by a derived class. The base implementation calls the application security manager to determine if the application should be executed.  \n  \n The base implementation does not use the activator evidence. However, an overridden implementation could use the activator evidence to determine the security evidence for the application domain attempting to activate the application."
@@ -161,6 +162,7 @@ items:
     commentId: T:System.InvalidOperationException
     description: The <xref href="System.Security.Policy.ApplicationTrust"></xref> grant set does not contain the minimum request set specified by the <xref href="System.ActivationContext"></xref>.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -172,6 +174,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -183,9 +186,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security/HostSecurityManager.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.HostSecurityManager.DomainPolicy
   commentId: P:System.Security.HostSecurityManager.DomainPolicy
   id: DomainPolicy
@@ -194,10 +194,11 @@ items:
   - csharp
   name: DomainPolicy
   nameWithType: HostSecurityManager.DomainPolicy
-  fullName: System.Security.HostSecurityManager.DomainPolicy
+  fullName: HostSecurityManager.DomainPolicy
   type: Property
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security
   summary: When overridden in a derived class, gets the security policy for the current application domain.
   remarks: "This property can be overridden in a derived class. The base implementation always returns `null`.  \n  \n This property is called at <xref:System.AppDomain> creation time. It allows a host to supply a policy for the current <xref:System.AppDomain>.  A policy level consists of the following:  \n  \n-   A set of code groups organized into a single rooted tree.  \n  \n-   A set of named permission sets that are referenced by the code groups to specify permissions to be granted to code belonging to the code group.  \n  \n-   A list of fully trusted assemblies.  \n  \n> [!IMPORTANT]\n>  See the Notes to Inheritors for the <xref:System.Security.HostSecurityManager> class for critical implementation information."
@@ -212,6 +213,7 @@ items:
     commentId: T:System.NotSupportedException
     description: This method uses code access security (CAS) policy, which is obsolete in the [!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)]. To enable CAS policy for compatibility with earlier versions of the .NET Framework, use the [<legacyCasPolicy> element](~/docs/framework/configure-apps/file-schema/runtime/netfx40-legacysecuritypolicy-element.md).
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -223,6 +225,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -234,9 +237,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security/HostSecurityManager.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.HostSecurityManager.Flags
   commentId: P:System.Security.HostSecurityManager.Flags
   id: Flags
@@ -245,13 +245,14 @@ items:
   - csharp
   name: Flags
   nameWithType: HostSecurityManager.Flags
-  fullName: System.Security.HostSecurityManager.Flags
+  fullName: HostSecurityManager.Flags
   type: Property
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security
   summary: Gets the flag representing the security policy components of concern to the host.
-  remarks: "This property can be overridden in a derived class. The base implementation always returns <xref:System.Security.HostSecurityManagerOptions>.  \n  \n The derived host can change the value of this property when only a subset of the <xref:System.Security.HostSecurityManagerOptions> is of interest.  The possible subsets include none, the refused set, the policy level, and assembly evidence."
+  remarks: "This property can be overridden in a derived class. The base implementation always returns <xref:System.Security.HostSecurityManagerOptions.AllFlags>.  \n  \n The derived host can change the value of this property when only a subset of the <xref:System.Security.HostSecurityManagerOptions> is of interest.  The possible subsets include none, the refused set, the policy level, and assembly evidence."
   example:
   - "The following example shows how to override the <xref:System.Security.HostSecurityManager.Flags%2A> property for a custom host security manager. This example is part of a larger example provided for the <xref:System.Security.HostSecurityManager> class.  \n  \n [!code-csharp[System.Security.HostSecurityManager#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.HostSecurityManager/CS/customsecuritymanager.cs#2)]\n [!code-vb[System.Security.HostSecurityManager#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.HostSecurityManager/VB/customsecuritymanager.vb#2)]"
   syntax:
@@ -262,6 +263,7 @@ items:
   overload: System.Security.HostSecurityManager.Flags*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -273,6 +275,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -284,9 +287,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security/HostSecurityManager.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.HostSecurityManager.GenerateAppDomainEvidence(System.Type)
   commentId: M:System.Security.HostSecurityManager.GenerateAppDomainEvidence(System.Type)
   id: GenerateAppDomainEvidence(System.Type)
@@ -295,13 +295,14 @@ items:
   - csharp
   name: GenerateAppDomainEvidence(Type)
   nameWithType: HostSecurityManager.GenerateAppDomainEvidence(Type)
-  fullName: System.Security.HostSecurityManager.GenerateAppDomainEvidence(Type)
+  fullName: HostSecurityManager.GenerateAppDomainEvidence(Type)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security
   summary: Requests a specific evidence type for the application domain.
-  remarks: "This method can be overridden by a derived class. The base implementation returns `null`.  \n  \n The common language runtime calls this method when evidence of the specified type is needed for the current <xref:System.AppDomain>. The returned value is used as host-supplied evidence, and is stored in the <xref:System.AppDomain.Evidence%2A> collection of the <xref:System.AppDomain.CurrentDomain%2A> property. You can use the <xref:System.Security.Policy.Evidence.GetAssemblyEvidence%2A?displayProperty=fullName> method to obtain the generated evidence from the collection.  \n  \n To get a callback to this method, hosts must specify the <xref:System.Security.HostSecurityManagerOptions> flag in the <xref:System.Security.HostSecurityManager.Flags%2A> property.  \n  \n This method of generating evidence allows hosts to delay evidence generation for an <xref:System.AppDomain> until the evidence is needed. In the .NET Framework version 3.5 and earlier versions, it was necessary to provide <xref:System.AppDomain> evidence at load time by overriding the <xref:System.Security.HostSecurityManager.ProvideAppDomainEvidence%2A> method. We recommend that you use <xref:System.Security.HostSecurityManager.GenerateAppDomainEvidence%2A> to provide evidence instead of overriding <xref:System.Security.HostSecurityManager.ProvideAppDomainEvidence%2A>.  \n  \n The <xref:System.Security.HostSecurityManager.GenerateAppDomainEvidence%2A> method is called back into only for types of evidence that the host has specified in the override of the <xref:System.Security.HostSecurityManager.GetHostSuppliedAppDomainEvidenceTypes%2A> method.  \n  \n A return value of `null` indicates that the host cannot generate evidence of this specific type."
+  remarks: "This method can be overridden by a derived class. The base implementation returns `null`.  \n  \n The common language runtime calls this method when evidence of the specified type is needed for the current <xref:System.AppDomain>. The returned value is used as host-supplied evidence, and is stored in the <xref:System.AppDomain.Evidence%2A> collection of the <xref:System.AppDomain.CurrentDomain%2A> property. You can use the <xref:System.Security.Policy.Evidence.GetAssemblyEvidence%2A?displayProperty=fullName> method to obtain the generated evidence from the collection.  \n  \n To get a callback to this method, hosts must specify the <xref:System.Security.HostSecurityManagerOptions.HostAppDomainEvidence> flag in the <xref:System.Security.HostSecurityManager.Flags%2A> property.  \n  \n This method of generating evidence allows hosts to delay evidence generation for an <xref:System.AppDomain> until the evidence is needed. In the .NET Framework version 3.5 and earlier versions, it was necessary to provide <xref:System.AppDomain> evidence at load time by overriding the <xref:System.Security.HostSecurityManager.ProvideAppDomainEvidence%2A> method. We recommend that you use <xref:System.Security.HostSecurityManager.GenerateAppDomainEvidence%2A> to provide evidence instead of overriding <xref:System.Security.HostSecurityManager.ProvideAppDomainEvidence%2A>.  \n  \n The <xref:System.Security.HostSecurityManager.GenerateAppDomainEvidence%2A> method is called back into only for types of evidence that the host has specified in the override of the <xref:System.Security.HostSecurityManager.GetHostSuppliedAppDomainEvidenceTypes%2A> method.  \n  \n A return value of `null` indicates that the host cannot generate evidence of this specific type."
   example:
   - "The following example shows how to override the <xref:System.Security.HostSecurityManager.ProvideAppDomainEvidence%2A> method for a custom host security manager. This example is part of a larger example provided for the <xref:System.Security.HostSecurityManager> class.  \n  \n [!code-csharp[System.Security.HostSecurityManager#6](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.HostSecurityManager/CS/customsecuritymanager.cs#6)]\n [!code-vb[System.Security.HostSecurityManager#6](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.HostSecurityManager/VB/customsecuritymanager.vb#6)]"
   syntax:
@@ -316,6 +317,7 @@ items:
   overload: System.Security.HostSecurityManager.GenerateAppDomainEvidence*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -324,6 +326,7 @@ items:
   - netframework-4.6
   - netframework-4.7
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -332,9 +335,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security/HostSecurityManager.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.HostSecurityManager.GenerateAssemblyEvidence(System.Type,System.Reflection.Assembly)
   commentId: M:System.Security.HostSecurityManager.GenerateAssemblyEvidence(System.Type,System.Reflection.Assembly)
   id: GenerateAssemblyEvidence(System.Type,System.Reflection.Assembly)
@@ -343,13 +343,14 @@ items:
   - csharp
   name: GenerateAssemblyEvidence(Type, Assembly)
   nameWithType: HostSecurityManager.GenerateAssemblyEvidence(Type, Assembly)
-  fullName: System.Security.HostSecurityManager.GenerateAssemblyEvidence(Type, Assembly)
+  fullName: HostSecurityManager.GenerateAssemblyEvidence(Type, Assembly)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security
   summary: Requests a specific evidence type for the assembly.
-  remarks: "This method can be overridden by a derived class. The base implementation returns `null`.  \n  \n The common language runtime calls this method when evidence of the specified type is needed for the current assembly. The returned value is used as host-supplied evidence, and is stored in the <xref:System.Reflection.Assembly.Evidence%2A> property. You can use the <xref:System.Security.Policy.Evidence.GetAssemblyEvidence%2A?displayProperty=fullName> method to obtain the generated evidence from the <xref:System.Reflection.Assembly.Evidence%2A> property.  \n  \n To get a callback to this method, hosts must specify the <xref:System.Security.HostSecurityManagerOptions> flag in the <xref:System.Security.HostSecurityManager.Flags%2A> property.  \n  \n This method of generating evidence allows hosts to delay evidence generation for an <xref:System.AppDomain> until the evidence is needed. In the .NET Framework 3.5 and earlier versions, it was necessary to provide <xref:System.AppDomain> evidence at load time by overriding the <xref:System.Security.HostSecurityManager.ProvideAppDomainEvidence%2A> method. We recommend that you use <xref:System.Security.HostSecurityManager.GenerateAssemblyEvidence%2A> to provide evidence instead of overriding <xref:System.Security.HostSecurityManager.ProvideAssemblyEvidence%2A>.  \n  \n The <xref:System.Security.HostSecurityManager.GenerateAssemblyEvidence%2A> method is called back into only for types of evidence that the host has specified in the override of the <xref:System.Security.HostSecurityManager.GetHostSuppliedAssemblyEvidenceTypes%2A> method.  \n  \n A return value of `null` indicates that the host cannot generate evidence of this specific type."
+  remarks: "This method can be overridden by a derived class. The base implementation returns `null`.  \n  \n The common language runtime calls this method when evidence of the specified type is needed for the current assembly. The returned value is used as host-supplied evidence, and is stored in the <xref:System.Reflection.Assembly.Evidence%2A> property. You can use the <xref:System.Security.Policy.Evidence.GetAssemblyEvidence%2A?displayProperty=fullName> method to obtain the generated evidence from the <xref:System.Reflection.Assembly.Evidence%2A> property.  \n  \n To get a callback to this method, hosts must specify the <xref:System.Security.HostSecurityManagerOptions.HostAssemblyEvidence> flag in the <xref:System.Security.HostSecurityManager.Flags%2A> property.  \n  \n This method of generating evidence allows hosts to delay evidence generation for an <xref:System.AppDomain> until the evidence is needed. In the .NET Framework 3.5 and earlier versions, it was necessary to provide <xref:System.AppDomain> evidence at load time by overriding the <xref:System.Security.HostSecurityManager.ProvideAppDomainEvidence%2A> method. We recommend that you use <xref:System.Security.HostSecurityManager.GenerateAssemblyEvidence%2A> to provide evidence instead of overriding <xref:System.Security.HostSecurityManager.ProvideAssemblyEvidence%2A>.  \n  \n The <xref:System.Security.HostSecurityManager.GenerateAssemblyEvidence%2A> method is called back into only for types of evidence that the host has specified in the override of the <xref:System.Security.HostSecurityManager.GetHostSuppliedAssemblyEvidenceTypes%2A> method.  \n  \n A return value of `null` indicates that the host cannot generate evidence of this specific type."
   syntax:
     content: public virtual System.Security.Policy.EvidenceBase GenerateAssemblyEvidence (Type evidenceType, System.Reflection.Assembly assembly);
     parameters:
@@ -365,6 +366,7 @@ items:
   overload: System.Security.HostSecurityManager.GenerateAssemblyEvidence*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -373,6 +375,7 @@ items:
   - netframework-4.6
   - netframework-4.7
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -381,9 +384,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security/HostSecurityManager.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.HostSecurityManager.GetHostSuppliedAppDomainEvidenceTypes
   commentId: M:System.Security.HostSecurityManager.GetHostSuppliedAppDomainEvidenceTypes
   id: GetHostSuppliedAppDomainEvidenceTypes
@@ -392,10 +392,11 @@ items:
   - csharp
   name: GetHostSuppliedAppDomainEvidenceTypes()
   nameWithType: HostSecurityManager.GetHostSuppliedAppDomainEvidenceTypes()
-  fullName: System.Security.HostSecurityManager.GetHostSuppliedAppDomainEvidenceTypes()
+  fullName: HostSecurityManager.GetHostSuppliedAppDomainEvidenceTypes()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security
   summary: Determines which evidence types the host can supply for the application domain, if requested.
   remarks: "This method can be overridden by a derived class. The base implementation returns `null`.  \n  \n The types returned by this method determine whether the <xref:System.Security.HostSecurityManager.GenerateAppDomainEvidence%2A> method is called back into. The presence of a type in this list does not mean that the host must be able to generate this evidence type, but that it may be able to. For that reason, it is best to over-specify rather than under-specify the types in this list."
@@ -408,6 +409,7 @@ items:
   overload: System.Security.HostSecurityManager.GetHostSuppliedAppDomainEvidenceTypes*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -416,6 +418,7 @@ items:
   - netframework-4.6
   - netframework-4.7
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -424,9 +427,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security/HostSecurityManager.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.HostSecurityManager.GetHostSuppliedAssemblyEvidenceTypes(System.Reflection.Assembly)
   commentId: M:System.Security.HostSecurityManager.GetHostSuppliedAssemblyEvidenceTypes(System.Reflection.Assembly)
   id: GetHostSuppliedAssemblyEvidenceTypes(System.Reflection.Assembly)
@@ -435,10 +435,11 @@ items:
   - csharp
   name: GetHostSuppliedAssemblyEvidenceTypes(Assembly)
   nameWithType: HostSecurityManager.GetHostSuppliedAssemblyEvidenceTypes(Assembly)
-  fullName: System.Security.HostSecurityManager.GetHostSuppliedAssemblyEvidenceTypes(Assembly)
+  fullName: HostSecurityManager.GetHostSuppliedAssemblyEvidenceTypes(Assembly)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security
   summary: Determines which evidence types the host can supply for the assembly, if requested.
   remarks: "This method can be overridden by a derived class. The base implementation returns `null`.  \n  \n The types returned by this method determine whether the <xref:System.Security.HostSecurityManager.GenerateAssemblyEvidence%2A> method is called back into. The presence of a type in this list does not mean that the host must be able to generate this evidence type, but that it may be able to. For that reason, it is best to over-specify rather than under-specify the types in this list."
@@ -454,6 +455,7 @@ items:
   overload: System.Security.HostSecurityManager.GetHostSuppliedAssemblyEvidenceTypes*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -462,6 +464,7 @@ items:
   - netframework-4.6
   - netframework-4.7
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -470,9 +473,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security/HostSecurityManager.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.HostSecurityManager.ProvideAppDomainEvidence(System.Security.Policy.Evidence)
   commentId: M:System.Security.HostSecurityManager.ProvideAppDomainEvidence(System.Security.Policy.Evidence)
   id: ProvideAppDomainEvidence(System.Security.Policy.Evidence)
@@ -481,10 +481,11 @@ items:
   - csharp
   name: ProvideAppDomainEvidence(Evidence)
   nameWithType: HostSecurityManager.ProvideAppDomainEvidence(Evidence)
-  fullName: System.Security.HostSecurityManager.ProvideAppDomainEvidence(Evidence)
+  fullName: HostSecurityManager.ProvideAppDomainEvidence(Evidence)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security
   summary: Provides the application domain evidence for an assembly being loaded.
   remarks: "This method can be overridden in a derived class.  \n  \n This method is called whenever an <xref:System.AppDomain> object is created. The `inputEvidence` parameter is the computed evidence from the common language runtime. The host implementation can choose to extend or reduce the evidence. The return value is the evidence to be used for the application domain.  The base implementation always returns the evidence object passed in as the `inputEvidence` parameter.  \n  \n> [!IMPORTANT]\n>  See the Notes to Inheritors for the <xref:System.Security.HostSecurityManager> class for critical implementation information."
@@ -500,6 +501,7 @@ items:
   overload: System.Security.HostSecurityManager.ProvideAppDomainEvidence*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -511,6 +513,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -522,9 +525,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security/HostSecurityManager.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.HostSecurityManager.ProvideAssemblyEvidence(System.Reflection.Assembly,System.Security.Policy.Evidence)
   commentId: M:System.Security.HostSecurityManager.ProvideAssemblyEvidence(System.Reflection.Assembly,System.Security.Policy.Evidence)
   id: ProvideAssemblyEvidence(System.Reflection.Assembly,System.Security.Policy.Evidence)
@@ -533,10 +533,11 @@ items:
   - csharp
   name: ProvideAssemblyEvidence(Assembly, Evidence)
   nameWithType: HostSecurityManager.ProvideAssemblyEvidence(Assembly, Evidence)
-  fullName: System.Security.HostSecurityManager.ProvideAssemblyEvidence(Assembly, Evidence)
+  fullName: HostSecurityManager.ProvideAssemblyEvidence(Assembly, Evidence)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security
   summary: Provides the assembly evidence for an assembly being loaded.
   remarks: "This method can be overridden in a derived class.  \n  \n This method is called whenever an assembly is loaded, either implicitly or explicitly. The passed in parameters are the assembly being loaded, and the computed evidence from the common language runtime. The host implementation can choose to extend or reduce the evidence. The return value is the evidence to be used for the assembly.  The base implementation always returns the evidence object passed in as the `inputEvidence` parameter.  \n  \n> [!IMPORTANT]\n>  See the Notes to Inheritors for the <xref:System.Security.HostSecurityManager> class for critical implementation information."
@@ -557,6 +558,7 @@ items:
   overload: System.Security.HostSecurityManager.ProvideAssemblyEvidence*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -568,6 +570,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -579,9 +582,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security/HostSecurityManager.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.HostSecurityManager.ResolvePolicy(System.Security.Policy.Evidence)
   commentId: M:System.Security.HostSecurityManager.ResolvePolicy(System.Security.Policy.Evidence)
   id: ResolvePolicy(System.Security.Policy.Evidence)
@@ -590,10 +590,11 @@ items:
   - csharp
   name: ResolvePolicy(Evidence)
   nameWithType: HostSecurityManager.ResolvePolicy(Evidence)
-  fullName: System.Security.HostSecurityManager.ResolvePolicy(Evidence)
+  fullName: HostSecurityManager.ResolvePolicy(Evidence)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security
   summary: Determines what permissions to grant to code based on the specified evidence.
   remarks: This method invokes the security policy engine, providing it with the specified evidence. The result is determined by the security policy.
@@ -612,6 +613,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: <code>evidence</code> is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -623,6 +625,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -634,9 +637,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security/HostSecurityManager.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -673,13 +673,13 @@ references:
   isExternal: false
   name: HostSecurityManager()
   nameWithType: HostSecurityManager.HostSecurityManager()
-  fullName: System.Security.HostSecurityManager.HostSecurityManager()
+  fullName: HostSecurityManager.HostSecurityManager()
 - uid: System.Security.HostSecurityManager.DetermineApplicationTrust(System.Security.Policy.Evidence,System.Security.Policy.Evidence,System.Security.Policy.TrustManagerContext)
   parent: System.Security.HostSecurityManager
   isExternal: false
   name: DetermineApplicationTrust(Evidence, Evidence, TrustManagerContext)
   nameWithType: HostSecurityManager.DetermineApplicationTrust(Evidence, Evidence, TrustManagerContext)
-  fullName: System.Security.HostSecurityManager.DetermineApplicationTrust(Evidence, Evidence, TrustManagerContext)
+  fullName: HostSecurityManager.DetermineApplicationTrust(Evidence, Evidence, TrustManagerContext)
 - uid: System.Security.Policy.ApplicationTrust
   parent: System.Security.Policy
   isExternal: false
@@ -703,7 +703,7 @@ references:
   isExternal: false
   name: DomainPolicy
   nameWithType: HostSecurityManager.DomainPolicy
-  fullName: System.Security.HostSecurityManager.DomainPolicy
+  fullName: HostSecurityManager.DomainPolicy
 - uid: System.Security.Policy.PolicyLevel
   parent: System.Security.Policy
   isExternal: false
@@ -715,7 +715,7 @@ references:
   isExternal: false
   name: Flags
   nameWithType: HostSecurityManager.Flags
-  fullName: System.Security.HostSecurityManager.Flags
+  fullName: HostSecurityManager.Flags
 - uid: System.Security.HostSecurityManagerOptions
   parent: System.Security
   isExternal: false
@@ -727,7 +727,7 @@ references:
   isExternal: false
   name: GenerateAppDomainEvidence(Type)
   nameWithType: HostSecurityManager.GenerateAppDomainEvidence(Type)
-  fullName: System.Security.HostSecurityManager.GenerateAppDomainEvidence(Type)
+  fullName: HostSecurityManager.GenerateAppDomainEvidence(Type)
 - uid: System.Security.Policy.EvidenceBase
   parent: System.Security.Policy
   isExternal: false
@@ -745,7 +745,7 @@ references:
   isExternal: false
   name: GenerateAssemblyEvidence(Type, Assembly)
   nameWithType: HostSecurityManager.GenerateAssemblyEvidence(Type, Assembly)
-  fullName: System.Security.HostSecurityManager.GenerateAssemblyEvidence(Type, Assembly)
+  fullName: HostSecurityManager.GenerateAssemblyEvidence(Type, Assembly)
 - uid: System.Reflection.Assembly
   parent: System.Reflection
   isExternal: false
@@ -757,7 +757,7 @@ references:
   isExternal: false
   name: GetHostSuppliedAppDomainEvidenceTypes()
   nameWithType: HostSecurityManager.GetHostSuppliedAppDomainEvidenceTypes()
-  fullName: System.Security.HostSecurityManager.GetHostSuppliedAppDomainEvidenceTypes()
+  fullName: HostSecurityManager.GetHostSuppliedAppDomainEvidenceTypes()
 - uid: System.Type[]
   parent: System
   isExternal: false
@@ -777,25 +777,25 @@ references:
   isExternal: false
   name: GetHostSuppliedAssemblyEvidenceTypes(Assembly)
   nameWithType: HostSecurityManager.GetHostSuppliedAssemblyEvidenceTypes(Assembly)
-  fullName: System.Security.HostSecurityManager.GetHostSuppliedAssemblyEvidenceTypes(Assembly)
+  fullName: HostSecurityManager.GetHostSuppliedAssemblyEvidenceTypes(Assembly)
 - uid: System.Security.HostSecurityManager.ProvideAppDomainEvidence(System.Security.Policy.Evidence)
   parent: System.Security.HostSecurityManager
   isExternal: false
   name: ProvideAppDomainEvidence(Evidence)
   nameWithType: HostSecurityManager.ProvideAppDomainEvidence(Evidence)
-  fullName: System.Security.HostSecurityManager.ProvideAppDomainEvidence(Evidence)
+  fullName: HostSecurityManager.ProvideAppDomainEvidence(Evidence)
 - uid: System.Security.HostSecurityManager.ProvideAssemblyEvidence(System.Reflection.Assembly,System.Security.Policy.Evidence)
   parent: System.Security.HostSecurityManager
   isExternal: false
   name: ProvideAssemblyEvidence(Assembly, Evidence)
   nameWithType: HostSecurityManager.ProvideAssemblyEvidence(Assembly, Evidence)
-  fullName: System.Security.HostSecurityManager.ProvideAssemblyEvidence(Assembly, Evidence)
+  fullName: HostSecurityManager.ProvideAssemblyEvidence(Assembly, Evidence)
 - uid: System.Security.HostSecurityManager.ResolvePolicy(System.Security.Policy.Evidence)
   parent: System.Security.HostSecurityManager
   isExternal: false
   name: ResolvePolicy(Evidence)
   nameWithType: HostSecurityManager.ResolvePolicy(Evidence)
-  fullName: System.Security.HostSecurityManager.ResolvePolicy(Evidence)
+  fullName: HostSecurityManager.ResolvePolicy(Evidence)
 - uid: System.Security.PermissionSet
   parent: System.Security
   isExternal: false
@@ -807,8 +807,9 @@ references:
   isExternal: false
   name: HostSecurityManager
   nameWithType: HostSecurityManager.HostSecurityManager
-  fullName: System.Security.HostSecurityManager.HostSecurityManager
+  fullName: HostSecurityManager.HostSecurityManager
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -825,8 +826,9 @@ references:
   isExternal: false
   name: DetermineApplicationTrust
   nameWithType: HostSecurityManager.DetermineApplicationTrust
-  fullName: System.Security.HostSecurityManager.DetermineApplicationTrust
+  fullName: HostSecurityManager.DetermineApplicationTrust
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -843,8 +845,9 @@ references:
   isExternal: false
   name: DomainPolicy
   nameWithType: HostSecurityManager.DomainPolicy
-  fullName: System.Security.HostSecurityManager.DomainPolicy
+  fullName: HostSecurityManager.DomainPolicy
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -861,8 +864,9 @@ references:
   isExternal: false
   name: Flags
   nameWithType: HostSecurityManager.Flags
-  fullName: System.Security.HostSecurityManager.Flags
+  fullName: HostSecurityManager.Flags
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -879,8 +883,9 @@ references:
   isExternal: false
   name: GenerateAppDomainEvidence
   nameWithType: HostSecurityManager.GenerateAppDomainEvidence
-  fullName: System.Security.HostSecurityManager.GenerateAppDomainEvidence
+  fullName: HostSecurityManager.GenerateAppDomainEvidence
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -894,8 +899,9 @@ references:
   isExternal: false
   name: GenerateAssemblyEvidence
   nameWithType: HostSecurityManager.GenerateAssemblyEvidence
-  fullName: System.Security.HostSecurityManager.GenerateAssemblyEvidence
+  fullName: HostSecurityManager.GenerateAssemblyEvidence
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -909,8 +915,9 @@ references:
   isExternal: false
   name: GetHostSuppliedAppDomainEvidenceTypes
   nameWithType: HostSecurityManager.GetHostSuppliedAppDomainEvidenceTypes
-  fullName: System.Security.HostSecurityManager.GetHostSuppliedAppDomainEvidenceTypes
+  fullName: HostSecurityManager.GetHostSuppliedAppDomainEvidenceTypes
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -924,8 +931,9 @@ references:
   isExternal: false
   name: GetHostSuppliedAssemblyEvidenceTypes
   nameWithType: HostSecurityManager.GetHostSuppliedAssemblyEvidenceTypes
-  fullName: System.Security.HostSecurityManager.GetHostSuppliedAssemblyEvidenceTypes
+  fullName: HostSecurityManager.GetHostSuppliedAssemblyEvidenceTypes
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -939,8 +947,9 @@ references:
   isExternal: false
   name: ProvideAppDomainEvidence
   nameWithType: HostSecurityManager.ProvideAppDomainEvidence
-  fullName: System.Security.HostSecurityManager.ProvideAppDomainEvidence
+  fullName: HostSecurityManager.ProvideAppDomainEvidence
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -957,8 +966,9 @@ references:
   isExternal: false
   name: ProvideAssemblyEvidence
   nameWithType: HostSecurityManager.ProvideAssemblyEvidence
-  fullName: System.Security.HostSecurityManager.ProvideAssemblyEvidence
+  fullName: HostSecurityManager.ProvideAssemblyEvidence
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -975,8 +985,9 @@ references:
   isExternal: false
   name: ResolvePolicy
   nameWithType: HostSecurityManager.ResolvePolicy
-  fullName: System.Security.HostSecurityManager.ResolvePolicy
+  fullName: HostSecurityManager.ResolvePolicy
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

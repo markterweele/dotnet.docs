@@ -33,9 +33,10 @@ items:
   type: Class
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Controls the ability to access files and folders. This class cannot be inherited.
-  remarks: "This permission distinguishes between the following four types of file IO access provided by <xref:System.Security.Permissions.FileIOPermissionAccess>:  \n  \n-   `Read`: Read access to the contents of the file or access to information about the file, such as its length or last modification time.  \n  \n-   `Write`: Write access to the contents of the file or access to change information about the file, such as its name. Also allows for deletion and overwriting.  \n  \n-   `Append`: Ability to write to the end of a file only. No ability to read.  \n  \n-   `PathDiscovery`: Access to the information in the path itself. This helps protect sensitive information in the path, such as user names, as well as information about the directory structure that is revealed in the path. This value does not grant access to files or folders represented by the path.  \n  \n> [!NOTE]\n>  Giving <xref:System.Security.Permissions.FileIOPermissionAccess> access to an assembly is similar to granting it full trust. If an application should not write to the file system, it should not have <xref:System.Security.Permissions.FileIOPermissionAccess> access.  \n  \n All these permissions are independent, meaning that rights to one do not imply rights to another. For example, `Write` permission does not imply permission to `Read` or `Append`. If more than one permission is desired, they can be combined using a bitwise OR as shown in the code example that follows. File permission is defined in terms of canonical absolute paths; calls should always be made with canonical file paths.  \n  \n <xref:System.Security.Permissions.FileIOPermission> describes protected operations on files and folders. The <xref:System.IO.File> class helps provide secure access to files and folders. The security access check is performed when the handle to the file is created. By doing the check at creation time, the performance impact of the security check is minimized. Opening a file happens once, while reading and writing can happen multiple times. Once the file is opened, no further checks are done. If the object is passed to an untrusted caller, it can be misused. For example, file handles should not be stored in public global statics where code with less permission can access them.  \n  \n <xref:System.Security.Permissions.FileIOPermissionAccess> specifies actions that can be performed on the file or folder. In addition, these actions can be combined using a bitwise OR to form complex instances.  \n  \n Access to a folder implies access to all the files it contains, as well as access to all the files and folders in its subfolders. For example, `Read` access to C:\\folder1\\ implies `Read` access to C:\\folder1\\file1.txt, C:\\folder1\\folder2\\\\, C:\\folder1\\folder2\\file2.txt, and so on.  \n  \n> [!NOTE]\n>  In versions of the .NET Framework before the [!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)], you could use the <xref:System.Security.CodeAccessPermission.Deny%2A?displayProperty=fullName> method to prevent inadvertent access to system resources by trusted code. <xref:System.Security.CodeAccessPermission.Deny%2A> is now obsolete, and access to resources is now determined solely by the granted permission set for an assembly. To limit access to files, you must run partially trusted code in a sandbox and assign it permissions only to resources that the code is allowed to access. For information about running an application in a sandbox, see [How to: Run Partially Trusted Code in a Sandbox](~/docs/framework/misc/how-to-run-partially-trusted-code-in-a-sandbox.md)."
+  remarks: "This permission distinguishes between the following four types of file IO access provided by <xref:System.Security.Permissions.FileIOPermissionAccess>:  \n  \n-   `Read`: Read access to the contents of the file or access to information about the file, such as its length or last modification time.  \n  \n-   `Write`: Write access to the contents of the file or access to change information about the file, such as its name. Also allows for deletion and overwriting.  \n  \n-   `Append`: Ability to write to the end of a file only. No ability to read.  \n  \n-   `PathDiscovery`: Access to the information in the path itself. This helps protect sensitive information in the path, such as user names, as well as information about the directory structure that is revealed in the path. This value does not grant access to files or folders represented by the path.  \n  \n> [!NOTE]\n>  Giving <xref:System.Security.Permissions.FileIOPermissionAccess.Write> access to an assembly is similar to granting it full trust. If an application should not write to the file system, it should not have <xref:System.Security.Permissions.FileIOPermissionAccess.Write> access.  \n  \n All these permissions are independent, meaning that rights to one do not imply rights to another. For example, `Write` permission does not imply permission to `Read` or `Append`. If more than one permission is desired, they can be combined using a bitwise OR as shown in the code example that follows. File permission is defined in terms of canonical absolute paths; calls should always be made with canonical file paths.  \n  \n <xref:System.Security.Permissions.FileIOPermission> describes protected operations on files and folders. The <xref:System.IO.File> class helps provide secure access to files and folders. The security access check is performed when the handle to the file is created. By doing the check at creation time, the performance impact of the security check is minimized. Opening a file happens once, while reading and writing can happen multiple times. Once the file is opened, no further checks are done. If the object is passed to an untrusted caller, it can be misused. For example, file handles should not be stored in public global statics where code with less permission can access them.  \n  \n <xref:System.Security.Permissions.FileIOPermissionAccess> specifies actions that can be performed on the file or folder. In addition, these actions can be combined using a bitwise OR to form complex instances.  \n  \n Access to a folder implies access to all the files it contains, as well as access to all the files and folders in its subfolders. For example, `Read` access to C:\\folder1\\ implies `Read` access to C:\\folder1\\file1.txt, C:\\folder1\\folder2\\\\, C:\\folder1\\folder2\\file2.txt, and so on.  \n  \n> [!NOTE]\n>  In versions of the .NET Framework before the [!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)], you could use the <xref:System.Security.CodeAccessPermission.Deny%2A?displayProperty=fullName> method to prevent inadvertent access to system resources by trusted code. <xref:System.Security.CodeAccessPermission.Deny%2A> is now obsolete, and access to resources is now determined solely by the granted permission set for an assembly. To limit access to files, you must run partially trusted code in a sandbox and assign it permissions only to resources that the code is allowed to access. For information about running an application in a sandbox, see [How to: Run Partially Trusted Code in a Sandbox](~/docs/framework/misc/how-to-run-partially-trusted-code-in-a-sandbox.md)."
   example:
   - "The following examples illustrate code that uses <xref:System.Security.Permissions.FileIOPermission>. After the following two lines of code, the object `f` represents permission to read all files on the client computer's local disks. The code example then demands the permission to determine whether the application has permission to read the files.  \n  \n [!code-cpp[Classic FileIOPermission Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_Classic/classic FileIOPermission Example/CPP/source.cpp#1)]\n [!code-csharp[Classic FileIOPermission Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_Classic/classic FileIOPermission Example/CS/source.cs#1)]\n [!code-vb[Classic FileIOPermission Example#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_Classic/classic FileIOPermission Example/VB/source.vb#1)]  \n  \n After the following two lines of code, the object `f2` represents permissions to read C:\\test_r and read and write to C:\\example\\out.txt. `Read` and `Write` represent the file/folder permissions as previously described. After creating the permission, the code demands the permission to determine whether the application has the right to read and write to the file.  \n  \n [!code-cpp[Classic FileIOPermission Example#2](~/samples/snippets/cpp/VS_Snippets_CLR_Classic/classic FileIOPermission Example/CPP/source.cpp#2)]\n [!code-csharp[Classic FileIOPermission Example#2](~/samples/snippets/csharp/VS_Snippets_CLR_Classic/classic FileIOPermission Example/CS/source.cs#2)]\n [!code-vb[Classic FileIOPermission Example#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_Classic/classic FileIOPermission Example/VB/source.vb#2)]"
   syntax:
@@ -70,6 +71,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -81,6 +83,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -92,9 +95,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.FileIOPermission.#ctor(System.Security.Permissions.PermissionState)
   commentId: M:System.Security.Permissions.FileIOPermission.#ctor(System.Security.Permissions.PermissionState)
   id: '#ctor(System.Security.Permissions.PermissionState)'
@@ -103,10 +103,11 @@ items:
   - csharp
   name: FileIOPermission(PermissionState)
   nameWithType: FileIOPermission.FileIOPermission(PermissionState)
-  fullName: System.Security.Permissions.FileIOPermission.FileIOPermission(PermissionState)
+  fullName: FileIOPermission.FileIOPermission(PermissionState)
   type: Constructor
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Initializes a new instance of the <xref href="System.Security.Permissions.FileIOPermission"></xref> class with fully restricted or unrestricted permission as specified.
   remarks: Creates either fully restricted (`None`) or `Unrestricted` access to files and directories.
@@ -124,6 +125,7 @@ items:
     commentId: T:System.ArgumentException
     description: The <code>state</code> parameter is not a valid value of <xref href="System.Security.Permissions.PermissionState"></xref>.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -135,6 +137,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -146,9 +149,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.FileIOPermission.#ctor(System.Security.Permissions.FileIOPermissionAccess,System.String)
   commentId: M:System.Security.Permissions.FileIOPermission.#ctor(System.Security.Permissions.FileIOPermissionAccess,System.String)
   id: '#ctor(System.Security.Permissions.FileIOPermissionAccess,System.String)'
@@ -157,10 +157,11 @@ items:
   - csharp
   name: FileIOPermission(FileIOPermissionAccess, String)
   nameWithType: FileIOPermission.FileIOPermission(FileIOPermissionAccess, String)
-  fullName: System.Security.Permissions.FileIOPermission.FileIOPermission(FileIOPermissionAccess, String)
+  fullName: FileIOPermission.FileIOPermission(FileIOPermissionAccess, String)
   type: Constructor
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Initializes a new instance of the <xref href="System.Security.Permissions.FileIOPermission"></xref> class with the specified access to the designated file or directory.
   remarks: This constructor allows only one of the <xref:System.Security.Permissions.FileIOPermissionAccess> values to be specified for the specified file or directory. Use the <xref:System.Security.Permissions.FileIOPermission.AddPathList%2A> method to define complex permissions.
@@ -181,6 +182,7 @@ items:
     commentId: T:System.ArgumentException
     description: "The <code>access</code> parameter is not a valid value of <xref href=\"System.Security.Permissions.FileIOPermissionAccess\"></xref>.  \n  \n -or-  \n  \n The <code>path</code> parameter is not a valid string.  \n  \n -or-  \n  \n The <code>path</code> parameter does not specify the absolute path to the file or directory."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -192,6 +194,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -203,9 +206,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.FileIOPermission.#ctor(System.Security.Permissions.FileIOPermissionAccess,System.String[])
   commentId: M:System.Security.Permissions.FileIOPermission.#ctor(System.Security.Permissions.FileIOPermissionAccess,System.String[])
   id: '#ctor(System.Security.Permissions.FileIOPermissionAccess,System.String[])'
@@ -214,10 +214,11 @@ items:
   - csharp
   name: FileIOPermission(FileIOPermissionAccess, String[])
   nameWithType: FileIOPermission.FileIOPermission(FileIOPermissionAccess, String[])
-  fullName: System.Security.Permissions.FileIOPermission.FileIOPermission(FileIOPermissionAccess, String[])
+  fullName: FileIOPermission.FileIOPermission(FileIOPermissionAccess, String[])
   type: Constructor
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Initializes a new instance of the <xref href="System.Security.Permissions.FileIOPermission"></xref> class with the specified access to the designated files and directories.
   remarks: This constructor allows only one <xref:System.Security.Permissions.FileIOPermissionAccess> value to be specified for the specified files and directories. Use the <xref:System.Security.Permissions.FileIOPermission.AddPathList%2A> method to define complex permissions.
@@ -236,6 +237,7 @@ items:
     commentId: T:System.ArgumentException
     description: "The <code>access</code> parameter is not a valid value of <xref href=\"System.Security.Permissions.FileIOPermissionAccess\"></xref>.  \n  \n -or-  \n  \n An entry in the <code>pathList</code> array is not a valid string."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -247,6 +249,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -258,9 +261,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.FileIOPermission.#ctor(System.Security.Permissions.FileIOPermissionAccess,System.Security.AccessControl.AccessControlActions,System.String)
   commentId: M:System.Security.Permissions.FileIOPermission.#ctor(System.Security.Permissions.FileIOPermissionAccess,System.Security.AccessControl.AccessControlActions,System.String)
   id: '#ctor(System.Security.Permissions.FileIOPermissionAccess,System.Security.AccessControl.AccessControlActions,System.String)'
@@ -269,10 +269,11 @@ items:
   - csharp
   name: FileIOPermission(FileIOPermissionAccess, AccessControlActions, String)
   nameWithType: FileIOPermission.FileIOPermission(FileIOPermissionAccess, AccessControlActions, String)
-  fullName: System.Security.Permissions.FileIOPermission.FileIOPermission(FileIOPermissionAccess, AccessControlActions, String)
+  fullName: FileIOPermission.FileIOPermission(FileIOPermissionAccess, AccessControlActions, String)
   type: Constructor
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Initializes a new instance of the <xref href="System.Security.Permissions.FileIOPermission"></xref> class with the specified access to the designated file or directory and the specified access rights to file control information.
   remarks: "This constructor allows only one <xref:System.Security.Permissions.FileIOPermissionAccess> value to be specified for the specified file or directories. Use the <xref:System.Security.Permissions.FileIOPermission.AddPathList%2A> method to define complex permissions.  \n  \n The `control` parameter specifies whether the access control list (ACL) for the file or directory specified by `path` can be changed, viewed, or cannot be accessed.  \n  \n> [!IMPORTANT]\n>  An access control list (ACL) describes individuals or groups who have, or do not have, rights to specific actions on the given file and its properties.  The ability to change or view an ACL is an important permission and should be granted with caution."
@@ -294,6 +295,7 @@ items:
     commentId: T:System.ArgumentException
     description: "The <code>access</code> parameter is not a valid value of <xref href=\"System.Security.Permissions.FileIOPermissionAccess\"></xref>.  \n  \n -or-  \n  \n The <code>path</code> parameter is not a valid string.  \n  \n -or-  \n  \n The <code>path</code> parameter does not specify the absolute path to the file or directory."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -305,6 +307,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -316,9 +319,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.FileIOPermission.#ctor(System.Security.Permissions.FileIOPermissionAccess,System.Security.AccessControl.AccessControlActions,System.String[])
   commentId: M:System.Security.Permissions.FileIOPermission.#ctor(System.Security.Permissions.FileIOPermissionAccess,System.Security.AccessControl.AccessControlActions,System.String[])
   id: '#ctor(System.Security.Permissions.FileIOPermissionAccess,System.Security.AccessControl.AccessControlActions,System.String[])'
@@ -327,10 +327,11 @@ items:
   - csharp
   name: FileIOPermission(FileIOPermissionAccess, AccessControlActions, String[])
   nameWithType: FileIOPermission.FileIOPermission(FileIOPermissionAccess, AccessControlActions, String[])
-  fullName: System.Security.Permissions.FileIOPermission.FileIOPermission(FileIOPermissionAccess, AccessControlActions, String[])
+  fullName: FileIOPermission.FileIOPermission(FileIOPermissionAccess, AccessControlActions, String[])
   type: Constructor
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Initializes a new instance of the <xref href="System.Security.Permissions.FileIOPermission"></xref> class with the specified access to the designated files and directories and the specified access rights to file control information.
   remarks: "This constructor allows only one <xref:System.Security.Permissions.FileIOPermissionAccess> value to be specified for the specified files and directories. Use the <xref:System.Security.Permissions.FileIOPermission.AddPathList%2A> method to define complex permissions.  \n  \n The `control` parameter specifies whether the access control list (ACL) for the file or directory specified by `path` can be changed, viewed, or cannot be accessed.  \n  \n> [!IMPORTANT]\n>  An access control list (ACL) describes individuals or groups who have, or do not have, rights to specific actions on the given file and its properties.  The ability to change or view an ACL is an important permission and should be granted with caution."
@@ -352,6 +353,7 @@ items:
     commentId: T:System.ArgumentException
     description: "The <code>access</code> parameter is not a valid value of <xref href=\"System.Security.Permissions.FileIOPermissionAccess\"></xref>.  \n  \n -or-  \n  \n An entry in the <code>pathList</code> array is not a valid string."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -363,6 +365,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -374,9 +377,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.FileIOPermission.AddPathList(System.Security.Permissions.FileIOPermissionAccess,System.String)
   commentId: M:System.Security.Permissions.FileIOPermission.AddPathList(System.Security.Permissions.FileIOPermissionAccess,System.String)
   id: AddPathList(System.Security.Permissions.FileIOPermissionAccess,System.String)
@@ -385,10 +385,11 @@ items:
   - csharp
   name: AddPathList(FileIOPermissionAccess, String)
   nameWithType: FileIOPermission.AddPathList(FileIOPermissionAccess, String)
-  fullName: System.Security.Permissions.FileIOPermission.AddPathList(FileIOPermissionAccess, String)
+  fullName: FileIOPermission.AddPathList(FileIOPermissionAccess, String)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Adds access for the specified file or directory to the existing state of the permission.
   remarks: Use this method to modify file and directory access by adding to the state of the current permission.
@@ -415,6 +416,7 @@ items:
     commentId: T:System.NotSupportedException
     description: The <code>path</code> parameter has an invalid format.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -426,6 +428,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -437,9 +440,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.FileIOPermission.AddPathList(System.Security.Permissions.FileIOPermissionAccess,System.String[])
   commentId: M:System.Security.Permissions.FileIOPermission.AddPathList(System.Security.Permissions.FileIOPermissionAccess,System.String[])
   id: AddPathList(System.Security.Permissions.FileIOPermissionAccess,System.String[])
@@ -448,10 +448,11 @@ items:
   - csharp
   name: AddPathList(FileIOPermissionAccess, String[])
   nameWithType: FileIOPermission.AddPathList(FileIOPermissionAccess, String[])
-  fullName: System.Security.Permissions.FileIOPermission.AddPathList(FileIOPermissionAccess, String[])
+  fullName: FileIOPermission.AddPathList(FileIOPermissionAccess, String[])
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Adds access for the specified files and directories to the existing state of the permission.
   remarks: Use this method to modify file and directory access by adding to the state of the current permission.
@@ -476,6 +477,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: The <code>pathList</code> parameter is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -487,6 +489,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -498,9 +501,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.FileIOPermission.AllFiles
   commentId: P:System.Security.Permissions.FileIOPermission.AllFiles
   id: AllFiles
@@ -509,10 +509,11 @@ items:
   - csharp
   name: AllFiles
   nameWithType: FileIOPermission.AllFiles
-  fullName: System.Security.Permissions.FileIOPermission.AllFiles
+  fullName: FileIOPermission.AllFiles
   type: Property
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Gets or sets the permitted access to all files.
   remarks: "This property gets or sets the permitted access to all files on the local computer and network drives.  \n  \n An individual <xref:System.Security.Permissions.FileIOPermissionAccess> value can be checked for using a bitwise AND operation."
@@ -526,6 +527,7 @@ items:
   overload: System.Security.Permissions.FileIOPermission.AllFiles*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -537,6 +539,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -548,9 +551,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.FileIOPermission.AllLocalFiles
   commentId: P:System.Security.Permissions.FileIOPermission.AllLocalFiles
   id: AllLocalFiles
@@ -559,10 +559,11 @@ items:
   - csharp
   name: AllLocalFiles
   nameWithType: FileIOPermission.AllLocalFiles
-  fullName: System.Security.Permissions.FileIOPermission.AllLocalFiles
+  fullName: FileIOPermission.AllLocalFiles
   type: Property
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Gets or sets the permitted access to all local files.
   remarks: "Local files are files contained on the local computer. Any files not accessed through a network drive are local files.  \n  \n An individual <xref:System.Security.Permissions.FileIOPermissionAccess> value can be checked for using a bitwise AND operation."
@@ -576,6 +577,7 @@ items:
   overload: System.Security.Permissions.FileIOPermission.AllLocalFiles*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -587,6 +589,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -598,9 +601,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.FileIOPermission.Copy
   commentId: M:System.Security.Permissions.FileIOPermission.Copy
   id: Copy
@@ -609,10 +609,11 @@ items:
   - csharp
   name: Copy()
   nameWithType: FileIOPermission.Copy()
-  fullName: System.Security.Permissions.FileIOPermission.Copy()
+  fullName: FileIOPermission.Copy()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Creates and returns an identical copy of the current permission.
   remarks: A copy of the permission represents the same access to resources as the original permission.
@@ -625,6 +626,7 @@ items:
   overload: System.Security.Permissions.FileIOPermission.Copy*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -636,6 +638,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -647,9 +650,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.FileIOPermission.Equals(System.Object)
   commentId: M:System.Security.Permissions.FileIOPermission.Equals(System.Object)
   id: Equals(System.Object)
@@ -658,10 +658,11 @@ items:
   - csharp
   name: Equals(Object)
   nameWithType: FileIOPermission.Equals(Object)
-  fullName: System.Security.Permissions.FileIOPermission.Equals(Object)
+  fullName: FileIOPermission.Equals(Object)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Determines whether the specified <xref href="System.Security.Permissions.FileIOPermission"></xref> object is equal to the current <xref href="System.Security.Permissions.FileIOPermission"></xref>.
   remarks: For more information, see <xref:System.Object.Equals%2A>.
@@ -682,6 +683,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -693,6 +695,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -704,9 +707,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.FileIOPermission.FromXml(System.Security.SecurityElement)
   commentId: M:System.Security.Permissions.FileIOPermission.FromXml(System.Security.SecurityElement)
   id: FromXml(System.Security.SecurityElement)
@@ -715,10 +715,11 @@ items:
   - csharp
   name: FromXml(SecurityElement)
   nameWithType: FileIOPermission.FromXml(SecurityElement)
-  fullName: System.Security.Permissions.FileIOPermission.FromXml(SecurityElement)
+  fullName: FileIOPermission.FromXml(SecurityElement)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Reconstructs a permission with a specified state from an XML encoding.
   syntax:
@@ -736,6 +737,7 @@ items:
     commentId: T:System.ArgumentException
     description: "The <code>esd</code> parameter is not a valid permission element.  \n  \n -or-  \n  \n The <code>esd</code> parameter's version number is not compatible."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -747,6 +749,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -758,9 +761,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.FileIOPermission.GetHashCode
   commentId: M:System.Security.Permissions.FileIOPermission.GetHashCode
   id: GetHashCode
@@ -769,10 +769,11 @@ items:
   - csharp
   name: GetHashCode()
   nameWithType: FileIOPermission.GetHashCode()
-  fullName: System.Security.Permissions.FileIOPermission.GetHashCode()
+  fullName: FileIOPermission.GetHashCode()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Gets a hash code for the <xref href="System.Security.Permissions.FileIOPermission"></xref> object that is suitable for use in hashing algorithms and data structures such as a hash table.
   remarks: The hash code for two instances of the same permission might be different, hence a hash code should not be used to compare two <xref:System.Security.Permissions.FileIOPermission> objects.
@@ -790,6 +791,7 @@ items:
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -801,6 +803,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -812,9 +815,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.FileIOPermission.GetPathList(System.Security.Permissions.FileIOPermissionAccess)
   commentId: M:System.Security.Permissions.FileIOPermission.GetPathList(System.Security.Permissions.FileIOPermissionAccess)
   id: GetPathList(System.Security.Permissions.FileIOPermissionAccess)
@@ -823,13 +823,14 @@ items:
   - csharp
   name: GetPathList(FileIOPermissionAccess)
   nameWithType: FileIOPermission.GetPathList(FileIOPermissionAccess)
-  fullName: System.Security.Permissions.FileIOPermission.GetPathList(FileIOPermissionAccess)
+  fullName: FileIOPermission.GetPathList(FileIOPermissionAccess)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Gets all files and directories with the specified <xref href="System.Security.Permissions.FileIOPermissionAccess"></xref>.
-  remarks: "Use this method to get the state of the current permission. To get the state of both `Read` and `Write` access, two calls to this method are required.  \n  \n> [!NOTE]\n>  The `access` parameter is limited to the values of <xref:System.Security.Permissions.FileIOPermissionAccess>, which represent single types of file access. Those values are <xref:System.Security.Permissions.FileIOPermissionAccess>, <xref:System.Security.Permissions.FileIOPermissionAccess>, <xref:System.Security.Permissions.FileIOPermissionAccess>, and <xref:System.Security.Permissions.FileIOPermissionAccess>. The values acceptable to `access` do not include <xref:System.Security.Permissions.FileIOPermissionAccess> and <xref:System.Security.Permissions.FileIOPermissionAccess>, which do not represent single types of file access."
+  remarks: "Use this method to get the state of the current permission. To get the state of both `Read` and `Write` access, two calls to this method are required.  \n  \n> [!NOTE]\n>  The `access` parameter is limited to the values of <xref:System.Security.Permissions.FileIOPermissionAccess>, which represent single types of file access. Those values are <xref:System.Security.Permissions.FileIOPermissionAccess.Read>, <xref:System.Security.Permissions.FileIOPermissionAccess.Write>, <xref:System.Security.Permissions.FileIOPermissionAccess.Append>, and <xref:System.Security.Permissions.FileIOPermissionAccess.PathDiscovery>. The values acceptable to `access` do not include <xref:System.Security.Permissions.FileIOPermissionAccess.NoAccess> and <xref:System.Security.Permissions.FileIOPermissionAccess.AllAccess>, which do not represent single types of file access."
   example:
   - "The following code example shows the use of the <xref:System.Security.Permissions.FileIOPermission.GetPathList%2A> method. This example is part of a larger example provided for the <xref:System.Security.Permissions.FileIOPermission> class.  \n  \n [!code-cpp[System.Security.Permissions.FileIOPermission#7](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/CPP/fileiopermission.cpp#7)]\n [!code-csharp[System.Security.Permissions.FileIOPermission#7](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/CS/fileiopermission.cs#7)]\n [!code-vb[System.Security.Permissions.FileIOPermission#7](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/VB/fileiopermission.vb#7)]"
   syntax:
@@ -847,6 +848,7 @@ items:
     commentId: T:System.ArgumentException
     description: "<code>access</code> is not a valid value of <xref href=\"System.Security.Permissions.FileIOPermissionAccess\"></xref>.  \n  \n -or-  \n  \n <code>access</code> is <xref href=\"System.Security.Permissions.FileIOPermissionAccess.AllAccess\"></xref>, which represents more than one type of file access, or <xref href=\"System.Security.Permissions.FileIOPermissionAccess.NoAccess\"></xref>, which does not represent any type of file access."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -858,6 +860,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -869,9 +872,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.FileIOPermission.Intersect(System.Security.IPermission)
   commentId: M:System.Security.Permissions.FileIOPermission.Intersect(System.Security.IPermission)
   id: Intersect(System.Security.IPermission)
@@ -880,10 +880,11 @@ items:
   - csharp
   name: Intersect(IPermission)
   nameWithType: FileIOPermission.Intersect(IPermission)
-  fullName: System.Security.Permissions.FileIOPermission.Intersect(IPermission)
+  fullName: FileIOPermission.Intersect(IPermission)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Creates and returns a permission that is the intersection of the current permission and the specified permission.
   remarks: The intersection of two permissions is a permission that describes the set of operations they both describe in common. Only a demand that passes both original permissions will pass the intersection.
@@ -902,6 +903,7 @@ items:
     commentId: T:System.ArgumentException
     description: The <code>target</code> parameter is not `null` and is not of the same type as the current permission.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -913,6 +915,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -924,9 +927,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.FileIOPermission.IsSubsetOf(System.Security.IPermission)
   commentId: M:System.Security.Permissions.FileIOPermission.IsSubsetOf(System.Security.IPermission)
   id: IsSubsetOf(System.Security.IPermission)
@@ -935,10 +935,11 @@ items:
   - csharp
   name: IsSubsetOf(IPermission)
   nameWithType: FileIOPermission.IsSubsetOf(IPermission)
-  fullName: System.Security.Permissions.FileIOPermission.IsSubsetOf(IPermission)
+  fullName: FileIOPermission.IsSubsetOf(IPermission)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Determines whether the current permission is a subset of the specified permission.
   remarks: The current permission is a subset of the specified permission if the current permission specifies a set of operations that is contained by the specified permission. For example, a permission that represents read access to C:\example.txt is a subset of a permission that represents read access to C:\\. If this method returns `true`, the current permission represents no more access to the protected resource than does the specified permission.
@@ -957,6 +958,7 @@ items:
     commentId: T:System.ArgumentException
     description: The <code>target</code> parameter is not `null` and is not of the same type as the current permission.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -968,6 +970,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -979,9 +982,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.FileIOPermission.IsUnrestricted
   commentId: M:System.Security.Permissions.FileIOPermission.IsUnrestricted
   id: IsUnrestricted
@@ -990,10 +990,11 @@ items:
   - csharp
   name: IsUnrestricted()
   nameWithType: FileIOPermission.IsUnrestricted()
-  fullName: System.Security.Permissions.FileIOPermission.IsUnrestricted()
+  fullName: FileIOPermission.IsUnrestricted()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Returns a value indicating whether the current permission is unrestricted.
   remarks: An unrestricted permission represents access to all resources protected by the permission.
@@ -1006,6 +1007,7 @@ items:
   overload: System.Security.Permissions.FileIOPermission.IsUnrestricted*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1017,6 +1019,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1028,9 +1031,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.FileIOPermission.SetPathList(System.Security.Permissions.FileIOPermissionAccess,System.String)
   commentId: M:System.Security.Permissions.FileIOPermission.SetPathList(System.Security.Permissions.FileIOPermissionAccess,System.String)
   id: SetPathList(System.Security.Permissions.FileIOPermissionAccess,System.String)
@@ -1039,13 +1039,14 @@ items:
   - csharp
   name: SetPathList(FileIOPermissionAccess, String)
   nameWithType: FileIOPermission.SetPathList(FileIOPermissionAccess, String)
-  fullName: System.Security.Permissions.FileIOPermission.SetPathList(FileIOPermissionAccess, String)
+  fullName: FileIOPermission.SetPathList(FileIOPermissionAccess, String)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Sets the specified access to the specified file or directory, replacing the existing state of the permission.
-  remarks: "The previous state of the current permission for the specified access type is overwritten. The following code sets the access for C:\\temp to <xref:System.Security.Permissions.FileIOPermissionAccess>.  \n  \n [!code-cpp[System.Security.Permissions.FileIOPermission#12](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/CPP/remarks.cpp#12)]\n [!code-csharp[System.Security.Permissions.FileIOPermission#12](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/CS/remarks.cs#12)]\n [!code-vb[System.Security.Permissions.FileIOPermission#12](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/VB/remarks.vb#12)]  \n  \n This access will not be overwritten by the following code because the access types are not the same.  \n  \n [!code-cpp[System.Security.Permissions.FileIOPermission#13](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/CPP/remarks.cpp#13)]\n [!code-csharp[System.Security.Permissions.FileIOPermission#13](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/CS/remarks.cs#13)]\n [!code-vb[System.Security.Permissions.FileIOPermission#13](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/VB/remarks.vb#13)]"
+  remarks: "The previous state of the current permission for the specified access type is overwritten. The following code sets the access for C:\\temp to <xref:System.Security.Permissions.FileIOPermissionAccess.Read>.  \n  \n [!code-cpp[System.Security.Permissions.FileIOPermission#12](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/CPP/remarks.cpp#12)]\n [!code-csharp[System.Security.Permissions.FileIOPermission#12](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/CS/remarks.cs#12)]\n [!code-vb[System.Security.Permissions.FileIOPermission#12](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/VB/remarks.vb#12)]  \n  \n This access will not be overwritten by the following code because the access types are not the same.  \n  \n [!code-cpp[System.Security.Permissions.FileIOPermission#13](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/CPP/remarks.cpp#13)]\n [!code-csharp[System.Security.Permissions.FileIOPermission#13](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/CS/remarks.cs#13)]\n [!code-vb[System.Security.Permissions.FileIOPermission#13](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/VB/remarks.vb#13)]"
   example:
   - "The following code example shows the use of the <xref:System.Security.Permissions.FileIOPermission.SetPathList%28System.Security.Permissions.FileIOPermissionAccess%2CSystem.String%29?displayProperty=fullName> method.  \n  \n [!code-cpp[System.Security.Permissions.FileIOPermission#7](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/CPP/fileiopermission.cpp#7)]\n [!code-csharp[System.Security.Permissions.FileIOPermission#7](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/CS/fileiopermission.cs#7)]\n [!code-vb[System.Security.Permissions.FileIOPermission#7](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/VB/fileiopermission.vb#7)]"
   syntax:
@@ -1063,6 +1064,7 @@ items:
     commentId: T:System.ArgumentException
     description: "The <code>access</code> parameter is not a valid value of <xref href=\"System.Security.Permissions.FileIOPermissionAccess\"></xref>.  \n  \n -or-  \n  \n The <code>path</code> parameter is not a valid string.  \n  \n -or-  \n  \n The <code>path</code> parameter did not specify the absolute path to the file or directory."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1074,6 +1076,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1085,9 +1088,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.FileIOPermission.SetPathList(System.Security.Permissions.FileIOPermissionAccess,System.String[])
   commentId: M:System.Security.Permissions.FileIOPermission.SetPathList(System.Security.Permissions.FileIOPermissionAccess,System.String[])
   id: SetPathList(System.Security.Permissions.FileIOPermissionAccess,System.String[])
@@ -1096,13 +1096,14 @@ items:
   - csharp
   name: SetPathList(FileIOPermissionAccess, String[])
   nameWithType: FileIOPermission.SetPathList(FileIOPermissionAccess, String[])
-  fullName: System.Security.Permissions.FileIOPermission.SetPathList(FileIOPermissionAccess, String[])
+  fullName: FileIOPermission.SetPathList(FileIOPermissionAccess, String[])
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Sets the specified access to the specified files and directories, replacing the current state for the specified access with the new set of paths.
-  remarks: "The previous state of the current permission for the specified access type is overwritten. The following code sets the access for C:\\temp to <xref:System.Security.Permissions.FileIOPermissionAccess>.  \n  \n This access will not be overwritten by the following code because the access types are not the same.  \n  \n [!code-cpp[System.Security.Permissions.FileIOPermission#15](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/CPP/remarks.cpp#15)]\n [!code-csharp[System.Security.Permissions.FileIOPermission#15](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/CS/remarks.cs#15)]\n [!code-vb[System.Security.Permissions.FileIOPermission#15](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/VB/remarks.vb#15)]"
+  remarks: "The previous state of the current permission for the specified access type is overwritten. The following code sets the access for C:\\temp to <xref:System.Security.Permissions.FileIOPermissionAccess.Read>.  \n  \n This access will not be overwritten by the following code because the access types are not the same.  \n  \n [!code-cpp[System.Security.Permissions.FileIOPermission#15](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/CPP/remarks.cpp#15)]\n [!code-csharp[System.Security.Permissions.FileIOPermission#15](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/CS/remarks.cs#15)]\n [!code-vb[System.Security.Permissions.FileIOPermission#15](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.Permissions.FileIOPermission/VB/remarks.vb#15)]"
   syntax:
     content: public void SetPathList (System.Security.Permissions.FileIOPermissionAccess access, string[] pathList);
     parameters:
@@ -1118,6 +1119,7 @@ items:
     commentId: T:System.ArgumentException
     description: "The <code>access</code> parameter is not a valid value of <xref href=\"System.Security.Permissions.FileIOPermissionAccess\"></xref>.  \n  \n -or-  \n  \n An entry in the <code>pathList</code> parameter is not a valid string."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1129,6 +1131,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1140,9 +1143,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.FileIOPermission.ToXml
   commentId: M:System.Security.Permissions.FileIOPermission.ToXml
   id: ToXml
@@ -1151,10 +1151,11 @@ items:
   - csharp
   name: ToXml()
   nameWithType: FileIOPermission.ToXml()
-  fullName: System.Security.Permissions.FileIOPermission.ToXml()
+  fullName: FileIOPermission.ToXml()
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Creates an XML encoding of the permission and its current state.
   syntax:
@@ -1166,6 +1167,7 @@ items:
   overload: System.Security.Permissions.FileIOPermission.ToXml*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1177,6 +1179,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1188,9 +1191,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Permissions.FileIOPermission.Union(System.Security.IPermission)
   commentId: M:System.Security.Permissions.FileIOPermission.Union(System.Security.IPermission)
   id: Union(System.Security.IPermission)
@@ -1199,10 +1199,11 @@ items:
   - csharp
   name: Union(IPermission)
   nameWithType: FileIOPermission.Union(IPermission)
-  fullName: System.Security.Permissions.FileIOPermission.Union(IPermission)
+  fullName: FileIOPermission.Union(IPermission)
   type: Method
   assemblies:
   - mscorlib
+  - System.Security.Permissions
   namespace: System.Security.Permissions
   summary: Creates a permission that is the union of the current permission and the specified permission.
   remarks: The result of a call to <xref:System.Security.Permissions.FileIOPermission.Union%2A> is a permission that represents all the operations represented by both the current permission and the specified permission. Any demand that passes either permission passes their union.
@@ -1221,6 +1222,7 @@ items:
     commentId: T:System.ArgumentException
     description: The <code>other</code> parameter is not `null` and is not of the same type as the current permission.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1232,6 +1234,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1243,9 +1246,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Security.CodeAccessPermission
   parent: System.Security
@@ -1276,7 +1276,7 @@ references:
   isExternal: false
   name: FileIOPermission(PermissionState)
   nameWithType: FileIOPermission.FileIOPermission(PermissionState)
-  fullName: System.Security.Permissions.FileIOPermission.FileIOPermission(PermissionState)
+  fullName: FileIOPermission.FileIOPermission(PermissionState)
 - uid: System.Security.Permissions.PermissionState
   parent: System.Security.Permissions
   isExternal: false
@@ -1288,7 +1288,7 @@ references:
   isExternal: false
   name: FileIOPermission(FileIOPermissionAccess, String)
   nameWithType: FileIOPermission.FileIOPermission(FileIOPermissionAccess, String)
-  fullName: System.Security.Permissions.FileIOPermission.FileIOPermission(FileIOPermissionAccess, String)
+  fullName: FileIOPermission.FileIOPermission(FileIOPermissionAccess, String)
 - uid: System.Security.Permissions.FileIOPermissionAccess
   parent: System.Security.Permissions
   isExternal: false
@@ -1306,7 +1306,7 @@ references:
   isExternal: false
   name: FileIOPermission(FileIOPermissionAccess, String[])
   nameWithType: FileIOPermission.FileIOPermission(FileIOPermissionAccess, String[])
-  fullName: System.Security.Permissions.FileIOPermission.FileIOPermission(FileIOPermissionAccess, String[])
+  fullName: FileIOPermission.FileIOPermission(FileIOPermissionAccess, String[])
 - uid: System.String[]
   parent: System
   isExternal: false
@@ -1326,7 +1326,7 @@ references:
   isExternal: false
   name: FileIOPermission(FileIOPermissionAccess, AccessControlActions, String)
   nameWithType: FileIOPermission.FileIOPermission(FileIOPermissionAccess, AccessControlActions, String)
-  fullName: System.Security.Permissions.FileIOPermission.FileIOPermission(FileIOPermissionAccess, AccessControlActions, String)
+  fullName: FileIOPermission.FileIOPermission(FileIOPermissionAccess, AccessControlActions, String)
 - uid: System.Security.AccessControl.AccessControlActions
   parent: System.Security.AccessControl
   isExternal: false
@@ -1338,37 +1338,37 @@ references:
   isExternal: false
   name: FileIOPermission(FileIOPermissionAccess, AccessControlActions, String[])
   nameWithType: FileIOPermission.FileIOPermission(FileIOPermissionAccess, AccessControlActions, String[])
-  fullName: System.Security.Permissions.FileIOPermission.FileIOPermission(FileIOPermissionAccess, AccessControlActions, String[])
+  fullName: FileIOPermission.FileIOPermission(FileIOPermissionAccess, AccessControlActions, String[])
 - uid: System.Security.Permissions.FileIOPermission.AddPathList(System.Security.Permissions.FileIOPermissionAccess,System.String)
   parent: System.Security.Permissions.FileIOPermission
   isExternal: false
   name: AddPathList(FileIOPermissionAccess, String)
   nameWithType: FileIOPermission.AddPathList(FileIOPermissionAccess, String)
-  fullName: System.Security.Permissions.FileIOPermission.AddPathList(FileIOPermissionAccess, String)
+  fullName: FileIOPermission.AddPathList(FileIOPermissionAccess, String)
 - uid: System.Security.Permissions.FileIOPermission.AddPathList(System.Security.Permissions.FileIOPermissionAccess,System.String[])
   parent: System.Security.Permissions.FileIOPermission
   isExternal: false
   name: AddPathList(FileIOPermissionAccess, String[])
   nameWithType: FileIOPermission.AddPathList(FileIOPermissionAccess, String[])
-  fullName: System.Security.Permissions.FileIOPermission.AddPathList(FileIOPermissionAccess, String[])
+  fullName: FileIOPermission.AddPathList(FileIOPermissionAccess, String[])
 - uid: System.Security.Permissions.FileIOPermission.AllFiles
   parent: System.Security.Permissions.FileIOPermission
   isExternal: false
   name: AllFiles
   nameWithType: FileIOPermission.AllFiles
-  fullName: System.Security.Permissions.FileIOPermission.AllFiles
+  fullName: FileIOPermission.AllFiles
 - uid: System.Security.Permissions.FileIOPermission.AllLocalFiles
   parent: System.Security.Permissions.FileIOPermission
   isExternal: false
   name: AllLocalFiles
   nameWithType: FileIOPermission.AllLocalFiles
-  fullName: System.Security.Permissions.FileIOPermission.AllLocalFiles
+  fullName: FileIOPermission.AllLocalFiles
 - uid: System.Security.Permissions.FileIOPermission.Copy
   parent: System.Security.Permissions.FileIOPermission
   isExternal: false
   name: Copy()
   nameWithType: FileIOPermission.Copy()
-  fullName: System.Security.Permissions.FileIOPermission.Copy()
+  fullName: FileIOPermission.Copy()
 - uid: System.Security.IPermission
   parent: System.Security
   isExternal: false
@@ -1380,7 +1380,7 @@ references:
   isExternal: false
   name: Equals(Object)
   nameWithType: FileIOPermission.Equals(Object)
-  fullName: System.Security.Permissions.FileIOPermission.Equals(Object)
+  fullName: FileIOPermission.Equals(Object)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -1398,7 +1398,7 @@ references:
   isExternal: false
   name: FromXml(SecurityElement)
   nameWithType: FileIOPermission.FromXml(SecurityElement)
-  fullName: System.Security.Permissions.FileIOPermission.FromXml(SecurityElement)
+  fullName: FileIOPermission.FromXml(SecurityElement)
 - uid: System.Security.SecurityElement
   parent: System.Security
   isExternal: false
@@ -1410,7 +1410,7 @@ references:
   isExternal: false
   name: GetHashCode()
   nameWithType: FileIOPermission.GetHashCode()
-  fullName: System.Security.Permissions.FileIOPermission.GetHashCode()
+  fullName: FileIOPermission.GetHashCode()
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -1422,56 +1422,57 @@ references:
   isExternal: false
   name: GetPathList(FileIOPermissionAccess)
   nameWithType: FileIOPermission.GetPathList(FileIOPermissionAccess)
-  fullName: System.Security.Permissions.FileIOPermission.GetPathList(FileIOPermissionAccess)
+  fullName: FileIOPermission.GetPathList(FileIOPermissionAccess)
 - uid: System.Security.Permissions.FileIOPermission.Intersect(System.Security.IPermission)
   parent: System.Security.Permissions.FileIOPermission
   isExternal: false
   name: Intersect(IPermission)
   nameWithType: FileIOPermission.Intersect(IPermission)
-  fullName: System.Security.Permissions.FileIOPermission.Intersect(IPermission)
+  fullName: FileIOPermission.Intersect(IPermission)
 - uid: System.Security.Permissions.FileIOPermission.IsSubsetOf(System.Security.IPermission)
   parent: System.Security.Permissions.FileIOPermission
   isExternal: false
   name: IsSubsetOf(IPermission)
   nameWithType: FileIOPermission.IsSubsetOf(IPermission)
-  fullName: System.Security.Permissions.FileIOPermission.IsSubsetOf(IPermission)
+  fullName: FileIOPermission.IsSubsetOf(IPermission)
 - uid: System.Security.Permissions.FileIOPermission.IsUnrestricted
   parent: System.Security.Permissions.FileIOPermission
   isExternal: false
   name: IsUnrestricted()
   nameWithType: FileIOPermission.IsUnrestricted()
-  fullName: System.Security.Permissions.FileIOPermission.IsUnrestricted()
+  fullName: FileIOPermission.IsUnrestricted()
 - uid: System.Security.Permissions.FileIOPermission.SetPathList(System.Security.Permissions.FileIOPermissionAccess,System.String)
   parent: System.Security.Permissions.FileIOPermission
   isExternal: false
   name: SetPathList(FileIOPermissionAccess, String)
   nameWithType: FileIOPermission.SetPathList(FileIOPermissionAccess, String)
-  fullName: System.Security.Permissions.FileIOPermission.SetPathList(FileIOPermissionAccess, String)
+  fullName: FileIOPermission.SetPathList(FileIOPermissionAccess, String)
 - uid: System.Security.Permissions.FileIOPermission.SetPathList(System.Security.Permissions.FileIOPermissionAccess,System.String[])
   parent: System.Security.Permissions.FileIOPermission
   isExternal: false
   name: SetPathList(FileIOPermissionAccess, String[])
   nameWithType: FileIOPermission.SetPathList(FileIOPermissionAccess, String[])
-  fullName: System.Security.Permissions.FileIOPermission.SetPathList(FileIOPermissionAccess, String[])
+  fullName: FileIOPermission.SetPathList(FileIOPermissionAccess, String[])
 - uid: System.Security.Permissions.FileIOPermission.ToXml
   parent: System.Security.Permissions.FileIOPermission
   isExternal: false
   name: ToXml()
   nameWithType: FileIOPermission.ToXml()
-  fullName: System.Security.Permissions.FileIOPermission.ToXml()
+  fullName: FileIOPermission.ToXml()
 - uid: System.Security.Permissions.FileIOPermission.Union(System.Security.IPermission)
   parent: System.Security.Permissions.FileIOPermission
   isExternal: false
   name: Union(IPermission)
   nameWithType: FileIOPermission.Union(IPermission)
-  fullName: System.Security.Permissions.FileIOPermission.Union(IPermission)
+  fullName: FileIOPermission.Union(IPermission)
 - uid: System.Security.Permissions.FileIOPermission.#ctor*
   parent: System.Security.Permissions.FileIOPermission
   isExternal: false
   name: FileIOPermission
   nameWithType: FileIOPermission.FileIOPermission
-  fullName: System.Security.Permissions.FileIOPermission.FileIOPermission
+  fullName: FileIOPermission.FileIOPermission
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1488,8 +1489,9 @@ references:
   isExternal: false
   name: AddPathList
   nameWithType: FileIOPermission.AddPathList
-  fullName: System.Security.Permissions.FileIOPermission.AddPathList
+  fullName: FileIOPermission.AddPathList
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1506,8 +1508,9 @@ references:
   isExternal: false
   name: AllFiles
   nameWithType: FileIOPermission.AllFiles
-  fullName: System.Security.Permissions.FileIOPermission.AllFiles
+  fullName: FileIOPermission.AllFiles
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1524,8 +1527,9 @@ references:
   isExternal: false
   name: AllLocalFiles
   nameWithType: FileIOPermission.AllLocalFiles
-  fullName: System.Security.Permissions.FileIOPermission.AllLocalFiles
+  fullName: FileIOPermission.AllLocalFiles
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1542,8 +1546,9 @@ references:
   isExternal: false
   name: Copy
   nameWithType: FileIOPermission.Copy
-  fullName: System.Security.Permissions.FileIOPermission.Copy
+  fullName: FileIOPermission.Copy
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1560,8 +1565,9 @@ references:
   isExternal: false
   name: Equals
   nameWithType: FileIOPermission.Equals
-  fullName: System.Security.Permissions.FileIOPermission.Equals
+  fullName: FileIOPermission.Equals
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1578,8 +1584,9 @@ references:
   isExternal: false
   name: FromXml
   nameWithType: FileIOPermission.FromXml
-  fullName: System.Security.Permissions.FileIOPermission.FromXml
+  fullName: FileIOPermission.FromXml
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1596,8 +1603,9 @@ references:
   isExternal: false
   name: GetHashCode
   nameWithType: FileIOPermission.GetHashCode
-  fullName: System.Security.Permissions.FileIOPermission.GetHashCode
+  fullName: FileIOPermission.GetHashCode
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1614,8 +1622,9 @@ references:
   isExternal: false
   name: GetPathList
   nameWithType: FileIOPermission.GetPathList
-  fullName: System.Security.Permissions.FileIOPermission.GetPathList
+  fullName: FileIOPermission.GetPathList
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1632,8 +1641,9 @@ references:
   isExternal: false
   name: Intersect
   nameWithType: FileIOPermission.Intersect
-  fullName: System.Security.Permissions.FileIOPermission.Intersect
+  fullName: FileIOPermission.Intersect
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1650,8 +1660,9 @@ references:
   isExternal: false
   name: IsSubsetOf
   nameWithType: FileIOPermission.IsSubsetOf
-  fullName: System.Security.Permissions.FileIOPermission.IsSubsetOf
+  fullName: FileIOPermission.IsSubsetOf
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1668,8 +1679,9 @@ references:
   isExternal: false
   name: IsUnrestricted
   nameWithType: FileIOPermission.IsUnrestricted
-  fullName: System.Security.Permissions.FileIOPermission.IsUnrestricted
+  fullName: FileIOPermission.IsUnrestricted
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1686,8 +1698,9 @@ references:
   isExternal: false
   name: SetPathList
   nameWithType: FileIOPermission.SetPathList
-  fullName: System.Security.Permissions.FileIOPermission.SetPathList
+  fullName: FileIOPermission.SetPathList
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1704,8 +1717,9 @@ references:
   isExternal: false
   name: ToXml
   nameWithType: FileIOPermission.ToXml
-  fullName: System.Security.Permissions.FileIOPermission.ToXml
+  fullName: FileIOPermission.ToXml
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1722,8 +1736,9 @@ references:
   isExternal: false
   name: Union
   nameWithType: FileIOPermission.Union
-  fullName: System.Security.Permissions.FileIOPermission.Union
+  fullName: FileIOPermission.Union
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1735,3 +1750,9 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Permissions/FileIOPermission.xml
+- uid: System.Security.Permissions.IUnrestrictedPermission
+  parent: System.Security.Permissions
+  isExternal: false
+  name: IUnrestrictedPermission
+  nameWithType: IUnrestrictedPermission
+  fullName: System.Security.Permissions.IUnrestrictedPermission

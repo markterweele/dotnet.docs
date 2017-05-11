@@ -20,6 +20,7 @@ items:
   - System.IO.Path.GetInvalidPathChars
   - System.IO.Path.GetPathRoot(System.String)
   - System.IO.Path.GetRandomFileName
+  - System.IO.Path.GetRelativePath(System.String,System.String)
   - System.IO.Path.GetTempFileName
   - System.IO.Path.GetTempPath
   - System.IO.Path.HasExtension(System.String)
@@ -38,7 +39,7 @@ items:
   - mscorlib
   - netstandard
   namespace: System.IO
-  summary: "Performs operations on <xref href=\"System.String\"></xref> instances that contain file or directory path information. These operations are performed in a cross-platform manner.  \n  \n To browse the .NET Framework source code for this type, see the [Reference Source](http://referencesource.microsoft.com/#mscorlib/system/io/path.cs#090eca8621a248ee)."
+  summary: Performs operations on <xref href="System.String"></xref> instances that contain file or directory path information. These operations are performed in a cross-platform manner.
   remarks: "> [!NOTE]\n>  To view the .NET Framework source code for this type, see the [Reference Source](http://referencesource.microsoft.com/#mscorlib/system/io/path.cs#090eca8621a248ee). You can browse through the source code online, download the reference for offline viewing, and step through the sources (including patches and updates) during debugging; see [instructions](http://referencesource.microsoft.com/).  \n  \n The .NET Framework does not support direct access to physical disks through paths that are device names, such as \"\\\\\\\\.\\PHYSICALDRIVE0 \".  \n  \n A path is a string that provides the location of a file or directory. A path does not necessarily point to a location on disk; for example, a path might map to a location in memory or on a device. The exact format of a path is determined by the current platform. For example, on some systems, a path can start with a drive or volume letter, while this element is not present in other systems. On some systems, file paths can contain extensions, which indicate the type of information stored in the file. The format of a file name extension is platform-dependent; for example, some systems limit extensions to three characters, and others do not. The current platform also determines the set of characters used to separate the elements of a path, and the set of characters that cannot be used when specifying paths. Because of these differences, the fields of the `Path` class as well as the exact behavior of some members of the `Path` class are platform-dependent.  \n  \n A path can contain absolute or relative location information. Absolute paths fully specify a location: the file or directory can be uniquely identified regardless of the current location. Relative paths specify a partial location: the current location is used as the starting point when locating a file specified with a relative path. To determine the current directory, call <xref:System.IO.Directory.GetCurrentDirectory%2A?displayProperty=fullName>.  \n  \n Most members of the `Path` class do not interact with the file system and do not verify the existence of the file specified by a path string. `Path` class members that modify a path string, such as <xref:System.IO.Path.ChangeExtension%2A>, have no effect on names of files in the file system. `Path` members do, however, validate the contents of a specified path string, and throw an <xref:System.ArgumentException> exception if the string contains characters that are not valid in path strings, as defined in the characters returned from the <xref:System.IO.Path.GetInvalidPathChars%2A> method. For example, on Windows-based desktop platforms, invalid path characters might include quote (\"), less than (\\<), greater than (>), pipe (&#124;), backspace (\\b), null (\\0), and Unicode characters 16 through 18 and 20 through 25.  \n  \n The members of the `Path` class enable you to quickly and easily perform common operations such as determining whether a file name extension is part of a path, and combining two strings into one path name.  \n  \n All members of the `Path` class are static and can therefore be called without having an instance of a path.  \n  \n> [!NOTE]\n>  In members that accept a path as an input string, that path must be well-formed or an exception is raised. For example, if a path is fully qualified but begins with a space, the path is not trimmed in methods of the class. Therefore, the path is malformed and an exception is raised. Similarly, a path or a combination of paths cannot be fully qualified twice. For example, \"c:\\temp c:\\windows\" also raises an exception in most cases. Ensure that your paths are well-formed when using methods that accept a path string.  \n  \n In members that accept a path, the path can refer to a file or just a directory. The specified path can also refer to a relative path or a Universal Naming Convention (UNC) path for a server and share name. For example, all the following are acceptable paths:  \n  \n-   \"c:\\\\\\MyDir\\\\\\MyFile.txt\" in C#, or \"c:\\MyDir\\MyFile.txt\" in Visual Basic.  \n  \n-   \"c:\\\\\\MyDir\" in C#, or \"c:\\MyDir\" in Visual Basic.  \n  \n-   \"MyDir\\\\\\MySubdir\" in C#, or \"MyDir\\MySubDir\" in Visual Basic.  \n  \n-   \"\\\\\\\\\\\\\\MyServer\\\\\\MyShare\" in C#, or \"\\\\\\MyServer\\MyShare\" in Visual Basic.  \n  \n Because all these operations are performed on strings, it is impossible to verify that the results are valid in all scenarios. For example, the <xref:System.IO.Path.GetExtension%2A> method parses a string that you pass to it and returns the extension from that string. However, this does not mean that a file with that extension exists on the disk.  \n  \n For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md)."
   example:
   - "The following code example demonstrates some of the main members of the `Path` class.  \n  \n [!code-cpp[path class#1](~/samples/snippets/cpp/VS_Snippets_CLR/Path Class/CPP/path class.cpp#1)]\n [!code-csharp[path class#1](~/samples/snippets/csharp/VS_Snippets_CLR/Path Class/CS/path class.cs#1)]\n [!code-vb[path class#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/Path Class/VB/path class.vb#1)]"
@@ -62,7 +63,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -83,7 +85,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -103,9 +106,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.AltDirectorySeparatorChar
   commentId: F:System.IO.Path.AltDirectorySeparatorChar
   id: AltDirectorySeparatorChar
@@ -114,7 +114,7 @@ items:
   - csharp
   name: AltDirectorySeparatorChar
   nameWithType: Path.AltDirectorySeparatorChar
-  fullName: System.IO.Path.AltDirectorySeparatorChar
+  fullName: Path.AltDirectorySeparatorChar
   type: Field
   assemblies:
   - System.Runtime.Extensions
@@ -133,7 +133,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -151,7 +152,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -168,9 +170,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.ChangeExtension(System.String,System.String)
   commentId: M:System.IO.Path.ChangeExtension(System.String,System.String)
   id: ChangeExtension(System.String,System.String)
@@ -179,7 +178,7 @@ items:
   - csharp
   name: ChangeExtension(String, String)
   nameWithType: Path.ChangeExtension(String, String)
-  fullName: System.IO.Path.ChangeExtension(String, String)
+  fullName: Path.ChangeExtension(String, String)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -209,7 +208,8 @@ items:
     description: <code>path</code> contains one or more of the invalid characters defined in <xref href="System.IO.Path.GetInvalidPathChars"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -230,7 +230,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -250,9 +251,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.Combine(System.String[])
   commentId: M:System.IO.Path.Combine(System.String[])
   id: Combine(System.String[])
@@ -261,7 +259,7 @@ items:
   - csharp
   name: Combine(String[])
   nameWithType: Path.Combine(String[])
-  fullName: System.IO.Path.Combine(String[])
+  fullName: Path.Combine(String[])
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -291,7 +289,8 @@ items:
     description: One of the strings in the array is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -312,7 +311,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -332,9 +332,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.Combine(System.String,System.String)
   commentId: M:System.IO.Path.Combine(System.String,System.String)
   id: Combine(System.String,System.String)
@@ -343,7 +340,7 @@ items:
   - csharp
   name: Combine(String, String)
   nameWithType: Path.Combine(String, String)
-  fullName: System.IO.Path.Combine(String, String)
+  fullName: Path.Combine(String, String)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -376,7 +373,8 @@ items:
     description: <code>path1</code> or <code>path2</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -394,7 +392,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -411,9 +410,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.Combine(System.String,System.String,System.String)
   commentId: M:System.IO.Path.Combine(System.String,System.String,System.String)
   id: Combine(System.String,System.String,System.String)
@@ -422,7 +418,7 @@ items:
   - csharp
   name: Combine(String, String, String)
   nameWithType: Path.Combine(String, String, String)
-  fullName: System.IO.Path.Combine(String, String, String)
+  fullName: Path.Combine(String, String, String)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -458,7 +454,8 @@ items:
     description: <code>path1</code>, <code>path2</code>, or <code>path3</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -476,7 +473,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -493,9 +491,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.Combine(System.String,System.String,System.String,System.String)
   commentId: M:System.IO.Path.Combine(System.String,System.String,System.String,System.String)
   id: Combine(System.String,System.String,System.String,System.String)
@@ -504,11 +499,12 @@ items:
   - csharp
   name: Combine(String, String, String, String)
   nameWithType: Path.Combine(String, String, String, String)
-  fullName: System.IO.Path.Combine(String, String, String, String)
+  fullName: Path.Combine(String, String, String, String)
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Combines four strings into a path.
   remarks: "`path1` should be an absolute path (for example, \"d:\\archives\" or \"\\\\\\archives\\public\").If one of the subsequent paths is also an absolute path, the combine operation discards all previously combined paths and resets to that absolute path.  \n  \n Zero-length strings are omitted from the combined path.  \n  \n If `path1` is not a drive reference (that is, \"C:\" or \"D:\") and does not end with a valid separator character as defined in <xref:System.IO.Path.DirectorySeparatorChar>, <xref:System.IO.Path.AltDirectorySeparatorChar>, or <xref:System.IO.Path.VolumeSeparatorChar>, <xref:System.IO.Path.DirectorySeparatorChar> is appended to `path1` before concatenation.  \n  \n If `path2` does not include a root (for example, if `path2` does not start with a separator character or a drive specification), the result is a concatenation of the two paths, with an intervening separator character. If `path2` includes a root, `path2` is returned.  \n  \n The parameters are not parsed if they have white space. Therefore, if `path2` includes white space (for example, \" \\file.txt \"), the <xref:System.IO.Path.Combine%2A> method appends `path2` to `path1`.  \n  \n Not all invalid characters for directory and file names are interpreted as unacceptable by the `Combine` method, because you can use these characters for search wildcard characters. For example, while `Path.Combine(\"c:\\\\\", \"*.txt\")` might be invalid if you were to create a file from it, it is valid as a search string. It is therefore successfully interpreted by the `Combine` method."
@@ -541,6 +537,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: <code>path1</code>, <code>path2</code>, <code>path3</code>, or <code>path4</code> is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -553,6 +550,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -565,9 +563,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.DirectorySeparatorChar
   commentId: F:System.IO.Path.DirectorySeparatorChar
   id: DirectorySeparatorChar
@@ -576,7 +571,7 @@ items:
   - csharp
   name: DirectorySeparatorChar
   nameWithType: Path.DirectorySeparatorChar
-  fullName: System.IO.Path.DirectorySeparatorChar
+  fullName: Path.DirectorySeparatorChar
   type: Field
   assemblies:
   - System.Runtime.Extensions
@@ -595,7 +590,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -613,7 +609,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -630,9 +627,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.GetDirectoryName(System.String)
   commentId: M:System.IO.Path.GetDirectoryName(System.String)
   id: GetDirectoryName(System.String)
@@ -641,7 +635,7 @@ items:
   - csharp
   name: GetDirectoryName(String)
   nameWithType: Path.GetDirectoryName(String)
-  fullName: System.IO.Path.GetDirectoryName(String)
+  fullName: Path.GetDirectoryName(String)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -671,7 +665,8 @@ items:
     description: "<block subset=\"none\" type=\"note\">\n      <p>  \n In the [.NET for Windows Store apps](http://go.microsoft.com/fwlink/?LinkID=247912) or the [Portable Class Library](~/docs/standard/cross-platform/cross-platform-development-with-the-portable-class-library.md), catch the base class exception, <xref href=\"System.IO.IOException\"></xref>, instead.  \n  \n</p>\n    </block>  \n  \n The <code>path</code> parameter is longer than the system-defined maximum length."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -692,7 +687,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -712,9 +708,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.GetExtension(System.String)
   commentId: M:System.IO.Path.GetExtension(System.String)
   id: GetExtension(System.String)
@@ -723,7 +716,7 @@ items:
   - csharp
   name: GetExtension(String)
   nameWithType: Path.GetExtension(String)
-  fullName: System.IO.Path.GetExtension(String)
+  fullName: Path.GetExtension(String)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -750,7 +743,8 @@ items:
     description: <code>path</code> contains one or more of the invalid characters defined in <xref href="System.IO.Path.GetInvalidPathChars"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -771,7 +765,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -791,9 +786,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.GetFileName(System.String)
   commentId: M:System.IO.Path.GetFileName(System.String)
   id: GetFileName(System.String)
@@ -802,7 +794,7 @@ items:
   - csharp
   name: GetFileName(String)
   nameWithType: Path.GetFileName(String)
-  fullName: System.IO.Path.GetFileName(String)
+  fullName: Path.GetFileName(String)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -829,7 +821,8 @@ items:
     description: <code>path</code> contains one or more of the invalid characters defined in <xref href="System.IO.Path.GetInvalidPathChars"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -850,7 +843,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -870,9 +864,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.GetFileNameWithoutExtension(System.String)
   commentId: M:System.IO.Path.GetFileNameWithoutExtension(System.String)
   id: GetFileNameWithoutExtension(System.String)
@@ -881,7 +872,7 @@ items:
   - csharp
   name: GetFileNameWithoutExtension(String)
   nameWithType: Path.GetFileNameWithoutExtension(String)
-  fullName: System.IO.Path.GetFileNameWithoutExtension(String)
+  fullName: Path.GetFileNameWithoutExtension(String)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -908,7 +899,8 @@ items:
     description: <code>path</code> contains one or more of the invalid characters defined in <xref href="System.IO.Path.GetInvalidPathChars"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -929,7 +921,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -949,9 +942,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.GetFullPath(System.String)
   commentId: M:System.IO.Path.GetFullPath(System.String)
   id: GetFullPath(System.String)
@@ -960,7 +950,7 @@ items:
   - csharp
   name: GetFullPath(String)
   nameWithType: Path.GetFullPath(String)
-  fullName: System.IO.Path.GetFullPath(String)
+  fullName: Path.GetFullPath(String)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -999,7 +989,8 @@ items:
     description: The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1017,7 +1008,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1034,9 +1026,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.GetInvalidFileNameChars
   commentId: M:System.IO.Path.GetInvalidFileNameChars
   id: GetInvalidFileNameChars
@@ -1045,7 +1034,7 @@ items:
   - csharp
   name: GetInvalidFileNameChars()
   nameWithType: Path.GetInvalidFileNameChars()
-  fullName: System.IO.Path.GetInvalidFileNameChars()
+  fullName: Path.GetInvalidFileNameChars()
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -1066,7 +1055,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1087,7 +1077,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1107,9 +1098,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.GetInvalidPathChars
   commentId: M:System.IO.Path.GetInvalidPathChars
   id: GetInvalidPathChars
@@ -1118,7 +1106,7 @@ items:
   - csharp
   name: GetInvalidPathChars()
   nameWithType: Path.GetInvalidPathChars()
-  fullName: System.IO.Path.GetInvalidPathChars()
+  fullName: Path.GetInvalidPathChars()
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -1139,7 +1127,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1160,7 +1149,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1180,9 +1170,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.GetPathRoot(System.String)
   commentId: M:System.IO.Path.GetPathRoot(System.String)
   id: GetPathRoot(System.String)
@@ -1191,7 +1178,7 @@ items:
   - csharp
   name: GetPathRoot(String)
   nameWithType: Path.GetPathRoot(String)
-  fullName: System.IO.Path.GetPathRoot(String)
+  fullName: Path.GetPathRoot(String)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -1218,7 +1205,8 @@ items:
     description: "<code>path</code> contains one or more of the invalid characters defined in <xref href=\"System.IO.Path.GetInvalidPathChars\"></xref>.  \n  \n -or-  \n  \n <xref href=\"System.String.Empty\"></xref> was passed to <code>path</code>."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1239,7 +1227,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1259,9 +1248,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.GetRandomFileName
   commentId: M:System.IO.Path.GetRandomFileName
   id: GetRandomFileName
@@ -1270,7 +1256,7 @@ items:
   - csharp
   name: GetRandomFileName()
   nameWithType: Path.GetRandomFileName()
-  fullName: System.IO.Path.GetRandomFileName()
+  fullName: Path.GetRandomFileName()
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -1291,7 +1277,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1312,7 +1299,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1332,9 +1320,38 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
+- uid: System.IO.Path.GetRelativePath(System.String,System.String)
+  commentId: M:System.IO.Path.GetRelativePath(System.String,System.String)
+  id: GetRelativePath(System.String,System.String)
+  parent: System.IO.Path
+  langs:
+  - csharp
+  name: GetRelativePath(String, String)
+  nameWithType: Path.GetRelativePath(String, String)
+  fullName: Path.GetRelativePath(String, String)
+  type: Method
+  assemblies:
+  - System.Runtime.Extensions
+  namespace: System.IO
+  syntax:
+    content: public static string GetRelativePath (string relativeTo, string path);
+    parameters:
+    - id: relativeTo
+      type: System.String
+      description: To be added.
+    - id: path
+      type: System.String
+      description: To be added.
+    return:
+      type: System.String
+      description: To be added.
+  overload: System.IO.Path.GetRelativePath*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
 - uid: System.IO.Path.GetTempFileName
   commentId: M:System.IO.Path.GetTempFileName
   id: GetTempFileName
@@ -1343,7 +1360,7 @@ items:
   - csharp
   name: GetTempFileName()
   nameWithType: Path.GetTempFileName()
-  fullName: System.IO.Path.GetTempFileName()
+  fullName: Path.GetTempFileName()
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -1365,7 +1382,8 @@ items:
     description: "An I/O error occurs, such as no unique temporary file name is available.  \n  \n \\- or -  \n  \n This method was unable to create a temporary file."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1383,7 +1401,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1400,9 +1419,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.GetTempPath
   commentId: M:System.IO.Path.GetTempPath
   id: GetTempPath
@@ -1411,7 +1427,7 @@ items:
   - csharp
   name: GetTempPath()
   nameWithType: Path.GetTempPath()
-  fullName: System.IO.Path.GetTempPath()
+  fullName: Path.GetTempPath()
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -1435,7 +1451,8 @@ items:
     description: The caller does not have the required permissions.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1453,7 +1470,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1470,9 +1488,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.HasExtension(System.String)
   commentId: M:System.IO.Path.HasExtension(System.String)
   id: HasExtension(System.String)
@@ -1481,7 +1496,7 @@ items:
   - csharp
   name: HasExtension(String)
   nameWithType: Path.HasExtension(String)
-  fullName: System.IO.Path.HasExtension(String)
+  fullName: Path.HasExtension(String)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -1508,7 +1523,8 @@ items:
     description: <code>path</code> contains one or more of the invalid characters defined in <xref href="System.IO.Path.GetInvalidPathChars"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1529,7 +1545,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1549,9 +1566,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.InvalidPathChars
   commentId: F:System.IO.Path.InvalidPathChars
   id: InvalidPathChars
@@ -1560,11 +1574,12 @@ items:
   - csharp
   name: InvalidPathChars
   nameWithType: Path.InvalidPathChars
-  fullName: System.IO.Path.InvalidPathChars
+  fullName: Path.InvalidPathChars
   type: Field
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Provides a platform-specific array of characters that cannot be specified in path string arguments passed to members of the <xref href="System.IO.Path"></xref> class.
   remarks: "The array returned from this method is not guaranteed to contain the complete set of characters that are invalid in file and directory names. The full set of invalid characters can vary by file system. For example, on Windows-based desktop platforms, invalid path characters might include ASCII/Unicode characters 1 through 31, as well as quote (\"), less than (\\<), greater than (>), pipe (&#124;), backspace (\\b), null (\\0) and tab (\\t).  \n  \n> [!CAUTION]\n>  Do not use<xref:System.IO.Path.InvalidPathChars> if you think your code might execute in the same application domain as untrusted code. <xref:System.IO.Path.InvalidPathChars> is an array, so its elements can be overwritten. If untrusted code overwrites elements of <xref:System.IO.Path.InvalidPathChars>, it might cause your code to malfunction in ways that could be exploited."
@@ -1582,6 +1597,7 @@ items:
   attributes:
   - type: System.ObsoleteAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1594,6 +1610,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1606,9 +1623,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.IsPathRooted(System.String)
   commentId: M:System.IO.Path.IsPathRooted(System.String)
   id: IsPathRooted(System.String)
@@ -1617,7 +1631,7 @@ items:
   - csharp
   name: IsPathRooted(String)
   nameWithType: Path.IsPathRooted(String)
-  fullName: System.IO.Path.IsPathRooted(String)
+  fullName: Path.IsPathRooted(String)
   type: Method
   assemblies:
   - System.Runtime.Extensions
@@ -1644,7 +1658,8 @@ items:
     description: <code>path</code> contains one or more of the invalid characters defined in <xref href="System.IO.Path.GetInvalidPathChars"></xref>.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1665,7 +1680,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1685,9 +1701,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.PathSeparator
   commentId: F:System.IO.Path.PathSeparator
   id: PathSeparator
@@ -1696,7 +1709,7 @@ items:
   - csharp
   name: PathSeparator
   nameWithType: Path.PathSeparator
-  fullName: System.IO.Path.PathSeparator
+  fullName: Path.PathSeparator
   type: Field
   assemblies:
   - System.Runtime.Extensions
@@ -1715,7 +1728,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1733,7 +1747,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1750,9 +1765,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.Path.VolumeSeparatorChar
   commentId: F:System.IO.Path.VolumeSeparatorChar
   id: VolumeSeparatorChar
@@ -1761,7 +1773,7 @@ items:
   - csharp
   name: VolumeSeparatorChar
   nameWithType: Path.VolumeSeparatorChar
-  fullName: System.IO.Path.VolumeSeparatorChar
+  fullName: Path.VolumeSeparatorChar
   type: Field
   assemblies:
   - System.Runtime.Extensions
@@ -1780,7 +1792,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1798,7 +1811,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1815,9 +1829,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -1866,7 +1877,7 @@ references:
   isExternal: false
   name: AltDirectorySeparatorChar
   nameWithType: Path.AltDirectorySeparatorChar
-  fullName: System.IO.Path.AltDirectorySeparatorChar
+  fullName: Path.AltDirectorySeparatorChar
 - uid: System.Char
   parent: System
   isExternal: false
@@ -1878,7 +1889,7 @@ references:
   isExternal: false
   name: ChangeExtension(String, String)
   nameWithType: Path.ChangeExtension(String, String)
-  fullName: System.IO.Path.ChangeExtension(String, String)
+  fullName: Path.ChangeExtension(String, String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -1890,7 +1901,7 @@ references:
   isExternal: false
   name: Combine(String[])
   nameWithType: Path.Combine(String[])
-  fullName: System.IO.Path.Combine(String[])
+  fullName: Path.Combine(String[])
 - uid: System.String[]
   parent: System
   isExternal: false
@@ -1910,61 +1921,61 @@ references:
   isExternal: false
   name: Combine(String, String)
   nameWithType: Path.Combine(String, String)
-  fullName: System.IO.Path.Combine(String, String)
+  fullName: Path.Combine(String, String)
 - uid: System.IO.Path.Combine(System.String,System.String,System.String)
   parent: System.IO.Path
   isExternal: false
   name: Combine(String, String, String)
   nameWithType: Path.Combine(String, String, String)
-  fullName: System.IO.Path.Combine(String, String, String)
+  fullName: Path.Combine(String, String, String)
 - uid: System.IO.Path.Combine(System.String,System.String,System.String,System.String)
   parent: System.IO.Path
   isExternal: false
   name: Combine(String, String, String, String)
   nameWithType: Path.Combine(String, String, String, String)
-  fullName: System.IO.Path.Combine(String, String, String, String)
+  fullName: Path.Combine(String, String, String, String)
 - uid: System.IO.Path.DirectorySeparatorChar
   parent: System.IO.Path
   isExternal: false
   name: DirectorySeparatorChar
   nameWithType: Path.DirectorySeparatorChar
-  fullName: System.IO.Path.DirectorySeparatorChar
+  fullName: Path.DirectorySeparatorChar
 - uid: System.IO.Path.GetDirectoryName(System.String)
   parent: System.IO.Path
   isExternal: false
   name: GetDirectoryName(String)
   nameWithType: Path.GetDirectoryName(String)
-  fullName: System.IO.Path.GetDirectoryName(String)
+  fullName: Path.GetDirectoryName(String)
 - uid: System.IO.Path.GetExtension(System.String)
   parent: System.IO.Path
   isExternal: false
   name: GetExtension(String)
   nameWithType: Path.GetExtension(String)
-  fullName: System.IO.Path.GetExtension(String)
+  fullName: Path.GetExtension(String)
 - uid: System.IO.Path.GetFileName(System.String)
   parent: System.IO.Path
   isExternal: false
   name: GetFileName(String)
   nameWithType: Path.GetFileName(String)
-  fullName: System.IO.Path.GetFileName(String)
+  fullName: Path.GetFileName(String)
 - uid: System.IO.Path.GetFileNameWithoutExtension(System.String)
   parent: System.IO.Path
   isExternal: false
   name: GetFileNameWithoutExtension(String)
   nameWithType: Path.GetFileNameWithoutExtension(String)
-  fullName: System.IO.Path.GetFileNameWithoutExtension(String)
+  fullName: Path.GetFileNameWithoutExtension(String)
 - uid: System.IO.Path.GetFullPath(System.String)
   parent: System.IO.Path
   isExternal: false
   name: GetFullPath(String)
   nameWithType: Path.GetFullPath(String)
-  fullName: System.IO.Path.GetFullPath(String)
+  fullName: Path.GetFullPath(String)
 - uid: System.IO.Path.GetInvalidFileNameChars
   parent: System.IO.Path
   isExternal: false
   name: GetInvalidFileNameChars()
   nameWithType: Path.GetInvalidFileNameChars()
-  fullName: System.IO.Path.GetInvalidFileNameChars()
+  fullName: Path.GetInvalidFileNameChars()
 - uid: System.Char[]
   parent: System
   isExternal: false
@@ -1984,37 +1995,43 @@ references:
   isExternal: false
   name: GetInvalidPathChars()
   nameWithType: Path.GetInvalidPathChars()
-  fullName: System.IO.Path.GetInvalidPathChars()
+  fullName: Path.GetInvalidPathChars()
 - uid: System.IO.Path.GetPathRoot(System.String)
   parent: System.IO.Path
   isExternal: false
   name: GetPathRoot(String)
   nameWithType: Path.GetPathRoot(String)
-  fullName: System.IO.Path.GetPathRoot(String)
+  fullName: Path.GetPathRoot(String)
 - uid: System.IO.Path.GetRandomFileName
   parent: System.IO.Path
   isExternal: false
   name: GetRandomFileName()
   nameWithType: Path.GetRandomFileName()
-  fullName: System.IO.Path.GetRandomFileName()
+  fullName: Path.GetRandomFileName()
+- uid: System.IO.Path.GetRelativePath(System.String,System.String)
+  parent: System.IO.Path
+  isExternal: false
+  name: GetRelativePath(String, String)
+  nameWithType: Path.GetRelativePath(String, String)
+  fullName: Path.GetRelativePath(String, String)
 - uid: System.IO.Path.GetTempFileName
   parent: System.IO.Path
   isExternal: false
   name: GetTempFileName()
   nameWithType: Path.GetTempFileName()
-  fullName: System.IO.Path.GetTempFileName()
+  fullName: Path.GetTempFileName()
 - uid: System.IO.Path.GetTempPath
   parent: System.IO.Path
   isExternal: false
   name: GetTempPath()
   nameWithType: Path.GetTempPath()
-  fullName: System.IO.Path.GetTempPath()
+  fullName: Path.GetTempPath()
 - uid: System.IO.Path.HasExtension(System.String)
   parent: System.IO.Path
   isExternal: false
   name: HasExtension(String)
   nameWithType: Path.HasExtension(String)
-  fullName: System.IO.Path.HasExtension(String)
+  fullName: Path.HasExtension(String)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -2026,34 +2043,35 @@ references:
   isExternal: false
   name: InvalidPathChars
   nameWithType: Path.InvalidPathChars
-  fullName: System.IO.Path.InvalidPathChars
+  fullName: Path.InvalidPathChars
 - uid: System.IO.Path.IsPathRooted(System.String)
   parent: System.IO.Path
   isExternal: false
   name: IsPathRooted(String)
   nameWithType: Path.IsPathRooted(String)
-  fullName: System.IO.Path.IsPathRooted(String)
+  fullName: Path.IsPathRooted(String)
 - uid: System.IO.Path.PathSeparator
   parent: System.IO.Path
   isExternal: false
   name: PathSeparator
   nameWithType: Path.PathSeparator
-  fullName: System.IO.Path.PathSeparator
+  fullName: Path.PathSeparator
 - uid: System.IO.Path.VolumeSeparatorChar
   parent: System.IO.Path
   isExternal: false
   name: VolumeSeparatorChar
   nameWithType: Path.VolumeSeparatorChar
-  fullName: System.IO.Path.VolumeSeparatorChar
+  fullName: Path.VolumeSeparatorChar
 - uid: System.IO.Path.ChangeExtension*
   parent: System.IO.Path
   isExternal: false
   name: ChangeExtension
   nameWithType: Path.ChangeExtension
-  fullName: System.IO.Path.ChangeExtension
+  fullName: Path.ChangeExtension
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2078,10 +2096,11 @@ references:
   isExternal: false
   name: Combine
   nameWithType: Path.Combine
-  fullName: System.IO.Path.Combine
+  fullName: Path.Combine
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2106,10 +2125,11 @@ references:
   isExternal: false
   name: GetDirectoryName
   nameWithType: Path.GetDirectoryName
-  fullName: System.IO.Path.GetDirectoryName
+  fullName: Path.GetDirectoryName
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2134,10 +2154,11 @@ references:
   isExternal: false
   name: GetExtension
   nameWithType: Path.GetExtension
-  fullName: System.IO.Path.GetExtension
+  fullName: Path.GetExtension
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2162,10 +2183,11 @@ references:
   isExternal: false
   name: GetFileName
   nameWithType: Path.GetFileName
-  fullName: System.IO.Path.GetFileName
+  fullName: Path.GetFileName
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2190,10 +2212,11 @@ references:
   isExternal: false
   name: GetFileNameWithoutExtension
   nameWithType: Path.GetFileNameWithoutExtension
-  fullName: System.IO.Path.GetFileNameWithoutExtension
+  fullName: Path.GetFileNameWithoutExtension
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2218,10 +2241,11 @@ references:
   isExternal: false
   name: GetFullPath
   nameWithType: Path.GetFullPath
-  fullName: System.IO.Path.GetFullPath
+  fullName: Path.GetFullPath
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2243,10 +2267,11 @@ references:
   isExternal: false
   name: GetInvalidFileNameChars
   nameWithType: Path.GetInvalidFileNameChars
-  fullName: System.IO.Path.GetInvalidFileNameChars
+  fullName: Path.GetInvalidFileNameChars
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2271,10 +2296,11 @@ references:
   isExternal: false
   name: GetInvalidPathChars
   nameWithType: Path.GetInvalidPathChars
-  fullName: System.IO.Path.GetInvalidPathChars
+  fullName: Path.GetInvalidPathChars
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2299,10 +2325,11 @@ references:
   isExternal: false
   name: GetPathRoot
   nameWithType: Path.GetPathRoot
-  fullName: System.IO.Path.GetPathRoot
+  fullName: Path.GetPathRoot
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2327,10 +2354,11 @@ references:
   isExternal: false
   name: GetRandomFileName
   nameWithType: Path.GetRandomFileName
-  fullName: System.IO.Path.GetRandomFileName
+  fullName: Path.GetRandomFileName
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2350,15 +2378,25 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
+- uid: System.IO.Path.GetRelativePath*
+  parent: System.IO.Path
+  isExternal: false
+  name: GetRelativePath
+  nameWithType: Path.GetRelativePath
+  fullName: Path.GetRelativePath
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/Path.xml
 - uid: System.IO.Path.GetTempFileName*
   parent: System.IO.Path
   isExternal: false
   name: GetTempFileName
   nameWithType: Path.GetTempFileName
-  fullName: System.IO.Path.GetTempFileName
+  fullName: Path.GetTempFileName
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2380,10 +2418,11 @@ references:
   isExternal: false
   name: GetTempPath
   nameWithType: Path.GetTempPath
-  fullName: System.IO.Path.GetTempPath
+  fullName: Path.GetTempPath
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2405,10 +2444,11 @@ references:
   isExternal: false
   name: HasExtension
   nameWithType: Path.HasExtension
-  fullName: System.IO.Path.HasExtension
+  fullName: Path.HasExtension
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2433,10 +2473,11 @@ references:
   isExternal: false
   name: IsPathRooted
   nameWithType: Path.IsPathRooted
-  fullName: System.IO.Path.IsPathRooted
+  fullName: Path.IsPathRooted
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

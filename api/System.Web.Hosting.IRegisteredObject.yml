@@ -18,6 +18,11 @@ items:
   remarks: "Objects must implement the <xref:System.Web.Hosting.IRegisteredObject> interface in order to register with the hosting environment and have their lifetime managed by the hosting environment.  \n  \n You can create an instance of a registered object by calling the <xref:System.Web.Hosting.ApplicationManager.CreateObject%2A?displayProperty=fullName> method on the application manager. The application manager returns the newly created object to the caller, which can then call a type-specific method on the object. During startup, the registered object should call the <xref:System.Web.Hosting.HostingEnvironment.RegisterObject%2A?displayProperty=fullName> method to complete registration of the object.  \n  \n When the application manager needs to stop a registered object, it will call the <xref:System.Web.Hosting.IRegisteredObject.Stop%2A> method.  \n  \n Applications can have only one instance of a registered type. To create multiple instances of a registered type, use the factory pattern to create an object manager that is registered with the application and then manages the multiple instances. For an example of an object implementing the factory pattern, see the example for the <xref:System.Web.Hosting.ApplicationManager> class."
   syntax:
     content: public interface IRegisteredObject
+  derivedClasses:
+  - System.Web.Hosting.AppDomainProtocolHandler
+  - System.Web.Hosting.ISAPIRuntime
+  - System.Web.Hosting.IStopListeningRegisteredObject
+  - System.Web.Hosting.ISuspendibleRegisteredObject
   implements: []
   version:
   - netframework-4.5.1
@@ -36,8 +41,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Hosting/IRegisteredObject.xml
-  ms.author: riande
-  manager: wpickett
 - uid: System.Web.Hosting.IRegisteredObject.Stop(System.Boolean)
   commentId: M:System.Web.Hosting.IRegisteredObject.Stop(System.Boolean)
   id: Stop(System.Boolean)
@@ -46,7 +49,7 @@ items:
   - csharp
   name: Stop(Boolean)
   nameWithType: IRegisteredObject.Stop(Boolean)
-  fullName: System.Web.Hosting.IRegisteredObject.Stop(Boolean)
+  fullName: IRegisteredObject.Stop(Boolean)
   type: Method
   assemblies:
   - System.Web
@@ -78,15 +81,13 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Hosting/IRegisteredObject.xml
-  ms.author: riande
-  manager: wpickett
 references:
 - uid: System.Web.Hosting.IRegisteredObject.Stop(System.Boolean)
   parent: System.Web.Hosting.IRegisteredObject
   isExternal: false
   name: Stop(Boolean)
   nameWithType: IRegisteredObject.Stop(Boolean)
-  fullName: System.Web.Hosting.IRegisteredObject.Stop(Boolean)
+  fullName: IRegisteredObject.Stop(Boolean)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -98,7 +99,7 @@ references:
   isExternal: false
   name: Stop
   nameWithType: IRegisteredObject.Stop
-  fullName: System.Web.Hosting.IRegisteredObject.Stop
+  fullName: IRegisteredObject.Stop
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

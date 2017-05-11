@@ -34,6 +34,7 @@ items:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Specifies flags that control binding and the way in which the search for members and types is conducted by reflection.
   remarks: "These `BindingFlags` control binding for a great many classes in the `System`, `System.Reflection`, and `System.Runtime` namespaces that invoke, create, get, set, and find members and types.  \n  \n `BindingFlags` are used in the following <xref:System.Type> methods and other places such as <xref:System.Reflection.MethodBase.Invoke%2A?displayProperty=fullName> :  \n  \n-   <xref:System.Reflection.MethodBase.Invoke%2A?displayProperty=fullName>  \n  \n-   <xref:System.Type.GetMembers%2A>  \n  \n-   <xref:System.Type.GetEvents%2A>  \n  \n-   <xref:System.Type.InvokeMember%2A>  \n  \n-   <xref:System.Activator.CreateInstance%2A?displayProperty=fullName>  \n  \n-   <xref:System.Type.GetConstructor%2A>  \n  \n-   <xref:System.Type.GetConstructors%2A>  \n  \n-   <xref:System.Type.GetMethod%2A>  \n  \n-   <xref:System.Type.GetMethods%2A>  \n  \n-   <xref:System.Type.GetField%2A>  \n  \n-   <xref:System.Type.GetFields%2A>  \n  \n-   <xref:System.Type.GetEvent%2A>  \n  \n-   <xref:System.Type.GetProperty%2A>  \n  \n-   <xref:System.Type.GetProperties%2A>  \n  \n-   <xref:System.Type.GetMember%2A>  \n  \n-   <xref:System.Type.FindMembers%2A>  \n  \n `InvokeMember` and `GetMethod` are especially important.  \n  \n The binding flags can be categorized by how they identify a type member, as listed in the following table.  \n  \n|Identified by Accessibility|Identified by Binding Argument|Identified by Operation|  \n|---------------------------------|------------------------------------|-----------------------------|  \n|DeclaredOnly<br /><br /> FlattenHierarchy<br /><br /> IgnoreCase<br /><br /> IgnoreReturn<br /><br /> Instance<br /><br /> NonPublic<br /><br /> Public<br /><br /> Static|ExactBinding<br /><br /> OptionalParamBinding|CreateInstance<br /><br /> GetField<br /><br /> SetField<br /><br /> GetProperty<br /><br /> SetProperty<br /><br /> InvokeMethod<br /><br /> PutDispProperty<br /><br /> PutRefDispProperty|  \n  \n> [!NOTE]\n>  You must specify `Instance` or `Static` along with `Public` or `NonPublic` or no members will be returned.  \n  \n The following table lists the coercions performed by the default <xref:System.Reflection.Binder.ChangeType%2A?displayProperty=fullName>. This table applies especially to the `ExactBinding` binding flag.  \n  \n|Source Type|Target Type|  \n|-----------------|-----------------|  \n|Any type|Its base type.|  \n|Any type|The interface it implements.|  \n|`Char`|`UInt16`, `UInt32`, `Int32`, `UInt64`, `Int64`, `Single`, `Double`|  \n|`Byte`|`Char`, `UInt16`, `Int16`, `UInt32`, `Int32`, `UInt64`, `Int64`, `Single`, `Double`|  \n|`SByte`|`Int16`, `Int32`, `Int64`, `Single`, `Double`|  \n|`UInt16`|`UInt32`, `Int32`, `UInt64`, `Int64`, `Single`, `Double`|  \n|`Int16`|`Int32`, `Int64`, `Single`, `Double`|  \n|`UInt32`|`UInt64`, `Int64`, `Single`, `Double`|  \n|`Int32`|`Int64`, `Single`, `Double`|  \n|`UInt64`|`Single`, `Double`|  \n|`Int64`|`Single`, `Double`|  \n|`Single`|`Double`|  \n|Non-reference|By-reference.|"
@@ -55,7 +56,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -71,7 +73,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -86,9 +89,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Reflection/BindingFlags.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Reflection.BindingFlags.CreateInstance
   commentId: F:System.Reflection.BindingFlags.CreateInstance
   id: CreateInstance
@@ -97,12 +97,13 @@ items:
   - csharp
   name: CreateInstance
   nameWithType: BindingFlags.CreateInstance
-  fullName: System.Reflection.BindingFlags.CreateInstance
+  fullName: BindingFlags.CreateInstance
   type: Field
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: "Specifies that reflection should create an instance of the specified type. Calls the constructor that matches the given arguments. The supplied member name is ignored. If the type of lookup is not specified, (Instance | Public) will apply. It is not possible to call a type initializer.  \n  \n This flag is passed to an `InvokeMember` method to invoke a constructor."
   syntax:
@@ -113,7 +114,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -129,7 +131,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -152,12 +155,13 @@ items:
   - csharp
   name: DeclaredOnly
   nameWithType: BindingFlags.DeclaredOnly
-  fullName: System.Reflection.BindingFlags.DeclaredOnly
+  fullName: BindingFlags.DeclaredOnly
   type: Field
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Specifies that only members declared at the level of the supplied type's hierarchy should be considered. Inherited members are not considered.
   syntax:
@@ -168,7 +172,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -184,7 +189,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -207,12 +213,13 @@ items:
   - csharp
   name: Default
   nameWithType: BindingFlags.Default
-  fullName: System.Reflection.BindingFlags.Default
+  fullName: BindingFlags.Default
   type: Field
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Specifies that no binding flags are defined.
   syntax:
@@ -223,7 +230,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -239,7 +247,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -262,11 +271,12 @@ items:
   - csharp
   name: ExactBinding
   nameWithType: BindingFlags.ExactBinding
-  fullName: System.Reflection.BindingFlags.ExactBinding
+  fullName: BindingFlags.ExactBinding
   type: Field
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Specifies that types of the supplied arguments must exactly match the types of the corresponding formal parameters. Reflection throws an exception if the caller supplies a non-null `Binder` object, since that implies that the caller is supplying `BindToXXX` implementations that will pick the appropriate method.
   remarks: "Reflection models the accessibility rules of the common type system. For example, if the caller is in the same assembly, the caller does not need special permissions for internal members. Otherwise, the caller needs <xref:System.Security.Permissions.ReflectionPermission>. This is consistent with lookup of members that are protected, private, and so on.  \n  \n The general principle is that <xref:System.Reflection.Binder.ChangeType%2A> should perform only widening coercions, which never lose data. An example of a widening coercion is coercing a value that is a 32-bit signed integer to a value that is a 64-bit signed integer. This is distinguished from a narrowing coercion, which may lose data. An example of a narrowing coercion is coercing a 64-bit signed integer to a 32-bit signed integer.  \n  \n The default binder ignores this flag, while custom binders can implement the semantics of this flag."
@@ -277,6 +287,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -289,6 +300,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -309,12 +321,13 @@ items:
   - csharp
   name: FlattenHierarchy
   nameWithType: BindingFlags.FlattenHierarchy
-  fullName: System.Reflection.BindingFlags.FlattenHierarchy
+  fullName: BindingFlags.FlattenHierarchy
   type: Field
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Specifies that public and protected static members up the hierarchy should be returned. Private static members in inherited classes are not returned. Static members include fields, methods, events, and properties. Nested types are not returned.
   syntax:
@@ -325,7 +338,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -341,7 +355,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -364,12 +379,13 @@ items:
   - csharp
   name: GetField
   nameWithType: BindingFlags.GetField
-  fullName: System.Reflection.BindingFlags.GetField
+  fullName: BindingFlags.GetField
   type: Field
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: "Specifies that the value of the specified field should be returned.  \n  \n This flag is passed to an `InvokeMember` method to get a field value."
   syntax:
@@ -380,7 +396,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -396,7 +413,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -419,12 +437,13 @@ items:
   - csharp
   name: GetProperty
   nameWithType: BindingFlags.GetProperty
-  fullName: System.Reflection.BindingFlags.GetProperty
+  fullName: BindingFlags.GetProperty
   type: Field
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: "Specifies that the value of the specified property should be returned.  \n  \n This flag is passed to an `InvokeMember` method to invoke a property getter."
   syntax:
@@ -435,7 +454,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -451,7 +471,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -474,12 +495,13 @@ items:
   - csharp
   name: IgnoreCase
   nameWithType: BindingFlags.IgnoreCase
-  fullName: System.Reflection.BindingFlags.IgnoreCase
+  fullName: BindingFlags.IgnoreCase
   type: Field
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Specifies that the case of the member name should not be considered when binding.
   syntax:
@@ -490,7 +512,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -506,7 +529,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -529,11 +553,12 @@ items:
   - csharp
   name: IgnoreReturn
   nameWithType: BindingFlags.IgnoreReturn
-  fullName: System.Reflection.BindingFlags.IgnoreReturn
+  fullName: BindingFlags.IgnoreReturn
   type: Field
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Used in COM interop to specify that the return value of the member can be ignored.
   syntax:
@@ -543,6 +568,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -555,6 +581,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -575,12 +602,13 @@ items:
   - csharp
   name: Instance
   nameWithType: BindingFlags.Instance
-  fullName: System.Reflection.BindingFlags.Instance
+  fullName: BindingFlags.Instance
   type: Field
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Specifies that instance members are to be included in the search.
   syntax:
@@ -591,7 +619,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -607,7 +636,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -630,12 +660,13 @@ items:
   - csharp
   name: InvokeMethod
   nameWithType: BindingFlags.InvokeMethod
-  fullName: System.Reflection.BindingFlags.InvokeMethod
+  fullName: BindingFlags.InvokeMethod
   type: Field
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: "Specifies that a method is to be invoked. This must not be a constructor or a type initializer.  \n  \n This flag is passed to an `InvokeMember` method to invoke a method."
   syntax:
@@ -646,7 +677,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -662,7 +694,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -685,12 +718,13 @@ items:
   - csharp
   name: NonPublic
   nameWithType: BindingFlags.NonPublic
-  fullName: System.Reflection.BindingFlags.NonPublic
+  fullName: BindingFlags.NonPublic
   type: Field
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Specifies that non-public members are to be included in the search.
   syntax:
@@ -701,7 +735,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -717,7 +752,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -740,11 +776,12 @@ items:
   - csharp
   name: OptionalParamBinding
   nameWithType: BindingFlags.OptionalParamBinding
-  fullName: System.Reflection.BindingFlags.OptionalParamBinding
+  fullName: BindingFlags.OptionalParamBinding
   type: Field
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Returns the set of members whose parameter count matches the number of supplied arguments. This binding flag is used for methods with parameters that have default values and methods with variable arguments (varargs). This flag should only be used with <xref href="System.Type.InvokeMember(System.String,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object,System.Object[],System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[])"></xref>.
   remarks: Parameters with default values are used only in calls where trailing arguments are omitted. They must be the last arguments.
@@ -755,6 +792,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -767,6 +805,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -787,12 +826,13 @@ items:
   - csharp
   name: Public
   nameWithType: BindingFlags.Public
-  fullName: System.Reflection.BindingFlags.Public
+  fullName: BindingFlags.Public
   type: Field
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Specifies that public members are to be included in the search.
   syntax:
@@ -803,7 +843,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -819,7 +860,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -842,11 +884,12 @@ items:
   - csharp
   name: PutDispProperty
   nameWithType: BindingFlags.PutDispProperty
-  fullName: System.Reflection.BindingFlags.PutDispProperty
+  fullName: BindingFlags.PutDispProperty
   type: Field
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Specifies that the `PROPPUT` member on a COM object should be invoked. `PROPPUT` specifies a property-setting function that uses a value. Use `PutDispProperty` if a property has both `PROPPUT` and `PROPPUTREF` and you need to distinguish which one is called.
   syntax:
@@ -856,6 +899,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -868,6 +912,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -888,11 +933,12 @@ items:
   - csharp
   name: PutRefDispProperty
   nameWithType: BindingFlags.PutRefDispProperty
-  fullName: System.Reflection.BindingFlags.PutRefDispProperty
+  fullName: BindingFlags.PutRefDispProperty
   type: Field
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Specifies that the `PROPPUTREF` member on a COM object should be invoked. `PROPPUTREF` specifies a property-setting function that uses a reference instead of a value. Use `PutRefDispProperty` if a property has both `PROPPUT` and `PROPPUTREF` and you need to distinguish which one is called.
   syntax:
@@ -902,6 +948,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -914,6 +961,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -934,12 +982,13 @@ items:
   - csharp
   name: SetField
   nameWithType: BindingFlags.SetField
-  fullName: System.Reflection.BindingFlags.SetField
+  fullName: BindingFlags.SetField
   type: Field
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: "Specifies that the value of the specified field should be set.  \n  \n This flag is passed to an `InvokeMember` method to set a field value."
   syntax:
@@ -950,7 +999,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -966,7 +1016,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -989,12 +1040,13 @@ items:
   - csharp
   name: SetProperty
   nameWithType: BindingFlags.SetProperty
-  fullName: System.Reflection.BindingFlags.SetProperty
+  fullName: BindingFlags.SetProperty
   type: Field
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: "Specifies that the value of the specified property should be set. For COM properties, specifying this binding flag is equivalent to specifying `PutDispProperty` and `PutRefDispProperty`.  \n  \n This flag is passed to an `InvokeMember` method to invoke a property setter."
   syntax:
@@ -1005,7 +1057,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1021,7 +1074,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1044,12 +1098,13 @@ items:
   - csharp
   name: Static
   nameWithType: BindingFlags.Static
-  fullName: System.Reflection.BindingFlags.Static
+  fullName: BindingFlags.Static
   type: Field
   assemblies:
   - System.Reflection
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Specifies that static members are to be included in the search.
   syntax:
@@ -1060,7 +1115,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1076,7 +1132,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1099,11 +1156,12 @@ items:
   - csharp
   name: SuppressChangeType
   nameWithType: BindingFlags.SuppressChangeType
-  fullName: System.Reflection.BindingFlags.SuppressChangeType
+  fullName: BindingFlags.SuppressChangeType
   type: Field
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Reflection
   summary: Not implemented.
   syntax:
@@ -1113,6 +1171,7 @@ items:
       description: To be added.
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1125,6 +1184,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1149,7 +1209,7 @@ references:
   isExternal: false
   name: CreateInstance
   nameWithType: BindingFlags.CreateInstance
-  fullName: System.Reflection.BindingFlags.CreateInstance
+  fullName: BindingFlags.CreateInstance
 - uid: System.Reflection.BindingFlags
   parent: System.Reflection
   isExternal: false
@@ -1161,112 +1221,112 @@ references:
   isExternal: false
   name: DeclaredOnly
   nameWithType: BindingFlags.DeclaredOnly
-  fullName: System.Reflection.BindingFlags.DeclaredOnly
+  fullName: BindingFlags.DeclaredOnly
 - uid: System.Reflection.BindingFlags.Default
   parent: System.Reflection.BindingFlags
   isExternal: false
   name: Default
   nameWithType: BindingFlags.Default
-  fullName: System.Reflection.BindingFlags.Default
+  fullName: BindingFlags.Default
 - uid: System.Reflection.BindingFlags.ExactBinding
   parent: System.Reflection.BindingFlags
   isExternal: false
   name: ExactBinding
   nameWithType: BindingFlags.ExactBinding
-  fullName: System.Reflection.BindingFlags.ExactBinding
+  fullName: BindingFlags.ExactBinding
 - uid: System.Reflection.BindingFlags.FlattenHierarchy
   parent: System.Reflection.BindingFlags
   isExternal: false
   name: FlattenHierarchy
   nameWithType: BindingFlags.FlattenHierarchy
-  fullName: System.Reflection.BindingFlags.FlattenHierarchy
+  fullName: BindingFlags.FlattenHierarchy
 - uid: System.Reflection.BindingFlags.GetField
   parent: System.Reflection.BindingFlags
   isExternal: false
   name: GetField
   nameWithType: BindingFlags.GetField
-  fullName: System.Reflection.BindingFlags.GetField
+  fullName: BindingFlags.GetField
 - uid: System.Reflection.BindingFlags.GetProperty
   parent: System.Reflection.BindingFlags
   isExternal: false
   name: GetProperty
   nameWithType: BindingFlags.GetProperty
-  fullName: System.Reflection.BindingFlags.GetProperty
+  fullName: BindingFlags.GetProperty
 - uid: System.Reflection.BindingFlags.IgnoreCase
   parent: System.Reflection.BindingFlags
   isExternal: false
   name: IgnoreCase
   nameWithType: BindingFlags.IgnoreCase
-  fullName: System.Reflection.BindingFlags.IgnoreCase
+  fullName: BindingFlags.IgnoreCase
 - uid: System.Reflection.BindingFlags.IgnoreReturn
   parent: System.Reflection.BindingFlags
   isExternal: false
   name: IgnoreReturn
   nameWithType: BindingFlags.IgnoreReturn
-  fullName: System.Reflection.BindingFlags.IgnoreReturn
+  fullName: BindingFlags.IgnoreReturn
 - uid: System.Reflection.BindingFlags.Instance
   parent: System.Reflection.BindingFlags
   isExternal: false
   name: Instance
   nameWithType: BindingFlags.Instance
-  fullName: System.Reflection.BindingFlags.Instance
+  fullName: BindingFlags.Instance
 - uid: System.Reflection.BindingFlags.InvokeMethod
   parent: System.Reflection.BindingFlags
   isExternal: false
   name: InvokeMethod
   nameWithType: BindingFlags.InvokeMethod
-  fullName: System.Reflection.BindingFlags.InvokeMethod
+  fullName: BindingFlags.InvokeMethod
 - uid: System.Reflection.BindingFlags.NonPublic
   parent: System.Reflection.BindingFlags
   isExternal: false
   name: NonPublic
   nameWithType: BindingFlags.NonPublic
-  fullName: System.Reflection.BindingFlags.NonPublic
+  fullName: BindingFlags.NonPublic
 - uid: System.Reflection.BindingFlags.OptionalParamBinding
   parent: System.Reflection.BindingFlags
   isExternal: false
   name: OptionalParamBinding
   nameWithType: BindingFlags.OptionalParamBinding
-  fullName: System.Reflection.BindingFlags.OptionalParamBinding
+  fullName: BindingFlags.OptionalParamBinding
 - uid: System.Reflection.BindingFlags.Public
   parent: System.Reflection.BindingFlags
   isExternal: false
   name: Public
   nameWithType: BindingFlags.Public
-  fullName: System.Reflection.BindingFlags.Public
+  fullName: BindingFlags.Public
 - uid: System.Reflection.BindingFlags.PutDispProperty
   parent: System.Reflection.BindingFlags
   isExternal: false
   name: PutDispProperty
   nameWithType: BindingFlags.PutDispProperty
-  fullName: System.Reflection.BindingFlags.PutDispProperty
+  fullName: BindingFlags.PutDispProperty
 - uid: System.Reflection.BindingFlags.PutRefDispProperty
   parent: System.Reflection.BindingFlags
   isExternal: false
   name: PutRefDispProperty
   nameWithType: BindingFlags.PutRefDispProperty
-  fullName: System.Reflection.BindingFlags.PutRefDispProperty
+  fullName: BindingFlags.PutRefDispProperty
 - uid: System.Reflection.BindingFlags.SetField
   parent: System.Reflection.BindingFlags
   isExternal: false
   name: SetField
   nameWithType: BindingFlags.SetField
-  fullName: System.Reflection.BindingFlags.SetField
+  fullName: BindingFlags.SetField
 - uid: System.Reflection.BindingFlags.SetProperty
   parent: System.Reflection.BindingFlags
   isExternal: false
   name: SetProperty
   nameWithType: BindingFlags.SetProperty
-  fullName: System.Reflection.BindingFlags.SetProperty
+  fullName: BindingFlags.SetProperty
 - uid: System.Reflection.BindingFlags.Static
   parent: System.Reflection.BindingFlags
   isExternal: false
   name: Static
   nameWithType: BindingFlags.Static
-  fullName: System.Reflection.BindingFlags.Static
+  fullName: BindingFlags.Static
 - uid: System.Reflection.BindingFlags.SuppressChangeType
   parent: System.Reflection.BindingFlags
   isExternal: false
   name: SuppressChangeType
   nameWithType: BindingFlags.SuppressChangeType
-  fullName: System.Reflection.BindingFlags.SuppressChangeType
+  fullName: BindingFlags.SuppressChangeType

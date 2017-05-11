@@ -41,8 +41,9 @@ items:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
-  summary: "Implements a <xref href=\"System.IO.TextWriter\"></xref> for writing characters to a stream in a particular encoding.  \n  \n To browse the .NET Framework source code for this type, see the [Reference Source](http://referencesource.microsoft.com/#mscorlib/system/io/streamwriter.cs#9e38cb1c84769eba)."
+  summary: Implements a <xref href="System.IO.TextWriter"></xref> for writing characters to a stream in a particular encoding.
   remarks: "> [!NOTE]\n>  To view the .NET Framework source code for this type, see the [Reference Source](http://referencesource.microsoft.com/#mscorlib/system/io/streamwriter.cs#9e38cb1c84769eba). You can browse through the source code online, download the reference for offline viewing, and step through the sources (including patches and updates) during debugging; see [instructions](http://referencesource.microsoft.com/).  \n  \n <xref:System.IO.StreamWriter> is designed for character output in a particular encoding, whereas classes derived from <xref:System.IO.Stream> are designed for byte input and output.  \n  \n> [!IMPORTANT]\n>  This type implements the <xref:System.IDisposable> interface. When you have finished using the type, you should dispose of it either directly or indirectly. To dispose of the type directly, call its <xref:System.IDisposable.Dispose%2A> method in a `try`/`catch` block. To dispose of it indirectly, use a language construct such as `using` (in C#) or `Using` (in Visual Basic). For more information, see the “Using an Object that Implements IDisposable” section in the <xref:System.IDisposable> interface topic.  \n  \n <xref:System.IO.StreamWriter> defaults to using an instance of <xref:System.Text.UTF8Encoding> unless specified otherwise. This instance of `UTF8Encoding` is constructed without a byte order mark (BOM), so its <xref:System.Text.Encoding.GetPreamble%2A> method returns an empty byte array. The default UTF-8 encoding for this constructor throws an exception on invalid bytes. This behavior is different from the behavior provided by the encoding object in the <xref:System.Text.Encoding.UTF8%2A?displayProperty=fullName> property. To specify a BOM and determine whether an exception is thrown on invalid bytes, use a constructor that accepts an encoding object as a parameter, such as <xref:System.IO.StreamWriter.%23ctor%28System.String%2CSystem.Boolean%2CSystem.Text.Encoding%29> or <xref:System.IO.StreamWriter.%23ctor%2A>.  \n  \n By default, a <xref:System.IO.StreamWriter> is not thread safe. See <xref:System.IO.TextWriter.Synchronized%2A?displayProperty=fullName> for a thread-safe wrapper.  \n  \n For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md)."
   example:
   - "The following example shows how to use a <xref:System.IO.StreamWriter> object to write a file that lists the directories on the C drive, and then uses a <xref:System.IO.StreamReader> object to read and display each directory name. A good practice is to use these objects in a `using` statement so that the unmanaged resources are correctly disposed. The `using` statement automatically calls <xref:System.IDisposable.Dispose%2A> on the object when the code that is using it has completed. The constructor used in this example is not supported for use in [!INCLUDE[win8_appstore_long](~/includes/win8-appstore-long-md.md)] Apps.  \n  \n [!code-csharp[StreamReadWrite#1](~/samples/snippets/csharp/VS_Snippets_CLR/streamreadwrite/cs/program.cs#1)]\n [!code-vb[StreamReadWrite#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/streamreadwrite/vb/module1.vb#1)]"
@@ -105,7 +106,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -126,7 +128,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -146,9 +149,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.#ctor(System.IO.Stream)
   commentId: M:System.IO.StreamWriter.#ctor(System.IO.Stream)
   id: '#ctor(System.IO.Stream)'
@@ -157,12 +157,13 @@ items:
   - csharp
   name: StreamWriter(Stream)
   nameWithType: StreamWriter.StreamWriter(Stream)
-  fullName: System.IO.StreamWriter.StreamWriter(Stream)
+  fullName: StreamWriter.StreamWriter(Stream)
   type: Constructor
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Initializes a new instance of the <xref href="System.IO.StreamWriter"></xref> class for the specified stream by using UTF-8 encoding and the default buffer size.
   remarks: "This constructor creates a <xref:System.IO.StreamWriter> with UTF-8 encoding without a Byte-Order Mark (BOM), so its <xref:System.Text.Encoding.GetPreamble%2A> method returns an empty byte array. The default UTF-8 encoding for this constructor throws an exception on invalid bytes. This behavior is different from the behavior provided by the encoding object in the <xref:System.Text.Encoding.UTF8%2A?displayProperty=fullName> property. To specify whether an exception is thrown on invalid bytes, use a constructor that accepts an encoding object as a parameter, such as <xref:System.IO.StreamWriter.%23ctor%2A>. The <xref:System.IO.StreamWriter.BaseStream%2A> property is initialized using the `stream` parameter. The position of the stream is not reset.  \n  \n The <xref:System.IO.StreamWriter> object calls <xref:System.IO.Stream.Dispose> on the provided <xref:System.IO.Stream> object when <xref:System.IO.StreamWriter.Dispose%2A?displayProperty=fullName> is called.  \n  \n> [!CAUTION]\n>  When you compile a set of characters with a particular cultural setting and retrieve those same characters with a different cultural setting, the characters might not be interpretable and could cause an exception to be thrown.  \n  \n For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md)."
@@ -184,7 +185,8 @@ items:
     description: <code>stream</code> is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -205,7 +207,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -225,9 +228,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.#ctor(System.String)
   commentId: M:System.IO.StreamWriter.#ctor(System.String)
   id: '#ctor(System.String)'
@@ -236,11 +236,12 @@ items:
   - csharp
   name: StreamWriter(String)
   nameWithType: StreamWriter.StreamWriter(String)
-  fullName: System.IO.StreamWriter.StreamWriter(String)
+  fullName: StreamWriter.StreamWriter(String)
   type: Constructor
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Initializes a new instance of the <xref href="System.IO.StreamWriter"></xref> class for the specified file by using the default encoding and buffer size.
   remarks: "This constructor creates a <xref:System.IO.StreamWriter> with UTF-8 encoding without a Byte-Order Mark (BOM), so its <xref:System.Text.Encoding.GetPreamble%2A> method returns an empty byte array. The default UTF-8 encoding for this constructor throws an exception on invalid bytes. This behavior is different from the behavior provided by the encoding object in the <xref:System.Text.Encoding.UTF8%2A?displayProperty=fullName> property. To specify a BOM and determine whether an exception is thrown on invalid bytes, use a constructor that accepts an encoding object as a parameter, such as <xref:System.IO.StreamWriter.%23ctor%28System.String%2CSystem.Boolean%2CSystem.Text.Encoding%29>.  \n  \n The `path` parameter can be a file name, including a file on a Universal Naming Convention (UNC) share. If the file exists, it is overwritten; otherwise, a new file is created.  \n  \n The `path` parameter is not required to be a file stored on disk; it can be any part of a system that supports access using streams.  \n  \n> [!CAUTION]\n>  When you compile a set of characters with a particular cultural setting and retrieve those same characters with a different cultural setting, the characters might not be interpretable and could cause an exception to be thrown.  \n  \n For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md)."
@@ -276,6 +277,7 @@ items:
     commentId: T:System.Security.SecurityException
     description: The caller does not have the required permission.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -288,6 +290,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -300,9 +303,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.#ctor(System.IO.Stream,System.Text.Encoding)
   commentId: M:System.IO.StreamWriter.#ctor(System.IO.Stream,System.Text.Encoding)
   id: '#ctor(System.IO.Stream,System.Text.Encoding)'
@@ -311,12 +311,13 @@ items:
   - csharp
   name: StreamWriter(Stream, Encoding)
   nameWithType: StreamWriter.StreamWriter(Stream, Encoding)
-  fullName: System.IO.StreamWriter.StreamWriter(Stream, Encoding)
+  fullName: StreamWriter.StreamWriter(Stream, Encoding)
   type: Constructor
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Initializes a new instance of the <xref href="System.IO.StreamWriter"></xref> class for the specified stream by using the specified encoding and the default buffer size.
   remarks: "This constructor initializes the <xref:System.IO.StreamWriter.Encoding%2A> property using the encoding parameter, and the <xref:System.IO.StreamWriter.BaseStream%2A> property using the stream parameter. The position of the stream is not reset. For additional information, see <xref:System.IO.TextWriter.Encoding%2A>.  \n  \n The <xref:System.IO.StreamWriter> object calls <xref:System.IO.Stream.Dispose> on the provided <xref:System.IO.Stream> object when <xref:System.IO.StreamWriter.Dispose%2A?displayProperty=fullName> is called.  \n  \n> [!CAUTION]\n>  When you compile a set of characters with a particular cultural setting and retrieve those same characters with a different cultural setting, the characters might not be interpretable, and could cause an exception to be thrown.  \n  \n For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md)."
@@ -341,7 +342,8 @@ items:
     description: <code>stream</code> is not writable.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -362,7 +364,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -382,9 +385,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.#ctor(System.String,System.Boolean)
   commentId: M:System.IO.StreamWriter.#ctor(System.String,System.Boolean)
   id: '#ctor(System.String,System.Boolean)'
@@ -393,11 +393,12 @@ items:
   - csharp
   name: StreamWriter(String, Boolean)
   nameWithType: StreamWriter.StreamWriter(String, Boolean)
-  fullName: System.IO.StreamWriter.StreamWriter(String, Boolean)
+  fullName: StreamWriter.StreamWriter(String, Boolean)
   type: Constructor
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Initializes a new instance of the <xref href="System.IO.StreamWriter"></xref> class for the specified file by using the default encoding and buffer size. If the file exists, it can be either overwritten or appended to. If the file does not exist, this constructor creates a new file.
   remarks: "This constructor creates a <xref:System.IO.StreamWriter> with UTF-8 encoding without a Byte-Order Mark (BOM), so its <xref:System.Text.Encoding.GetPreamble%2A> method returns an empty byte array. The default UTF-8 encoding for this constructor throws an exception on invalid bytes. This behavior is different from the behavior provided by the encoding object in the <xref:System.Text.Encoding.UTF8%2A?displayProperty=fullName> property. To specify a BOM and determine whether an exception is thrown on invalid bytes, use a constructor that accepts an encoding object as a parameter, such as <xref:System.IO.StreamWriter.%23ctor%28System.String%2CSystem.Boolean%2CSystem.Text.Encoding%29>.  \n  \n The `path` parameter can be a file name, including a file on a Universal Naming Convention (UNC) share.  \n  \n The `path` parameter is not required to be a file stored on disk; it can be any part of a system that supports access using streams.  \n  \n> [!CAUTION]\n>  When you compile a set of characters with a particular cultural setting and retrieve those same characters with a different cultural setting, the characters might not be interpretable, and could cause an exception to be thrown.  \n  \n For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md)."
@@ -436,6 +437,7 @@ items:
     commentId: T:System.Security.SecurityException
     description: The caller does not have the required permission.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -448,6 +450,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -460,9 +463,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.#ctor(System.IO.Stream,System.Text.Encoding,System.Int32)
   commentId: M:System.IO.StreamWriter.#ctor(System.IO.Stream,System.Text.Encoding,System.Int32)
   id: '#ctor(System.IO.Stream,System.Text.Encoding,System.Int32)'
@@ -471,12 +471,13 @@ items:
   - csharp
   name: StreamWriter(Stream, Encoding, Int32)
   nameWithType: StreamWriter.StreamWriter(Stream, Encoding, Int32)
-  fullName: System.IO.StreamWriter.StreamWriter(Stream, Encoding, Int32)
+  fullName: StreamWriter.StreamWriter(Stream, Encoding, Int32)
   type: Constructor
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Initializes a new instance of the <xref href="System.IO.StreamWriter"></xref> class for the specified stream by using the specified encoding and buffer size.
   remarks: "This constructor initializes the <xref:System.IO.StreamWriter.Encoding%2A> property using the `encoding` parameter, and the <xref:System.IO.StreamWriter.BaseStream%2A> property using the `stream` parameter. The position of the stream is not reset. For additional information, see <xref:System.IO.TextWriter.Encoding%2A>.  \n  \n The <xref:System.IO.StreamWriter> object calls <xref:System.IO.Stream.Dispose> on the provided <xref:System.IO.Stream> object when <xref:System.IO.StreamWriter.Dispose%2A?displayProperty=fullName> is called.  \n  \n> [!CAUTION]\n>  When you compile a set of characters with a particular cultural setting and retrieve those same characters with a different cultural setting, the characters might not be interpretable, and could cause an exception to be thrown.  \n  \n For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md)."
@@ -507,7 +508,8 @@ items:
     description: <code>stream</code> is not writable.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -528,7 +530,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -548,9 +551,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.#ctor(System.String,System.Boolean,System.Text.Encoding)
   commentId: M:System.IO.StreamWriter.#ctor(System.String,System.Boolean,System.Text.Encoding)
   id: '#ctor(System.String,System.Boolean,System.Text.Encoding)'
@@ -559,11 +559,12 @@ items:
   - csharp
   name: StreamWriter(String, Boolean, Encoding)
   nameWithType: StreamWriter.StreamWriter(String, Boolean, Encoding)
-  fullName: System.IO.StreamWriter.StreamWriter(String, Boolean, Encoding)
+  fullName: StreamWriter.StreamWriter(String, Boolean, Encoding)
   type: Constructor
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Initializes a new instance of the <xref href="System.IO.StreamWriter"></xref> class for the specified file by using the specified encoding and default buffer size. If the file exists, it can be either overwritten or appended to. If the file does not exist, this constructor creates a new file.
   remarks: "This constructor initializes the <xref:System.IO.StreamWriter.Encoding%2A> property using the encoding parameter. For additional information, see <xref:System.IO.TextWriter.Encoding%2A>.  \n  \n `path` can be a file name, including a file on a Universal Naming Convention (UNC) share.  \n  \n `path` is not required to be a file stored on disk; it can be any part of a system that supports access via streams.  \n  \n> [!CAUTION]\n>  When you compile a set of characters with a particular cultural setting and retrieve those same characters with a different cultural setting, the characters might not be interpretable, and could cause an exception to be thrown.  \n  \n For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md)."
@@ -605,6 +606,7 @@ items:
     commentId: T:System.Security.SecurityException
     description: The caller does not have the required permission.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -617,6 +619,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -629,9 +632,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.#ctor(System.IO.Stream,System.Text.Encoding,System.Int32,System.Boolean)
   commentId: M:System.IO.StreamWriter.#ctor(System.IO.Stream,System.Text.Encoding,System.Int32,System.Boolean)
   id: '#ctor(System.IO.Stream,System.Text.Encoding,System.Int32,System.Boolean)'
@@ -640,12 +640,13 @@ items:
   - csharp
   name: StreamWriter(Stream, Encoding, Int32, Boolean)
   nameWithType: StreamWriter.StreamWriter(Stream, Encoding, Int32, Boolean)
-  fullName: System.IO.StreamWriter.StreamWriter(Stream, Encoding, Int32, Boolean)
+  fullName: StreamWriter.StreamWriter(Stream, Encoding, Int32, Boolean)
   type: Constructor
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Initializes a new instance of the <xref href="System.IO.StreamWriter"></xref> class for the specified stream by using the specified encoding and buffer size, and optionally leaves the stream open.
   remarks: "Unless you set the `leaveOpen` parameter to `true`, the <xref:System.IO.StreamWriter> object calls <xref:System.IO.Stream.Dispose> on the provided <xref:System.IO.Stream> object when <xref:System.IO.StreamWriter.Dispose%2A?displayProperty=fullName> is called.  \n  \n This constructor initializes the <xref:System.IO.StreamWriter.Encoding%2A> property by using the `encoding` parameter, and initializes the <xref:System.IO.StreamWriter.BaseStream%2A> property by using the `stream` parameter. The position of the stream is not reset. For additional information, see the <xref:System.IO.TextWriter.Encoding%2A> property.  \n  \n> [!CAUTION]\n>  When you compile a set of characters with a particular cultural setting and retrieve those same characters with a different cultural setting, the characters might not be interpretable, and could cause an exception to be thrown."
@@ -679,7 +680,8 @@ items:
     description: <code>stream</code> is not writable.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -700,7 +702,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -720,9 +723,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.#ctor(System.String,System.Boolean,System.Text.Encoding,System.Int32)
   commentId: M:System.IO.StreamWriter.#ctor(System.String,System.Boolean,System.Text.Encoding,System.Int32)
   id: '#ctor(System.String,System.Boolean,System.Text.Encoding,System.Int32)'
@@ -731,11 +731,12 @@ items:
   - csharp
   name: StreamWriter(String, Boolean, Encoding, Int32)
   nameWithType: StreamWriter.StreamWriter(String, Boolean, Encoding, Int32)
-  fullName: System.IO.StreamWriter.StreamWriter(String, Boolean, Encoding, Int32)
+  fullName: StreamWriter.StreamWriter(String, Boolean, Encoding, Int32)
   type: Constructor
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Initializes a new instance of the <xref href="System.IO.StreamWriter"></xref> class for the specified file on the specified path, using the specified encoding and buffer size. If the file exists, it can be either overwritten or appended to. If the file does not exist, this constructor creates a new file.
   remarks: "This constructor initializes the <xref:System.IO.StreamWriter.Encoding%2A> property using the encoding parameter. For additional information, see <xref:System.IO.TextWriter.Encoding%2A>.  \n  \n `path` can be a file name, including a file on a Universal Naming Convention (UNC) share.  \n  \n `path` is not required to be a file stored on disk; it can be any part of a system that supports access via streams.  \n  \n> [!CAUTION]\n>  When you compile a set of characters with a particular cultural setting and retrieve those same characters with a different cultural setting, the characters might not be interpretable, and could cause an exception to be thrown.  \n  \n For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md)."
@@ -784,6 +785,7 @@ items:
     description: The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must not exceed 248 characters, and file names must not exceed 260 characters.
   attributes: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -796,6 +798,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -808,9 +811,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.AutoFlush
   commentId: P:System.IO.StreamWriter.AutoFlush
   id: AutoFlush
@@ -819,12 +819,13 @@ items:
   - csharp
   name: AutoFlush
   nameWithType: StreamWriter.AutoFlush
-  fullName: System.IO.StreamWriter.AutoFlush
+  fullName: StreamWriter.AutoFlush
   type: Property
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Gets or sets a value indicating whether the <xref href="System.IO.StreamWriter"></xref> will flush its buffer to the underlying stream after every call to <xref href="System.IO.StreamWriter.Write(System.Char)"></xref>.
   remarks: "Flushing the stream will not flush its underlying encoder unless you explicitly call <xref:System.IO.StreamWriter.Flush%2A> or <xref:System.IO.StreamWriter.Close%2A>. Setting <xref:System.IO.StreamWriter.AutoFlush%2A> to `true` means that data will be flushed from the buffer to the stream after each write operation, but the encoder state will not be flushed. This allows the encoder to keep its state (partial characters) so that it can encode the next block of characters correctly. This scenario affects UTF8 and UTF7 where certain characters can only be encoded after the encoder receives the adjacent character or characters.  \n  \n When `AutoFlush` is set to `false`, `StreamWriter` will do a limited amount of buffering, both internally and potentially in the encoder from the encoding you passed in. You can get better performance by setting `AutoFlush` to `false`, assuming that you always call `Close` (or at least `Flush`) when you're done writing with a `StreamWriter`.  \n  \n For example, set `AutoFlush` to `true` when you are writing to a device where the user expects immediate feedback. `Console.Out` is one of these cases: The `StreamWriter` used internally for writing to `Console` flushes all its internal state except the encoder state after every call to <xref:System.IO.StreamWriter.Write%2A?displayProperty=fullName>.  \n  \n For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md)."
@@ -839,7 +840,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -860,7 +862,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -880,9 +883,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.BaseStream
   commentId: P:System.IO.StreamWriter.BaseStream
   id: BaseStream
@@ -891,12 +891,13 @@ items:
   - csharp
   name: BaseStream
   nameWithType: StreamWriter.BaseStream
-  fullName: System.IO.StreamWriter.BaseStream
+  fullName: StreamWriter.BaseStream
   type: Property
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Gets the underlying stream that interfaces with a backing store.
   remarks: For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md).
@@ -909,7 +910,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -930,7 +932,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -950,9 +953,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.Close
   commentId: M:System.IO.StreamWriter.Close
   id: Close
@@ -961,11 +961,12 @@ items:
   - csharp
   name: Close()
   nameWithType: StreamWriter.Close()
-  fullName: System.IO.StreamWriter.Close()
+  fullName: StreamWriter.Close()
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Closes the current `StreamWriter` object and the underlying stream.
   remarks: "This method overrides <xref:System.IO.Stream.Close%2A?displayProperty=fullName>.  \n  \n This implementation of <xref:System.IO.StreamWriter.Close%2A> calls the <xref:System.IO.StreamWriter.Dispose%2A> method passing a `true` value.  \n  \n You must call <xref:System.IO.StreamWriter.Close%2A> to ensure that all data is correctly written out to the underlying stream. Following a call to <xref:System.IO.StreamWriter.Close%2A>, any operations on the <xref:System.IO.StreamWriter> might raise exceptions. If there is insufficient space on the disk, calling <xref:System.IO.StreamWriter.Close%2A> will raise an exception.  \n  \n Flushing the stream will not flush its underlying encoder unless you explicitly call <xref:System.IO.StreamWriter.Flush%2A> or <xref:System.IO.StreamWriter.Close%2A>. Setting <xref:System.IO.StreamWriter.AutoFlush%2A> to `true` means that data will be flushed from the buffer to the stream, but the encoder state will not be flushed. This allows the encoder to keep its state (partial characters) so that it can encode the next block of characters correctly. This scenario affects UTF8 and UTF7 where certain characters can only be encoded after the encoder receives the adjacent character or characters."
@@ -980,6 +981,7 @@ items:
     commentId: T:System.Text.EncoderFallbackException
     description: The current encoding does not support displaying half of a Unicode surrogate pair.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -992,6 +994,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1004,9 +1007,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.Dispose(System.Boolean)
   commentId: M:System.IO.StreamWriter.Dispose(System.Boolean)
   id: Dispose(System.Boolean)
@@ -1015,12 +1015,13 @@ items:
   - csharp
   name: Dispose(Boolean)
   nameWithType: StreamWriter.Dispose(Boolean)
-  fullName: System.IO.StreamWriter.Dispose(Boolean)
+  fullName: StreamWriter.Dispose(Boolean)
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Releases the unmanaged resources used by the <xref href="System.IO.StreamWriter"></xref> and optionally releases the managed resources.
   remarks: When the `disposing` parameter is `true`, this method releases all resources held by any managed objects that this <xref:System.IO.StreamWriter> references. This method invokes the `Dispose` method of each referenced object.
@@ -1037,7 +1038,8 @@ items:
     description: The current encoding does not support displaying half of a Unicode surrogate pair.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1058,7 +1060,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1078,9 +1081,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.Encoding
   commentId: P:System.IO.StreamWriter.Encoding
   id: Encoding
@@ -1089,12 +1089,13 @@ items:
   - csharp
   name: Encoding
   nameWithType: StreamWriter.Encoding
-  fullName: System.IO.StreamWriter.Encoding
+  fullName: StreamWriter.Encoding
   type: Property
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Gets the <xref href="System.Text.Encoding"></xref> in which the output is written.
   remarks: "This property is necessary for some XML scenarios where a header must be written containing the encoding used by the <xref:System.IO.StreamWriter>. This allows the XML code to consume an arbitrary <xref:System.IO.StreamWriter> and generate the correct XML header.  \n  \n For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md)."
@@ -1109,7 +1110,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1130,7 +1132,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1150,9 +1153,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.Flush
   commentId: M:System.IO.StreamWriter.Flush
   id: Flush
@@ -1161,12 +1161,13 @@ items:
   - csharp
   name: Flush()
   nameWithType: StreamWriter.Flush()
-  fullName: System.IO.StreamWriter.Flush()
+  fullName: StreamWriter.Flush()
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Clears all buffers for the current writer and causes any buffered data to be written to the underlying stream.
   remarks: "This method overrides <xref:System.IO.TextWriter.Flush%2A?displayProperty=fullName>.  \n  \n Flushing the stream will not flush its underlying encoder unless you explicitly call `Flush` or <xref:System.IO.StreamWriter.Close%2A>. Setting <xref:System.IO.StreamWriter.AutoFlush%2A> to `true` means that data will be flushed from the buffer to the stream after each write operation, but the encoder state will not be flushed. This allows the encoder to keep its state (partial characters) so that it can encode the next block of characters correctly. This scenario affects UTF8 and UTF7 where certain characters can only be encoded after the encoder receives the adjacent character or characters.  \n  \n For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md)."
@@ -1186,7 +1187,8 @@ items:
     description: The current encoding does not support displaying half of a Unicode surrogate pair.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1207,7 +1209,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1227,9 +1230,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.FlushAsync
   commentId: M:System.IO.StreamWriter.FlushAsync
   id: FlushAsync
@@ -1238,12 +1238,13 @@ items:
   - csharp
   name: FlushAsync()
   nameWithType: StreamWriter.FlushAsync()
-  fullName: System.IO.StreamWriter.FlushAsync()
+  fullName: StreamWriter.FlushAsync()
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Clears all buffers for this stream asynchronously and causes any buffered data to be written to the underlying device.
   syntax:
@@ -1264,7 +1265,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1285,7 +1287,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1305,9 +1308,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.Null
   commentId: F:System.IO.StreamWriter.Null
   id: "Null"
@@ -1316,12 +1316,13 @@ items:
   - csharp
   name: "Null"
   nameWithType: StreamWriter.Null
-  fullName: System.IO.StreamWriter.Null
+  fullName: StreamWriter.Null
   type: Field
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Provides a `StreamWriter` with no backing store that can be written to, but not read from.
   remarks: "Use `Null` to redirect output to a `StreamWriter` that will not consume any operating system resources.  \n  \n When the `StreamWriter.Write` methods are invoked on `Null`, the call simply returns, and no data is actually written to any backing store.  \n  \n For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md)."
@@ -1335,7 +1336,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1356,7 +1358,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1376,9 +1379,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.Write(System.Char)
   commentId: M:System.IO.StreamWriter.Write(System.Char)
   id: Write(System.Char)
@@ -1387,12 +1387,13 @@ items:
   - csharp
   name: Write(Char)
   nameWithType: StreamWriter.Write(Char)
-  fullName: System.IO.StreamWriter.Write(Char)
+  fullName: StreamWriter.Write(Char)
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Writes a character to the stream.
   remarks: "This method overrides <xref:System.IO.TextWriter.Write%2A?displayProperty=fullName>.  \n  \n The specified character is written to the underlying stream unless the end of the stream is reached prematurely. If <xref:System.IO.StreamWriter.AutoFlush%2A> is `true`, <xref:System.IO.StreamWriter.Flush%2A> is invoked automatically.  \n  \n For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md)."
@@ -1415,7 +1416,8 @@ items:
     description: <xref href="System.IO.StreamWriter.AutoFlush"></xref> is true or the <xref href="System.IO.StreamWriter"></xref> buffer is full, and the contents of the buffer cannot be written to the underlying fixed size stream because the <xref href="System.IO.StreamWriter"></xref> is at the end the stream.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1436,7 +1438,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1456,9 +1459,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.Write(System.Char[])
   commentId: M:System.IO.StreamWriter.Write(System.Char[])
   id: Write(System.Char[])
@@ -1467,12 +1467,13 @@ items:
   - csharp
   name: Write(Char[])
   nameWithType: StreamWriter.Write(Char[])
-  fullName: System.IO.StreamWriter.Write(Char[])
+  fullName: StreamWriter.Write(Char[])
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Writes a character array to the stream.
   remarks: "This method overrides <xref:System.IO.TextWriter.Write%2A?displayProperty=fullName>.  \n  \n The specified characters are written to the underlying stream unless the end of the stream is reached prematurely. If <xref:System.IO.StreamWriter.AutoFlush%2A> is `true`, <xref:System.IO.StreamWriter.Flush%2A> is invoked automatically.  \n  \n This method might provide faster performance than `Write` (`char[],``int,``int`) because it has fewer arguments to check.  \n  \n For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md)."
@@ -1495,7 +1496,8 @@ items:
     description: <xref href="System.IO.StreamWriter.AutoFlush"></xref> is true or the <xref href="System.IO.StreamWriter"></xref> buffer is full, and the contents of the buffer cannot be written to the underlying fixed size stream because the <xref href="System.IO.StreamWriter"></xref> is at the end the stream.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1516,7 +1518,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1536,9 +1539,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.Write(System.String)
   commentId: M:System.IO.StreamWriter.Write(System.String)
   id: Write(System.String)
@@ -1547,12 +1547,13 @@ items:
   - csharp
   name: Write(String)
   nameWithType: StreamWriter.Write(String)
-  fullName: System.IO.StreamWriter.Write(String)
+  fullName: StreamWriter.Write(String)
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Writes a string to the stream.
   remarks: "This method overrides <xref:System.IO.TextWriter.Write%2A?displayProperty=fullName>.  \n  \n The specified <xref:System.String> is written to the underlying stream unless the end of the stream is reached prematurely.  \n  \n <xref:System.IO.StreamWriter.Flush%2A> is invoked automatically if <xref:System.IO.StreamWriter.AutoFlush%2A> is `true`. If `value` is `null`, no entries are written.  \n  \n For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md)."
@@ -1575,7 +1576,8 @@ items:
     description: An I/O error occurs.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1596,7 +1598,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1616,9 +1619,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.Write(System.Char[],System.Int32,System.Int32)
   commentId: M:System.IO.StreamWriter.Write(System.Char[],System.Int32,System.Int32)
   id: Write(System.Char[],System.Int32,System.Int32)
@@ -1627,12 +1627,13 @@ items:
   - csharp
   name: Write(Char[], Int32, Int32)
   nameWithType: StreamWriter.Write(Char[], Int32, Int32)
-  fullName: System.IO.StreamWriter.Write(Char[], Int32, Int32)
+  fullName: StreamWriter.Write(Char[], Int32, Int32)
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Writes a subarray of characters to the stream.
   remarks: "This method overrides <xref:System.IO.TextWriter.Write%2A?displayProperty=fullName>.  \n  \n The characters are read from `buffer` beginning at `index` and continuing through `index` + (`count` - 1). All characters are written to the underlying stream unless the end of the underlying stream is reached prematurely. <xref:System.IO.StreamWriter.Flush%2A> is invoked automatically if <xref:System.IO.StreamWriter.AutoFlush%2A> is `true`.  \n  \n For a list of common I/O tasks, see [Common I/O Tasks](~/docs/standard/io/common-i-o-tasks.md)."
@@ -1672,7 +1673,8 @@ items:
     description: <xref href="System.IO.StreamWriter.AutoFlush"></xref> is true or the <xref href="System.IO.StreamWriter"></xref> buffer is full, and the contents of the buffer cannot be written to the underlying fixed size stream because the <xref href="System.IO.StreamWriter"></xref> is at the end the stream.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1693,7 +1695,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1713,9 +1716,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.WriteAsync(System.Char)
   commentId: M:System.IO.StreamWriter.WriteAsync(System.Char)
   id: WriteAsync(System.Char)
@@ -1724,12 +1724,13 @@ items:
   - csharp
   name: WriteAsync(Char)
   nameWithType: StreamWriter.WriteAsync(Char)
-  fullName: System.IO.StreamWriter.WriteAsync(Char)
+  fullName: StreamWriter.WriteAsync(Char)
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Writes a character to the stream asynchronously.
   remarks: ''
@@ -1759,7 +1760,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1780,7 +1782,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1800,9 +1803,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.WriteAsync(System.String)
   commentId: M:System.IO.StreamWriter.WriteAsync(System.String)
   id: WriteAsync(System.String)
@@ -1811,12 +1811,13 @@ items:
   - csharp
   name: WriteAsync(String)
   nameWithType: StreamWriter.WriteAsync(String)
-  fullName: System.IO.StreamWriter.WriteAsync(String)
+  fullName: StreamWriter.WriteAsync(String)
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Writes a string to the stream asynchronously.
   remarks: ''
@@ -1846,7 +1847,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1867,7 +1869,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1887,9 +1890,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.WriteAsync(System.Char[],System.Int32,System.Int32)
   commentId: M:System.IO.StreamWriter.WriteAsync(System.Char[],System.Int32,System.Int32)
   id: WriteAsync(System.Char[],System.Int32,System.Int32)
@@ -1898,17 +1898,18 @@ items:
   - csharp
   name: WriteAsync(Char[], Int32, Int32)
   nameWithType: StreamWriter.WriteAsync(Char[], Int32, Int32)
-  fullName: System.IO.StreamWriter.WriteAsync(Char[], Int32, Int32)
+  fullName: StreamWriter.WriteAsync(Char[], Int32, Int32)
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Writes a subarray of characters to the stream asynchronously.
   remarks: ''
   example:
-  - "The following example shows how to write multiple characters to a text file by using the [WriteAsync Method (Char\\<xref:System.IO.StreamWriter.WriteAsync%28System.Char%5B%5D%2CSystem.Int32%2CSystem.Int32%29> method.  \n  \n [!code-csharp[System.IO.StreamWriter#24](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.StreamWriter/CS/example24.cs#24)]\n [!code-vb[System.IO.StreamWriter#24](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.StreamWriter/VB/example24.vb#24)]"
+  - "The following example shows how to write multiple characters to a text file by using the <xref:System.IO.StreamWriter.WriteAsync%28System.Char%5B%5D%2CSystem.Int32%2CSystem.Int32%29> method.  \n  \n [!code-csharp[System.IO.StreamWriter#24](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.StreamWriter/CS/example24.cs#24)]\n [!code-vb[System.IO.StreamWriter#24](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.StreamWriter/VB/example24.vb#24)]"
   syntax:
     content: >-
       [System.Runtime.InteropServices.ComVisible(false)]
@@ -1948,7 +1949,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1969,7 +1971,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1989,9 +1992,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.WriteLineAsync
   commentId: M:System.IO.StreamWriter.WriteLineAsync
   id: WriteLineAsync
@@ -2000,12 +2000,13 @@ items:
   - csharp
   name: WriteLineAsync()
   nameWithType: StreamWriter.WriteLineAsync()
-  fullName: System.IO.StreamWriter.WriteLineAsync()
+  fullName: StreamWriter.WriteLineAsync()
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Writes a line terminator asynchronously to the stream.
   remarks: The line terminator is defined by the <xref:System.IO.TextWriter.NewLine%2A?displayProperty=fullName> property.
@@ -2030,7 +2031,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2051,7 +2053,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2071,9 +2074,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.WriteLineAsync(System.Char)
   commentId: M:System.IO.StreamWriter.WriteLineAsync(System.Char)
   id: WriteLineAsync(System.Char)
@@ -2082,12 +2082,13 @@ items:
   - csharp
   name: WriteLineAsync(Char)
   nameWithType: StreamWriter.WriteLineAsync(Char)
-  fullName: System.IO.StreamWriter.WriteLineAsync(Char)
+  fullName: StreamWriter.WriteLineAsync(Char)
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Writes a character followed by a line terminator asynchronously to the stream.
   remarks: The line terminator is defined by the <xref:System.IO.TextWriter.NewLine%2A?displayProperty=fullName> property.
@@ -2117,7 +2118,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2138,7 +2140,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2158,9 +2161,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.WriteLineAsync(System.String)
   commentId: M:System.IO.StreamWriter.WriteLineAsync(System.String)
   id: WriteLineAsync(System.String)
@@ -2169,12 +2169,13 @@ items:
   - csharp
   name: WriteLineAsync(String)
   nameWithType: StreamWriter.WriteLineAsync(String)
-  fullName: System.IO.StreamWriter.WriteLineAsync(String)
+  fullName: StreamWriter.WriteLineAsync(String)
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Writes a string followed by a line terminator asynchronously to the stream.
   remarks: The line terminator is defined by the <xref:System.IO.TextWriter.NewLine%2A?displayProperty=fullName> property.
@@ -2204,7 +2205,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2225,7 +2227,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2245,9 +2248,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.IO.StreamWriter.WriteLineAsync(System.Char[],System.Int32,System.Int32)
   commentId: M:System.IO.StreamWriter.WriteLineAsync(System.Char[],System.Int32,System.Int32)
   id: WriteLineAsync(System.Char[],System.Int32,System.Int32)
@@ -2256,17 +2256,18 @@ items:
   - csharp
   name: WriteLineAsync(Char[], Int32, Int32)
   nameWithType: StreamWriter.WriteLineAsync(Char[], Int32, Int32)
-  fullName: System.IO.StreamWriter.WriteLineAsync(Char[], Int32, Int32)
+  fullName: StreamWriter.WriteLineAsync(Char[], Int32, Int32)
   type: Method
   assemblies:
   - System.IO
   - mscorlib
   - netstandard
+  - System.Runtime.Extensions
   namespace: System.IO
   summary: Writes a subarray of characters followed by a line terminator asynchronously to the stream.
   remarks: The line terminator is defined by the <xref:System.IO.TextWriter.NewLine%2A?displayProperty=fullName> property.
   example:
-  - "The following example shows how to write characters to two separate lines in a text file by using the [WriteLineAsync Method (Char\\<xref:System.IO.StreamWriter.WriteLineAsync%28System.Char%5B%5D%2CSystem.Int32%2CSystem.Int32%29> method. The first line contains the first 11 characters from the string (the letters \"First line\" followed by a space). The second line contains the remaining characters from the string (the letters \"and second line\").  \n  \n [!code-csharp[System.IO.StreamWriter#25](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.StreamWriter/CS/example25.cs#25)]\n [!code-vb[System.IO.StreamWriter#25](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.StreamWriter/VB/example25.vb#25)]"
+  - "The following example shows how to write characters to two separate lines in a text file by using the <xref:System.IO.StreamWriter.WriteLineAsync%28System.Char%5B%5D%2CSystem.Int32%2CSystem.Int32%29> method. The first line contains the first 11 characters from the string (the letters \"First line\" followed by a space). The second line contains the remaining characters from the string (the letters \"and second line\").  \n  \n [!code-csharp[System.IO.StreamWriter#25](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.StreamWriter/CS/example25.cs#25)]\n [!code-vb[System.IO.StreamWriter#25](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.StreamWriter/VB/example25.vb#25)]"
   syntax:
     content: >-
       [System.Runtime.InteropServices.ComVisible(false)]
@@ -2306,7 +2307,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2327,7 +2329,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2347,9 +2350,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IO/StreamWriter.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.IO.TextWriter
   parent: System.IO
@@ -2434,7 +2434,7 @@ references:
   isExternal: false
   name: StreamWriter(Stream)
   nameWithType: StreamWriter.StreamWriter(Stream)
-  fullName: System.IO.StreamWriter.StreamWriter(Stream)
+  fullName: StreamWriter.StreamWriter(Stream)
 - uid: System.IO.Stream
   parent: System.IO
   isExternal: false
@@ -2446,7 +2446,7 @@ references:
   isExternal: false
   name: StreamWriter(String)
   nameWithType: StreamWriter.StreamWriter(String)
-  fullName: System.IO.StreamWriter.StreamWriter(String)
+  fullName: StreamWriter.StreamWriter(String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -2458,7 +2458,7 @@ references:
   isExternal: false
   name: StreamWriter(Stream, Encoding)
   nameWithType: StreamWriter.StreamWriter(Stream, Encoding)
-  fullName: System.IO.StreamWriter.StreamWriter(Stream, Encoding)
+  fullName: StreamWriter.StreamWriter(Stream, Encoding)
 - uid: System.Text.Encoding
   parent: System.Text
   isExternal: false
@@ -2470,7 +2470,7 @@ references:
   isExternal: false
   name: StreamWriter(String, Boolean)
   nameWithType: StreamWriter.StreamWriter(String, Boolean)
-  fullName: System.IO.StreamWriter.StreamWriter(String, Boolean)
+  fullName: StreamWriter.StreamWriter(String, Boolean)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -2482,7 +2482,7 @@ references:
   isExternal: false
   name: StreamWriter(Stream, Encoding, Int32)
   nameWithType: StreamWriter.StreamWriter(Stream, Encoding, Int32)
-  fullName: System.IO.StreamWriter.StreamWriter(Stream, Encoding, Int32)
+  fullName: StreamWriter.StreamWriter(Stream, Encoding, Int32)
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -2494,61 +2494,61 @@ references:
   isExternal: false
   name: StreamWriter(String, Boolean, Encoding)
   nameWithType: StreamWriter.StreamWriter(String, Boolean, Encoding)
-  fullName: System.IO.StreamWriter.StreamWriter(String, Boolean, Encoding)
+  fullName: StreamWriter.StreamWriter(String, Boolean, Encoding)
 - uid: System.IO.StreamWriter.#ctor(System.IO.Stream,System.Text.Encoding,System.Int32,System.Boolean)
   parent: System.IO.StreamWriter
   isExternal: false
   name: StreamWriter(Stream, Encoding, Int32, Boolean)
   nameWithType: StreamWriter.StreamWriter(Stream, Encoding, Int32, Boolean)
-  fullName: System.IO.StreamWriter.StreamWriter(Stream, Encoding, Int32, Boolean)
+  fullName: StreamWriter.StreamWriter(Stream, Encoding, Int32, Boolean)
 - uid: System.IO.StreamWriter.#ctor(System.String,System.Boolean,System.Text.Encoding,System.Int32)
   parent: System.IO.StreamWriter
   isExternal: false
   name: StreamWriter(String, Boolean, Encoding, Int32)
   nameWithType: StreamWriter.StreamWriter(String, Boolean, Encoding, Int32)
-  fullName: System.IO.StreamWriter.StreamWriter(String, Boolean, Encoding, Int32)
+  fullName: StreamWriter.StreamWriter(String, Boolean, Encoding, Int32)
 - uid: System.IO.StreamWriter.AutoFlush
   parent: System.IO.StreamWriter
   isExternal: false
   name: AutoFlush
   nameWithType: StreamWriter.AutoFlush
-  fullName: System.IO.StreamWriter.AutoFlush
+  fullName: StreamWriter.AutoFlush
 - uid: System.IO.StreamWriter.BaseStream
   parent: System.IO.StreamWriter
   isExternal: false
   name: BaseStream
   nameWithType: StreamWriter.BaseStream
-  fullName: System.IO.StreamWriter.BaseStream
+  fullName: StreamWriter.BaseStream
 - uid: System.IO.StreamWriter.Close
   parent: System.IO.StreamWriter
   isExternal: false
   name: Close()
   nameWithType: StreamWriter.Close()
-  fullName: System.IO.StreamWriter.Close()
+  fullName: StreamWriter.Close()
 - uid: System.IO.StreamWriter.Dispose(System.Boolean)
   parent: System.IO.StreamWriter
   isExternal: false
   name: Dispose(Boolean)
   nameWithType: StreamWriter.Dispose(Boolean)
-  fullName: System.IO.StreamWriter.Dispose(Boolean)
+  fullName: StreamWriter.Dispose(Boolean)
 - uid: System.IO.StreamWriter.Encoding
   parent: System.IO.StreamWriter
   isExternal: false
   name: Encoding
   nameWithType: StreamWriter.Encoding
-  fullName: System.IO.StreamWriter.Encoding
+  fullName: StreamWriter.Encoding
 - uid: System.IO.StreamWriter.Flush
   parent: System.IO.StreamWriter
   isExternal: false
   name: Flush()
   nameWithType: StreamWriter.Flush()
-  fullName: System.IO.StreamWriter.Flush()
+  fullName: StreamWriter.Flush()
 - uid: System.IO.StreamWriter.FlushAsync
   parent: System.IO.StreamWriter
   isExternal: false
   name: FlushAsync()
   nameWithType: StreamWriter.FlushAsync()
-  fullName: System.IO.StreamWriter.FlushAsync()
+  fullName: StreamWriter.FlushAsync()
 - uid: System.Threading.Tasks.Task
   parent: System.Threading.Tasks
   isExternal: false
@@ -2560,7 +2560,7 @@ references:
   isExternal: false
   name: "Null"
   nameWithType: StreamWriter.Null
-  fullName: System.IO.StreamWriter.Null
+  fullName: StreamWriter.Null
 - uid: System.IO.StreamWriter
   parent: System.IO
   isExternal: false
@@ -2572,7 +2572,7 @@ references:
   isExternal: false
   name: Write(Char)
   nameWithType: StreamWriter.Write(Char)
-  fullName: System.IO.StreamWriter.Write(Char)
+  fullName: StreamWriter.Write(Char)
 - uid: System.Char
   parent: System
   isExternal: false
@@ -2584,7 +2584,7 @@ references:
   isExternal: false
   name: Write(Char[])
   nameWithType: StreamWriter.Write(Char[])
-  fullName: System.IO.StreamWriter.Write(Char[])
+  fullName: StreamWriter.Write(Char[])
 - uid: System.Char[]
   parent: System
   isExternal: false
@@ -2604,64 +2604,65 @@ references:
   isExternal: false
   name: Write(String)
   nameWithType: StreamWriter.Write(String)
-  fullName: System.IO.StreamWriter.Write(String)
+  fullName: StreamWriter.Write(String)
 - uid: System.IO.StreamWriter.Write(System.Char[],System.Int32,System.Int32)
   parent: System.IO.StreamWriter
   isExternal: false
   name: Write(Char[], Int32, Int32)
   nameWithType: StreamWriter.Write(Char[], Int32, Int32)
-  fullName: System.IO.StreamWriter.Write(Char[], Int32, Int32)
+  fullName: StreamWriter.Write(Char[], Int32, Int32)
 - uid: System.IO.StreamWriter.WriteAsync(System.Char)
   parent: System.IO.StreamWriter
   isExternal: false
   name: WriteAsync(Char)
   nameWithType: StreamWriter.WriteAsync(Char)
-  fullName: System.IO.StreamWriter.WriteAsync(Char)
+  fullName: StreamWriter.WriteAsync(Char)
 - uid: System.IO.StreamWriter.WriteAsync(System.String)
   parent: System.IO.StreamWriter
   isExternal: false
   name: WriteAsync(String)
   nameWithType: StreamWriter.WriteAsync(String)
-  fullName: System.IO.StreamWriter.WriteAsync(String)
+  fullName: StreamWriter.WriteAsync(String)
 - uid: System.IO.StreamWriter.WriteAsync(System.Char[],System.Int32,System.Int32)
   parent: System.IO.StreamWriter
   isExternal: false
   name: WriteAsync(Char[], Int32, Int32)
   nameWithType: StreamWriter.WriteAsync(Char[], Int32, Int32)
-  fullName: System.IO.StreamWriter.WriteAsync(Char[], Int32, Int32)
+  fullName: StreamWriter.WriteAsync(Char[], Int32, Int32)
 - uid: System.IO.StreamWriter.WriteLineAsync
   parent: System.IO.StreamWriter
   isExternal: false
   name: WriteLineAsync()
   nameWithType: StreamWriter.WriteLineAsync()
-  fullName: System.IO.StreamWriter.WriteLineAsync()
+  fullName: StreamWriter.WriteLineAsync()
 - uid: System.IO.StreamWriter.WriteLineAsync(System.Char)
   parent: System.IO.StreamWriter
   isExternal: false
   name: WriteLineAsync(Char)
   nameWithType: StreamWriter.WriteLineAsync(Char)
-  fullName: System.IO.StreamWriter.WriteLineAsync(Char)
+  fullName: StreamWriter.WriteLineAsync(Char)
 - uid: System.IO.StreamWriter.WriteLineAsync(System.String)
   parent: System.IO.StreamWriter
   isExternal: false
   name: WriteLineAsync(String)
   nameWithType: StreamWriter.WriteLineAsync(String)
-  fullName: System.IO.StreamWriter.WriteLineAsync(String)
+  fullName: StreamWriter.WriteLineAsync(String)
 - uid: System.IO.StreamWriter.WriteLineAsync(System.Char[],System.Int32,System.Int32)
   parent: System.IO.StreamWriter
   isExternal: false
   name: WriteLineAsync(Char[], Int32, Int32)
   nameWithType: StreamWriter.WriteLineAsync(Char[], Int32, Int32)
-  fullName: System.IO.StreamWriter.WriteLineAsync(Char[], Int32, Int32)
+  fullName: StreamWriter.WriteLineAsync(Char[], Int32, Int32)
 - uid: System.IO.StreamWriter.#ctor*
   parent: System.IO.StreamWriter
   isExternal: false
   name: StreamWriter
   nameWithType: StreamWriter.StreamWriter
-  fullName: System.IO.StreamWriter.StreamWriter
+  fullName: StreamWriter.StreamWriter
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2686,10 +2687,11 @@ references:
   isExternal: false
   name: AutoFlush
   nameWithType: StreamWriter.AutoFlush
-  fullName: System.IO.StreamWriter.AutoFlush
+  fullName: StreamWriter.AutoFlush
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2714,10 +2716,11 @@ references:
   isExternal: false
   name: BaseStream
   nameWithType: StreamWriter.BaseStream
-  fullName: System.IO.StreamWriter.BaseStream
+  fullName: StreamWriter.BaseStream
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2742,8 +2745,9 @@ references:
   isExternal: false
   name: Close
   nameWithType: StreamWriter.Close
-  fullName: System.IO.StreamWriter.Close
+  fullName: StreamWriter.Close
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2761,10 +2765,11 @@ references:
   isExternal: false
   name: Dispose
   nameWithType: StreamWriter.Dispose
-  fullName: System.IO.StreamWriter.Dispose
+  fullName: StreamWriter.Dispose
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2789,10 +2794,11 @@ references:
   isExternal: false
   name: Encoding
   nameWithType: StreamWriter.Encoding
-  fullName: System.IO.StreamWriter.Encoding
+  fullName: StreamWriter.Encoding
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2817,10 +2823,11 @@ references:
   isExternal: false
   name: Flush
   nameWithType: StreamWriter.Flush
-  fullName: System.IO.StreamWriter.Flush
+  fullName: StreamWriter.Flush
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2845,10 +2852,11 @@ references:
   isExternal: false
   name: FlushAsync
   nameWithType: StreamWriter.FlushAsync
-  fullName: System.IO.StreamWriter.FlushAsync
+  fullName: StreamWriter.FlushAsync
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2873,10 +2881,11 @@ references:
   isExternal: false
   name: Write
   nameWithType: StreamWriter.Write
-  fullName: System.IO.StreamWriter.Write
+  fullName: StreamWriter.Write
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2901,10 +2910,11 @@ references:
   isExternal: false
   name: WriteAsync
   nameWithType: StreamWriter.WriteAsync
-  fullName: System.IO.StreamWriter.WriteAsync
+  fullName: StreamWriter.WriteAsync
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2929,10 +2939,11 @@ references:
   isExternal: false
   name: WriteLineAsync
   nameWithType: StreamWriter.WriteLineAsync
-  fullName: System.IO.StreamWriter.WriteLineAsync
+  fullName: StreamWriter.WriteLineAsync
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

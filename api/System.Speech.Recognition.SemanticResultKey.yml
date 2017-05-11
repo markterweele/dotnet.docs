@@ -51,8 +51,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Speech.Recognition/SemanticResultKey.xml
-  ms.author: kbridge
-  manager: ghogen
 - uid: System.Speech.Recognition.SemanticResultKey.#ctor(System.String,System.Speech.Recognition.GrammarBuilder[])
   commentId: M:System.Speech.Recognition.SemanticResultKey.#ctor(System.String,System.Speech.Recognition.GrammarBuilder[])
   id: '#ctor(System.String,System.Speech.Recognition.GrammarBuilder[])'
@@ -61,7 +59,7 @@ items:
   - csharp
   name: SemanticResultKey(String, GrammarBuilder[])
   nameWithType: SemanticResultKey.SemanticResultKey(String, GrammarBuilder[])
-  fullName: System.Speech.Recognition.SemanticResultKey.SemanticResultKey(String, GrammarBuilder[])
+  fullName: SemanticResultKey.SemanticResultKey(String, GrammarBuilder[])
   type: Constructor
   assemblies:
   - System.Speech
@@ -98,8 +96,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Speech.Recognition/SemanticResultKey.xml
-  ms.author: kbridge
-  manager: ghogen
 - uid: System.Speech.Recognition.SemanticResultKey.#ctor(System.String,System.String[])
   commentId: M:System.Speech.Recognition.SemanticResultKey.#ctor(System.String,System.String[])
   id: '#ctor(System.String,System.String[])'
@@ -108,7 +104,7 @@ items:
   - csharp
   name: SemanticResultKey(String, String[])
   nameWithType: SemanticResultKey.SemanticResultKey(String, String[])
-  fullName: System.Speech.Recognition.SemanticResultKey.SemanticResultKey(String, String[])
+  fullName: SemanticResultKey.SemanticResultKey(String, String[])
   type: Constructor
   assemblies:
   - System.Speech
@@ -145,8 +141,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Speech.Recognition/SemanticResultKey.xml
-  ms.author: kbridge
-  manager: ghogen
 - uid: System.Speech.Recognition.SemanticResultKey.ToGrammarBuilder
   commentId: M:System.Speech.Recognition.SemanticResultKey.ToGrammarBuilder
   id: ToGrammarBuilder
@@ -155,7 +149,7 @@ items:
   - csharp
   name: ToGrammarBuilder()
   nameWithType: SemanticResultKey.ToGrammarBuilder()
-  fullName: System.Speech.Recognition.SemanticResultKey.ToGrammarBuilder()
+  fullName: SemanticResultKey.ToGrammarBuilder()
   type: Method
   assemblies:
   - System.Speech
@@ -163,7 +157,7 @@ items:
   summary: Returns an instance of <xref href="System.Speech.Recognition.GrammarBuilder"></xref> constructed from the current <xref href="System.Speech.Recognition.SemanticResultKey"></xref> instance.
   remarks: The use of <xref:System.Speech.Recognition.SemanticResultValue.ToGrammarBuilder%2A> is equivalent to using the <xref:System.Speech.Recognition.GrammarBuilder> constructor which takes <xref:System.Speech.Recognition.SemanticResultKey> as an argument (<xref:System.Speech.Recognition.GrammarBuilder.%23ctor%28System.Speech.Recognition.SemanticResultKey%29>).
   example:
-  - "The following example creates a <xref:System.Speech.Recognition.Grammar> object that supports commands to change the background color.  \n  \n A <xref:System.Speech.Recognition.Choices> object (`colorChoice`) containing the list of options for background colors is filled using the [Add(GrammarBuilder\\<xref:System.Speech.Recognition.Choices.Add%28System.Speech.Recognition.GrammarBuilder%5B%5D%29> method with <xref:System.Speech.Recognition.GrammarBuilder> instances. The <xref:System.Speech.Recognition.GrammarBuilder> instances are obtained through the <xref:System.Speech.Recognition.SemanticResultKey.ToGrammarBuilder> method on the <xref:System.Speech.Recognition.SemanticResultValue> objects created from color strings.  \n  \n A <xref:System.Speech.Recognition.GrammarBuilder> is then obtained by calling <xref:System.Speech.Recognition.SemanticResultKey.ToGrammarBuilder> on a <xref:System.Speech.Recognition.SemanticResultKey> instance, which will be used to key the semantic choices in `colorChoice`.  \n  \n```csharp  \n  \nprivate Grammar CreateGrammarBuilderRGBSemantics()   \n{  \n  \n  // Create a set of choices, each a lookup from a color name to RGB.  \n  // Choices constructors do not take SemanticResultValue parameters, so cast   \n  // the SemanticResultValue to GrammarBuilder.  \n  Choices colorChoice = new Choices();  \n  foreach (string colorName in System.Enum.GetNames(typeof(KnownColor)))   \n  {  \n    SemanticResultValue colorValue=new SemanticResultValue(colorName, Color.FromName(colorName).ToArgb());  \n  \n    // Use implicit conversion of SemanticResultValue to GrammarBuilder.  \n    colorChoice.Add(colorValue.ToGrammarBuilder());      \n  }  \n  SemanticResultKey choiceKey = new SemanticResultKey(\"rgb\", colorChoice);  \n  GrammarBuilder choiceBuilder = choiceKey.ToGrammarBuilder();  \n  \n  // Create two intermediate grammars with introductory phrase and the color choice.  \n  GrammarBuilder makeBackgroundBuilder = \"Make background\";  \n  makeBackgroundBuilder.Append(choiceBuilder);  \n  \n  GrammarBuilder configureBackgroundBuilder = new GrammarBuilder(\"Configure background as\");  \n  configureBackgroundBuilder.Append((new SemanticResultKey(\"rgb\", colorChoice)).ToGrammarBuilder());  \n  \n  // Create the Grammar object, which recognizes either intermediate grammar.  \n  Grammar grammar = new Grammar(new Choices(new GrammarBuilder[] {makeBackgroundBuilder, configureBackgroundBuilder}));  \n  grammar.Name = \"Make Background /Configure background as\";  \n  \n  return grammar;  \n}  \n  \n```"
+  - "The following example creates a <xref:System.Speech.Recognition.Grammar> object that supports commands to change the background color.  \n  \n A <xref:System.Speech.Recognition.Choices> object (`colorChoice`) containing the list of options for background colors is filled using the <xref:System.Speech.Recognition.Choices.Add%28System.Speech.Recognition.GrammarBuilder%5B%5D%29> method with <xref:System.Speech.Recognition.GrammarBuilder> instances. The <xref:System.Speech.Recognition.GrammarBuilder> instances are obtained through the <xref:System.Speech.Recognition.SemanticResultKey.ToGrammarBuilder> method on the <xref:System.Speech.Recognition.SemanticResultValue> objects created from color strings.  \n  \n A <xref:System.Speech.Recognition.GrammarBuilder> is then obtained by calling <xref:System.Speech.Recognition.SemanticResultKey.ToGrammarBuilder> on a <xref:System.Speech.Recognition.SemanticResultKey> instance, which will be used to key the semantic choices in `colorChoice`.  \n  \n```csharp  \n  \nprivate Grammar CreateGrammarBuilderRGBSemantics()   \n{  \n  \n  // Create a set of choices, each a lookup from a color name to RGB.  \n  // Choices constructors do not take SemanticResultValue parameters, so cast   \n  // the SemanticResultValue to GrammarBuilder.  \n  Choices colorChoice = new Choices();  \n  foreach (string colorName in System.Enum.GetNames(typeof(KnownColor)))   \n  {  \n    SemanticResultValue colorValue=new SemanticResultValue(colorName, Color.FromName(colorName).ToArgb());  \n  \n    // Use implicit conversion of SemanticResultValue to GrammarBuilder.  \n    colorChoice.Add(colorValue.ToGrammarBuilder());      \n  }  \n  SemanticResultKey choiceKey = new SemanticResultKey(\"rgb\", colorChoice);  \n  GrammarBuilder choiceBuilder = choiceKey.ToGrammarBuilder();  \n  \n  // Create two intermediate grammars with introductory phrase and the color choice.  \n  GrammarBuilder makeBackgroundBuilder = \"Make background\";  \n  makeBackgroundBuilder.Append(choiceBuilder);  \n  \n  GrammarBuilder configureBackgroundBuilder = new GrammarBuilder(\"Configure background as\");  \n  configureBackgroundBuilder.Append((new SemanticResultKey(\"rgb\", colorChoice)).ToGrammarBuilder());  \n  \n  // Create the Grammar object, which recognizes either intermediate grammar.  \n  Grammar grammar = new Grammar(new Choices(new GrammarBuilder[] {makeBackgroundBuilder, configureBackgroundBuilder}));  \n  grammar.Name = \"Make Background /Configure background as\";  \n  \n  return grammar;  \n}  \n  \n```"
   syntax:
     content: public System.Speech.Recognition.GrammarBuilder ToGrammarBuilder ();
     parameters: []
@@ -189,8 +183,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Speech.Recognition/SemanticResultKey.xml
-  ms.author: kbridge
-  manager: ghogen
 references:
 - uid: System.Object
   parent: System
@@ -203,7 +195,7 @@ references:
   isExternal: false
   name: SemanticResultKey(String, GrammarBuilder[])
   nameWithType: SemanticResultKey.SemanticResultKey(String, GrammarBuilder[])
-  fullName: System.Speech.Recognition.SemanticResultKey.SemanticResultKey(String, GrammarBuilder[])
+  fullName: SemanticResultKey.SemanticResultKey(String, GrammarBuilder[])
 - uid: System.String
   parent: System
   isExternal: false
@@ -233,7 +225,7 @@ references:
   isExternal: false
   name: SemanticResultKey(String, String[])
   nameWithType: SemanticResultKey.SemanticResultKey(String, String[])
-  fullName: System.Speech.Recognition.SemanticResultKey.SemanticResultKey(String, String[])
+  fullName: SemanticResultKey.SemanticResultKey(String, String[])
 - uid: System.String[]
   parent: System
   isExternal: false
@@ -253,13 +245,13 @@ references:
   isExternal: false
   name: ToGrammarBuilder()
   nameWithType: SemanticResultKey.ToGrammarBuilder()
-  fullName: System.Speech.Recognition.SemanticResultKey.ToGrammarBuilder()
+  fullName: SemanticResultKey.ToGrammarBuilder()
 - uid: System.Speech.Recognition.SemanticResultKey.#ctor*
   parent: System.Speech.Recognition.SemanticResultKey
   isExternal: false
   name: SemanticResultKey
   nameWithType: SemanticResultKey.SemanticResultKey
-  fullName: System.Speech.Recognition.SemanticResultKey.SemanticResultKey
+  fullName: SemanticResultKey.SemanticResultKey
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -274,7 +266,7 @@ references:
   isExternal: false
   name: ToGrammarBuilder
   nameWithType: SemanticResultKey.ToGrammarBuilder
-  fullName: System.Speech.Recognition.SemanticResultKey.ToGrammarBuilder
+  fullName: SemanticResultKey.ToGrammarBuilder
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

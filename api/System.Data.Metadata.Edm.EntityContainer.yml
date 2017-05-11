@@ -25,7 +25,7 @@ items:
   summary: Represents an entity container in a conceptual model. An <xref href="System.Data.Metadata.Edm.EntityContainer"></xref> is a logical grouping of entity sets and association sets.
   remarks: On the conceptual level, the <xref:System.Data.Metadata.Edm.EntityContainer> class represents a container that will be mapped to a database object in the storage metadata schema. In the storage level, the <xref:System.Data.Metadata.Edm.EntityContainer> class represents a description of the table and/or key relationships that persist data for applications built on the model. For more information about the entity containers in a conceptual model, see [Entity Containers (EDM)](http://msdn.microsoft.com/en-us/9afa762f-59b8-4a70-b76d-89d90760144c).
   example:
-  - "The following code sample demonstrates how to get a metadata workspace from the connection and then use that metadata workspace to retrieve information about the entity containers in the specified data model. Note that the metadata workspace is a runtime service component that provides support for retrieving metadata.  \n  \n The code sample uses a <xref:System.Data.Metadata.Edm.DataSpace> and a <xref:System.Data.Metadata.Edm.DataSpace> to specify the model. The <xref:System.Data.Metadata.Edm.DataSpace> represents the default name for the conceptual model. The <xref:System.Data.Metadata.Edm.DataSpace> represents the default name for the storage model.  \n  \n The `GetEntityContainers` method gets a collection of entity containers and then iterates through the collection to get each entity set and association set in the specified container. The code sample uses the AdventureWorks Model that is provided in the [Adventure Works Model (EDM)](http://msdn.microsoft.com/en-us/da87d29e-8c89-4310-bbac-5cbd062930a7)topic. For an example of the application config file, see [Adventure Works Object Model in Applications (EDM)](http://msdn.microsoft.com/en-us/84c01270-90ba-467b-ad24-df10c1ca8f45).  \n  \n```csharp  \nusing System;  \nusing System.Data;  \nusing System.Data.EntityClient;  \nusing System.Data.Metadata.Edm;  \nusing System.Collections.ObjectModel;  \n  \nclass GetEntityContainerExample  \n{  \n  static void Main()  \n  {  \n    try  \n    {  \n       // Establish a connection to the underlying data provider by   \n       // using the connection string specified in the config file.  \n       using (EntityConnection connection =  \n          new EntityConnection(\"Name=AdventureWorksEntities\"))  \n       {  \n         // Open the connection.  \n         connection.Open();  \n  \n         // Access the metadata workspace.  \n         MetadataWorkspace workspace =   \n            connection.GetMetadataWorkspace();  \n  \n         // Get the entity containers in the conceptual model.  \n         GetEntityContainers(workspace, DataSpace.CSpace);  \n  \n         // Get the entity containers in the storage model.  \n             GetEntityContainers(workspace, DataSpace.SSpace);  \n       }  \n    }  \n    catch (MetadataException exceptionMetadata)  \n    {  \n      Console.WriteLine(\"MetadataException: {0}\",   \n                       exceptionMetadata.Message);  \n    }  \n    catch (System.Data.MappingException exceptionMapping)  \n    {  \n      Console.WriteLine(\"MappingException: {0}\",  \n                       exceptionMapping.Message);  \n    }  \n  }  \n  \n  public static void GetEntityContainers(  \n      MetadataWorkspace workspace, DataSpace model)  \n  {  \n    // Get a collection of the entity containers.  \n    ReadOnlyCollection<EntityContainer> containers =   \n         workspace.GetItems<EntityContainer>(model);  \n  \n    // Iterate through the collection to get each entity container.  \n    foreach (EntityContainer container in containers)  \n    {  \n       Console.WriteLine(\"EntityContainer Name: {0} \",   \n                        container.Name);  \n  \n       // EntitySetBase is a super type for   \n       // EntitySets and RelationshipSets.   \n       // Iterate through the collection to get each EntitySetBase.  \n       foreach (EntitySetBase baseSet in container.BaseEntitySets)  \n       {  \n          // Check if this instance is an EntitySet.  \n          if (baseSet is EntitySet)  \n          {  \n             Console.WriteLine(  \n                \"  EntitySet Name: {0} , EntityType Name: {1} \",  \n                baseSet.Name, baseSet.ElementType.FullName);  \n          }  \n  \n         // RelationshipSet is a super type for AssociationSet.  \n         // Check if this instance is an AssociationSet.  \n         if (baseSet is AssociationSet)  \n         {  \n            Console.WriteLine(  \n               \"  AssociationSet Name: {0} , \" +  \n               \"AssociationType Name: {1} \",  \n                baseSet.Name, baseSet.ElementType.FullName);  \n  \n            // Get the AssociationSet.  \n            AssociationSet associationSet =   \n                  baseSet as AssociationSet;  \n  \n            // Iterate through the collection to get   \n            // each AssociatedSetEnd.  \n            foreach (AssociationSetEnd end in   \n               associationSet.AssociationSetEnds)  \n            {  \n               Console.WriteLine(  \n                  \"   EntitySet Name: {0} , Name: {1} \",  \n                  end.EntitySet, end.Name);  \n            }  \n         }  \n      }  \n    }  \n  }  \n}  \n```  \n  \n```vb  \nImports System  \nImports System.Collections.ObjectModel  \nImports System.Data  \nImports System.Data.EntityClient  \nImports System.Data.Metadata.Edm  \n  \nClass GetEntityContainerExample  \n  Public Shared Sub Main()  \n    Try  \n      ' Establish a connection to the underlying data provider by   \n      ' using the connection string specified in the config file.  \n      Using connection As EntityConnection = _  \n        New EntityConnection(\"Name=AdventureWorksEntities\")  \n  \n        ' Open the conection.  \n        connection.Open()  \n  \n        ' Access the metadata workspace.  \n        Dim workspace As MetadataWorkspace = _  \n           connection.GetMetadataWorkspace  \n  \n        ' Get the entity containers in the conceptual model.  \n        GetEntityContainers(workspace, DataSpace.CSpace)  \n  \n        ' Get the entity containers in the storage model.  \n        GetEntityContainers(workspace, DataSpace.SSpace)  \n      End Using  \n    Catch exceptionMetadata As MetadataException  \n       Console.WriteLine(\"MetadataException: {0}\", _  \n          exceptionMetadata.Message)  \n    Catch exceptionMapping As MappingException  \n       Console.WriteLine(\"MappingException: {0}\", _  \n          exceptionMapping.Message)  \n     End Try  \n  End Sub  \n  \n  Public Shared Sub GetEntityContainers( _  \n    ByVal workspace As MetadataWorkspace, ByVal model As DataSpace)  \n  \n    ' Get a collection of the entity containers.  \n    Dim containers As ReadOnlyCollection(Of EntityContainer) = _  \n       workspace.GetItems(Of EntityContainer)(model)  \n  \n    ' Iterate through the collection to get each entity container.  \n    Dim container As EntityContainer  \n    For Each container In containers  \n      Console.WriteLine(\"EntityContainer Name: {0} \", container.Name)  \n  \n      ' EntitySetBase is a super type for   \n      ' EntitySets and RelationshipSets.   \n      ' Iterate through the collection to get each EntitySetBase.  \n      Dim baseSet As EntitySetBase  \n      For Each baseSet In container.BaseEntitySets  \n         ' Check if this instance is an EntitySet.  \n         If TypeOf baseSet Is EntitySet Then  \n           Console.WriteLine( _  \n              \"  EntitySet Name: {0} , EntityType Name: {1} \", _  \n              baseSet.Name, baseSet.ElementType.FullName)  \n          End If  \n  \n          ' RelationshipSet is a super type for AssociationSet.  \n          ' Check if this instance is an AssociationSet.  \n          If TypeOf baseSet Is AssociationSet Then  \n            Console.WriteLine( _  \n              \"  AssociationSet Name: {0} , \" + _  \n              \"AssociationType Name: {1} \", _  \n              baseSet.Name, baseSet.ElementType.FullName)  \n  \n            ' Get the AssociationSet.  \n            Dim associationSet As AssociationSet = _  \n               TryCast(baseSet, AssociationSet)  \n  \n            ' Iterate through the collection to get   \n            '  each AssociatedSetEnd.  \n            Dim endMember As AssociationSetEnd  \n            For Each endMember In associationSet.AssociationSetEnds  \n              Console.WriteLine( _  \n                 \"   EntitySet Name: {0} , Name: {1} \", _  \n                 endMember.EntitySet, endMember.Name)  \n            Next  \n          End If  \n      Next  \n    Next  \n  End Sub  \nEnd Class  \n```"
+  - "The following code sample demonstrates how to get a metadata workspace from the connection and then use that metadata workspace to retrieve information about the entity containers in the specified data model. Note that the metadata workspace is a runtime service component that provides support for retrieving metadata.  \n  \n The code sample uses a <xref:System.Data.Metadata.Edm.DataSpace.CSpace> and a <xref:System.Data.Metadata.Edm.DataSpace.SSpace> to specify the model. The <xref:System.Data.Metadata.Edm.DataSpace.CSpace> represents the default name for the conceptual model. The <xref:System.Data.Metadata.Edm.DataSpace.SSpace> represents the default name for the storage model.  \n  \n The `GetEntityContainers` method gets a collection of entity containers and then iterates through the collection to get each entity set and association set in the specified container. The code sample uses the AdventureWorks Model that is provided in the [Adventure Works Model (EDM)](http://msdn.microsoft.com/en-us/da87d29e-8c89-4310-bbac-5cbd062930a7)topic. For an example of the application config file, see [Adventure Works Object Model in Applications (EDM)](http://msdn.microsoft.com/en-us/84c01270-90ba-467b-ad24-df10c1ca8f45).  \n  \n```csharp  \nusing System;  \nusing System.Data;  \nusing System.Data.EntityClient;  \nusing System.Data.Metadata.Edm;  \nusing System.Collections.ObjectModel;  \n  \nclass GetEntityContainerExample  \n{  \n  static void Main()  \n  {  \n    try  \n    {  \n       // Establish a connection to the underlying data provider by   \n       // using the connection string specified in the config file.  \n       using (EntityConnection connection =  \n          new EntityConnection(\"Name=AdventureWorksEntities\"))  \n       {  \n         // Open the connection.  \n         connection.Open();  \n  \n         // Access the metadata workspace.  \n         MetadataWorkspace workspace =   \n            connection.GetMetadataWorkspace();  \n  \n         // Get the entity containers in the conceptual model.  \n         GetEntityContainers(workspace, DataSpace.CSpace);  \n  \n         // Get the entity containers in the storage model.  \n             GetEntityContainers(workspace, DataSpace.SSpace);  \n       }  \n    }  \n    catch (MetadataException exceptionMetadata)  \n    {  \n      Console.WriteLine(\"MetadataException: {0}\",   \n                       exceptionMetadata.Message);  \n    }  \n    catch (System.Data.MappingException exceptionMapping)  \n    {  \n      Console.WriteLine(\"MappingException: {0}\",  \n                       exceptionMapping.Message);  \n    }  \n  }  \n  \n  public static void GetEntityContainers(  \n      MetadataWorkspace workspace, DataSpace model)  \n  {  \n    // Get a collection of the entity containers.  \n    ReadOnlyCollection<EntityContainer> containers =   \n         workspace.GetItems<EntityContainer>(model);  \n  \n    // Iterate through the collection to get each entity container.  \n    foreach (EntityContainer container in containers)  \n    {  \n       Console.WriteLine(\"EntityContainer Name: {0} \",   \n                        container.Name);  \n  \n       // EntitySetBase is a super type for   \n       // EntitySets and RelationshipSets.   \n       // Iterate through the collection to get each EntitySetBase.  \n       foreach (EntitySetBase baseSet in container.BaseEntitySets)  \n       {  \n          // Check if this instance is an EntitySet.  \n          if (baseSet is EntitySet)  \n          {  \n             Console.WriteLine(  \n                \"  EntitySet Name: {0} , EntityType Name: {1} \",  \n                baseSet.Name, baseSet.ElementType.FullName);  \n          }  \n  \n         // RelationshipSet is a super type for AssociationSet.  \n         // Check if this instance is an AssociationSet.  \n         if (baseSet is AssociationSet)  \n         {  \n            Console.WriteLine(  \n               \"  AssociationSet Name: {0} , \" +  \n               \"AssociationType Name: {1} \",  \n                baseSet.Name, baseSet.ElementType.FullName);  \n  \n            // Get the AssociationSet.  \n            AssociationSet associationSet =   \n                  baseSet as AssociationSet;  \n  \n            // Iterate through the collection to get   \n            // each AssociatedSetEnd.  \n            foreach (AssociationSetEnd end in   \n               associationSet.AssociationSetEnds)  \n            {  \n               Console.WriteLine(  \n                  \"   EntitySet Name: {0} , Name: {1} \",  \n                  end.EntitySet, end.Name);  \n            }  \n         }  \n      }  \n    }  \n  }  \n}  \n```  \n  \n```vb  \nImports System  \nImports System.Collections.ObjectModel  \nImports System.Data  \nImports System.Data.EntityClient  \nImports System.Data.Metadata.Edm  \n  \nClass GetEntityContainerExample  \n  Public Shared Sub Main()  \n    Try  \n      ' Establish a connection to the underlying data provider by   \n      ' using the connection string specified in the config file.  \n      Using connection As EntityConnection = _  \n        New EntityConnection(\"Name=AdventureWorksEntities\")  \n  \n        ' Open the conection.  \n        connection.Open()  \n  \n        ' Access the metadata workspace.  \n        Dim workspace As MetadataWorkspace = _  \n           connection.GetMetadataWorkspace  \n  \n        ' Get the entity containers in the conceptual model.  \n        GetEntityContainers(workspace, DataSpace.CSpace)  \n  \n        ' Get the entity containers in the storage model.  \n        GetEntityContainers(workspace, DataSpace.SSpace)  \n      End Using  \n    Catch exceptionMetadata As MetadataException  \n       Console.WriteLine(\"MetadataException: {0}\", _  \n          exceptionMetadata.Message)  \n    Catch exceptionMapping As MappingException  \n       Console.WriteLine(\"MappingException: {0}\", _  \n          exceptionMapping.Message)  \n     End Try  \n  End Sub  \n  \n  Public Shared Sub GetEntityContainers( _  \n    ByVal workspace As MetadataWorkspace, ByVal model As DataSpace)  \n  \n    ' Get a collection of the entity containers.  \n    Dim containers As ReadOnlyCollection(Of EntityContainer) = _  \n       workspace.GetItems(Of EntityContainer)(model)  \n  \n    ' Iterate through the collection to get each entity container.  \n    Dim container As EntityContainer  \n    For Each container In containers  \n      Console.WriteLine(\"EntityContainer Name: {0} \", container.Name)  \n  \n      ' EntitySetBase is a super type for   \n      ' EntitySets and RelationshipSets.   \n      ' Iterate through the collection to get each EntitySetBase.  \n      Dim baseSet As EntitySetBase  \n      For Each baseSet In container.BaseEntitySets  \n         ' Check if this instance is an EntitySet.  \n         If TypeOf baseSet Is EntitySet Then  \n           Console.WriteLine( _  \n              \"  EntitySet Name: {0} , EntityType Name: {1} \", _  \n              baseSet.Name, baseSet.ElementType.FullName)  \n          End If  \n  \n          ' RelationshipSet is a super type for AssociationSet.  \n          ' Check if this instance is an AssociationSet.  \n          If TypeOf baseSet Is AssociationSet Then  \n            Console.WriteLine( _  \n              \"  AssociationSet Name: {0} , \" + _  \n              \"AssociationType Name: {1} \", _  \n              baseSet.Name, baseSet.ElementType.FullName)  \n  \n            ' Get the AssociationSet.  \n            Dim associationSet As AssociationSet = _  \n               TryCast(baseSet, AssociationSet)  \n  \n            ' Iterate through the collection to get   \n            '  each AssociatedSetEnd.  \n            Dim endMember As AssociationSetEnd  \n            For Each endMember In associationSet.AssociationSetEnds  \n              Console.WriteLine( _  \n                 \"   EntitySet Name: {0} , Name: {1} \", _  \n                 endMember.EntitySet, endMember.Name)  \n            Next  \n          End If  \n      Next  \n    Next  \n  End Sub  \nEnd Class  \n```"
   syntax:
     content: 'public sealed class EntityContainer : System.Data.Metadata.Edm.GlobalItem'
   inheritance:
@@ -61,9 +61,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Metadata.Edm/EntityContainer.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Metadata.Edm.EntityContainer.BaseEntitySets
   commentId: P:System.Data.Metadata.Edm.EntityContainer.BaseEntitySets
   id: BaseEntitySets
@@ -72,7 +69,7 @@ items:
   - csharp
   name: BaseEntitySets
   nameWithType: EntityContainer.BaseEntitySets
-  fullName: System.Data.Metadata.Edm.EntityContainer.BaseEntitySets
+  fullName: EntityContainer.BaseEntitySets
   type: Property
   assemblies:
   - System.Data.Entity
@@ -102,9 +99,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Metadata.Edm/EntityContainer.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Metadata.Edm.EntityContainer.BuiltInTypeKind
   commentId: P:System.Data.Metadata.Edm.EntityContainer.BuiltInTypeKind
   id: BuiltInTypeKind
@@ -113,7 +107,7 @@ items:
   - csharp
   name: BuiltInTypeKind
   nameWithType: EntityContainer.BuiltInTypeKind
-  fullName: System.Data.Metadata.Edm.EntityContainer.BuiltInTypeKind
+  fullName: EntityContainer.BuiltInTypeKind
   type: Property
   assemblies:
   - System.Data.Entity
@@ -143,9 +137,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Metadata.Edm/EntityContainer.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Metadata.Edm.EntityContainer.FunctionImports
   commentId: P:System.Data.Metadata.Edm.EntityContainer.FunctionImports
   id: FunctionImports
@@ -154,7 +145,7 @@ items:
   - csharp
   name: FunctionImports
   nameWithType: EntityContainer.FunctionImports
-  fullName: System.Data.Metadata.Edm.EntityContainer.FunctionImports
+  fullName: EntityContainer.FunctionImports
   type: Property
   assemblies:
   - System.Data.Entity
@@ -184,9 +175,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Metadata.Edm/EntityContainer.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Metadata.Edm.EntityContainer.GetEntitySetByName(System.String,System.Boolean)
   commentId: M:System.Data.Metadata.Edm.EntityContainer.GetEntitySetByName(System.String,System.Boolean)
   id: GetEntitySetByName(System.String,System.Boolean)
@@ -195,7 +183,7 @@ items:
   - csharp
   name: GetEntitySetByName(String, Boolean)
   nameWithType: EntityContainer.GetEntitySetByName(String, Boolean)
-  fullName: System.Data.Metadata.Edm.EntityContainer.GetEntitySetByName(String, Boolean)
+  fullName: EntityContainer.GetEntitySetByName(String, Boolean)
   type: Method
   assemblies:
   - System.Data.Entity
@@ -232,9 +220,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Metadata.Edm/EntityContainer.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Metadata.Edm.EntityContainer.GetRelationshipSetByName(System.String,System.Boolean)
   commentId: M:System.Data.Metadata.Edm.EntityContainer.GetRelationshipSetByName(System.String,System.Boolean)
   id: GetRelationshipSetByName(System.String,System.Boolean)
@@ -243,7 +228,7 @@ items:
   - csharp
   name: GetRelationshipSetByName(String, Boolean)
   nameWithType: EntityContainer.GetRelationshipSetByName(String, Boolean)
-  fullName: System.Data.Metadata.Edm.EntityContainer.GetRelationshipSetByName(String, Boolean)
+  fullName: EntityContainer.GetRelationshipSetByName(String, Boolean)
   type: Method
   assemblies:
   - System.Data.Entity
@@ -280,9 +265,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Metadata.Edm/EntityContainer.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Metadata.Edm.EntityContainer.Name
   commentId: P:System.Data.Metadata.Edm.EntityContainer.Name
   id: Name
@@ -291,7 +273,7 @@ items:
   - csharp
   name: Name
   nameWithType: EntityContainer.Name
-  fullName: System.Data.Metadata.Edm.EntityContainer.Name
+  fullName: EntityContainer.Name
   type: Property
   assemblies:
   - System.Data.Entity
@@ -321,9 +303,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Metadata.Edm/EntityContainer.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Metadata.Edm.EntityContainer.ToString
   commentId: M:System.Data.Metadata.Edm.EntityContainer.ToString
   id: ToString
@@ -332,7 +311,7 @@ items:
   - csharp
   name: ToString()
   nameWithType: EntityContainer.ToString()
-  fullName: System.Data.Metadata.Edm.EntityContainer.ToString()
+  fullName: EntityContainer.ToString()
   type: Method
   assemblies:
   - System.Data.Entity
@@ -363,9 +342,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Metadata.Edm/EntityContainer.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Metadata.Edm.EntityContainer.TryGetEntitySetByName(System.String,System.Boolean,System.Data.Metadata.Edm.EntitySet@)
   commentId: M:System.Data.Metadata.Edm.EntityContainer.TryGetEntitySetByName(System.String,System.Boolean,System.Data.Metadata.Edm.EntitySet@)
   id: TryGetEntitySetByName(System.String,System.Boolean,System.Data.Metadata.Edm.EntitySet@)
@@ -374,7 +350,7 @@ items:
   - csharp
   name: TryGetEntitySetByName(String, Boolean, EntitySet)
   nameWithType: EntityContainer.TryGetEntitySetByName(String, Boolean, EntitySet)
-  fullName: System.Data.Metadata.Edm.EntityContainer.TryGetEntitySetByName(String, Boolean, EntitySet)
+  fullName: EntityContainer.TryGetEntitySetByName(String, Boolean, EntitySet)
   type: Method
   assemblies:
   - System.Data.Entity
@@ -414,9 +390,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Metadata.Edm/EntityContainer.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 - uid: System.Data.Metadata.Edm.EntityContainer.TryGetRelationshipSetByName(System.String,System.Boolean,System.Data.Metadata.Edm.RelationshipSet@)
   commentId: M:System.Data.Metadata.Edm.EntityContainer.TryGetRelationshipSetByName(System.String,System.Boolean,System.Data.Metadata.Edm.RelationshipSet@)
   id: TryGetRelationshipSetByName(System.String,System.Boolean,System.Data.Metadata.Edm.RelationshipSet@)
@@ -425,7 +398,7 @@ items:
   - csharp
   name: TryGetRelationshipSetByName(String, Boolean, RelationshipSet)
   nameWithType: EntityContainer.TryGetRelationshipSetByName(String, Boolean, RelationshipSet)
-  fullName: System.Data.Metadata.Edm.EntityContainer.TryGetRelationshipSetByName(String, Boolean, RelationshipSet)
+  fullName: EntityContainer.TryGetRelationshipSetByName(String, Boolean, RelationshipSet)
   type: Method
   assemblies:
   - System.Data.Entity
@@ -465,9 +438,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Data.Metadata.Edm/EntityContainer.xml
-  author: JennieHubbard
-  ms.author: jhubbard
-  manager: jhubbard
 references:
 - uid: System.Data.Metadata.Edm.GlobalItem
   parent: System.Data.Metadata.Edm
@@ -480,7 +450,7 @@ references:
   isExternal: false
   name: BaseEntitySets
   nameWithType: EntityContainer.BaseEntitySets
-  fullName: System.Data.Metadata.Edm.EntityContainer.BaseEntitySets
+  fullName: EntityContainer.BaseEntitySets
 - uid: System.Data.Metadata.Edm.ReadOnlyMetadataCollection`1
   name: ReadOnlyMetadataCollection<T>
   nameWithType: ReadOnlyMetadataCollection<T>
@@ -515,7 +485,7 @@ references:
   isExternal: false
   name: BuiltInTypeKind
   nameWithType: EntityContainer.BuiltInTypeKind
-  fullName: System.Data.Metadata.Edm.EntityContainer.BuiltInTypeKind
+  fullName: EntityContainer.BuiltInTypeKind
 - uid: System.Data.Metadata.Edm.BuiltInTypeKind
   parent: System.Data.Metadata.Edm
   isExternal: false
@@ -527,7 +497,7 @@ references:
   isExternal: false
   name: FunctionImports
   nameWithType: EntityContainer.FunctionImports
-  fullName: System.Data.Metadata.Edm.EntityContainer.FunctionImports
+  fullName: EntityContainer.FunctionImports
 - uid: System.Data.Metadata.Edm.EdmFunction
   name: EdmFunction
   nameWithType: EdmFunction
@@ -558,7 +528,7 @@ references:
   isExternal: false
   name: GetEntitySetByName(String, Boolean)
   nameWithType: EntityContainer.GetEntitySetByName(String, Boolean)
-  fullName: System.Data.Metadata.Edm.EntityContainer.GetEntitySetByName(String, Boolean)
+  fullName: EntityContainer.GetEntitySetByName(String, Boolean)
 - uid: System.Data.Metadata.Edm.EntitySet
   parent: System.Data.Metadata.Edm
   isExternal: false
@@ -582,7 +552,7 @@ references:
   isExternal: false
   name: GetRelationshipSetByName(String, Boolean)
   nameWithType: EntityContainer.GetRelationshipSetByName(String, Boolean)
-  fullName: System.Data.Metadata.Edm.EntityContainer.GetRelationshipSetByName(String, Boolean)
+  fullName: EntityContainer.GetRelationshipSetByName(String, Boolean)
 - uid: System.Data.Metadata.Edm.RelationshipSet
   parent: System.Data.Metadata.Edm
   isExternal: false
@@ -594,31 +564,31 @@ references:
   isExternal: false
   name: Name
   nameWithType: EntityContainer.Name
-  fullName: System.Data.Metadata.Edm.EntityContainer.Name
+  fullName: EntityContainer.Name
 - uid: System.Data.Metadata.Edm.EntityContainer.ToString
   parent: System.Data.Metadata.Edm.EntityContainer
   isExternal: false
   name: ToString()
   nameWithType: EntityContainer.ToString()
-  fullName: System.Data.Metadata.Edm.EntityContainer.ToString()
+  fullName: EntityContainer.ToString()
 - uid: System.Data.Metadata.Edm.EntityContainer.TryGetEntitySetByName(System.String,System.Boolean,System.Data.Metadata.Edm.EntitySet@)
   parent: System.Data.Metadata.Edm.EntityContainer
   isExternal: false
   name: TryGetEntitySetByName(String, Boolean, EntitySet)
   nameWithType: EntityContainer.TryGetEntitySetByName(String, Boolean, EntitySet)
-  fullName: System.Data.Metadata.Edm.EntityContainer.TryGetEntitySetByName(String, Boolean, EntitySet)
+  fullName: EntityContainer.TryGetEntitySetByName(String, Boolean, EntitySet)
 - uid: System.Data.Metadata.Edm.EntityContainer.TryGetRelationshipSetByName(System.String,System.Boolean,System.Data.Metadata.Edm.RelationshipSet@)
   parent: System.Data.Metadata.Edm.EntityContainer
   isExternal: false
   name: TryGetRelationshipSetByName(String, Boolean, RelationshipSet)
   nameWithType: EntityContainer.TryGetRelationshipSetByName(String, Boolean, RelationshipSet)
-  fullName: System.Data.Metadata.Edm.EntityContainer.TryGetRelationshipSetByName(String, Boolean, RelationshipSet)
+  fullName: EntityContainer.TryGetRelationshipSetByName(String, Boolean, RelationshipSet)
 - uid: System.Data.Metadata.Edm.EntityContainer.BaseEntitySets*
   parent: System.Data.Metadata.Edm.EntityContainer
   isExternal: false
   name: BaseEntitySets
   nameWithType: EntityContainer.BaseEntitySets
-  fullName: System.Data.Metadata.Edm.EntityContainer.BaseEntitySets
+  fullName: EntityContainer.BaseEntitySets
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -633,7 +603,7 @@ references:
   isExternal: false
   name: BuiltInTypeKind
   nameWithType: EntityContainer.BuiltInTypeKind
-  fullName: System.Data.Metadata.Edm.EntityContainer.BuiltInTypeKind
+  fullName: EntityContainer.BuiltInTypeKind
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -648,7 +618,7 @@ references:
   isExternal: false
   name: FunctionImports
   nameWithType: EntityContainer.FunctionImports
-  fullName: System.Data.Metadata.Edm.EntityContainer.FunctionImports
+  fullName: EntityContainer.FunctionImports
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -663,7 +633,7 @@ references:
   isExternal: false
   name: GetEntitySetByName
   nameWithType: EntityContainer.GetEntitySetByName
-  fullName: System.Data.Metadata.Edm.EntityContainer.GetEntitySetByName
+  fullName: EntityContainer.GetEntitySetByName
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -678,7 +648,7 @@ references:
   isExternal: false
   name: GetRelationshipSetByName
   nameWithType: EntityContainer.GetRelationshipSetByName
-  fullName: System.Data.Metadata.Edm.EntityContainer.GetRelationshipSetByName
+  fullName: EntityContainer.GetRelationshipSetByName
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -693,7 +663,7 @@ references:
   isExternal: false
   name: Name
   nameWithType: EntityContainer.Name
-  fullName: System.Data.Metadata.Edm.EntityContainer.Name
+  fullName: EntityContainer.Name
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -708,7 +678,7 @@ references:
   isExternal: false
   name: ToString
   nameWithType: EntityContainer.ToString
-  fullName: System.Data.Metadata.Edm.EntityContainer.ToString
+  fullName: EntityContainer.ToString
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -723,7 +693,7 @@ references:
   isExternal: false
   name: TryGetEntitySetByName
   nameWithType: EntityContainer.TryGetEntitySetByName
-  fullName: System.Data.Metadata.Edm.EntityContainer.TryGetEntitySetByName
+  fullName: EntityContainer.TryGetEntitySetByName
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -738,7 +708,7 @@ references:
   isExternal: false
   name: TryGetRelationshipSetByName
   nameWithType: EntityContainer.TryGetRelationshipSetByName
-  fullName: System.Data.Metadata.Edm.EntityContainer.TryGetRelationshipSetByName
+  fullName: EntityContainer.TryGetRelationshipSetByName
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

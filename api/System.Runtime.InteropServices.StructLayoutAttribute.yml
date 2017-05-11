@@ -22,7 +22,7 @@ items:
   - netstandard
   namespace: System.Runtime.InteropServices
   summary: Lets you control the physical layout of the data fields of a class or structure in memory.
-  remarks: "You can apply this attribute to classes or structures.  \n  \n The common language runtime controls the physical layout of the data fields of a class or structure in managed memory. However, if you want to pass the type to unmanaged code, you can use the <xref:System.Runtime.InteropServices.StructLayoutAttribute> attribute to control the unmanaged layout of the type. Use the attribute with <xref:System.Runtime.InteropServices.LayoutKind?displayProperty=fullName> to force the members to be laid out sequentially in the order they appear. For , <xref:System.Runtime.InteropServices.LayoutKind?displayProperty=fullName> controls both the layout in managed memory and the layout in unmanaged memory. For non-blittable types, it controls the layout when the class or structure is marshaled to unmanaged code, but does not control the layout in managed memory. Use the attribute with <xref:System.Runtime.InteropServices.LayoutKind?displayProperty=fullName> to control the precise position of each data member. This affects both managed and unmanaged layout, for both blittable and non-blittable types. Using <xref:System.Runtime.InteropServices.LayoutKind?displayProperty=fullName> requires that you use the <xref:System.Runtime.InteropServices.FieldOffsetAttribute> attribute to indicate the position of each field within the type.  \n  \n C#, Visual Basic, and C++ compilers apply the <xref:System.Runtime.InteropServices.LayoutKind> layout value to structures by default. For classes, you must apply the <xref:System.Runtime.InteropServices.LayoutKind?displayProperty=fullName> value explicitly. The [Tlbimp.exe (Type Library Importer)](~/docs/framework/tools/tlbimp-exe-type-library-importer.md) also applies the <xref:System.Runtime.InteropServices.StructLayoutAttribute> attribute; it always applies the <xref:System.Runtime.InteropServices.LayoutKind?displayProperty=fullName> value when it imports a type library."
+  remarks: "You can apply this attribute to classes or structures.  \n  \n The common language runtime controls the physical layout of the data fields of a class or structure in managed memory. However, if you want to pass the type to unmanaged code, you can use the <xref:System.Runtime.InteropServices.StructLayoutAttribute> attribute to control the unmanaged layout of the type. Use the attribute with <xref:System.Runtime.InteropServices.LayoutKind?displayProperty=fullName> to force the members to be laid out sequentially in the order they appear. For , <xref:System.Runtime.InteropServices.LayoutKind?displayProperty=fullName> controls both the layout in managed memory and the layout in unmanaged memory. For non-blittable types, it controls the layout when the class or structure is marshaled to unmanaged code, but does not control the layout in managed memory. Use the attribute with <xref:System.Runtime.InteropServices.LayoutKind?displayProperty=fullName> to control the precise position of each data member. This affects both managed and unmanaged layout, for both blittable and non-blittable types. Using <xref:System.Runtime.InteropServices.LayoutKind?displayProperty=fullName> requires that you use the <xref:System.Runtime.InteropServices.FieldOffsetAttribute> attribute to indicate the position of each field within the type.  \n  \n C#, Visual Basic, and C++ compilers apply the <xref:System.Runtime.InteropServices.LayoutKind.Sequential> layout value to structures by default. For classes, you must apply the <xref:System.Runtime.InteropServices.LayoutKind?displayProperty=fullName> value explicitly. The [Tlbimp.exe (Type Library Importer)](~/docs/framework/tools/tlbimp-exe-type-library-importer.md) also applies the <xref:System.Runtime.InteropServices.StructLayoutAttribute> attribute; it always applies the <xref:System.Runtime.InteropServices.LayoutKind?displayProperty=fullName> value when it imports a type library."
   example:
   - "The following example demonstrates a managed declaration of the `GetSystemTime` function and defines `MySystemTime` class with <xref:System.Runtime.InteropServices.LayoutKind?displayProperty=fullName> layout. `GetSystemTime` gets the system time and prints to the console.  \n  \n [!code-cpp[StructLayoutAttribute#1](~/samples/snippets/cpp/VS_Snippets_CLR/StructLayoutAttribute/CPP/structlayoutattribute.cpp#1)]\n [!code-csharp[StructLayoutAttribute#1](~/samples/snippets/csharp/VS_Snippets_CLR/StructLayoutAttribute/CS/structlayoutattribute.cs#1)]\n [!code-vb[StructLayoutAttribute#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/StructLayoutAttribute/VB/structlayoutattribute.vb#1)]"
   syntax:
@@ -88,7 +88,8 @@ items:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -109,7 +110,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -129,9 +131,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/StructLayoutAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.StructLayoutAttribute.#ctor(System.Int16)
   commentId: M:System.Runtime.InteropServices.StructLayoutAttribute.#ctor(System.Int16)
   id: '#ctor(System.Int16)'
@@ -140,11 +139,12 @@ items:
   - csharp
   name: StructLayoutAttribute(Int16)
   nameWithType: StructLayoutAttribute.StructLayoutAttribute(Int16)
-  fullName: System.Runtime.InteropServices.StructLayoutAttribute.StructLayoutAttribute(Int16)
+  fullName: StructLayoutAttribute.StructLayoutAttribute(Int16)
   type: Constructor
   assemblies:
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Runtime.InteropServices
   summary: Initalizes a new instance of the <xref href="System.Runtime.InteropServices.StructLayoutAttribute"></xref> class with the specified <xref href="System.Runtime.InteropServices.LayoutKind"></xref> enumeration member.
   remarks: This constructor takes an underlying 16-bit integer that represents each <xref:System.Runtime.InteropServices.LayoutKind> enumeration member. The [Tlbimp.exe (Type Library Importer)](~/docs/framework/tools/tlbimp-exe-type-library-importer.md) uses this constructor.
@@ -157,6 +157,7 @@ items:
   overload: System.Runtime.InteropServices.StructLayoutAttribute.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -169,6 +170,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -181,9 +183,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/StructLayoutAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.StructLayoutAttribute.#ctor(System.Runtime.InteropServices.LayoutKind)
   commentId: M:System.Runtime.InteropServices.StructLayoutAttribute.#ctor(System.Runtime.InteropServices.LayoutKind)
   id: '#ctor(System.Runtime.InteropServices.LayoutKind)'
@@ -192,7 +191,7 @@ items:
   - csharp
   name: StructLayoutAttribute(LayoutKind)
   nameWithType: StructLayoutAttribute.StructLayoutAttribute(LayoutKind)
-  fullName: System.Runtime.InteropServices.StructLayoutAttribute.StructLayoutAttribute(LayoutKind)
+  fullName: StructLayoutAttribute.StructLayoutAttribute(LayoutKind)
   type: Constructor
   assemblies:
   - System.Runtime
@@ -211,7 +210,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -232,7 +232,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -252,9 +253,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/StructLayoutAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.StructLayoutAttribute.CharSet
   commentId: F:System.Runtime.InteropServices.StructLayoutAttribute.CharSet
   id: CharSet
@@ -263,7 +261,7 @@ items:
   - csharp
   name: CharSet
   nameWithType: StructLayoutAttribute.CharSet
-  fullName: System.Runtime.InteropServices.StructLayoutAttribute.CharSet
+  fullName: StructLayoutAttribute.CharSet
   type: Field
   assemblies:
   - System.Runtime
@@ -280,7 +278,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -301,7 +300,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -321,9 +321,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/StructLayoutAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.StructLayoutAttribute.Pack
   commentId: F:System.Runtime.InteropServices.StructLayoutAttribute.Pack
   id: Pack
@@ -332,7 +329,7 @@ items:
   - csharp
   name: Pack
   nameWithType: StructLayoutAttribute.Pack
-  fullName: System.Runtime.InteropServices.StructLayoutAttribute.Pack
+  fullName: StructLayoutAttribute.Pack
   type: Field
   assemblies:
   - System.Runtime
@@ -349,7 +346,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -370,7 +368,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -390,9 +389,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/StructLayoutAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.StructLayoutAttribute.Size
   commentId: F:System.Runtime.InteropServices.StructLayoutAttribute.Size
   id: Size
@@ -401,7 +397,7 @@ items:
   - csharp
   name: Size
   nameWithType: StructLayoutAttribute.Size
-  fullName: System.Runtime.InteropServices.StructLayoutAttribute.Size
+  fullName: StructLayoutAttribute.Size
   type: Field
   assemblies:
   - System.Runtime
@@ -418,7 +414,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -439,7 +436,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -459,9 +457,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/StructLayoutAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Runtime.InteropServices.StructLayoutAttribute.Value
   commentId: P:System.Runtime.InteropServices.StructLayoutAttribute.Value
   id: Value
@@ -470,7 +465,7 @@ items:
   - csharp
   name: Value
   nameWithType: StructLayoutAttribute.Value
-  fullName: System.Runtime.InteropServices.StructLayoutAttribute.Value
+  fullName: StructLayoutAttribute.Value
   type: Property
   assemblies:
   - System.Runtime
@@ -487,7 +482,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -508,7 +504,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -528,9 +525,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Runtime.InteropServices/StructLayoutAttribute.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.Attribute
   parent: System
@@ -543,7 +537,7 @@ references:
   isExternal: false
   name: StructLayoutAttribute(Int16)
   nameWithType: StructLayoutAttribute.StructLayoutAttribute(Int16)
-  fullName: System.Runtime.InteropServices.StructLayoutAttribute.StructLayoutAttribute(Int16)
+  fullName: StructLayoutAttribute.StructLayoutAttribute(Int16)
 - uid: System.Int16
   parent: System
   isExternal: false
@@ -555,7 +549,7 @@ references:
   isExternal: false
   name: StructLayoutAttribute(LayoutKind)
   nameWithType: StructLayoutAttribute.StructLayoutAttribute(LayoutKind)
-  fullName: System.Runtime.InteropServices.StructLayoutAttribute.StructLayoutAttribute(LayoutKind)
+  fullName: StructLayoutAttribute.StructLayoutAttribute(LayoutKind)
 - uid: System.Runtime.InteropServices.LayoutKind
   parent: System.Runtime.InteropServices
   isExternal: false
@@ -567,7 +561,7 @@ references:
   isExternal: false
   name: CharSet
   nameWithType: StructLayoutAttribute.CharSet
-  fullName: System.Runtime.InteropServices.StructLayoutAttribute.CharSet
+  fullName: StructLayoutAttribute.CharSet
 - uid: System.Runtime.InteropServices.CharSet
   parent: System.Runtime.InteropServices
   isExternal: false
@@ -579,7 +573,7 @@ references:
   isExternal: false
   name: Pack
   nameWithType: StructLayoutAttribute.Pack
-  fullName: System.Runtime.InteropServices.StructLayoutAttribute.Pack
+  fullName: StructLayoutAttribute.Pack
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -591,20 +585,21 @@ references:
   isExternal: false
   name: Size
   nameWithType: StructLayoutAttribute.Size
-  fullName: System.Runtime.InteropServices.StructLayoutAttribute.Size
+  fullName: StructLayoutAttribute.Size
 - uid: System.Runtime.InteropServices.StructLayoutAttribute.Value
   parent: System.Runtime.InteropServices.StructLayoutAttribute
   isExternal: false
   name: Value
   nameWithType: StructLayoutAttribute.Value
-  fullName: System.Runtime.InteropServices.StructLayoutAttribute.Value
+  fullName: StructLayoutAttribute.Value
 - uid: System.Runtime.InteropServices.StructLayoutAttribute.#ctor*
   parent: System.Runtime.InteropServices.StructLayoutAttribute
   isExternal: false
   name: StructLayoutAttribute
   nameWithType: StructLayoutAttribute.StructLayoutAttribute
-  fullName: System.Runtime.InteropServices.StructLayoutAttribute.StructLayoutAttribute
+  fullName: StructLayoutAttribute.StructLayoutAttribute
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -617,7 +612,7 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
   - netstandard-1.0
   - netstandard-1.1
   - netstandard-1.2
@@ -631,10 +626,11 @@ references:
   isExternal: false
   name: Value
   nameWithType: StructLayoutAttribute.Value
-  fullName: System.Runtime.InteropServices.StructLayoutAttribute.Value
+  fullName: StructLayoutAttribute.Value
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

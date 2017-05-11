@@ -64,9 +64,9 @@ items:
   - WindowsBase
   namespace: System.Windows.Threading
   summary: Provides services for managing the queue of work items for a thread.
-  remarks: "The <xref:System.Windows.Threading.Dispatcher> maintains a prioritized queue of work items for a specific thread.  \n  \n When a <xref:System.Windows.Threading.Dispatcher> is created on a thread, it becomes the only <xref:System.Windows.Threading.Dispatcher> that can be associated with the thread, even if the <xref:System.Windows.Threading.Dispatcher> is shut down.  \n  \n If you attempt to get the <xref:System.Windows.Threading.Dispatcher.CurrentDispatcher%2A> for the current thread and a <xref:System.Windows.Threading.Dispatcher> is not associated with the thread, a <xref:System.Windows.Threading.Dispatcher> will be created. A <xref:System.Windows.Threading.Dispatcher> is also created when you create a <xref:System.Windows.Threading.DispatcherObject>. If you create a <xref:System.Windows.Threading.Dispatcher> on a background thread, be sure to shut down the dispatcher before exiting the thread.  \n  \n If a <xref:System.Windows.Threading.Dispatcher> is shut down, it cannot be restarted.  \n  \n In [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)], a <xref:System.Windows.Threading.DispatcherObject> can only be accessed by the <xref:System.Windows.Threading.Dispatcher> it is associated with.  For example, a background thread cannot update the contents of a <xref:System.Windows.Controls.Button> that is associated with the <xref:System.Windows.Threading.Dispatcher> on the [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)] thread.  In order for the background thread to access the <xref:System.Windows.Controls.ContentControl.Content%2A> property of the <xref:System.Windows.Controls.Button>, the background thread must delegate the work to the <xref:System.Windows.Threading.Dispatcher> associated with the [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)] thread.  This is accomplished by using either <xref:System.Windows.Threading.Dispatcher.Invoke%2A> or <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A>. <xref:System.Windows.Threading.Dispatcher.Invoke%2A> is synchronous and <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous.  The operation is added to the queue of the <xref:System.Windows.Threading.Dispatcher> at the specified <xref:System.Windows.Threading.DispatcherPriority>.  \n  \n If <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is called on a <xref:System.Windows.Threading.Dispatcher> that has shut down, the status property of the returned <xref:System.Windows.Threading.DispatcherOperation> is set to <xref:System.Windows.Threading.DispatcherOperationStatus>.  \n  \n All of the methods on <xref:System.Windows.Threading.Dispatcher>, with the exception of <xref:System.Windows.Threading.Dispatcher.DisableProcessing%2A>, are free-threaded.  \n  \n Objects that derive from <xref:System.Windows.Threading.DispatcherObject> have thread affinity.  \n  \n Objects that derive from <xref:System.Windows.Freezable> are free-threaded when they are frozen.  For more information, see [Freezable Objects Overview](~/docs/framework/wpf/advanced/freezable-objects-overview.md)."
+  remarks: "The <xref:System.Windows.Threading.Dispatcher> maintains a prioritized queue of work items for a specific thread.  \n  \n When a <xref:System.Windows.Threading.Dispatcher> is created on a thread, it becomes the only <xref:System.Windows.Threading.Dispatcher> that can be associated with the thread, even if the <xref:System.Windows.Threading.Dispatcher> is shut down.  \n  \n If you attempt to get the <xref:System.Windows.Threading.Dispatcher.CurrentDispatcher%2A> for the current thread and a <xref:System.Windows.Threading.Dispatcher> is not associated with the thread, a <xref:System.Windows.Threading.Dispatcher> will be created. A <xref:System.Windows.Threading.Dispatcher> is also created when you create a <xref:System.Windows.Threading.DispatcherObject>. If you create a <xref:System.Windows.Threading.Dispatcher> on a background thread, be sure to shut down the dispatcher before exiting the thread.  \n  \n If a <xref:System.Windows.Threading.Dispatcher> is shut down, it cannot be restarted.  \n  \n In [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)], a <xref:System.Windows.Threading.DispatcherObject> can only be accessed by the <xref:System.Windows.Threading.Dispatcher> it is associated with.  For example, a background thread cannot update the contents of a <xref:System.Windows.Controls.Button> that is associated with the <xref:System.Windows.Threading.Dispatcher> on the [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)] thread.  In order for the background thread to access the <xref:System.Windows.Controls.ContentControl.Content%2A> property of the <xref:System.Windows.Controls.Button>, the background thread must delegate the work to the <xref:System.Windows.Threading.Dispatcher> associated with the [!INCLUDE[TLA2#tla_ui](~/includes/tla2sharptla-ui-md.md)] thread.  This is accomplished by using either <xref:System.Windows.Threading.Dispatcher.Invoke%2A> or <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A>. <xref:System.Windows.Threading.Dispatcher.Invoke%2A> is synchronous and <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous.  The operation is added to the queue of the <xref:System.Windows.Threading.Dispatcher> at the specified <xref:System.Windows.Threading.DispatcherPriority>.  \n  \n If <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is called on a <xref:System.Windows.Threading.Dispatcher> that has shut down, the status property of the returned <xref:System.Windows.Threading.DispatcherOperation> is set to <xref:System.Windows.Threading.DispatcherOperationStatus.Aborted>.  \n  \n All of the methods on <xref:System.Windows.Threading.Dispatcher>, with the exception of <xref:System.Windows.Threading.Dispatcher.DisableProcessing%2A>, are free-threaded.  \n  \n Objects that derive from <xref:System.Windows.Threading.DispatcherObject> have thread affinity.  \n  \n Objects that derive from <xref:System.Windows.Freezable> are free-threaded when they are frozen.  For more information, see [Freezable Objects Overview](~/docs/framework/wpf/advanced/freezable-objects-overview.md)."
   example:
-  - "The following example shows how to place an operation onto a <xref:System.Windows.Threading.Dispatcher>.  For the full source code of this example, see [Single-Threaded Application with Long-Running Calculation Sample](http://go.microsoft.com/fwlink/?LinkID=160038).  \n  \n First, a delegate is created that accepts no arguments.  \n  \n <!-- TODO: review snippet reference [!code-csharp[ThreadingPrimeNumber#ThreadingPrimeNumberInit](~/samples/snippets/csharp/VS_Snippets_Wpf/ThreadingPrimeNumber/CSharp/Window1.xaml.cs#threadingprimenumberinit)]  -->\n <!-- TODO: review snippet reference [!code-vb[ThreadingPrimeNumber#ThreadingPrimeNumberInit](~/samples/snippets/visualbasic/VS_Snippets_Wpf/ThreadingPrimeNumber/visualbasic/mainwindow.xaml.vb#threadingprimenumberinit)]  -->  \n  \n Next, <xref:System.Windows.Threading.Dispatcher.BeginInvoke%28System.Windows.Threading.DispatcherPriority%2CSystem.Delegate%29> is called.  This call to <xref:System.Windows.Threading.Dispatcher.BeginInvoke%28System.Windows.Threading.DispatcherPriority%2CSystem.Delegate%29> takes two parameters: the priority, which is set to <xref:System.Windows.Threading.DispatcherPriority?displayProperty=fullName>, and the callback, which is passed in through an instance of the delegate `NextPrimeDelegate`.  \n  \n <!-- TODO: review snippet reference [!code-csharp[ThreadingPrimeNumber#ThreadingPrimeNumberBeingInvoke](~/samples/snippets/csharp/VS_Snippets_Wpf/ThreadingPrimeNumber/CSharp/Window1.xaml.cs#threadingprimenumberbeinginvoke)]  -->\n <!-- TODO: review snippet reference [!code-vb[ThreadingPrimeNumber#ThreadingPrimeNumberBeingInvoke](~/samples/snippets/visualbasic/VS_Snippets_Wpf/ThreadingPrimeNumber/visualbasic/mainwindow.xaml.vb#threadingprimenumberbeinginvoke)]  -->"
+  - "The following example shows how to place an operation onto a <xref:System.Windows.Threading.Dispatcher>.  For the full source code of this example, see [Single-Threaded Application with Long-Running Calculation Sample](http://go.microsoft.com/fwlink/?LinkID=160038).  \n  \n First, a delegate is created that accepts no arguments.  \n  \n [!code-csharp[ThreadingPrimeNumbers#ThreadingPrimeNumberInit](~/samples/snippets/csharp/VS_Snippets_Wpf/ThreadingPrimeNumbers/CSharp/Window1.xaml.cs#threadingprimenumberinit)] \n [!code-vb[ThreadingPrimeNumbers#ThreadingPrimeNumberInit](~/samples/snippets/visualbasic/VS_Snippets_Wpf/ThreadingPrimeNumbers/visualbasic/mainwindow.xaml.vb#threadingprimenumberinit)]   \n  \n Next, <xref:System.Windows.Threading.Dispatcher.BeginInvoke%28System.Windows.Threading.DispatcherPriority%2CSystem.Delegate%29> is called.  This call to <xref:System.Windows.Threading.Dispatcher.BeginInvoke%28System.Windows.Threading.DispatcherPriority%2CSystem.Delegate%29> takes two parameters: the priority, which is set to <xref:System.Windows.Threading.DispatcherPriority?displayProperty=fullName>, and the callback, which is passed in through an instance of the delegate `NextPrimeDelegate`.  \n  \n [!code-csharp[ThreadingPrimeNumbers#ThreadingPrimeNumberBeginInvoke](~/samples/snippets/csharp/VS_Snippets_Wpf/ThreadingPrimeNumbers/CSharp/Window1.xaml.cs#threadingprimenumberbegininvoke)] \n [!code-vb[ThreadingPrimeNumbers#ThreadingPrimeNumberBeginInvoke](~/samples/snippets/visualbasic/VS_Snippets_Wpf/ThreadingPrimeNumbers/visualbasic/mainwindow.xaml.vb#threadingprimenumberbegininvoke)]"
   syntax:
     content: public sealed class Dispatcher
   inheritance:
@@ -104,8 +104,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Threading.Dispatcher.BeginInvoke(System.Delegate,System.Object[])
   commentId: M:System.Windows.Threading.Dispatcher.BeginInvoke(System.Delegate,System.Object[])
   id: BeginInvoke(System.Delegate,System.Object[])
@@ -114,13 +112,13 @@ items:
   - csharp
   name: BeginInvoke(Delegate, Object[])
   nameWithType: Dispatcher.BeginInvoke(Delegate, Object[])
-  fullName: System.Windows.Threading.Dispatcher.BeginInvoke(Delegate, Object[])
+  fullName: Dispatcher.BeginInvoke(Delegate, Object[])
   type: Method
   assemblies:
   - WindowsBase
   namespace: System.Windows.Threading
   summary: Executes the specified delegate asynchronously with the specified arguments on the thread that the <xref href="System.Windows.Threading.Dispatcher"></xref> was created on.
-  remarks: "The <xref:System.Windows.Threading.DispatcherOperation> object returned by <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> can be used in several ways to interact with the specified delegate, such as:  \n  \n-   Changing the <xref:System.Windows.Threading.DispatcherPriority> of the delegate as it is pending execution in the event queue.  \n  \n-   Removing the delegate from the event queue.  \n  \n-   Waiting for the delegate to return.  \n  \n-   Obtaining the value that the delegate returns after it is executed.  \n  \n <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous; therefore, control returns immediately to the calling object after it is called.  \n  \n In [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)], only the thread that created a <xref:System.Windows.Threading.DispatcherObject> may access that object. For example, a background thread that is spun off from the main UI thread cannot update the contents of a <xref:System.Windows.Controls.Button> that was created on the UI thread. In order for the background thread to access the Content property of the <xref:System.Windows.Controls.Button>, the background thread must delegate the work to the <xref:System.Windows.Threading.Dispatcher> associated with the UI thread. This is accomplished by using either <xref:System.Windows.Threading.Dispatcher.Invoke%2A> or <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A>. <xref:System.Windows.Threading.Dispatcher.Invoke%2A> is synchronous and <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous. The operation is added to the event queue of the <xref:System.Windows.Threading.Dispatcher> at the specified <xref:System.Windows.Threading.DispatcherPriority>.  \n  \n If <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is called on a <xref:System.Windows.Threading.Dispatcher> that has shut down, the status property of the returned <xref:System.Windows.Threading.DispatcherOperation> is set to <xref:System.Windows.Threading.DispatcherOperationStatus>."
+  remarks: "The <xref:System.Windows.Threading.DispatcherOperation> object returned by <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> can be used in several ways to interact with the specified delegate, such as:  \n  \n-   Changing the <xref:System.Windows.Threading.DispatcherPriority> of the delegate as it is pending execution in the event queue.  \n  \n-   Removing the delegate from the event queue.  \n  \n-   Waiting for the delegate to return.  \n  \n-   Obtaining the value that the delegate returns after it is executed.  \n  \n <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous; therefore, control returns immediately to the calling object after it is called.  \n  \n In [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)], only the thread that created a <xref:System.Windows.Threading.DispatcherObject> may access that object. For example, a background thread that is spun off from the main UI thread cannot update the contents of a <xref:System.Windows.Controls.Button> that was created on the UI thread. In order for the background thread to access the Content property of the <xref:System.Windows.Controls.Button>, the background thread must delegate the work to the <xref:System.Windows.Threading.Dispatcher> associated with the UI thread. This is accomplished by using either <xref:System.Windows.Threading.Dispatcher.Invoke%2A> or <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A>. <xref:System.Windows.Threading.Dispatcher.Invoke%2A> is synchronous and <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous. The operation is added to the event queue of the <xref:System.Windows.Threading.Dispatcher> at the specified <xref:System.Windows.Threading.DispatcherPriority>.  \n  \n If <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is called on a <xref:System.Windows.Threading.Dispatcher> that has shut down, the status property of the returned <xref:System.Windows.Threading.DispatcherOperation> is set to <xref:System.Windows.Threading.DispatcherOperationStatus.Aborted>."
   syntax:
     content: public System.Windows.Threading.DispatcherOperation BeginInvoke (Delegate method, object[] args);
     parameters:
@@ -132,7 +130,7 @@ items:
       description: An array of objects to pass as arguments to the given method. Can be `null`.
     return:
       type: System.Windows.Threading.DispatcherOperation
-      description: An object, which is returned immediately after <xref href="erload:System.Windows.Threading.Dispatcher.BeginInvoke"></xref> is called, that can be used to interact with the delegate as it is pending execution in the event queue.
+      description: An object, which is returned immediately after <xref href="System.Windows.Threading.Dispatcher.BeginInvoke*"></xref> is called, that can be used to interact with the delegate as it is pending execution in the event queue.
   overload: System.Windows.Threading.Dispatcher.BeginInvoke*
   exceptions: []
   version:
@@ -152,8 +150,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Threading.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority,System.Delegate)
   commentId: M:System.Windows.Threading.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority,System.Delegate)
   id: BeginInvoke(System.Windows.Threading.DispatcherPriority,System.Delegate)
@@ -162,15 +158,15 @@ items:
   - csharp
   name: BeginInvoke(DispatcherPriority, Delegate)
   nameWithType: Dispatcher.BeginInvoke(DispatcherPriority, Delegate)
-  fullName: System.Windows.Threading.Dispatcher.BeginInvoke(DispatcherPriority, Delegate)
+  fullName: Dispatcher.BeginInvoke(DispatcherPriority, Delegate)
   type: Method
   assemblies:
   - WindowsBase
   namespace: System.Windows.Threading
   summary: Executes the specified delegate asynchronously at the specified priority on the thread the <xref href="System.Windows.Threading.Dispatcher"></xref> is associated with.
-  remarks: "If multiple <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> calls are made at the same <xref:System.Windows.Threading.DispatcherPriority>, they will be executed in the order the calls were made.  \n  \n <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> returns a <xref:System.Windows.Threading.DispatcherOperation> object that can be used to interact with the delegate when the delegate is in the event queue.  \n  \n The <xref:System.Windows.Threading.DispatcherOperation> object returned by <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> can be used in several ways to interact with the specified delegate, such as:  \n  \n-   Changing the <xref:System.Windows.Threading.DispatcherPriority> of the delegate as it is pending execution in the event queue.  \n  \n-   Removing the delegate from the event queue.  \n  \n-   Waiting for the delegate to return.  \n  \n-   Obtaining the value that the delegate returns after it is executed.  \n  \n <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous; therefore, control returns immediately to the calling object after it is called.  \n  \n In [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)], only the thread that created a <xref:System.Windows.Threading.DispatcherObject> may access that object.  For example, a background thread that is spun off from the main UI thread cannot update the contents of a <xref:System.Windows.Controls.Button> that was created on the UI thread.  In order for the background thread to access the Content property of the <xref:System.Windows.Controls.Button>, the background thread must delegate the work to the <xref:System.Windows.Threading.Dispatcher> associated with the UI thread.  This is accomplished by using either <xref:System.Windows.Threading.Dispatcher.Invoke%2A> or <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A>.  <xref:System.Windows.Threading.Dispatcher.Invoke%2A> is synchronous and <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous.  The operation is added to the event queue of the <xref:System.Windows.Threading.Dispatcher> at the specified <xref:System.Windows.Threading.DispatcherPriority>.  \n  \n If <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is called on a <xref:System.Windows.Threading.Dispatcher> that has shut down, the status property of the returned <xref:System.Windows.Threading.DispatcherOperation> is set to <xref:System.Windows.Threading.DispatcherOperationStatus>."
+  remarks: "If multiple <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> calls are made at the same <xref:System.Windows.Threading.DispatcherPriority>, they will be executed in the order the calls were made.  \n  \n <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> returns a <xref:System.Windows.Threading.DispatcherOperation> object that can be used to interact with the delegate when the delegate is in the event queue.  \n  \n The <xref:System.Windows.Threading.DispatcherOperation> object returned by <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> can be used in several ways to interact with the specified delegate, such as:  \n  \n-   Changing the <xref:System.Windows.Threading.DispatcherPriority> of the delegate as it is pending execution in the event queue.  \n  \n-   Removing the delegate from the event queue.  \n  \n-   Waiting for the delegate to return.  \n  \n-   Obtaining the value that the delegate returns after it is executed.  \n  \n <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous; therefore, control returns immediately to the calling object after it is called.  \n  \n In [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)], only the thread that created a <xref:System.Windows.Threading.DispatcherObject> may access that object.  For example, a background thread that is spun off from the main UI thread cannot update the contents of a <xref:System.Windows.Controls.Button> that was created on the UI thread.  In order for the background thread to access the Content property of the <xref:System.Windows.Controls.Button>, the background thread must delegate the work to the <xref:System.Windows.Threading.Dispatcher> associated with the UI thread.  This is accomplished by using either <xref:System.Windows.Threading.Dispatcher.Invoke%2A> or <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A>.  <xref:System.Windows.Threading.Dispatcher.Invoke%2A> is synchronous and <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous.  The operation is added to the event queue of the <xref:System.Windows.Threading.Dispatcher> at the specified <xref:System.Windows.Threading.DispatcherPriority>.  \n  \n If <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is called on a <xref:System.Windows.Threading.Dispatcher> that has shut down, the status property of the returned <xref:System.Windows.Threading.DispatcherOperation> is set to <xref:System.Windows.Threading.DispatcherOperationStatus.Aborted>."
   example:
-  - "The following example shows how to place an operation onto a <xref:System.Windows.Threading.Dispatcher>.  For the full source code of this example, see [Single-Threaded Application with Long-Running Calculation Sample](http://go.microsoft.com/fwlink/?LinkID=160038).  \n  \n First, a delegate is created that accepts no arguments.  \n  \n <!-- TODO: review snippet reference [!code-csharp[ThreadingPrimeNumber#ThreadingPrimeNumberInit](~/samples/snippets/csharp/VS_Snippets_Wpf/ThreadingPrimeNumber/CSharp/Window1.xaml.cs#threadingprimenumberinit)]  -->\n <!-- TODO: review snippet reference [!code-vb[ThreadingPrimeNumber#ThreadingPrimeNumberInit](~/samples/snippets/visualbasic/VS_Snippets_Wpf/ThreadingPrimeNumber/visualbasic/mainwindow.xaml.vb#threadingprimenumberinit)]  -->  \n  \n Next, <xref:System.Windows.Threading.Dispatcher.BeginInvoke%28System.Windows.Threading.DispatcherPriority%2CSystem.Delegate%29> is called.  Because every <xref:System.Windows.Threading.DispatcherObject> has a property that returns the <xref:System.Windows.Threading.Dispatcher> it is associated with, the desired <xref:System.Windows.Threading.Dispatcher> is obtained by querying the <xref:System.Windows.Threading.DispatcherObject>, in this case a <xref:System.Windows.Controls.Button> named `startStopButton`.   The call to <xref:System.Windows.Threading.Dispatcher.BeginInvoke%28System.Windows.Threading.DispatcherPriority%2CSystem.Delegate%29> takes two parameters: the priority, which is set to <xref:System.Windows.Threading.DispatcherPriority?displayProperty=fullName>, and the callback, which is passed in through an instance of the delegate `NextPrimeDelegate`.  \n  \n <!-- TODO: review snippet reference [!code-csharp[ThreadingPrimeNumber#ThreadingPrimeNumberBeingInvoke](~/samples/snippets/csharp/VS_Snippets_Wpf/ThreadingPrimeNumber/CSharp/Window1.xaml.cs#threadingprimenumberbeinginvoke)]  -->\n <!-- TODO: review snippet reference [!code-vb[ThreadingPrimeNumber#ThreadingPrimeNumberBeingInvoke](~/samples/snippets/visualbasic/VS_Snippets_Wpf/ThreadingPrimeNumber/visualbasic/mainwindow.xaml.vb#threadingprimenumberbeinginvoke)]  -->"
+  - "The following example shows how to place an operation onto a <xref:System.Windows.Threading.Dispatcher>.  For the full source code of this example, see [Single-Threaded Application with Long-Running Calculation Sample](http://go.microsoft.com/fwlink/?LinkID=160038).  \n  \n First, a delegate is created that accepts no arguments.  \n  \n [!code-csharp[ThreadingPrimeNumbers#ThreadingPrimeNumberInit](~/samples/snippets/csharp/VS_Snippets_Wpf/ThreadingPrimeNumbers/CSharp/Window1.xaml.cs#threadingprimenumberinit)] \n [!code-vb[ThreadingPrimeNumbers#ThreadingPrimeNumberInit](~/samples/snippets/visualbasic/VS_Snippets_Wpf/ThreadingPrimeNumbers/visualbasic/mainwindow.xaml.vb#threadingprimenumberinit)]   \n  \n Next, <xref:System.Windows.Threading.Dispatcher.BeginInvoke%28System.Windows.Threading.DispatcherPriority%2CSystem.Delegate%29> is called.  Because every <xref:System.Windows.Threading.DispatcherObject> has a property that returns the <xref:System.Windows.Threading.Dispatcher> it is associated with, the desired <xref:System.Windows.Threading.Dispatcher> is obtained by querying the <xref:System.Windows.Threading.DispatcherObject>, in this case a <xref:System.Windows.Controls.Button> named `startStopButton`.   The call to <xref:System.Windows.Threading.Dispatcher.BeginInvoke%28System.Windows.Threading.DispatcherPriority%2CSystem.Delegate%29> takes two parameters: the priority, which is set to <xref:System.Windows.Threading.DispatcherPriority?displayProperty=fullName>, and the callback, which is passed in through an instance of the delegate `NextPrimeDelegate`.  \n  \n [!code-csharp[ThreadingPrimeNumbers#ThreadingPrimeNumberBeginInvoke](~/samples/snippets/csharp/VS_Snippets_Wpf/ThreadingPrimeNumbers/CSharp/Window1.xaml.cs#threadingprimenumberbegininvoke)] \n [!code-vb[ThreadingPrimeNumbers#ThreadingPrimeNumberBeginInvoke](~/samples/snippets/visualbasic/VS_Snippets_Wpf/ThreadingPrimeNumbers/visualbasic/mainwindow.xaml.vb#threadingprimenumberbegininvoke)]"
   syntax:
     content: >-
       [System.ComponentModel.Browsable(false)]
@@ -185,7 +181,7 @@ items:
       description: The delegate to a method that takes no arguments, which is pushed onto the <xref href="System.Windows.Threading.Dispatcher"></xref> event queue.
     return:
       type: System.Windows.Threading.DispatcherOperation
-      description: An object, which is returned immediately after <xref href="erload:System.Windows.Threading.Dispatcher.BeginInvoke"></xref> is called, that can be used to interact with the delegate as it is pending execution in the event queue.
+      description: An object, which is returned immediately after <xref href="System.Windows.Threading.Dispatcher.BeginInvoke*"></xref> is called, that can be used to interact with the delegate as it is pending execution in the event queue.
   overload: System.Windows.Threading.Dispatcher.BeginInvoke*
   exceptions:
   - type: System.ArgumentNullException
@@ -213,9 +209,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.BeginInvoke(System.Delegate,System.Windows.Threading.DispatcherPriority,System.Object[])
   commentId: M:System.Windows.Threading.Dispatcher.BeginInvoke(System.Delegate,System.Windows.Threading.DispatcherPriority,System.Object[])
   id: BeginInvoke(System.Delegate,System.Windows.Threading.DispatcherPriority,System.Object[])
@@ -224,13 +217,13 @@ items:
   - csharp
   name: BeginInvoke(Delegate, DispatcherPriority, Object[])
   nameWithType: Dispatcher.BeginInvoke(Delegate, DispatcherPriority, Object[])
-  fullName: System.Windows.Threading.Dispatcher.BeginInvoke(Delegate, DispatcherPriority, Object[])
+  fullName: Dispatcher.BeginInvoke(Delegate, DispatcherPriority, Object[])
   type: Method
   assemblies:
   - WindowsBase
   namespace: System.Windows.Threading
   summary: Executes the specified delegate asynchronously with the specified arguments, at the specified priority, on the thread that the <xref href="System.Windows.Threading.Dispatcher"></xref> was created on.
-  remarks: "The <xref:System.Windows.Threading.DispatcherOperation> object returned by <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> can be used in several ways to interact with the specified delegate, such as:  \n  \n-   Changing the <xref:System.Windows.Threading.DispatcherPriority> of the delegate as it is pending execution in the event queue.  \n  \n-   Removing the delegate from the event queue.  \n  \n-   Waiting for the delegate to return.  \n  \n-   Obtaining the value that the delegate returns after it is executed.  \n  \n <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous; therefore, control returns immediately to the calling object after it is called.  \n  \n In [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)], only the thread that created a <xref:System.Windows.Threading.DispatcherObject> may access that object. For example, a background thread that is spun off from the main UI thread cannot update the contents of a <xref:System.Windows.Controls.Button> that was created on the UI thread. In order for the background thread to access the Content property of the <xref:System.Windows.Controls.Button>, the background thread must delegate the work to the <xref:System.Windows.Threading.Dispatcher> associated with the UI thread. This is accomplished by using either <xref:System.Windows.Threading.Dispatcher.Invoke%2A> or <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A>. <xref:System.Windows.Threading.Dispatcher.Invoke%2A> is synchronous and <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous. The operation is added to the event queue of the <xref:System.Windows.Threading.Dispatcher> at the specified <xref:System.Windows.Threading.DispatcherPriority>.  \n  \n If <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is called on a <xref:System.Windows.Threading.Dispatcher> that has shut down, the status property of the returned <xref:System.Windows.Threading.DispatcherOperation> is set to <xref:System.Windows.Threading.DispatcherOperationStatus>."
+  remarks: "The <xref:System.Windows.Threading.DispatcherOperation> object returned by <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> can be used in several ways to interact with the specified delegate, such as:  \n  \n-   Changing the <xref:System.Windows.Threading.DispatcherPriority> of the delegate as it is pending execution in the event queue.  \n  \n-   Removing the delegate from the event queue.  \n  \n-   Waiting for the delegate to return.  \n  \n-   Obtaining the value that the delegate returns after it is executed.  \n  \n <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous; therefore, control returns immediately to the calling object after it is called.  \n  \n In [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)], only the thread that created a <xref:System.Windows.Threading.DispatcherObject> may access that object. For example, a background thread that is spun off from the main UI thread cannot update the contents of a <xref:System.Windows.Controls.Button> that was created on the UI thread. In order for the background thread to access the Content property of the <xref:System.Windows.Controls.Button>, the background thread must delegate the work to the <xref:System.Windows.Threading.Dispatcher> associated with the UI thread. This is accomplished by using either <xref:System.Windows.Threading.Dispatcher.Invoke%2A> or <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A>. <xref:System.Windows.Threading.Dispatcher.Invoke%2A> is synchronous and <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous. The operation is added to the event queue of the <xref:System.Windows.Threading.Dispatcher> at the specified <xref:System.Windows.Threading.DispatcherPriority>.  \n  \n If <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is called on a <xref:System.Windows.Threading.Dispatcher> that has shut down, the status property of the returned <xref:System.Windows.Threading.DispatcherOperation> is set to <xref:System.Windows.Threading.DispatcherOperationStatus.Aborted>."
   syntax:
     content: public System.Windows.Threading.DispatcherOperation BeginInvoke (Delegate method, System.Windows.Threading.DispatcherPriority priority, object[] args);
     parameters:
@@ -245,7 +238,7 @@ items:
       description: An array of objects to pass as arguments to the given method. Can be `null`.
     return:
       type: System.Windows.Threading.DispatcherOperation
-      description: An object, which is returned immediately after <xref href="erload:System.Windows.Threading.Dispatcher.BeginInvoke"></xref> is called, that can be used to interact with the delegate as it is pending execution in the event queue.
+      description: An object, which is returned immediately after <xref href="System.Windows.Threading.Dispatcher.BeginInvoke*"></xref> is called, that can be used to interact with the delegate as it is pending execution in the event queue.
   overload: System.Windows.Threading.Dispatcher.BeginInvoke*
   exceptions: []
   version:
@@ -265,9 +258,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority,System.Delegate,System.Object)
   commentId: M:System.Windows.Threading.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority,System.Delegate,System.Object)
   id: BeginInvoke(System.Windows.Threading.DispatcherPriority,System.Delegate,System.Object)
@@ -276,13 +266,13 @@ items:
   - csharp
   name: BeginInvoke(DispatcherPriority, Delegate, Object)
   nameWithType: Dispatcher.BeginInvoke(DispatcherPriority, Delegate, Object)
-  fullName: System.Windows.Threading.Dispatcher.BeginInvoke(DispatcherPriority, Delegate, Object)
+  fullName: Dispatcher.BeginInvoke(DispatcherPriority, Delegate, Object)
   type: Method
   assemblies:
   - WindowsBase
   namespace: System.Windows.Threading
   summary: Executes the specified delegate asynchronously at the specified priority and with the specified argument on the thread the <xref href="System.Windows.Threading.Dispatcher"></xref> is associated with.
-  remarks: "`Arg` can be `null` if no arguments are needed.  \n  \n <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> returns a <xref:System.Windows.Threading.DispatcherOperation> object that can be used to interact with the delegate when the delegate is in the event queue.  \n  \n The <xref:System.Windows.Threading.DispatcherOperation> object returned by <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> can be used in several ways to interact with the specified delegate, such as:  \n  \n-   Changing the <xref:System.Windows.Threading.DispatcherPriority> of the delegate as it is pending execution in the event queue.  \n  \n-   Removing the delegate from the event queue.  \n  \n-   Waiting for the delegate to return.  \n  \n-   Obtaining the value that the delegate returns after it is executed.  \n  \n <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous; therefore, control returns immediately to the calling object after it is called.  \n  \n In [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)], only the thread that created a <xref:System.Windows.Threading.DispatcherObject> may access that object.  For example, a background thread that is spun off from the main UI thread cannot update the contents of a <xref:System.Windows.Controls.Button> that was created on the UI thread.  In order for the background thread to access the content property of the <xref:System.Windows.Controls.Button>, the background thread must delegate the work to the <xref:System.Windows.Threading.Dispatcher> associated with the UI thread.  This is accomplished by using either <xref:System.Windows.Threading.Dispatcher.Invoke%2A> or <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A>.  <xref:System.Windows.Threading.Dispatcher.Invoke%2A> is synchronous and <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous.  The operation is added to the event queue of the <xref:System.Windows.Threading.Dispatcher> at the specified <xref:System.Windows.Threading.DispatcherPriority>.  \n  \n If multiple <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> calls are made at the same <xref:System.Windows.Threading.DispatcherPriority>, they will be executed in the order the calls were made.  \n  \n If <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is called on a <xref:System.Windows.Threading.Dispatcher> that has shut down, the status property of the returned <xref:System.Windows.Threading.DispatcherOperation> is set to <xref:System.Windows.Threading.DispatcherOperationStatus>."
+  remarks: "`Arg` can be `null` if no arguments are needed.  \n  \n <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> returns a <xref:System.Windows.Threading.DispatcherOperation> object that can be used to interact with the delegate when the delegate is in the event queue.  \n  \n The <xref:System.Windows.Threading.DispatcherOperation> object returned by <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> can be used in several ways to interact with the specified delegate, such as:  \n  \n-   Changing the <xref:System.Windows.Threading.DispatcherPriority> of the delegate as it is pending execution in the event queue.  \n  \n-   Removing the delegate from the event queue.  \n  \n-   Waiting for the delegate to return.  \n  \n-   Obtaining the value that the delegate returns after it is executed.  \n  \n <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous; therefore, control returns immediately to the calling object after it is called.  \n  \n In [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)], only the thread that created a <xref:System.Windows.Threading.DispatcherObject> may access that object.  For example, a background thread that is spun off from the main UI thread cannot update the contents of a <xref:System.Windows.Controls.Button> that was created on the UI thread.  In order for the background thread to access the content property of the <xref:System.Windows.Controls.Button>, the background thread must delegate the work to the <xref:System.Windows.Threading.Dispatcher> associated with the UI thread.  This is accomplished by using either <xref:System.Windows.Threading.Dispatcher.Invoke%2A> or <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A>.  <xref:System.Windows.Threading.Dispatcher.Invoke%2A> is synchronous and <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous.  The operation is added to the event queue of the <xref:System.Windows.Threading.Dispatcher> at the specified <xref:System.Windows.Threading.DispatcherPriority>.  \n  \n If multiple <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> calls are made at the same <xref:System.Windows.Threading.DispatcherPriority>, they will be executed in the order the calls were made.  \n  \n If <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is called on a <xref:System.Windows.Threading.Dispatcher> that has shut down, the status property of the returned <xref:System.Windows.Threading.DispatcherOperation> is set to <xref:System.Windows.Threading.DispatcherOperationStatus.Aborted>."
   example:
   - "The following example shows how to place an operation onto a <xref:System.Windows.Threading.Dispatcher>.  \n  \n First, a delegate is created that accepts one argument, in this case a string.  \n  \n [!code-csharp[ThreadingWeatherForecast#ThreadingWeatherDelegates](~/samples/snippets/csharp/VS_Snippets_Wpf/ThreadingWeatherForecast/CSharp/Window1.xaml.cs#threadingweatherdelegates)]\n [!code-vb[ThreadingWeatherForecast#ThreadingWeatherDelegates](~/samples/snippets/visualbasic/VS_Snippets_Wpf/ThreadingWeatherForecast/visualbasic/window1.xaml.vb#threadingweatherdelegates)]  \n  \n Next, <xref:System.Windows.Threading.Dispatcher.BeginInvoke%28System.Windows.Threading.DispatcherPriority%2CSystem.Delegate%2CSystem.Object%29> is called.  Because every <xref:System.Windows.Threading.DispatcherObject> has a property that returns the <xref:System.Windows.Threading.Dispatcher> it is associated with, the desired <xref:System.Windows.Threading.Dispatcher> is obtained by querying the <xref:System.Windows.Threading.DispatcherObject>, in this case a <xref:System.Windows.Controls.Grid> named `tomorrowsWeather`. The call to <xref:System.Windows.Threading.Dispatcher.BeginInvoke%28System.Windows.Threading.DispatcherPriority%2CSystem.Delegate%2CSystem.Object%29> takes three parameters: the priority, which is set to <xref:System.Windows.Threading.DispatcherPriority?displayProperty=fullName>; the callback, which is passed in through an instance of the delegate `OneArgDelegate`; and a string named `weather`, which is the argument for the callback.  \n  \n [!code-csharp[threadingweatherforecast#ThreadingWeatherDispatcherOneArge](~/samples/snippets/csharp/VS_Snippets_Wpf/ThreadingWeatherForecast/CSharp/Window1.xaml.cs#threadingweatherdispatcheronearge)]\n [!code-vb[threadingweatherforecast#ThreadingWeatherDispatcherOneArge](~/samples/snippets/visualbasic/VS_Snippets_Wpf/ThreadingWeatherForecast/visualbasic/window1.xaml.vb#threadingweatherdispatcheronearge)]"
   syntax:
@@ -302,7 +292,7 @@ items:
       description: The object to pass as an argument to the specified method.
     return:
       type: System.Windows.Threading.DispatcherOperation
-      description: An object, which is returned immediately after <xref href="erload:System.Windows.Threading.Dispatcher.BeginInvoke"></xref> is called, that can be used to interact with the delegate as it is pending execution in the event queue.
+      description: An object, which is returned immediately after <xref href="System.Windows.Threading.Dispatcher.BeginInvoke*"></xref> is called, that can be used to interact with the delegate as it is pending execution in the event queue.
   overload: System.Windows.Threading.Dispatcher.BeginInvoke*
   exceptions:
   - type: System.ArgumentNullException
@@ -330,9 +320,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority,System.Delegate,System.Object,System.Object[])
   commentId: M:System.Windows.Threading.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority,System.Delegate,System.Object,System.Object[])
   id: BeginInvoke(System.Windows.Threading.DispatcherPriority,System.Delegate,System.Object,System.Object[])
@@ -341,13 +328,13 @@ items:
   - csharp
   name: BeginInvoke(DispatcherPriority, Delegate, Object, Object[])
   nameWithType: Dispatcher.BeginInvoke(DispatcherPriority, Delegate, Object, Object[])
-  fullName: System.Windows.Threading.Dispatcher.BeginInvoke(DispatcherPriority, Delegate, Object, Object[])
+  fullName: Dispatcher.BeginInvoke(DispatcherPriority, Delegate, Object, Object[])
   type: Method
   assemblies:
   - WindowsBase
   namespace: System.Windows.Threading
   summary: Executes the specified delegate asynchronously at the specified priority and with the specified array of arguments on the thread the <xref href="System.Windows.Threading.Dispatcher"></xref> is associated with.
-  remarks: "The `arg` parameter can be `null` if no arguments are needed.  \n  \n <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> returns a <xref:System.Windows.Threading.DispatcherOperation> object that can be used to interact with the delegate when the delegate is in the event queue.  \n  \n The <xref:System.Windows.Threading.DispatcherOperation> object returned by <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> can be used in several ways to interact with the specified delegate, such as:  \n  \n-   Changing the <xref:System.Windows.Threading.DispatcherPriority> of the delegate as it is pending execution in the event queue.  \n  \n-   Removing the delegate from the event queue.  \n  \n-   Waiting for the delegate to return.  \n  \n-   Obtaining the value that the delegate returns after it is executed.  \n  \n <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous; therefore, control returns immediately to the calling object after it is called.  \n  \n In [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)], only the thread that created a <xref:System.Windows.Threading.DispatcherObject> may access that object.  For example, a background thread that is spun off from the main UI thread cannot update the contents of a <xref:System.Windows.Controls.Button> that was created on the UI thread.  In order for the background thread to access the Content property of the <xref:System.Windows.Controls.Button>, the background thread must delegate the work to the <xref:System.Windows.Threading.Dispatcher> associated with the UI thread.  This is accomplished by using either <xref:System.Windows.Threading.Dispatcher.Invoke%2A> or <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A>.  <xref:System.Windows.Threading.Dispatcher.Invoke%2A> is synchronous and <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous.  The operation is added to the event queue of the <xref:System.Windows.Threading.Dispatcher> at the specified <xref:System.Windows.Threading.DispatcherPriority>.  \n  \n If multiple <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> calls are made at the same <xref:System.Windows.Threading.DispatcherPriority>, they will be executed in the order the calls were made.  \n  \n If <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is called on a <xref:System.Windows.Threading.Dispatcher> that has shut down, the status property of the returned <xref:System.Windows.Threading.DispatcherOperation> is set to <xref:System.Windows.Threading.DispatcherOperationStatus>."
+  remarks: "The `arg` parameter can be `null` if no arguments are needed.  \n  \n <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> returns a <xref:System.Windows.Threading.DispatcherOperation> object that can be used to interact with the delegate when the delegate is in the event queue.  \n  \n The <xref:System.Windows.Threading.DispatcherOperation> object returned by <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> can be used in several ways to interact with the specified delegate, such as:  \n  \n-   Changing the <xref:System.Windows.Threading.DispatcherPriority> of the delegate as it is pending execution in the event queue.  \n  \n-   Removing the delegate from the event queue.  \n  \n-   Waiting for the delegate to return.  \n  \n-   Obtaining the value that the delegate returns after it is executed.  \n  \n <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous; therefore, control returns immediately to the calling object after it is called.  \n  \n In [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)], only the thread that created a <xref:System.Windows.Threading.DispatcherObject> may access that object.  For example, a background thread that is spun off from the main UI thread cannot update the contents of a <xref:System.Windows.Controls.Button> that was created on the UI thread.  In order for the background thread to access the Content property of the <xref:System.Windows.Controls.Button>, the background thread must delegate the work to the <xref:System.Windows.Threading.Dispatcher> associated with the UI thread.  This is accomplished by using either <xref:System.Windows.Threading.Dispatcher.Invoke%2A> or <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A>.  <xref:System.Windows.Threading.Dispatcher.Invoke%2A> is synchronous and <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous.  The operation is added to the event queue of the <xref:System.Windows.Threading.Dispatcher> at the specified <xref:System.Windows.Threading.DispatcherPriority>.  \n  \n If multiple <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> calls are made at the same <xref:System.Windows.Threading.DispatcherPriority>, they will be executed in the order the calls were made.  \n  \n If <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is called on a <xref:System.Windows.Threading.Dispatcher> that has shut down, the status property of the returned <xref:System.Windows.Threading.DispatcherOperation> is set to <xref:System.Windows.Threading.DispatcherOperationStatus.Aborted>."
   syntax:
     content: >-
       [System.ComponentModel.Browsable(false)]
@@ -368,7 +355,7 @@ items:
       description: An array of objects to pass as arguments to the specified method.
     return:
       type: System.Windows.Threading.DispatcherOperation
-      description: An object, which is returned immediately after <xref href="erload:System.Windows.Threading.Dispatcher.BeginInvoke"></xref> is called, that can be used to interact with the delegate as it is pending execution in the <xref href="System.Windows.Threading.Dispatcher"></xref> queue.
+      description: An object, which is returned immediately after <xref href="System.Windows.Threading.Dispatcher.BeginInvoke*"></xref> is called, that can be used to interact with the delegate as it is pending execution in the <xref href="System.Windows.Threading.Dispatcher"></xref> queue.
   overload: System.Windows.Threading.Dispatcher.BeginInvoke*
   exceptions:
   - type: System.ArgumentNullException
@@ -396,9 +383,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.BeginInvokeShutdown(System.Windows.Threading.DispatcherPriority)
   commentId: M:System.Windows.Threading.Dispatcher.BeginInvokeShutdown(System.Windows.Threading.DispatcherPriority)
   id: BeginInvokeShutdown(System.Windows.Threading.DispatcherPriority)
@@ -407,7 +391,7 @@ items:
   - csharp
   name: BeginInvokeShutdown(DispatcherPriority)
   nameWithType: Dispatcher.BeginInvokeShutdown(DispatcherPriority)
-  fullName: System.Windows.Threading.Dispatcher.BeginInvokeShutdown(DispatcherPriority)
+  fullName: Dispatcher.BeginInvokeShutdown(DispatcherPriority)
   type: Method
   assemblies:
   - WindowsBase
@@ -444,8 +428,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Threading.Dispatcher.CheckAccess
   commentId: M:System.Windows.Threading.Dispatcher.CheckAccess
   id: CheckAccess
@@ -454,7 +436,7 @@ items:
   - csharp
   name: CheckAccess()
   nameWithType: Dispatcher.CheckAccess()
-  fullName: System.Windows.Threading.Dispatcher.CheckAccess()
+  fullName: Dispatcher.CheckAccess()
   type: Method
   assemblies:
   - WindowsBase
@@ -489,9 +471,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.CurrentDispatcher
   commentId: P:System.Windows.Threading.Dispatcher.CurrentDispatcher
   id: CurrentDispatcher
@@ -500,7 +479,7 @@ items:
   - csharp
   name: CurrentDispatcher
   nameWithType: Dispatcher.CurrentDispatcher
-  fullName: System.Windows.Threading.Dispatcher.CurrentDispatcher
+  fullName: Dispatcher.CurrentDispatcher
   type: Property
   assemblies:
   - WindowsBase
@@ -531,9 +510,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.DisableProcessing
   commentId: M:System.Windows.Threading.Dispatcher.DisableProcessing
   id: DisableProcessing
@@ -542,7 +518,7 @@ items:
   - csharp
   name: DisableProcessing()
   nameWithType: Dispatcher.DisableProcessing()
-  fullName: System.Windows.Threading.Dispatcher.DisableProcessing()
+  fullName: Dispatcher.DisableProcessing()
   type: Method
   assemblies:
   - WindowsBase
@@ -576,9 +552,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.ExitAllFrames
   commentId: M:System.Windows.Threading.Dispatcher.ExitAllFrames
   id: ExitAllFrames
@@ -587,7 +560,7 @@ items:
   - csharp
   name: ExitAllFrames()
   nameWithType: Dispatcher.ExitAllFrames()
-  fullName: System.Windows.Threading.Dispatcher.ExitAllFrames()
+  fullName: Dispatcher.ExitAllFrames()
   type: Method
   assemblies:
   - WindowsBase
@@ -620,9 +593,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.FromThread(System.Threading.Thread)
   commentId: M:System.Windows.Threading.Dispatcher.FromThread(System.Threading.Thread)
   id: FromThread(System.Threading.Thread)
@@ -631,7 +601,7 @@ items:
   - csharp
   name: FromThread(Thread)
   nameWithType: Dispatcher.FromThread(Thread)
-  fullName: System.Windows.Threading.Dispatcher.FromThread(Thread)
+  fullName: Dispatcher.FromThread(Thread)
   type: Method
   assemblies:
   - WindowsBase
@@ -666,9 +636,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.HasShutdownFinished
   commentId: P:System.Windows.Threading.Dispatcher.HasShutdownFinished
   id: HasShutdownFinished
@@ -677,7 +644,7 @@ items:
   - csharp
   name: HasShutdownFinished
   nameWithType: Dispatcher.HasShutdownFinished
-  fullName: System.Windows.Threading.Dispatcher.HasShutdownFinished
+  fullName: Dispatcher.HasShutdownFinished
   type: Property
   assemblies:
   - WindowsBase
@@ -708,9 +675,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.HasShutdownStarted
   commentId: P:System.Windows.Threading.Dispatcher.HasShutdownStarted
   id: HasShutdownStarted
@@ -719,7 +683,7 @@ items:
   - csharp
   name: HasShutdownStarted
   nameWithType: Dispatcher.HasShutdownStarted
-  fullName: System.Windows.Threading.Dispatcher.HasShutdownStarted
+  fullName: Dispatcher.HasShutdownStarted
   type: Property
   assemblies:
   - WindowsBase
@@ -750,8 +714,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Threading.Dispatcher.Hooks
   commentId: P:System.Windows.Threading.Dispatcher.Hooks
   id: Hooks
@@ -760,7 +722,7 @@ items:
   - csharp
   name: Hooks
   nameWithType: Dispatcher.Hooks
-  fullName: System.Windows.Threading.Dispatcher.Hooks
+  fullName: Dispatcher.Hooks
   type: Property
   assemblies:
   - WindowsBase
@@ -796,9 +758,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority,System.TimeSpan,System.Delegate,System.Object,System.Object[])
   commentId: M:System.Windows.Threading.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority,System.TimeSpan,System.Delegate,System.Object,System.Object[])
   id: Invoke(System.Windows.Threading.DispatcherPriority,System.TimeSpan,System.Delegate,System.Object,System.Object[])
@@ -807,7 +766,7 @@ items:
   - csharp
   name: Invoke(DispatcherPriority, TimeSpan, Delegate, Object, Object[])
   nameWithType: Dispatcher.Invoke(DispatcherPriority, TimeSpan, Delegate, Object, Object[])
-  fullName: System.Windows.Threading.Dispatcher.Invoke(DispatcherPriority, TimeSpan, Delegate, Object, Object[])
+  fullName: Dispatcher.Invoke(DispatcherPriority, TimeSpan, Delegate, Object, Object[])
   type: Method
   assemblies:
   - WindowsBase
@@ -868,9 +827,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority,System.TimeSpan,System.Delegate,System.Object)
   commentId: M:System.Windows.Threading.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority,System.TimeSpan,System.Delegate,System.Object)
   id: Invoke(System.Windows.Threading.DispatcherPriority,System.TimeSpan,System.Delegate,System.Object)
@@ -879,7 +835,7 @@ items:
   - csharp
   name: Invoke(DispatcherPriority, TimeSpan, Delegate, Object)
   nameWithType: Dispatcher.Invoke(DispatcherPriority, TimeSpan, Delegate, Object)
-  fullName: System.Windows.Threading.Dispatcher.Invoke(DispatcherPriority, TimeSpan, Delegate, Object)
+  fullName: Dispatcher.Invoke(DispatcherPriority, TimeSpan, Delegate, Object)
   type: Method
   assemblies:
   - WindowsBase
@@ -937,9 +893,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority,System.Delegate,System.Object,System.Object[])
   commentId: M:System.Windows.Threading.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority,System.Delegate,System.Object,System.Object[])
   id: Invoke(System.Windows.Threading.DispatcherPriority,System.Delegate,System.Object,System.Object[])
@@ -948,7 +901,7 @@ items:
   - csharp
   name: Invoke(DispatcherPriority, Delegate, Object, Object[])
   nameWithType: Dispatcher.Invoke(DispatcherPriority, Delegate, Object, Object[])
-  fullName: System.Windows.Threading.Dispatcher.Invoke(DispatcherPriority, Delegate, Object, Object[])
+  fullName: Dispatcher.Invoke(DispatcherPriority, Delegate, Object, Object[])
   type: Method
   assemblies:
   - WindowsBase
@@ -1006,9 +959,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Action,System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken,System.TimeSpan)
   commentId: M:System.Windows.Threading.Dispatcher.Invoke(System.Action,System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken,System.TimeSpan)
   id: Invoke(System.Action,System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken,System.TimeSpan)
@@ -1017,7 +967,7 @@ items:
   - csharp
   name: Invoke(Action, DispatcherPriority, CancellationToken, TimeSpan)
   nameWithType: Dispatcher.Invoke(Action, DispatcherPriority, CancellationToken, TimeSpan)
-  fullName: System.Windows.Threading.Dispatcher.Invoke(Action, DispatcherPriority, CancellationToken, TimeSpan)
+  fullName: Dispatcher.Invoke(Action, DispatcherPriority, CancellationToken, TimeSpan)
   type: Method
   assemblies:
   - WindowsBase
@@ -1058,9 +1008,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority,System.TimeSpan,System.Delegate)
   commentId: M:System.Windows.Threading.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority,System.TimeSpan,System.Delegate)
   id: Invoke(System.Windows.Threading.DispatcherPriority,System.TimeSpan,System.Delegate)
@@ -1069,7 +1016,7 @@ items:
   - csharp
   name: Invoke(DispatcherPriority, TimeSpan, Delegate)
   nameWithType: Dispatcher.Invoke(DispatcherPriority, TimeSpan, Delegate)
-  fullName: System.Windows.Threading.Dispatcher.Invoke(DispatcherPriority, TimeSpan, Delegate)
+  fullName: Dispatcher.Invoke(DispatcherPriority, TimeSpan, Delegate)
   type: Method
   assemblies:
   - WindowsBase
@@ -1115,9 +1062,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority,System.Delegate,System.Object)
   commentId: M:System.Windows.Threading.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority,System.Delegate,System.Object)
   id: Invoke(System.Windows.Threading.DispatcherPriority,System.Delegate,System.Object)
@@ -1126,7 +1070,7 @@ items:
   - csharp
   name: Invoke(DispatcherPriority, Delegate, Object)
   nameWithType: Dispatcher.Invoke(DispatcherPriority, Delegate, Object)
-  fullName: System.Windows.Threading.Dispatcher.Invoke(DispatcherPriority, Delegate, Object)
+  fullName: Dispatcher.Invoke(DispatcherPriority, Delegate, Object)
   type: Method
   assemblies:
   - WindowsBase
@@ -1181,9 +1125,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Delegate,System.TimeSpan,System.Windows.Threading.DispatcherPriority,System.Object[])
   commentId: M:System.Windows.Threading.Dispatcher.Invoke(System.Delegate,System.TimeSpan,System.Windows.Threading.DispatcherPriority,System.Object[])
   id: Invoke(System.Delegate,System.TimeSpan,System.Windows.Threading.DispatcherPriority,System.Object[])
@@ -1192,7 +1133,7 @@ items:
   - csharp
   name: Invoke(Delegate, TimeSpan, DispatcherPriority, Object[])
   nameWithType: Dispatcher.Invoke(Delegate, TimeSpan, DispatcherPriority, Object[])
-  fullName: System.Windows.Threading.Dispatcher.Invoke(Delegate, TimeSpan, DispatcherPriority, Object[])
+  fullName: Dispatcher.Invoke(Delegate, TimeSpan, DispatcherPriority, Object[])
   type: Method
   assemblies:
   - WindowsBase
@@ -1236,9 +1177,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Delegate,System.TimeSpan,System.Object[])
   commentId: M:System.Windows.Threading.Dispatcher.Invoke(System.Delegate,System.TimeSpan,System.Object[])
   id: Invoke(System.Delegate,System.TimeSpan,System.Object[])
@@ -1247,7 +1185,7 @@ items:
   - csharp
   name: Invoke(Delegate, TimeSpan, Object[])
   nameWithType: Dispatcher.Invoke(Delegate, TimeSpan, Object[])
-  fullName: System.Windows.Threading.Dispatcher.Invoke(Delegate, TimeSpan, Object[])
+  fullName: Dispatcher.Invoke(Delegate, TimeSpan, Object[])
   type: Method
   assemblies:
   - WindowsBase
@@ -1288,9 +1226,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Action,System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken)
   commentId: M:System.Windows.Threading.Dispatcher.Invoke(System.Action,System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken)
   id: Invoke(System.Action,System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken)
@@ -1299,7 +1234,7 @@ items:
   - csharp
   name: Invoke(Action, DispatcherPriority, CancellationToken)
   nameWithType: Dispatcher.Invoke(Action, DispatcherPriority, CancellationToken)
-  fullName: System.Windows.Threading.Dispatcher.Invoke(Action, DispatcherPriority, CancellationToken)
+  fullName: Dispatcher.Invoke(Action, DispatcherPriority, CancellationToken)
   type: Method
   assemblies:
   - WindowsBase
@@ -1336,8 +1271,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority,System.Delegate)
   commentId: M:System.Windows.Threading.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority,System.Delegate)
   id: Invoke(System.Windows.Threading.DispatcherPriority,System.Delegate)
@@ -1346,7 +1279,7 @@ items:
   - csharp
   name: Invoke(DispatcherPriority, Delegate)
   nameWithType: Dispatcher.Invoke(DispatcherPriority, Delegate)
-  fullName: System.Windows.Threading.Dispatcher.Invoke(DispatcherPriority, Delegate)
+  fullName: Dispatcher.Invoke(DispatcherPriority, Delegate)
   type: Method
   assemblies:
   - WindowsBase
@@ -1354,7 +1287,7 @@ items:
   summary: Executes the specified delegate synchronously at the specified priority on the thread on which the <xref href="System.Windows.Threading.Dispatcher"></xref> is associated with.
   remarks: "In [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)], only the thread that created a <xref:System.Windows.Threading.DispatcherObject> may access that object.  For example, a background thread that is spun off from the main UI thread cannot update the contents of a <xref:System.Windows.Controls.Button> that was created on the UI thread.  In order for the background thread to access the Content property of the <xref:System.Windows.Controls.Button>, the background thread must delegate the work to the <xref:System.Windows.Threading.Dispatcher> associated with the UI thread.  This is accomplished by using either <xref:System.Windows.Threading.Dispatcher.Invoke%2A> or <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A>.  <xref:System.Windows.Threading.Dispatcher.Invoke%2A> is synchronous and <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is asynchronous.  The operation is added to the event queue of the <xref:System.Windows.Threading.Dispatcher> at the specified <xref:System.Windows.Threading.DispatcherPriority>.  \n  \n <xref:System.Windows.Threading.Dispatcher.Invoke%2A> is a synchronous operation; therefore, control will not return to the calling object until after the callback returns."
   example:
-  - "The following example places a delegate onto a <xref:System.Windows.Threading.Dispatcher> at <xref:System.Windows.Threading.DispatcherPriority> using <xref:System.Windows.Threading.Dispatcher.Invoke%2A>.  \n  \n [!code-csharp[invalidaterequerywithsystemtimer#SystemTimerDispatcherInvoke](~/samples/snippets/csharp/VS_Snippets_Wpf/InvalidateRequeryWithSystemTimer/CSharp/Window1.xaml.cs#systemtimerdispatcherinvoke)]\n [!code-vb[invalidaterequerywithsystemtimer#SystemTimerDispatcherInvoke](~/samples/snippets/visualbasic/VS_Snippets_Wpf/InvalidateRequeryWithSystemTimer/visualbasic/window1.xaml.vb#systemtimerdispatcherinvoke)]"
+  - "The following example places a delegate onto a <xref:System.Windows.Threading.Dispatcher> at <xref:System.Windows.Threading.DispatcherPriority.Normal> using <xref:System.Windows.Threading.Dispatcher.Invoke%2A>.  \n  \n [!code-csharp[invalidaterequerywithsystemtimer#SystemTimerDispatcherInvoke](~/samples/snippets/csharp/VS_Snippets_Wpf/InvalidateRequeryWithSystemTimer/CSharp/Window1.xaml.cs#systemtimerdispatcherinvoke)]\n [!code-vb[invalidaterequerywithsystemtimer#SystemTimerDispatcherInvoke](~/samples/snippets/visualbasic/VS_Snippets_Wpf/InvalidateRequeryWithSystemTimer/visualbasic/window1.xaml.vb#systemtimerdispatcherinvoke)]"
   syntax:
     content: >-
       [System.ComponentModel.Browsable(false)]
@@ -1400,9 +1333,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Delegate,System.Object[])
   commentId: M:System.Windows.Threading.Dispatcher.Invoke(System.Delegate,System.Object[])
   id: Invoke(System.Delegate,System.Object[])
@@ -1411,7 +1341,7 @@ items:
   - csharp
   name: Invoke(Delegate, Object[])
   nameWithType: Dispatcher.Invoke(Delegate, Object[])
-  fullName: System.Windows.Threading.Dispatcher.Invoke(Delegate, Object[])
+  fullName: Dispatcher.Invoke(Delegate, Object[])
   type: Method
   assemblies:
   - WindowsBase
@@ -1449,9 +1379,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Action,System.Windows.Threading.DispatcherPriority)
   commentId: M:System.Windows.Threading.Dispatcher.Invoke(System.Action,System.Windows.Threading.DispatcherPriority)
   id: Invoke(System.Action,System.Windows.Threading.DispatcherPriority)
@@ -1460,7 +1387,7 @@ items:
   - csharp
   name: Invoke(Action, DispatcherPriority)
   nameWithType: Dispatcher.Invoke(Action, DispatcherPriority)
-  fullName: System.Windows.Threading.Dispatcher.Invoke(Action, DispatcherPriority)
+  fullName: Dispatcher.Invoke(Action, DispatcherPriority)
   type: Method
   assemblies:
   - WindowsBase
@@ -1494,9 +1421,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Action)
   commentId: M:System.Windows.Threading.Dispatcher.Invoke(System.Action)
   id: Invoke(System.Action)
@@ -1505,7 +1429,7 @@ items:
   - csharp
   name: Invoke(Action)
   nameWithType: Dispatcher.Invoke(Action)
-  fullName: System.Windows.Threading.Dispatcher.Invoke(Action)
+  fullName: Dispatcher.Invoke(Action)
   type: Method
   assemblies:
   - WindowsBase
@@ -1536,8 +1460,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Delegate,System.Windows.Threading.DispatcherPriority,System.Object[])
   commentId: M:System.Windows.Threading.Dispatcher.Invoke(System.Delegate,System.Windows.Threading.DispatcherPriority,System.Object[])
   id: Invoke(System.Delegate,System.Windows.Threading.DispatcherPriority,System.Object[])
@@ -1546,7 +1468,7 @@ items:
   - csharp
   name: Invoke(Delegate, DispatcherPriority, Object[])
   nameWithType: Dispatcher.Invoke(Delegate, DispatcherPriority, Object[])
-  fullName: System.Windows.Threading.Dispatcher.Invoke(Delegate, DispatcherPriority, Object[])
+  fullName: Dispatcher.Invoke(Delegate, DispatcherPriority, Object[])
   type: Method
   assemblies:
   - WindowsBase
@@ -1587,9 +1509,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.Invoke``1(System.Func{``0})
   commentId: M:System.Windows.Threading.Dispatcher.Invoke``1(System.Func{``0})
   id: Invoke``1(System.Func{``0})
@@ -1598,7 +1517,7 @@ items:
   - csharp
   name: Invoke<TResult>(Func<TResult>)
   nameWithType: Dispatcher.Invoke<TResult>(Func<TResult>)
-  fullName: System.Windows.Threading.Dispatcher.Invoke<TResult>(Func<TResult>)
+  fullName: Dispatcher.Invoke<TResult>(Func<TResult>)
   type: Method
   assemblies:
   - WindowsBase
@@ -1611,6 +1530,9 @@ items:
     - id: callback
       type: System.Func`1
       description: A delegate to invoke through the dispatcher.
+    typeParameters:
+    - id: TResult
+      description: The return value type of the specified delegate.
     return:
       type: TResult
       description: To be added.
@@ -1633,9 +1555,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.Invoke``1(System.Func{``0},System.Windows.Threading.DispatcherPriority)
   commentId: M:System.Windows.Threading.Dispatcher.Invoke``1(System.Func{``0},System.Windows.Threading.DispatcherPriority)
   id: Invoke``1(System.Func{``0},System.Windows.Threading.DispatcherPriority)
@@ -1644,7 +1563,7 @@ items:
   - csharp
   name: Invoke<TResult>(Func<TResult>, DispatcherPriority)
   nameWithType: Dispatcher.Invoke<TResult>(Func<TResult>, DispatcherPriority)
-  fullName: System.Windows.Threading.Dispatcher.Invoke<TResult>(Func<TResult>, DispatcherPriority)
+  fullName: Dispatcher.Invoke<TResult>(Func<TResult>, DispatcherPriority)
   type: Method
   assemblies:
   - WindowsBase
@@ -1660,6 +1579,9 @@ items:
     - id: priority
       type: System.Windows.Threading.DispatcherPriority
       description: The priority that determines in what order the specified callback is invoked relative to the other pending operations in the <xref href="System.Windows.Threading.Dispatcher"></xref>.
+    typeParameters:
+    - id: TResult
+      description: The return value type of the specified delegate.
     return:
       type: TResult
       description: To be added.
@@ -1682,9 +1604,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.Invoke``1(System.Func{``0},System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken)
   commentId: M:System.Windows.Threading.Dispatcher.Invoke``1(System.Func{``0},System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken)
   id: Invoke``1(System.Func{``0},System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken)
@@ -1693,7 +1612,7 @@ items:
   - csharp
   name: Invoke<TResult>(Func<TResult>, DispatcherPriority, CancellationToken)
   nameWithType: Dispatcher.Invoke<TResult>(Func<TResult>, DispatcherPriority, CancellationToken)
-  fullName: System.Windows.Threading.Dispatcher.Invoke<TResult>(Func<TResult>, DispatcherPriority, CancellationToken)
+  fullName: Dispatcher.Invoke<TResult>(Func<TResult>, DispatcherPriority, CancellationToken)
   type: Method
   assemblies:
   - WindowsBase
@@ -1712,6 +1631,9 @@ items:
     - id: cancellationToken
       type: System.Threading.CancellationToken
       description: An object that indicates whether to cancel the operation.
+    typeParameters:
+    - id: TResult
+      description: The return value type of the specified delegate.
     return:
       type: TResult
       description: To be added.
@@ -1734,9 +1656,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.Invoke``1(System.Func{``0},System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken,System.TimeSpan)
   commentId: M:System.Windows.Threading.Dispatcher.Invoke``1(System.Func{``0},System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken,System.TimeSpan)
   id: Invoke``1(System.Func{``0},System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken,System.TimeSpan)
@@ -1745,7 +1664,7 @@ items:
   - csharp
   name: Invoke<TResult>(Func<TResult>, DispatcherPriority, CancellationToken, TimeSpan)
   nameWithType: Dispatcher.Invoke<TResult>(Func<TResult>, DispatcherPriority, CancellationToken, TimeSpan)
-  fullName: System.Windows.Threading.Dispatcher.Invoke<TResult>(Func<TResult>, DispatcherPriority, CancellationToken, TimeSpan)
+  fullName: Dispatcher.Invoke<TResult>(Func<TResult>, DispatcherPriority, CancellationToken, TimeSpan)
   type: Method
   assemblies:
   - WindowsBase
@@ -1767,6 +1686,9 @@ items:
     - id: timeout
       type: System.TimeSpan
       description: The minimum amount of time to wait for the operation to start.
+    typeParameters:
+    - id: TResult
+      description: The return value type of the specified delegate.
     return:
       type: TResult
       description: To be added.
@@ -1790,9 +1712,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.InvokeAsync(System.Action)
   commentId: M:System.Windows.Threading.Dispatcher.InvokeAsync(System.Action)
   id: InvokeAsync(System.Action)
@@ -1801,7 +1720,7 @@ items:
   - csharp
   name: InvokeAsync(Action)
   nameWithType: Dispatcher.InvokeAsync(Action)
-  fullName: System.Windows.Threading.Dispatcher.InvokeAsync(Action)
+  fullName: Dispatcher.InvokeAsync(Action)
   type: Method
   assemblies:
   - WindowsBase
@@ -1835,9 +1754,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.InvokeAsync(System.Action,System.Windows.Threading.DispatcherPriority)
   commentId: M:System.Windows.Threading.Dispatcher.InvokeAsync(System.Action,System.Windows.Threading.DispatcherPriority)
   id: InvokeAsync(System.Action,System.Windows.Threading.DispatcherPriority)
@@ -1846,7 +1762,7 @@ items:
   - csharp
   name: InvokeAsync(Action, DispatcherPriority)
   nameWithType: Dispatcher.InvokeAsync(Action, DispatcherPriority)
-  fullName: System.Windows.Threading.Dispatcher.InvokeAsync(Action, DispatcherPriority)
+  fullName: Dispatcher.InvokeAsync(Action, DispatcherPriority)
   type: Method
   assemblies:
   - WindowsBase
@@ -1883,9 +1799,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.InvokeAsync(System.Action,System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken)
   commentId: M:System.Windows.Threading.Dispatcher.InvokeAsync(System.Action,System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken)
   id: InvokeAsync(System.Action,System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken)
@@ -1894,7 +1807,7 @@ items:
   - csharp
   name: InvokeAsync(Action, DispatcherPriority, CancellationToken)
   nameWithType: Dispatcher.InvokeAsync(Action, DispatcherPriority, CancellationToken)
-  fullName: System.Windows.Threading.Dispatcher.InvokeAsync(Action, DispatcherPriority, CancellationToken)
+  fullName: Dispatcher.InvokeAsync(Action, DispatcherPriority, CancellationToken)
   type: Method
   assemblies:
   - WindowsBase
@@ -1935,9 +1848,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.InvokeAsync``1(System.Func{``0},System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken)
   commentId: M:System.Windows.Threading.Dispatcher.InvokeAsync``1(System.Func{``0},System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken)
   id: InvokeAsync``1(System.Func{``0},System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken)
@@ -1946,7 +1856,7 @@ items:
   - csharp
   name: InvokeAsync<TResult>(Func<TResult>, DispatcherPriority, CancellationToken)
   nameWithType: Dispatcher.InvokeAsync<TResult>(Func<TResult>, DispatcherPriority, CancellationToken)
-  fullName: System.Windows.Threading.Dispatcher.InvokeAsync<TResult>(Func<TResult>, DispatcherPriority, CancellationToken)
+  fullName: Dispatcher.InvokeAsync<TResult>(Func<TResult>, DispatcherPriority, CancellationToken)
   type: Method
   assemblies:
   - WindowsBase
@@ -1964,6 +1874,9 @@ items:
     - id: cancellationToken
       type: System.Threading.CancellationToken
       description: An object that indicates whether to cancel the operation.
+    typeParameters:
+    - id: TResult
+      description: The return value type of the specified delegate.
     return:
       type: System.Windows.Threading.DispatcherOperation`1
       description: An object, which is returned immediately after <xref href="System.Windows.Threading.Dispatcher.InvokeAsync``1(System.Func{``0},System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken)"></xref> is called, that can be used to interact with the delegate as it is pending execution in the event queue.
@@ -1987,9 +1900,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.InvokeAsync``1(System.Func{``0})
   commentId: M:System.Windows.Threading.Dispatcher.InvokeAsync``1(System.Func{``0})
   id: InvokeAsync``1(System.Func{``0})
@@ -1998,7 +1908,7 @@ items:
   - csharp
   name: InvokeAsync<TResult>(Func<TResult>)
   nameWithType: Dispatcher.InvokeAsync<TResult>(Func<TResult>)
-  fullName: System.Windows.Threading.Dispatcher.InvokeAsync<TResult>(Func<TResult>)
+  fullName: Dispatcher.InvokeAsync<TResult>(Func<TResult>)
   type: Method
   assemblies:
   - WindowsBase
@@ -2010,6 +1920,9 @@ items:
     - id: callback
       type: System.Func`1
       description: A delegate to invoke through the dispatcher.
+    typeParameters:
+    - id: TResult
+      description: The return value type of the specified delegate.
     return:
       type: System.Windows.Threading.DispatcherOperation`1
       description: An object, which is returned immediately after <xref href="System.Windows.Threading.Dispatcher.InvokeAsync``1(System.Func{``0})"></xref> is called, that can be used to interact with the delegate as it is pending execution in the event queue.
@@ -2032,8 +1945,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Threading.Dispatcher.InvokeAsync``1(System.Func{``0},System.Windows.Threading.DispatcherPriority)
   commentId: M:System.Windows.Threading.Dispatcher.InvokeAsync``1(System.Func{``0},System.Windows.Threading.DispatcherPriority)
   id: InvokeAsync``1(System.Func{``0},System.Windows.Threading.DispatcherPriority)
@@ -2042,7 +1953,7 @@ items:
   - csharp
   name: InvokeAsync<TResult>(Func<TResult>, DispatcherPriority)
   nameWithType: Dispatcher.InvokeAsync<TResult>(Func<TResult>, DispatcherPriority)
-  fullName: System.Windows.Threading.Dispatcher.InvokeAsync<TResult>(Func<TResult>, DispatcherPriority)
+  fullName: Dispatcher.InvokeAsync<TResult>(Func<TResult>, DispatcherPriority)
   type: Method
   assemblies:
   - WindowsBase
@@ -2057,6 +1968,9 @@ items:
     - id: priority
       type: System.Windows.Threading.DispatcherPriority
       description: The priority that determines in what order the specified callback is invoked relative to the other pending operations in the <xref href="System.Windows.Threading.Dispatcher"></xref>.
+    typeParameters:
+    - id: TResult
+      description: The return value type of the specified delegate.
     return:
       type: System.Windows.Threading.DispatcherOperation`1
       description: An object, which is returned immediately after <xref href="System.Windows.Threading.Dispatcher.InvokeAsync``1(System.Func{``0},System.Windows.Threading.DispatcherPriority)"></xref> is called, that can be used to interact with the delegate as it is pending execution in the event queue.
@@ -2079,9 +1993,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.InvokeShutdown
   commentId: M:System.Windows.Threading.Dispatcher.InvokeShutdown
   id: InvokeShutdown
@@ -2090,7 +2001,7 @@ items:
   - csharp
   name: InvokeShutdown()
   nameWithType: Dispatcher.InvokeShutdown()
-  fullName: System.Windows.Threading.Dispatcher.InvokeShutdown()
+  fullName: Dispatcher.InvokeShutdown()
   type: Method
   assemblies:
   - WindowsBase
@@ -2124,8 +2035,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Threading.Dispatcher.PushFrame(System.Windows.Threading.DispatcherFrame)
   commentId: M:System.Windows.Threading.Dispatcher.PushFrame(System.Windows.Threading.DispatcherFrame)
   id: PushFrame(System.Windows.Threading.DispatcherFrame)
@@ -2134,7 +2043,7 @@ items:
   - csharp
   name: PushFrame(DispatcherFrame)
   nameWithType: Dispatcher.PushFrame(DispatcherFrame)
-  fullName: System.Windows.Threading.Dispatcher.PushFrame(DispatcherFrame)
+  fullName: Dispatcher.PushFrame(DispatcherFrame)
   type: Method
   assemblies:
   - WindowsBase
@@ -2179,9 +2088,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.Run
   commentId: M:System.Windows.Threading.Dispatcher.Run
   id: Run
@@ -2190,7 +2096,7 @@ items:
   - csharp
   name: Run()
   nameWithType: Dispatcher.Run()
-  fullName: System.Windows.Threading.Dispatcher.Run()
+  fullName: Dispatcher.Run()
   type: Method
   assemblies:
   - WindowsBase
@@ -2224,9 +2130,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.ShutdownFinished
   commentId: E:System.Windows.Threading.Dispatcher.ShutdownFinished
   id: ShutdownFinished
@@ -2235,7 +2138,7 @@ items:
   - csharp
   name: ShutdownFinished
   nameWithType: Dispatcher.ShutdownFinished
-  fullName: System.Windows.Threading.Dispatcher.ShutdownFinished
+  fullName: Dispatcher.ShutdownFinished
   type: Event
   assemblies:
   - WindowsBase
@@ -2265,9 +2168,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.ShutdownStarted
   commentId: E:System.Windows.Threading.Dispatcher.ShutdownStarted
   id: ShutdownStarted
@@ -2276,7 +2176,7 @@ items:
   - csharp
   name: ShutdownStarted
   nameWithType: Dispatcher.ShutdownStarted
-  fullName: System.Windows.Threading.Dispatcher.ShutdownStarted
+  fullName: Dispatcher.ShutdownStarted
   type: Event
   assemblies:
   - WindowsBase
@@ -2306,9 +2206,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.Thread
   commentId: P:System.Windows.Threading.Dispatcher.Thread
   id: Thread
@@ -2317,7 +2214,7 @@ items:
   - csharp
   name: Thread
   nameWithType: Dispatcher.Thread
-  fullName: System.Windows.Threading.Dispatcher.Thread
+  fullName: Dispatcher.Thread
   type: Property
   assemblies:
   - WindowsBase
@@ -2347,8 +2244,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Threading.Dispatcher.UnhandledException
   commentId: E:System.Windows.Threading.Dispatcher.UnhandledException
   id: UnhandledException
@@ -2357,12 +2252,12 @@ items:
   - csharp
   name: UnhandledException
   nameWithType: Dispatcher.UnhandledException
-  fullName: System.Windows.Threading.Dispatcher.UnhandledException
+  fullName: Dispatcher.UnhandledException
   type: Event
   assemblies:
   - WindowsBase
   namespace: System.Windows.Threading
-  summary: Occurs when a thread exception is thrown and uncaught during execution of a delegate by way of <xref href="erload:System.Windows.Threading.Dispatcher.Invoke"></xref> or <xref href="erload:System.Windows.Threading.Dispatcher.BeginInvoke"></xref>.
+  summary: Occurs when a thread exception is thrown and uncaught during execution of a delegate by way of <xref href="System.Windows.Threading.Dispatcher.Invoke*"></xref> or <xref href="System.Windows.Threading.Dispatcher.BeginInvoke*"></xref>.
   remarks: "This event is raised when an exception that was thrown during execution of a delegate by way of <xref:System.Windows.Threading.Dispatcher.Invoke%2A> or <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> is uncaught.  \n  \n A handler can mark the exception as handled, which will prevent the internal exception handler from being called.  \n  \n Event handlers for this event must be written with care to avoid creating secondary exceptions and to catch any that occur. It is recommended to avoid allocating memory or doing any resource intensive operations in the handler.  \n  \n The <xref:System.Windows.Threading.Dispatcher.UnhandledExceptionFilter> event provides a means to not raise the <xref:System.Windows.Threading.Dispatcher.UnhandledException> event.  The <xref:System.Windows.Threading.Dispatcher.UnhandledExceptionFilter> event is raised first, and If <xref:System.Windows.Threading.DispatcherUnhandledExceptionFilterEventArgs.RequestCatch%2A> on the <xref:System.Windows.Threading.DispatcherUnhandledExceptionFilterEventArgs> is set to `false`, the <xref:System.Windows.Threading.Dispatcher.UnhandledException> event will not be raised."
   syntax:
     content: public event System.Windows.Threading.DispatcherUnhandledExceptionEventHandler UnhandledException;
@@ -2387,9 +2282,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.UnhandledExceptionFilter
   commentId: E:System.Windows.Threading.Dispatcher.UnhandledExceptionFilter
   id: UnhandledExceptionFilter
@@ -2398,12 +2290,12 @@ items:
   - csharp
   name: UnhandledExceptionFilter
   nameWithType: Dispatcher.UnhandledExceptionFilter
-  fullName: System.Windows.Threading.Dispatcher.UnhandledExceptionFilter
+  fullName: Dispatcher.UnhandledExceptionFilter
   type: Event
   assemblies:
   - WindowsBase
   namespace: System.Windows.Threading
-  summary: Occurs when a thread exception is thrown and uncaught during execution of a delegate by way of <xref href="erload:System.Windows.Threading.Dispatcher.Invoke"></xref> or <xref href="erload:System.Windows.Threading.Dispatcher.BeginInvoke"></xref> when in the filter stage.
+  summary: Occurs when a thread exception is thrown and uncaught during execution of a delegate by way of <xref href="System.Windows.Threading.Dispatcher.Invoke*"></xref> or <xref href="System.Windows.Threading.Dispatcher.BeginInvoke*"></xref> when in the filter stage.
   remarks: "This event is raised during the filter stage for an exception that is raised during execution of a delegate by way of <xref:System.Windows.Threading.Dispatcher.Invoke%2A> or <xref:System.Windows.Threading.Dispatcher.BeginInvoke%2A> and is uncaught.  \n  \n The call stack is not unwound at this point (first-chance exception).  \n  \n Event handlers for this event must be written with care to avoid creating secondary exceptions and to catch any that occur.  It is recommended to avoid allocating memory or doing any resource intensive operations in the handler.  \n  \n The <xref:System.Windows.Threading.Dispatcher.UnhandledExceptionFilter> event provides a means to not raise the <xref:System.Windows.Threading.Dispatcher.UnhandledException> event.  The <xref:System.Windows.Threading.Dispatcher.UnhandledExceptionFilter> event is raised first, and If <xref:System.Windows.Threading.DispatcherUnhandledExceptionFilterEventArgs.RequestCatch%2A> on the <xref:System.Windows.Threading.DispatcherUnhandledExceptionFilterEventArgs> is set to `false`, the <xref:System.Windows.Threading.Dispatcher.UnhandledException> event will not be raised."
   syntax:
     content: >-
@@ -2436,8 +2328,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Threading.Dispatcher.ValidatePriority(System.Windows.Threading.DispatcherPriority,System.String)
   commentId: M:System.Windows.Threading.Dispatcher.ValidatePriority(System.Windows.Threading.DispatcherPriority,System.String)
   id: ValidatePriority(System.Windows.Threading.DispatcherPriority,System.String)
@@ -2446,7 +2336,7 @@ items:
   - csharp
   name: ValidatePriority(DispatcherPriority, String)
   nameWithType: Dispatcher.ValidatePriority(DispatcherPriority, String)
-  fullName: System.Windows.Threading.Dispatcher.ValidatePriority(DispatcherPriority, String)
+  fullName: Dispatcher.ValidatePriority(DispatcherPriority, String)
   type: Method
   assemblies:
   - WindowsBase
@@ -2483,9 +2373,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.VerifyAccess
   commentId: M:System.Windows.Threading.Dispatcher.VerifyAccess
   id: VerifyAccess
@@ -2494,7 +2381,7 @@ items:
   - csharp
   name: VerifyAccess()
   nameWithType: Dispatcher.VerifyAccess()
-  fullName: System.Windows.Threading.Dispatcher.VerifyAccess()
+  fullName: Dispatcher.VerifyAccess()
   type: Method
   assemblies:
   - WindowsBase
@@ -2529,9 +2416,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.Yield
   commentId: M:System.Windows.Threading.Dispatcher.Yield
   id: Yield
@@ -2540,7 +2424,7 @@ items:
   - csharp
   name: Yield()
   nameWithType: Dispatcher.Yield()
-  fullName: System.Windows.Threading.Dispatcher.Yield()
+  fullName: Dispatcher.Yield()
   type: Method
   assemblies:
   - WindowsBase
@@ -2572,9 +2456,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Threading.Dispatcher.Yield(System.Windows.Threading.DispatcherPriority)
   commentId: M:System.Windows.Threading.Dispatcher.Yield(System.Windows.Threading.DispatcherPriority)
   id: Yield(System.Windows.Threading.DispatcherPriority)
@@ -2583,7 +2464,7 @@ items:
   - csharp
   name: Yield(DispatcherPriority)
   nameWithType: Dispatcher.Yield(DispatcherPriority)
-  fullName: System.Windows.Threading.Dispatcher.Yield(DispatcherPriority)
+  fullName: Dispatcher.Yield(DispatcherPriority)
   type: Method
   assemblies:
   - WindowsBase
@@ -2618,9 +2499,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Threading/Dispatcher.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -2657,7 +2535,7 @@ references:
   isExternal: false
   name: BeginInvoke(Delegate, Object[])
   nameWithType: Dispatcher.BeginInvoke(Delegate, Object[])
-  fullName: System.Windows.Threading.Dispatcher.BeginInvoke(Delegate, Object[])
+  fullName: Dispatcher.BeginInvoke(Delegate, Object[])
 - uid: System.Windows.Threading.DispatcherOperation
   parent: System.Windows.Threading
   isExternal: false
@@ -2689,7 +2567,7 @@ references:
   isExternal: false
   name: BeginInvoke(DispatcherPriority, Delegate)
   nameWithType: Dispatcher.BeginInvoke(DispatcherPriority, Delegate)
-  fullName: System.Windows.Threading.Dispatcher.BeginInvoke(DispatcherPriority, Delegate)
+  fullName: Dispatcher.BeginInvoke(DispatcherPriority, Delegate)
 - uid: System.Windows.Threading.DispatcherPriority
   parent: System.Windows.Threading
   isExternal: false
@@ -2701,31 +2579,31 @@ references:
   isExternal: false
   name: BeginInvoke(Delegate, DispatcherPriority, Object[])
   nameWithType: Dispatcher.BeginInvoke(Delegate, DispatcherPriority, Object[])
-  fullName: System.Windows.Threading.Dispatcher.BeginInvoke(Delegate, DispatcherPriority, Object[])
+  fullName: Dispatcher.BeginInvoke(Delegate, DispatcherPriority, Object[])
 - uid: System.Windows.Threading.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority,System.Delegate,System.Object)
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: BeginInvoke(DispatcherPriority, Delegate, Object)
   nameWithType: Dispatcher.BeginInvoke(DispatcherPriority, Delegate, Object)
-  fullName: System.Windows.Threading.Dispatcher.BeginInvoke(DispatcherPriority, Delegate, Object)
+  fullName: Dispatcher.BeginInvoke(DispatcherPriority, Delegate, Object)
 - uid: System.Windows.Threading.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority,System.Delegate,System.Object,System.Object[])
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: BeginInvoke(DispatcherPriority, Delegate, Object, Object[])
   nameWithType: Dispatcher.BeginInvoke(DispatcherPriority, Delegate, Object, Object[])
-  fullName: System.Windows.Threading.Dispatcher.BeginInvoke(DispatcherPriority, Delegate, Object, Object[])
+  fullName: Dispatcher.BeginInvoke(DispatcherPriority, Delegate, Object, Object[])
 - uid: System.Windows.Threading.Dispatcher.BeginInvokeShutdown(System.Windows.Threading.DispatcherPriority)
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: BeginInvokeShutdown(DispatcherPriority)
   nameWithType: Dispatcher.BeginInvokeShutdown(DispatcherPriority)
-  fullName: System.Windows.Threading.Dispatcher.BeginInvokeShutdown(DispatcherPriority)
+  fullName: Dispatcher.BeginInvokeShutdown(DispatcherPriority)
 - uid: System.Windows.Threading.Dispatcher.CheckAccess
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: CheckAccess()
   nameWithType: Dispatcher.CheckAccess()
-  fullName: System.Windows.Threading.Dispatcher.CheckAccess()
+  fullName: Dispatcher.CheckAccess()
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -2737,7 +2615,7 @@ references:
   isExternal: false
   name: CurrentDispatcher
   nameWithType: Dispatcher.CurrentDispatcher
-  fullName: System.Windows.Threading.Dispatcher.CurrentDispatcher
+  fullName: Dispatcher.CurrentDispatcher
 - uid: System.Windows.Threading.Dispatcher
   parent: System.Windows.Threading
   isExternal: false
@@ -2749,7 +2627,7 @@ references:
   isExternal: false
   name: DisableProcessing()
   nameWithType: Dispatcher.DisableProcessing()
-  fullName: System.Windows.Threading.Dispatcher.DisableProcessing()
+  fullName: Dispatcher.DisableProcessing()
 - uid: System.Windows.Threading.DispatcherProcessingDisabled
   parent: System.Windows.Threading
   isExternal: false
@@ -2761,13 +2639,13 @@ references:
   isExternal: false
   name: ExitAllFrames()
   nameWithType: Dispatcher.ExitAllFrames()
-  fullName: System.Windows.Threading.Dispatcher.ExitAllFrames()
+  fullName: Dispatcher.ExitAllFrames()
 - uid: System.Windows.Threading.Dispatcher.FromThread(System.Threading.Thread)
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: FromThread(Thread)
   nameWithType: Dispatcher.FromThread(Thread)
-  fullName: System.Windows.Threading.Dispatcher.FromThread(Thread)
+  fullName: Dispatcher.FromThread(Thread)
 - uid: System.Threading.Thread
   parent: System.Threading
   isExternal: false
@@ -2779,19 +2657,19 @@ references:
   isExternal: false
   name: HasShutdownFinished
   nameWithType: Dispatcher.HasShutdownFinished
-  fullName: System.Windows.Threading.Dispatcher.HasShutdownFinished
+  fullName: Dispatcher.HasShutdownFinished
 - uid: System.Windows.Threading.Dispatcher.HasShutdownStarted
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: HasShutdownStarted
   nameWithType: Dispatcher.HasShutdownStarted
-  fullName: System.Windows.Threading.Dispatcher.HasShutdownStarted
+  fullName: Dispatcher.HasShutdownStarted
 - uid: System.Windows.Threading.Dispatcher.Hooks
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: Hooks
   nameWithType: Dispatcher.Hooks
-  fullName: System.Windows.Threading.Dispatcher.Hooks
+  fullName: Dispatcher.Hooks
 - uid: System.Windows.Threading.DispatcherHooks
   parent: System.Windows.Threading
   isExternal: false
@@ -2803,7 +2681,7 @@ references:
   isExternal: false
   name: Invoke(DispatcherPriority, TimeSpan, Delegate, Object, Object[])
   nameWithType: Dispatcher.Invoke(DispatcherPriority, TimeSpan, Delegate, Object, Object[])
-  fullName: System.Windows.Threading.Dispatcher.Invoke(DispatcherPriority, TimeSpan, Delegate, Object, Object[])
+  fullName: Dispatcher.Invoke(DispatcherPriority, TimeSpan, Delegate, Object, Object[])
 - uid: System.TimeSpan
   parent: System
   isExternal: false
@@ -2815,19 +2693,19 @@ references:
   isExternal: false
   name: Invoke(DispatcherPriority, TimeSpan, Delegate, Object)
   nameWithType: Dispatcher.Invoke(DispatcherPriority, TimeSpan, Delegate, Object)
-  fullName: System.Windows.Threading.Dispatcher.Invoke(DispatcherPriority, TimeSpan, Delegate, Object)
+  fullName: Dispatcher.Invoke(DispatcherPriority, TimeSpan, Delegate, Object)
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority,System.Delegate,System.Object,System.Object[])
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: Invoke(DispatcherPriority, Delegate, Object, Object[])
   nameWithType: Dispatcher.Invoke(DispatcherPriority, Delegate, Object, Object[])
-  fullName: System.Windows.Threading.Dispatcher.Invoke(DispatcherPriority, Delegate, Object, Object[])
+  fullName: Dispatcher.Invoke(DispatcherPriority, Delegate, Object, Object[])
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Action,System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken,System.TimeSpan)
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: Invoke(Action, DispatcherPriority, CancellationToken, TimeSpan)
   nameWithType: Dispatcher.Invoke(Action, DispatcherPriority, CancellationToken, TimeSpan)
-  fullName: System.Windows.Threading.Dispatcher.Invoke(Action, DispatcherPriority, CancellationToken, TimeSpan)
+  fullName: Dispatcher.Invoke(Action, DispatcherPriority, CancellationToken, TimeSpan)
 - uid: System.Action
   parent: System
   isExternal: false
@@ -2845,67 +2723,67 @@ references:
   isExternal: false
   name: Invoke(DispatcherPriority, TimeSpan, Delegate)
   nameWithType: Dispatcher.Invoke(DispatcherPriority, TimeSpan, Delegate)
-  fullName: System.Windows.Threading.Dispatcher.Invoke(DispatcherPriority, TimeSpan, Delegate)
+  fullName: Dispatcher.Invoke(DispatcherPriority, TimeSpan, Delegate)
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority,System.Delegate,System.Object)
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: Invoke(DispatcherPriority, Delegate, Object)
   nameWithType: Dispatcher.Invoke(DispatcherPriority, Delegate, Object)
-  fullName: System.Windows.Threading.Dispatcher.Invoke(DispatcherPriority, Delegate, Object)
+  fullName: Dispatcher.Invoke(DispatcherPriority, Delegate, Object)
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Delegate,System.TimeSpan,System.Windows.Threading.DispatcherPriority,System.Object[])
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: Invoke(Delegate, TimeSpan, DispatcherPriority, Object[])
   nameWithType: Dispatcher.Invoke(Delegate, TimeSpan, DispatcherPriority, Object[])
-  fullName: System.Windows.Threading.Dispatcher.Invoke(Delegate, TimeSpan, DispatcherPriority, Object[])
+  fullName: Dispatcher.Invoke(Delegate, TimeSpan, DispatcherPriority, Object[])
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Delegate,System.TimeSpan,System.Object[])
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: Invoke(Delegate, TimeSpan, Object[])
   nameWithType: Dispatcher.Invoke(Delegate, TimeSpan, Object[])
-  fullName: System.Windows.Threading.Dispatcher.Invoke(Delegate, TimeSpan, Object[])
+  fullName: Dispatcher.Invoke(Delegate, TimeSpan, Object[])
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Action,System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken)
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: Invoke(Action, DispatcherPriority, CancellationToken)
   nameWithType: Dispatcher.Invoke(Action, DispatcherPriority, CancellationToken)
-  fullName: System.Windows.Threading.Dispatcher.Invoke(Action, DispatcherPriority, CancellationToken)
+  fullName: Dispatcher.Invoke(Action, DispatcherPriority, CancellationToken)
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority,System.Delegate)
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: Invoke(DispatcherPriority, Delegate)
   nameWithType: Dispatcher.Invoke(DispatcherPriority, Delegate)
-  fullName: System.Windows.Threading.Dispatcher.Invoke(DispatcherPriority, Delegate)
+  fullName: Dispatcher.Invoke(DispatcherPriority, Delegate)
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Delegate,System.Object[])
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: Invoke(Delegate, Object[])
   nameWithType: Dispatcher.Invoke(Delegate, Object[])
-  fullName: System.Windows.Threading.Dispatcher.Invoke(Delegate, Object[])
+  fullName: Dispatcher.Invoke(Delegate, Object[])
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Action,System.Windows.Threading.DispatcherPriority)
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: Invoke(Action, DispatcherPriority)
   nameWithType: Dispatcher.Invoke(Action, DispatcherPriority)
-  fullName: System.Windows.Threading.Dispatcher.Invoke(Action, DispatcherPriority)
+  fullName: Dispatcher.Invoke(Action, DispatcherPriority)
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Action)
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: Invoke(Action)
   nameWithType: Dispatcher.Invoke(Action)
-  fullName: System.Windows.Threading.Dispatcher.Invoke(Action)
+  fullName: Dispatcher.Invoke(Action)
 - uid: System.Windows.Threading.Dispatcher.Invoke(System.Delegate,System.Windows.Threading.DispatcherPriority,System.Object[])
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: Invoke(Delegate, DispatcherPriority, Object[])
   nameWithType: Dispatcher.Invoke(Delegate, DispatcherPriority, Object[])
-  fullName: System.Windows.Threading.Dispatcher.Invoke(Delegate, DispatcherPriority, Object[])
+  fullName: Dispatcher.Invoke(Delegate, DispatcherPriority, Object[])
 - uid: System.Windows.Threading.Dispatcher.Invoke``1(System.Func{``0})
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: Invoke<TResult>(Func<TResult>)
   nameWithType: Dispatcher.Invoke<TResult>(Func<TResult>)
-  fullName: System.Windows.Threading.Dispatcher.Invoke<TResult>(Func<TResult>)
+  fullName: Dispatcher.Invoke<TResult>(Func<TResult>)
 - uid: TResult
   isExternal: true
   name: TResult
@@ -2922,43 +2800,43 @@ references:
   isExternal: false
   name: Invoke<TResult>(Func<TResult>, DispatcherPriority)
   nameWithType: Dispatcher.Invoke<TResult>(Func<TResult>, DispatcherPriority)
-  fullName: System.Windows.Threading.Dispatcher.Invoke<TResult>(Func<TResult>, DispatcherPriority)
+  fullName: Dispatcher.Invoke<TResult>(Func<TResult>, DispatcherPriority)
 - uid: System.Windows.Threading.Dispatcher.Invoke``1(System.Func{``0},System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken)
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: Invoke<TResult>(Func<TResult>, DispatcherPriority, CancellationToken)
   nameWithType: Dispatcher.Invoke<TResult>(Func<TResult>, DispatcherPriority, CancellationToken)
-  fullName: System.Windows.Threading.Dispatcher.Invoke<TResult>(Func<TResult>, DispatcherPriority, CancellationToken)
+  fullName: Dispatcher.Invoke<TResult>(Func<TResult>, DispatcherPriority, CancellationToken)
 - uid: System.Windows.Threading.Dispatcher.Invoke``1(System.Func{``0},System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken,System.TimeSpan)
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: Invoke<TResult>(Func<TResult>, DispatcherPriority, CancellationToken, TimeSpan)
   nameWithType: Dispatcher.Invoke<TResult>(Func<TResult>, DispatcherPriority, CancellationToken, TimeSpan)
-  fullName: System.Windows.Threading.Dispatcher.Invoke<TResult>(Func<TResult>, DispatcherPriority, CancellationToken, TimeSpan)
+  fullName: Dispatcher.Invoke<TResult>(Func<TResult>, DispatcherPriority, CancellationToken, TimeSpan)
 - uid: System.Windows.Threading.Dispatcher.InvokeAsync(System.Action)
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: InvokeAsync(Action)
   nameWithType: Dispatcher.InvokeAsync(Action)
-  fullName: System.Windows.Threading.Dispatcher.InvokeAsync(Action)
+  fullName: Dispatcher.InvokeAsync(Action)
 - uid: System.Windows.Threading.Dispatcher.InvokeAsync(System.Action,System.Windows.Threading.DispatcherPriority)
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: InvokeAsync(Action, DispatcherPriority)
   nameWithType: Dispatcher.InvokeAsync(Action, DispatcherPriority)
-  fullName: System.Windows.Threading.Dispatcher.InvokeAsync(Action, DispatcherPriority)
+  fullName: Dispatcher.InvokeAsync(Action, DispatcherPriority)
 - uid: System.Windows.Threading.Dispatcher.InvokeAsync(System.Action,System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken)
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: InvokeAsync(Action, DispatcherPriority, CancellationToken)
   nameWithType: Dispatcher.InvokeAsync(Action, DispatcherPriority, CancellationToken)
-  fullName: System.Windows.Threading.Dispatcher.InvokeAsync(Action, DispatcherPriority, CancellationToken)
+  fullName: Dispatcher.InvokeAsync(Action, DispatcherPriority, CancellationToken)
 - uid: System.Windows.Threading.Dispatcher.InvokeAsync``1(System.Func{``0},System.Windows.Threading.DispatcherPriority,System.Threading.CancellationToken)
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: InvokeAsync<TResult>(Func<TResult>, DispatcherPriority, CancellationToken)
   nameWithType: Dispatcher.InvokeAsync<TResult>(Func<TResult>, DispatcherPriority, CancellationToken)
-  fullName: System.Windows.Threading.Dispatcher.InvokeAsync<TResult>(Func<TResult>, DispatcherPriority, CancellationToken)
+  fullName: Dispatcher.InvokeAsync<TResult>(Func<TResult>, DispatcherPriority, CancellationToken)
 - uid: System.Windows.Threading.DispatcherOperation`1
   parent: System.Windows.Threading
   isExternal: false
@@ -2970,25 +2848,25 @@ references:
   isExternal: false
   name: InvokeAsync<TResult>(Func<TResult>)
   nameWithType: Dispatcher.InvokeAsync<TResult>(Func<TResult>)
-  fullName: System.Windows.Threading.Dispatcher.InvokeAsync<TResult>(Func<TResult>)
+  fullName: Dispatcher.InvokeAsync<TResult>(Func<TResult>)
 - uid: System.Windows.Threading.Dispatcher.InvokeAsync``1(System.Func{``0},System.Windows.Threading.DispatcherPriority)
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: InvokeAsync<TResult>(Func<TResult>, DispatcherPriority)
   nameWithType: Dispatcher.InvokeAsync<TResult>(Func<TResult>, DispatcherPriority)
-  fullName: System.Windows.Threading.Dispatcher.InvokeAsync<TResult>(Func<TResult>, DispatcherPriority)
+  fullName: Dispatcher.InvokeAsync<TResult>(Func<TResult>, DispatcherPriority)
 - uid: System.Windows.Threading.Dispatcher.InvokeShutdown
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: InvokeShutdown()
   nameWithType: Dispatcher.InvokeShutdown()
-  fullName: System.Windows.Threading.Dispatcher.InvokeShutdown()
+  fullName: Dispatcher.InvokeShutdown()
 - uid: System.Windows.Threading.Dispatcher.PushFrame(System.Windows.Threading.DispatcherFrame)
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: PushFrame(DispatcherFrame)
   nameWithType: Dispatcher.PushFrame(DispatcherFrame)
-  fullName: System.Windows.Threading.Dispatcher.PushFrame(DispatcherFrame)
+  fullName: Dispatcher.PushFrame(DispatcherFrame)
 - uid: System.Windows.Threading.DispatcherFrame
   parent: System.Windows.Threading
   isExternal: false
@@ -3000,13 +2878,13 @@ references:
   isExternal: false
   name: Run()
   nameWithType: Dispatcher.Run()
-  fullName: System.Windows.Threading.Dispatcher.Run()
+  fullName: Dispatcher.Run()
 - uid: System.Windows.Threading.Dispatcher.ShutdownFinished
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: ShutdownFinished
   nameWithType: Dispatcher.ShutdownFinished
-  fullName: System.Windows.Threading.Dispatcher.ShutdownFinished
+  fullName: Dispatcher.ShutdownFinished
 - uid: System.EventHandler
   parent: System
   isExternal: false
@@ -3018,19 +2896,19 @@ references:
   isExternal: false
   name: ShutdownStarted
   nameWithType: Dispatcher.ShutdownStarted
-  fullName: System.Windows.Threading.Dispatcher.ShutdownStarted
+  fullName: Dispatcher.ShutdownStarted
 - uid: System.Windows.Threading.Dispatcher.Thread
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: Thread
   nameWithType: Dispatcher.Thread
-  fullName: System.Windows.Threading.Dispatcher.Thread
+  fullName: Dispatcher.Thread
 - uid: System.Windows.Threading.Dispatcher.UnhandledException
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: UnhandledException
   nameWithType: Dispatcher.UnhandledException
-  fullName: System.Windows.Threading.Dispatcher.UnhandledException
+  fullName: Dispatcher.UnhandledException
 - uid: System.Windows.Threading.DispatcherUnhandledExceptionEventHandler
   parent: System.Windows.Threading
   isExternal: false
@@ -3042,7 +2920,7 @@ references:
   isExternal: false
   name: UnhandledExceptionFilter
   nameWithType: Dispatcher.UnhandledExceptionFilter
-  fullName: System.Windows.Threading.Dispatcher.UnhandledExceptionFilter
+  fullName: Dispatcher.UnhandledExceptionFilter
 - uid: System.Windows.Threading.DispatcherUnhandledExceptionFilterEventHandler
   parent: System.Windows.Threading
   isExternal: false
@@ -3054,7 +2932,7 @@ references:
   isExternal: false
   name: ValidatePriority(DispatcherPriority, String)
   nameWithType: Dispatcher.ValidatePriority(DispatcherPriority, String)
-  fullName: System.Windows.Threading.Dispatcher.ValidatePriority(DispatcherPriority, String)
+  fullName: Dispatcher.ValidatePriority(DispatcherPriority, String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -3066,13 +2944,13 @@ references:
   isExternal: false
   name: VerifyAccess()
   nameWithType: Dispatcher.VerifyAccess()
-  fullName: System.Windows.Threading.Dispatcher.VerifyAccess()
+  fullName: Dispatcher.VerifyAccess()
 - uid: System.Windows.Threading.Dispatcher.Yield
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: Yield()
   nameWithType: Dispatcher.Yield()
-  fullName: System.Windows.Threading.Dispatcher.Yield()
+  fullName: Dispatcher.Yield()
 - uid: System.Windows.Threading.DispatcherPriorityAwaitable
   parent: System.Windows.Threading
   isExternal: false
@@ -3084,13 +2962,13 @@ references:
   isExternal: false
   name: Yield(DispatcherPriority)
   nameWithType: Dispatcher.Yield(DispatcherPriority)
-  fullName: System.Windows.Threading.Dispatcher.Yield(DispatcherPriority)
+  fullName: Dispatcher.Yield(DispatcherPriority)
 - uid: System.Windows.Threading.Dispatcher.BeginInvoke*
   parent: System.Windows.Threading.Dispatcher
   isExternal: false
   name: BeginInvoke
   nameWithType: Dispatcher.BeginInvoke
-  fullName: System.Windows.Threading.Dispatcher.BeginInvoke
+  fullName: Dispatcher.BeginInvoke
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3105,7 +2983,7 @@ references:
   isExternal: false
   name: Invoke
   nameWithType: Dispatcher.Invoke
-  fullName: System.Windows.Threading.Dispatcher.Invoke
+  fullName: Dispatcher.Invoke
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3120,7 +2998,7 @@ references:
   isExternal: false
   name: BeginInvokeShutdown
   nameWithType: Dispatcher.BeginInvokeShutdown
-  fullName: System.Windows.Threading.Dispatcher.BeginInvokeShutdown
+  fullName: Dispatcher.BeginInvokeShutdown
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3135,7 +3013,7 @@ references:
   isExternal: false
   name: CheckAccess
   nameWithType: Dispatcher.CheckAccess
-  fullName: System.Windows.Threading.Dispatcher.CheckAccess
+  fullName: Dispatcher.CheckAccess
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3150,7 +3028,7 @@ references:
   isExternal: false
   name: CurrentDispatcher
   nameWithType: Dispatcher.CurrentDispatcher
-  fullName: System.Windows.Threading.Dispatcher.CurrentDispatcher
+  fullName: Dispatcher.CurrentDispatcher
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3165,7 +3043,7 @@ references:
   isExternal: false
   name: DisableProcessing
   nameWithType: Dispatcher.DisableProcessing
-  fullName: System.Windows.Threading.Dispatcher.DisableProcessing
+  fullName: Dispatcher.DisableProcessing
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3180,7 +3058,7 @@ references:
   isExternal: false
   name: ExitAllFrames
   nameWithType: Dispatcher.ExitAllFrames
-  fullName: System.Windows.Threading.Dispatcher.ExitAllFrames
+  fullName: Dispatcher.ExitAllFrames
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3195,7 +3073,7 @@ references:
   isExternal: false
   name: FromThread
   nameWithType: Dispatcher.FromThread
-  fullName: System.Windows.Threading.Dispatcher.FromThread
+  fullName: Dispatcher.FromThread
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3210,7 +3088,7 @@ references:
   isExternal: false
   name: HasShutdownFinished
   nameWithType: Dispatcher.HasShutdownFinished
-  fullName: System.Windows.Threading.Dispatcher.HasShutdownFinished
+  fullName: Dispatcher.HasShutdownFinished
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3225,7 +3103,7 @@ references:
   isExternal: false
   name: HasShutdownStarted
   nameWithType: Dispatcher.HasShutdownStarted
-  fullName: System.Windows.Threading.Dispatcher.HasShutdownStarted
+  fullName: Dispatcher.HasShutdownStarted
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3240,7 +3118,7 @@ references:
   isExternal: false
   name: Hooks
   nameWithType: Dispatcher.Hooks
-  fullName: System.Windows.Threading.Dispatcher.Hooks
+  fullName: Dispatcher.Hooks
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3255,7 +3133,7 @@ references:
   isExternal: false
   name: Invoke<TResult>
   nameWithType: Dispatcher.Invoke<TResult>
-  fullName: System.Windows.Threading.Dispatcher.Invoke<TResult>
+  fullName: Dispatcher.Invoke<TResult>
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3270,7 +3148,7 @@ references:
   isExternal: false
   name: InvokeAsync
   nameWithType: Dispatcher.InvokeAsync
-  fullName: System.Windows.Threading.Dispatcher.InvokeAsync
+  fullName: Dispatcher.InvokeAsync
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3285,7 +3163,7 @@ references:
   isExternal: false
   name: InvokeAsync<TResult>
   nameWithType: Dispatcher.InvokeAsync<TResult>
-  fullName: System.Windows.Threading.Dispatcher.InvokeAsync<TResult>
+  fullName: Dispatcher.InvokeAsync<TResult>
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3300,7 +3178,7 @@ references:
   isExternal: false
   name: InvokeShutdown
   nameWithType: Dispatcher.InvokeShutdown
-  fullName: System.Windows.Threading.Dispatcher.InvokeShutdown
+  fullName: Dispatcher.InvokeShutdown
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3315,7 +3193,7 @@ references:
   isExternal: false
   name: PushFrame
   nameWithType: Dispatcher.PushFrame
-  fullName: System.Windows.Threading.Dispatcher.PushFrame
+  fullName: Dispatcher.PushFrame
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3330,7 +3208,7 @@ references:
   isExternal: false
   name: Run
   nameWithType: Dispatcher.Run
-  fullName: System.Windows.Threading.Dispatcher.Run
+  fullName: Dispatcher.Run
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3345,7 +3223,7 @@ references:
   isExternal: false
   name: Thread
   nameWithType: Dispatcher.Thread
-  fullName: System.Windows.Threading.Dispatcher.Thread
+  fullName: Dispatcher.Thread
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3360,7 +3238,7 @@ references:
   isExternal: false
   name: ValidatePriority
   nameWithType: Dispatcher.ValidatePriority
-  fullName: System.Windows.Threading.Dispatcher.ValidatePriority
+  fullName: Dispatcher.ValidatePriority
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3375,7 +3253,7 @@ references:
   isExternal: false
   name: VerifyAccess
   nameWithType: Dispatcher.VerifyAccess
-  fullName: System.Windows.Threading.Dispatcher.VerifyAccess
+  fullName: Dispatcher.VerifyAccess
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3390,7 +3268,7 @@ references:
   isExternal: false
   name: Yield
   nameWithType: Dispatcher.Yield
-  fullName: System.Windows.Threading.Dispatcher.Yield
+  fullName: Dispatcher.Yield
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3405,34 +3283,34 @@ references:
   isExternal: false
   name: BeginInvoke(Dispatcher, Action)
   nameWithType: DispatcherExtensions.BeginInvoke(Dispatcher, Action)
-  fullName: System.Windows.Threading.DispatcherExtensions.BeginInvoke(Dispatcher, Action)
+  fullName: DispatcherExtensions.BeginInvoke(Dispatcher, Action)
 - uid: System.Windows.Threading.DispatcherExtensions.BeginInvoke(System.Windows.Threading.Dispatcher,System.Action,System.Windows.Threading.DispatcherPriority)
   parent: System.Windows.Threading.DispatcherExtensions
   isExternal: false
   name: BeginInvoke(Dispatcher, Action, DispatcherPriority)
   nameWithType: DispatcherExtensions.BeginInvoke(Dispatcher, Action, DispatcherPriority)
-  fullName: System.Windows.Threading.DispatcherExtensions.BeginInvoke(Dispatcher, Action, DispatcherPriority)
+  fullName: DispatcherExtensions.BeginInvoke(Dispatcher, Action, DispatcherPriority)
 - uid: System.Windows.Threading.DispatcherExtensions.Invoke(System.Windows.Threading.Dispatcher,System.Action)
   parent: System.Windows.Threading.DispatcherExtensions
   isExternal: false
   name: Invoke(Dispatcher, Action)
   nameWithType: DispatcherExtensions.Invoke(Dispatcher, Action)
-  fullName: System.Windows.Threading.DispatcherExtensions.Invoke(Dispatcher, Action)
+  fullName: DispatcherExtensions.Invoke(Dispatcher, Action)
 - uid: System.Windows.Threading.DispatcherExtensions.Invoke(System.Windows.Threading.Dispatcher,System.Action,System.TimeSpan)
   parent: System.Windows.Threading.DispatcherExtensions
   isExternal: false
   name: Invoke(Dispatcher, Action, TimeSpan)
   nameWithType: DispatcherExtensions.Invoke(Dispatcher, Action, TimeSpan)
-  fullName: System.Windows.Threading.DispatcherExtensions.Invoke(Dispatcher, Action, TimeSpan)
+  fullName: DispatcherExtensions.Invoke(Dispatcher, Action, TimeSpan)
 - uid: System.Windows.Threading.DispatcherExtensions.Invoke(System.Windows.Threading.Dispatcher,System.Action,System.TimeSpan,System.Windows.Threading.DispatcherPriority)
   parent: System.Windows.Threading.DispatcherExtensions
   isExternal: false
   name: Invoke(Dispatcher, Action, TimeSpan, DispatcherPriority)
   nameWithType: DispatcherExtensions.Invoke(Dispatcher, Action, TimeSpan, DispatcherPriority)
-  fullName: System.Windows.Threading.DispatcherExtensions.Invoke(Dispatcher, Action, TimeSpan, DispatcherPriority)
+  fullName: DispatcherExtensions.Invoke(Dispatcher, Action, TimeSpan, DispatcherPriority)
 - uid: System.Windows.Threading.DispatcherExtensions.Invoke(System.Windows.Threading.Dispatcher,System.Action,System.Windows.Threading.DispatcherPriority)
   parent: System.Windows.Threading.DispatcherExtensions
   isExternal: false
   name: Invoke(Dispatcher, Action, DispatcherPriority)
   nameWithType: DispatcherExtensions.Invoke(Dispatcher, Action, DispatcherPriority)
-  fullName: System.Windows.Threading.DispatcherExtensions.Invoke(Dispatcher, Action, DispatcherPriority)
+  fullName: DispatcherExtensions.Invoke(Dispatcher, Action, DispatcherPriority)

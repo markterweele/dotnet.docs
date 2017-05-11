@@ -21,7 +21,7 @@ items:
   summary: Evaluates expressions during page parsing.
   remarks: "The <xref:System.Web.Compilation.ExpressionBuilder> class is the base class for expression builders, such as the <xref:System.Web.Compilation.AppSettingsExpressionBuilder> class, that create code expressions during page parsing.  \n  \n Expression builders parse declarative expressions and create code to retrieve values bound to a control property. In no-compile scenarios, an expression builder that supports a no-compile feature evaluates the expression during run time.  \n  \n When the page parser encounters an expression that is delimited with the string `<%$ %>`, it creates an expression builder for the expression based on the prefix in the string. The prefix is the portion of the string that is to the left of the colon (:). For example, when the parser encounters the string `<%$ ConnectionStrings:MessageDB %>`, it creates a <xref:System.Web.Compilation.ConnectionStringsExpressionBuilder> object. Prefixes are associated with expression builders in the Web.config file in the <xref:System.Web.Configuration.CompilationSection.ExpressionBuilders%2A> section.  \n  \n The right side of the declarative expression is passed to the expression builder for evaluation. Override the <xref:System.Web.Compilation.ExpressionBuilder.GetCodeExpression%2A> method to generate code that will be compiled with the page.  \n  \n If you want the custom expression builder to be active on pages that are not compiled, you must also override the <xref:System.Web.Compilation.ExpressionBuilder.EvaluateExpression%2A> method to return an object that represents the results of the expression. You also must override the <xref:System.Web.Compilation.ExpressionBuilder.SupportsEvaluate%2A> property to indicate that the custom expression builder does support no-compile pages.  \n  \n You can define a set of properties and methods for selecting and evaluating an expression that is associated with a control property at design time by implementing an expression editor. The editor is marked on the expression builder through class-level metadata. For more information, see <xref:System.Web.UI.Design.ExpressionEditor>."
   example:
-  - "The following code examples demonstrate how to build a custom expression builder by implementing the <xref:System.Web.Compilation.ExpressionBuilder> abstract class. This implementation of <xref:System.Web.Compilation.ExpressionBuilder> returns an evaluated statement that is passed to the expression. To run this example, you must first register the custom expression builder in the Web.config file. The first code example demonstrates how to register the custom expression builder in the Web.config file.  \n  \n```  \n<configuration>  \n    <system.web>  \n       <compilation>  \n          <expressionBuilders>  \n              <add expressionPrefix=\"MyCustomExpression\"  \n               type=\"MyCustomExpressionBuilder\"/>  \n          </expressionBuilders>  \n       </compilation>  \n    </system.web>  \n</configuration>  \n```  \n  \n The second code example demonstrates how to reference the expression in an .aspx file.  \n  \n```  \n<asp:Label ID=\"Label1\" runat=\"server\"   \nText=\"<%$ MyCustomExpression:Hello, world! %>\" />  \n```  \n  \n The third code example demonstrates how to develop a customized expression builder by deriving from <xref:System.Web.Compilation.ExpressionBuilder>. To run this code example, you must place the class in the App_Code folder.  \n  \n <!-- TODO: review snippet reference [!code-csharp[System.Web.Compilation.ExpressionBuilder#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Compilation.ExpressionBuilder/CS/MyExpressionBuilder.cs#1)]  -->\n <!-- TODO: review snippet reference [!code-vb[System.Web.Compilation.ExpressionBuilder#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Compilation.ExpressionBuilder/VB/MyExpressionBuilder.vb#1)]  -->"
+  - "The following code examples demonstrate how to build a custom expression builder by implementing the <xref:System.Web.Compilation.ExpressionBuilder> abstract class. This implementation of <xref:System.Web.Compilation.ExpressionBuilder> returns an evaluated statement that is passed to the expression. To run this example, you must first register the custom expression builder in the Web.config file. The first code example demonstrates how to register the custom expression builder in the Web.config file.  \n  \n```  \n<configuration>  \n    <system.web>  \n       <compilation>  \n          <expressionBuilders>  \n              <add expressionPrefix=\"MyCustomExpression\"  \n               type=\"MyCustomExpressionBuilder\"/>  \n          </expressionBuilders>  \n       </compilation>  \n    </system.web>  \n</configuration>  \n```  \n  \n The second code example demonstrates how to reference the expression in an .aspx file.  \n  \n```  \n<asp:Label ID=\"Label1\" runat=\"server\"   \nText=\"<%$ MyCustomExpression:Hello, world! %>\" />  \n```  \n  \n The third code example demonstrates how to develop a customized expression builder by deriving from <xref:System.Web.Compilation.ExpressionBuilder>. To run this code example, you must place the class in the App_Code folder.  \n  \n [!code-csharp[System.Web.Compilation.ExpressionBuilder#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Compilation.ExpressionBuilder/CS/MyExpressionBuilder.cs#1)] \n [!code-vb[System.Web.Compilation.ExpressionBuilder#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Compilation.ExpressionBuilder/VB/MyExpressionBuilder.vb#1)]"
   syntax:
     content: public abstract class ExpressionBuilder
   inheritance:
@@ -58,9 +58,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Compilation/ExpressionBuilder.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Compilation.ExpressionBuilder.#ctor
   commentId: M:System.Web.Compilation.ExpressionBuilder.#ctor
   id: '#ctor'
@@ -69,7 +66,7 @@ items:
   - csharp
   name: ExpressionBuilder()
   nameWithType: ExpressionBuilder.ExpressionBuilder()
-  fullName: System.Web.Compilation.ExpressionBuilder.ExpressionBuilder()
+  fullName: ExpressionBuilder.ExpressionBuilder()
   type: Constructor
   assemblies:
   - System.Web
@@ -98,9 +95,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Compilation/ExpressionBuilder.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Compilation.ExpressionBuilder.EvaluateExpression(System.Object,System.Web.UI.BoundPropertyEntry,System.Object,System.Web.Compilation.ExpressionBuilderContext)
   commentId: M:System.Web.Compilation.ExpressionBuilder.EvaluateExpression(System.Object,System.Web.UI.BoundPropertyEntry,System.Object,System.Web.Compilation.ExpressionBuilderContext)
   id: EvaluateExpression(System.Object,System.Web.UI.BoundPropertyEntry,System.Object,System.Web.Compilation.ExpressionBuilderContext)
@@ -109,7 +103,7 @@ items:
   - csharp
   name: EvaluateExpression(Object, BoundPropertyEntry, Object, ExpressionBuilderContext)
   nameWithType: ExpressionBuilder.EvaluateExpression(Object, BoundPropertyEntry, Object, ExpressionBuilderContext)
-  fullName: System.Web.Compilation.ExpressionBuilder.EvaluateExpression(Object, BoundPropertyEntry, Object, ExpressionBuilderContext)
+  fullName: ExpressionBuilder.EvaluateExpression(Object, BoundPropertyEntry, Object, ExpressionBuilderContext)
   type: Method
   assemblies:
   - System.Web
@@ -117,7 +111,7 @@ items:
   summary: When overridden in a derived class, returns an object that represents an evaluated expression.
   remarks: If you want your <xref:System.Web.Compilation.ExpressionBuilder> object to be active on a page that supports the no-compile feature, you can override the <xref:System.Web.Compilation.ExpressionBuilder.EvaluateExpression%2A> method and the <xref:System.Web.Compilation.ExpressionBuilder.SupportsEvaluate%2A> property. The <xref:System.Web.Compilation.ExpressionBuilder.EvaluateExpression%2A> method should return the evaluation of the current expression.
   example:
-  - "The following code example demonstrates how to use the overridden <xref:System.Web.Compilation.ExpressionBuilder.EvaluateExpression%2A> method to return an evaluated expression.  \n  \n <!-- TODO: review snippet reference [!code-csharp[System.Web.Compilation.ExpressionBuilder#3](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Compilation.ExpressionBuilder/CS/MyExpressionBuilder.cs#3)]  -->\n <!-- TODO: review snippet reference [!code-vb[System.Web.Compilation.ExpressionBuilder#3](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Compilation.ExpressionBuilder/VB/MyExpressionBuilder.vb#3)]  -->"
+  - "The following code example demonstrates how to use the overridden <xref:System.Web.Compilation.ExpressionBuilder.EvaluateExpression%2A> method to return an evaluated expression.  \n  \n [!code-csharp[System.Web.Compilation.ExpressionBuilder#3](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Compilation.ExpressionBuilder/CS/MyExpressionBuilder.cs#3)]    \n [!code-vb[System.Web.Compilation.ExpressionBuilder#3](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Compilation.ExpressionBuilder/VB/MyExpressionBuilder.vb#3)]"
   syntax:
     content: public virtual object EvaluateExpression (object target, System.Web.UI.BoundPropertyEntry entry, object parsedData, System.Web.Compilation.ExpressionBuilderContext context);
     parameters:
@@ -155,9 +149,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Compilation/ExpressionBuilder.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Compilation.ExpressionBuilder.GetCodeExpression(System.Web.UI.BoundPropertyEntry,System.Object,System.Web.Compilation.ExpressionBuilderContext)
   commentId: M:System.Web.Compilation.ExpressionBuilder.GetCodeExpression(System.Web.UI.BoundPropertyEntry,System.Object,System.Web.Compilation.ExpressionBuilderContext)
   id: GetCodeExpression(System.Web.UI.BoundPropertyEntry,System.Object,System.Web.Compilation.ExpressionBuilderContext)
@@ -166,7 +157,7 @@ items:
   - csharp
   name: GetCodeExpression(BoundPropertyEntry, Object, ExpressionBuilderContext)
   nameWithType: ExpressionBuilder.GetCodeExpression(BoundPropertyEntry, Object, ExpressionBuilderContext)
-  fullName: System.Web.Compilation.ExpressionBuilder.GetCodeExpression(BoundPropertyEntry, Object, ExpressionBuilderContext)
+  fullName: ExpressionBuilder.GetCodeExpression(BoundPropertyEntry, Object, ExpressionBuilderContext)
   type: Method
   assemblies:
   - System.Web
@@ -174,7 +165,7 @@ items:
   summary: When overridden in a derived class, returns code that is used during page execution to obtain the evaluated expression.
   remarks: Classes that inherit from the <xref:System.Web.Compilation.ExpressionBuilder> class must implement the <xref:System.Web.Compilation.ExpressionBuilder.GetCodeExpression%2A> abstract method.
   example:
-  - "The following code example demonstrates how to return a <xref:System.CodeDom.CodeExpression> object by overriding the <xref:System.Web.Compilation.ExpressionBuilder.GetCodeExpression%2A> method.  \n  \n <!-- TODO: review snippet reference [!code-csharp[System.Web.Compilation.ExpressionBuilder#4](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Compilation.ExpressionBuilder/CS/MyExpressionBuilder.cs#4)]  -->\n <!-- TODO: review snippet reference [!code-vb[System.Web.Compilation.ExpressionBuilder#4](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Compilation.ExpressionBuilder/VB/MyExpressionBuilder.vb#4)]  -->"
+  - "The following code example demonstrates how to return a <xref:System.CodeDom.CodeExpression> object by overriding the <xref:System.Web.Compilation.ExpressionBuilder.GetCodeExpression%2A> method.  \n  \n [!code-csharp[System.Web.Compilation.ExpressionBuilder#4](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Compilation.ExpressionBuilder/CS/MyExpressionBuilder.cs#4)] \n [!code-vb[System.Web.Compilation.ExpressionBuilder#4](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Compilation.ExpressionBuilder/VB/MyExpressionBuilder.vb#4)]"
   syntax:
     content: public abstract System.CodeDom.CodeExpression GetCodeExpression (System.Web.UI.BoundPropertyEntry entry, object parsedData, System.Web.Compilation.ExpressionBuilderContext context);
     parameters:
@@ -209,9 +200,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Compilation/ExpressionBuilder.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Compilation.ExpressionBuilder.ParseExpression(System.String,System.Type,System.Web.Compilation.ExpressionBuilderContext)
   commentId: M:System.Web.Compilation.ExpressionBuilder.ParseExpression(System.String,System.Type,System.Web.Compilation.ExpressionBuilderContext)
   id: ParseExpression(System.String,System.Type,System.Web.Compilation.ExpressionBuilderContext)
@@ -220,7 +208,7 @@ items:
   - csharp
   name: ParseExpression(String, Type, ExpressionBuilderContext)
   nameWithType: ExpressionBuilder.ParseExpression(String, Type, ExpressionBuilderContext)
-  fullName: System.Web.Compilation.ExpressionBuilder.ParseExpression(String, Type, ExpressionBuilderContext)
+  fullName: ExpressionBuilder.ParseExpression(String, Type, ExpressionBuilderContext)
   type: Method
   assemblies:
   - System.Web
@@ -261,9 +249,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Compilation/ExpressionBuilder.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.Compilation.ExpressionBuilder.SupportsEvaluate
   commentId: P:System.Web.Compilation.ExpressionBuilder.SupportsEvaluate
   id: SupportsEvaluate
@@ -272,7 +257,7 @@ items:
   - csharp
   name: SupportsEvaluate
   nameWithType: ExpressionBuilder.SupportsEvaluate
-  fullName: System.Web.Compilation.ExpressionBuilder.SupportsEvaluate
+  fullName: ExpressionBuilder.SupportsEvaluate
   type: Property
   assemblies:
   - System.Web
@@ -280,7 +265,7 @@ items:
   summary: When overridden in a derived class, returns a value indicating whether the current <xref href="System.Web.Compilation.ExpressionBuilder"></xref> object supports no-compile pages.
   remarks: The default value for the <xref:System.Web.Compilation.ExpressionBuilder.SupportsEvaluate%2A> property is `false`. To support no-compile pages, you must override both the <xref:System.Web.Compilation.ExpressionBuilder.EvaluateExpression%2A> method and the <xref:System.Web.Compilation.ExpressionBuilder.SupportsEvaluate%2A> property.
   example:
-  - "The following code example demonstrates how to use the <xref:System.Web.Compilation.ExpressionBuilder.SupportsEvaluate%2A> property.  \n  \n <!-- TODO: review snippet reference [!code-csharp[System.Web.Compilation.ExpressionBuilder#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Compilation.ExpressionBuilder/CS/MyExpressionBuilder.cs#2)]  -->\n <!-- TODO: review snippet reference [!code-vb[System.Web.Compilation.ExpressionBuilder#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Compilation.ExpressionBuilder/VB/MyExpressionBuilder.vb#2)]  -->"
+  - "The following code example demonstrates how to use the <xref:System.Web.Compilation.ExpressionBuilder.SupportsEvaluate%2A> property.  \n  \n [!code-csharp[System.Web.Compilation.ExpressionBuilder#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Compilation.ExpressionBuilder/CS/MyExpressionBuilder.cs#2)] \n [!code-vb[System.Web.Compilation.ExpressionBuilder#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Compilation.ExpressionBuilder/VB/MyExpressionBuilder.vb#2)]"
   syntax:
     content: public virtual bool SupportsEvaluate { get; }
     return:
@@ -305,9 +290,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.Compilation/ExpressionBuilder.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -320,13 +302,13 @@ references:
   isExternal: false
   name: ExpressionBuilder()
   nameWithType: ExpressionBuilder.ExpressionBuilder()
-  fullName: System.Web.Compilation.ExpressionBuilder.ExpressionBuilder()
+  fullName: ExpressionBuilder.ExpressionBuilder()
 - uid: System.Web.Compilation.ExpressionBuilder.EvaluateExpression(System.Object,System.Web.UI.BoundPropertyEntry,System.Object,System.Web.Compilation.ExpressionBuilderContext)
   parent: System.Web.Compilation.ExpressionBuilder
   isExternal: false
   name: EvaluateExpression(Object, BoundPropertyEntry, Object, ExpressionBuilderContext)
   nameWithType: ExpressionBuilder.EvaluateExpression(Object, BoundPropertyEntry, Object, ExpressionBuilderContext)
-  fullName: System.Web.Compilation.ExpressionBuilder.EvaluateExpression(Object, BoundPropertyEntry, Object, ExpressionBuilderContext)
+  fullName: ExpressionBuilder.EvaluateExpression(Object, BoundPropertyEntry, Object, ExpressionBuilderContext)
 - uid: System.Web.UI.BoundPropertyEntry
   parent: System.Web.UI
   isExternal: false
@@ -344,7 +326,7 @@ references:
   isExternal: false
   name: GetCodeExpression(BoundPropertyEntry, Object, ExpressionBuilderContext)
   nameWithType: ExpressionBuilder.GetCodeExpression(BoundPropertyEntry, Object, ExpressionBuilderContext)
-  fullName: System.Web.Compilation.ExpressionBuilder.GetCodeExpression(BoundPropertyEntry, Object, ExpressionBuilderContext)
+  fullName: ExpressionBuilder.GetCodeExpression(BoundPropertyEntry, Object, ExpressionBuilderContext)
 - uid: System.CodeDom.CodeExpression
   parent: System.CodeDom
   isExternal: false
@@ -356,7 +338,7 @@ references:
   isExternal: false
   name: ParseExpression(String, Type, ExpressionBuilderContext)
   nameWithType: ExpressionBuilder.ParseExpression(String, Type, ExpressionBuilderContext)
-  fullName: System.Web.Compilation.ExpressionBuilder.ParseExpression(String, Type, ExpressionBuilderContext)
+  fullName: ExpressionBuilder.ParseExpression(String, Type, ExpressionBuilderContext)
 - uid: System.String
   parent: System
   isExternal: false
@@ -374,7 +356,7 @@ references:
   isExternal: false
   name: SupportsEvaluate
   nameWithType: ExpressionBuilder.SupportsEvaluate
-  fullName: System.Web.Compilation.ExpressionBuilder.SupportsEvaluate
+  fullName: ExpressionBuilder.SupportsEvaluate
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -386,7 +368,7 @@ references:
   isExternal: false
   name: ExpressionBuilder
   nameWithType: ExpressionBuilder.ExpressionBuilder
-  fullName: System.Web.Compilation.ExpressionBuilder.ExpressionBuilder
+  fullName: ExpressionBuilder.ExpressionBuilder
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -401,7 +383,7 @@ references:
   isExternal: false
   name: EvaluateExpression
   nameWithType: ExpressionBuilder.EvaluateExpression
-  fullName: System.Web.Compilation.ExpressionBuilder.EvaluateExpression
+  fullName: ExpressionBuilder.EvaluateExpression
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -416,7 +398,7 @@ references:
   isExternal: false
   name: GetCodeExpression
   nameWithType: ExpressionBuilder.GetCodeExpression
-  fullName: System.Web.Compilation.ExpressionBuilder.GetCodeExpression
+  fullName: ExpressionBuilder.GetCodeExpression
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -431,7 +413,7 @@ references:
   isExternal: false
   name: ParseExpression
   nameWithType: ExpressionBuilder.ParseExpression
-  fullName: System.Web.Compilation.ExpressionBuilder.ParseExpression
+  fullName: ExpressionBuilder.ParseExpression
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -446,7 +428,7 @@ references:
   isExternal: false
   name: SupportsEvaluate
   nameWithType: ExpressionBuilder.SupportsEvaluate
-  fullName: System.Web.Compilation.ExpressionBuilder.SupportsEvaluate
+  fullName: ExpressionBuilder.SupportsEvaluate
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

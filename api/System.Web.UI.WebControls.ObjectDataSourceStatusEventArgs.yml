@@ -23,7 +23,7 @@ items:
   summary: Provides data for the <xref href="System.Web.UI.WebControls.ObjectDataSource.Selected"></xref>, <xref href="System.Web.UI.WebControls.ObjectDataSource.Inserted"></xref>, <xref href="System.Web.UI.WebControls.ObjectDataSource.Updated"></xref>, and <xref href="System.Web.UI.WebControls.ObjectDataSource.Deleted"></xref> events of the <xref href="System.Web.UI.WebControls.ObjectDataSource"></xref> control.
   remarks: "The <xref:System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs> class is used in the <xref:System.Web.UI.WebControls.ObjectDataSourceView.OnSelected%2A>, <xref:System.Web.UI.WebControls.ObjectDataSourceView.OnUpdated%2A>, <xref:System.Web.UI.WebControls.ObjectDataSourceView.OnInserted%2A>, and <xref:System.Web.UI.WebControls.ObjectDataSourceView.OnDeleted%2A> methods to provide access to output parameters, return values, and exceptions that are thrown by the method that is called by the <xref:System.Web.UI.WebControls.ObjectDataSource> control. These are accessed by the <xref:System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.OutputParameters%2A>, <xref:System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.ReturnValue%2A>, and <xref:System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.Exception%2A> properties, respectively. By adding a delegate to handle the <xref:System.Web.UI.WebControls.ObjectDataSource.Selected>, <xref:System.Web.UI.WebControls.ObjectDataSource.Updated>, <xref:System.Web.UI.WebControls.ObjectDataSource.Inserted>, or <xref:System.Web.UI.WebControls.ObjectDataSource.Deleted> events, you can examine this data and perform any additional post processing that is required.  \n  \n The <xref:System.Web.UI.WebControls.ObjectDataSource> control exposes many events that you can handle to work with the underlying business object at various times in its lifecycle. The following table lists the events and the associated <xref:System.EventArgs> classes and event handler delegates.  \n  \n|Event|EventArgs|EventHandler|  \n|-----------|---------------|------------------|  \n|<xref:System.Web.UI.WebControls.ObjectDataSource.ObjectCreating>.<br /><br /> Occurs immediately before the instance of the business object is created.|<xref:System.Web.UI.WebControls.ObjectDataSourceEventArgs>|<xref:System.Web.UI.WebControls.ObjectDataSourceObjectEventHandler>|  \n|<xref:System.Web.UI.WebControls.ObjectDataSource.ObjectCreated>.<br /><br /> Occurs immediately after the instance of the business object is created.|<xref:System.Web.UI.WebControls.ObjectDataSourceEventArgs>|<xref:System.Web.UI.WebControls.ObjectDataSourceObjectEventHandler>|  \n|<xref:System.Web.UI.WebControls.ObjectDataSource.Selecting>.<br /><br /> Occurs before the data is retrieved.|<xref:System.Web.UI.WebControls.ObjectDataSourceSelectingEventArgs>|<xref:System.Web.UI.WebControls.ObjectDataSourceSelectingEventHandler>|  \n|<xref:System.Web.UI.WebControls.ObjectDataSource.Inserting>, <xref:System.Web.UI.WebControls.ObjectDataSource.Updating>, and <xref:System.Web.UI.WebControls.ObjectDataSource.Deleting>.<br /><br /> Occur before an insert, update, or delete operation is performed.|<xref:System.Web.UI.WebControls.ObjectDataSourceMethodEventArgs>|<xref:System.Web.UI.WebControls.ObjectDataSourceMethodEventHandler>|  \n|<xref:System.Web.UI.WebControls.ObjectDataSource.Selected>.<br /><br /> Occurs after the data is retrieved.|<xref:System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs>|<xref:System.Web.UI.WebControls.ObjectDataSourceStatusEventHandler>|  \n|<xref:System.Web.UI.WebControls.ObjectDataSource.Inserted>, <xref:System.Web.UI.WebControls.ObjectDataSource.Updated>, and <xref:System.Web.UI.WebControls.ObjectDataSource.Deleted>.<br /><br /> Occur after the insert, update, or delete operation is completed.|<xref:System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs>|<xref:System.Web.UI.WebControls.ObjectDataSourceStatusEventHandler>|  \n|<xref:System.Web.UI.WebControls.ObjectDataSource.ObjectDisposing>.<br /><br /> Occurs before a business object is destroyed.|<xref:System.Web.UI.WebControls.ObjectDataSourceDisposingEventArgs>|<xref:System.Web.UI.WebControls.ObjectDataSourceDisposingEventHandler>|"
   example:
-  - "This section contains two code examples. The first code example demonstrates how to use an <xref:System.Web.UI.WebControls.ObjectDataSource> control with a business object and a <xref:System.Web.UI.WebControls.GridView> control to delete data. The second code example provides an example middle-tier business object that the first code example uses.  \n  \n The following code example demonstrates how to use an <xref:System.Web.UI.WebControls.ObjectDataSource> control with a business object and a <xref:System.Web.UI.WebControls.GridView> control to delete data. The <xref:System.Web.UI.WebControls.GridView> initially displays a set of all employees, using the method that is specified by the <xref:System.Web.UI.WebControls.ObjectDataSource.SelectMethod%2A> property to retrieve the data from the `EmployeeLogic` object. Because the <xref:System.Web.UI.WebControls.GridView.AutoGenerateDeleteButton%2A> property is set to `true`, the <xref:System.Web.UI.WebControls.GridView> control automatically displays a **Delete** button.  \n  \n If you click the **Delete** button, the <xref:System.Web.UI.WebControls.ObjectDataSource.Delete%2A> action is performed using the method that is specified by the <xref:System.Web.UI.WebControls.ObjectDataSource.DeleteMethod%2A> property and any parameters that are specified in the <xref:System.Web.UI.WebControls.ObjectDataSource.DeleteParameters%2A> collection. In this code example, one parameter is specified in the <xref:System.Web.UI.WebControls.ObjectDataSource.DeleteParameters%2A> collection that corresponds to the employee ID. This is because although the ID is included in the <xref:System.Windows.Forms.DataGridView.Columns%2A> collection as a <xref:System.Web.UI.WebControls.BoundField> object, it will be passed as a string to the <xref:System.Web.UI.WebControls.ObjectDataSource> control. By adding it explicitly to the <xref:System.Web.UI.WebControls.ObjectDataSource.DeleteParameters%2A> collection with a <xref:System.Web.UI.WebControls.Parameter.Type%2A> property set to the <xref:System.TypeCode> value, it will pass correctly by the <xref:System.Web.UI.WebControls.ObjectDataSource> to the method as an integer, rather than as string.  \n  \n In this code example, some preprocessing and post-processing steps are also performed. The `NorthwindEmployeeDeleting` delegate is called to handle the <xref:System.Web.UI.WebControls.ObjectDataSource.Deleting> event before the <xref:System.Web.UI.WebControls.ObjectDataSource.Delete%2A> action is performed, and the `NorthwindEmployeeDeleted` delegate is called to handle the <xref:System.Web.UI.WebControls.ObjectDataSource.Deleted> event after the <xref:System.Web.UI.WebControls.ObjectDataSource.Delete%2A> action has completed, to handle any exceptions that might have occurred. The `NorthwindEmployeeDeleted` delegate accesses possible exceptions that are thrown by the business object that is using the <xref:System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs> object. In this example, if a `NorthwindDataException` is thrown, it is handled by this delegate.  \n  \n <!-- TODO: review snippet reference [!code-csharp[System.Web.UI.WebControls.ObjectDataSource_10#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.ObjectDataSource_10/CS/objds10cs.aspx#1)]  -->\n <!-- TODO: review snippet reference [!code-vb[System.Web.UI.WebControls.ObjectDataSource_10#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.ObjectDataSource_10/VB/objds10vb.aspx#1)]  -->  \n  \n The following code example provides an example middle-tier business object that the preceding code example uses. The following list describes the two major classes that are defined in the code example:  \n  \n-   The `EmployeeLogic` class is a class that does not maintain state and encapsulates business logic.  \n  \n-   The `NorthwindEmployee` class is a model class that contains only the basic functionality that is required to load and persist data from the data tier.  \n  \n In addition, a `NorthwindDataException` class is provided as a convenience.  \n  \n This set of example classes uses the Northwind Traders database, which is an example database that is available with Microsoft SQL Server and Microsoft Access. For a complete working example, you must compile this code as a library, and then use these classes from an ASP page. The ASP page that is provided in the preceding example is configured to work with this class library.  The `UpdateEmployeeInfo` method is not completely implemented, so you will not insert data into the Northwind Traders database when you experiment with this example.  \n  \n [!code-csharp[System.Web.UI.WebControls.ObjectDataSource_10#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.ObjectDataSource_10/CS/northwindemployee10.cs#2)]\n [!code-vb[System.Web.UI.WebControls.ObjectDataSource_10#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.ObjectDataSource_10/VB/northwindemployee10.vb#2)]"
+  - "This section contains two code examples. The first code example demonstrates how to use an <xref:System.Web.UI.WebControls.ObjectDataSource> control with a business object and a <xref:System.Web.UI.WebControls.GridView> control to delete data. The second code example provides an example middle-tier business object that the first code example uses.  \n  \n The following code example demonstrates how to use an <xref:System.Web.UI.WebControls.ObjectDataSource> control with a business object and a <xref:System.Web.UI.WebControls.GridView> control to delete data. The <xref:System.Web.UI.WebControls.GridView> initially displays a set of all employees, using the method that is specified by the <xref:System.Web.UI.WebControls.ObjectDataSource.SelectMethod%2A> property to retrieve the data from the `EmployeeLogic` object. Because the <xref:System.Web.UI.WebControls.GridView.AutoGenerateDeleteButton%2A> property is set to `true`, the <xref:System.Web.UI.WebControls.GridView> control automatically displays a **Delete** button.  \n  \n If you click the **Delete** button, the <xref:System.Web.UI.WebControls.ObjectDataSource.Delete%2A> action is performed using the method that is specified by the <xref:System.Web.UI.WebControls.ObjectDataSource.DeleteMethod%2A> property and any parameters that are specified in the <xref:System.Web.UI.WebControls.ObjectDataSource.DeleteParameters%2A> collection. In this code example, one parameter is specified in the <xref:System.Web.UI.WebControls.ObjectDataSource.DeleteParameters%2A> collection that corresponds to the employee ID. This is because although the ID is included in the <xref:System.Windows.Forms.DataGridView.Columns%2A> collection as a <xref:System.Web.UI.WebControls.BoundField> object, it will be passed as a string to the <xref:System.Web.UI.WebControls.ObjectDataSource> control. By adding it explicitly to the <xref:System.Web.UI.WebControls.ObjectDataSource.DeleteParameters%2A> collection with a <xref:System.Web.UI.WebControls.Parameter.Type%2A> property set to the <xref:System.TypeCode.Int32> value, it will pass correctly by the <xref:System.Web.UI.WebControls.ObjectDataSource> to the method as an integer, rather than as string.  \n  \n In this code example, some preprocessing and post-processing steps are also performed. The `NorthwindEmployeeDeleting` delegate is called to handle the <xref:System.Web.UI.WebControls.ObjectDataSource.Deleting> event before the <xref:System.Web.UI.WebControls.ObjectDataSource.Delete%2A> action is performed, and the `NorthwindEmployeeDeleted` delegate is called to handle the <xref:System.Web.UI.WebControls.ObjectDataSource.Deleted> event after the <xref:System.Web.UI.WebControls.ObjectDataSource.Delete%2A> action has completed, to handle any exceptions that might have occurred. The `NorthwindEmployeeDeleted` delegate accesses possible exceptions that are thrown by the business object that is using the <xref:System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs> object. In this example, if a `NorthwindDataException` is thrown, it is handled by this delegate.  \n  \n <!-- TODO: review snippet reference [!code-csharp[System.Web.UI.WebControls.ObjectDataSource_10#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.ObjectDataSource_10/CS/objds10cs.aspx#1)]  -->\n <!-- TODO: review snippet reference [!code-vb[System.Web.UI.WebControls.ObjectDataSource_10#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.ObjectDataSource_10/VB/objds10vb.aspx#1)]  -->  \n  \n The following code example provides an example middle-tier business object that the preceding code example uses. The following list describes the two major classes that are defined in the code example:  \n  \n-   The `EmployeeLogic` class is a class that does not maintain state and encapsulates business logic.  \n  \n-   The `NorthwindEmployee` class is a model class that contains only the basic functionality that is required to load and persist data from the data tier.  \n  \n In addition, a `NorthwindDataException` class is provided as a convenience.  \n  \n This set of example classes uses the Northwind Traders database, which is an example database that is available with Microsoft SQL Server and Microsoft Access. For a complete working example, you must compile this code as a library, and then use these classes from an ASP page. The ASP page that is provided in the preceding example is configured to work with this class library.  The `UpdateEmployeeInfo` method is not completely implemented, so you will not insert data into the Northwind Traders database when you experiment with this example.  \n  \n [!code-csharp[System.Web.UI.WebControls.ObjectDataSource_10#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.WebControls.ObjectDataSource_10/CS/northwindemployee10.cs#2)]\n [!code-vb[System.Web.UI.WebControls.ObjectDataSource_10#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.WebControls.ObjectDataSource_10/VB/northwindemployee10.vb#2)]"
   syntax:
     content: 'public class ObjectDataSourceStatusEventArgs : EventArgs'
   inheritance:
@@ -56,9 +56,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.WebControls/ObjectDataSourceStatusEventArgs.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.#ctor(System.Object,System.Collections.IDictionary)
   commentId: M:System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.#ctor(System.Object,System.Collections.IDictionary)
   id: '#ctor(System.Object,System.Collections.IDictionary)'
@@ -67,7 +64,7 @@ items:
   - csharp
   name: ObjectDataSourceStatusEventArgs(Object, IDictionary)
   nameWithType: ObjectDataSourceStatusEventArgs.ObjectDataSourceStatusEventArgs(Object, IDictionary)
-  fullName: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.ObjectDataSourceStatusEventArgs(Object, IDictionary)
+  fullName: ObjectDataSourceStatusEventArgs.ObjectDataSourceStatusEventArgs(Object, IDictionary)
   type: Constructor
   assemblies:
   - System.Web
@@ -102,9 +99,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.WebControls/ObjectDataSourceStatusEventArgs.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.#ctor(System.Object,System.Collections.IDictionary,System.Exception)
   commentId: M:System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.#ctor(System.Object,System.Collections.IDictionary,System.Exception)
   id: '#ctor(System.Object,System.Collections.IDictionary,System.Exception)'
@@ -113,7 +107,7 @@ items:
   - csharp
   name: ObjectDataSourceStatusEventArgs(Object, IDictionary, Exception)
   nameWithType: ObjectDataSourceStatusEventArgs.ObjectDataSourceStatusEventArgs(Object, IDictionary, Exception)
-  fullName: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.ObjectDataSourceStatusEventArgs(Object, IDictionary, Exception)
+  fullName: ObjectDataSourceStatusEventArgs.ObjectDataSourceStatusEventArgs(Object, IDictionary, Exception)
   type: Constructor
   assemblies:
   - System.Web
@@ -151,9 +145,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.WebControls/ObjectDataSourceStatusEventArgs.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.AffectedRows
   commentId: P:System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.AffectedRows
   id: AffectedRows
@@ -162,7 +153,7 @@ items:
   - csharp
   name: AffectedRows
   nameWithType: ObjectDataSourceStatusEventArgs.AffectedRows
-  fullName: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.AffectedRows
+  fullName: ObjectDataSourceStatusEventArgs.AffectedRows
   type: Property
   assemblies:
   - System.Web
@@ -193,9 +184,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.WebControls/ObjectDataSourceStatusEventArgs.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.Exception
   commentId: P:System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.Exception
   id: Exception
@@ -204,7 +192,7 @@ items:
   - csharp
   name: Exception
   nameWithType: ObjectDataSourceStatusEventArgs.Exception
-  fullName: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.Exception
+  fullName: ObjectDataSourceStatusEventArgs.Exception
   type: Property
   assemblies:
   - System.Web
@@ -237,9 +225,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.WebControls/ObjectDataSourceStatusEventArgs.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.ExceptionHandled
   commentId: P:System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.ExceptionHandled
   id: ExceptionHandled
@@ -248,7 +233,7 @@ items:
   - csharp
   name: ExceptionHandled
   nameWithType: ObjectDataSourceStatusEventArgs.ExceptionHandled
-  fullName: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.ExceptionHandled
+  fullName: ObjectDataSourceStatusEventArgs.ExceptionHandled
   type: Property
   assemblies:
   - System.Web
@@ -281,9 +266,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.WebControls/ObjectDataSourceStatusEventArgs.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.OutputParameters
   commentId: P:System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.OutputParameters
   id: OutputParameters
@@ -292,7 +274,7 @@ items:
   - csharp
   name: OutputParameters
   nameWithType: ObjectDataSourceStatusEventArgs.OutputParameters
-  fullName: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.OutputParameters
+  fullName: ObjectDataSourceStatusEventArgs.OutputParameters
   type: Property
   assemblies:
   - System.Web
@@ -323,9 +305,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.WebControls/ObjectDataSourceStatusEventArgs.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 - uid: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.ReturnValue
   commentId: P:System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.ReturnValue
   id: ReturnValue
@@ -334,7 +313,7 @@ items:
   - csharp
   name: ReturnValue
   nameWithType: ObjectDataSourceStatusEventArgs.ReturnValue
-  fullName: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.ReturnValue
+  fullName: ObjectDataSourceStatusEventArgs.ReturnValue
   type: Property
   assemblies:
   - System.Web
@@ -365,9 +344,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Web.UI.WebControls/ObjectDataSourceStatusEventArgs.xml
-  author: tdykstra
-  ms.author: tdykstra
-  manager: wpickett
 references:
 - uid: System.EventArgs
   parent: System
@@ -380,7 +356,7 @@ references:
   isExternal: false
   name: ObjectDataSourceStatusEventArgs(Object, IDictionary)
   nameWithType: ObjectDataSourceStatusEventArgs.ObjectDataSourceStatusEventArgs(Object, IDictionary)
-  fullName: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.ObjectDataSourceStatusEventArgs(Object, IDictionary)
+  fullName: ObjectDataSourceStatusEventArgs.ObjectDataSourceStatusEventArgs(Object, IDictionary)
 - uid: System.Object
   parent: System
   isExternal: false
@@ -398,7 +374,7 @@ references:
   isExternal: false
   name: ObjectDataSourceStatusEventArgs(Object, IDictionary, Exception)
   nameWithType: ObjectDataSourceStatusEventArgs.ObjectDataSourceStatusEventArgs(Object, IDictionary, Exception)
-  fullName: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.ObjectDataSourceStatusEventArgs(Object, IDictionary, Exception)
+  fullName: ObjectDataSourceStatusEventArgs.ObjectDataSourceStatusEventArgs(Object, IDictionary, Exception)
 - uid: System.Exception
   parent: System
   isExternal: false
@@ -410,7 +386,7 @@ references:
   isExternal: false
   name: AffectedRows
   nameWithType: ObjectDataSourceStatusEventArgs.AffectedRows
-  fullName: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.AffectedRows
+  fullName: ObjectDataSourceStatusEventArgs.AffectedRows
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -422,13 +398,13 @@ references:
   isExternal: false
   name: Exception
   nameWithType: ObjectDataSourceStatusEventArgs.Exception
-  fullName: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.Exception
+  fullName: ObjectDataSourceStatusEventArgs.Exception
 - uid: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.ExceptionHandled
   parent: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs
   isExternal: false
   name: ExceptionHandled
   nameWithType: ObjectDataSourceStatusEventArgs.ExceptionHandled
-  fullName: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.ExceptionHandled
+  fullName: ObjectDataSourceStatusEventArgs.ExceptionHandled
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -440,19 +416,19 @@ references:
   isExternal: false
   name: OutputParameters
   nameWithType: ObjectDataSourceStatusEventArgs.OutputParameters
-  fullName: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.OutputParameters
+  fullName: ObjectDataSourceStatusEventArgs.OutputParameters
 - uid: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.ReturnValue
   parent: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs
   isExternal: false
   name: ReturnValue
   nameWithType: ObjectDataSourceStatusEventArgs.ReturnValue
-  fullName: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.ReturnValue
+  fullName: ObjectDataSourceStatusEventArgs.ReturnValue
 - uid: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.#ctor*
   parent: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs
   isExternal: false
   name: ObjectDataSourceStatusEventArgs
   nameWithType: ObjectDataSourceStatusEventArgs.ObjectDataSourceStatusEventArgs
-  fullName: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.ObjectDataSourceStatusEventArgs
+  fullName: ObjectDataSourceStatusEventArgs.ObjectDataSourceStatusEventArgs
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -467,7 +443,7 @@ references:
   isExternal: false
   name: AffectedRows
   nameWithType: ObjectDataSourceStatusEventArgs.AffectedRows
-  fullName: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.AffectedRows
+  fullName: ObjectDataSourceStatusEventArgs.AffectedRows
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -482,7 +458,7 @@ references:
   isExternal: false
   name: Exception
   nameWithType: ObjectDataSourceStatusEventArgs.Exception
-  fullName: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.Exception
+  fullName: ObjectDataSourceStatusEventArgs.Exception
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -497,7 +473,7 @@ references:
   isExternal: false
   name: ExceptionHandled
   nameWithType: ObjectDataSourceStatusEventArgs.ExceptionHandled
-  fullName: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.ExceptionHandled
+  fullName: ObjectDataSourceStatusEventArgs.ExceptionHandled
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -512,7 +488,7 @@ references:
   isExternal: false
   name: OutputParameters
   nameWithType: ObjectDataSourceStatusEventArgs.OutputParameters
-  fullName: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.OutputParameters
+  fullName: ObjectDataSourceStatusEventArgs.OutputParameters
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -527,7 +503,7 @@ references:
   isExternal: false
   name: ReturnValue
   nameWithType: ObjectDataSourceStatusEventArgs.ReturnValue
-  fullName: System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs.ReturnValue
+  fullName: ObjectDataSourceStatusEventArgs.ReturnValue
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

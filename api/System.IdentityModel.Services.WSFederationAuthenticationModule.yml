@@ -78,7 +78,7 @@ items:
   assemblies:
   - System.IdentityModel.Services
   namespace: System.IdentityModel.Services
-  summary: "The <xref href=\"System.IdentityModel.Services.WSFederationAuthenticationModule\"></xref> is an HTTP module which is used to secure an [!INCLUDE[vstecasp](~/includes/vstecasp-md.md)] application by enforcing  federated authentication settings on incoming requests. The <xref href=\"System.IdentityModel.Services.WSFederationAuthenticationModule\"></xref> is the main module that WIF offers out of the box for handling claims-based identity access in [!INCLUDE[vstecasp](~/includes/vstecasp-md.md)] applications.  \n  \n The <xref href=\"System.IdentityModel.Services.WSFederationAuthenticationModule\"></xref> raises several events, which allows ASP.NET developers to change the default behavior and control the details of how authentication and claims processing take place. The <xref href=\"System.IdentityModel.Services.WSFederationAuthenticationModule\"></xref> functionality is divided into task-specific methods."
+  summary: "The <xref href=\"System.IdentityModel.Services.WSFederationAuthenticationModule\"></xref> is an HTTP module which is used to secure an ASP.NET application by enforcing  federated authentication settings on incoming requests. The <xref href=\"System.IdentityModel.Services.WSFederationAuthenticationModule\"></xref> is the main module that WIF offers out of the box for handling claims-based identity access in ASP.NET applications.  \n  \n The <xref href=\"System.IdentityModel.Services.WSFederationAuthenticationModule\"></xref> raises several events, which allows ASP.NET developers to change the default behavior and control the details of how authentication and claims processing take place. The <xref href=\"System.IdentityModel.Services.WSFederationAuthenticationModule\"></xref> functionality is divided into task-specific methods."
   remarks: "The <xref:System.IdentityModel.Services.WSFederationAuthenticationModule> class implements an HTTP module known as the WS-Federation Authentication Module (WSFAM). The WSFAM is implemented out of the box by Windows Identity Foundation (WIF). The WSFAM is added to the ASP.NET pipeline by making an entry in the web.config file. It derives from <xref:System.IdentityModel.Services.HttpModuleBase>, which implements <xref:System.Web.IHttpModule>. It registers with the ASP.NET runtime to listen for the <xref:System.Web.HttpApplication.EndRequest> and <xref:System.Web.HttpApplication.AuthenticateRequest> events. Listening to the <xref:System.Web.HttpApplication.EndRequest> event, lets the WSFAM redirect clients to a security token service (STS) to obtain a security token when authorization fails on a requested resource. Listening to the <xref:System.Web.HttpApplication.AuthenticateRequest> event enables the WSFAM to monitor HTTP requests for a response from the STS that contains the requested token. When such a token is present and valid, it creates an instance of <xref:System.Security.Claims.ClaimsPrincipal> for the authenticated user using the claims that are present in the token.  \n  \n When using the WSFAM, session management is provided by a session authentication module (SAM), which is an instance of the <xref:System.IdentityModel.Services.SessionAuthenticationModule> class, or a class derived from it. The SAM is also added to the ASP.NET pipeline in the configuration file. The SAM monitors requests for authentication (session) cookies. When these cookies are present and valid, the module extracts the <xref:System.Security.Claims.ClaimsPrincipal> for the authenticated user from the <xref:System.IdentityModel.Tokens.SessionSecurityToken> and sets the <xref:System.Web.HttpContext.User%2A?displayProperty=fullName> property and the thread principal <xref:System.Threading.Thread.CurrentPrincipal%2A?displayProperty=fullName> properties.  \n  \n The WSFAM provides:  \n  \n-   The ability for an ASP.NET application to outsource authentication to a security token service (STS) by using the WS-Federation protocol. Identity can be federated across one or more identity realms and involve multiple STSs.  \n  \n-   Claims-based identity for ASP.NET applications. During authentication, the WSFAM builds a principal from the claims in the security token sent by the STS and sets this claims principal as the thread principal. You can then use this principal to make further authorization, presentation, and logic decisions about the user it represents in your code.  \n  \n The WSFAM exposes several properties that provide default message parameters to use on WS-Federation sign-in and sign-out requests. These properties are typically initialized from the [\\&lt;wsFederation\\&gt;](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/wsfederation.md) element in a configuration file. The most important of these properties are:  \n  \n-   The <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> property, which specifies the address of the security token service (STS) to which to send WS-Federation sign-in and sign-out requests.  \n  \n-   The <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Realm%2A> property, which specifies the wtrealm parameter to use in WS-Federation sign-in requests. The wtrealm parameter identifies the security realm of the relying party (RP) application to the STS.  \n  \n Sign-in message parameters can also be changed on a per-request basis by providing an event-handler delegate for the <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> event.  \n  \n Two properties control the behavior of the module. Both of these properties are also typically initialized from the `<wsFederation>` element in configuration.  \n  \n-   The <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.PassiveRedirectEnabled%2A> property specifies whether the module should perform passive redirects to the STS for authentication.  \n  \n-   The <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.PersistentCookiesOnPassiveRedirects%2A> property specifies whether sessions should be persistent. If this property is set true, the SAM is used to write a session cookie to the client. On subsequent requests from the client, the SAM provides authentication by using the token persisted in the session cookie.  \n  \n The WSFAM raises several events during sign-in and sign-out, which allow ASP.NET developers to change the default behavior of the module and control the details of how authentication and claims processing take place.  \n  \n The following events are raised before the WS-Federation sign-in request is sent to the STS:  \n  \n-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.AuthorizationFailed>: Raised when  passive redirect is enabled and authorization fails on a requested resource.  \n  \n-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider>: Raised just before the WSFAM sends the WS-Federation sign-in request to the STS. You can use this event to change the parameters in the sign-in request.  \n  \n The following events are raised when a sign-in response (issued security token) is received from the STS:  \n  \n-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenReceived>: Raised just after the security token sent by the STS is read from the response.  \n  \n-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenValidated>: Raised just after the token has been validated. You can use this event to filter, transform, or add claims to the claims principal (<xref:System.Security.Claims.ClaimsPrincipal>) created from the security token.  \n  \n-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SessionSecurityTokenCreated>: Raised just before the session token (<xref:System.IdentityModel.Tokens.SessionSecurityToken>) created from the claims principal is used to set the thread principal and current user and is written to the session cookie. Gives you an opportunity to modify the session token or enable or disable writing the session cookie.  \n  \n-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignedIn>: Raised at the end of the authentication just after the thread principal and current user have been set.  \n  \n-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignInError>: Raised if an exception occurs during sign-in. You can cancel the request and prevent the exception from being returned to the caller.  \n  \n When signing out of a session or when processing a WS-Federation sign-out clean-up request (wsignoutcleanup1.0), the following events are raised:  \n  \n-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SigningOut>: Raised just before the session is deleted to enable you to perform any cleanup that might depend on the session or to cancel sign-out.  \n  \n-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignedOut>: Raised just after the session has been deleted.  \n  \n-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutError>: Raised if an exception occurs during sign-out. You can cancel sign-out and prevent the exception from being returned to the caller.  \n  \n> [!NOTE]\n>  The sign-out events are not raised when signing out at the STS by calling the <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> method.  \n  \n There are two ways of signing in to an STS using WSFAM. The first is by enabling passive redirects through the <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.PassiveRedirectEnabled%2A> property. In this case, when authorization fails on a requested resource, rather than returning a `401:Access Denied` response to the client, WSFAM builds a WS-Federation sign-in request message from its properties and redirects the client to the STS to retrieve a security token. The second way is to explicitly redirect the client to the STS by calling the <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignIn%2A> method from a web page or custom control in your application. The <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignIn%2A> method also uses the properties of the WSFAM to construct the sign-in request.  \n  \n Any of the overloaded <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%2A> methods can be used to sign out of the session. This deletes the session cookie on the client. It does not send a WS-Federation sign-out message (“wsignout1.0”) to the STS. To sign-out at the STS, you must use the <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> method.  \n  \n The WSFAM handles WS-Federation sign-out clean-up requests (“wsignoutcleanup1.0”), by deleting its session with the client. If the wreply parameter in the sign-out clean-up message is not set, the WSFAM returns an image of a green check mark to the STS that sent the message. This feature can be used by an STS as an acknowledgment that the RP has completed its sign-out.  \n  \n The WSFAM exposes its functionality -- for example, its request processing pipeline -- through several task-specific methods. You can override these methods in derived classes to alter the behavior of the WSFAM.  \n  \n To be used, the module must be added to the pipeline as in the following XML:  \n  \n```  \n<configuration>  \n  <system.webServer>  \n    <modules>  \n      <add name=\"WsFederationAuthenticationModule\" type=\"System.IdentityModel.Services.WSFederationAuthenticationModule, System.IdentityModel.Services, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089\"/>  \n    </modules>  \n  </system.webServer>  \n</configuration>  \n```  \n  \n Once configured, the <xref:System.IdentityModel.Services.WSFederationAuthenticationModule> raises events at various stages of processing an HTTP request. ASP.NET developers can handle these events in the global.asax file."
   example:
   - '[!code-csharp[WifWSFAM#1](~/samples/snippets/csharp/VS_Snippets_Misc/wifwsfam/cs/webapplication1/global.asax.cs#1)]'
@@ -116,8 +116,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.#ctor
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.#ctor
   id: '#ctor'
@@ -126,7 +124,7 @@ items:
   - csharp
   name: WSFederationAuthenticationModule()
   nameWithType: WSFederationAuthenticationModule.WSFederationAuthenticationModule()
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.WSFederationAuthenticationModule()
+  fullName: WSFederationAuthenticationModule.WSFederationAuthenticationModule()
   type: Constructor
   assemblies:
   - System.IdentityModel.Services
@@ -154,8 +152,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.AuthenticationType
   commentId: P:System.IdentityModel.Services.WSFederationAuthenticationModule.AuthenticationType
   id: AuthenticationType
@@ -164,7 +160,7 @@ items:
   - csharp
   name: AuthenticationType
   nameWithType: WSFederationAuthenticationModule.AuthenticationType
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.AuthenticationType
+  fullName: WSFederationAuthenticationModule.AuthenticationType
   type: Property
   assemblies:
   - System.IdentityModel.Services
@@ -195,8 +191,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.AuthorizationFailed
   commentId: E:System.IdentityModel.Services.WSFederationAuthenticationModule.AuthorizationFailed
   id: AuthorizationFailed
@@ -205,7 +199,7 @@ items:
   - csharp
   name: AuthorizationFailed
   nameWithType: WSFederationAuthenticationModule.AuthorizationFailed
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.AuthorizationFailed
+  fullName: WSFederationAuthenticationModule.AuthorizationFailed
   type: Event
   assemblies:
   - System.IdentityModel.Services
@@ -237,8 +231,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse(System.Web.HttpRequestBase)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse(System.Web.HttpRequestBase)
   id: CanReadSignInResponse(System.Web.HttpRequestBase)
@@ -247,7 +239,7 @@ items:
   - csharp
   name: CanReadSignInResponse(HttpRequestBase)
   nameWithType: WSFederationAuthenticationModule.CanReadSignInResponse(HttpRequestBase)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse(HttpRequestBase)
+  fullName: WSFederationAuthenticationModule.CanReadSignInResponse(HttpRequestBase)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -285,8 +277,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse(System.Web.HttpRequestBase,System.Boolean)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse(System.Web.HttpRequestBase,System.Boolean)
   id: CanReadSignInResponse(System.Web.HttpRequestBase,System.Boolean)
@@ -295,7 +285,7 @@ items:
   - csharp
   name: CanReadSignInResponse(HttpRequestBase, Boolean)
   nameWithType: WSFederationAuthenticationModule.CanReadSignInResponse(HttpRequestBase, Boolean)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse(HttpRequestBase, Boolean)
+  fullName: WSFederationAuthenticationModule.CanReadSignInResponse(HttpRequestBase, Boolean)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -336,8 +326,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.CreateSignInRequest(System.String,System.String,System.Boolean)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.CreateSignInRequest(System.String,System.String,System.Boolean)
   id: CreateSignInRequest(System.String,System.String,System.Boolean)
@@ -346,7 +334,7 @@ items:
   - csharp
   name: CreateSignInRequest(String, String, Boolean)
   nameWithType: WSFederationAuthenticationModule.CreateSignInRequest(String, String, Boolean)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.CreateSignInRequest(String, String, Boolean)
+  fullName: WSFederationAuthenticationModule.CreateSignInRequest(String, String, Boolean)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -390,8 +378,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut(System.Uri,System.Uri)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut(System.Uri,System.Uri)
   id: FederatedSignOut(System.Uri,System.Uri)
@@ -400,7 +386,7 @@ items:
   - csharp
   name: FederatedSignOut(Uri, Uri)
   nameWithType: WSFederationAuthenticationModule.FederatedSignOut(Uri, Uri)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut(Uri, Uri)
+  fullName: WSFederationAuthenticationModule.FederatedSignOut(Uri, Uri)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -441,8 +427,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.Freshness
   commentId: P:System.IdentityModel.Services.WSFederationAuthenticationModule.Freshness
   id: Freshness
@@ -451,7 +435,7 @@ items:
   - csharp
   name: Freshness
   nameWithType: WSFederationAuthenticationModule.Freshness
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.Freshness
+  fullName: WSFederationAuthenticationModule.Freshness
   type: Property
   assemblies:
   - System.IdentityModel.Services
@@ -482,8 +466,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.GetFederationPassiveSignOutUrl(System.String,System.String,System.String)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.GetFederationPassiveSignOutUrl(System.String,System.String,System.String)
   id: GetFederationPassiveSignOutUrl(System.String,System.String,System.String)
@@ -492,7 +474,7 @@ items:
   - csharp
   name: GetFederationPassiveSignOutUrl(String, String, String)
   nameWithType: WSFederationAuthenticationModule.GetFederationPassiveSignOutUrl(String, String, String)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetFederationPassiveSignOutUrl(String, String, String)
+  fullName: WSFederationAuthenticationModule.GetFederationPassiveSignOutUrl(String, String, String)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -536,8 +518,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.GetReferencedResult(System.String)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.GetReferencedResult(System.String)
   id: GetReferencedResult(System.String)
@@ -546,7 +526,7 @@ items:
   - csharp
   name: GetReferencedResult(String)
   nameWithType: WSFederationAuthenticationModule.GetReferencedResult(String)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetReferencedResult(String)
+  fullName: WSFederationAuthenticationModule.GetReferencedResult(String)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -584,8 +564,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.GetReturnUrlFromResponse(System.Web.HttpRequestBase)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.GetReturnUrlFromResponse(System.Web.HttpRequestBase)
   id: GetReturnUrlFromResponse(System.Web.HttpRequestBase)
@@ -594,7 +572,7 @@ items:
   - csharp
   name: GetReturnUrlFromResponse(HttpRequestBase)
   nameWithType: WSFederationAuthenticationModule.GetReturnUrlFromResponse(HttpRequestBase)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetReturnUrlFromResponse(HttpRequestBase)
+  fullName: WSFederationAuthenticationModule.GetReturnUrlFromResponse(HttpRequestBase)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -632,8 +610,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSecurityToken(System.IdentityModel.Services.SignInResponseMessage)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.GetSecurityToken(System.IdentityModel.Services.SignInResponseMessage)
   id: GetSecurityToken(System.IdentityModel.Services.SignInResponseMessage)
@@ -642,7 +618,7 @@ items:
   - csharp
   name: GetSecurityToken(SignInResponseMessage)
   nameWithType: WSFederationAuthenticationModule.GetSecurityToken(SignInResponseMessage)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSecurityToken(SignInResponseMessage)
+  fullName: WSFederationAuthenticationModule.GetSecurityToken(SignInResponseMessage)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -680,8 +656,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSecurityToken(System.Web.HttpRequestBase)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.GetSecurityToken(System.Web.HttpRequestBase)
   id: GetSecurityToken(System.Web.HttpRequestBase)
@@ -690,7 +664,7 @@ items:
   - csharp
   name: GetSecurityToken(HttpRequestBase)
   nameWithType: WSFederationAuthenticationModule.GetSecurityToken(HttpRequestBase)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSecurityToken(HttpRequestBase)
+  fullName: WSFederationAuthenticationModule.GetSecurityToken(HttpRequestBase)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -728,8 +702,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSessionTokenContext
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.GetSessionTokenContext
   id: GetSessionTokenContext
@@ -738,7 +710,7 @@ items:
   - csharp
   name: GetSessionTokenContext()
   nameWithType: WSFederationAuthenticationModule.GetSessionTokenContext()
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSessionTokenContext()
+  fullName: WSFederationAuthenticationModule.GetSessionTokenContext()
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -773,8 +745,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSignInResponseMessage(System.Web.HttpRequestBase)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.GetSignInResponseMessage(System.Web.HttpRequestBase)
   id: GetSignInResponseMessage(System.Web.HttpRequestBase)
@@ -783,7 +753,7 @@ items:
   - csharp
   name: GetSignInResponseMessage(HttpRequestBase)
   nameWithType: WSFederationAuthenticationModule.GetSignInResponseMessage(HttpRequestBase)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSignInResponseMessage(HttpRequestBase)
+  fullName: WSFederationAuthenticationModule.GetSignInResponseMessage(HttpRequestBase)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -824,8 +794,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSignOutRedirectUrl(System.IdentityModel.Services.SignOutCleanupRequestMessage)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.GetSignOutRedirectUrl(System.IdentityModel.Services.SignOutCleanupRequestMessage)
   id: GetSignOutRedirectUrl(System.IdentityModel.Services.SignOutCleanupRequestMessage)
@@ -834,7 +802,7 @@ items:
   - csharp
   name: GetSignOutRedirectUrl(SignOutCleanupRequestMessage)
   nameWithType: WSFederationAuthenticationModule.GetSignOutRedirectUrl(SignOutCleanupRequestMessage)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSignOutRedirectUrl(SignOutCleanupRequestMessage)
+  fullName: WSFederationAuthenticationModule.GetSignOutRedirectUrl(SignOutCleanupRequestMessage)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -875,8 +843,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.GetXmlTokenFromMessage(System.IdentityModel.Services.SignInResponseMessage)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.GetXmlTokenFromMessage(System.IdentityModel.Services.SignInResponseMessage)
   id: GetXmlTokenFromMessage(System.IdentityModel.Services.SignInResponseMessage)
@@ -885,7 +851,7 @@ items:
   - csharp
   name: GetXmlTokenFromMessage(SignInResponseMessage)
   nameWithType: WSFederationAuthenticationModule.GetXmlTokenFromMessage(SignInResponseMessage)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetXmlTokenFromMessage(SignInResponseMessage)
+  fullName: WSFederationAuthenticationModule.GetXmlTokenFromMessage(SignInResponseMessage)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -926,8 +892,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.GetXmlTokenFromMessage(System.IdentityModel.Services.SignInResponseMessage,System.IdentityModel.Services.WSFederationSerializer)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.GetXmlTokenFromMessage(System.IdentityModel.Services.SignInResponseMessage,System.IdentityModel.Services.WSFederationSerializer)
   id: GetXmlTokenFromMessage(System.IdentityModel.Services.SignInResponseMessage,System.IdentityModel.Services.WSFederationSerializer)
@@ -936,7 +900,7 @@ items:
   - csharp
   name: GetXmlTokenFromMessage(SignInResponseMessage, WSFederationSerializer)
   nameWithType: WSFederationAuthenticationModule.GetXmlTokenFromMessage(SignInResponseMessage, WSFederationSerializer)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetXmlTokenFromMessage(SignInResponseMessage, WSFederationSerializer)
+  fullName: WSFederationAuthenticationModule.GetXmlTokenFromMessage(SignInResponseMessage, WSFederationSerializer)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -976,8 +940,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.HomeRealm
   commentId: P:System.IdentityModel.Services.WSFederationAuthenticationModule.HomeRealm
   id: HomeRealm
@@ -986,7 +948,7 @@ items:
   - csharp
   name: HomeRealm
   nameWithType: WSFederationAuthenticationModule.HomeRealm
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.HomeRealm
+  fullName: WSFederationAuthenticationModule.HomeRealm
   type: Property
   assemblies:
   - System.IdentityModel.Services
@@ -1017,8 +979,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.InitializeModule(System.Web.HttpApplication)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.InitializeModule(System.Web.HttpApplication)
   id: InitializeModule(System.Web.HttpApplication)
@@ -1027,7 +987,7 @@ items:
   - csharp
   name: InitializeModule(HttpApplication)
   nameWithType: WSFederationAuthenticationModule.InitializeModule(HttpApplication)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.InitializeModule(HttpApplication)
+  fullName: WSFederationAuthenticationModule.InitializeModule(HttpApplication)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -1062,8 +1022,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.InitializePropertiesFromConfiguration
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.InitializePropertiesFromConfiguration
   id: InitializePropertiesFromConfiguration
@@ -1072,7 +1030,7 @@ items:
   - csharp
   name: InitializePropertiesFromConfiguration()
   nameWithType: WSFederationAuthenticationModule.InitializePropertiesFromConfiguration()
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.InitializePropertiesFromConfiguration()
+  fullName: WSFederationAuthenticationModule.InitializePropertiesFromConfiguration()
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -1101,8 +1059,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.IsSignInResponse(System.Web.HttpRequestBase)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.IsSignInResponse(System.Web.HttpRequestBase)
   id: IsSignInResponse(System.Web.HttpRequestBase)
@@ -1111,7 +1067,7 @@ items:
   - csharp
   name: IsSignInResponse(HttpRequestBase)
   nameWithType: WSFederationAuthenticationModule.IsSignInResponse(HttpRequestBase)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.IsSignInResponse(HttpRequestBase)
+  fullName: WSFederationAuthenticationModule.IsSignInResponse(HttpRequestBase)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -1149,8 +1105,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer
   commentId: P:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer
   id: Issuer
@@ -1159,7 +1113,7 @@ items:
   - csharp
   name: Issuer
   nameWithType: WSFederationAuthenticationModule.Issuer
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer
+  fullName: WSFederationAuthenticationModule.Issuer
   type: Property
   assemblies:
   - System.IdentityModel.Services
@@ -1193,8 +1147,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthenticateRequest(System.Object,System.EventArgs)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthenticateRequest(System.Object,System.EventArgs)
   id: OnAuthenticateRequest(System.Object,System.EventArgs)
@@ -1203,7 +1155,7 @@ items:
   - csharp
   name: OnAuthenticateRequest(Object, EventArgs)
   nameWithType: WSFederationAuthenticationModule.OnAuthenticateRequest(Object, EventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthenticateRequest(Object, EventArgs)
+  fullName: WSFederationAuthenticationModule.OnAuthenticateRequest(Object, EventArgs)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -1238,8 +1190,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthorizationFailed(System.IdentityModel.Services.AuthorizationFailedEventArgs)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthorizationFailed(System.IdentityModel.Services.AuthorizationFailedEventArgs)
   id: OnAuthorizationFailed(System.IdentityModel.Services.AuthorizationFailedEventArgs)
@@ -1248,7 +1198,7 @@ items:
   - csharp
   name: OnAuthorizationFailed(AuthorizationFailedEventArgs)
   nameWithType: WSFederationAuthenticationModule.OnAuthorizationFailed(AuthorizationFailedEventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthorizationFailed(AuthorizationFailedEventArgs)
+  fullName: WSFederationAuthenticationModule.OnAuthorizationFailed(AuthorizationFailedEventArgs)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -1280,8 +1230,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.OnEndRequest(System.Object,System.EventArgs)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.OnEndRequest(System.Object,System.EventArgs)
   id: OnEndRequest(System.Object,System.EventArgs)
@@ -1290,7 +1238,7 @@ items:
   - csharp
   name: OnEndRequest(Object, EventArgs)
   nameWithType: WSFederationAuthenticationModule.OnEndRequest(Object, EventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnEndRequest(Object, EventArgs)
+  fullName: WSFederationAuthenticationModule.OnEndRequest(Object, EventArgs)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -1325,8 +1273,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.OnPostAuthenticateRequest(System.Object,System.EventArgs)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.OnPostAuthenticateRequest(System.Object,System.EventArgs)
   id: OnPostAuthenticateRequest(System.Object,System.EventArgs)
@@ -1335,7 +1281,7 @@ items:
   - csharp
   name: OnPostAuthenticateRequest(Object, EventArgs)
   nameWithType: WSFederationAuthenticationModule.OnPostAuthenticateRequest(Object, EventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnPostAuthenticateRequest(Object, EventArgs)
+  fullName: WSFederationAuthenticationModule.OnPostAuthenticateRequest(Object, EventArgs)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -1370,8 +1316,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.OnRedirectingToIdentityProvider(System.IdentityModel.Services.RedirectingToIdentityProviderEventArgs)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.OnRedirectingToIdentityProvider(System.IdentityModel.Services.RedirectingToIdentityProviderEventArgs)
   id: OnRedirectingToIdentityProvider(System.IdentityModel.Services.RedirectingToIdentityProviderEventArgs)
@@ -1380,7 +1324,7 @@ items:
   - csharp
   name: OnRedirectingToIdentityProvider(RedirectingToIdentityProviderEventArgs)
   nameWithType: WSFederationAuthenticationModule.OnRedirectingToIdentityProvider(RedirectingToIdentityProviderEventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnRedirectingToIdentityProvider(RedirectingToIdentityProviderEventArgs)
+  fullName: WSFederationAuthenticationModule.OnRedirectingToIdentityProvider(RedirectingToIdentityProviderEventArgs)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -1411,8 +1355,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSessionSecurityTokenCreated(System.IdentityModel.Services.SessionSecurityTokenCreatedEventArgs)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.OnSessionSecurityTokenCreated(System.IdentityModel.Services.SessionSecurityTokenCreatedEventArgs)
   id: OnSessionSecurityTokenCreated(System.IdentityModel.Services.SessionSecurityTokenCreatedEventArgs)
@@ -1421,7 +1363,7 @@ items:
   - csharp
   name: OnSessionSecurityTokenCreated(SessionSecurityTokenCreatedEventArgs)
   nameWithType: WSFederationAuthenticationModule.OnSessionSecurityTokenCreated(SessionSecurityTokenCreatedEventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSessionSecurityTokenCreated(SessionSecurityTokenCreatedEventArgs)
+  fullName: WSFederationAuthenticationModule.OnSessionSecurityTokenCreated(SessionSecurityTokenCreatedEventArgs)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -1452,8 +1394,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignedIn(System.EventArgs)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignedIn(System.EventArgs)
   id: OnSignedIn(System.EventArgs)
@@ -1462,7 +1402,7 @@ items:
   - csharp
   name: OnSignedIn(EventArgs)
   nameWithType: WSFederationAuthenticationModule.OnSignedIn(EventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignedIn(EventArgs)
+  fullName: WSFederationAuthenticationModule.OnSignedIn(EventArgs)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -1493,8 +1433,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignedOut(System.EventArgs)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignedOut(System.EventArgs)
   id: OnSignedOut(System.EventArgs)
@@ -1503,7 +1441,7 @@ items:
   - csharp
   name: OnSignedOut(EventArgs)
   nameWithType: WSFederationAuthenticationModule.OnSignedOut(EventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignedOut(EventArgs)
+  fullName: WSFederationAuthenticationModule.OnSignedOut(EventArgs)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -1535,8 +1473,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignInError(System.IdentityModel.Services.ErrorEventArgs)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignInError(System.IdentityModel.Services.ErrorEventArgs)
   id: OnSignInError(System.IdentityModel.Services.ErrorEventArgs)
@@ -1545,7 +1481,7 @@ items:
   - csharp
   name: OnSignInError(ErrorEventArgs)
   nameWithType: WSFederationAuthenticationModule.OnSignInError(ErrorEventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignInError(ErrorEventArgs)
+  fullName: WSFederationAuthenticationModule.OnSignInError(ErrorEventArgs)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -1576,8 +1512,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSigningOut(System.IdentityModel.Services.SigningOutEventArgs)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.OnSigningOut(System.IdentityModel.Services.SigningOutEventArgs)
   id: OnSigningOut(System.IdentityModel.Services.SigningOutEventArgs)
@@ -1586,7 +1520,7 @@ items:
   - csharp
   name: OnSigningOut(SigningOutEventArgs)
   nameWithType: WSFederationAuthenticationModule.OnSigningOut(SigningOutEventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSigningOut(SigningOutEventArgs)
+  fullName: WSFederationAuthenticationModule.OnSigningOut(SigningOutEventArgs)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -1618,8 +1552,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignOutError(System.IdentityModel.Services.ErrorEventArgs)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignOutError(System.IdentityModel.Services.ErrorEventArgs)
   id: OnSignOutError(System.IdentityModel.Services.ErrorEventArgs)
@@ -1628,7 +1560,7 @@ items:
   - csharp
   name: OnSignOutError(ErrorEventArgs)
   nameWithType: WSFederationAuthenticationModule.OnSignOutError(ErrorEventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignOutError(ErrorEventArgs)
+  fullName: WSFederationAuthenticationModule.OnSignOutError(ErrorEventArgs)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -1660,8 +1592,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.PassiveRedirectEnabled
   commentId: P:System.IdentityModel.Services.WSFederationAuthenticationModule.PassiveRedirectEnabled
   id: PassiveRedirectEnabled
@@ -1670,7 +1600,7 @@ items:
   - csharp
   name: PassiveRedirectEnabled
   nameWithType: WSFederationAuthenticationModule.PassiveRedirectEnabled
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.PassiveRedirectEnabled
+  fullName: WSFederationAuthenticationModule.PassiveRedirectEnabled
   type: Property
   assemblies:
   - System.IdentityModel.Services
@@ -1701,8 +1631,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.PersistentCookiesOnPassiveRedirects
   commentId: P:System.IdentityModel.Services.WSFederationAuthenticationModule.PersistentCookiesOnPassiveRedirects
   id: PersistentCookiesOnPassiveRedirects
@@ -1711,7 +1639,7 @@ items:
   - csharp
   name: PersistentCookiesOnPassiveRedirects
   nameWithType: WSFederationAuthenticationModule.PersistentCookiesOnPassiveRedirects
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.PersistentCookiesOnPassiveRedirects
+  fullName: WSFederationAuthenticationModule.PersistentCookiesOnPassiveRedirects
   type: Property
   assemblies:
   - System.IdentityModel.Services
@@ -1742,8 +1670,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.Policy
   commentId: P:System.IdentityModel.Services.WSFederationAuthenticationModule.Policy
   id: Policy
@@ -1752,7 +1678,7 @@ items:
   - csharp
   name: Policy
   nameWithType: WSFederationAuthenticationModule.Policy
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.Policy
+  fullName: WSFederationAuthenticationModule.Policy
   type: Property
   assemblies:
   - System.IdentityModel.Services
@@ -1783,8 +1709,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.Realm
   commentId: P:System.IdentityModel.Services.WSFederationAuthenticationModule.Realm
   id: Realm
@@ -1793,7 +1717,7 @@ items:
   - csharp
   name: Realm
   nameWithType: WSFederationAuthenticationModule.Realm
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.Realm
+  fullName: WSFederationAuthenticationModule.Realm
   type: Property
   assemblies:
   - System.IdentityModel.Services
@@ -1827,8 +1751,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider
   commentId: E:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider
   id: RedirectingToIdentityProvider
@@ -1837,7 +1759,7 @@ items:
   - csharp
   name: RedirectingToIdentityProvider
   nameWithType: WSFederationAuthenticationModule.RedirectingToIdentityProvider
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider
+  fullName: WSFederationAuthenticationModule.RedirectingToIdentityProvider
   type: Event
   assemblies:
   - System.IdentityModel.Services
@@ -1869,8 +1791,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectToIdentityProvider(System.String,System.String,System.Boolean)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectToIdentityProvider(System.String,System.String,System.Boolean)
   id: RedirectToIdentityProvider(System.String,System.String,System.Boolean)
@@ -1879,7 +1799,7 @@ items:
   - csharp
   name: RedirectToIdentityProvider(String, String, Boolean)
   nameWithType: WSFederationAuthenticationModule.RedirectToIdentityProvider(String, String, Boolean)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectToIdentityProvider(String, String, Boolean)
+  fullName: WSFederationAuthenticationModule.RedirectToIdentityProvider(String, String, Boolean)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -1920,8 +1840,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.Reply
   commentId: P:System.IdentityModel.Services.WSFederationAuthenticationModule.Reply
   id: Reply
@@ -1930,7 +1848,7 @@ items:
   - csharp
   name: Reply
   nameWithType: WSFederationAuthenticationModule.Reply
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.Reply
+  fullName: WSFederationAuthenticationModule.Reply
   type: Property
   assemblies:
   - System.IdentityModel.Services
@@ -1964,8 +1882,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.Request
   commentId: P:System.IdentityModel.Services.WSFederationAuthenticationModule.Request
   id: Request
@@ -1974,7 +1890,7 @@ items:
   - csharp
   name: Request
   nameWithType: WSFederationAuthenticationModule.Request
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.Request
+  fullName: WSFederationAuthenticationModule.Request
   type: Property
   assemblies:
   - System.IdentityModel.Services
@@ -2005,8 +1921,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.RequestPtr
   commentId: P:System.IdentityModel.Services.WSFederationAuthenticationModule.RequestPtr
   id: RequestPtr
@@ -2015,7 +1929,7 @@ items:
   - csharp
   name: RequestPtr
   nameWithType: WSFederationAuthenticationModule.RequestPtr
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.RequestPtr
+  fullName: WSFederationAuthenticationModule.RequestPtr
   type: Property
   assemblies:
   - System.IdentityModel.Services
@@ -2049,8 +1963,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.RequireHttps
   commentId: P:System.IdentityModel.Services.WSFederationAuthenticationModule.RequireHttps
   id: RequireHttps
@@ -2059,7 +1971,7 @@ items:
   - csharp
   name: RequireHttps
   nameWithType: WSFederationAuthenticationModule.RequireHttps
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.RequireHttps
+  fullName: WSFederationAuthenticationModule.RequireHttps
   type: Property
   assemblies:
   - System.IdentityModel.Services
@@ -2089,8 +2001,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.Resource
   commentId: P:System.IdentityModel.Services.WSFederationAuthenticationModule.Resource
   id: Resource
@@ -2099,7 +2009,7 @@ items:
   - csharp
   name: Resource
   nameWithType: WSFederationAuthenticationModule.Resource
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.Resource
+  fullName: WSFederationAuthenticationModule.Resource
   type: Property
   assemblies:
   - System.IdentityModel.Services
@@ -2130,8 +2040,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenReceived
   commentId: E:System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenReceived
   id: SecurityTokenReceived
@@ -2140,7 +2048,7 @@ items:
   - csharp
   name: SecurityTokenReceived
   nameWithType: WSFederationAuthenticationModule.SecurityTokenReceived
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenReceived
+  fullName: WSFederationAuthenticationModule.SecurityTokenReceived
   type: Event
   assemblies:
   - System.IdentityModel.Services
@@ -2172,8 +2080,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenValidated
   commentId: E:System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenValidated
   id: SecurityTokenValidated
@@ -2182,7 +2088,7 @@ items:
   - csharp
   name: SecurityTokenValidated
   nameWithType: WSFederationAuthenticationModule.SecurityTokenValidated
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenValidated
+  fullName: WSFederationAuthenticationModule.SecurityTokenValidated
   type: Event
   assemblies:
   - System.IdentityModel.Services
@@ -2214,8 +2120,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SessionSecurityTokenCreated
   commentId: E:System.IdentityModel.Services.WSFederationAuthenticationModule.SessionSecurityTokenCreated
   id: SessionSecurityTokenCreated
@@ -2224,7 +2128,7 @@ items:
   - csharp
   name: SessionSecurityTokenCreated
   nameWithType: WSFederationAuthenticationModule.SessionSecurityTokenCreated
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SessionSecurityTokenCreated
+  fullName: WSFederationAuthenticationModule.SessionSecurityTokenCreated
   type: Event
   assemblies:
   - System.IdentityModel.Services
@@ -2256,8 +2160,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SetPrincipalAndWriteSessionToken(System.IdentityModel.Tokens.SessionSecurityToken,System.Boolean)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.SetPrincipalAndWriteSessionToken(System.IdentityModel.Tokens.SessionSecurityToken,System.Boolean)
   id: SetPrincipalAndWriteSessionToken(System.IdentityModel.Tokens.SessionSecurityToken,System.Boolean)
@@ -2266,7 +2168,7 @@ items:
   - csharp
   name: SetPrincipalAndWriteSessionToken(SessionSecurityToken, Boolean)
   nameWithType: WSFederationAuthenticationModule.SetPrincipalAndWriteSessionToken(SessionSecurityToken, Boolean)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SetPrincipalAndWriteSessionToken(SessionSecurityToken, Boolean)
+  fullName: WSFederationAuthenticationModule.SetPrincipalAndWriteSessionToken(SessionSecurityToken, Boolean)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -2304,8 +2206,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignedIn
   commentId: E:System.IdentityModel.Services.WSFederationAuthenticationModule.SignedIn
   id: SignedIn
@@ -2314,7 +2214,7 @@ items:
   - csharp
   name: SignedIn
   nameWithType: WSFederationAuthenticationModule.SignedIn
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignedIn
+  fullName: WSFederationAuthenticationModule.SignedIn
   type: Event
   assemblies:
   - System.IdentityModel.Services
@@ -2346,8 +2246,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignedOut
   commentId: E:System.IdentityModel.Services.WSFederationAuthenticationModule.SignedOut
   id: SignedOut
@@ -2356,7 +2254,7 @@ items:
   - csharp
   name: SignedOut
   nameWithType: WSFederationAuthenticationModule.SignedOut
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignedOut
+  fullName: WSFederationAuthenticationModule.SignedOut
   type: Event
   assemblies:
   - System.IdentityModel.Services
@@ -2386,8 +2284,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignIn(System.String)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.SignIn(System.String)
   id: SignIn(System.String)
@@ -2396,7 +2292,7 @@ items:
   - csharp
   name: SignIn(String)
   nameWithType: WSFederationAuthenticationModule.SignIn(String)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignIn(String)
+  fullName: WSFederationAuthenticationModule.SignIn(String)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -2428,8 +2324,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignInContext
   commentId: P:System.IdentityModel.Services.WSFederationAuthenticationModule.SignInContext
   id: SignInContext
@@ -2438,7 +2332,7 @@ items:
   - csharp
   name: SignInContext
   nameWithType: WSFederationAuthenticationModule.SignInContext
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignInContext
+  fullName: WSFederationAuthenticationModule.SignInContext
   type: Property
   assemblies:
   - System.IdentityModel.Services
@@ -2469,8 +2363,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignInError
   commentId: E:System.IdentityModel.Services.WSFederationAuthenticationModule.SignInError
   id: SignInError
@@ -2479,7 +2371,7 @@ items:
   - csharp
   name: SignInError
   nameWithType: WSFederationAuthenticationModule.SignInError
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignInError
+  fullName: WSFederationAuthenticationModule.SignInError
   type: Event
   assemblies:
   - System.IdentityModel.Services
@@ -2509,8 +2401,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SigningOut
   commentId: E:System.IdentityModel.Services.WSFederationAuthenticationModule.SigningOut
   id: SigningOut
@@ -2519,7 +2409,7 @@ items:
   - csharp
   name: SigningOut
   nameWithType: WSFederationAuthenticationModule.SigningOut
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SigningOut
+  fullName: WSFederationAuthenticationModule.SigningOut
   type: Event
   assemblies:
   - System.IdentityModel.Services
@@ -2549,8 +2439,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignInQueryString
   commentId: P:System.IdentityModel.Services.WSFederationAuthenticationModule.SignInQueryString
   id: SignInQueryString
@@ -2559,7 +2447,7 @@ items:
   - csharp
   name: SignInQueryString
   nameWithType: WSFederationAuthenticationModule.SignInQueryString
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignInQueryString
+  fullName: WSFederationAuthenticationModule.SignInQueryString
   type: Property
   assemblies:
   - System.IdentityModel.Services
@@ -2593,8 +2481,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut
   id: SignOut
@@ -2603,7 +2489,7 @@ items:
   - csharp
   name: SignOut()
   nameWithType: WSFederationAuthenticationModule.SignOut()
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut()
+  fullName: WSFederationAuthenticationModule.SignOut()
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -2632,8 +2518,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut(System.Boolean)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut(System.Boolean)
   id: SignOut(System.Boolean)
@@ -2642,7 +2526,7 @@ items:
   - csharp
   name: SignOut(Boolean)
   nameWithType: WSFederationAuthenticationModule.SignOut(Boolean)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut(Boolean)
+  fullName: WSFederationAuthenticationModule.SignOut(Boolean)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -2674,8 +2558,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut(System.String)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut(System.String)
   id: SignOut(System.String)
@@ -2684,7 +2566,7 @@ items:
   - csharp
   name: SignOut(String)
   nameWithType: WSFederationAuthenticationModule.SignOut(String)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut(String)
+  fullName: WSFederationAuthenticationModule.SignOut(String)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -2719,8 +2601,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut(System.String,System.Boolean)
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut(System.String,System.Boolean)
   id: SignOut(System.String,System.Boolean)
@@ -2729,7 +2609,7 @@ items:
   - csharp
   name: SignOut(String, Boolean)
   nameWithType: WSFederationAuthenticationModule.SignOut(String, Boolean)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut(String, Boolean)
+  fullName: WSFederationAuthenticationModule.SignOut(String, Boolean)
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -2770,8 +2650,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutError
   commentId: E:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutError
   id: SignOutError
@@ -2780,7 +2658,7 @@ items:
   - csharp
   name: SignOutError
   nameWithType: WSFederationAuthenticationModule.SignOutError
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutError
+  fullName: WSFederationAuthenticationModule.SignOutError
   type: Event
   assemblies:
   - System.IdentityModel.Services
@@ -2810,8 +2688,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutQueryString
   commentId: P:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutQueryString
   id: SignOutQueryString
@@ -2820,7 +2696,7 @@ items:
   - csharp
   name: SignOutQueryString
   nameWithType: WSFederationAuthenticationModule.SignOutQueryString
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutQueryString
+  fullName: WSFederationAuthenticationModule.SignOutQueryString
   type: Property
   assemblies:
   - System.IdentityModel.Services
@@ -2854,8 +2730,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutReply
   commentId: P:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutReply
   id: SignOutReply
@@ -2864,7 +2738,7 @@ items:
   - csharp
   name: SignOutReply
   nameWithType: WSFederationAuthenticationModule.SignOutReply
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutReply
+  fullName: WSFederationAuthenticationModule.SignOutReply
   type: Property
   assemblies:
   - System.IdentityModel.Services
@@ -2895,8 +2769,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.VerifyProperties
   commentId: M:System.IdentityModel.Services.WSFederationAuthenticationModule.VerifyProperties
   id: VerifyProperties
@@ -2905,7 +2777,7 @@ items:
   - csharp
   name: VerifyProperties()
   nameWithType: WSFederationAuthenticationModule.VerifyProperties()
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.VerifyProperties()
+  fullName: WSFederationAuthenticationModule.VerifyProperties()
   type: Method
   assemblies:
   - System.IdentityModel.Services
@@ -2936,8 +2808,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.XmlDictionaryReaderQuotas
   commentId: P:System.IdentityModel.Services.WSFederationAuthenticationModule.XmlDictionaryReaderQuotas
   id: XmlDictionaryReaderQuotas
@@ -2946,7 +2816,7 @@ items:
   - csharp
   name: XmlDictionaryReaderQuotas
   nameWithType: WSFederationAuthenticationModule.XmlDictionaryReaderQuotas
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.XmlDictionaryReaderQuotas
+  fullName: WSFederationAuthenticationModule.XmlDictionaryReaderQuotas
   type: Property
   assemblies:
   - System.IdentityModel.Services
@@ -2979,8 +2849,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.IdentityModel.Services/WSFederationAuthenticationModule.xml
-  ms.author: v-jibran
-  manager: markgal
 references:
 - uid: System.IdentityModel.Services.HttpModuleBase
   parent: System.IdentityModel.Services
@@ -3023,13 +2891,13 @@ references:
   isExternal: false
   name: WSFederationAuthenticationModule()
   nameWithType: WSFederationAuthenticationModule.WSFederationAuthenticationModule()
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.WSFederationAuthenticationModule()
+  fullName: WSFederationAuthenticationModule.WSFederationAuthenticationModule()
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.AuthenticationType
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: AuthenticationType
   nameWithType: WSFederationAuthenticationModule.AuthenticationType
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.AuthenticationType
+  fullName: WSFederationAuthenticationModule.AuthenticationType
 - uid: System.String
   parent: System
   isExternal: false
@@ -3041,7 +2909,7 @@ references:
   isExternal: false
   name: AuthorizationFailed
   nameWithType: WSFederationAuthenticationModule.AuthorizationFailed
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.AuthorizationFailed
+  fullName: WSFederationAuthenticationModule.AuthorizationFailed
 - uid: System.EventHandler`1
   name: EventHandler<TEventArgs>
   nameWithType: EventHandler<TEventArgs>
@@ -3076,7 +2944,7 @@ references:
   isExternal: false
   name: CanReadSignInResponse(HttpRequestBase)
   nameWithType: WSFederationAuthenticationModule.CanReadSignInResponse(HttpRequestBase)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse(HttpRequestBase)
+  fullName: WSFederationAuthenticationModule.CanReadSignInResponse(HttpRequestBase)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -3094,13 +2962,13 @@ references:
   isExternal: false
   name: CanReadSignInResponse(HttpRequestBase, Boolean)
   nameWithType: WSFederationAuthenticationModule.CanReadSignInResponse(HttpRequestBase, Boolean)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse(HttpRequestBase, Boolean)
+  fullName: WSFederationAuthenticationModule.CanReadSignInResponse(HttpRequestBase, Boolean)
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.CreateSignInRequest(System.String,System.String,System.Boolean)
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: CreateSignInRequest(String, String, Boolean)
   nameWithType: WSFederationAuthenticationModule.CreateSignInRequest(String, String, Boolean)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.CreateSignInRequest(String, String, Boolean)
+  fullName: WSFederationAuthenticationModule.CreateSignInRequest(String, String, Boolean)
 - uid: System.IdentityModel.Services.SignInRequestMessage
   parent: System.IdentityModel.Services
   isExternal: false
@@ -3112,7 +2980,7 @@ references:
   isExternal: false
   name: FederatedSignOut(Uri, Uri)
   nameWithType: WSFederationAuthenticationModule.FederatedSignOut(Uri, Uri)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut(Uri, Uri)
+  fullName: WSFederationAuthenticationModule.FederatedSignOut(Uri, Uri)
 - uid: System.Uri
   parent: System
   isExternal: false
@@ -3124,31 +2992,31 @@ references:
   isExternal: false
   name: Freshness
   nameWithType: WSFederationAuthenticationModule.Freshness
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.Freshness
+  fullName: WSFederationAuthenticationModule.Freshness
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.GetFederationPassiveSignOutUrl(System.String,System.String,System.String)
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: GetFederationPassiveSignOutUrl(String, String, String)
   nameWithType: WSFederationAuthenticationModule.GetFederationPassiveSignOutUrl(String, String, String)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetFederationPassiveSignOutUrl(String, String, String)
+  fullName: WSFederationAuthenticationModule.GetFederationPassiveSignOutUrl(String, String, String)
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.GetReferencedResult(System.String)
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: GetReferencedResult(String)
   nameWithType: WSFederationAuthenticationModule.GetReferencedResult(String)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetReferencedResult(String)
+  fullName: WSFederationAuthenticationModule.GetReferencedResult(String)
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.GetReturnUrlFromResponse(System.Web.HttpRequestBase)
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: GetReturnUrlFromResponse(HttpRequestBase)
   nameWithType: WSFederationAuthenticationModule.GetReturnUrlFromResponse(HttpRequestBase)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetReturnUrlFromResponse(HttpRequestBase)
+  fullName: WSFederationAuthenticationModule.GetReturnUrlFromResponse(HttpRequestBase)
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSecurityToken(System.IdentityModel.Services.SignInResponseMessage)
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: GetSecurityToken(SignInResponseMessage)
   nameWithType: WSFederationAuthenticationModule.GetSecurityToken(SignInResponseMessage)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSecurityToken(SignInResponseMessage)
+  fullName: WSFederationAuthenticationModule.GetSecurityToken(SignInResponseMessage)
 - uid: System.IdentityModel.Tokens.SecurityToken
   parent: System.IdentityModel.Tokens
   isExternal: false
@@ -3166,25 +3034,25 @@ references:
   isExternal: false
   name: GetSecurityToken(HttpRequestBase)
   nameWithType: WSFederationAuthenticationModule.GetSecurityToken(HttpRequestBase)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSecurityToken(HttpRequestBase)
+  fullName: WSFederationAuthenticationModule.GetSecurityToken(HttpRequestBase)
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSessionTokenContext
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: GetSessionTokenContext()
   nameWithType: WSFederationAuthenticationModule.GetSessionTokenContext()
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSessionTokenContext()
+  fullName: WSFederationAuthenticationModule.GetSessionTokenContext()
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSignInResponseMessage(System.Web.HttpRequestBase)
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: GetSignInResponseMessage(HttpRequestBase)
   nameWithType: WSFederationAuthenticationModule.GetSignInResponseMessage(HttpRequestBase)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSignInResponseMessage(HttpRequestBase)
+  fullName: WSFederationAuthenticationModule.GetSignInResponseMessage(HttpRequestBase)
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSignOutRedirectUrl(System.IdentityModel.Services.SignOutCleanupRequestMessage)
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: GetSignOutRedirectUrl(SignOutCleanupRequestMessage)
   nameWithType: WSFederationAuthenticationModule.GetSignOutRedirectUrl(SignOutCleanupRequestMessage)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSignOutRedirectUrl(SignOutCleanupRequestMessage)
+  fullName: WSFederationAuthenticationModule.GetSignOutRedirectUrl(SignOutCleanupRequestMessage)
 - uid: System.IdentityModel.Services.SignOutCleanupRequestMessage
   parent: System.IdentityModel.Services
   isExternal: false
@@ -3196,13 +3064,13 @@ references:
   isExternal: false
   name: GetXmlTokenFromMessage(SignInResponseMessage)
   nameWithType: WSFederationAuthenticationModule.GetXmlTokenFromMessage(SignInResponseMessage)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetXmlTokenFromMessage(SignInResponseMessage)
+  fullName: WSFederationAuthenticationModule.GetXmlTokenFromMessage(SignInResponseMessage)
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.GetXmlTokenFromMessage(System.IdentityModel.Services.SignInResponseMessage,System.IdentityModel.Services.WSFederationSerializer)
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: GetXmlTokenFromMessage(SignInResponseMessage, WSFederationSerializer)
   nameWithType: WSFederationAuthenticationModule.GetXmlTokenFromMessage(SignInResponseMessage, WSFederationSerializer)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetXmlTokenFromMessage(SignInResponseMessage, WSFederationSerializer)
+  fullName: WSFederationAuthenticationModule.GetXmlTokenFromMessage(SignInResponseMessage, WSFederationSerializer)
 - uid: System.IdentityModel.Services.WSFederationSerializer
   parent: System.IdentityModel.Services
   isExternal: false
@@ -3214,13 +3082,13 @@ references:
   isExternal: false
   name: HomeRealm
   nameWithType: WSFederationAuthenticationModule.HomeRealm
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.HomeRealm
+  fullName: WSFederationAuthenticationModule.HomeRealm
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.InitializeModule(System.Web.HttpApplication)
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: InitializeModule(HttpApplication)
   nameWithType: WSFederationAuthenticationModule.InitializeModule(HttpApplication)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.InitializeModule(HttpApplication)
+  fullName: WSFederationAuthenticationModule.InitializeModule(HttpApplication)
 - uid: System.Web.HttpApplication
   parent: System.Web
   isExternal: false
@@ -3232,25 +3100,25 @@ references:
   isExternal: false
   name: InitializePropertiesFromConfiguration()
   nameWithType: WSFederationAuthenticationModule.InitializePropertiesFromConfiguration()
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.InitializePropertiesFromConfiguration()
+  fullName: WSFederationAuthenticationModule.InitializePropertiesFromConfiguration()
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.IsSignInResponse(System.Web.HttpRequestBase)
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: IsSignInResponse(HttpRequestBase)
   nameWithType: WSFederationAuthenticationModule.IsSignInResponse(HttpRequestBase)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.IsSignInResponse(HttpRequestBase)
+  fullName: WSFederationAuthenticationModule.IsSignInResponse(HttpRequestBase)
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: Issuer
   nameWithType: WSFederationAuthenticationModule.Issuer
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer
+  fullName: WSFederationAuthenticationModule.Issuer
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthenticateRequest(System.Object,System.EventArgs)
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: OnAuthenticateRequest(Object, EventArgs)
   nameWithType: WSFederationAuthenticationModule.OnAuthenticateRequest(Object, EventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthenticateRequest(Object, EventArgs)
+  fullName: WSFederationAuthenticationModule.OnAuthenticateRequest(Object, EventArgs)
 - uid: System.Object
   parent: System
   isExternal: false
@@ -3268,25 +3136,25 @@ references:
   isExternal: false
   name: OnAuthorizationFailed(AuthorizationFailedEventArgs)
   nameWithType: WSFederationAuthenticationModule.OnAuthorizationFailed(AuthorizationFailedEventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthorizationFailed(AuthorizationFailedEventArgs)
+  fullName: WSFederationAuthenticationModule.OnAuthorizationFailed(AuthorizationFailedEventArgs)
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.OnEndRequest(System.Object,System.EventArgs)
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: OnEndRequest(Object, EventArgs)
   nameWithType: WSFederationAuthenticationModule.OnEndRequest(Object, EventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnEndRequest(Object, EventArgs)
+  fullName: WSFederationAuthenticationModule.OnEndRequest(Object, EventArgs)
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.OnPostAuthenticateRequest(System.Object,System.EventArgs)
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: OnPostAuthenticateRequest(Object, EventArgs)
   nameWithType: WSFederationAuthenticationModule.OnPostAuthenticateRequest(Object, EventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnPostAuthenticateRequest(Object, EventArgs)
+  fullName: WSFederationAuthenticationModule.OnPostAuthenticateRequest(Object, EventArgs)
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.OnRedirectingToIdentityProvider(System.IdentityModel.Services.RedirectingToIdentityProviderEventArgs)
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: OnRedirectingToIdentityProvider(RedirectingToIdentityProviderEventArgs)
   nameWithType: WSFederationAuthenticationModule.OnRedirectingToIdentityProvider(RedirectingToIdentityProviderEventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnRedirectingToIdentityProvider(RedirectingToIdentityProviderEventArgs)
+  fullName: WSFederationAuthenticationModule.OnRedirectingToIdentityProvider(RedirectingToIdentityProviderEventArgs)
 - uid: System.IdentityModel.Services.RedirectingToIdentityProviderEventArgs
   parent: System.IdentityModel.Services
   isExternal: false
@@ -3298,7 +3166,7 @@ references:
   isExternal: false
   name: OnSessionSecurityTokenCreated(SessionSecurityTokenCreatedEventArgs)
   nameWithType: WSFederationAuthenticationModule.OnSessionSecurityTokenCreated(SessionSecurityTokenCreatedEventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSessionSecurityTokenCreated(SessionSecurityTokenCreatedEventArgs)
+  fullName: WSFederationAuthenticationModule.OnSessionSecurityTokenCreated(SessionSecurityTokenCreatedEventArgs)
 - uid: System.IdentityModel.Services.SessionSecurityTokenCreatedEventArgs
   parent: System.IdentityModel.Services
   isExternal: false
@@ -3310,19 +3178,19 @@ references:
   isExternal: false
   name: OnSignedIn(EventArgs)
   nameWithType: WSFederationAuthenticationModule.OnSignedIn(EventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignedIn(EventArgs)
+  fullName: WSFederationAuthenticationModule.OnSignedIn(EventArgs)
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignedOut(System.EventArgs)
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: OnSignedOut(EventArgs)
   nameWithType: WSFederationAuthenticationModule.OnSignedOut(EventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignedOut(EventArgs)
+  fullName: WSFederationAuthenticationModule.OnSignedOut(EventArgs)
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignInError(System.IdentityModel.Services.ErrorEventArgs)
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: OnSignInError(ErrorEventArgs)
   nameWithType: WSFederationAuthenticationModule.OnSignInError(ErrorEventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignInError(ErrorEventArgs)
+  fullName: WSFederationAuthenticationModule.OnSignInError(ErrorEventArgs)
 - uid: System.IdentityModel.Services.ErrorEventArgs
   parent: System.IdentityModel.Services
   isExternal: false
@@ -3334,7 +3202,7 @@ references:
   isExternal: false
   name: OnSigningOut(SigningOutEventArgs)
   nameWithType: WSFederationAuthenticationModule.OnSigningOut(SigningOutEventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSigningOut(SigningOutEventArgs)
+  fullName: WSFederationAuthenticationModule.OnSigningOut(SigningOutEventArgs)
 - uid: System.IdentityModel.Services.SigningOutEventArgs
   parent: System.IdentityModel.Services
   isExternal: false
@@ -3346,37 +3214,37 @@ references:
   isExternal: false
   name: OnSignOutError(ErrorEventArgs)
   nameWithType: WSFederationAuthenticationModule.OnSignOutError(ErrorEventArgs)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignOutError(ErrorEventArgs)
+  fullName: WSFederationAuthenticationModule.OnSignOutError(ErrorEventArgs)
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.PassiveRedirectEnabled
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: PassiveRedirectEnabled
   nameWithType: WSFederationAuthenticationModule.PassiveRedirectEnabled
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.PassiveRedirectEnabled
+  fullName: WSFederationAuthenticationModule.PassiveRedirectEnabled
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.PersistentCookiesOnPassiveRedirects
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: PersistentCookiesOnPassiveRedirects
   nameWithType: WSFederationAuthenticationModule.PersistentCookiesOnPassiveRedirects
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.PersistentCookiesOnPassiveRedirects
+  fullName: WSFederationAuthenticationModule.PersistentCookiesOnPassiveRedirects
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.Policy
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: Policy
   nameWithType: WSFederationAuthenticationModule.Policy
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.Policy
+  fullName: WSFederationAuthenticationModule.Policy
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.Realm
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: Realm
   nameWithType: WSFederationAuthenticationModule.Realm
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.Realm
+  fullName: WSFederationAuthenticationModule.Realm
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: RedirectingToIdentityProvider
   nameWithType: WSFederationAuthenticationModule.RedirectingToIdentityProvider
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider
+  fullName: WSFederationAuthenticationModule.RedirectingToIdentityProvider
 - uid: System.EventHandler{System.IdentityModel.Services.RedirectingToIdentityProviderEventArgs}
   parent: System
   isExternal: false
@@ -3403,43 +3271,43 @@ references:
   isExternal: false
   name: RedirectToIdentityProvider(String, String, Boolean)
   nameWithType: WSFederationAuthenticationModule.RedirectToIdentityProvider(String, String, Boolean)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectToIdentityProvider(String, String, Boolean)
+  fullName: WSFederationAuthenticationModule.RedirectToIdentityProvider(String, String, Boolean)
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.Reply
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: Reply
   nameWithType: WSFederationAuthenticationModule.Reply
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.Reply
+  fullName: WSFederationAuthenticationModule.Reply
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.Request
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: Request
   nameWithType: WSFederationAuthenticationModule.Request
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.Request
+  fullName: WSFederationAuthenticationModule.Request
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.RequestPtr
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: RequestPtr
   nameWithType: WSFederationAuthenticationModule.RequestPtr
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.RequestPtr
+  fullName: WSFederationAuthenticationModule.RequestPtr
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.RequireHttps
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: RequireHttps
   nameWithType: WSFederationAuthenticationModule.RequireHttps
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.RequireHttps
+  fullName: WSFederationAuthenticationModule.RequireHttps
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.Resource
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: Resource
   nameWithType: WSFederationAuthenticationModule.Resource
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.Resource
+  fullName: WSFederationAuthenticationModule.Resource
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenReceived
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: SecurityTokenReceived
   nameWithType: WSFederationAuthenticationModule.SecurityTokenReceived
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenReceived
+  fullName: WSFederationAuthenticationModule.SecurityTokenReceived
 - uid: System.IdentityModel.Services.SecurityTokenReceivedEventArgs
   name: SecurityTokenReceivedEventArgs
   nameWithType: SecurityTokenReceivedEventArgs
@@ -3470,7 +3338,7 @@ references:
   isExternal: false
   name: SecurityTokenValidated
   nameWithType: WSFederationAuthenticationModule.SecurityTokenValidated
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenValidated
+  fullName: WSFederationAuthenticationModule.SecurityTokenValidated
 - uid: System.IdentityModel.Services.SecurityTokenValidatedEventArgs
   name: SecurityTokenValidatedEventArgs
   nameWithType: SecurityTokenValidatedEventArgs
@@ -3501,7 +3369,7 @@ references:
   isExternal: false
   name: SessionSecurityTokenCreated
   nameWithType: WSFederationAuthenticationModule.SessionSecurityTokenCreated
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SessionSecurityTokenCreated
+  fullName: WSFederationAuthenticationModule.SessionSecurityTokenCreated
 - uid: System.EventHandler{System.IdentityModel.Services.SessionSecurityTokenCreatedEventArgs}
   parent: System
   isExternal: false
@@ -3528,7 +3396,7 @@ references:
   isExternal: false
   name: SetPrincipalAndWriteSessionToken(SessionSecurityToken, Boolean)
   nameWithType: WSFederationAuthenticationModule.SetPrincipalAndWriteSessionToken(SessionSecurityToken, Boolean)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SetPrincipalAndWriteSessionToken(SessionSecurityToken, Boolean)
+  fullName: WSFederationAuthenticationModule.SetPrincipalAndWriteSessionToken(SessionSecurityToken, Boolean)
 - uid: System.IdentityModel.Tokens.SessionSecurityToken
   parent: System.IdentityModel.Tokens
   isExternal: false
@@ -3540,7 +3408,7 @@ references:
   isExternal: false
   name: SignedIn
   nameWithType: WSFederationAuthenticationModule.SignedIn
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignedIn
+  fullName: WSFederationAuthenticationModule.SignedIn
 - uid: System.EventHandler
   parent: System
   isExternal: false
@@ -3552,25 +3420,25 @@ references:
   isExternal: false
   name: SignedOut
   nameWithType: WSFederationAuthenticationModule.SignedOut
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignedOut
+  fullName: WSFederationAuthenticationModule.SignedOut
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignIn(System.String)
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: SignIn(String)
   nameWithType: WSFederationAuthenticationModule.SignIn(String)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignIn(String)
+  fullName: WSFederationAuthenticationModule.SignIn(String)
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignInContext
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: SignInContext
   nameWithType: WSFederationAuthenticationModule.SignInContext
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignInContext
+  fullName: WSFederationAuthenticationModule.SignInContext
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignInError
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: SignInError
   nameWithType: WSFederationAuthenticationModule.SignInError
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignInError
+  fullName: WSFederationAuthenticationModule.SignInError
 - uid: System.EventHandler{System.IdentityModel.Services.ErrorEventArgs}
   parent: System
   isExternal: false
@@ -3597,7 +3465,7 @@ references:
   isExternal: false
   name: SigningOut
   nameWithType: WSFederationAuthenticationModule.SigningOut
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SigningOut
+  fullName: WSFederationAuthenticationModule.SigningOut
 - uid: System.EventHandler{System.IdentityModel.Services.SigningOutEventArgs}
   parent: System
   isExternal: false
@@ -3624,61 +3492,61 @@ references:
   isExternal: false
   name: SignInQueryString
   nameWithType: WSFederationAuthenticationModule.SignInQueryString
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignInQueryString
+  fullName: WSFederationAuthenticationModule.SignInQueryString
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: SignOut()
   nameWithType: WSFederationAuthenticationModule.SignOut()
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut()
+  fullName: WSFederationAuthenticationModule.SignOut()
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut(System.Boolean)
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: SignOut(Boolean)
   nameWithType: WSFederationAuthenticationModule.SignOut(Boolean)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut(Boolean)
+  fullName: WSFederationAuthenticationModule.SignOut(Boolean)
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut(System.String)
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: SignOut(String)
   nameWithType: WSFederationAuthenticationModule.SignOut(String)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut(String)
+  fullName: WSFederationAuthenticationModule.SignOut(String)
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut(System.String,System.Boolean)
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: SignOut(String, Boolean)
   nameWithType: WSFederationAuthenticationModule.SignOut(String, Boolean)
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut(String, Boolean)
+  fullName: WSFederationAuthenticationModule.SignOut(String, Boolean)
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutError
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: SignOutError
   nameWithType: WSFederationAuthenticationModule.SignOutError
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutError
+  fullName: WSFederationAuthenticationModule.SignOutError
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutQueryString
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: SignOutQueryString
   nameWithType: WSFederationAuthenticationModule.SignOutQueryString
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutQueryString
+  fullName: WSFederationAuthenticationModule.SignOutQueryString
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutReply
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: SignOutReply
   nameWithType: WSFederationAuthenticationModule.SignOutReply
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutReply
+  fullName: WSFederationAuthenticationModule.SignOutReply
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.VerifyProperties
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: VerifyProperties()
   nameWithType: WSFederationAuthenticationModule.VerifyProperties()
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.VerifyProperties()
+  fullName: WSFederationAuthenticationModule.VerifyProperties()
 - uid: System.IdentityModel.Services.WSFederationAuthenticationModule.XmlDictionaryReaderQuotas
   parent: System.IdentityModel.Services.WSFederationAuthenticationModule
   isExternal: false
   name: XmlDictionaryReaderQuotas
   nameWithType: WSFederationAuthenticationModule.XmlDictionaryReaderQuotas
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.XmlDictionaryReaderQuotas
+  fullName: WSFederationAuthenticationModule.XmlDictionaryReaderQuotas
 - uid: System.Xml.XmlDictionaryReaderQuotas
   parent: System.Xml
   isExternal: false
@@ -3690,7 +3558,7 @@ references:
   isExternal: false
   name: CanReadSignInResponse
   nameWithType: WSFederationAuthenticationModule.CanReadSignInResponse
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse
+  fullName: WSFederationAuthenticationModule.CanReadSignInResponse
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3705,7 +3573,7 @@ references:
   isExternal: false
   name: SignOut
   nameWithType: WSFederationAuthenticationModule.SignOut
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut
+  fullName: WSFederationAuthenticationModule.SignOut
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3720,7 +3588,7 @@ references:
   isExternal: false
   name: WSFederationAuthenticationModule
   nameWithType: WSFederationAuthenticationModule.WSFederationAuthenticationModule
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.WSFederationAuthenticationModule
+  fullName: WSFederationAuthenticationModule.WSFederationAuthenticationModule
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3735,7 +3603,7 @@ references:
   isExternal: false
   name: AuthenticationType
   nameWithType: WSFederationAuthenticationModule.AuthenticationType
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.AuthenticationType
+  fullName: WSFederationAuthenticationModule.AuthenticationType
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3750,7 +3618,7 @@ references:
   isExternal: false
   name: CreateSignInRequest
   nameWithType: WSFederationAuthenticationModule.CreateSignInRequest
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.CreateSignInRequest
+  fullName: WSFederationAuthenticationModule.CreateSignInRequest
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3765,7 +3633,7 @@ references:
   isExternal: false
   name: FederatedSignOut
   nameWithType: WSFederationAuthenticationModule.FederatedSignOut
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut
+  fullName: WSFederationAuthenticationModule.FederatedSignOut
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3780,7 +3648,7 @@ references:
   isExternal: false
   name: Freshness
   nameWithType: WSFederationAuthenticationModule.Freshness
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.Freshness
+  fullName: WSFederationAuthenticationModule.Freshness
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3795,7 +3663,7 @@ references:
   isExternal: false
   name: GetFederationPassiveSignOutUrl
   nameWithType: WSFederationAuthenticationModule.GetFederationPassiveSignOutUrl
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetFederationPassiveSignOutUrl
+  fullName: WSFederationAuthenticationModule.GetFederationPassiveSignOutUrl
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3810,7 +3678,7 @@ references:
   isExternal: false
   name: GetReferencedResult
   nameWithType: WSFederationAuthenticationModule.GetReferencedResult
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetReferencedResult
+  fullName: WSFederationAuthenticationModule.GetReferencedResult
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3825,7 +3693,7 @@ references:
   isExternal: false
   name: GetReturnUrlFromResponse
   nameWithType: WSFederationAuthenticationModule.GetReturnUrlFromResponse
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetReturnUrlFromResponse
+  fullName: WSFederationAuthenticationModule.GetReturnUrlFromResponse
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3840,7 +3708,7 @@ references:
   isExternal: false
   name: GetSecurityToken
   nameWithType: WSFederationAuthenticationModule.GetSecurityToken
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSecurityToken
+  fullName: WSFederationAuthenticationModule.GetSecurityToken
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3855,7 +3723,7 @@ references:
   isExternal: false
   name: GetSessionTokenContext
   nameWithType: WSFederationAuthenticationModule.GetSessionTokenContext
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSessionTokenContext
+  fullName: WSFederationAuthenticationModule.GetSessionTokenContext
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3870,7 +3738,7 @@ references:
   isExternal: false
   name: GetSignInResponseMessage
   nameWithType: WSFederationAuthenticationModule.GetSignInResponseMessage
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSignInResponseMessage
+  fullName: WSFederationAuthenticationModule.GetSignInResponseMessage
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3885,7 +3753,7 @@ references:
   isExternal: false
   name: GetSignOutRedirectUrl
   nameWithType: WSFederationAuthenticationModule.GetSignOutRedirectUrl
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetSignOutRedirectUrl
+  fullName: WSFederationAuthenticationModule.GetSignOutRedirectUrl
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3900,7 +3768,7 @@ references:
   isExternal: false
   name: GetXmlTokenFromMessage
   nameWithType: WSFederationAuthenticationModule.GetXmlTokenFromMessage
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.GetXmlTokenFromMessage
+  fullName: WSFederationAuthenticationModule.GetXmlTokenFromMessage
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3915,7 +3783,7 @@ references:
   isExternal: false
   name: HomeRealm
   nameWithType: WSFederationAuthenticationModule.HomeRealm
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.HomeRealm
+  fullName: WSFederationAuthenticationModule.HomeRealm
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3930,7 +3798,7 @@ references:
   isExternal: false
   name: InitializeModule
   nameWithType: WSFederationAuthenticationModule.InitializeModule
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.InitializeModule
+  fullName: WSFederationAuthenticationModule.InitializeModule
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3945,7 +3813,7 @@ references:
   isExternal: false
   name: InitializePropertiesFromConfiguration
   nameWithType: WSFederationAuthenticationModule.InitializePropertiesFromConfiguration
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.InitializePropertiesFromConfiguration
+  fullName: WSFederationAuthenticationModule.InitializePropertiesFromConfiguration
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3960,7 +3828,7 @@ references:
   isExternal: false
   name: IsSignInResponse
   nameWithType: WSFederationAuthenticationModule.IsSignInResponse
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.IsSignInResponse
+  fullName: WSFederationAuthenticationModule.IsSignInResponse
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3975,7 +3843,7 @@ references:
   isExternal: false
   name: Issuer
   nameWithType: WSFederationAuthenticationModule.Issuer
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer
+  fullName: WSFederationAuthenticationModule.Issuer
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -3990,7 +3858,7 @@ references:
   isExternal: false
   name: OnAuthenticateRequest
   nameWithType: WSFederationAuthenticationModule.OnAuthenticateRequest
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthenticateRequest
+  fullName: WSFederationAuthenticationModule.OnAuthenticateRequest
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4005,7 +3873,7 @@ references:
   isExternal: false
   name: OnAuthorizationFailed
   nameWithType: WSFederationAuthenticationModule.OnAuthorizationFailed
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthorizationFailed
+  fullName: WSFederationAuthenticationModule.OnAuthorizationFailed
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4020,7 +3888,7 @@ references:
   isExternal: false
   name: OnEndRequest
   nameWithType: WSFederationAuthenticationModule.OnEndRequest
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnEndRequest
+  fullName: WSFederationAuthenticationModule.OnEndRequest
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4035,7 +3903,7 @@ references:
   isExternal: false
   name: OnPostAuthenticateRequest
   nameWithType: WSFederationAuthenticationModule.OnPostAuthenticateRequest
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnPostAuthenticateRequest
+  fullName: WSFederationAuthenticationModule.OnPostAuthenticateRequest
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4050,7 +3918,7 @@ references:
   isExternal: false
   name: OnRedirectingToIdentityProvider
   nameWithType: WSFederationAuthenticationModule.OnRedirectingToIdentityProvider
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnRedirectingToIdentityProvider
+  fullName: WSFederationAuthenticationModule.OnRedirectingToIdentityProvider
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4065,7 +3933,7 @@ references:
   isExternal: false
   name: OnSessionSecurityTokenCreated
   nameWithType: WSFederationAuthenticationModule.OnSessionSecurityTokenCreated
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSessionSecurityTokenCreated
+  fullName: WSFederationAuthenticationModule.OnSessionSecurityTokenCreated
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4080,7 +3948,7 @@ references:
   isExternal: false
   name: OnSignedIn
   nameWithType: WSFederationAuthenticationModule.OnSignedIn
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignedIn
+  fullName: WSFederationAuthenticationModule.OnSignedIn
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4095,7 +3963,7 @@ references:
   isExternal: false
   name: OnSignedOut
   nameWithType: WSFederationAuthenticationModule.OnSignedOut
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignedOut
+  fullName: WSFederationAuthenticationModule.OnSignedOut
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4110,7 +3978,7 @@ references:
   isExternal: false
   name: OnSignInError
   nameWithType: WSFederationAuthenticationModule.OnSignInError
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignInError
+  fullName: WSFederationAuthenticationModule.OnSignInError
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4125,7 +3993,7 @@ references:
   isExternal: false
   name: OnSigningOut
   nameWithType: WSFederationAuthenticationModule.OnSigningOut
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSigningOut
+  fullName: WSFederationAuthenticationModule.OnSigningOut
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4140,7 +4008,7 @@ references:
   isExternal: false
   name: OnSignOutError
   nameWithType: WSFederationAuthenticationModule.OnSignOutError
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignOutError
+  fullName: WSFederationAuthenticationModule.OnSignOutError
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4155,7 +4023,7 @@ references:
   isExternal: false
   name: PassiveRedirectEnabled
   nameWithType: WSFederationAuthenticationModule.PassiveRedirectEnabled
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.PassiveRedirectEnabled
+  fullName: WSFederationAuthenticationModule.PassiveRedirectEnabled
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4170,7 +4038,7 @@ references:
   isExternal: false
   name: PersistentCookiesOnPassiveRedirects
   nameWithType: WSFederationAuthenticationModule.PersistentCookiesOnPassiveRedirects
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.PersistentCookiesOnPassiveRedirects
+  fullName: WSFederationAuthenticationModule.PersistentCookiesOnPassiveRedirects
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4185,7 +4053,7 @@ references:
   isExternal: false
   name: Policy
   nameWithType: WSFederationAuthenticationModule.Policy
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.Policy
+  fullName: WSFederationAuthenticationModule.Policy
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4200,7 +4068,7 @@ references:
   isExternal: false
   name: Realm
   nameWithType: WSFederationAuthenticationModule.Realm
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.Realm
+  fullName: WSFederationAuthenticationModule.Realm
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4215,7 +4083,7 @@ references:
   isExternal: false
   name: RedirectToIdentityProvider
   nameWithType: WSFederationAuthenticationModule.RedirectToIdentityProvider
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectToIdentityProvider
+  fullName: WSFederationAuthenticationModule.RedirectToIdentityProvider
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4230,7 +4098,7 @@ references:
   isExternal: false
   name: Reply
   nameWithType: WSFederationAuthenticationModule.Reply
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.Reply
+  fullName: WSFederationAuthenticationModule.Reply
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4245,7 +4113,7 @@ references:
   isExternal: false
   name: Request
   nameWithType: WSFederationAuthenticationModule.Request
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.Request
+  fullName: WSFederationAuthenticationModule.Request
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4260,7 +4128,7 @@ references:
   isExternal: false
   name: RequestPtr
   nameWithType: WSFederationAuthenticationModule.RequestPtr
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.RequestPtr
+  fullName: WSFederationAuthenticationModule.RequestPtr
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4275,7 +4143,7 @@ references:
   isExternal: false
   name: RequireHttps
   nameWithType: WSFederationAuthenticationModule.RequireHttps
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.RequireHttps
+  fullName: WSFederationAuthenticationModule.RequireHttps
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4290,7 +4158,7 @@ references:
   isExternal: false
   name: Resource
   nameWithType: WSFederationAuthenticationModule.Resource
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.Resource
+  fullName: WSFederationAuthenticationModule.Resource
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4305,7 +4173,7 @@ references:
   isExternal: false
   name: SetPrincipalAndWriteSessionToken
   nameWithType: WSFederationAuthenticationModule.SetPrincipalAndWriteSessionToken
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SetPrincipalAndWriteSessionToken
+  fullName: WSFederationAuthenticationModule.SetPrincipalAndWriteSessionToken
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4320,7 +4188,7 @@ references:
   isExternal: false
   name: SignIn
   nameWithType: WSFederationAuthenticationModule.SignIn
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignIn
+  fullName: WSFederationAuthenticationModule.SignIn
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4335,7 +4203,7 @@ references:
   isExternal: false
   name: SignInContext
   nameWithType: WSFederationAuthenticationModule.SignInContext
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignInContext
+  fullName: WSFederationAuthenticationModule.SignInContext
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4350,7 +4218,7 @@ references:
   isExternal: false
   name: SignInQueryString
   nameWithType: WSFederationAuthenticationModule.SignInQueryString
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignInQueryString
+  fullName: WSFederationAuthenticationModule.SignInQueryString
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4365,7 +4233,7 @@ references:
   isExternal: false
   name: SignOutQueryString
   nameWithType: WSFederationAuthenticationModule.SignOutQueryString
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutQueryString
+  fullName: WSFederationAuthenticationModule.SignOutQueryString
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4380,7 +4248,7 @@ references:
   isExternal: false
   name: SignOutReply
   nameWithType: WSFederationAuthenticationModule.SignOutReply
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutReply
+  fullName: WSFederationAuthenticationModule.SignOutReply
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4395,7 +4263,7 @@ references:
   isExternal: false
   name: VerifyProperties
   nameWithType: WSFederationAuthenticationModule.VerifyProperties
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.VerifyProperties
+  fullName: WSFederationAuthenticationModule.VerifyProperties
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4410,7 +4278,7 @@ references:
   isExternal: false
   name: XmlDictionaryReaderQuotas
   nameWithType: WSFederationAuthenticationModule.XmlDictionaryReaderQuotas
-  fullName: System.IdentityModel.Services.WSFederationAuthenticationModule.XmlDictionaryReaderQuotas
+  fullName: WSFederationAuthenticationModule.XmlDictionaryReaderQuotas
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

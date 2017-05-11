@@ -85,7 +85,7 @@ items:
   - System.Windows.Forms
   namespace: System.Windows.Forms
   summary: Uses a mask to distinguish between proper and improper user input.
-  remarks: "The <xref:System.Windows.Forms.MaskedTextBox> class is an enhanced <xref:System.Windows.Forms.TextBox> control that supports a declarative syntax for accepting or rejecting user input. Using the <xref:System.Windows.Forms.MaskedTextBox.Mask%2A> property, you can specify the following input without writing any custom validation logic in your application:  \n  \n-   Required input characters.  \n  \n-   Optional input characters.  \n  \n-   The type of input expected at a given position in the mask; for example, a digit, or an alphabetic or alphanumeric character.  \n  \n-   Mask literals, or characters that should appear directly in the <xref:System.Windows.Forms.MaskedTextBox>; for example, the hyphens (-) in a phone number, or the currency symbol in a price.  \n  \n-   Special processing for input characters; for example, to convert alphabetic characters to uppercase.  \n  \n When a <xref:System.Windows.Forms.MaskedTextBox> control is displayed at run time, it represents the mask as a series of prompt characters and optional literal characters. Each editable mask position, representing a required or optional input, is shown with a single prompt character. For example, the number sign (#) is often used as a placeholder for a numeric character input. You can use the <xref:System.Windows.Forms.MaskedTextBox.PromptChar%2A> property to specify a custom prompt character. The <xref:System.Windows.Forms.MaskedTextBox.HidePromptOnLeave%2A> property determines if the user sees the prompt characters when the control loses input focus.  \n  \n As the user types input into the masked text box, valid input characters replace their respective prompt characters in a sequential fashion. If the user types an invalid input character, no replacement occurs, but instead a beep is issued if the <xref:System.Windows.Forms.MaskedTextBox.BeepOnError%2A> property is set to `true`, and the <xref:System.Windows.Forms.MaskedTextBox.MaskInputRejected> event is raised. You can provide your own custom error logic by handing this event.  \n  \n When the current insertion point is at a literal character, the user has a number of options:  \n  \n-   If a character other than the prompt character is typed, the literal will automatically be skipped and the input character will be applied to the next editable position, represented by the next prompt character.  \n  \n-   If the prompt character is typed and the <xref:System.Windows.Forms.MaskedTextBox.AllowPromptAsInput%2A> property is true, the input will overtype the prompt character and insertion point will be moved to the next position in the mask.  \n  \n-   As is always the case, the arrow keys can be used to navigate to a previous or subsequent position.  \n  \n You can use the <xref:System.Windows.Forms.MaskedTextBox.MaskFull%2A> property to verify whether or not the user has entered all of the required input. The <xref:System.Windows.Forms.MaskedTextBox.Text%2A> property will always retrieve the user's input formatted according to the mask and the <xref:System.Windows.Forms.MaskedTextBox.TextMaskFormat%2A> property.  \n  \n The <xref:System.Windows.Forms.MaskedTextBox> control actually defers all mask processing to the <xref:System.ComponentModel.MaskedTextProvider?displayProperty=fullName> class specified by the <xref:System.Windows.Forms.MaskedTextBox.MaskedTextProvider%2A> property. This standard provider supports all Unicode characters except for surrogates and vertically combined characters; however, the <xref:System.Windows.Forms.MaskedTextBox.AsciiOnly%2A> property can be used to restrict input to the characters sets a-z, A-Z, and 0-9.  \n  \n Masks do not necessarily guarantee that a user's input will represent a valid value for a given type; for example, -9 could be entered for an age in years. You can verify that a user's input represents a valid value by assigning an instance of that value's type to the <xref:System.Windows.Forms.MaskedTextBox.ValidatingType%2A> property. You can detect whether the user removes focus from <xref:System.Windows.Forms.MaskedTextBox> when it contains an invalid value by monitoring for the <xref:System.Windows.Forms.MaskedTextBox.TypeValidationCompleted> event. If type validation succeeds, the object representing the value will be available through the <xref:System.Windows.Forms.TypeValidationEventArgs.ReturnValue%2A> property of the <xref:System.Windows.Forms.TypeValidationEventArgs> parameter.  \n  \n As with the <xref:System.Windows.Forms.TextBox> control, several common keyboard shortcuts do not work with <xref:System.Windows.Forms.MaskedTextBox>. In particular, CTRL-R (right justify text), CTRL-L (left justify text), and CTRL-L (center text) have no effect.  \n  \n## Compatibility with Visual Basic 6.0  \n <xref:System.Windows.Forms.MaskedTextBox> was designed to retain most of the functionality of the Masked Edit control in [!INCLUDE[vbprvb](~/includes/vbprvb-md.md)] 6.0. The following table lists common properties on the Masked Edit control and gives their equivalents on <xref:System.Windows.Forms.MaskedTextBox>.  \n  \n|Masked Edit control ([!INCLUDE[vbprvb](~/includes/vbprvb-md.md)] 6.0) property|Equivalent MaskedTextBox ([!INCLUDE[dnprdnshort](~/includes/dnprdnshort-md.md)]) property|  \n|-------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|  \n|`AllowPrompt` property|<xref:System.Windows.Forms.MaskedTextBox.AllowPromptAsInput%2A>|  \n|`AutoTab` property|None|  \n|`ClipMode` property|<xref:System.Windows.Forms.MaskedTextBox.CutCopyMaskFormat%2A>|  \n|`ClipText` property|<xref:System.Windows.Forms.MaskedTextBox.Text%2A> (when <xref:System.Windows.Forms.MaskedTextBox.TextMaskFormat%2A> is set to <xref:System.Windows.Forms.MaskFormat>)|  \n|`Format` property|None|  \n|`FormattedText` property|<xref:System.Windows.Forms.MaskedTextBox.Text%2A> (when <xref:System.Windows.Forms.MaskedTextBox.TextMaskFormat%2A> is set to <xref:System.Windows.Forms.MaskFormat>)|  \n|`Mask` property|<xref:System.Windows.Forms.MaskedTextBox.Mask%2A>|  \n|`PromptChar` property|<xref:System.Windows.Forms.MaskedTextBox.PromptChar%2A>|  \n|`PromptInclude` property|<xref:System.Windows.Forms.MaskedTextBox.ResetOnPrompt%2A>|  \n|`ValidationError` event|<xref:System.Windows.Forms.MaskedTextBox.MaskInputRejected>|  \n  \n> [!CAUTION]\n>  The <xref:System.Windows.Forms.MaskedTextBox> control does not support multiline configuration or undo functionality. However, while the members associated with these features have been retained for compatibility with the <xref:System.Windows.Forms.TextBoxBase> base class, their implementations perform no actions."
+  remarks: "The <xref:System.Windows.Forms.MaskedTextBox> class is an enhanced <xref:System.Windows.Forms.TextBox> control that supports a declarative syntax for accepting or rejecting user input. Using the <xref:System.Windows.Forms.MaskedTextBox.Mask%2A> property, you can specify the following input without writing any custom validation logic in your application:  \n  \n-   Required input characters.  \n  \n-   Optional input characters.  \n  \n-   The type of input expected at a given position in the mask; for example, a digit, or an alphabetic or alphanumeric character.  \n  \n-   Mask literals, or characters that should appear directly in the <xref:System.Windows.Forms.MaskedTextBox>; for example, the hyphens (-) in a phone number, or the currency symbol in a price.  \n  \n-   Special processing for input characters; for example, to convert alphabetic characters to uppercase.  \n  \n When a <xref:System.Windows.Forms.MaskedTextBox> control is displayed at run time, it represents the mask as a series of prompt characters and optional literal characters. Each editable mask position, representing a required or optional input, is shown with a single prompt character. For example, the number sign (#) is often used as a placeholder for a numeric character input. You can use the <xref:System.Windows.Forms.MaskedTextBox.PromptChar%2A> property to specify a custom prompt character. The <xref:System.Windows.Forms.MaskedTextBox.HidePromptOnLeave%2A> property determines if the user sees the prompt characters when the control loses input focus.  \n  \n As the user types input into the masked text box, valid input characters replace their respective prompt characters in a sequential fashion. If the user types an invalid input character, no replacement occurs, but instead a beep is issued if the <xref:System.Windows.Forms.MaskedTextBox.BeepOnError%2A> property is set to `true`, and the <xref:System.Windows.Forms.MaskedTextBox.MaskInputRejected> event is raised. You can provide your own custom error logic by handing this event.  \n  \n When the current insertion point is at a literal character, the user has a number of options:  \n  \n-   If a character other than the prompt character is typed, the literal will automatically be skipped and the input character will be applied to the next editable position, represented by the next prompt character.  \n  \n-   If the prompt character is typed and the <xref:System.Windows.Forms.MaskedTextBox.AllowPromptAsInput%2A> property is true, the input will overtype the prompt character and insertion point will be moved to the next position in the mask.  \n  \n-   As is always the case, the arrow keys can be used to navigate to a previous or subsequent position.  \n  \n You can use the <xref:System.Windows.Forms.MaskedTextBox.MaskFull%2A> property to verify whether or not the user has entered all of the required input. The <xref:System.Windows.Forms.MaskedTextBox.Text%2A> property will always retrieve the user's input formatted according to the mask and the <xref:System.Windows.Forms.MaskedTextBox.TextMaskFormat%2A> property.  \n  \n The <xref:System.Windows.Forms.MaskedTextBox> control actually defers all mask processing to the <xref:System.ComponentModel.MaskedTextProvider?displayProperty=fullName> class specified by the <xref:System.Windows.Forms.MaskedTextBox.MaskedTextProvider%2A> property. This standard provider supports all Unicode characters except for surrogates and vertically combined characters; however, the <xref:System.Windows.Forms.MaskedTextBox.AsciiOnly%2A> property can be used to restrict input to the characters sets a-z, A-Z, and 0-9.  \n  \n Masks do not necessarily guarantee that a user's input will represent a valid value for a given type; for example, -9 could be entered for an age in years. You can verify that a user's input represents a valid value by assigning an instance of that value's type to the <xref:System.Windows.Forms.MaskedTextBox.ValidatingType%2A> property. You can detect whether the user removes focus from <xref:System.Windows.Forms.MaskedTextBox> when it contains an invalid value by monitoring for the <xref:System.Windows.Forms.MaskedTextBox.TypeValidationCompleted> event. If type validation succeeds, the object representing the value will be available through the <xref:System.Windows.Forms.TypeValidationEventArgs.ReturnValue%2A> property of the <xref:System.Windows.Forms.TypeValidationEventArgs> parameter.  \n  \n As with the <xref:System.Windows.Forms.TextBox> control, several common keyboard shortcuts do not work with <xref:System.Windows.Forms.MaskedTextBox>. In particular, CTRL-R (right justify text), CTRL-L (left justify text), and CTRL-L (center text) have no effect.  \n  \n## Compatibility with Visual Basic 6.0  \n <xref:System.Windows.Forms.MaskedTextBox> was designed to retain most of the functionality of the Masked Edit control in [!INCLUDE[vbprvb](~/includes/vbprvb-md.md)] 6.0. The following table lists common properties on the Masked Edit control and gives their equivalents on <xref:System.Windows.Forms.MaskedTextBox>.  \n  \n|Masked Edit control ([!INCLUDE[vbprvb](~/includes/vbprvb-md.md)] 6.0) property|Equivalent MaskedTextBox ([!INCLUDE[dnprdnshort](~/includes/dnprdnshort-md.md)]) property|  \n|-------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|  \n|`AllowPrompt` property|<xref:System.Windows.Forms.MaskedTextBox.AllowPromptAsInput%2A>|  \n|`AutoTab` property|None|  \n|`ClipMode` property|<xref:System.Windows.Forms.MaskedTextBox.CutCopyMaskFormat%2A>|  \n|`ClipText` property|<xref:System.Windows.Forms.MaskedTextBox.Text%2A> (when <xref:System.Windows.Forms.MaskedTextBox.TextMaskFormat%2A> is set to <xref:System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals>)|  \n|`Format` property|None|  \n|`FormattedText` property|<xref:System.Windows.Forms.MaskedTextBox.Text%2A> (when <xref:System.Windows.Forms.MaskedTextBox.TextMaskFormat%2A> is set to <xref:System.Windows.Forms.MaskFormat.IncludePromptAndLiterals>)|  \n|`Mask` property|<xref:System.Windows.Forms.MaskedTextBox.Mask%2A>|  \n|`PromptChar` property|<xref:System.Windows.Forms.MaskedTextBox.PromptChar%2A>|  \n|`PromptInclude` property|<xref:System.Windows.Forms.MaskedTextBox.ResetOnPrompt%2A>|  \n|`ValidationError` event|<xref:System.Windows.Forms.MaskedTextBox.MaskInputRejected>|  \n  \n> [!CAUTION]\n>  The <xref:System.Windows.Forms.MaskedTextBox> control does not support multiline configuration or undo functionality. However, while the members associated with these features have been retained for compatibility with the <xref:System.Windows.Forms.TextBoxBase> base class, their implementations perform no actions."
   example:
   - "The following code example initializes the <xref:System.Windows.Forms.MaskedTextBox> to accept a date, and uses both the <xref:System.Windows.Forms.MaskedTextBox.MaskInputRejected> and <xref:System.Windows.Forms.MaskedTextBox.TypeValidationCompleted> events to alert the user to invalid input.  \n  \n [!code-csharp[MaskInputRejectedSample#1](~/samples/snippets/csharp/VS_Snippets_Winforms/MaskInputRejectedSample/CS/form1.cs#1)]\n [!code-vb[MaskInputRejectedSample#1](~/samples/snippets/visualbasic/VS_Snippets_Winforms/MaskInputRejectedSample/VB/form1.vb#1)]"
   syntax:
@@ -528,9 +528,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.#ctor
   commentId: M:System.Windows.Forms.MaskedTextBox.#ctor
   id: '#ctor'
@@ -539,7 +536,7 @@ items:
   - csharp
   name: MaskedTextBox()
   nameWithType: MaskedTextBox.MaskedTextBox()
-  fullName: System.Windows.Forms.MaskedTextBox.MaskedTextBox()
+  fullName: MaskedTextBox.MaskedTextBox()
   type: Constructor
   assemblies:
   - System.Windows.Forms
@@ -568,9 +565,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.#ctor(System.ComponentModel.MaskedTextProvider)
   commentId: M:System.Windows.Forms.MaskedTextBox.#ctor(System.ComponentModel.MaskedTextProvider)
   id: '#ctor(System.ComponentModel.MaskedTextProvider)'
@@ -579,7 +573,7 @@ items:
   - csharp
   name: MaskedTextBox(MaskedTextProvider)
   nameWithType: MaskedTextBox.MaskedTextBox(MaskedTextProvider)
-  fullName: System.Windows.Forms.MaskedTextBox.MaskedTextBox(MaskedTextProvider)
+  fullName: MaskedTextBox.MaskedTextBox(MaskedTextProvider)
   type: Constructor
   assemblies:
   - System.Windows.Forms
@@ -614,9 +608,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.#ctor(System.String)
   commentId: M:System.Windows.Forms.MaskedTextBox.#ctor(System.String)
   id: '#ctor(System.String)'
@@ -625,7 +616,7 @@ items:
   - csharp
   name: MaskedTextBox(String)
   nameWithType: MaskedTextBox.MaskedTextBox(String)
-  fullName: System.Windows.Forms.MaskedTextBox.MaskedTextBox(String)
+  fullName: MaskedTextBox.MaskedTextBox(String)
   type: Constructor
   assemblies:
   - System.Windows.Forms
@@ -660,9 +651,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.AcceptsTab
   commentId: P:System.Windows.Forms.MaskedTextBox.AcceptsTab
   id: AcceptsTab
@@ -671,7 +659,7 @@ items:
   - csharp
   name: AcceptsTab
   nameWithType: MaskedTextBox.AcceptsTab
-  fullName: System.Windows.Forms.MaskedTextBox.AcceptsTab
+  fullName: MaskedTextBox.AcceptsTab
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -707,9 +695,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.AcceptsTabChanged
   commentId: E:System.Windows.Forms.MaskedTextBox.AcceptsTabChanged
   id: AcceptsTabChanged
@@ -718,7 +703,7 @@ items:
   - csharp
   name: AcceptsTabChanged
   nameWithType: MaskedTextBox.AcceptsTabChanged
-  fullName: System.Windows.Forms.MaskedTextBox.AcceptsTabChanged
+  fullName: MaskedTextBox.AcceptsTabChanged
   type: Event
   assemblies:
   - System.Windows.Forms
@@ -753,9 +738,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.AllowPromptAsInput
   commentId: P:System.Windows.Forms.MaskedTextBox.AllowPromptAsInput
   id: AllowPromptAsInput
@@ -764,7 +746,7 @@ items:
   - csharp
   name: AllowPromptAsInput
   nameWithType: MaskedTextBox.AllowPromptAsInput
-  fullName: System.Windows.Forms.MaskedTextBox.AllowPromptAsInput
+  fullName: MaskedTextBox.AllowPromptAsInput
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -796,9 +778,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.AsciiOnly
   commentId: P:System.Windows.Forms.MaskedTextBox.AsciiOnly
   id: AsciiOnly
@@ -807,7 +786,7 @@ items:
   - csharp
   name: AsciiOnly
   nameWithType: MaskedTextBox.AsciiOnly
-  fullName: System.Windows.Forms.MaskedTextBox.AsciiOnly
+  fullName: MaskedTextBox.AsciiOnly
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -839,8 +818,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Forms.MaskedTextBox.BeepOnError
   commentId: P:System.Windows.Forms.MaskedTextBox.BeepOnError
   id: BeepOnError
@@ -849,7 +826,7 @@ items:
   - csharp
   name: BeepOnError
   nameWithType: MaskedTextBox.BeepOnError
-  fullName: System.Windows.Forms.MaskedTextBox.BeepOnError
+  fullName: MaskedTextBox.BeepOnError
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -881,9 +858,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.CanUndo
   commentId: P:System.Windows.Forms.MaskedTextBox.CanUndo
   id: CanUndo
@@ -892,7 +866,7 @@ items:
   - csharp
   name: CanUndo
   nameWithType: MaskedTextBox.CanUndo
-  fullName: System.Windows.Forms.MaskedTextBox.CanUndo
+  fullName: MaskedTextBox.CanUndo
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -928,9 +902,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.ClearUndo
   commentId: M:System.Windows.Forms.MaskedTextBox.ClearUndo
   id: ClearUndo
@@ -939,7 +910,7 @@ items:
   - csharp
   name: ClearUndo()
   nameWithType: MaskedTextBox.ClearUndo()
-  fullName: System.Windows.Forms.MaskedTextBox.ClearUndo()
+  fullName: MaskedTextBox.ClearUndo()
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -969,9 +940,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.CreateHandle
   commentId: M:System.Windows.Forms.MaskedTextBox.CreateHandle
   id: CreateHandle
@@ -980,7 +948,7 @@ items:
   - csharp
   name: CreateHandle()
   nameWithType: MaskedTextBox.CreateHandle()
-  fullName: System.Windows.Forms.MaskedTextBox.CreateHandle()
+  fullName: MaskedTextBox.CreateHandle()
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -1009,9 +977,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.CreateParams
   commentId: P:System.Windows.Forms.MaskedTextBox.CreateParams
   id: CreateParams
@@ -1020,7 +985,7 @@ items:
   - csharp
   name: CreateParams
   nameWithType: MaskedTextBox.CreateParams
-  fullName: System.Windows.Forms.MaskedTextBox.CreateParams
+  fullName: MaskedTextBox.CreateParams
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -1050,9 +1015,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.Culture
   commentId: P:System.Windows.Forms.MaskedTextBox.Culture
   id: Culture
@@ -1061,7 +1023,7 @@ items:
   - csharp
   name: Culture
   nameWithType: MaskedTextBox.Culture
-  fullName: System.Windows.Forms.MaskedTextBox.Culture
+  fullName: MaskedTextBox.Culture
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -1095,9 +1057,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.CutCopyMaskFormat
   commentId: P:System.Windows.Forms.MaskedTextBox.CutCopyMaskFormat
   id: CutCopyMaskFormat
@@ -1106,7 +1065,7 @@ items:
   - csharp
   name: CutCopyMaskFormat
   nameWithType: MaskedTextBox.CutCopyMaskFormat
-  fullName: System.Windows.Forms.MaskedTextBox.CutCopyMaskFormat
+  fullName: MaskedTextBox.CutCopyMaskFormat
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -1141,9 +1100,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.FormatProvider
   commentId: P:System.Windows.Forms.MaskedTextBox.FormatProvider
   id: FormatProvider
@@ -1152,7 +1108,7 @@ items:
   - csharp
   name: FormatProvider
   nameWithType: MaskedTextBox.FormatProvider
-  fullName: System.Windows.Forms.MaskedTextBox.FormatProvider
+  fullName: MaskedTextBox.FormatProvider
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -1188,9 +1144,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.GetCharFromPosition(System.Drawing.Point)
   commentId: M:System.Windows.Forms.MaskedTextBox.GetCharFromPosition(System.Drawing.Point)
   id: GetCharFromPosition(System.Drawing.Point)
@@ -1199,7 +1152,7 @@ items:
   - csharp
   name: GetCharFromPosition(Point)
   nameWithType: MaskedTextBox.GetCharFromPosition(Point)
-  fullName: System.Windows.Forms.MaskedTextBox.GetCharFromPosition(Point)
+  fullName: MaskedTextBox.GetCharFromPosition(Point)
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -1233,8 +1186,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Forms.MaskedTextBox.GetCharIndexFromPosition(System.Drawing.Point)
   commentId: M:System.Windows.Forms.MaskedTextBox.GetCharIndexFromPosition(System.Drawing.Point)
   id: GetCharIndexFromPosition(System.Drawing.Point)
@@ -1243,7 +1194,7 @@ items:
   - csharp
   name: GetCharIndexFromPosition(Point)
   nameWithType: MaskedTextBox.GetCharIndexFromPosition(Point)
-  fullName: System.Windows.Forms.MaskedTextBox.GetCharIndexFromPosition(Point)
+  fullName: MaskedTextBox.GetCharIndexFromPosition(Point)
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -1277,9 +1228,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.GetFirstCharIndexFromLine(System.Int32)
   commentId: M:System.Windows.Forms.MaskedTextBox.GetFirstCharIndexFromLine(System.Int32)
   id: GetFirstCharIndexFromLine(System.Int32)
@@ -1288,7 +1236,7 @@ items:
   - csharp
   name: GetFirstCharIndexFromLine(Int32)
   nameWithType: MaskedTextBox.GetFirstCharIndexFromLine(Int32)
-  fullName: System.Windows.Forms.MaskedTextBox.GetFirstCharIndexFromLine(Int32)
+  fullName: MaskedTextBox.GetFirstCharIndexFromLine(Int32)
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -1324,9 +1272,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.GetFirstCharIndexOfCurrentLine
   commentId: M:System.Windows.Forms.MaskedTextBox.GetFirstCharIndexOfCurrentLine
   id: GetFirstCharIndexOfCurrentLine
@@ -1335,7 +1280,7 @@ items:
   - csharp
   name: GetFirstCharIndexOfCurrentLine()
   nameWithType: MaskedTextBox.GetFirstCharIndexOfCurrentLine()
-  fullName: System.Windows.Forms.MaskedTextBox.GetFirstCharIndexOfCurrentLine()
+  fullName: MaskedTextBox.GetFirstCharIndexOfCurrentLine()
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -1368,9 +1313,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.GetLineFromCharIndex(System.Int32)
   commentId: M:System.Windows.Forms.MaskedTextBox.GetLineFromCharIndex(System.Int32)
   id: GetLineFromCharIndex(System.Int32)
@@ -1379,7 +1321,7 @@ items:
   - csharp
   name: GetLineFromCharIndex(Int32)
   nameWithType: MaskedTextBox.GetLineFromCharIndex(Int32)
-  fullName: System.Windows.Forms.MaskedTextBox.GetLineFromCharIndex(Int32)
+  fullName: MaskedTextBox.GetLineFromCharIndex(Int32)
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -1415,9 +1357,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.GetPositionFromCharIndex(System.Int32)
   commentId: M:System.Windows.Forms.MaskedTextBox.GetPositionFromCharIndex(System.Int32)
   id: GetPositionFromCharIndex(System.Int32)
@@ -1426,7 +1365,7 @@ items:
   - csharp
   name: GetPositionFromCharIndex(Int32)
   nameWithType: MaskedTextBox.GetPositionFromCharIndex(Int32)
-  fullName: System.Windows.Forms.MaskedTextBox.GetPositionFromCharIndex(Int32)
+  fullName: MaskedTextBox.GetPositionFromCharIndex(Int32)
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -1460,9 +1399,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.HidePromptOnLeave
   commentId: P:System.Windows.Forms.MaskedTextBox.HidePromptOnLeave
   id: HidePromptOnLeave
@@ -1471,7 +1407,7 @@ items:
   - csharp
   name: HidePromptOnLeave
   nameWithType: MaskedTextBox.HidePromptOnLeave
-  fullName: System.Windows.Forms.MaskedTextBox.HidePromptOnLeave
+  fullName: MaskedTextBox.HidePromptOnLeave
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -1502,9 +1438,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.InsertKeyMode
   commentId: P:System.Windows.Forms.MaskedTextBox.InsertKeyMode
   id: InsertKeyMode
@@ -1513,7 +1446,7 @@ items:
   - csharp
   name: InsertKeyMode
   nameWithType: MaskedTextBox.InsertKeyMode
-  fullName: System.Windows.Forms.MaskedTextBox.InsertKeyMode
+  fullName: MaskedTextBox.InsertKeyMode
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -1548,9 +1481,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.IsInputKey(System.Windows.Forms.Keys)
   commentId: M:System.Windows.Forms.MaskedTextBox.IsInputKey(System.Windows.Forms.Keys)
   id: IsInputKey(System.Windows.Forms.Keys)
@@ -1559,7 +1489,7 @@ items:
   - csharp
   name: IsInputKey(Keys)
   nameWithType: MaskedTextBox.IsInputKey(Keys)
-  fullName: System.Windows.Forms.MaskedTextBox.IsInputKey(Keys)
+  fullName: MaskedTextBox.IsInputKey(Keys)
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -1593,9 +1523,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.IsOverwriteMode
   commentId: P:System.Windows.Forms.MaskedTextBox.IsOverwriteMode
   id: IsOverwriteMode
@@ -1604,13 +1531,13 @@ items:
   - csharp
   name: IsOverwriteMode
   nameWithType: MaskedTextBox.IsOverwriteMode
-  fullName: System.Windows.Forms.MaskedTextBox.IsOverwriteMode
+  fullName: MaskedTextBox.IsOverwriteMode
   type: Property
   assemblies:
   - System.Windows.Forms
   namespace: System.Windows.Forms
   summary: Gets a value that specifies whether new user input overwrites existing input.
-  remarks: "<xref:System.Windows.Forms.MaskedTextBox.IsOverwriteMode%2A> takes into account both the value of the <xref:System.Windows.Forms.MaskedTextBox.InsertKeyMode%2A> property and the state of the user's keyboard. If <xref:System.Windows.Forms.MaskedTextBox.InsertKeyMode%2A> is set to either <xref:System.Windows.Forms.InsertKeyMode> or <xref:System.Windows.Forms.InsertKeyMode>, <xref:System.Windows.Forms.MaskedTextBox.IsOverwriteMode%2A> will return `false` or `true`, respectively. If <xref:System.Windows.Forms.MaskedTextBox.InsertKeyMode%2A> is set to <xref:System.Windows.Forms.InsertKeyMode>, it will return the state of the INSERT key.  \n  \n When <xref:System.Windows.Forms.MaskedTextBox.IsOverwriteMode%2A> is `false`, <xref:System.Windows.Forms.MaskedTextBox> will reject as invalid any character entry that would result in a violation anywhere in the mask. In explanation, if inserting a character would cause a character to be shifted over into a mask position where it would not be valid, the character insertion will be rejected."
+  remarks: "<xref:System.Windows.Forms.MaskedTextBox.IsOverwriteMode%2A> takes into account both the value of the <xref:System.Windows.Forms.MaskedTextBox.InsertKeyMode%2A> property and the state of the user's keyboard. If <xref:System.Windows.Forms.MaskedTextBox.InsertKeyMode%2A> is set to either <xref:System.Windows.Forms.InsertKeyMode.Insert> or <xref:System.Windows.Forms.InsertKeyMode.Overwrite>, <xref:System.Windows.Forms.MaskedTextBox.IsOverwriteMode%2A> will return `false` or `true`, respectively. If <xref:System.Windows.Forms.MaskedTextBox.InsertKeyMode%2A> is set to <xref:System.Windows.Forms.InsertKeyMode.Default>, it will return the state of the INSERT key.  \n  \n When <xref:System.Windows.Forms.MaskedTextBox.IsOverwriteMode%2A> is `false`, <xref:System.Windows.Forms.MaskedTextBox> will reject as invalid any character entry that would result in a violation anywhere in the mask. In explanation, if inserting a character would cause a character to be shifted over into a mask position where it would not be valid, the character insertion will be rejected."
   syntax:
     content: >-
       [System.ComponentModel.Browsable(false)]
@@ -1640,9 +1567,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.IsOverwriteModeChanged
   commentId: E:System.Windows.Forms.MaskedTextBox.IsOverwriteModeChanged
   id: IsOverwriteModeChanged
@@ -1651,7 +1575,7 @@ items:
   - csharp
   name: IsOverwriteModeChanged
   nameWithType: MaskedTextBox.IsOverwriteModeChanged
-  fullName: System.Windows.Forms.MaskedTextBox.IsOverwriteModeChanged
+  fullName: MaskedTextBox.IsOverwriteModeChanged
   type: Event
   assemblies:
   - System.Windows.Forms
@@ -1683,9 +1607,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.Lines
   commentId: P:System.Windows.Forms.MaskedTextBox.Lines
   id: Lines
@@ -1694,7 +1615,7 @@ items:
   - csharp
   name: Lines
   nameWithType: MaskedTextBox.Lines
-  fullName: System.Windows.Forms.MaskedTextBox.Lines
+  fullName: MaskedTextBox.Lines
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -1730,9 +1651,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.Mask
   commentId: P:System.Windows.Forms.MaskedTextBox.Mask
   id: Mask
@@ -1741,7 +1659,7 @@ items:
   - csharp
   name: Mask
   nameWithType: MaskedTextBox.Mask
-  fullName: System.Windows.Forms.MaskedTextBox.Mask
+  fullName: MaskedTextBox.Mask
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -1776,9 +1694,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.MaskChanged
   commentId: E:System.Windows.Forms.MaskedTextBox.MaskChanged
   id: MaskChanged
@@ -1787,7 +1702,7 @@ items:
   - csharp
   name: MaskChanged
   nameWithType: MaskedTextBox.MaskChanged
-  fullName: System.Windows.Forms.MaskedTextBox.MaskChanged
+  fullName: MaskedTextBox.MaskChanged
   type: Event
   assemblies:
   - System.Windows.Forms
@@ -1819,9 +1734,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.MaskCompleted
   commentId: P:System.Windows.Forms.MaskedTextBox.MaskCompleted
   id: MaskCompleted
@@ -1830,7 +1742,7 @@ items:
   - csharp
   name: MaskCompleted
   nameWithType: MaskedTextBox.MaskCompleted
-  fullName: System.Windows.Forms.MaskedTextBox.MaskCompleted
+  fullName: MaskedTextBox.MaskCompleted
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -1866,9 +1778,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.MaskedTextProvider
   commentId: P:System.Windows.Forms.MaskedTextBox.MaskedTextProvider
   id: MaskedTextProvider
@@ -1877,7 +1786,7 @@ items:
   - csharp
   name: MaskedTextProvider
   nameWithType: MaskedTextBox.MaskedTextProvider
-  fullName: System.Windows.Forms.MaskedTextBox.MaskedTextProvider
+  fullName: MaskedTextBox.MaskedTextProvider
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -1913,9 +1822,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.MaskFull
   commentId: P:System.Windows.Forms.MaskedTextBox.MaskFull
   id: MaskFull
@@ -1924,7 +1830,7 @@ items:
   - csharp
   name: MaskFull
   nameWithType: MaskedTextBox.MaskFull
-  fullName: System.Windows.Forms.MaskedTextBox.MaskFull
+  fullName: MaskedTextBox.MaskFull
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -1962,9 +1868,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.MaskInputRejected
   commentId: E:System.Windows.Forms.MaskedTextBox.MaskInputRejected
   id: MaskInputRejected
@@ -1973,7 +1876,7 @@ items:
   - csharp
   name: MaskInputRejected
   nameWithType: MaskedTextBox.MaskInputRejected
-  fullName: System.Windows.Forms.MaskedTextBox.MaskInputRejected
+  fullName: MaskedTextBox.MaskInputRejected
   type: Event
   assemblies:
   - System.Windows.Forms
@@ -2005,9 +1908,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.MaxLength
   commentId: P:System.Windows.Forms.MaskedTextBox.MaxLength
   id: MaxLength
@@ -2016,7 +1916,7 @@ items:
   - csharp
   name: MaxLength
   nameWithType: MaskedTextBox.MaxLength
-  fullName: System.Windows.Forms.MaskedTextBox.MaxLength
+  fullName: MaskedTextBox.MaxLength
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -2052,9 +1952,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.Multiline
   commentId: P:System.Windows.Forms.MaskedTextBox.Multiline
   id: Multiline
@@ -2063,7 +1960,7 @@ items:
   - csharp
   name: Multiline
   nameWithType: MaskedTextBox.Multiline
-  fullName: System.Windows.Forms.MaskedTextBox.Multiline
+  fullName: MaskedTextBox.Multiline
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -2099,9 +1996,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.MultilineChanged
   commentId: E:System.Windows.Forms.MaskedTextBox.MultilineChanged
   id: MultilineChanged
@@ -2110,7 +2004,7 @@ items:
   - csharp
   name: MultilineChanged
   nameWithType: MaskedTextBox.MultilineChanged
-  fullName: System.Windows.Forms.MaskedTextBox.MultilineChanged
+  fullName: MaskedTextBox.MultilineChanged
   type: Event
   assemblies:
   - System.Windows.Forms
@@ -2145,9 +2039,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.OnBackColorChanged(System.EventArgs)
   commentId: M:System.Windows.Forms.MaskedTextBox.OnBackColorChanged(System.EventArgs)
   id: OnBackColorChanged(System.EventArgs)
@@ -2156,7 +2047,7 @@ items:
   - csharp
   name: OnBackColorChanged(EventArgs)
   nameWithType: MaskedTextBox.OnBackColorChanged(EventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnBackColorChanged(EventArgs)
+  fullName: MaskedTextBox.OnBackColorChanged(EventArgs)
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -2187,9 +2078,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.OnHandleCreated(System.EventArgs)
   commentId: M:System.Windows.Forms.MaskedTextBox.OnHandleCreated(System.EventArgs)
   id: OnHandleCreated(System.EventArgs)
@@ -2198,7 +2086,7 @@ items:
   - csharp
   name: OnHandleCreated(EventArgs)
   nameWithType: MaskedTextBox.OnHandleCreated(EventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnHandleCreated(EventArgs)
+  fullName: MaskedTextBox.OnHandleCreated(EventArgs)
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -2229,9 +2117,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.OnIsOverwriteModeChanged(System.EventArgs)
   commentId: M:System.Windows.Forms.MaskedTextBox.OnIsOverwriteModeChanged(System.EventArgs)
   id: OnIsOverwriteModeChanged(System.EventArgs)
@@ -2240,7 +2125,7 @@ items:
   - csharp
   name: OnIsOverwriteModeChanged(EventArgs)
   nameWithType: MaskedTextBox.OnIsOverwriteModeChanged(EventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnIsOverwriteModeChanged(EventArgs)
+  fullName: MaskedTextBox.OnIsOverwriteModeChanged(EventArgs)
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -2273,8 +2158,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Forms.MaskedTextBox.OnKeyDown(System.Windows.Forms.KeyEventArgs)
   commentId: M:System.Windows.Forms.MaskedTextBox.OnKeyDown(System.Windows.Forms.KeyEventArgs)
   id: OnKeyDown(System.Windows.Forms.KeyEventArgs)
@@ -2283,7 +2166,7 @@ items:
   - csharp
   name: OnKeyDown(KeyEventArgs)
   nameWithType: MaskedTextBox.OnKeyDown(KeyEventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnKeyDown(KeyEventArgs)
+  fullName: MaskedTextBox.OnKeyDown(KeyEventArgs)
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -2314,9 +2197,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.OnKeyPress(System.Windows.Forms.KeyPressEventArgs)
   commentId: M:System.Windows.Forms.MaskedTextBox.OnKeyPress(System.Windows.Forms.KeyPressEventArgs)
   id: OnKeyPress(System.Windows.Forms.KeyPressEventArgs)
@@ -2325,7 +2205,7 @@ items:
   - csharp
   name: OnKeyPress(KeyPressEventArgs)
   nameWithType: MaskedTextBox.OnKeyPress(KeyPressEventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnKeyPress(KeyPressEventArgs)
+  fullName: MaskedTextBox.OnKeyPress(KeyPressEventArgs)
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -2356,9 +2236,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.OnKeyUp(System.Windows.Forms.KeyEventArgs)
   commentId: M:System.Windows.Forms.MaskedTextBox.OnKeyUp(System.Windows.Forms.KeyEventArgs)
   id: OnKeyUp(System.Windows.Forms.KeyEventArgs)
@@ -2367,7 +2244,7 @@ items:
   - csharp
   name: OnKeyUp(KeyEventArgs)
   nameWithType: MaskedTextBox.OnKeyUp(KeyEventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnKeyUp(KeyEventArgs)
+  fullName: MaskedTextBox.OnKeyUp(KeyEventArgs)
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -2398,9 +2275,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.OnMaskChanged(System.EventArgs)
   commentId: M:System.Windows.Forms.MaskedTextBox.OnMaskChanged(System.EventArgs)
   id: OnMaskChanged(System.EventArgs)
@@ -2409,7 +2283,7 @@ items:
   - csharp
   name: OnMaskChanged(EventArgs)
   nameWithType: MaskedTextBox.OnMaskChanged(EventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnMaskChanged(EventArgs)
+  fullName: MaskedTextBox.OnMaskChanged(EventArgs)
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -2442,9 +2316,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.OnMultilineChanged(System.EventArgs)
   commentId: M:System.Windows.Forms.MaskedTextBox.OnMultilineChanged(System.EventArgs)
   id: OnMultilineChanged(System.EventArgs)
@@ -2453,7 +2324,7 @@ items:
   - csharp
   name: OnMultilineChanged(EventArgs)
   nameWithType: MaskedTextBox.OnMultilineChanged(EventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnMultilineChanged(EventArgs)
+  fullName: MaskedTextBox.OnMultilineChanged(EventArgs)
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -2486,9 +2357,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.OnTextAlignChanged(System.EventArgs)
   commentId: M:System.Windows.Forms.MaskedTextBox.OnTextAlignChanged(System.EventArgs)
   id: OnTextAlignChanged(System.EventArgs)
@@ -2497,7 +2365,7 @@ items:
   - csharp
   name: OnTextAlignChanged(EventArgs)
   nameWithType: MaskedTextBox.OnTextAlignChanged(EventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnTextAlignChanged(EventArgs)
+  fullName: MaskedTextBox.OnTextAlignChanged(EventArgs)
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -2529,9 +2397,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.OnTextChanged(System.EventArgs)
   commentId: M:System.Windows.Forms.MaskedTextBox.OnTextChanged(System.EventArgs)
   id: OnTextChanged(System.EventArgs)
@@ -2540,7 +2405,7 @@ items:
   - csharp
   name: OnTextChanged(EventArgs)
   nameWithType: MaskedTextBox.OnTextChanged(EventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnTextChanged(EventArgs)
+  fullName: MaskedTextBox.OnTextChanged(EventArgs)
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -2572,9 +2437,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.OnValidating(System.ComponentModel.CancelEventArgs)
   commentId: M:System.Windows.Forms.MaskedTextBox.OnValidating(System.ComponentModel.CancelEventArgs)
   id: OnValidating(System.ComponentModel.CancelEventArgs)
@@ -2583,7 +2445,7 @@ items:
   - csharp
   name: OnValidating(CancelEventArgs)
   nameWithType: MaskedTextBox.OnValidating(CancelEventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnValidating(CancelEventArgs)
+  fullName: MaskedTextBox.OnValidating(CancelEventArgs)
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -2619,9 +2481,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.PasswordChar
   commentId: P:System.Windows.Forms.MaskedTextBox.PasswordChar
   id: PasswordChar
@@ -2630,7 +2489,7 @@ items:
   - csharp
   name: PasswordChar
   nameWithType: MaskedTextBox.PasswordChar
-  fullName: System.Windows.Forms.MaskedTextBox.PasswordChar
+  fullName: MaskedTextBox.PasswordChar
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -2668,9 +2527,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.ProcessCmdKey(System.Windows.Forms.Message@,System.Windows.Forms.Keys)
   commentId: M:System.Windows.Forms.MaskedTextBox.ProcessCmdKey(System.Windows.Forms.Message@,System.Windows.Forms.Keys)
   id: ProcessCmdKey(System.Windows.Forms.Message@,System.Windows.Forms.Keys)
@@ -2679,7 +2535,7 @@ items:
   - csharp
   name: ProcessCmdKey(Message, Keys)
   nameWithType: MaskedTextBox.ProcessCmdKey(Message, Keys)
-  fullName: System.Windows.Forms.MaskedTextBox.ProcessCmdKey(Message, Keys)
+  fullName: MaskedTextBox.ProcessCmdKey(Message, Keys)
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -2716,9 +2572,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.ProcessKeyMessage(System.Windows.Forms.Message@)
   commentId: M:System.Windows.Forms.MaskedTextBox.ProcessKeyMessage(System.Windows.Forms.Message@)
   id: ProcessKeyMessage(System.Windows.Forms.Message@)
@@ -2727,7 +2580,7 @@ items:
   - csharp
   name: ProcessKeyMessage(Message)
   nameWithType: MaskedTextBox.ProcessKeyMessage(Message)
-  fullName: System.Windows.Forms.MaskedTextBox.ProcessKeyMessage(Message)
+  fullName: MaskedTextBox.ProcessKeyMessage(Message)
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -2762,8 +2615,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Forms.MaskedTextBox.PromptChar
   commentId: P:System.Windows.Forms.MaskedTextBox.PromptChar
   id: PromptChar
@@ -2772,7 +2623,7 @@ items:
   - csharp
   name: PromptChar
   nameWithType: MaskedTextBox.PromptChar
-  fullName: System.Windows.Forms.MaskedTextBox.PromptChar
+  fullName: MaskedTextBox.PromptChar
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -2810,9 +2661,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.ReadOnly
   commentId: P:System.Windows.Forms.MaskedTextBox.ReadOnly
   id: ReadOnly
@@ -2821,7 +2669,7 @@ items:
   - csharp
   name: ReadOnly
   nameWithType: MaskedTextBox.ReadOnly
-  fullName: System.Windows.Forms.MaskedTextBox.ReadOnly
+  fullName: MaskedTextBox.ReadOnly
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -2851,9 +2699,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.RejectInputOnFirstFailure
   commentId: P:System.Windows.Forms.MaskedTextBox.RejectInputOnFirstFailure
   id: RejectInputOnFirstFailure
@@ -2862,7 +2707,7 @@ items:
   - csharp
   name: RejectInputOnFirstFailure
   nameWithType: MaskedTextBox.RejectInputOnFirstFailure
-  fullName: System.Windows.Forms.MaskedTextBox.RejectInputOnFirstFailure
+  fullName: MaskedTextBox.RejectInputOnFirstFailure
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -2894,9 +2739,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.ResetOnPrompt
   commentId: P:System.Windows.Forms.MaskedTextBox.ResetOnPrompt
   id: ResetOnPrompt
@@ -2905,7 +2747,7 @@ items:
   - csharp
   name: ResetOnPrompt
   nameWithType: MaskedTextBox.ResetOnPrompt
-  fullName: System.Windows.Forms.MaskedTextBox.ResetOnPrompt
+  fullName: MaskedTextBox.ResetOnPrompt
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -2937,9 +2779,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.ResetOnSpace
   commentId: P:System.Windows.Forms.MaskedTextBox.ResetOnSpace
   id: ResetOnSpace
@@ -2948,7 +2787,7 @@ items:
   - csharp
   name: ResetOnSpace
   nameWithType: MaskedTextBox.ResetOnSpace
-  fullName: System.Windows.Forms.MaskedTextBox.ResetOnSpace
+  fullName: MaskedTextBox.ResetOnSpace
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -2980,9 +2819,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.ScrollToCaret
   commentId: M:System.Windows.Forms.MaskedTextBox.ScrollToCaret
   id: ScrollToCaret
@@ -2991,7 +2827,7 @@ items:
   - csharp
   name: ScrollToCaret()
   nameWithType: MaskedTextBox.ScrollToCaret()
-  fullName: System.Windows.Forms.MaskedTextBox.ScrollToCaret()
+  fullName: MaskedTextBox.ScrollToCaret()
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -3021,9 +2857,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.SelectedText
   commentId: P:System.Windows.Forms.MaskedTextBox.SelectedText
   id: SelectedText
@@ -3032,13 +2865,13 @@ items:
   - csharp
   name: SelectedText
   nameWithType: MaskedTextBox.SelectedText
-  fullName: System.Windows.Forms.MaskedTextBox.SelectedText
+  fullName: MaskedTextBox.SelectedText
   type: Property
   assemblies:
   - System.Windows.Forms
   namespace: System.Windows.Forms
   summary: Gets or sets the current selection in the <xref href="System.Windows.Forms.MaskedTextBox"></xref> control.
-  remarks: 'Selections retrieved using this property are formatted according to the control''s formatting properties, such as <xref:System.Windows.Forms.MaskedTextBox.Mask%2A>, <xref:System.Windows.Forms.MaskedTextBox.FormatProvider%2A>, <xref:System.Windows.Forms.MaskedTextBox.TextMaskFormat%2A> and <xref:System.Windows.Forms.MaskedTextBox.CutCopyMaskFormat%2A>. Selections set using this property behave like a Paste operation: each character is matched against the mask, and the <xref:System.Windows.Forms.MaskedTextBox.MaskInputRejected> event is raised for invalid characters. If <xref:System.Windows.Forms.MaskedTextBox.CutCopyMaskFormat%2A> is `true`, literals and prompt characters are allowed when setting <xref:System.Windows.Forms.MaskedTextBox.SelectedText%2A>, and will be removed silently unless they violate the mask.'
+  remarks: "Selections retrieved using this property are formatted according to the control's formatting properties, such as <xref:System.Windows.Forms.MaskedTextBox.Mask%2A>, <xref:System.Windows.Forms.MaskedTextBox.FormatProvider%2A>, <xref:System.Windows.Forms.MaskedTextBox.TextMaskFormat%2A> and <xref:System.Windows.Forms.MaskedTextBox.CutCopyMaskFormat%2A>. Selections set using this property behave like a Paste operation: each character is matched against the mask, and the <xref:System.Windows.Forms.MaskedTextBox.MaskInputRejected> event is raised for invalid characters. If <xref:System.Windows.Forms.MaskedTextBox.CutCopyMaskFormat%2A> is `true`, literals and prompt characters are allowed when setting <xref:System.Windows.Forms.MaskedTextBox.SelectedText%2A>, and will be removed silently unless they violate the mask."
   syntax:
     content: public override string SelectedText { get; set; }
     return:
@@ -3063,8 +2896,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Forms.MaskedTextBox.SkipLiterals
   commentId: P:System.Windows.Forms.MaskedTextBox.SkipLiterals
   id: SkipLiterals
@@ -3073,7 +2904,7 @@ items:
   - csharp
   name: SkipLiterals
   nameWithType: MaskedTextBox.SkipLiterals
-  fullName: System.Windows.Forms.MaskedTextBox.SkipLiterals
+  fullName: MaskedTextBox.SkipLiterals
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -3105,9 +2936,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.Text
   commentId: P:System.Windows.Forms.MaskedTextBox.Text
   id: Text
@@ -3116,7 +2944,7 @@ items:
   - csharp
   name: Text
   nameWithType: MaskedTextBox.Text
-  fullName: System.Windows.Forms.MaskedTextBox.Text
+  fullName: MaskedTextBox.Text
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -3154,9 +2982,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.TextAlign
   commentId: P:System.Windows.Forms.MaskedTextBox.TextAlign
   id: TextAlign
@@ -3165,13 +2990,13 @@ items:
   - csharp
   name: TextAlign
   nameWithType: MaskedTextBox.TextAlign
-  fullName: System.Windows.Forms.MaskedTextBox.TextAlign
+  fullName: MaskedTextBox.TextAlign
   type: Property
   assemblies:
   - System.Windows.Forms
   namespace: System.Windows.Forms
   summary: Gets or sets how text is aligned in a masked text box control.
-  remarks: You can use the <xref:System.Windows.Forms.MaskedTextBox.TextAlign%2A> property to align the displayed text within a <xref:System.Windows.Forms.MaskedTextBox> to match the layout of visual elements on your form. For example, if your controls are all located on the right side of the form, you can set the <xref:System.Windows.Forms.MaskedTextBox.TextAlign%2A> property to <xref:System.Windows.Forms.HorizontalAlignment>, and the text will be aligned with the right side of the control instead of the default left alignment.
+  remarks: You can use the <xref:System.Windows.Forms.MaskedTextBox.TextAlign%2A> property to align the displayed text within a <xref:System.Windows.Forms.MaskedTextBox> to match the layout of visual elements on your form. For example, if your controls are all located on the right side of the form, you can set the <xref:System.Windows.Forms.MaskedTextBox.TextAlign%2A> property to <xref:System.Windows.Forms.HorizontalAlignment.Right>, and the text will be aligned with the right side of the control instead of the default left alignment.
   syntax:
     content: public System.Windows.Forms.HorizontalAlignment TextAlign { get; set; }
     return:
@@ -3200,9 +3025,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.TextAlignChanged
   commentId: E:System.Windows.Forms.MaskedTextBox.TextAlignChanged
   id: TextAlignChanged
@@ -3211,7 +3033,7 @@ items:
   - csharp
   name: TextAlignChanged
   nameWithType: MaskedTextBox.TextAlignChanged
-  fullName: System.Windows.Forms.MaskedTextBox.TextAlignChanged
+  fullName: MaskedTextBox.TextAlignChanged
   type: Event
   assemblies:
   - System.Windows.Forms
@@ -3243,9 +3065,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.TextLength
   commentId: P:System.Windows.Forms.MaskedTextBox.TextLength
   id: TextLength
@@ -3254,7 +3073,7 @@ items:
   - csharp
   name: TextLength
   nameWithType: MaskedTextBox.TextLength
-  fullName: System.Windows.Forms.MaskedTextBox.TextLength
+  fullName: MaskedTextBox.TextLength
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -3289,9 +3108,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.TextMaskFormat
   commentId: P:System.Windows.Forms.MaskedTextBox.TextMaskFormat
   id: TextMaskFormat
@@ -3300,7 +3116,7 @@ items:
   - csharp
   name: TextMaskFormat
   nameWithType: MaskedTextBox.TextMaskFormat
-  fullName: System.Windows.Forms.MaskedTextBox.TextMaskFormat
+  fullName: MaskedTextBox.TextMaskFormat
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -3335,8 +3151,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  ms.author: kempb
-  manager: ghogen
 - uid: System.Windows.Forms.MaskedTextBox.ToString
   commentId: M:System.Windows.Forms.MaskedTextBox.ToString
   id: ToString
@@ -3345,7 +3159,7 @@ items:
   - csharp
   name: ToString()
   nameWithType: MaskedTextBox.ToString()
-  fullName: System.Windows.Forms.MaskedTextBox.ToString()
+  fullName: MaskedTextBox.ToString()
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -3377,9 +3191,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.TypeValidationCompleted
   commentId: E:System.Windows.Forms.MaskedTextBox.TypeValidationCompleted
   id: TypeValidationCompleted
@@ -3388,7 +3199,7 @@ items:
   - csharp
   name: TypeValidationCompleted
   nameWithType: MaskedTextBox.TypeValidationCompleted
-  fullName: System.Windows.Forms.MaskedTextBox.TypeValidationCompleted
+  fullName: MaskedTextBox.TypeValidationCompleted
   type: Event
   assemblies:
   - System.Windows.Forms
@@ -3420,9 +3231,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.Undo
   commentId: M:System.Windows.Forms.MaskedTextBox.Undo
   id: Undo
@@ -3431,7 +3239,7 @@ items:
   - csharp
   name: Undo()
   nameWithType: MaskedTextBox.Undo()
-  fullName: System.Windows.Forms.MaskedTextBox.Undo()
+  fullName: MaskedTextBox.Undo()
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -3461,9 +3269,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.UseSystemPasswordChar
   commentId: P:System.Windows.Forms.MaskedTextBox.UseSystemPasswordChar
   id: UseSystemPasswordChar
@@ -3472,7 +3277,7 @@ items:
   - csharp
   name: UseSystemPasswordChar
   nameWithType: MaskedTextBox.UseSystemPasswordChar
-  fullName: System.Windows.Forms.MaskedTextBox.UseSystemPasswordChar
+  fullName: MaskedTextBox.UseSystemPasswordChar
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -3507,9 +3312,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.ValidateText
   commentId: M:System.Windows.Forms.MaskedTextBox.ValidateText
   id: ValidateText
@@ -3518,7 +3320,7 @@ items:
   - csharp
   name: ValidateText()
   nameWithType: MaskedTextBox.ValidateText()
-  fullName: System.Windows.Forms.MaskedTextBox.ValidateText()
+  fullName: MaskedTextBox.ValidateText()
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -3553,9 +3355,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.ValidatingType
   commentId: P:System.Windows.Forms.MaskedTextBox.ValidatingType
   id: ValidatingType
@@ -3564,7 +3363,7 @@ items:
   - csharp
   name: ValidatingType
   nameWithType: MaskedTextBox.ValidatingType
-  fullName: System.Windows.Forms.MaskedTextBox.ValidatingType
+  fullName: MaskedTextBox.ValidatingType
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -3602,9 +3401,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.WndProc(System.Windows.Forms.Message@)
   commentId: M:System.Windows.Forms.MaskedTextBox.WndProc(System.Windows.Forms.Message@)
   id: WndProc(System.Windows.Forms.Message@)
@@ -3613,7 +3409,7 @@ items:
   - csharp
   name: WndProc(Message)
   nameWithType: MaskedTextBox.WndProc(Message)
-  fullName: System.Windows.Forms.MaskedTextBox.WndProc(Message)
+  fullName: MaskedTextBox.WndProc(Message)
   type: Method
   assemblies:
   - System.Windows.Forms
@@ -3644,9 +3440,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 - uid: System.Windows.Forms.MaskedTextBox.WordWrap
   commentId: P:System.Windows.Forms.MaskedTextBox.WordWrap
   id: WordWrap
@@ -3655,7 +3448,7 @@ items:
   - csharp
   name: WordWrap
   nameWithType: MaskedTextBox.WordWrap
-  fullName: System.Windows.Forms.MaskedTextBox.WordWrap
+  fullName: MaskedTextBox.WordWrap
   type: Property
   assemblies:
   - System.Windows.Forms
@@ -3691,9 +3484,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Windows.Forms/MaskedTextBox.xml
-  author: stevehoag
-  ms.author: shoag
-  manager: wpickett
 references:
 - uid: System.Windows.Forms.TextBoxBase
   parent: System.Windows.Forms
@@ -3736,13 +3526,13 @@ references:
   isExternal: false
   name: MaskedTextBox()
   nameWithType: MaskedTextBox.MaskedTextBox()
-  fullName: System.Windows.Forms.MaskedTextBox.MaskedTextBox()
+  fullName: MaskedTextBox.MaskedTextBox()
 - uid: System.Windows.Forms.MaskedTextBox.#ctor(System.ComponentModel.MaskedTextProvider)
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: MaskedTextBox(MaskedTextProvider)
   nameWithType: MaskedTextBox.MaskedTextBox(MaskedTextProvider)
-  fullName: System.Windows.Forms.MaskedTextBox.MaskedTextBox(MaskedTextProvider)
+  fullName: MaskedTextBox.MaskedTextBox(MaskedTextProvider)
 - uid: System.ComponentModel.MaskedTextProvider
   parent: System.ComponentModel
   isExternal: false
@@ -3754,7 +3544,7 @@ references:
   isExternal: false
   name: MaskedTextBox(String)
   nameWithType: MaskedTextBox.MaskedTextBox(String)
-  fullName: System.Windows.Forms.MaskedTextBox.MaskedTextBox(String)
+  fullName: MaskedTextBox.MaskedTextBox(String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -3766,7 +3556,7 @@ references:
   isExternal: false
   name: AcceptsTab
   nameWithType: MaskedTextBox.AcceptsTab
-  fullName: System.Windows.Forms.MaskedTextBox.AcceptsTab
+  fullName: MaskedTextBox.AcceptsTab
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -3778,7 +3568,7 @@ references:
   isExternal: false
   name: AcceptsTabChanged
   nameWithType: MaskedTextBox.AcceptsTabChanged
-  fullName: System.Windows.Forms.MaskedTextBox.AcceptsTabChanged
+  fullName: MaskedTextBox.AcceptsTabChanged
 - uid: System.EventHandler
   parent: System
   isExternal: false
@@ -3790,43 +3580,43 @@ references:
   isExternal: false
   name: AllowPromptAsInput
   nameWithType: MaskedTextBox.AllowPromptAsInput
-  fullName: System.Windows.Forms.MaskedTextBox.AllowPromptAsInput
+  fullName: MaskedTextBox.AllowPromptAsInput
 - uid: System.Windows.Forms.MaskedTextBox.AsciiOnly
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: AsciiOnly
   nameWithType: MaskedTextBox.AsciiOnly
-  fullName: System.Windows.Forms.MaskedTextBox.AsciiOnly
+  fullName: MaskedTextBox.AsciiOnly
 - uid: System.Windows.Forms.MaskedTextBox.BeepOnError
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: BeepOnError
   nameWithType: MaskedTextBox.BeepOnError
-  fullName: System.Windows.Forms.MaskedTextBox.BeepOnError
+  fullName: MaskedTextBox.BeepOnError
 - uid: System.Windows.Forms.MaskedTextBox.CanUndo
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: CanUndo
   nameWithType: MaskedTextBox.CanUndo
-  fullName: System.Windows.Forms.MaskedTextBox.CanUndo
+  fullName: MaskedTextBox.CanUndo
 - uid: System.Windows.Forms.MaskedTextBox.ClearUndo
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: ClearUndo()
   nameWithType: MaskedTextBox.ClearUndo()
-  fullName: System.Windows.Forms.MaskedTextBox.ClearUndo()
+  fullName: MaskedTextBox.ClearUndo()
 - uid: System.Windows.Forms.MaskedTextBox.CreateHandle
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: CreateHandle()
   nameWithType: MaskedTextBox.CreateHandle()
-  fullName: System.Windows.Forms.MaskedTextBox.CreateHandle()
+  fullName: MaskedTextBox.CreateHandle()
 - uid: System.Windows.Forms.MaskedTextBox.CreateParams
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: CreateParams
   nameWithType: MaskedTextBox.CreateParams
-  fullName: System.Windows.Forms.MaskedTextBox.CreateParams
+  fullName: MaskedTextBox.CreateParams
 - uid: System.Windows.Forms.CreateParams
   parent: System.Windows.Forms
   isExternal: false
@@ -3838,7 +3628,7 @@ references:
   isExternal: false
   name: Culture
   nameWithType: MaskedTextBox.Culture
-  fullName: System.Windows.Forms.MaskedTextBox.Culture
+  fullName: MaskedTextBox.Culture
 - uid: System.Globalization.CultureInfo
   parent: System.Globalization
   isExternal: false
@@ -3850,7 +3640,7 @@ references:
   isExternal: false
   name: CutCopyMaskFormat
   nameWithType: MaskedTextBox.CutCopyMaskFormat
-  fullName: System.Windows.Forms.MaskedTextBox.CutCopyMaskFormat
+  fullName: MaskedTextBox.CutCopyMaskFormat
 - uid: System.Windows.Forms.MaskFormat
   parent: System.Windows.Forms
   isExternal: false
@@ -3862,7 +3652,7 @@ references:
   isExternal: false
   name: FormatProvider
   nameWithType: MaskedTextBox.FormatProvider
-  fullName: System.Windows.Forms.MaskedTextBox.FormatProvider
+  fullName: MaskedTextBox.FormatProvider
 - uid: System.IFormatProvider
   parent: System
   isExternal: false
@@ -3874,7 +3664,7 @@ references:
   isExternal: false
   name: GetCharFromPosition(Point)
   nameWithType: MaskedTextBox.GetCharFromPosition(Point)
-  fullName: System.Windows.Forms.MaskedTextBox.GetCharFromPosition(Point)
+  fullName: MaskedTextBox.GetCharFromPosition(Point)
 - uid: System.Char
   parent: System
   isExternal: false
@@ -3892,7 +3682,7 @@ references:
   isExternal: false
   name: GetCharIndexFromPosition(Point)
   nameWithType: MaskedTextBox.GetCharIndexFromPosition(Point)
-  fullName: System.Windows.Forms.MaskedTextBox.GetCharIndexFromPosition(Point)
+  fullName: MaskedTextBox.GetCharIndexFromPosition(Point)
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -3904,37 +3694,37 @@ references:
   isExternal: false
   name: GetFirstCharIndexFromLine(Int32)
   nameWithType: MaskedTextBox.GetFirstCharIndexFromLine(Int32)
-  fullName: System.Windows.Forms.MaskedTextBox.GetFirstCharIndexFromLine(Int32)
+  fullName: MaskedTextBox.GetFirstCharIndexFromLine(Int32)
 - uid: System.Windows.Forms.MaskedTextBox.GetFirstCharIndexOfCurrentLine
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: GetFirstCharIndexOfCurrentLine()
   nameWithType: MaskedTextBox.GetFirstCharIndexOfCurrentLine()
-  fullName: System.Windows.Forms.MaskedTextBox.GetFirstCharIndexOfCurrentLine()
+  fullName: MaskedTextBox.GetFirstCharIndexOfCurrentLine()
 - uid: System.Windows.Forms.MaskedTextBox.GetLineFromCharIndex(System.Int32)
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: GetLineFromCharIndex(Int32)
   nameWithType: MaskedTextBox.GetLineFromCharIndex(Int32)
-  fullName: System.Windows.Forms.MaskedTextBox.GetLineFromCharIndex(Int32)
+  fullName: MaskedTextBox.GetLineFromCharIndex(Int32)
 - uid: System.Windows.Forms.MaskedTextBox.GetPositionFromCharIndex(System.Int32)
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: GetPositionFromCharIndex(Int32)
   nameWithType: MaskedTextBox.GetPositionFromCharIndex(Int32)
-  fullName: System.Windows.Forms.MaskedTextBox.GetPositionFromCharIndex(Int32)
+  fullName: MaskedTextBox.GetPositionFromCharIndex(Int32)
 - uid: System.Windows.Forms.MaskedTextBox.HidePromptOnLeave
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: HidePromptOnLeave
   nameWithType: MaskedTextBox.HidePromptOnLeave
-  fullName: System.Windows.Forms.MaskedTextBox.HidePromptOnLeave
+  fullName: MaskedTextBox.HidePromptOnLeave
 - uid: System.Windows.Forms.MaskedTextBox.InsertKeyMode
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: InsertKeyMode
   nameWithType: MaskedTextBox.InsertKeyMode
-  fullName: System.Windows.Forms.MaskedTextBox.InsertKeyMode
+  fullName: MaskedTextBox.InsertKeyMode
 - uid: System.Windows.Forms.InsertKeyMode
   parent: System.Windows.Forms
   isExternal: false
@@ -3946,7 +3736,7 @@ references:
   isExternal: false
   name: IsInputKey(Keys)
   nameWithType: MaskedTextBox.IsInputKey(Keys)
-  fullName: System.Windows.Forms.MaskedTextBox.IsInputKey(Keys)
+  fullName: MaskedTextBox.IsInputKey(Keys)
 - uid: System.Windows.Forms.Keys
   parent: System.Windows.Forms
   isExternal: false
@@ -3958,19 +3748,19 @@ references:
   isExternal: false
   name: IsOverwriteMode
   nameWithType: MaskedTextBox.IsOverwriteMode
-  fullName: System.Windows.Forms.MaskedTextBox.IsOverwriteMode
+  fullName: MaskedTextBox.IsOverwriteMode
 - uid: System.Windows.Forms.MaskedTextBox.IsOverwriteModeChanged
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: IsOverwriteModeChanged
   nameWithType: MaskedTextBox.IsOverwriteModeChanged
-  fullName: System.Windows.Forms.MaskedTextBox.IsOverwriteModeChanged
+  fullName: MaskedTextBox.IsOverwriteModeChanged
 - uid: System.Windows.Forms.MaskedTextBox.Lines
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: Lines
   nameWithType: MaskedTextBox.Lines
-  fullName: System.Windows.Forms.MaskedTextBox.Lines
+  fullName: MaskedTextBox.Lines
 - uid: System.String[]
   parent: System
   isExternal: false
@@ -3990,37 +3780,37 @@ references:
   isExternal: false
   name: Mask
   nameWithType: MaskedTextBox.Mask
-  fullName: System.Windows.Forms.MaskedTextBox.Mask
+  fullName: MaskedTextBox.Mask
 - uid: System.Windows.Forms.MaskedTextBox.MaskChanged
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: MaskChanged
   nameWithType: MaskedTextBox.MaskChanged
-  fullName: System.Windows.Forms.MaskedTextBox.MaskChanged
+  fullName: MaskedTextBox.MaskChanged
 - uid: System.Windows.Forms.MaskedTextBox.MaskCompleted
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: MaskCompleted
   nameWithType: MaskedTextBox.MaskCompleted
-  fullName: System.Windows.Forms.MaskedTextBox.MaskCompleted
+  fullName: MaskedTextBox.MaskCompleted
 - uid: System.Windows.Forms.MaskedTextBox.MaskedTextProvider
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: MaskedTextProvider
   nameWithType: MaskedTextBox.MaskedTextProvider
-  fullName: System.Windows.Forms.MaskedTextBox.MaskedTextProvider
+  fullName: MaskedTextBox.MaskedTextProvider
 - uid: System.Windows.Forms.MaskedTextBox.MaskFull
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: MaskFull
   nameWithType: MaskedTextBox.MaskFull
-  fullName: System.Windows.Forms.MaskedTextBox.MaskFull
+  fullName: MaskedTextBox.MaskFull
 - uid: System.Windows.Forms.MaskedTextBox.MaskInputRejected
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: MaskInputRejected
   nameWithType: MaskedTextBox.MaskInputRejected
-  fullName: System.Windows.Forms.MaskedTextBox.MaskInputRejected
+  fullName: MaskedTextBox.MaskInputRejected
 - uid: System.Windows.Forms.MaskInputRejectedEventHandler
   parent: System.Windows.Forms
   isExternal: false
@@ -4032,25 +3822,25 @@ references:
   isExternal: false
   name: MaxLength
   nameWithType: MaskedTextBox.MaxLength
-  fullName: System.Windows.Forms.MaskedTextBox.MaxLength
+  fullName: MaskedTextBox.MaxLength
 - uid: System.Windows.Forms.MaskedTextBox.Multiline
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: Multiline
   nameWithType: MaskedTextBox.Multiline
-  fullName: System.Windows.Forms.MaskedTextBox.Multiline
+  fullName: MaskedTextBox.Multiline
 - uid: System.Windows.Forms.MaskedTextBox.MultilineChanged
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: MultilineChanged
   nameWithType: MaskedTextBox.MultilineChanged
-  fullName: System.Windows.Forms.MaskedTextBox.MultilineChanged
+  fullName: MaskedTextBox.MultilineChanged
 - uid: System.Windows.Forms.MaskedTextBox.OnBackColorChanged(System.EventArgs)
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: OnBackColorChanged(EventArgs)
   nameWithType: MaskedTextBox.OnBackColorChanged(EventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnBackColorChanged(EventArgs)
+  fullName: MaskedTextBox.OnBackColorChanged(EventArgs)
 - uid: System.EventArgs
   parent: System
   isExternal: false
@@ -4062,19 +3852,19 @@ references:
   isExternal: false
   name: OnHandleCreated(EventArgs)
   nameWithType: MaskedTextBox.OnHandleCreated(EventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnHandleCreated(EventArgs)
+  fullName: MaskedTextBox.OnHandleCreated(EventArgs)
 - uid: System.Windows.Forms.MaskedTextBox.OnIsOverwriteModeChanged(System.EventArgs)
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: OnIsOverwriteModeChanged(EventArgs)
   nameWithType: MaskedTextBox.OnIsOverwriteModeChanged(EventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnIsOverwriteModeChanged(EventArgs)
+  fullName: MaskedTextBox.OnIsOverwriteModeChanged(EventArgs)
 - uid: System.Windows.Forms.MaskedTextBox.OnKeyDown(System.Windows.Forms.KeyEventArgs)
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: OnKeyDown(KeyEventArgs)
   nameWithType: MaskedTextBox.OnKeyDown(KeyEventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnKeyDown(KeyEventArgs)
+  fullName: MaskedTextBox.OnKeyDown(KeyEventArgs)
 - uid: System.Windows.Forms.KeyEventArgs
   parent: System.Windows.Forms
   isExternal: false
@@ -4086,7 +3876,7 @@ references:
   isExternal: false
   name: OnKeyPress(KeyPressEventArgs)
   nameWithType: MaskedTextBox.OnKeyPress(KeyPressEventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnKeyPress(KeyPressEventArgs)
+  fullName: MaskedTextBox.OnKeyPress(KeyPressEventArgs)
 - uid: System.Windows.Forms.KeyPressEventArgs
   parent: System.Windows.Forms
   isExternal: false
@@ -4098,37 +3888,37 @@ references:
   isExternal: false
   name: OnKeyUp(KeyEventArgs)
   nameWithType: MaskedTextBox.OnKeyUp(KeyEventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnKeyUp(KeyEventArgs)
+  fullName: MaskedTextBox.OnKeyUp(KeyEventArgs)
 - uid: System.Windows.Forms.MaskedTextBox.OnMaskChanged(System.EventArgs)
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: OnMaskChanged(EventArgs)
   nameWithType: MaskedTextBox.OnMaskChanged(EventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnMaskChanged(EventArgs)
+  fullName: MaskedTextBox.OnMaskChanged(EventArgs)
 - uid: System.Windows.Forms.MaskedTextBox.OnMultilineChanged(System.EventArgs)
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: OnMultilineChanged(EventArgs)
   nameWithType: MaskedTextBox.OnMultilineChanged(EventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnMultilineChanged(EventArgs)
+  fullName: MaskedTextBox.OnMultilineChanged(EventArgs)
 - uid: System.Windows.Forms.MaskedTextBox.OnTextAlignChanged(System.EventArgs)
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: OnTextAlignChanged(EventArgs)
   nameWithType: MaskedTextBox.OnTextAlignChanged(EventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnTextAlignChanged(EventArgs)
+  fullName: MaskedTextBox.OnTextAlignChanged(EventArgs)
 - uid: System.Windows.Forms.MaskedTextBox.OnTextChanged(System.EventArgs)
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: OnTextChanged(EventArgs)
   nameWithType: MaskedTextBox.OnTextChanged(EventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnTextChanged(EventArgs)
+  fullName: MaskedTextBox.OnTextChanged(EventArgs)
 - uid: System.Windows.Forms.MaskedTextBox.OnValidating(System.ComponentModel.CancelEventArgs)
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: OnValidating(CancelEventArgs)
   nameWithType: MaskedTextBox.OnValidating(CancelEventArgs)
-  fullName: System.Windows.Forms.MaskedTextBox.OnValidating(CancelEventArgs)
+  fullName: MaskedTextBox.OnValidating(CancelEventArgs)
 - uid: System.ComponentModel.CancelEventArgs
   parent: System.ComponentModel
   isExternal: false
@@ -4140,13 +3930,13 @@ references:
   isExternal: false
   name: PasswordChar
   nameWithType: MaskedTextBox.PasswordChar
-  fullName: System.Windows.Forms.MaskedTextBox.PasswordChar
+  fullName: MaskedTextBox.PasswordChar
 - uid: System.Windows.Forms.MaskedTextBox.ProcessCmdKey(System.Windows.Forms.Message@,System.Windows.Forms.Keys)
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: ProcessCmdKey(Message, Keys)
   nameWithType: MaskedTextBox.ProcessCmdKey(Message, Keys)
-  fullName: System.Windows.Forms.MaskedTextBox.ProcessCmdKey(Message, Keys)
+  fullName: MaskedTextBox.ProcessCmdKey(Message, Keys)
 - uid: System.Windows.Forms.Message
   parent: System.Windows.Forms
   isExternal: false
@@ -4158,67 +3948,67 @@ references:
   isExternal: false
   name: ProcessKeyMessage(Message)
   nameWithType: MaskedTextBox.ProcessKeyMessage(Message)
-  fullName: System.Windows.Forms.MaskedTextBox.ProcessKeyMessage(Message)
+  fullName: MaskedTextBox.ProcessKeyMessage(Message)
 - uid: System.Windows.Forms.MaskedTextBox.PromptChar
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: PromptChar
   nameWithType: MaskedTextBox.PromptChar
-  fullName: System.Windows.Forms.MaskedTextBox.PromptChar
+  fullName: MaskedTextBox.PromptChar
 - uid: System.Windows.Forms.MaskedTextBox.ReadOnly
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: ReadOnly
   nameWithType: MaskedTextBox.ReadOnly
-  fullName: System.Windows.Forms.MaskedTextBox.ReadOnly
+  fullName: MaskedTextBox.ReadOnly
 - uid: System.Windows.Forms.MaskedTextBox.RejectInputOnFirstFailure
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: RejectInputOnFirstFailure
   nameWithType: MaskedTextBox.RejectInputOnFirstFailure
-  fullName: System.Windows.Forms.MaskedTextBox.RejectInputOnFirstFailure
+  fullName: MaskedTextBox.RejectInputOnFirstFailure
 - uid: System.Windows.Forms.MaskedTextBox.ResetOnPrompt
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: ResetOnPrompt
   nameWithType: MaskedTextBox.ResetOnPrompt
-  fullName: System.Windows.Forms.MaskedTextBox.ResetOnPrompt
+  fullName: MaskedTextBox.ResetOnPrompt
 - uid: System.Windows.Forms.MaskedTextBox.ResetOnSpace
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: ResetOnSpace
   nameWithType: MaskedTextBox.ResetOnSpace
-  fullName: System.Windows.Forms.MaskedTextBox.ResetOnSpace
+  fullName: MaskedTextBox.ResetOnSpace
 - uid: System.Windows.Forms.MaskedTextBox.ScrollToCaret
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: ScrollToCaret()
   nameWithType: MaskedTextBox.ScrollToCaret()
-  fullName: System.Windows.Forms.MaskedTextBox.ScrollToCaret()
+  fullName: MaskedTextBox.ScrollToCaret()
 - uid: System.Windows.Forms.MaskedTextBox.SelectedText
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: SelectedText
   nameWithType: MaskedTextBox.SelectedText
-  fullName: System.Windows.Forms.MaskedTextBox.SelectedText
+  fullName: MaskedTextBox.SelectedText
 - uid: System.Windows.Forms.MaskedTextBox.SkipLiterals
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: SkipLiterals
   nameWithType: MaskedTextBox.SkipLiterals
-  fullName: System.Windows.Forms.MaskedTextBox.SkipLiterals
+  fullName: MaskedTextBox.SkipLiterals
 - uid: System.Windows.Forms.MaskedTextBox.Text
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: Text
   nameWithType: MaskedTextBox.Text
-  fullName: System.Windows.Forms.MaskedTextBox.Text
+  fullName: MaskedTextBox.Text
 - uid: System.Windows.Forms.MaskedTextBox.TextAlign
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: TextAlign
   nameWithType: MaskedTextBox.TextAlign
-  fullName: System.Windows.Forms.MaskedTextBox.TextAlign
+  fullName: MaskedTextBox.TextAlign
 - uid: System.Windows.Forms.HorizontalAlignment
   parent: System.Windows.Forms
   isExternal: false
@@ -4230,31 +4020,31 @@ references:
   isExternal: false
   name: TextAlignChanged
   nameWithType: MaskedTextBox.TextAlignChanged
-  fullName: System.Windows.Forms.MaskedTextBox.TextAlignChanged
+  fullName: MaskedTextBox.TextAlignChanged
 - uid: System.Windows.Forms.MaskedTextBox.TextLength
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: TextLength
   nameWithType: MaskedTextBox.TextLength
-  fullName: System.Windows.Forms.MaskedTextBox.TextLength
+  fullName: MaskedTextBox.TextLength
 - uid: System.Windows.Forms.MaskedTextBox.TextMaskFormat
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: TextMaskFormat
   nameWithType: MaskedTextBox.TextMaskFormat
-  fullName: System.Windows.Forms.MaskedTextBox.TextMaskFormat
+  fullName: MaskedTextBox.TextMaskFormat
 - uid: System.Windows.Forms.MaskedTextBox.ToString
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: ToString()
   nameWithType: MaskedTextBox.ToString()
-  fullName: System.Windows.Forms.MaskedTextBox.ToString()
+  fullName: MaskedTextBox.ToString()
 - uid: System.Windows.Forms.MaskedTextBox.TypeValidationCompleted
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: TypeValidationCompleted
   nameWithType: MaskedTextBox.TypeValidationCompleted
-  fullName: System.Windows.Forms.MaskedTextBox.TypeValidationCompleted
+  fullName: MaskedTextBox.TypeValidationCompleted
 - uid: System.Windows.Forms.TypeValidationEventHandler
   parent: System.Windows.Forms
   isExternal: false
@@ -4266,19 +4056,19 @@ references:
   isExternal: false
   name: Undo()
   nameWithType: MaskedTextBox.Undo()
-  fullName: System.Windows.Forms.MaskedTextBox.Undo()
+  fullName: MaskedTextBox.Undo()
 - uid: System.Windows.Forms.MaskedTextBox.UseSystemPasswordChar
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: UseSystemPasswordChar
   nameWithType: MaskedTextBox.UseSystemPasswordChar
-  fullName: System.Windows.Forms.MaskedTextBox.UseSystemPasswordChar
+  fullName: MaskedTextBox.UseSystemPasswordChar
 - uid: System.Windows.Forms.MaskedTextBox.ValidateText
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: ValidateText()
   nameWithType: MaskedTextBox.ValidateText()
-  fullName: System.Windows.Forms.MaskedTextBox.ValidateText()
+  fullName: MaskedTextBox.ValidateText()
 - uid: System.Object
   parent: System
   isExternal: false
@@ -4290,7 +4080,7 @@ references:
   isExternal: false
   name: ValidatingType
   nameWithType: MaskedTextBox.ValidatingType
-  fullName: System.Windows.Forms.MaskedTextBox.ValidatingType
+  fullName: MaskedTextBox.ValidatingType
 - uid: System.Type
   parent: System
   isExternal: false
@@ -4302,19 +4092,19 @@ references:
   isExternal: false
   name: WndProc(Message)
   nameWithType: MaskedTextBox.WndProc(Message)
-  fullName: System.Windows.Forms.MaskedTextBox.WndProc(Message)
+  fullName: MaskedTextBox.WndProc(Message)
 - uid: System.Windows.Forms.MaskedTextBox.WordWrap
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: WordWrap
   nameWithType: MaskedTextBox.WordWrap
-  fullName: System.Windows.Forms.MaskedTextBox.WordWrap
+  fullName: MaskedTextBox.WordWrap
 - uid: System.Windows.Forms.MaskedTextBox.#ctor*
   parent: System.Windows.Forms.MaskedTextBox
   isExternal: false
   name: MaskedTextBox
   nameWithType: MaskedTextBox.MaskedTextBox
-  fullName: System.Windows.Forms.MaskedTextBox.MaskedTextBox
+  fullName: MaskedTextBox.MaskedTextBox
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4329,7 +4119,7 @@ references:
   isExternal: false
   name: AcceptsTab
   nameWithType: MaskedTextBox.AcceptsTab
-  fullName: System.Windows.Forms.MaskedTextBox.AcceptsTab
+  fullName: MaskedTextBox.AcceptsTab
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4344,7 +4134,7 @@ references:
   isExternal: false
   name: AllowPromptAsInput
   nameWithType: MaskedTextBox.AllowPromptAsInput
-  fullName: System.Windows.Forms.MaskedTextBox.AllowPromptAsInput
+  fullName: MaskedTextBox.AllowPromptAsInput
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4359,7 +4149,7 @@ references:
   isExternal: false
   name: AsciiOnly
   nameWithType: MaskedTextBox.AsciiOnly
-  fullName: System.Windows.Forms.MaskedTextBox.AsciiOnly
+  fullName: MaskedTextBox.AsciiOnly
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4374,7 +4164,7 @@ references:
   isExternal: false
   name: BeepOnError
   nameWithType: MaskedTextBox.BeepOnError
-  fullName: System.Windows.Forms.MaskedTextBox.BeepOnError
+  fullName: MaskedTextBox.BeepOnError
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4389,7 +4179,7 @@ references:
   isExternal: false
   name: CanUndo
   nameWithType: MaskedTextBox.CanUndo
-  fullName: System.Windows.Forms.MaskedTextBox.CanUndo
+  fullName: MaskedTextBox.CanUndo
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4404,7 +4194,7 @@ references:
   isExternal: false
   name: ClearUndo
   nameWithType: MaskedTextBox.ClearUndo
-  fullName: System.Windows.Forms.MaskedTextBox.ClearUndo
+  fullName: MaskedTextBox.ClearUndo
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4419,7 +4209,7 @@ references:
   isExternal: false
   name: CreateHandle
   nameWithType: MaskedTextBox.CreateHandle
-  fullName: System.Windows.Forms.MaskedTextBox.CreateHandle
+  fullName: MaskedTextBox.CreateHandle
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4434,7 +4224,7 @@ references:
   isExternal: false
   name: CreateParams
   nameWithType: MaskedTextBox.CreateParams
-  fullName: System.Windows.Forms.MaskedTextBox.CreateParams
+  fullName: MaskedTextBox.CreateParams
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4449,7 +4239,7 @@ references:
   isExternal: false
   name: Culture
   nameWithType: MaskedTextBox.Culture
-  fullName: System.Windows.Forms.MaskedTextBox.Culture
+  fullName: MaskedTextBox.Culture
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4464,7 +4254,7 @@ references:
   isExternal: false
   name: CutCopyMaskFormat
   nameWithType: MaskedTextBox.CutCopyMaskFormat
-  fullName: System.Windows.Forms.MaskedTextBox.CutCopyMaskFormat
+  fullName: MaskedTextBox.CutCopyMaskFormat
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4479,7 +4269,7 @@ references:
   isExternal: false
   name: FormatProvider
   nameWithType: MaskedTextBox.FormatProvider
-  fullName: System.Windows.Forms.MaskedTextBox.FormatProvider
+  fullName: MaskedTextBox.FormatProvider
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4494,7 +4284,7 @@ references:
   isExternal: false
   name: GetCharFromPosition
   nameWithType: MaskedTextBox.GetCharFromPosition
-  fullName: System.Windows.Forms.MaskedTextBox.GetCharFromPosition
+  fullName: MaskedTextBox.GetCharFromPosition
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4509,7 +4299,7 @@ references:
   isExternal: false
   name: GetCharIndexFromPosition
   nameWithType: MaskedTextBox.GetCharIndexFromPosition
-  fullName: System.Windows.Forms.MaskedTextBox.GetCharIndexFromPosition
+  fullName: MaskedTextBox.GetCharIndexFromPosition
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4524,7 +4314,7 @@ references:
   isExternal: false
   name: GetFirstCharIndexFromLine
   nameWithType: MaskedTextBox.GetFirstCharIndexFromLine
-  fullName: System.Windows.Forms.MaskedTextBox.GetFirstCharIndexFromLine
+  fullName: MaskedTextBox.GetFirstCharIndexFromLine
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4539,7 +4329,7 @@ references:
   isExternal: false
   name: GetFirstCharIndexOfCurrentLine
   nameWithType: MaskedTextBox.GetFirstCharIndexOfCurrentLine
-  fullName: System.Windows.Forms.MaskedTextBox.GetFirstCharIndexOfCurrentLine
+  fullName: MaskedTextBox.GetFirstCharIndexOfCurrentLine
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4554,7 +4344,7 @@ references:
   isExternal: false
   name: GetLineFromCharIndex
   nameWithType: MaskedTextBox.GetLineFromCharIndex
-  fullName: System.Windows.Forms.MaskedTextBox.GetLineFromCharIndex
+  fullName: MaskedTextBox.GetLineFromCharIndex
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4569,7 +4359,7 @@ references:
   isExternal: false
   name: GetPositionFromCharIndex
   nameWithType: MaskedTextBox.GetPositionFromCharIndex
-  fullName: System.Windows.Forms.MaskedTextBox.GetPositionFromCharIndex
+  fullName: MaskedTextBox.GetPositionFromCharIndex
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4584,7 +4374,7 @@ references:
   isExternal: false
   name: HidePromptOnLeave
   nameWithType: MaskedTextBox.HidePromptOnLeave
-  fullName: System.Windows.Forms.MaskedTextBox.HidePromptOnLeave
+  fullName: MaskedTextBox.HidePromptOnLeave
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4599,7 +4389,7 @@ references:
   isExternal: false
   name: InsertKeyMode
   nameWithType: MaskedTextBox.InsertKeyMode
-  fullName: System.Windows.Forms.MaskedTextBox.InsertKeyMode
+  fullName: MaskedTextBox.InsertKeyMode
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4614,7 +4404,7 @@ references:
   isExternal: false
   name: IsInputKey
   nameWithType: MaskedTextBox.IsInputKey
-  fullName: System.Windows.Forms.MaskedTextBox.IsInputKey
+  fullName: MaskedTextBox.IsInputKey
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4629,7 +4419,7 @@ references:
   isExternal: false
   name: IsOverwriteMode
   nameWithType: MaskedTextBox.IsOverwriteMode
-  fullName: System.Windows.Forms.MaskedTextBox.IsOverwriteMode
+  fullName: MaskedTextBox.IsOverwriteMode
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4644,7 +4434,7 @@ references:
   isExternal: false
   name: Lines
   nameWithType: MaskedTextBox.Lines
-  fullName: System.Windows.Forms.MaskedTextBox.Lines
+  fullName: MaskedTextBox.Lines
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4659,7 +4449,7 @@ references:
   isExternal: false
   name: Mask
   nameWithType: MaskedTextBox.Mask
-  fullName: System.Windows.Forms.MaskedTextBox.Mask
+  fullName: MaskedTextBox.Mask
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4674,7 +4464,7 @@ references:
   isExternal: false
   name: MaskCompleted
   nameWithType: MaskedTextBox.MaskCompleted
-  fullName: System.Windows.Forms.MaskedTextBox.MaskCompleted
+  fullName: MaskedTextBox.MaskCompleted
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4689,7 +4479,7 @@ references:
   isExternal: false
   name: MaskedTextProvider
   nameWithType: MaskedTextBox.MaskedTextProvider
-  fullName: System.Windows.Forms.MaskedTextBox.MaskedTextProvider
+  fullName: MaskedTextBox.MaskedTextProvider
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4704,7 +4494,7 @@ references:
   isExternal: false
   name: MaskFull
   nameWithType: MaskedTextBox.MaskFull
-  fullName: System.Windows.Forms.MaskedTextBox.MaskFull
+  fullName: MaskedTextBox.MaskFull
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4719,7 +4509,7 @@ references:
   isExternal: false
   name: MaxLength
   nameWithType: MaskedTextBox.MaxLength
-  fullName: System.Windows.Forms.MaskedTextBox.MaxLength
+  fullName: MaskedTextBox.MaxLength
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4734,7 +4524,7 @@ references:
   isExternal: false
   name: Multiline
   nameWithType: MaskedTextBox.Multiline
-  fullName: System.Windows.Forms.MaskedTextBox.Multiline
+  fullName: MaskedTextBox.Multiline
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4749,7 +4539,7 @@ references:
   isExternal: false
   name: OnBackColorChanged
   nameWithType: MaskedTextBox.OnBackColorChanged
-  fullName: System.Windows.Forms.MaskedTextBox.OnBackColorChanged
+  fullName: MaskedTextBox.OnBackColorChanged
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4764,7 +4554,7 @@ references:
   isExternal: false
   name: OnHandleCreated
   nameWithType: MaskedTextBox.OnHandleCreated
-  fullName: System.Windows.Forms.MaskedTextBox.OnHandleCreated
+  fullName: MaskedTextBox.OnHandleCreated
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4779,7 +4569,7 @@ references:
   isExternal: false
   name: OnIsOverwriteModeChanged
   nameWithType: MaskedTextBox.OnIsOverwriteModeChanged
-  fullName: System.Windows.Forms.MaskedTextBox.OnIsOverwriteModeChanged
+  fullName: MaskedTextBox.OnIsOverwriteModeChanged
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4794,7 +4584,7 @@ references:
   isExternal: false
   name: OnKeyDown
   nameWithType: MaskedTextBox.OnKeyDown
-  fullName: System.Windows.Forms.MaskedTextBox.OnKeyDown
+  fullName: MaskedTextBox.OnKeyDown
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4809,7 +4599,7 @@ references:
   isExternal: false
   name: OnKeyPress
   nameWithType: MaskedTextBox.OnKeyPress
-  fullName: System.Windows.Forms.MaskedTextBox.OnKeyPress
+  fullName: MaskedTextBox.OnKeyPress
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4824,7 +4614,7 @@ references:
   isExternal: false
   name: OnKeyUp
   nameWithType: MaskedTextBox.OnKeyUp
-  fullName: System.Windows.Forms.MaskedTextBox.OnKeyUp
+  fullName: MaskedTextBox.OnKeyUp
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4839,7 +4629,7 @@ references:
   isExternal: false
   name: OnMaskChanged
   nameWithType: MaskedTextBox.OnMaskChanged
-  fullName: System.Windows.Forms.MaskedTextBox.OnMaskChanged
+  fullName: MaskedTextBox.OnMaskChanged
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4854,7 +4644,7 @@ references:
   isExternal: false
   name: OnMultilineChanged
   nameWithType: MaskedTextBox.OnMultilineChanged
-  fullName: System.Windows.Forms.MaskedTextBox.OnMultilineChanged
+  fullName: MaskedTextBox.OnMultilineChanged
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4869,7 +4659,7 @@ references:
   isExternal: false
   name: OnTextAlignChanged
   nameWithType: MaskedTextBox.OnTextAlignChanged
-  fullName: System.Windows.Forms.MaskedTextBox.OnTextAlignChanged
+  fullName: MaskedTextBox.OnTextAlignChanged
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4884,7 +4674,7 @@ references:
   isExternal: false
   name: OnTextChanged
   nameWithType: MaskedTextBox.OnTextChanged
-  fullName: System.Windows.Forms.MaskedTextBox.OnTextChanged
+  fullName: MaskedTextBox.OnTextChanged
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4899,7 +4689,7 @@ references:
   isExternal: false
   name: OnValidating
   nameWithType: MaskedTextBox.OnValidating
-  fullName: System.Windows.Forms.MaskedTextBox.OnValidating
+  fullName: MaskedTextBox.OnValidating
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4914,7 +4704,7 @@ references:
   isExternal: false
   name: PasswordChar
   nameWithType: MaskedTextBox.PasswordChar
-  fullName: System.Windows.Forms.MaskedTextBox.PasswordChar
+  fullName: MaskedTextBox.PasswordChar
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4929,7 +4719,7 @@ references:
   isExternal: false
   name: ProcessCmdKey
   nameWithType: MaskedTextBox.ProcessCmdKey
-  fullName: System.Windows.Forms.MaskedTextBox.ProcessCmdKey
+  fullName: MaskedTextBox.ProcessCmdKey
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4944,7 +4734,7 @@ references:
   isExternal: false
   name: ProcessKeyMessage
   nameWithType: MaskedTextBox.ProcessKeyMessage
-  fullName: System.Windows.Forms.MaskedTextBox.ProcessKeyMessage
+  fullName: MaskedTextBox.ProcessKeyMessage
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4959,7 +4749,7 @@ references:
   isExternal: false
   name: PromptChar
   nameWithType: MaskedTextBox.PromptChar
-  fullName: System.Windows.Forms.MaskedTextBox.PromptChar
+  fullName: MaskedTextBox.PromptChar
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4974,7 +4764,7 @@ references:
   isExternal: false
   name: ReadOnly
   nameWithType: MaskedTextBox.ReadOnly
-  fullName: System.Windows.Forms.MaskedTextBox.ReadOnly
+  fullName: MaskedTextBox.ReadOnly
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -4989,7 +4779,7 @@ references:
   isExternal: false
   name: RejectInputOnFirstFailure
   nameWithType: MaskedTextBox.RejectInputOnFirstFailure
-  fullName: System.Windows.Forms.MaskedTextBox.RejectInputOnFirstFailure
+  fullName: MaskedTextBox.RejectInputOnFirstFailure
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5004,7 +4794,7 @@ references:
   isExternal: false
   name: ResetOnPrompt
   nameWithType: MaskedTextBox.ResetOnPrompt
-  fullName: System.Windows.Forms.MaskedTextBox.ResetOnPrompt
+  fullName: MaskedTextBox.ResetOnPrompt
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5019,7 +4809,7 @@ references:
   isExternal: false
   name: ResetOnSpace
   nameWithType: MaskedTextBox.ResetOnSpace
-  fullName: System.Windows.Forms.MaskedTextBox.ResetOnSpace
+  fullName: MaskedTextBox.ResetOnSpace
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5034,7 +4824,7 @@ references:
   isExternal: false
   name: ScrollToCaret
   nameWithType: MaskedTextBox.ScrollToCaret
-  fullName: System.Windows.Forms.MaskedTextBox.ScrollToCaret
+  fullName: MaskedTextBox.ScrollToCaret
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5049,7 +4839,7 @@ references:
   isExternal: false
   name: SelectedText
   nameWithType: MaskedTextBox.SelectedText
-  fullName: System.Windows.Forms.MaskedTextBox.SelectedText
+  fullName: MaskedTextBox.SelectedText
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5064,7 +4854,7 @@ references:
   isExternal: false
   name: SkipLiterals
   nameWithType: MaskedTextBox.SkipLiterals
-  fullName: System.Windows.Forms.MaskedTextBox.SkipLiterals
+  fullName: MaskedTextBox.SkipLiterals
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5079,7 +4869,7 @@ references:
   isExternal: false
   name: Text
   nameWithType: MaskedTextBox.Text
-  fullName: System.Windows.Forms.MaskedTextBox.Text
+  fullName: MaskedTextBox.Text
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5094,7 +4884,7 @@ references:
   isExternal: false
   name: TextAlign
   nameWithType: MaskedTextBox.TextAlign
-  fullName: System.Windows.Forms.MaskedTextBox.TextAlign
+  fullName: MaskedTextBox.TextAlign
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5109,7 +4899,7 @@ references:
   isExternal: false
   name: TextLength
   nameWithType: MaskedTextBox.TextLength
-  fullName: System.Windows.Forms.MaskedTextBox.TextLength
+  fullName: MaskedTextBox.TextLength
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5124,7 +4914,7 @@ references:
   isExternal: false
   name: TextMaskFormat
   nameWithType: MaskedTextBox.TextMaskFormat
-  fullName: System.Windows.Forms.MaskedTextBox.TextMaskFormat
+  fullName: MaskedTextBox.TextMaskFormat
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5139,7 +4929,7 @@ references:
   isExternal: false
   name: ToString
   nameWithType: MaskedTextBox.ToString
-  fullName: System.Windows.Forms.MaskedTextBox.ToString
+  fullName: MaskedTextBox.ToString
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5154,7 +4944,7 @@ references:
   isExternal: false
   name: Undo
   nameWithType: MaskedTextBox.Undo
-  fullName: System.Windows.Forms.MaskedTextBox.Undo
+  fullName: MaskedTextBox.Undo
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5169,7 +4959,7 @@ references:
   isExternal: false
   name: UseSystemPasswordChar
   nameWithType: MaskedTextBox.UseSystemPasswordChar
-  fullName: System.Windows.Forms.MaskedTextBox.UseSystemPasswordChar
+  fullName: MaskedTextBox.UseSystemPasswordChar
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5184,7 +4974,7 @@ references:
   isExternal: false
   name: ValidateText
   nameWithType: MaskedTextBox.ValidateText
-  fullName: System.Windows.Forms.MaskedTextBox.ValidateText
+  fullName: MaskedTextBox.ValidateText
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5199,7 +4989,7 @@ references:
   isExternal: false
   name: ValidatingType
   nameWithType: MaskedTextBox.ValidatingType
-  fullName: System.Windows.Forms.MaskedTextBox.ValidatingType
+  fullName: MaskedTextBox.ValidatingType
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5214,7 +5004,7 @@ references:
   isExternal: false
   name: WndProc
   nameWithType: MaskedTextBox.WndProc
-  fullName: System.Windows.Forms.MaskedTextBox.WndProc
+  fullName: MaskedTextBox.WndProc
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -5229,7 +5019,7 @@ references:
   isExternal: false
   name: WordWrap
   nameWithType: MaskedTextBox.WordWrap
-  fullName: System.Windows.Forms.MaskedTextBox.WordWrap
+  fullName: MaskedTextBox.WordWrap
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

@@ -21,8 +21,9 @@ items:
   assemblies:
   - System.Xml.Linq
   - netstandard
+  - System.Xml.XDocument
   namespace: System.Xml.Schema
-  summary: This class contains the [!INCLUDE[sqltecxlinq](~/includes/sqltecxlinq-md.md)] extension methods for XSD validation.
+  summary: This class contains the LINQ to XML extension methods for XSD validation.
   remarks: "This class also contains methods to get the post-schema-validation infoset (PSVI) of a validated XML node.  \n  \n When you validate an <xref:System.Xml.Linq.XDocument>, <xref:System.Xml.Linq.XElement>, or <xref:System.Xml.Linq.XAttribute>, you can also optionally populate the XML tree with the post-schema-validation infoset. PSVI information is added as an annotation of type <xref:System.Xml.Schema.XmlSchemaInfo?displayProperty=fullName>."
   example:
   - "The XSD in [Sample XSD File: Customers and Orders](http://msdn.microsoft.com/library/8b05efe3-cc5e-4c7b-b322-892dbda41687) contains a schema that can be used to validate the XML document in [Sample XML File: Customers and Orders (LINQ to XML)](http://msdn.microsoft.com/library/26790c41-5976-4558-a096-d0f67bfc4d92). The following example loads the schema and the document, validates the document, changes the document so that the `xs:key` and `xs:keyref` relationship is not valid, and then attempts to validate again.  \n  \n```csharp  \n  \n                XmlSchemaSet schemas = new XmlSchemaSet();  \nschemas.Add(\"\", \"CustomersOrders.xsd\");  \n  \nXDocument custOrd = XDocument.Load(\"CustomersOrders.xml\");  \n  \nConsole.WriteLine(\"Validating custOrd\");  \nbool errors = false;  \ncustOrd.Validate(schemas, (o, e) =>  \n                     {  \n                         Console.WriteLine(\"{0}\", e.Message);  \n                         errors = true;  \n                     });  \nConsole.WriteLine(\"custOrd {0}\", errors ? \"did not validate\" : \"validated\");  \n  \n// Modify the custOrd tree so that it is no longer valid.  \ncustOrd.Root.Element(\"Orders\").Element(\"Order\").Element(\"CustomerID\").Value = \"AAAAA\";  \n  \nConsole.WriteLine();  \nConsole.WriteLine(\"Validating custOrd\");  \nerrors = false;  \ncustOrd.Validate(schemas, (o, e) =>  \n                     {  \n                         Console.WriteLine(\"{0}\", e.Message);  \n                         errors = true;  \n                     });  \nConsole.WriteLine(\"custOrd {0}\", errors ? \"did not validate\" : \"validated\");  \n```  \n  \n```vb  \n  \n                Dim errors As Boolean = False  \n  \nPrivate Sub XSDErrors(ByVal o As Object, ByVal e As ValidationEventArgs)  \n    Console.WriteLine(\"{0}\", e.Message)  \n    errors = True  \nEnd Sub  \n  \nSub Main()  \n    Dim schemas As XmlSchemaSet = New XmlSchemaSet()  \n    schemas.Add(\"\", \"CustomersOrders.xsd\")  \n  \n    Console.WriteLine(\"Validating custOrd\")  \n    Dim custOrd As XDocument = XDocument.Load(\"CustomersOrders.xml\")  \n    errors = False  \n    custOrd.Validate(schemas, AddressOf XSDErrors)  \n    Console.WriteLine(\"custOrd {0}\", IIf(errors, \"did not validate\", \"validated\"))  \n  \n    Console.WriteLine()  \n    Console.WriteLine(\"Validating custOrd\")  \n    ' Modify the source document so that it will not validate.  \n    custOrd.Root.Element(\"Orders\").Element(\"Order\").Element(\"CustomerID\").Value = \"AAAAA\"  \n    errors = False  \n    custOrd.Validate(schemas, AddressOf XSDErrors)  \n    Console.WriteLine(\"custOrd {0}\", IIf(errors, \"did not validate\", \"validated\"))  \nEnd Sub  \n```  \n  \n This example produces the following output:  \n  \n```  \nValidating custOrd  \ncustOrd validated  \n  \nValidating custOrd  \nThe key sequence 'AAAAA' in Keyref fails to refer to some key.  \ncustOrd did not validate  \n```"
@@ -40,6 +41,7 @@ items:
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -52,6 +54,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -64,9 +67,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml.Schema/Extensions.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.Schema.Extensions.GetSchemaInfo(System.Xml.Linq.XAttribute)
   commentId: M:System.Xml.Schema.Extensions.GetSchemaInfo(System.Xml.Linq.XAttribute)
   id: GetSchemaInfo(System.Xml.Linq.XAttribute)
@@ -75,11 +75,12 @@ items:
   - csharp
   name: GetSchemaInfo(XAttribute)
   nameWithType: Extensions.GetSchemaInfo(XAttribute)
-  fullName: System.Xml.Schema.Extensions.GetSchemaInfo(XAttribute)
+  fullName: Extensions.GetSchemaInfo(XAttribute)
   type: Method
   assemblies:
   - System.Xml.Linq
   - netstandard
+  - System.Xml.XDocument
   namespace: System.Xml.Schema
   summary: Gets the post-schema-validation infoset (PSVI) of a validated attribute.
   remarks: "You can use the <xref:System.Xml.Schema.IXmlSchemaInfo> returned by this method to determine certain characteristics of a validated attribute. For example, you can determine if the attribute came from a default attribute value in an XSD.  \n  \n You use the <xref:System.Xml.Schema.IXmlSchemaInfo.SchemaAttribute%2A> property to get a partial validation type (<xref:System.Xml.Schema.XmlSchemaAttribute>). You can use it to revalidate an attribute without validating an entire document.  \n  \n For an example of this property, see <xref:System.Xml.Schema.Extensions.Validate%2A>."
@@ -95,6 +96,7 @@ items:
   overload: System.Xml.Schema.Extensions.GetSchemaInfo*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -107,6 +109,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -119,9 +122,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml.Schema/Extensions.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.Schema.Extensions.GetSchemaInfo(System.Xml.Linq.XElement)
   commentId: M:System.Xml.Schema.Extensions.GetSchemaInfo(System.Xml.Linq.XElement)
   id: GetSchemaInfo(System.Xml.Linq.XElement)
@@ -130,11 +130,12 @@ items:
   - csharp
   name: GetSchemaInfo(XElement)
   nameWithType: Extensions.GetSchemaInfo(XElement)
-  fullName: System.Xml.Schema.Extensions.GetSchemaInfo(XElement)
+  fullName: Extensions.GetSchemaInfo(XElement)
   type: Method
   assemblies:
   - System.Xml.Linq
   - netstandard
+  - System.Xml.XDocument
   namespace: System.Xml.Schema
   summary: Gets the post-schema-validation infoset (PSVI) of a validated element.
   remarks: "You can use the <xref:System.Xml.Schema.IXmlSchemaInfo> returned by this method to determine certain characteristics of a validated element. For example, you can determine the dynamic schema type of the element.  \n  \n You use the <xref:System.Xml.Schema.IXmlSchemaInfo.SchemaElement%2A> property to get a partial validation type (<xref:System.Xml.Schema.XmlSchemaElement>). You can use it to revalidate a sub-tree with an element at its root without validating an entire document.  \n  \n For an example of this property, see <xref:System.Xml.Schema.Extensions.Validate%2A>."
@@ -152,6 +153,7 @@ items:
   overload: System.Xml.Schema.Extensions.GetSchemaInfo*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -164,6 +166,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -176,9 +179,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml.Schema/Extensions.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.Schema.Extensions.Validate(System.Xml.Linq.XDocument,System.Xml.Schema.XmlSchemaSet,System.Xml.Schema.ValidationEventHandler)
   commentId: M:System.Xml.Schema.Extensions.Validate(System.Xml.Linq.XDocument,System.Xml.Schema.XmlSchemaSet,System.Xml.Schema.ValidationEventHandler)
   id: Validate(System.Xml.Linq.XDocument,System.Xml.Schema.XmlSchemaSet,System.Xml.Schema.ValidationEventHandler)
@@ -187,11 +187,12 @@ items:
   - csharp
   name: Validate(XDocument, XmlSchemaSet, ValidationEventHandler)
   nameWithType: Extensions.Validate(XDocument, XmlSchemaSet, ValidationEventHandler)
-  fullName: System.Xml.Schema.Extensions.Validate(XDocument, XmlSchemaSet, ValidationEventHandler)
+  fullName: Extensions.Validate(XDocument, XmlSchemaSet, ValidationEventHandler)
   type: Method
   assemblies:
   - System.Xml.Linq
   - netstandard
+  - System.Xml.XDocument
   namespace: System.Xml.Schema
   summary: This method validates that an <xref href="System.Xml.Linq.XDocument"></xref> conforms to an XSD in an <xref href="System.Xml.Schema.XmlSchemaSet"></xref>.
   remarks: This extension method validates that the <xref:System.Xml.Linq.XDocument> conforms to the schema content model in <xref:System.Xml.Schema.XmlSchemaSet>.
@@ -215,6 +216,7 @@ items:
     commentId: T:System.Xml.Schema.XmlSchemaValidationException
     description: Thrown for XML Schema Definition Language (XSD) validation errors.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -227,6 +229,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -239,9 +242,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml.Schema/Extensions.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.Schema.Extensions.Validate(System.Xml.Linq.XAttribute,System.Xml.Schema.XmlSchemaObject,System.Xml.Schema.XmlSchemaSet,System.Xml.Schema.ValidationEventHandler)
   commentId: M:System.Xml.Schema.Extensions.Validate(System.Xml.Linq.XAttribute,System.Xml.Schema.XmlSchemaObject,System.Xml.Schema.XmlSchemaSet,System.Xml.Schema.ValidationEventHandler)
   id: Validate(System.Xml.Linq.XAttribute,System.Xml.Schema.XmlSchemaObject,System.Xml.Schema.XmlSchemaSet,System.Xml.Schema.ValidationEventHandler)
@@ -250,11 +250,12 @@ items:
   - csharp
   name: Validate(XAttribute, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler)
   nameWithType: Extensions.Validate(XAttribute, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler)
-  fullName: System.Xml.Schema.Extensions.Validate(XAttribute, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler)
+  fullName: Extensions.Validate(XAttribute, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler)
   type: Method
   assemblies:
   - System.Xml.Linq
   - netstandard
+  - System.Xml.XDocument
   namespace: System.Xml.Schema
   summary: This method validates that an <xref href="System.Xml.Linq.XAttribute"></xref> conforms to a specified <xref href="System.Xml.Schema.XmlSchemaObject"></xref> and an <xref href="System.Xml.Schema.XmlSchemaSet"></xref>.
   remarks: "You can use this method to validate that an <xref:System.Xml.Linq.XAttribute> conforms to a schema. You typically use this method when you have modified an attribute, and you want to make sure that it still conforms to its schema. You could validate the entire document, but it takes less processing time to validate just the attribute.  \n  \n If you pass `null` for `validationEventHandler`, this method raises an exception upon validation errors. Validation warnings will not raise an exception.  \n  \n To validate an attribute, you use an instance of <xref:System.Xml.Schema.XmlSchemaObject>. You can obtain this instance in various ways. An easy way is as follows:  \n  \n1.  Validate that a document conforms to a schema.  \n  \n2.  Add the post-schema-validation infoset (PSVI) by calling the <xref:System.Xml.Schema.Extensions.Validate%2A> extension method.  \n  \n3.  Call the <xref:System.Xml.Schema.Extensions.GetSchemaInfo%2A> extension method to retrieve an object that implements <xref:System.Xml.Schema.IXmlSchemaInfo>. From the retrieved object, you can get an <xref:System.Xml.Schema.XmlSchemaObject>.  \n  \n    -   If you get an <xref:System.Xml.Schema.XmlSchemaObject> for an <xref:System.Xml.Linq.XElement>, the type will be <xref:System.Xml.Schema.XmlSchemaElement>.  \n  \n    -   If you get an <xref:System.Xml.Schema.XmlSchemaObject> for an <xref:System.Xml.Linq.XAttribute>, the type will be <xref:System.Xml.Schema.XmlSchemaAttribute>.  \n  \n After you have an instance of an <xref:System.Xml.Schema.XmlSchemaObject>, you can use this method to validate an attribute."
@@ -281,6 +282,7 @@ items:
     commentId: T:System.Xml.Schema.XmlSchemaValidationException
     description: Thrown for XML Schema Definition Language (XSD) validation errors.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -293,6 +295,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -305,9 +308,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml.Schema/Extensions.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.Schema.Extensions.Validate(System.Xml.Linq.XDocument,System.Xml.Schema.XmlSchemaSet,System.Xml.Schema.ValidationEventHandler,System.Boolean)
   commentId: M:System.Xml.Schema.Extensions.Validate(System.Xml.Linq.XDocument,System.Xml.Schema.XmlSchemaSet,System.Xml.Schema.ValidationEventHandler,System.Boolean)
   id: Validate(System.Xml.Linq.XDocument,System.Xml.Schema.XmlSchemaSet,System.Xml.Schema.ValidationEventHandler,System.Boolean)
@@ -316,11 +316,12 @@ items:
   - csharp
   name: Validate(XDocument, XmlSchemaSet, ValidationEventHandler, Boolean)
   nameWithType: Extensions.Validate(XDocument, XmlSchemaSet, ValidationEventHandler, Boolean)
-  fullName: System.Xml.Schema.Extensions.Validate(XDocument, XmlSchemaSet, ValidationEventHandler, Boolean)
+  fullName: Extensions.Validate(XDocument, XmlSchemaSet, ValidationEventHandler, Boolean)
   type: Method
   assemblies:
   - System.Xml.Linq
   - netstandard
+  - System.Xml.XDocument
   namespace: System.Xml.Schema
   summary: Validates that an <xref href="System.Xml.Linq.XDocument"></xref> conforms to an XSD in an <xref href="System.Xml.Schema.XmlSchemaSet"></xref>, optionally populating the XML tree with the post-schema-validation infoset (PSVI).
   remarks: "This extension method validates that the <xref:System.Xml.Linq.XDocument> conforms to the schema content model in <xref:System.Xml.Schema.XmlSchemaSet>.  \n  \n If `addSchemaInfo` is `true`, this method populates the XML tree with the post-schema-validation infoset (PSVI).  \n  \n There are two steps to populating the XML tree with the PSVI.  \n  \n1.  First, an annotation is added to all nodes in the tree to enable you to call <xref:System.Xml.Schema.Extensions.GetSchemaInfo%2A?displayProperty=fullName> or <xref:System.Xml.Schema.Extensions.GetSchemaInfo%2A?displayProperty=fullName> on an element or attribute in the tree.  \n  \n2.  Second, default elements and attributes defined in the XSD are added to the XML tree. By calling one of the <xref:System.Xml.Schema.Extensions.GetSchemaInfo%2A> methods, you can determine if a specific element or attribute was added from the XSD as a default element or attribute."
@@ -347,6 +348,7 @@ items:
     commentId: T:System.Xml.Schema.XmlSchemaValidationException
     description: Thrown for XML Schema Definition Language (XSD) validation errors.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -359,6 +361,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -371,9 +374,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml.Schema/Extensions.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.Schema.Extensions.Validate(System.Xml.Linq.XElement,System.Xml.Schema.XmlSchemaObject,System.Xml.Schema.XmlSchemaSet,System.Xml.Schema.ValidationEventHandler)
   commentId: M:System.Xml.Schema.Extensions.Validate(System.Xml.Linq.XElement,System.Xml.Schema.XmlSchemaObject,System.Xml.Schema.XmlSchemaSet,System.Xml.Schema.ValidationEventHandler)
   id: Validate(System.Xml.Linq.XElement,System.Xml.Schema.XmlSchemaObject,System.Xml.Schema.XmlSchemaSet,System.Xml.Schema.ValidationEventHandler)
@@ -382,11 +382,12 @@ items:
   - csharp
   name: Validate(XElement, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler)
   nameWithType: Extensions.Validate(XElement, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler)
-  fullName: System.Xml.Schema.Extensions.Validate(XElement, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler)
+  fullName: Extensions.Validate(XElement, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler)
   type: Method
   assemblies:
   - System.Xml.Linq
   - netstandard
+  - System.Xml.XDocument
   namespace: System.Xml.Schema
   summary: This method validates that an <xref href="System.Xml.Linq.XElement"></xref> sub-tree conforms to a specified <xref href="System.Xml.Schema.XmlSchemaObject"></xref> and an <xref href="System.Xml.Schema.XmlSchemaSet"></xref>.
   remarks: "You can use this method to validate that a sub-tree (with an <xref:System.Xml.Linq.XElement> at its root) conforms to a schema. You typically use this method when you have modified a sub-tree, and you want to make sure that it still conforms to its schema. You could validate the entire document, but it takes less processing time to validate a just a sub-tree.  \n  \n If you pass `null` for `validationEventHandler`, then this method raises an exception upon validation errors. Validation warnings will not raise an exception.  \n  \n To validate a sub-tree, you use an instance of <xref:System.Xml.Schema.XmlSchemaObject>. You can obtain this instance in various ways. An easy way is as follows:  \n  \n1.  Validate that a document conforms to a schema.  \n  \n2.  Add the post-schema-validation infoset (PSVI) by calling the <xref:System.Xml.Schema.Extensions.Validate%2A> extension method.  \n  \n3.  Call the <xref:System.Xml.Schema.Extensions.GetSchemaInfo%2A> extension method to retrieve an object that implements <xref:System.Xml.Schema.IXmlSchemaInfo>. From the retrieved object, you can get an <xref:System.Xml.Schema.XmlSchemaObject>.  \n  \n    -   If you get an <xref:System.Xml.Schema.XmlSchemaObject> for an <xref:System.Xml.Linq.XElement>, the type will be <xref:System.Xml.Schema.XmlSchemaElement>.  \n  \n    -   If you get an <xref:System.Xml.Schema.XmlSchemaObject> for an <xref:System.Xml.Linq.XAttribute>, the type will be <xref:System.Xml.Schema.XmlSchemaAttribute>.  \n  \n After you have an instance of an <xref:System.Xml.Schema.XmlSchemaObject>, you can use this method to validate an sub-tree."
@@ -413,6 +414,7 @@ items:
     commentId: T:System.Xml.Schema.XmlSchemaValidationException
     description: Thrown for XML Schema Definition Language (XSD) validation errors.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -425,6 +427,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -437,9 +440,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml.Schema/Extensions.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.Schema.Extensions.Validate(System.Xml.Linq.XAttribute,System.Xml.Schema.XmlSchemaObject,System.Xml.Schema.XmlSchemaSet,System.Xml.Schema.ValidationEventHandler,System.Boolean)
   commentId: M:System.Xml.Schema.Extensions.Validate(System.Xml.Linq.XAttribute,System.Xml.Schema.XmlSchemaObject,System.Xml.Schema.XmlSchemaSet,System.Xml.Schema.ValidationEventHandler,System.Boolean)
   id: Validate(System.Xml.Linq.XAttribute,System.Xml.Schema.XmlSchemaObject,System.Xml.Schema.XmlSchemaSet,System.Xml.Schema.ValidationEventHandler,System.Boolean)
@@ -448,11 +448,12 @@ items:
   - csharp
   name: Validate(XAttribute, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler, Boolean)
   nameWithType: Extensions.Validate(XAttribute, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler, Boolean)
-  fullName: System.Xml.Schema.Extensions.Validate(XAttribute, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler, Boolean)
+  fullName: Extensions.Validate(XAttribute, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler, Boolean)
   type: Method
   assemblies:
   - System.Xml.Linq
   - netstandard
+  - System.Xml.XDocument
   namespace: System.Xml.Schema
   summary: Validates that an <xref href="System.Xml.Linq.XAttribute"></xref> conforms to a specified <xref href="System.Xml.Schema.XmlSchemaObject"></xref> and an <xref href="System.Xml.Schema.XmlSchemaSet"></xref>, optionally populating the XML tree with the post-schema-validation infoset (PSVI).
   remarks: "You can use this method to validate that an <xref:System.Xml.Linq.XAttribute> conforms to a schema. You typically use this method when you have modified an attribute, and you want to make sure that it still conforms to its schema. You could validate the entire document, but it takes less processing time to validate just the attribute.  \n  \n If `addSchemaInfo` is `true`, this method populates the attribute with the post-schema-validation infoset (PSVI). After you have populated the XML tree with the PSVI, you can call <xref:System.Xml.Schema.Extensions.GetSchemaInfo%2A?displayProperty=fullName> on the validated attribute. This is useful if you are writing code that relies on data returned by <xref:System.Xml.Schema.Extensions.GetSchemaInfo%2A>.  \n  \n If you pass `null` for `validationEventHandler`, then this method raises an exception upon validation errors. Validation warnings will not raise an exception.  \n  \n To validate an attribute, you use an instance of <xref:System.Xml.Schema.XmlSchemaObject>. You can obtain this instance in various ways. An easy way is as follows:  \n  \n1.  Validate that a document conforms to a schema.  \n  \n2.  Add the post-schema-validation infoset (PSVI) by calling the <xref:System.Xml.Schema.Extensions.Validate%2A> extension method.  \n  \n3.  Call the <xref:System.Xml.Schema.Extensions.GetSchemaInfo%2A> extension method to retrieve an object that implements <xref:System.Xml.Schema.IXmlSchemaInfo>. From the retrieved object, you can get an <xref:System.Xml.Schema.XmlSchemaObject>.  \n  \n    -   If you get an <xref:System.Xml.Schema.XmlSchemaObject> for an <xref:System.Xml.Linq.XElement>, the type will be <xref:System.Xml.Schema.XmlSchemaElement>.  \n  \n    -   If you get an <xref:System.Xml.Schema.XmlSchemaObject> for an <xref:System.Xml.Linq.XAttribute>, the type will be <xref:System.Xml.Schema.XmlSchemaAttribute>.  \n  \n After you have an instance of an <xref:System.Xml.Schema.XmlSchemaObject>, you can use this method to validate an attribute."
@@ -482,6 +483,7 @@ items:
     commentId: T:System.Xml.Schema.XmlSchemaValidationException
     description: Thrown for XML Schema Definition Language (XSD) validation errors.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -494,6 +496,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -506,9 +509,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml.Schema/Extensions.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.Schema.Extensions.Validate(System.Xml.Linq.XElement,System.Xml.Schema.XmlSchemaObject,System.Xml.Schema.XmlSchemaSet,System.Xml.Schema.ValidationEventHandler,System.Boolean)
   commentId: M:System.Xml.Schema.Extensions.Validate(System.Xml.Linq.XElement,System.Xml.Schema.XmlSchemaObject,System.Xml.Schema.XmlSchemaSet,System.Xml.Schema.ValidationEventHandler,System.Boolean)
   id: Validate(System.Xml.Linq.XElement,System.Xml.Schema.XmlSchemaObject,System.Xml.Schema.XmlSchemaSet,System.Xml.Schema.ValidationEventHandler,System.Boolean)
@@ -517,11 +517,12 @@ items:
   - csharp
   name: Validate(XElement, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler, Boolean)
   nameWithType: Extensions.Validate(XElement, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler, Boolean)
-  fullName: System.Xml.Schema.Extensions.Validate(XElement, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler, Boolean)
+  fullName: Extensions.Validate(XElement, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler, Boolean)
   type: Method
   assemblies:
   - System.Xml.Linq
   - netstandard
+  - System.Xml.XDocument
   namespace: System.Xml.Schema
   summary: Validates that an <xref href="System.Xml.Linq.XElement"></xref> sub-tree conforms to a specified <xref href="System.Xml.Schema.XmlSchemaObject"></xref> and an <xref href="System.Xml.Schema.XmlSchemaSet"></xref>, optionally populating the XML tree with the post-schema-validation infoset (PSVI).
   remarks: "You can use this method to validate that a sub-tree (with an <xref:System.Xml.Linq.XElement> at the root of the sub-tree) conforms to a schema. You typically use this method when you have modified a sub-tree, and you want to make sure that it still conforms to its schema. You could validate the entire document, but it takes less processing time to validate a just a sub-tree.  \n  \n If `addSchemaInfo` is `true`, then this method populates the XML tree with the post-schema-validation infoset (PSVI).  \n  \n There are two aspects of populating the XML tree with the PSVI.  \n  \n First, an annotation is added to all nodes in the tree such that you can now call <xref:System.Xml.Schema.Extensions.GetSchemaInfo%2A> on an element or attribute in the tree.  \n  \n Second, default elements and attributes defined in the XSD are added to the XML tree. By calling one of the <xref:System.Xml.Schema.Extensions.GetSchemaInfo%2A> methods, you can determine if a specific element or attribute was added from the XSD as a default element or attribute.  \n  \n If you pass `null` for `validationEventHandler`, then this method raises an exception upon validation errors. Validation warnings will not raise an exception.  \n  \n To validate a sub-tree, you use an instance of <xref:System.Xml.Schema.XmlSchemaObject>. You can obtain this instance in various ways. An easy way is as follows:  \n  \n1.  Validate that a document conforms to a schema.  \n  \n2.  Add the post-schema-validation infoset (PSVI) by calling the <xref:System.Xml.Schema.Extensions.Validate%2A> extension method.  \n  \n3.  Call the <xref:System.Xml.Schema.Extensions.GetSchemaInfo%2A> extension method to retrieve an object that implements <xref:System.Xml.Schema.IXmlSchemaInfo>. From the retrieved object, you can get an <xref:System.Xml.Schema.XmlSchemaObject>.  \n  \n    -   If you get an <xref:System.Xml.Schema.XmlSchemaObject> for an <xref:System.Xml.Linq.XElement>, the type will be <xref:System.Xml.Schema.XmlSchemaElement>.  \n  \n    -   If you get an <xref:System.Xml.Schema.XmlSchemaObject> for an <xref:System.Xml.Linq.XAttribute>, the type will be <xref:System.Xml.Schema.XmlSchemaAttribute>.  \n  \n After you have an instance of an <xref:System.Xml.Schema.XmlSchemaObject>, you can use this method to validate a sub-tree.."
@@ -551,6 +552,7 @@ items:
     commentId: T:System.Xml.Schema.XmlSchemaValidationException
     description: Thrown for XML Schema Definition Language (XSD) validation errors.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -563,6 +565,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -575,9 +578,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml.Schema/Extensions.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -596,7 +596,7 @@ references:
   isExternal: false
   name: GetSchemaInfo(XAttribute)
   nameWithType: Extensions.GetSchemaInfo(XAttribute)
-  fullName: System.Xml.Schema.Extensions.GetSchemaInfo(XAttribute)
+  fullName: Extensions.GetSchemaInfo(XAttribute)
 - uid: System.Xml.Schema.IXmlSchemaInfo
   parent: System.Xml.Schema
   isExternal: false
@@ -614,7 +614,7 @@ references:
   isExternal: false
   name: GetSchemaInfo(XElement)
   nameWithType: Extensions.GetSchemaInfo(XElement)
-  fullName: System.Xml.Schema.Extensions.GetSchemaInfo(XElement)
+  fullName: Extensions.GetSchemaInfo(XElement)
 - uid: System.Xml.Linq.XElement
   parent: System.Xml.Linq
   isExternal: false
@@ -626,7 +626,7 @@ references:
   isExternal: false
   name: Validate(XDocument, XmlSchemaSet, ValidationEventHandler)
   nameWithType: Extensions.Validate(XDocument, XmlSchemaSet, ValidationEventHandler)
-  fullName: System.Xml.Schema.Extensions.Validate(XDocument, XmlSchemaSet, ValidationEventHandler)
+  fullName: Extensions.Validate(XDocument, XmlSchemaSet, ValidationEventHandler)
 - uid: System.Xml.Linq.XDocument
   parent: System.Xml.Linq
   isExternal: false
@@ -650,7 +650,7 @@ references:
   isExternal: false
   name: Validate(XAttribute, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler)
   nameWithType: Extensions.Validate(XAttribute, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler)
-  fullName: System.Xml.Schema.Extensions.Validate(XAttribute, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler)
+  fullName: Extensions.Validate(XAttribute, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler)
 - uid: System.Xml.Schema.XmlSchemaObject
   parent: System.Xml.Schema
   isExternal: false
@@ -662,7 +662,7 @@ references:
   isExternal: false
   name: Validate(XDocument, XmlSchemaSet, ValidationEventHandler, Boolean)
   nameWithType: Extensions.Validate(XDocument, XmlSchemaSet, ValidationEventHandler, Boolean)
-  fullName: System.Xml.Schema.Extensions.Validate(XDocument, XmlSchemaSet, ValidationEventHandler, Boolean)
+  fullName: Extensions.Validate(XDocument, XmlSchemaSet, ValidationEventHandler, Boolean)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -674,26 +674,27 @@ references:
   isExternal: false
   name: Validate(XElement, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler)
   nameWithType: Extensions.Validate(XElement, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler)
-  fullName: System.Xml.Schema.Extensions.Validate(XElement, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler)
+  fullName: Extensions.Validate(XElement, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler)
 - uid: System.Xml.Schema.Extensions.Validate(System.Xml.Linq.XAttribute,System.Xml.Schema.XmlSchemaObject,System.Xml.Schema.XmlSchemaSet,System.Xml.Schema.ValidationEventHandler,System.Boolean)
   parent: System.Xml.Schema.Extensions
   isExternal: false
   name: Validate(XAttribute, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler, Boolean)
   nameWithType: Extensions.Validate(XAttribute, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler, Boolean)
-  fullName: System.Xml.Schema.Extensions.Validate(XAttribute, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler, Boolean)
+  fullName: Extensions.Validate(XAttribute, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler, Boolean)
 - uid: System.Xml.Schema.Extensions.Validate(System.Xml.Linq.XElement,System.Xml.Schema.XmlSchemaObject,System.Xml.Schema.XmlSchemaSet,System.Xml.Schema.ValidationEventHandler,System.Boolean)
   parent: System.Xml.Schema.Extensions
   isExternal: false
   name: Validate(XElement, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler, Boolean)
   nameWithType: Extensions.Validate(XElement, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler, Boolean)
-  fullName: System.Xml.Schema.Extensions.Validate(XElement, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler, Boolean)
+  fullName: Extensions.Validate(XElement, XmlSchemaObject, XmlSchemaSet, ValidationEventHandler, Boolean)
 - uid: System.Xml.Schema.Extensions.GetSchemaInfo*
   parent: System.Xml.Schema.Extensions
   isExternal: false
   name: GetSchemaInfo
   nameWithType: Extensions.GetSchemaInfo
-  fullName: System.Xml.Schema.Extensions.GetSchemaInfo
+  fullName: Extensions.GetSchemaInfo
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -711,8 +712,9 @@ references:
   isExternal: false
   name: Validate
   nameWithType: Extensions.Validate
-  fullName: System.Xml.Schema.Extensions.Validate
+  fullName: Extensions.Validate
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

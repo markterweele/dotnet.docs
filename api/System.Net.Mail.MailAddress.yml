@@ -23,11 +23,12 @@ items:
   assemblies:
   - System
   - netstandard
+  - System.Net.Mail
   namespace: System.Net.Mail
   summary: Represents the address of an electronic mail sender or recipient.
-  remarks: "The <xref:System.Net.Mail.MailAddress> class is used by the <xref:System.Net.Mail.SmtpClient> and <xref:System.Net.Mail.MailMessage> classes to store address information for e-mail messages.  \n  \n A mail address is composed of a <xref:System.Net.Mail.MailAddress.User%2A> name, <xref:System.Net.Mail.MailAddress.Host%2A> name and optionally, a <xref:System.Net.Mail.MailAddress.DisplayName%2A>. The <xref:System.Net.Mail.MailAddress.DisplayName%2A> can contain non-ASCII characters if you encode them.  \n  \n The <xref:System.Net.Mail.MailAddress> class supports the following mail address formats:  \n  \n-   A simple address format of `user@host`. If a <xref:System.Net.Mail.MailAddress.DisplayName%2A> is not set, this is the mail address format generated.  \n  \n-   A standard quoted display name format of `\"display name\" <user@host>`. If a <xref:System.Net.Mail.MailAddress.DisplayName%2A> is set, this is the format generated.  \n  \n-   Angle brackets are added around the <xref:System.Net.Mail.MailAddress.User%2A> name, <xref:System.Net.Mail.MailAddress.Host%2A> name for `\"display name\" user@host` if these are not included.  \n  \n-   Quotes are added around the <xref:System.Net.Mail.MailAddress.DisplayName%2A> for `display name <user@host>`, if these are not included.  \n  \n-   Unicode characters are supported in the <xref:System.Net.Mail.MailAddress.DisplayName%2A>. property.  \n  \n-   A <xref:System.Net.Mail.MailAddress.User%2A> name with quotes. For example, `\"user name\"@host`.  \n  \n-   Consecutive and trailing dots in user names. For example, `user...name..@host`.  \n  \n-   Bracketed domain literals. For example, `<user@[my domain]>`.  \n  \n-   Comments. For example, `(comment)\"display name\"(comment)<(comment)user(comment)@(comment)domain(comment)>(comment)`. Comments are removed before transmission.  \n  \n A comma is used to separate elements in a list of mail addresses. As a result, a comma should not be used in unquoted display names in a list. The following mail addresses would be allowed  \n  \n `\"John, Doe\" <user@host>, \"Bob, Smith\" <user2@host>`  \n  \n The following mail address would not be allowed:  \n  \n `John, Doe <user@host>, Bob, Smith <user2@host>`  \n  \n Quotes can be embedded in a quoted string, but they must be escaped. The following mail addresses would be allowed  \n  \n `\"John \\\"Jr\\\" Doe\" <user@host>`  \n  \n `\"\\\"John \\\\\\\"Jr\\\\\\\" Doe\\\" <user@host>\"`  \n  \n The following mail address would not be allowed:  \n  \n `\"John \"Jr\" Doe\" <user@host>`  \n  \n When the username is note quoted, all text between the start of the string (or comma) and the address are considered part of the <xref:System.Net.Mail.MailAddress.DisplayName%2A>, including comments.  \n  \n -- Example: (non comment) unquoted display (non comment) name (non comment) \\<user@host>  \n  \n Although the <xref:System.Net.Mail.MailAddress> class accepts a mail address as valid, other mail servers may not accept the mail address.  \n  \n The <xref:System.Net.Mail.MailAddress> class does not support the following mail address formats:  \n  \n Mixed quoted and unquoted display names. For example, `display \"name\" <user@host>`  \n  \n Groups, as defined in RFC 2822 Section 3.4 published by the IETF.  \n  \n The obsolete user name formats of `\"user\".\"name\"@host, user.\"name\"@host` or `\"user\".name@host`"
+  remarks: "The <xref:System.Net.Mail.MailAddress> class is used by the <xref:System.Net.Mail.SmtpClient> and <xref:System.Net.Mail.MailMessage> classes to store address information for e-mail messages.  \n  \nA mail address is composed of a <xref:System.Net.Mail.MailAddress.User%2A> name, <xref:System.Net.Mail.MailAddress.Host%2A> name and optionally, a <xref:System.Net.Mail.MailAddress.DisplayName%2A>. The <xref:System.Net.Mail.MailAddress.DisplayName%2A> can contain non-ASCII characters if you encode them.  \n  \nThe <xref:System.Net.Mail.MailAddress> class supports the following mail address formats:  \n  \n-   A simple address format of `user@host`. If a <xref:System.Net.Mail.MailAddress.DisplayName%2A> is not set, this is the mail address format generated.  \n  \n-   A standard quoted display name format of `\"display name\" <user@host>`. If a <xref:System.Net.Mail.MailAddress.DisplayName%2A> is set, this is the format generated.  \n  \n-   Angle brackets are added around the <xref:System.Net.Mail.MailAddress.User%2A> name, <xref:System.Net.Mail.MailAddress.Host%2A> name for `\"display name\" user@host` if these are not included.  \n  \n-   Quotes are added around the <xref:System.Net.Mail.MailAddress.DisplayName%2A> for `display name <user@host>`, if these are not included.  \n  \n-   Unicode characters are supported in the <xref:System.Net.Mail.MailAddress.DisplayName%2A> property.  \n  \n-   A <xref:System.Net.Mail.MailAddress.User%2A> name with quotes. For example, `\"user name\"@host`.  \n  \n-   Consecutive and trailing dots in user names. For example, `user...name..@host`.  \n  \n-   Bracketed domain literals. For example, `<user@[my domain]>`.  \n  \n-   Comments. For example, `(comment)\"display name\"(comment)<(comment)user(comment)@(comment)domain(comment)>(comment)`. Comments are removed before transmission.  \n  \nA comma is used to separate elements in a list of mail addresses. As a result, a comma should not be used in unquoted display names in a list. The following mail addresses would be allowed:\n  \n`\"John, Doe\" <user@host>, \"Bob, Smith\" <user2@host>`  \n  \nThe following mail address would not be allowed:  \n  \n`John, Doe <user@host>, Bob, Smith <user2@host>`  \n  \nQuotes can be embedded in a quoted string, but they must be escaped. The following mail addresses would be allowed:\n  \n`\"John \\\"Jr\\\" Doe\" <user@host>`  \n  \n`\"\\\"John \\\\\\\"Jr\\\\\\\" Doe\\\" <user@host>\"`  \n  \nThe following mail address would not be allowed:  \n  \n`\"John \"Jr\" Doe\" <user@host>`  \n  \nWhen the username is note quoted, all text between the start of the string (or comma) and the address are considered part of the <xref:System.Net.Mail.MailAddress.DisplayName%2A>, including comments. For example:\n  \n`(non comment) unquoted display (non comment) name (non comment) <user@host>`\n  \nAlthough the <xref:System.Net.Mail.MailAddress> class accepts a mail address as valid, other mail servers may not accept the mail address.  \n  \nThe <xref:System.Net.Mail.MailAddress> class does not support the following mail address formats:  \n  \n- Mixed quoted and unquoted display names. For example, `display \"name\" <user@host>`.\n  \n- Groups, as defined in RFC 2822 Section 3.4 published by the IETF.  \n  \n- The obsolete user name formats of `\"user\".\"name\"@host`, `user.\"name\"@host` or `\"user\".name@host`."
   example:
-  - "The following code example demonstrates sending an e-mail message by using the <xref:System.Net.Mail.SmtpClient>, <xref:System.Net.Mail.MailAddress>, and <xref:System.Net.Mail.MailMessage> classes.  \n  \n [!code-cpp[NclMailSync#10](~/samples/snippets/cpp/VS_Snippets_Remoting/NCLMailSync/CPP/NclMailSync.cpp#10)]\n [!code-csharp[NclMailSync#10](~/samples/snippets/csharp/VS_Snippets_Remoting/NCLMailSync/CS/mail.cs#10)]"
+  - "The following code example demonstrates sending an e-mail message by using the <xref:System.Net.Mail.SmtpClient>, <xref:System.Net.Mail.MailAddress>, and <xref:System.Net.Mail.MailMessage> classes.  \n  \n[!code-cpp[NclMailSync#10](~/samples/snippets/cpp/VS_Snippets_Remoting/NCLMailSync/CPP/NclMailSync.cpp#10)]\n[!code-csharp[NclMailSync#10](~/samples/snippets/csharp/VS_Snippets_Remoting/NCLMailSync/CS/mail.cs#10)]"
   syntax:
     content: public class MailAddress
   inheritance:
@@ -39,6 +40,7 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -51,6 +53,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -63,8 +66,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Mail/MailAddress.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Mail.MailAddress.#ctor(System.String)
   commentId: M:System.Net.Mail.MailAddress.#ctor(System.String)
   id: '#ctor(System.String)'
@@ -73,11 +74,12 @@ items:
   - csharp
   name: MailAddress(String)
   nameWithType: MailAddress.MailAddress(String)
-  fullName: System.Net.Mail.MailAddress.MailAddress(String)
+  fullName: MailAddress.MailAddress(String)
   type: Constructor
   assemblies:
   - System
   - netstandard
+  - System.Net.Mail
   namespace: System.Net.Mail
   summary: Initializes a new instance of the <xref href="System.Net.Mail.MailAddress"></xref> class using the specified address.
   remarks: "The `address` parameter can contain a display name and the associated e-mail address if you enclose the address in angle brackets. For example:  \n  \n `\"Tom Smith <tsmith@contoso.com>\"`  \n  \n White space is permitted between the display name and the angle brackets.  \n  \n The following table shows the property values for a <xref:System.Net.Mail.MailAddress> object constructed using the preceding example address.  \n  \n|Property|Value|  \n|--------------|-----------|  \n|<xref:System.Net.Mail.MailAddress.DisplayName%2A>|`\"Tom Smith\"`|  \n|<xref:System.Net.Mail.MailAddress.Host%2A>|`\"contoso.com\"`|  \n|<xref:System.Net.Mail.MailAddress.User%2A>|`\"tsmith\"`|  \n|<xref:System.Net.Mail.MailAddress.Address%2A>|`\"tsmith@contoso.com\"`|"
@@ -101,6 +103,7 @@ items:
     commentId: T:System.FormatException
     description: <code>address</code> is not in a recognized format.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -113,6 +116,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -125,8 +129,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Mail/MailAddress.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Mail.MailAddress.#ctor(System.String,System.String)
   commentId: M:System.Net.Mail.MailAddress.#ctor(System.String,System.String)
   id: '#ctor(System.String,System.String)'
@@ -135,11 +137,12 @@ items:
   - csharp
   name: MailAddress(String, String)
   nameWithType: MailAddress.MailAddress(String, String)
-  fullName: System.Net.Mail.MailAddress.MailAddress(String, String)
+  fullName: MailAddress.MailAddress(String, String)
   type: Constructor
   assemblies:
   - System
   - netstandard
+  - System.Net.Mail
   namespace: System.Net.Mail
   summary: Initializes a new instance of the <xref href="System.Net.Mail.MailAddress"></xref> class using the specified address and display name.
   remarks: "Leading and trailing white space in the display name is preserved.  \n  \n If `displayName` contains non-ASCII characters, the iso-8859-1 character set is used for the `displayName` encoding. Encoding non-ASCII characters is discussed in RFC 1522, which is available at [http://www.ietf.org](http://www.ietf.org).  \n  \n If `address` contains a display name, and `displayName` is not `null` and is not equal to <xref:System.String?displayProperty=fullName>, `displayName` overrides the value specified in `address`."
@@ -166,6 +169,7 @@ items:
     commentId: T:System.FormatException
     description: "<code>address</code> is not in a recognized format.  \n  \n -or-  \n  \n <code>address</code> contains non-ASCII characters."
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -178,6 +182,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -190,8 +195,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Mail/MailAddress.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Mail.MailAddress.#ctor(System.String,System.String,System.Text.Encoding)
   commentId: M:System.Net.Mail.MailAddress.#ctor(System.String,System.String,System.Text.Encoding)
   id: '#ctor(System.String,System.String,System.Text.Encoding)'
@@ -200,11 +203,12 @@ items:
   - csharp
   name: MailAddress(String, String, Encoding)
   nameWithType: MailAddress.MailAddress(String, String, Encoding)
-  fullName: System.Net.Mail.MailAddress.MailAddress(String, String, Encoding)
+  fullName: MailAddress.MailAddress(String, String, Encoding)
   type: Constructor
   assemblies:
   - System
   - netstandard
+  - System.Net.Mail
   namespace: System.Net.Mail
   summary: Initializes a new instance of the <xref href="System.Net.Mail.MailAddress"></xref> class using the specified address, display name, and encoding.
   remarks: "Leading and trailing white space in the display name is preserved.  \n  \n If `address` contains a display name, and `displayName` is not `null` and is not equal to <xref:System.String?displayProperty=fullName>, `displayName` overrides the value specified in `address`.  \n  \n The <xref:System.Net.Mail.MailAddress.%23ctor%2A> method does not check if the `displayName` parameter is valid. This method removes surrounding quotes not displayed by the <xref:System.Net.Mail.MailAddress.DisplayName%2A> property. Quotes will be added before transmission, except where <xref:System.Text.Encoding.ASCII%2A> or <xref:System.Text.Encoding.Unicode%2A> is specified in the `displayNameEncoding` parameter. The encoding specified in the `displayNameEncoding` parameter will be applied to the <xref:System.Net.Mail.MailAddress.DisplayName%2A> property before transmission <xref:System.Text.Encoding.ASCII%2A> or <xref:System.Text.Encoding.Unicode%2A> is specified in the `displayNameEncoding` parameter. <xref:System.Text.Encoding.UTF8%2A> is the default encoding if none is specified.  \n  \n For more information on supported mail address formats, see <xref:System.Net.Mail.MailAddress>."
@@ -239,6 +243,7 @@ items:
   attributes:
   - type: System.MonoTODO
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -251,6 +256,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -263,8 +269,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Mail/MailAddress.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Mail.MailAddress.Address
   commentId: P:System.Net.Mail.MailAddress.Address
   id: Address
@@ -273,11 +277,12 @@ items:
   - csharp
   name: Address
   nameWithType: MailAddress.Address
-  fullName: System.Net.Mail.MailAddress.Address
+  fullName: MailAddress.Address
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.Net.Mail
   namespace: System.Net.Mail
   summary: Gets the e-mail address specified when this instance was created.
   remarks: The value returned by this property does not include the <xref:System.Net.Mail.MailAddress.DisplayName%2A> information.
@@ -291,6 +296,7 @@ items:
   overload: System.Net.Mail.MailAddress.Address*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -303,6 +309,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -315,8 +322,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Mail/MailAddress.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Mail.MailAddress.DisplayName
   commentId: P:System.Net.Mail.MailAddress.DisplayName
   id: DisplayName
@@ -325,11 +330,12 @@ items:
   - csharp
   name: DisplayName
   nameWithType: MailAddress.DisplayName
-  fullName: System.Net.Mail.MailAddress.DisplayName
+  fullName: MailAddress.DisplayName
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.Net.Mail
   namespace: System.Net.Mail
   summary: Gets the display name composed from the display name and address information specified when this instance was created.
   remarks: "Display names that contain non-ASCII characters are returned in human-readable form. Use the <xref:System.Net.Mail.MailAddress.ToString%2A> method to get the encoded form of the <xref:System.Net.Mail.MailAddress.DisplayName%2A>.  \n  \n Some software programs that are used to read e-mail display the <xref:System.Net.Mail.MailAddress.DisplayName%2A> property value instead of, or in addition to, the e-mail address."
@@ -343,6 +349,7 @@ items:
   overload: System.Net.Mail.MailAddress.DisplayName*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -355,6 +362,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -367,8 +375,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Mail/MailAddress.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Mail.MailAddress.Equals(System.Object)
   commentId: M:System.Net.Mail.MailAddress.Equals(System.Object)
   id: Equals(System.Object)
@@ -377,11 +383,12 @@ items:
   - csharp
   name: Equals(Object)
   nameWithType: MailAddress.Equals(Object)
-  fullName: System.Net.Mail.MailAddress.Equals(Object)
+  fullName: MailAddress.Equals(Object)
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Mail
   namespace: System.Net.Mail
   summary: Compares two mail addresses.
   syntax:
@@ -396,6 +403,7 @@ items:
   overload: System.Net.Mail.MailAddress.Equals*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -408,6 +416,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -420,8 +429,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Mail/MailAddress.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Mail.MailAddress.GetHashCode
   commentId: M:System.Net.Mail.MailAddress.GetHashCode
   id: GetHashCode
@@ -430,11 +437,12 @@ items:
   - csharp
   name: GetHashCode()
   nameWithType: MailAddress.GetHashCode()
-  fullName: System.Net.Mail.MailAddress.GetHashCode()
+  fullName: MailAddress.GetHashCode()
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Mail
   namespace: System.Net.Mail
   summary: Returns a hash value for a mail address.
   remarks: The <xref:System.Net.Mail.MailAddress.GetHashCode%2A> method returns a hash code of the mail address. This value can be used as a key in hash tables.
@@ -447,6 +455,7 @@ items:
   overload: System.Net.Mail.MailAddress.GetHashCode*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -459,6 +468,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -471,8 +481,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Mail/MailAddress.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Mail.MailAddress.Host
   commentId: P:System.Net.Mail.MailAddress.Host
   id: Host
@@ -481,11 +489,12 @@ items:
   - csharp
   name: Host
   nameWithType: MailAddress.Host
-  fullName: System.Net.Mail.MailAddress.Host
+  fullName: MailAddress.Host
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.Net.Mail
   namespace: System.Net.Mail
   summary: Gets the host portion of the address specified when this instance was created.
   remarks: In a typical e-mail address, the host string includes all information following the "`@`" sign. For example, in `"tsmith@contoso.com"`, the host is `"contoso.com"`.
@@ -499,6 +508,7 @@ items:
   overload: System.Net.Mail.MailAddress.Host*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -511,6 +521,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -523,8 +534,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Mail/MailAddress.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Mail.MailAddress.ToString
   commentId: M:System.Net.Mail.MailAddress.ToString
   id: ToString
@@ -533,11 +542,12 @@ items:
   - csharp
   name: ToString()
   nameWithType: MailAddress.ToString()
-  fullName: System.Net.Mail.MailAddress.ToString()
+  fullName: MailAddress.ToString()
   type: Method
   assemblies:
   - System
   - netstandard
+  - System.Net.Mail
   namespace: System.Net.Mail
   summary: Returns a string representation of this instance.
   remarks: "The string returned by this method is not necessarily identical to the string specified when the instance was created. If the <xref:System.Net.Mail.MailAddress.DisplayName%2A> property is not `null` and not equal to <xref:System.String.Empty?displayProperty=fullName> (\"\"), <xref:System.Net.Mail.MailAddress.ToString%2A> returns a string composed using the following syntax:  \n  \n <xref:System.Net.Mail.MailAddress.DisplayName%2A> \\<<xref:System.Net.Mail.MailAddress.User%2A>@<xref:System.Net.Mail.MailAddress.Host%2A>>  \n  \n If <xref:System.Net.Mail.MailAddress.DisplayName%2A> is `null` or is equal to <xref:System.String.Empty?displayProperty=fullName>, <xref:System.Net.Mail.MailAddress.ToString%2A> returns the value of the <xref:System.Net.Mail.MailAddress.Address%2A> property."
@@ -552,6 +562,7 @@ items:
   overload: System.Net.Mail.MailAddress.ToString*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -564,6 +575,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -576,8 +588,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Mail/MailAddress.xml
-  ms.author: bobdel
-  manager: markl
 - uid: System.Net.Mail.MailAddress.User
   commentId: P:System.Net.Mail.MailAddress.User
   id: User
@@ -586,11 +596,12 @@ items:
   - csharp
   name: User
   nameWithType: MailAddress.User
-  fullName: System.Net.Mail.MailAddress.User
+  fullName: MailAddress.User
   type: Property
   assemblies:
   - System
   - netstandard
+  - System.Net.Mail
   namespace: System.Net.Mail
   summary: Gets the user information from the address specified when this instance was created.
   remarks: In a typical e-mail address, the user string includes all information preceding the "`@`" sign. For example, in `"tsmith@contoso.com"`, the user is `"tsmith"`.
@@ -604,6 +615,7 @@ items:
   overload: System.Net.Mail.MailAddress.User*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -616,6 +628,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -628,8 +641,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Net.Mail/MailAddress.xml
-  ms.author: bobdel
-  manager: markl
 references:
 - uid: System.Object
   parent: System
@@ -660,7 +671,7 @@ references:
   isExternal: false
   name: MailAddress(String)
   nameWithType: MailAddress.MailAddress(String)
-  fullName: System.Net.Mail.MailAddress.MailAddress(String)
+  fullName: MailAddress.MailAddress(String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -672,13 +683,13 @@ references:
   isExternal: false
   name: MailAddress(String, String)
   nameWithType: MailAddress.MailAddress(String, String)
-  fullName: System.Net.Mail.MailAddress.MailAddress(String, String)
+  fullName: MailAddress.MailAddress(String, String)
 - uid: System.Net.Mail.MailAddress.#ctor(System.String,System.String,System.Text.Encoding)
   parent: System.Net.Mail.MailAddress
   isExternal: false
   name: MailAddress(String, String, Encoding)
   nameWithType: MailAddress.MailAddress(String, String, Encoding)
-  fullName: System.Net.Mail.MailAddress.MailAddress(String, String, Encoding)
+  fullName: MailAddress.MailAddress(String, String, Encoding)
 - uid: System.Text.Encoding
   parent: System.Text
   isExternal: false
@@ -690,19 +701,19 @@ references:
   isExternal: false
   name: Address
   nameWithType: MailAddress.Address
-  fullName: System.Net.Mail.MailAddress.Address
+  fullName: MailAddress.Address
 - uid: System.Net.Mail.MailAddress.DisplayName
   parent: System.Net.Mail.MailAddress
   isExternal: false
   name: DisplayName
   nameWithType: MailAddress.DisplayName
-  fullName: System.Net.Mail.MailAddress.DisplayName
+  fullName: MailAddress.DisplayName
 - uid: System.Net.Mail.MailAddress.Equals(System.Object)
   parent: System.Net.Mail.MailAddress
   isExternal: false
   name: Equals(Object)
   nameWithType: MailAddress.Equals(Object)
-  fullName: System.Net.Mail.MailAddress.Equals(Object)
+  fullName: MailAddress.Equals(Object)
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -714,7 +725,7 @@ references:
   isExternal: false
   name: GetHashCode()
   nameWithType: MailAddress.GetHashCode()
-  fullName: System.Net.Mail.MailAddress.GetHashCode()
+  fullName: MailAddress.GetHashCode()
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -726,26 +737,27 @@ references:
   isExternal: false
   name: Host
   nameWithType: MailAddress.Host
-  fullName: System.Net.Mail.MailAddress.Host
+  fullName: MailAddress.Host
 - uid: System.Net.Mail.MailAddress.ToString
   parent: System.Net.Mail.MailAddress
   isExternal: false
   name: ToString()
   nameWithType: MailAddress.ToString()
-  fullName: System.Net.Mail.MailAddress.ToString()
+  fullName: MailAddress.ToString()
 - uid: System.Net.Mail.MailAddress.User
   parent: System.Net.Mail.MailAddress
   isExternal: false
   name: User
   nameWithType: MailAddress.User
-  fullName: System.Net.Mail.MailAddress.User
+  fullName: MailAddress.User
 - uid: System.Net.Mail.MailAddress.#ctor*
   parent: System.Net.Mail.MailAddress
   isExternal: false
   name: MailAddress
   nameWithType: MailAddress.MailAddress
-  fullName: System.Net.Mail.MailAddress.MailAddress
+  fullName: MailAddress.MailAddress
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -763,8 +775,9 @@ references:
   isExternal: false
   name: Address
   nameWithType: MailAddress.Address
-  fullName: System.Net.Mail.MailAddress.Address
+  fullName: MailAddress.Address
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -782,8 +795,9 @@ references:
   isExternal: false
   name: DisplayName
   nameWithType: MailAddress.DisplayName
-  fullName: System.Net.Mail.MailAddress.DisplayName
+  fullName: MailAddress.DisplayName
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -801,8 +815,9 @@ references:
   isExternal: false
   name: Equals
   nameWithType: MailAddress.Equals
-  fullName: System.Net.Mail.MailAddress.Equals
+  fullName: MailAddress.Equals
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -820,8 +835,9 @@ references:
   isExternal: false
   name: GetHashCode
   nameWithType: MailAddress.GetHashCode
-  fullName: System.Net.Mail.MailAddress.GetHashCode
+  fullName: MailAddress.GetHashCode
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -839,8 +855,9 @@ references:
   isExternal: false
   name: Host
   nameWithType: MailAddress.Host
-  fullName: System.Net.Mail.MailAddress.Host
+  fullName: MailAddress.Host
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -858,8 +875,9 @@ references:
   isExternal: false
   name: ToString
   nameWithType: MailAddress.ToString
-  fullName: System.Net.Mail.MailAddress.ToString
+  fullName: MailAddress.ToString
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -877,8 +895,9 @@ references:
   isExternal: false
   name: User
   nameWithType: MailAddress.User
-  fullName: System.Net.Mail.MailAddress.User
+  fullName: MailAddress.User
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

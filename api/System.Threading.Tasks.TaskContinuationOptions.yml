@@ -29,6 +29,7 @@ items:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Specifies the behavior for a task that is created by using the <xref href="System.Threading.Tasks.Task.ContinueWith(System.Action{System.Threading.Tasks.Task},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)"></xref> or <xref href="System.Threading.Tasks.Task`1.ContinueWith(System.Action{System.Threading.Tasks.Task{`0}},System.Threading.Tasks.TaskContinuationOptions)"></xref> method.
   syntax:
@@ -44,7 +45,8 @@ items:
   - type: System.FlagsAttribute
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -64,7 +66,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -83,9 +86,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskContinuationOptions.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskContinuationOptions.AttachedToParent
   commentId: F:System.Threading.Tasks.TaskContinuationOptions.AttachedToParent
   id: AttachedToParent
@@ -94,12 +94,13 @@ items:
   - csharp
   name: AttachedToParent
   nameWithType: TaskContinuationOptions.AttachedToParent
-  fullName: System.Threading.Tasks.TaskContinuationOptions.AttachedToParent
+  fullName: TaskContinuationOptions.AttachedToParent
   type: Field
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: "Specifies that the continuation, if it is a child task, is attached to a parent in the task hierarchy. The continuation can be a child task only if its antecedent is also a child task. By default, a child task (that is, an inner task created by an outer task) executes independently of its parent. You can use the <xref href=\"System.Threading.Tasks.TaskContinuationOptions.AttachedToParent\"></xref> option so that the parent and child tasks are synchronized.  \n  \n Note that if a parent task is configured with the <xref href=\"System.Threading.Tasks.TaskCreationOptions.DenyChildAttach\"></xref> option, the <xref href=\"System.Threading.Tasks.TaskCreationOptions.AttachedToParent\"></xref> option in the child task has no effect, and the child task will execute as a detached child task.  \n  \n For more information, see [Attached and Detached Child Tasks](~/docs/standard/parallel-programming/attached-and-detached-child-tasks.md)."
   syntax:
@@ -110,7 +111,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -130,7 +132,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -157,12 +160,13 @@ items:
   - csharp
   name: DenyChildAttach
   nameWithType: TaskContinuationOptions.DenyChildAttach
-  fullName: System.Threading.Tasks.TaskContinuationOptions.DenyChildAttach
+  fullName: TaskContinuationOptions.DenyChildAttach
   type: Field
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Specifies that any child task (that is, any nested inner task created by this continuation) that is created with the <xref href="System.Threading.Tasks.TaskCreationOptions.AttachedToParent"></xref> option and attempts to execute as an attached child task will not be able to attach to the parent task and will execute instead as a detached child task. For more information, see [Attached and Detached Child Tasks](~/docs/standard/parallel-programming/attached-and-detached-child-tasks.md).
   syntax:
@@ -173,7 +177,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -193,7 +198,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -220,12 +226,13 @@ items:
   - csharp
   name: ExecuteSynchronously
   nameWithType: TaskContinuationOptions.ExecuteSynchronously
-  fullName: System.Threading.Tasks.TaskContinuationOptions.ExecuteSynchronously
+  fullName: TaskContinuationOptions.ExecuteSynchronously
   type: Field
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: "Specifies that the continuation task should be executed synchronously. With this option specified, the continuation runs on the same thread that causes the antecedent task to transition into its final state. If the antecedent is already complete when the continuation is created, the continuation will run on the thread that creates the continuation. If the antecedent's <xref href=\"System.Threading.CancellationTokenSource\"></xref> is disposed in a `finally` block (`Finally` in Visual Basic), a continuation with this option will run in that `finally` block. Only very short-running continuations should be executed synchronously.  \n  \n Because the task executes synchronously, there is no need to call a method such as <xref href=\"System.Threading.Tasks.Task.Wait\"></xref> to ensure that the calling thread waits for the task to complete."
   syntax:
@@ -236,7 +243,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -256,7 +264,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -283,12 +292,13 @@ items:
   - csharp
   name: HideScheduler
   nameWithType: TaskContinuationOptions.HideScheduler
-  fullName: System.Threading.Tasks.TaskContinuationOptions.HideScheduler
+  fullName: TaskContinuationOptions.HideScheduler
   type: Field
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Specifies that tasks created by the continuation by calling methods such as <xref href="System.Threading.Tasks.Task.Run(System.Action)"></xref> or <xref href="System.Threading.Tasks.Task.ContinueWith(System.Action{System.Threading.Tasks.Task})"></xref> see the default scheduler (<xref href="System.Threading.Tasks.TaskScheduler.Default"></xref>) rather than the scheduler on which this continuation is running as the current scheduler.
   syntax:
@@ -299,7 +309,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -319,7 +330,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -346,12 +358,13 @@ items:
   - csharp
   name: LazyCancellation
   nameWithType: TaskContinuationOptions.LazyCancellation
-  fullName: System.Threading.Tasks.TaskContinuationOptions.LazyCancellation
+  fullName: TaskContinuationOptions.LazyCancellation
   type: Field
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: In the case of continuation cancellation, prevents completion of the continuation until the antecedent has completed.
   syntax:
@@ -362,7 +375,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -382,7 +396,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -409,12 +424,13 @@ items:
   - csharp
   name: LongRunning
   nameWithType: TaskContinuationOptions.LongRunning
-  fullName: System.Threading.Tasks.TaskContinuationOptions.LongRunning
+  fullName: TaskContinuationOptions.LongRunning
   type: Field
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Specifies that a continuation will be a long-running, course-grained operation. It provides a hint to the <xref href="System.Threading.Tasks.TaskScheduler"></xref> that oversubscription may be warranted.
   syntax:
@@ -425,7 +441,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -445,7 +462,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -472,12 +490,13 @@ items:
   - csharp
   name: None
   nameWithType: TaskContinuationOptions.None
-  fullName: System.Threading.Tasks.TaskContinuationOptions.None
+  fullName: TaskContinuationOptions.None
   type: Field
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: When no continuation options are specified, specifies that default behavior should be used when executing a continuation. The continuation runs asynchronously when the antecedent task completes, regardless of the antecedent's final <xref href="System.Threading.Tasks.Task.Status"></xref> property value. It the continuation is a child task, it is created as a detached nested task.
   syntax:
@@ -488,7 +507,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -508,7 +528,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -535,12 +556,13 @@ items:
   - csharp
   name: NotOnCanceled
   nameWithType: TaskContinuationOptions.NotOnCanceled
-  fullName: System.Threading.Tasks.TaskContinuationOptions.NotOnCanceled
+  fullName: TaskContinuationOptions.NotOnCanceled
   type: Field
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Specifies that the continuation task should not be scheduled if its antecedent was canceled. An antecedent is canceled if its <xref href="System.Threading.Tasks.Task.Status"></xref> property upon completion is <xref href="System.Threading.Tasks.TaskStatus.Canceled"></xref>. This option is not valid for multi-task continuations.
   syntax:
@@ -551,7 +573,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -571,7 +594,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -598,12 +622,13 @@ items:
   - csharp
   name: NotOnFaulted
   nameWithType: TaskContinuationOptions.NotOnFaulted
-  fullName: System.Threading.Tasks.TaskContinuationOptions.NotOnFaulted
+  fullName: TaskContinuationOptions.NotOnFaulted
   type: Field
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Specifies that the continuation task should not be scheduled if its antecedent threw an unhandled exception. An antecedent throws an unhandled exception if its <xref href="System.Threading.Tasks.Task.Status"></xref> property upon completion is <xref href="System.Threading.Tasks.TaskStatus.Faulted"></xref>. This option is not valid for multi-task continuations.
   syntax:
@@ -614,7 +639,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -634,7 +660,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -661,12 +688,13 @@ items:
   - csharp
   name: NotOnRanToCompletion
   nameWithType: TaskContinuationOptions.NotOnRanToCompletion
-  fullName: System.Threading.Tasks.TaskContinuationOptions.NotOnRanToCompletion
+  fullName: TaskContinuationOptions.NotOnRanToCompletion
   type: Field
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Specifies that the continuation task should not be scheduled if its antecedent ran to completion. An antecedent runs to completion if its <xref href="System.Threading.Tasks.Task.Status"></xref> property upon completion is <xref href="System.Threading.Tasks.TaskStatus.RanToCompletion"></xref>. This option is not valid for multi-task continuations.
   syntax:
@@ -677,7 +705,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -697,7 +726,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -724,12 +754,13 @@ items:
   - csharp
   name: OnlyOnCanceled
   nameWithType: TaskContinuationOptions.OnlyOnCanceled
-  fullName: System.Threading.Tasks.TaskContinuationOptions.OnlyOnCanceled
+  fullName: TaskContinuationOptions.OnlyOnCanceled
   type: Field
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Specifies that the continuation should be scheduled only if its antecedent was canceled.  An antecedent is canceled if its <xref href="System.Threading.Tasks.Task.Status"></xref> property upon completion is <xref href="System.Threading.Tasks.TaskStatus.Canceled"></xref>. This option is not valid for multi-task continuations.
   syntax:
@@ -740,7 +771,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -760,7 +792,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -787,12 +820,13 @@ items:
   - csharp
   name: OnlyOnFaulted
   nameWithType: TaskContinuationOptions.OnlyOnFaulted
-  fullName: System.Threading.Tasks.TaskContinuationOptions.OnlyOnFaulted
+  fullName: TaskContinuationOptions.OnlyOnFaulted
   type: Field
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: "Specifies that the continuation task should be scheduled only if its antecedent threw an unhandled exception. An antecedent throws an unhandled exception if its <xref href=\"System.Threading.Tasks.Task.Status\"></xref> property upon completion is <xref href=\"System.Threading.Tasks.TaskStatus.Faulted\"></xref>.  \n  \n The <xref href=\"System.Threading.Tasks.TaskContinuationOptions.OnlyOnFaulted\"></xref> option guarantees that the <xref href=\"System.Threading.Tasks.Task.Exception\"></xref> property in the antecedent is not `null`. You can use that property to catch the exception and see which exception caused the task to fault. If you do not access the <xref href=\"System.Threading.Tasks.Task.Exception\"></xref> property, the exception is unhandled. Also, if you attempt to access the <xref href=\"System.Threading.Tasks.Task`1.Result\"></xref> property of a task that has been canceled or has faulted, a new exception is thrown.  \n  \n This option is not valid for multi-task continuations."
   syntax:
@@ -803,7 +837,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -823,7 +858,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -850,12 +886,13 @@ items:
   - csharp
   name: OnlyOnRanToCompletion
   nameWithType: TaskContinuationOptions.OnlyOnRanToCompletion
-  fullName: System.Threading.Tasks.TaskContinuationOptions.OnlyOnRanToCompletion
+  fullName: TaskContinuationOptions.OnlyOnRanToCompletion
   type: Field
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Specifies that the continuation should be scheduled only if its antecedent ran to completion. An antecedent runs to completion if its <xref href="System.Threading.Tasks.Task.Status"></xref> property upon completion is <xref href="System.Threading.Tasks.TaskStatus.RanToCompletion"></xref>. This option is not valid for multi-task continuations.
   syntax:
@@ -866,7 +903,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -886,7 +924,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -913,12 +952,13 @@ items:
   - csharp
   name: PreferFairness
   nameWithType: TaskContinuationOptions.PreferFairness
-  fullName: System.Threading.Tasks.TaskContinuationOptions.PreferFairness
+  fullName: TaskContinuationOptions.PreferFairness
   type: Field
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: A hint to a <xref href="System.Threading.Tasks.TaskScheduler"></xref> to schedule task in the order in which they were scheduled, so that tasks scheduled sooner are more likely to run sooner, and tasks scheduled later are more likely to run later.
   syntax:
@@ -929,7 +969,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -949,7 +990,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -976,12 +1018,13 @@ items:
   - csharp
   name: RunContinuationsAsynchronously
   nameWithType: TaskContinuationOptions.RunContinuationsAsynchronously
-  fullName: System.Threading.Tasks.TaskContinuationOptions.RunContinuationsAsynchronously
+  fullName: TaskContinuationOptions.RunContinuationsAsynchronously
   type: Field
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Specifies that the continuation task should be run asynchronously.  This option has precedence over <xref href="System.Threading.Tasks.TaskContinuationOptions.ExecuteSynchronously"></xref>.
   syntax:
@@ -992,7 +1035,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.6
@@ -1006,7 +1050,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.6.1
   - netframework-4.6.2
   - netframework-4.6
@@ -1031,7 +1076,7 @@ references:
   isExternal: false
   name: AttachedToParent
   nameWithType: TaskContinuationOptions.AttachedToParent
-  fullName: System.Threading.Tasks.TaskContinuationOptions.AttachedToParent
+  fullName: TaskContinuationOptions.AttachedToParent
 - uid: System.Threading.Tasks.TaskContinuationOptions
   parent: System.Threading.Tasks
   isExternal: false
@@ -1043,82 +1088,82 @@ references:
   isExternal: false
   name: DenyChildAttach
   nameWithType: TaskContinuationOptions.DenyChildAttach
-  fullName: System.Threading.Tasks.TaskContinuationOptions.DenyChildAttach
+  fullName: TaskContinuationOptions.DenyChildAttach
 - uid: System.Threading.Tasks.TaskContinuationOptions.ExecuteSynchronously
   parent: System.Threading.Tasks.TaskContinuationOptions
   isExternal: false
   name: ExecuteSynchronously
   nameWithType: TaskContinuationOptions.ExecuteSynchronously
-  fullName: System.Threading.Tasks.TaskContinuationOptions.ExecuteSynchronously
+  fullName: TaskContinuationOptions.ExecuteSynchronously
 - uid: System.Threading.Tasks.TaskContinuationOptions.HideScheduler
   parent: System.Threading.Tasks.TaskContinuationOptions
   isExternal: false
   name: HideScheduler
   nameWithType: TaskContinuationOptions.HideScheduler
-  fullName: System.Threading.Tasks.TaskContinuationOptions.HideScheduler
+  fullName: TaskContinuationOptions.HideScheduler
 - uid: System.Threading.Tasks.TaskContinuationOptions.LazyCancellation
   parent: System.Threading.Tasks.TaskContinuationOptions
   isExternal: false
   name: LazyCancellation
   nameWithType: TaskContinuationOptions.LazyCancellation
-  fullName: System.Threading.Tasks.TaskContinuationOptions.LazyCancellation
+  fullName: TaskContinuationOptions.LazyCancellation
 - uid: System.Threading.Tasks.TaskContinuationOptions.LongRunning
   parent: System.Threading.Tasks.TaskContinuationOptions
   isExternal: false
   name: LongRunning
   nameWithType: TaskContinuationOptions.LongRunning
-  fullName: System.Threading.Tasks.TaskContinuationOptions.LongRunning
+  fullName: TaskContinuationOptions.LongRunning
 - uid: System.Threading.Tasks.TaskContinuationOptions.None
   parent: System.Threading.Tasks.TaskContinuationOptions
   isExternal: false
   name: None
   nameWithType: TaskContinuationOptions.None
-  fullName: System.Threading.Tasks.TaskContinuationOptions.None
+  fullName: TaskContinuationOptions.None
 - uid: System.Threading.Tasks.TaskContinuationOptions.NotOnCanceled
   parent: System.Threading.Tasks.TaskContinuationOptions
   isExternal: false
   name: NotOnCanceled
   nameWithType: TaskContinuationOptions.NotOnCanceled
-  fullName: System.Threading.Tasks.TaskContinuationOptions.NotOnCanceled
+  fullName: TaskContinuationOptions.NotOnCanceled
 - uid: System.Threading.Tasks.TaskContinuationOptions.NotOnFaulted
   parent: System.Threading.Tasks.TaskContinuationOptions
   isExternal: false
   name: NotOnFaulted
   nameWithType: TaskContinuationOptions.NotOnFaulted
-  fullName: System.Threading.Tasks.TaskContinuationOptions.NotOnFaulted
+  fullName: TaskContinuationOptions.NotOnFaulted
 - uid: System.Threading.Tasks.TaskContinuationOptions.NotOnRanToCompletion
   parent: System.Threading.Tasks.TaskContinuationOptions
   isExternal: false
   name: NotOnRanToCompletion
   nameWithType: TaskContinuationOptions.NotOnRanToCompletion
-  fullName: System.Threading.Tasks.TaskContinuationOptions.NotOnRanToCompletion
+  fullName: TaskContinuationOptions.NotOnRanToCompletion
 - uid: System.Threading.Tasks.TaskContinuationOptions.OnlyOnCanceled
   parent: System.Threading.Tasks.TaskContinuationOptions
   isExternal: false
   name: OnlyOnCanceled
   nameWithType: TaskContinuationOptions.OnlyOnCanceled
-  fullName: System.Threading.Tasks.TaskContinuationOptions.OnlyOnCanceled
+  fullName: TaskContinuationOptions.OnlyOnCanceled
 - uid: System.Threading.Tasks.TaskContinuationOptions.OnlyOnFaulted
   parent: System.Threading.Tasks.TaskContinuationOptions
   isExternal: false
   name: OnlyOnFaulted
   nameWithType: TaskContinuationOptions.OnlyOnFaulted
-  fullName: System.Threading.Tasks.TaskContinuationOptions.OnlyOnFaulted
+  fullName: TaskContinuationOptions.OnlyOnFaulted
 - uid: System.Threading.Tasks.TaskContinuationOptions.OnlyOnRanToCompletion
   parent: System.Threading.Tasks.TaskContinuationOptions
   isExternal: false
   name: OnlyOnRanToCompletion
   nameWithType: TaskContinuationOptions.OnlyOnRanToCompletion
-  fullName: System.Threading.Tasks.TaskContinuationOptions.OnlyOnRanToCompletion
+  fullName: TaskContinuationOptions.OnlyOnRanToCompletion
 - uid: System.Threading.Tasks.TaskContinuationOptions.PreferFairness
   parent: System.Threading.Tasks.TaskContinuationOptions
   isExternal: false
   name: PreferFairness
   nameWithType: TaskContinuationOptions.PreferFairness
-  fullName: System.Threading.Tasks.TaskContinuationOptions.PreferFairness
+  fullName: TaskContinuationOptions.PreferFairness
 - uid: System.Threading.Tasks.TaskContinuationOptions.RunContinuationsAsynchronously
   parent: System.Threading.Tasks.TaskContinuationOptions
   isExternal: false
   name: RunContinuationsAsynchronously
   nameWithType: TaskContinuationOptions.RunContinuationsAsynchronously
-  fullName: System.Threading.Tasks.TaskContinuationOptions.RunContinuationsAsynchronously
+  fullName: TaskContinuationOptions.RunContinuationsAsynchronously

@@ -5,10 +5,22 @@ items:
   id: TripleDESCryptoServiceProvider
   children:
   - System.Security.Cryptography.TripleDESCryptoServiceProvider.#ctor
+  - System.Security.Cryptography.TripleDESCryptoServiceProvider.BlockSize
+  - System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateDecryptor
   - System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateDecryptor(System.Byte[],System.Byte[])
+  - System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateEncryptor
   - System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateEncryptor(System.Byte[],System.Byte[])
+  - System.Security.Cryptography.TripleDESCryptoServiceProvider.Dispose(System.Boolean)
+  - System.Security.Cryptography.TripleDESCryptoServiceProvider.FeedbackSize
   - System.Security.Cryptography.TripleDESCryptoServiceProvider.GenerateIV
   - System.Security.Cryptography.TripleDESCryptoServiceProvider.GenerateKey
+  - System.Security.Cryptography.TripleDESCryptoServiceProvider.IV
+  - System.Security.Cryptography.TripleDESCryptoServiceProvider.Key
+  - System.Security.Cryptography.TripleDESCryptoServiceProvider.KeySize
+  - System.Security.Cryptography.TripleDESCryptoServiceProvider.LegalBlockSizes
+  - System.Security.Cryptography.TripleDESCryptoServiceProvider.LegalKeySizes
+  - System.Security.Cryptography.TripleDESCryptoServiceProvider.Mode
+  - System.Security.Cryptography.TripleDESCryptoServiceProvider.Padding
   langs:
   - csharp
   name: TripleDESCryptoServiceProvider
@@ -18,6 +30,7 @@ items:
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Defines a wrapper object to access the cryptographic service provider (CSP) version of the <xref href="System.Security.Cryptography.TripleDES"></xref> algorithm. This class cannot be inherited.
   remarks: "This algorithm supports key lengths from 128 bits to 192 bits in increments of 64 bits.  \n  \n> [!NOTE]\n>  A newer symmetric encryption algorithm, Advanced Encryption Standard (AES), is available. Consider using the <xref:System.Security.Cryptography.AesCryptoServiceProvider> class instead of the <xref:System.Security.Cryptography.TripleDESCryptoServiceProvider> class. Use <xref:System.Security.Cryptography.TripleDESCryptoServiceProvider> only for compatibility with legacy applications and data."
@@ -41,36 +54,25 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
-  - System.Security.Cryptography.SymmetricAlgorithm.BlockSize
   - System.Security.Cryptography.SymmetricAlgorithm.BlockSizeValue
   - System.Security.Cryptography.SymmetricAlgorithm.Clear
-  - System.Security.Cryptography.SymmetricAlgorithm.CreateDecryptor
-  - System.Security.Cryptography.SymmetricAlgorithm.CreateEncryptor
   - System.Security.Cryptography.SymmetricAlgorithm.Dispose
-  - System.Security.Cryptography.SymmetricAlgorithm.Dispose(System.Boolean)
-  - System.Security.Cryptography.SymmetricAlgorithm.FeedbackSize
   - System.Security.Cryptography.SymmetricAlgorithm.FeedbackSizeValue
-  - System.Security.Cryptography.SymmetricAlgorithm.IV
   - System.Security.Cryptography.SymmetricAlgorithm.IVValue
-  - System.Security.Cryptography.SymmetricAlgorithm.KeySize
   - System.Security.Cryptography.SymmetricAlgorithm.KeySizeValue
   - System.Security.Cryptography.SymmetricAlgorithm.KeyValue
   - System.Security.Cryptography.SymmetricAlgorithm.LegalBlockSizesValue
   - System.Security.Cryptography.SymmetricAlgorithm.LegalKeySizesValue
-  - System.Security.Cryptography.SymmetricAlgorithm.Mode
   - System.Security.Cryptography.SymmetricAlgorithm.ModeValue
-  - System.Security.Cryptography.SymmetricAlgorithm.Padding
   - System.Security.Cryptography.SymmetricAlgorithm.PaddingValue
   - System.Security.Cryptography.SymmetricAlgorithm.ValidKeySize(System.Int32)
   - System.Security.Cryptography.TripleDES.Create
   - System.Security.Cryptography.TripleDES.Create(System.String)
   - System.Security.Cryptography.TripleDES.IsWeakKey(System.Byte[])
-  - System.Security.Cryptography.TripleDES.Key
-  - System.Security.Cryptography.TripleDES.LegalBlockSizes
-  - System.Security.Cryptography.TripleDES.LegalKeySizes
   attributes:
   - type: System.Runtime.InteropServices.ComVisibleAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -83,6 +85,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -95,9 +98,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.#ctor
   commentId: M:System.Security.Cryptography.TripleDESCryptoServiceProvider.#ctor
   id: '#ctor'
@@ -106,11 +106,12 @@ items:
   - csharp
   name: TripleDESCryptoServiceProvider()
   nameWithType: TripleDESCryptoServiceProvider.TripleDESCryptoServiceProvider()
-  fullName: System.Security.Cryptography.TripleDESCryptoServiceProvider.TripleDESCryptoServiceProvider()
+  fullName: TripleDESCryptoServiceProvider.TripleDESCryptoServiceProvider()
   type: Constructor
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Initializes a new instance of the <xref href="System.Security.Cryptography.TripleDESCryptoServiceProvider"></xref> class.
   remarks: ''
@@ -126,6 +127,7 @@ items:
     description: The <xref href="System.Security.Cryptography.TripleDES"></xref> cryptographic service provider is not available.
   attributes: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -138,6 +140,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -150,9 +153,57 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.BlockSize
+  commentId: P:System.Security.Cryptography.TripleDESCryptoServiceProvider.BlockSize
+  id: BlockSize
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  langs:
+  - csharp
+  name: BlockSize
+  nameWithType: TripleDESCryptoServiceProvider.BlockSize
+  fullName: TripleDESCryptoServiceProvider.BlockSize
+  type: Property
+  assemblies:
+  - System.Security.Cryptography.Csp
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override int BlockSize { get; set; }
+    return:
+      type: System.Int32
+      description: To be added.
+  overload: System.Security.Cryptography.TripleDESCryptoServiceProvider.BlockSize*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateDecryptor
+  commentId: M:System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateDecryptor
+  id: CreateDecryptor
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  langs:
+  - csharp
+  name: CreateDecryptor()
+  nameWithType: TripleDESCryptoServiceProvider.CreateDecryptor()
+  fullName: TripleDESCryptoServiceProvider.CreateDecryptor()
+  type: Method
+  assemblies:
+  - System.Security.Cryptography.Csp
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override System.Security.Cryptography.ICryptoTransform CreateDecryptor ();
+    parameters: []
+    return:
+      type: System.Security.Cryptography.ICryptoTransform
+      description: To be added.
+  overload: System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateDecryptor*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
 - uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateDecryptor(System.Byte[],System.Byte[])
   commentId: M:System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateDecryptor(System.Byte[],System.Byte[])
   id: CreateDecryptor(System.Byte[],System.Byte[])
@@ -161,11 +212,12 @@ items:
   - csharp
   name: CreateDecryptor(Byte[], Byte[])
   nameWithType: TripleDESCryptoServiceProvider.CreateDecryptor(Byte[], Byte[])
-  fullName: System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateDecryptor(Byte[], Byte[])
+  fullName: TripleDESCryptoServiceProvider.CreateDecryptor(Byte[], Byte[])
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Creates a symmetric <xref href="System.Security.Cryptography.TripleDES"></xref> decryptor object with the specified key (<xref href="System.Security.Cryptography.SymmetricAlgorithm.Key"></xref>) and initialization vector (<xref href="System.Security.Cryptography.SymmetricAlgorithm.IV"></xref>).
   remarks: This method decrypts an encrypted message created using the <xref:System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateEncryptor%2A> overload with the same parameters.
@@ -190,6 +242,7 @@ items:
     description: "The value of the <xref href=\"System.Security.Cryptography.SymmetricAlgorithm.Mode\"></xref> property is <xref href=\"System.Security.Cryptography.CipherMode.OFB\"></xref>.  \n  \n -or-  \n  \n The value of the <xref href=\"System.Security.Cryptography.SymmetricAlgorithm.Mode\"></xref> property is <xref href=\"System.Security.Cryptography.CipherMode.CFB\"></xref> and the value of the <xref href=\"System.Security.Cryptography.SymmetricAlgorithm.FeedbackSize\"></xref> property is not 8.  \n  \n -or-  \n  \n An invalid key size was used.  \n  \n -or-  \n  \n The algorithm key size was not available."
   attributes: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -202,6 +255,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -214,9 +268,32 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateEncryptor
+  commentId: M:System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateEncryptor
+  id: CreateEncryptor
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  langs:
+  - csharp
+  name: CreateEncryptor()
+  nameWithType: TripleDESCryptoServiceProvider.CreateEncryptor()
+  fullName: TripleDESCryptoServiceProvider.CreateEncryptor()
+  type: Method
+  assemblies:
+  - System.Security.Cryptography.Csp
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override System.Security.Cryptography.ICryptoTransform CreateEncryptor ();
+    parameters: []
+    return:
+      type: System.Security.Cryptography.ICryptoTransform
+      description: To be added.
+  overload: System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateEncryptor*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
 - uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateEncryptor(System.Byte[],System.Byte[])
   commentId: M:System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateEncryptor(System.Byte[],System.Byte[])
   id: CreateEncryptor(System.Byte[],System.Byte[])
@@ -225,11 +302,12 @@ items:
   - csharp
   name: CreateEncryptor(Byte[], Byte[])
   nameWithType: TripleDESCryptoServiceProvider.CreateEncryptor(Byte[], Byte[])
-  fullName: System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateEncryptor(Byte[], Byte[])
+  fullName: TripleDESCryptoServiceProvider.CreateEncryptor(Byte[], Byte[])
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Creates a symmetric <xref href="System.Security.Cryptography.TripleDES"></xref> encryptor object with the specified key (<xref href="System.Security.Cryptography.SymmetricAlgorithm.Key"></xref>) and initialization vector (<xref href="System.Security.Cryptography.SymmetricAlgorithm.IV"></xref>).
   remarks: Use the <xref:System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateDecryptor%2A> overload with the same parameters to decrypt the result of this method.
@@ -254,6 +332,7 @@ items:
     description: "The value of the <xref href=\"System.Security.Cryptography.SymmetricAlgorithm.Mode\"></xref> property is <xref href=\"System.Security.Cryptography.CipherMode.OFB\"></xref>.  \n  \n -or-  \n  \n The value of the <xref href=\"System.Security.Cryptography.SymmetricAlgorithm.Mode\"></xref> property is <xref href=\"System.Security.Cryptography.CipherMode.CFB\"></xref> and the value of the <xref href=\"System.Security.Cryptography.SymmetricAlgorithm.FeedbackSize\"></xref> property is not 8.  \n  \n -or-  \n  \n An invalid key size was used.  \n  \n -or-  \n  \n The algorithm key size was not available."
   attributes: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -266,6 +345,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -278,9 +358,57 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.Dispose(System.Boolean)
+  commentId: M:System.Security.Cryptography.TripleDESCryptoServiceProvider.Dispose(System.Boolean)
+  id: Dispose(System.Boolean)
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  langs:
+  - csharp
+  name: Dispose(Boolean)
+  nameWithType: TripleDESCryptoServiceProvider.Dispose(Boolean)
+  fullName: TripleDESCryptoServiceProvider.Dispose(Boolean)
+  type: Method
+  assemblies:
+  - System.Security.Cryptography.Csp
+  namespace: System.Security.Cryptography
+  syntax:
+    content: protected override void Dispose (bool disposing);
+    parameters:
+    - id: disposing
+      type: System.Boolean
+      description: To be added.
+  overload: System.Security.Cryptography.TripleDESCryptoServiceProvider.Dispose*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.FeedbackSize
+  commentId: P:System.Security.Cryptography.TripleDESCryptoServiceProvider.FeedbackSize
+  id: FeedbackSize
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  langs:
+  - csharp
+  name: FeedbackSize
+  nameWithType: TripleDESCryptoServiceProvider.FeedbackSize
+  fullName: TripleDESCryptoServiceProvider.FeedbackSize
+  type: Property
+  assemblies:
+  - System.Security.Cryptography.Csp
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override int FeedbackSize { get; set; }
+    return:
+      type: System.Int32
+      description: To be added.
+  overload: System.Security.Cryptography.TripleDESCryptoServiceProvider.FeedbackSize*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
 - uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.GenerateIV
   commentId: M:System.Security.Cryptography.TripleDESCryptoServiceProvider.GenerateIV
   id: GenerateIV
@@ -289,11 +417,12 @@ items:
   - csharp
   name: GenerateIV()
   nameWithType: TripleDESCryptoServiceProvider.GenerateIV()
-  fullName: System.Security.Cryptography.TripleDESCryptoServiceProvider.GenerateIV()
+  fullName: TripleDESCryptoServiceProvider.GenerateIV()
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Generates a random initialization vector (<xref href="System.Security.Cryptography.SymmetricAlgorithm.IV"></xref>) to use for the algorithm.
   remarks: Use this method to generate a random initialization vector when none is specified.
@@ -303,6 +432,7 @@ items:
   overload: System.Security.Cryptography.TripleDESCryptoServiceProvider.GenerateIV*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -315,6 +445,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -327,9 +458,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.GenerateKey
   commentId: M:System.Security.Cryptography.TripleDESCryptoServiceProvider.GenerateKey
   id: GenerateKey
@@ -338,11 +466,12 @@ items:
   - csharp
   name: GenerateKey()
   nameWithType: TripleDESCryptoServiceProvider.GenerateKey()
-  fullName: System.Security.Cryptography.TripleDESCryptoServiceProvider.GenerateKey()
+  fullName: TripleDESCryptoServiceProvider.GenerateKey()
   type: Method
   assemblies:
   - mscorlib
   - netstandard
+  - System.Security.Cryptography.Csp
   namespace: System.Security.Cryptography
   summary: Generates a random <xref href="System.Security.Cryptography.SymmetricAlgorithm.Key"></xref> to be used for the algorithm.
   remarks: "Use this method to generate a random key when none is specified. This method will never return a weak key (see <xref:System.Security.Cryptography.TripleDES.IsWeakKey%2A>).  \n  \n This algorithm supports key lengths from 128 bits to 192 bits in increments of 64 bits."
@@ -352,6 +481,7 @@ items:
   overload: System.Security.Cryptography.TripleDESCryptoServiceProvider.GenerateKey*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -364,6 +494,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -376,9 +507,181 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.IV
+  commentId: P:System.Security.Cryptography.TripleDESCryptoServiceProvider.IV
+  id: IV
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  langs:
+  - csharp
+  name: IV
+  nameWithType: TripleDESCryptoServiceProvider.IV
+  fullName: TripleDESCryptoServiceProvider.IV
+  type: Property
+  assemblies:
+  - System.Security.Cryptography.Csp
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override byte[] IV { get; set; }
+    return:
+      type: System.Byte[]
+      description: To be added.
+  overload: System.Security.Cryptography.TripleDESCryptoServiceProvider.IV*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.Key
+  commentId: P:System.Security.Cryptography.TripleDESCryptoServiceProvider.Key
+  id: Key
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  langs:
+  - csharp
+  name: Key
+  nameWithType: TripleDESCryptoServiceProvider.Key
+  fullName: TripleDESCryptoServiceProvider.Key
+  type: Property
+  assemblies:
+  - System.Security.Cryptography.Csp
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override byte[] Key { get; set; }
+    return:
+      type: System.Byte[]
+      description: To be added.
+  overload: System.Security.Cryptography.TripleDESCryptoServiceProvider.Key*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.KeySize
+  commentId: P:System.Security.Cryptography.TripleDESCryptoServiceProvider.KeySize
+  id: KeySize
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  langs:
+  - csharp
+  name: KeySize
+  nameWithType: TripleDESCryptoServiceProvider.KeySize
+  fullName: TripleDESCryptoServiceProvider.KeySize
+  type: Property
+  assemblies:
+  - System.Security.Cryptography.Csp
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override int KeySize { get; set; }
+    return:
+      type: System.Int32
+      description: To be added.
+  overload: System.Security.Cryptography.TripleDESCryptoServiceProvider.KeySize*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.LegalBlockSizes
+  commentId: P:System.Security.Cryptography.TripleDESCryptoServiceProvider.LegalBlockSizes
+  id: LegalBlockSizes
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  langs:
+  - csharp
+  name: LegalBlockSizes
+  nameWithType: TripleDESCryptoServiceProvider.LegalBlockSizes
+  fullName: TripleDESCryptoServiceProvider.LegalBlockSizes
+  type: Property
+  assemblies:
+  - System.Security.Cryptography.Csp
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override System.Security.Cryptography.KeySizes[] LegalBlockSizes { get; }
+    return:
+      type: System.Security.Cryptography.KeySizes[]
+      description: To be added.
+  overload: System.Security.Cryptography.TripleDESCryptoServiceProvider.LegalBlockSizes*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.LegalKeySizes
+  commentId: P:System.Security.Cryptography.TripleDESCryptoServiceProvider.LegalKeySizes
+  id: LegalKeySizes
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  langs:
+  - csharp
+  name: LegalKeySizes
+  nameWithType: TripleDESCryptoServiceProvider.LegalKeySizes
+  fullName: TripleDESCryptoServiceProvider.LegalKeySizes
+  type: Property
+  assemblies:
+  - System.Security.Cryptography.Csp
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override System.Security.Cryptography.KeySizes[] LegalKeySizes { get; }
+    return:
+      type: System.Security.Cryptography.KeySizes[]
+      description: To be added.
+  overload: System.Security.Cryptography.TripleDESCryptoServiceProvider.LegalKeySizes*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.Mode
+  commentId: P:System.Security.Cryptography.TripleDESCryptoServiceProvider.Mode
+  id: Mode
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  langs:
+  - csharp
+  name: Mode
+  nameWithType: TripleDESCryptoServiceProvider.Mode
+  fullName: TripleDESCryptoServiceProvider.Mode
+  type: Property
+  assemblies:
+  - System.Security.Cryptography.Csp
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override System.Security.Cryptography.CipherMode Mode { get; set; }
+    return:
+      type: System.Security.Cryptography.CipherMode
+      description: To be added.
+  overload: System.Security.Cryptography.TripleDESCryptoServiceProvider.Mode*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.Padding
+  commentId: P:System.Security.Cryptography.TripleDESCryptoServiceProvider.Padding
+  id: Padding
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  langs:
+  - csharp
+  name: Padding
+  nameWithType: TripleDESCryptoServiceProvider.Padding
+  fullName: TripleDESCryptoServiceProvider.Padding
+  type: Property
+  assemblies:
+  - System.Security.Cryptography.Csp
+  namespace: System.Security.Cryptography
+  syntax:
+    content: public override System.Security.Cryptography.PaddingMode Padding { get; set; }
+    return:
+      type: System.Security.Cryptography.PaddingMode
+      description: To be added.
+  overload: System.Security.Cryptography.TripleDESCryptoServiceProvider.Padding*
+  exceptions: []
+  version:
+  - netcore-2.0
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
 references:
 - uid: System.Security.Cryptography.TripleDES
   parent: System.Security.Cryptography
@@ -397,19 +700,37 @@ references:
   isExternal: false
   name: TripleDESCryptoServiceProvider()
   nameWithType: TripleDESCryptoServiceProvider.TripleDESCryptoServiceProvider()
-  fullName: System.Security.Cryptography.TripleDESCryptoServiceProvider.TripleDESCryptoServiceProvider()
-- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateDecryptor(System.Byte[],System.Byte[])
+  fullName: TripleDESCryptoServiceProvider.TripleDESCryptoServiceProvider()
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.BlockSize
   parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
   isExternal: false
-  name: CreateDecryptor(Byte[], Byte[])
-  nameWithType: TripleDESCryptoServiceProvider.CreateDecryptor(Byte[], Byte[])
-  fullName: System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateDecryptor(Byte[], Byte[])
+  name: BlockSize
+  nameWithType: TripleDESCryptoServiceProvider.BlockSize
+  fullName: TripleDESCryptoServiceProvider.BlockSize
+- uid: System.Int32
+  parent: System
+  isExternal: false
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateDecryptor
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: CreateDecryptor()
+  nameWithType: TripleDESCryptoServiceProvider.CreateDecryptor()
+  fullName: TripleDESCryptoServiceProvider.CreateDecryptor()
 - uid: System.Security.Cryptography.ICryptoTransform
   parent: System.Security.Cryptography
   isExternal: false
   name: ICryptoTransform
   nameWithType: ICryptoTransform
   fullName: System.Security.Cryptography.ICryptoTransform
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateDecryptor(System.Byte[],System.Byte[])
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: CreateDecryptor(Byte[], Byte[])
+  nameWithType: TripleDESCryptoServiceProvider.CreateDecryptor(Byte[], Byte[])
+  fullName: TripleDESCryptoServiceProvider.CreateDecryptor(Byte[], Byte[])
 - uid: System.Byte
   name: Byte
   nameWithType: Byte
@@ -428,31 +749,128 @@ references:
   - name: '[]'
     nameWithType: '[]'
     fullName: '[]'
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateEncryptor
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: CreateEncryptor()
+  nameWithType: TripleDESCryptoServiceProvider.CreateEncryptor()
+  fullName: TripleDESCryptoServiceProvider.CreateEncryptor()
 - uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateEncryptor(System.Byte[],System.Byte[])
   parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
   isExternal: false
   name: CreateEncryptor(Byte[], Byte[])
   nameWithType: TripleDESCryptoServiceProvider.CreateEncryptor(Byte[], Byte[])
-  fullName: System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateEncryptor(Byte[], Byte[])
+  fullName: TripleDESCryptoServiceProvider.CreateEncryptor(Byte[], Byte[])
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.Dispose(System.Boolean)
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: Dispose(Boolean)
+  nameWithType: TripleDESCryptoServiceProvider.Dispose(Boolean)
+  fullName: TripleDESCryptoServiceProvider.Dispose(Boolean)
+- uid: System.Boolean
+  parent: System
+  isExternal: false
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.FeedbackSize
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: FeedbackSize
+  nameWithType: TripleDESCryptoServiceProvider.FeedbackSize
+  fullName: TripleDESCryptoServiceProvider.FeedbackSize
 - uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.GenerateIV
   parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
   isExternal: false
   name: GenerateIV()
   nameWithType: TripleDESCryptoServiceProvider.GenerateIV()
-  fullName: System.Security.Cryptography.TripleDESCryptoServiceProvider.GenerateIV()
+  fullName: TripleDESCryptoServiceProvider.GenerateIV()
 - uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.GenerateKey
   parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
   isExternal: false
   name: GenerateKey()
   nameWithType: TripleDESCryptoServiceProvider.GenerateKey()
-  fullName: System.Security.Cryptography.TripleDESCryptoServiceProvider.GenerateKey()
+  fullName: TripleDESCryptoServiceProvider.GenerateKey()
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.IV
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: IV
+  nameWithType: TripleDESCryptoServiceProvider.IV
+  fullName: TripleDESCryptoServiceProvider.IV
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.Key
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: Key
+  nameWithType: TripleDESCryptoServiceProvider.Key
+  fullName: TripleDESCryptoServiceProvider.Key
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.KeySize
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: KeySize
+  nameWithType: TripleDESCryptoServiceProvider.KeySize
+  fullName: TripleDESCryptoServiceProvider.KeySize
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.LegalBlockSizes
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: LegalBlockSizes
+  nameWithType: TripleDESCryptoServiceProvider.LegalBlockSizes
+  fullName: TripleDESCryptoServiceProvider.LegalBlockSizes
+- uid: System.Security.Cryptography.KeySizes
+  name: KeySizes
+  nameWithType: KeySizes
+  fullName: System.Security.Cryptography.KeySizes
+- uid: System.Security.Cryptography.KeySizes[]
+  parent: System.Security.Cryptography
+  isExternal: false
+  name: KeySizes[]
+  nameWithType: KeySizes[]
+  fullName: System.Security.Cryptography.KeySizes[]
+  spec.csharp:
+  - uid: System.Security.Cryptography.KeySizes
+    name: KeySizes
+    nameWithType: KeySizes
+    fullName: System.Security.Cryptography.KeySizes
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.LegalKeySizes
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: LegalKeySizes
+  nameWithType: TripleDESCryptoServiceProvider.LegalKeySizes
+  fullName: TripleDESCryptoServiceProvider.LegalKeySizes
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.Mode
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: Mode
+  nameWithType: TripleDESCryptoServiceProvider.Mode
+  fullName: TripleDESCryptoServiceProvider.Mode
+- uid: System.Security.Cryptography.CipherMode
+  parent: System.Security.Cryptography
+  isExternal: false
+  name: CipherMode
+  nameWithType: CipherMode
+  fullName: System.Security.Cryptography.CipherMode
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.Padding
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: Padding
+  nameWithType: TripleDESCryptoServiceProvider.Padding
+  fullName: TripleDESCryptoServiceProvider.Padding
+- uid: System.Security.Cryptography.PaddingMode
+  parent: System.Security.Cryptography
+  isExternal: false
+  name: PaddingMode
+  nameWithType: PaddingMode
+  fullName: System.Security.Cryptography.PaddingMode
 - uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.#ctor*
   parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
   isExternal: false
   name: TripleDESCryptoServiceProvider
   nameWithType: TripleDESCryptoServiceProvider.TripleDESCryptoServiceProvider
-  fullName: System.Security.Cryptography.TripleDESCryptoServiceProvider.TripleDESCryptoServiceProvider
+  fullName: TripleDESCryptoServiceProvider.TripleDESCryptoServiceProvider
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -465,13 +883,23 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.BlockSize*
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: BlockSize
+  nameWithType: TripleDESCryptoServiceProvider.BlockSize
+  fullName: TripleDESCryptoServiceProvider.BlockSize
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
 - uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateDecryptor*
   parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
   isExternal: false
   name: CreateDecryptor
   nameWithType: TripleDESCryptoServiceProvider.CreateDecryptor
-  fullName: System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateDecryptor
+  fullName: TripleDESCryptoServiceProvider.CreateDecryptor
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -489,8 +917,9 @@ references:
   isExternal: false
   name: CreateEncryptor
   nameWithType: TripleDESCryptoServiceProvider.CreateEncryptor
-  fullName: System.Security.Cryptography.TripleDESCryptoServiceProvider.CreateEncryptor
+  fullName: TripleDESCryptoServiceProvider.CreateEncryptor
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -503,13 +932,32 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.Dispose*
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: Dispose
+  nameWithType: TripleDESCryptoServiceProvider.Dispose
+  fullName: TripleDESCryptoServiceProvider.Dispose
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.FeedbackSize*
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: FeedbackSize
+  nameWithType: TripleDESCryptoServiceProvider.FeedbackSize
+  fullName: TripleDESCryptoServiceProvider.FeedbackSize
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
 - uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.GenerateIV*
   parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
   isExternal: false
   name: GenerateIV
   nameWithType: TripleDESCryptoServiceProvider.GenerateIV
-  fullName: System.Security.Cryptography.TripleDESCryptoServiceProvider.GenerateIV
+  fullName: TripleDESCryptoServiceProvider.GenerateIV
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -527,8 +975,9 @@ references:
   isExternal: false
   name: GenerateKey
   nameWithType: TripleDESCryptoServiceProvider.GenerateKey
-  fullName: System.Security.Cryptography.TripleDESCryptoServiceProvider.GenerateKey
+  fullName: TripleDESCryptoServiceProvider.GenerateKey
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -540,4 +989,67 @@ references:
   - xamarinandroid-7.1
   - xamarinios-10.8
   - xamarinmac-3.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.IV*
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: IV
+  nameWithType: TripleDESCryptoServiceProvider.IV
+  fullName: TripleDESCryptoServiceProvider.IV
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.Key*
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: Key
+  nameWithType: TripleDESCryptoServiceProvider.Key
+  fullName: TripleDESCryptoServiceProvider.Key
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.KeySize*
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: KeySize
+  nameWithType: TripleDESCryptoServiceProvider.KeySize
+  fullName: TripleDESCryptoServiceProvider.KeySize
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.LegalBlockSizes*
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: LegalBlockSizes
+  nameWithType: TripleDESCryptoServiceProvider.LegalBlockSizes
+  fullName: TripleDESCryptoServiceProvider.LegalBlockSizes
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.LegalKeySizes*
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: LegalKeySizes
+  nameWithType: TripleDESCryptoServiceProvider.LegalKeySizes
+  fullName: TripleDESCryptoServiceProvider.LegalKeySizes
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.Mode*
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: Mode
+  nameWithType: TripleDESCryptoServiceProvider.Mode
+  fullName: TripleDESCryptoServiceProvider.Mode
+  monikers:
+  - netcore-2.0
+  content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml
+- uid: System.Security.Cryptography.TripleDESCryptoServiceProvider.Padding*
+  parent: System.Security.Cryptography.TripleDESCryptoServiceProvider
+  isExternal: false
+  name: Padding
+  nameWithType: TripleDESCryptoServiceProvider.Padding
+  fullName: TripleDESCryptoServiceProvider.Padding
+  monikers:
+  - netcore-2.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Security.Cryptography/TripleDESCryptoServiceProvider.xml

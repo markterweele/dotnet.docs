@@ -16,12 +16,19 @@ items:
   assemblies:
   - Microsoft.Build.Framework
   namespace: Microsoft.Build.Framework
-  summary: Defines a task, which is a unit of executable code used by [!INCLUDE[vstecmsbuild](~/includes/vstecmsbuild-md.md)] to perform build operations.
+  summary: Defines a task, which is a unit of executable code used by MSBuild to perform build operations.
   remarks: All task classes must implement this interface to be recognized by the build engine. Instead of implenting this interface directly, you can also derive your class from the helper class, <xref:Microsoft.Build.Utilities.Task>, which provides default implementations of some <xref:Microsoft.Build.Framework.ITask> members.
   example:
   - "The following example shows the code from a complete task implementation.  \n  \n [!code-csharp[msbuild_MakeDirTask#1](~/samples/snippets/csharp/VS_Snippets_Misc/msbuild_MakeDirTask/CS/msbuild_MakeDirTask.cs#1)]"
   syntax:
     content: public interface ITask
+  derivedClasses:
+  - Microsoft.Build.Framework.ICancelableTask
+  - Microsoft.Build.Framework.IGeneratedTask
+  - Microsoft.Build.Utilities.AppDomainIsolatedTask
+  - Microsoft.Build.Utilities.Task
+  - System.Workflow.ComponentModel.Compiler.CompileWorkflowCleanupTask
+  - System.Workflow.ComponentModel.Compiler.CompileWorkflowTask
   implements: []
   version:
   - netframework-4.5.1
@@ -40,8 +47,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/Microsoft.Build.Framework/ITask.xml
-  ms.author: susanno
-  manager: douge
 - uid: Microsoft.Build.Framework.ITask.BuildEngine
   commentId: P:Microsoft.Build.Framework.ITask.BuildEngine
   id: BuildEngine
@@ -50,7 +55,7 @@ items:
   - csharp
   name: BuildEngine
   nameWithType: ITask.BuildEngine
-  fullName: Microsoft.Build.Framework.ITask.BuildEngine
+  fullName: ITask.BuildEngine
   type: Property
   assemblies:
   - Microsoft.Build.Framework
@@ -80,8 +85,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/Microsoft.Build.Framework/ITask.xml
-  ms.author: susanno
-  manager: douge
 - uid: Microsoft.Build.Framework.ITask.Execute
   commentId: M:Microsoft.Build.Framework.ITask.Execute
   id: Execute
@@ -90,7 +93,7 @@ items:
   - csharp
   name: Execute()
   nameWithType: ITask.Execute()
-  fullName: Microsoft.Build.Framework.ITask.Execute()
+  fullName: ITask.Execute()
   type: Method
   assemblies:
   - Microsoft.Build.Framework
@@ -122,8 +125,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/Microsoft.Build.Framework/ITask.xml
-  ms.author: susanno
-  manager: douge
 - uid: Microsoft.Build.Framework.ITask.HostObject
   commentId: P:Microsoft.Build.Framework.ITask.HostObject
   id: HostObject
@@ -132,7 +133,7 @@ items:
   - csharp
   name: HostObject
   nameWithType: ITask.HostObject
-  fullName: Microsoft.Build.Framework.ITask.HostObject
+  fullName: ITask.HostObject
   type: Property
   assemblies:
   - Microsoft.Build.Framework
@@ -163,15 +164,13 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/Microsoft.Build.Framework/ITask.xml
-  ms.author: susanno
-  manager: douge
 references:
 - uid: Microsoft.Build.Framework.ITask.BuildEngine
   parent: Microsoft.Build.Framework.ITask
   isExternal: false
   name: BuildEngine
   nameWithType: ITask.BuildEngine
-  fullName: Microsoft.Build.Framework.ITask.BuildEngine
+  fullName: ITask.BuildEngine
 - uid: Microsoft.Build.Framework.IBuildEngine
   parent: Microsoft.Build.Framework
   isExternal: false
@@ -183,7 +182,7 @@ references:
   isExternal: false
   name: Execute()
   nameWithType: ITask.Execute()
-  fullName: Microsoft.Build.Framework.ITask.Execute()
+  fullName: ITask.Execute()
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -195,7 +194,7 @@ references:
   isExternal: false
   name: HostObject
   nameWithType: ITask.HostObject
-  fullName: Microsoft.Build.Framework.ITask.HostObject
+  fullName: ITask.HostObject
 - uid: Microsoft.Build.Framework.ITaskHost
   parent: Microsoft.Build.Framework
   isExternal: false
@@ -207,7 +206,7 @@ references:
   isExternal: false
   name: BuildEngine
   nameWithType: ITask.BuildEngine
-  fullName: Microsoft.Build.Framework.ITask.BuildEngine
+  fullName: ITask.BuildEngine
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -222,7 +221,7 @@ references:
   isExternal: false
   name: Execute
   nameWithType: ITask.Execute
-  fullName: Microsoft.Build.Framework.ITask.Execute
+  fullName: ITask.Execute
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -237,7 +236,7 @@ references:
   isExternal: false
   name: HostObject
   nameWithType: ITask.HostObject
-  fullName: Microsoft.Build.Framework.ITask.HostObject
+  fullName: ITask.HostObject
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

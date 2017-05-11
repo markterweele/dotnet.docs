@@ -88,9 +88,10 @@ items:
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: "Represents a reader that provides fast, non-cached, forward-only access to XML data.  \n  \n Starting with the .NET Framework 2.0, we recommend that you use the <xref href=\"System.Xml.XmlReader\"></xref> class instead."
-  remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n <xref:System.Xml.XmlTextReader> provides forward-only, read-only access to a stream of XML data. The current node refers to the node on which the reader is positioned. The reader is advanced using any of the read methods and properties reflect the value of the current node.  \n  \n This class implements <xref:System.Xml.XmlReader> and conforms to the W3C Extensible Markup Language (XML) 1.0 and the Namespaces in XML recommendations. `XmlTextReader` provides the following functionality:  \n  \n-   Enforces the rules of well-formed XML.  \n  \n-   `XmlTextReader` does not provide data validation.  \n  \n-   Checks that `DocumentType` nodes are well-formed. `XmlTextReader` checks the DTD for well-formedness, but does not validate using the DTD.  \n  \n-   For nodes where <xref:System.Xml.XmlTextReader.NodeType%2A> is `XmlNodeType.EntityReference`, a single empty `EntityReference` node is returned (that is, the <xref:System.Xml.XmlTextReader.Value%2A> property is `String.Empty`).  \n  \n> [!NOTE]\n>  The actual declarations of entities in the DTD are called `Entity` nodes. When you refer to these nodes in your data, they are called `EntityReference` nodes.  \n  \n-   Does not expand default attributes.  \n  \n Because the `XmlTextReader` does not perform the extra checks required for data validation, it provides a fast well-formedness parser.  \n  \n To perform data validation, use a validating <xref:System.Xml.XmlReader>.  \n  \n To read XML data from an <xref:System.Xml.XmlDocument>, use <xref:System.Xml.XmlNodeReader>.  \n  \n `XmlTextReader` throws an <xref:System.Xml.XmlException> on XML parse errors. After an exception is thrown the state of the reader is not predictable. For example, the reported node type may be different than the actual node type of the current node. Use the <xref:System.Xml.XmlTextReader.ReadState%2A> property to check whether a reader is in error state.  \n  \n## Security Considerations  \n The following are things to consider when using the <xref:System.Xml.XmlTextReader> class.  \n  \n-   Exceptions thrown the <xref:System.Xml.XmlTextReader> can disclose path information that you do not want bubbled up to the application. Your applications must catch exceptions and process them appropriately.  \n  \n-   DTD processing is enabled by default. Disable DTD processing if you are concerned about Denial of Service issues or if you are dealing with untrusted sources. Set the <xref:System.Xml.XmlTextReader.DtdProcessing%2A> property to <xref:System.Xml.DtdProcessing> to disable DTD processing.  \n  \n     If you have DTD processing enabled, you can use the <xref:System.Xml.XmlSecureResolver> to restrict the resources that the <xref:System.Xml.XmlTextReader> can access. You can also design your application so that the XML processing is memory and time constrained. For example, configure time-out limits in your ASP.NET application.  \n  \n-   XML data can include references to external resources such as a DTD file. By default external resources are resolved using an <xref:System.Xml.XmlUrlResolver> object with no user credentials. You can secure this further by doing one of the following:  \n  \n    -   Restrict the resources that the <xref:System.Xml.XmlTextReader> can access by setting the <xref:System.Xml.XmlTextReader.XmlResolver%2A> property to an <xref:System.Xml.XmlSecureResolver> object.  \n  \n    -   Do not allow the <xref:System.Xml.XmlReader> to open any external resources by setting the <xref:System.Xml.XmlTextReader.XmlResolver%2A> property to `null`.  \n  \n-   XML data can contain a large number of attributes, namespace declarations, nested elements and so on that require a substantial amount of time to process. To limit the size of the input that is sent to the <xref:System.Xml.XmlTextReader>, create a custom IStream implementation and supply it the <xref:System.Xml.XmlTextReader>.  \n  \n-   The <xref:System.Xml.XmlReader.ReadValueChunk%2A> method can be used to handle large streams of data. This method reads a small number of characters at a time instead of allocating a single string for the whole value.  \n  \n-   By default general entities are not expanded. General entities are expanded when you call the <xref:System.Xml.XmlTextReader.ResolveEntity%2A> method."
+  remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n <xref:System.Xml.XmlTextReader> provides forward-only, read-only access to a stream of XML data. The current node refers to the node on which the reader is positioned. The reader is advanced using any of the read methods and properties reflect the value of the current node.  \n  \n This class implements <xref:System.Xml.XmlReader> and conforms to the W3C Extensible Markup Language (XML) 1.0 and the Namespaces in XML recommendations. `XmlTextReader` provides the following functionality:  \n  \n-   Enforces the rules of well-formed XML.  \n  \n-   `XmlTextReader` does not provide data validation.  \n  \n-   Checks that `DocumentType` nodes are well-formed. `XmlTextReader` checks the DTD for well-formedness, but does not validate using the DTD.  \n  \n-   For nodes where <xref:System.Xml.XmlTextReader.NodeType%2A> is `XmlNodeType.EntityReference`, a single empty `EntityReference` node is returned (that is, the <xref:System.Xml.XmlTextReader.Value%2A> property is `String.Empty`).  \n  \n> [!NOTE]\n>  The actual declarations of entities in the DTD are called `Entity` nodes. When you refer to these nodes in your data, they are called `EntityReference` nodes.  \n  \n-   Does not expand default attributes.  \n  \n Because the `XmlTextReader` does not perform the extra checks required for data validation, it provides a fast well-formedness parser.  \n  \n To perform data validation, use a validating <xref:System.Xml.XmlReader>.  \n  \n To read XML data from an <xref:System.Xml.XmlDocument>, use <xref:System.Xml.XmlNodeReader>.  \n  \n `XmlTextReader` throws an <xref:System.Xml.XmlException> on XML parse errors. After an exception is thrown the state of the reader is not predictable. For example, the reported node type may be different than the actual node type of the current node. Use the <xref:System.Xml.XmlTextReader.ReadState%2A> property to check whether a reader is in error state.  \n  \n## Security Considerations  \n The following are things to consider when using the <xref:System.Xml.XmlTextReader> class.  \n  \n-   Exceptions thrown the <xref:System.Xml.XmlTextReader> can disclose path information that you do not want bubbled up to the application. Your applications must catch exceptions and process them appropriately.  \n  \n-   DTD processing is enabled by default. Disable DTD processing if you are concerned about Denial of Service issues or if you are dealing with untrusted sources. Set the <xref:System.Xml.XmlTextReader.DtdProcessing%2A> property to <xref:System.Xml.DtdProcessing.Prohibit> to disable DTD processing.  \n  \n     If you have DTD processing enabled, you can use the <xref:System.Xml.XmlSecureResolver> to restrict the resources that the <xref:System.Xml.XmlTextReader> can access. You can also design your application so that the XML processing is memory and time constrained. For example, configure time-out limits in your ASP.NET application.  \n  \n-   XML data can include references to external resources such as a DTD file. By default external resources are resolved using an <xref:System.Xml.XmlUrlResolver> object with no user credentials. You can secure this further by doing one of the following:  \n  \n    -   Restrict the resources that the <xref:System.Xml.XmlTextReader> can access by setting the <xref:System.Xml.XmlTextReader.XmlResolver%2A> property to an <xref:System.Xml.XmlSecureResolver> object.  \n  \n    -   Do not allow the <xref:System.Xml.XmlReader> to open any external resources by setting the <xref:System.Xml.XmlTextReader.XmlResolver%2A> property to `null`.  \n  \n-   XML data can contain a large number of attributes, namespace declarations, nested elements and so on that require a substantial amount of time to process. To limit the size of the input that is sent to the <xref:System.Xml.XmlTextReader>, create a custom IStream implementation and supply it the <xref:System.Xml.XmlTextReader>.  \n  \n-   The <xref:System.Xml.XmlReader.ReadValueChunk%2A> method can be used to handle large streams of data. This method reads a small number of characters at a time instead of allocating a single string for the whole value.  \n  \n-   By default general entities are not expanded. General entities are expanded when you call the <xref:System.Xml.XmlTextReader.ResolveEntity%2A> method."
   syntax:
     content: 'public class XmlTextReader : System.Xml.XmlReader, System.Xml.IXmlLineInfo, System.Xml.IXmlNamespaceResolver'
   inheritance:
@@ -201,6 +202,7 @@ items:
   - System.Xml.XmlReader.ValueType
   attributes: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -213,6 +215,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -225,9 +228,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.#ctor
   commentId: M:System.Xml.XmlTextReader.#ctor
   id: '#ctor'
@@ -236,11 +236,12 @@ items:
   - csharp
   name: XmlTextReader()
   nameWithType: XmlTextReader.XmlTextReader()
-  fullName: System.Xml.XmlTextReader.XmlTextReader()
+  fullName: XmlTextReader.XmlTextReader()
   type: Constructor
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Initializes a new instance of the `XmlTextReader`.
   syntax:
@@ -249,6 +250,7 @@ items:
   overload: System.Xml.XmlTextReader.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -261,6 +263,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -273,9 +276,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.#ctor(System.String,System.Xml.XmlNodeType,System.Xml.XmlParserContext)
   commentId: M:System.Xml.XmlTextReader.#ctor(System.String,System.Xml.XmlNodeType,System.Xml.XmlParserContext)
   id: '#ctor(System.String,System.Xml.XmlNodeType,System.Xml.XmlParserContext)'
@@ -284,11 +284,12 @@ items:
   - csharp
   name: XmlTextReader(String, XmlNodeType, XmlParserContext)
   nameWithType: XmlTextReader.XmlTextReader(String, XmlNodeType, XmlParserContext)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(String, XmlNodeType, XmlParserContext)
+  fullName: XmlTextReader.XmlTextReader(String, XmlNodeType, XmlParserContext)
   type: Constructor
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Initializes a new instance of the <xref href="System.Xml.XmlTextReader"></xref> class with the specified string, <xref href="System.Xml.XmlNodeType"></xref>, and <xref href="System.Xml.XmlParserContext"></xref>.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This constructor parses the given string as a fragment of XML. If the XML fragment is an element or attribute, you can bypass the root level rules for well-formed XML documents. This constructor can handle strings returned from <xref:System.Xml.XmlReader.ReadInnerXml%2A>.  \n  \n The following table lists valid values for `fragType` and how the reader parses each of the different node types.  \n  \n|XmlNodeType|Fragment May Contain|  \n|-----------------|--------------------------|  \n|Element|Any valid element content (for example, any combination of elements, comments, processing instructions, CDATA sections, text, and entity references).<br /><br /> An XML declaration can also be supplied. This allows you to specify the encoding for the XML fragment, rather than having to set it on the <xref:System.Xml.XmlParserContext> object.|  \n|Attribute|The value of an attribute (the part inside the quotes).|  \n|Document|The contents of an entire XML document. This enforces document level rules.|"
@@ -315,6 +316,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: <code>xmlFragment</code> is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -327,6 +329,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -339,9 +342,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.#ctor(System.String,System.IO.TextReader,System.Xml.XmlNameTable)
   commentId: M:System.Xml.XmlTextReader.#ctor(System.String,System.IO.TextReader,System.Xml.XmlNameTable)
   id: '#ctor(System.String,System.IO.TextReader,System.Xml.XmlNameTable)'
@@ -350,11 +350,12 @@ items:
   - csharp
   name: XmlTextReader(String, TextReader, XmlNameTable)
   nameWithType: XmlTextReader.XmlTextReader(String, TextReader, XmlNameTable)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(String, TextReader, XmlNameTable)
+  fullName: XmlTextReader.XmlTextReader(String, TextReader, XmlNameTable)
   type: Constructor
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Initializes a new instance of the <xref href="System.Xml.XmlTextReader"></xref> class with the specified URL, <xref href="System.IO.TextReader"></xref> and <xref href="System.Xml.XmlNameTable"></xref>.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n It is assumed that the `TextReader` is already set to the correct encoding. This is used by clients that have already read some things from the stream in a multi-part MIME scenario."
@@ -376,6 +377,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: The <code>nt</code> value is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -388,6 +390,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -400,9 +403,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.#ctor(System.String,System.IO.Stream,System.Xml.XmlNameTable)
   commentId: M:System.Xml.XmlTextReader.#ctor(System.String,System.IO.Stream,System.Xml.XmlNameTable)
   id: '#ctor(System.String,System.IO.Stream,System.Xml.XmlNameTable)'
@@ -411,11 +411,12 @@ items:
   - csharp
   name: XmlTextReader(String, Stream, XmlNameTable)
   nameWithType: XmlTextReader.XmlTextReader(String, Stream, XmlNameTable)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(String, Stream, XmlNameTable)
+  fullName: XmlTextReader.XmlTextReader(String, Stream, XmlNameTable)
   type: Constructor
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Initializes a new instance of the <xref href="System.Xml.XmlTextReader"></xref> class with the specified URL, stream and <xref href="System.Xml.XmlNameTable"></xref>.
   remarks: >-
@@ -440,6 +441,7 @@ items:
     commentId: T:System.NullReferenceException
     description: The <code>input</code> or <code>nt</code> value is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -452,6 +454,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -464,9 +467,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.#ctor(System.IO.Stream,System.Xml.XmlNodeType,System.Xml.XmlParserContext)
   commentId: M:System.Xml.XmlTextReader.#ctor(System.IO.Stream,System.Xml.XmlNodeType,System.Xml.XmlParserContext)
   id: '#ctor(System.IO.Stream,System.Xml.XmlNodeType,System.Xml.XmlParserContext)'
@@ -475,11 +475,12 @@ items:
   - csharp
   name: XmlTextReader(Stream, XmlNodeType, XmlParserContext)
   nameWithType: XmlTextReader.XmlTextReader(Stream, XmlNodeType, XmlParserContext)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(Stream, XmlNodeType, XmlParserContext)
+  fullName: XmlTextReader.XmlTextReader(Stream, XmlNodeType, XmlParserContext)
   type: Constructor
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Initializes a new instance of the <xref href="System.Xml.XmlTextReader"></xref> class with the specified stream, <xref href="System.Xml.XmlNodeType"></xref>, and <xref href="System.Xml.XmlParserContext"></xref>.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This constructor parses the given string as a fragment of XML. If the XML fragment is an element or attribute, you can bypass the root level rules for well-formed XML documents.  \n  \n The following table lists valid values for `fragType`.  \n  \n|XmlNodeType|Fragment May Contain|  \n|-----------------|--------------------------|  \n|`Element`|Any valid element content (for example, any combination of elements, comments, processing instructions, CDATA sections, text, and entity references).<br /><br /> An XML declaration can also be supplied. This allows you to specify the encoding for the XML fragment, rather than having to set it on the <xref:System.Xml.XmlParserContext> object.|  \n|`Attribute`|The value of an attribute (the part inside the quotes).|  \n|`Document`|The contents of an entire XML document. This enforces document level rules.|  \n  \n The reader uses the following to determine the encoding of the stream.  \n  \n1.  Checks the <xref:System.Xml.XmlParserContext.Encoding%2A?displayProperty=fullName> property to determine the encoding.  \n  \n2.  If the `Encoding` property is `null`, the reader checks for a byte-order mark at the beginning of the stream.  \n  \n3.  If the `Encoding` property is `null`, and no byte-order mark is found, the reader assumes the stream is encoded in UTF-8."
@@ -504,6 +505,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: <code>xmlFragment</code> is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -516,6 +518,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -528,9 +531,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.#ctor(System.String,System.Xml.XmlNameTable)
   commentId: M:System.Xml.XmlTextReader.#ctor(System.String,System.Xml.XmlNameTable)
   id: '#ctor(System.String,System.Xml.XmlNameTable)'
@@ -539,11 +539,12 @@ items:
   - csharp
   name: XmlTextReader(String, XmlNameTable)
   nameWithType: XmlTextReader.XmlTextReader(String, XmlNameTable)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(String, XmlNameTable)
+  fullName: XmlTextReader.XmlTextReader(String, XmlNameTable)
   type: Constructor
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Initializes a new instance of the <xref href="System.Xml.XmlTextReader"></xref> class with the specified file and <xref href="System.Xml.XmlNameTable"></xref>.
   remarks: >-
@@ -580,6 +581,7 @@ items:
     commentId: T:System.UriFormatException
     description: <code>url</code> is not a valid URI.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -592,6 +594,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -604,9 +607,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.#ctor(System.String,System.IO.Stream)
   commentId: M:System.Xml.XmlTextReader.#ctor(System.String,System.IO.Stream)
   id: '#ctor(System.String,System.IO.Stream)'
@@ -615,11 +615,12 @@ items:
   - csharp
   name: XmlTextReader(String, Stream)
   nameWithType: XmlTextReader.XmlTextReader(String, Stream)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(String, Stream)
+  fullName: XmlTextReader.XmlTextReader(String, Stream)
   type: Constructor
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Initializes a new instance of the <xref href="System.Xml.XmlTextReader"></xref> class with the specified URL and stream.
   remarks: >-
@@ -641,6 +642,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: <code>input</code> is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -653,6 +655,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -665,9 +668,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.#ctor(System.String,System.IO.TextReader)
   commentId: M:System.Xml.XmlTextReader.#ctor(System.String,System.IO.TextReader)
   id: '#ctor(System.String,System.IO.TextReader)'
@@ -676,11 +676,12 @@ items:
   - csharp
   name: XmlTextReader(String, TextReader)
   nameWithType: XmlTextReader.XmlTextReader(String, TextReader)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(String, TextReader)
+  fullName: XmlTextReader.XmlTextReader(String, TextReader)
   type: Constructor
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Initializes a new instance of the <xref href="System.Xml.XmlTextReader"></xref> class with the specified URL and <xref href="System.IO.TextReader"></xref>.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n It is assumed that the `TextReader` is already set to the correct encoding. This is used by clients that have already read some things from the stream in a multi-part MIME scenario."
@@ -696,6 +697,7 @@ items:
   overload: System.Xml.XmlTextReader.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -708,6 +710,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -720,9 +723,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.#ctor(System.IO.Stream,System.Xml.XmlNameTable)
   commentId: M:System.Xml.XmlTextReader.#ctor(System.IO.Stream,System.Xml.XmlNameTable)
   id: '#ctor(System.IO.Stream,System.Xml.XmlNameTable)'
@@ -731,11 +731,12 @@ items:
   - csharp
   name: XmlTextReader(Stream, XmlNameTable)
   nameWithType: XmlTextReader.XmlTextReader(Stream, XmlNameTable)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(Stream, XmlNameTable)
+  fullName: XmlTextReader.XmlTextReader(Stream, XmlNameTable)
   type: Constructor
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Initializes a new instance of the <xref href="System.Xml.XmlTextReader"></xref> class with the specified stream and <xref href="System.Xml.XmlNameTable"></xref>.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n The <xref:System.Xml.XmlTextReader> decodes the stream using <xref:System.Text.Encoding?displayProperty=fullName>.  \n  \n If you specify a name table, this constructor uses the names defined already in that table."
@@ -754,6 +755,7 @@ items:
     commentId: T:System.NullReferenceException
     description: The <code>input</code> or <code>nt</code> value is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -766,6 +768,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -778,9 +781,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.#ctor(System.Xml.XmlNameTable)
   commentId: M:System.Xml.XmlTextReader.#ctor(System.Xml.XmlNameTable)
   id: '#ctor(System.Xml.XmlNameTable)'
@@ -789,11 +789,12 @@ items:
   - csharp
   name: XmlTextReader(XmlNameTable)
   nameWithType: XmlTextReader.XmlTextReader(XmlNameTable)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(XmlNameTable)
+  fullName: XmlTextReader.XmlTextReader(XmlNameTable)
   type: Constructor
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Initializes a new instance of the <xref href="System.Xml.XmlTextReader"></xref> class with the specified <xref href="System.Xml.XmlNameTable"></xref>.
   remarks: >-
@@ -809,6 +810,7 @@ items:
   overload: System.Xml.XmlTextReader.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -821,6 +823,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -833,9 +836,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.#ctor(System.String)
   commentId: M:System.Xml.XmlTextReader.#ctor(System.String)
   id: '#ctor(System.String)'
@@ -844,11 +844,12 @@ items:
   - csharp
   name: XmlTextReader(String)
   nameWithType: XmlTextReader.XmlTextReader(String)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(String)
+  fullName: XmlTextReader.XmlTextReader(String)
   type: Constructor
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Initializes a new instance of the <xref href="System.Xml.XmlTextReader"></xref> class with the specified file.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n If the file is located on a resource that requires access credentials, use the <xref:System.Xml.XmlTextReader.XmlResolver%2A> property to specify the necessary credentials.  \n  \n> [!NOTE]\n>  In version 1.1 of the [!INCLUDE[dnprdnshort](~/includes/dnprdnshort-md.md)], partially trusted code cannot set the `XmlResolver` property. The workaround is to create an <xref:System.Xml.XmlUrlResolver> with the necessary credentials, pass the URI to the <xref:System.Xml.XmlUrlResolver.GetEntity%2A?displayProperty=fullName> method, and then construct the `XmlTextReader` using the resulting <xref:System.IO.Stream> object. The workaround is described in the following C# code.  \n  \n```  \n// Create a resolver with the necessary credentials.  \nXmlUrlResolver resolver = new XmlUrlResolver();  \nNetworkCredential nc = new NetworkCredential(SecurelyStoredUserName, SecurelyStoredPassword, SecurelyStoredDomain);  \nresolver.Credentials = nc;   \n// Get a Stream object containing the XML file.  \nUri myUri = new Uri (\"http://myServer/data/books.xml\");  \nStream s=(Stream)resolver.GetEntity(myUri, null, typeof(Stream));  \n// Construct a reader using the Stream object.  \nXmlTextReader reader = new XmlTextReader(s);  \n```"
@@ -878,6 +879,7 @@ items:
     commentId: T:System.UriFormatException
     description: <code>url</code> is not a valid URI.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -890,6 +892,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -902,9 +905,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.#ctor(System.IO.TextReader)
   commentId: M:System.Xml.XmlTextReader.#ctor(System.IO.TextReader)
   id: '#ctor(System.IO.TextReader)'
@@ -913,11 +913,12 @@ items:
   - csharp
   name: XmlTextReader(TextReader)
   nameWithType: XmlTextReader.XmlTextReader(TextReader)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(TextReader)
+  fullName: XmlTextReader.XmlTextReader(TextReader)
   type: Constructor
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Initializes a new instance of the <xref href="System.Xml.XmlTextReader"></xref> class with the specified <xref href="System.IO.TextReader"></xref>.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n It is assumed that the `TextReader` is already set to the correct encoding. This is used by clients that have already read some things from the stream in a multi-part MIME scenario."
@@ -932,6 +933,7 @@ items:
   overload: System.Xml.XmlTextReader.#ctor*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -944,6 +946,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -956,9 +959,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.#ctor(System.IO.Stream)
   commentId: M:System.Xml.XmlTextReader.#ctor(System.IO.Stream)
   id: '#ctor(System.IO.Stream)'
@@ -967,11 +967,12 @@ items:
   - csharp
   name: XmlTextReader(Stream)
   nameWithType: XmlTextReader.XmlTextReader(Stream)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(Stream)
+  fullName: XmlTextReader.XmlTextReader(Stream)
   type: Constructor
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Initializes a new instance of the <xref href="System.Xml.XmlTextReader"></xref> class with the specified stream.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n The <xref:System.Xml.XmlTextReader> decodes the stream using <xref:System.Text.Encoding?displayProperty=fullName>."
@@ -987,6 +988,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: <code>input</code> is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -999,6 +1001,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1011,9 +1014,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.#ctor(System.IO.TextReader,System.Xml.XmlNameTable)
   commentId: M:System.Xml.XmlTextReader.#ctor(System.IO.TextReader,System.Xml.XmlNameTable)
   id: '#ctor(System.IO.TextReader,System.Xml.XmlNameTable)'
@@ -1022,11 +1022,12 @@ items:
   - csharp
   name: XmlTextReader(TextReader, XmlNameTable)
   nameWithType: XmlTextReader.XmlTextReader(TextReader, XmlNameTable)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(TextReader, XmlNameTable)
+  fullName: XmlTextReader.XmlTextReader(TextReader, XmlNameTable)
   type: Constructor
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Initializes a new instance of the <xref href="System.Xml.XmlTextReader"></xref> class with the specified <xref href="System.IO.TextReader"></xref> and <xref href="System.Xml.XmlNameTable"></xref>.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n It is assumed that the `TextReader` is already set to the correct encoding. This is used by clients that have already read some things from the stream in a multi-part MIME scenario."
@@ -1045,6 +1046,7 @@ items:
     commentId: T:System.NullReferenceException
     description: The <code>nt</code> value is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1057,6 +1059,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1069,9 +1072,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.AttributeCount
   commentId: P:System.Xml.XmlTextReader.AttributeCount
   id: AttributeCount
@@ -1080,11 +1080,12 @@ items:
   - csharp
   name: AttributeCount
   nameWithType: XmlTextReader.AttributeCount
-  fullName: System.Xml.XmlTextReader.AttributeCount
+  fullName: XmlTextReader.AttributeCount
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the number of attributes on the current node.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This property is relevant to `Element`, `DocumentType` and `XmlDeclaration` nodes only. (Other node types do not have attributes.)"
@@ -1098,6 +1099,7 @@ items:
   overload: System.Xml.XmlTextReader.AttributeCount*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1110,6 +1112,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1122,9 +1125,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.BaseURI
   commentId: P:System.Xml.XmlTextReader.BaseURI
   id: BaseURI
@@ -1133,11 +1133,12 @@ items:
   - csharp
   name: BaseURI
   nameWithType: XmlTextReader.BaseURI
-  fullName: System.Xml.XmlTextReader.BaseURI
+  fullName: XmlTextReader.BaseURI
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the base URI of the current node.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n A networked XML document is comprised of chunks of data aggregated using various W3C standard inclusion mechanisms and therefore contains nodes that come from different places. DTD entities are an example of this, but this is not limited to DTDs. The base URI tells you where these nodes came from. If there is no base URI for the nodes being returned (for example, they were parsed from an in-memory string), `String.Empty` is returned."
@@ -1151,6 +1152,7 @@ items:
   overload: System.Xml.XmlTextReader.BaseURI*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1163,6 +1165,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1175,9 +1178,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.CanReadBinaryContent
   commentId: P:System.Xml.XmlTextReader.CanReadBinaryContent
   id: CanReadBinaryContent
@@ -1186,11 +1186,12 @@ items:
   - csharp
   name: CanReadBinaryContent
   nameWithType: XmlTextReader.CanReadBinaryContent
-  fullName: System.Xml.XmlTextReader.CanReadBinaryContent
+  fullName: XmlTextReader.CanReadBinaryContent
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets a value indicating whether the <xref href="System.Xml.XmlTextReader"></xref> implements the binary content read methods.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n The binary content read methods include the <xref:System.Xml.XmlTextReader.ReadContentAsBase64%2A>, <xref:System.Xml.XmlTextReader.ReadContentAsBinHex%2A>, <xref:System.Xml.XmlTextReader.ReadElementContentAsBase64%2A>, and <xref:System.Xml.XmlTextReader.ReadElementContentAsBinHex%2A> methods."
@@ -1202,6 +1203,7 @@ items:
   overload: System.Xml.XmlTextReader.CanReadBinaryContent*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1214,6 +1216,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1226,9 +1229,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.CanReadValueChunk
   commentId: P:System.Xml.XmlTextReader.CanReadValueChunk
   id: CanReadValueChunk
@@ -1237,11 +1237,12 @@ items:
   - csharp
   name: CanReadValueChunk
   nameWithType: XmlTextReader.CanReadValueChunk
-  fullName: System.Xml.XmlTextReader.CanReadValueChunk
+  fullName: XmlTextReader.CanReadValueChunk
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets a value indicating whether the <xref href="System.Xml.XmlTextReader"></xref> implements the <xref href="System.Xml.XmlReader.ReadValueChunk(System.Char[],System.Int32,System.Int32)"></xref> method.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n The <xref:System.Xml.XmlTextReader> throws a <xref:System.NotSupportedException> if the <xref:System.Xml.XmlReader.ReadValueChunk%2A> method is called."
@@ -1253,6 +1254,7 @@ items:
   overload: System.Xml.XmlTextReader.CanReadValueChunk*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1265,6 +1267,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1277,9 +1280,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.CanResolveEntity
   commentId: P:System.Xml.XmlTextReader.CanResolveEntity
   id: CanResolveEntity
@@ -1288,11 +1288,12 @@ items:
   - csharp
   name: CanResolveEntity
   nameWithType: XmlTextReader.CanResolveEntity
-  fullName: System.Xml.XmlTextReader.CanResolveEntity
+  fullName: XmlTextReader.CanResolveEntity
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets a value indicating whether this reader can parse and resolve entities.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This is a change in the [!INCLUDE[dnprdnext](~/includes/dnprdnext-md.md)] release. In previous versions, the `XmlTextReader` class could not resolve entities and `CanResolveEntity` always returned `false`."
@@ -1304,6 +1305,7 @@ items:
   overload: System.Xml.XmlTextReader.CanResolveEntity*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1316,6 +1318,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1328,9 +1331,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.Close
   commentId: M:System.Xml.XmlTextReader.Close
   id: Close
@@ -1339,11 +1339,12 @@ items:
   - csharp
   name: Close()
   nameWithType: XmlTextReader.Close()
-  fullName: System.Xml.XmlTextReader.Close()
+  fullName: XmlTextReader.Close()
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Changes the <xref href="System.Xml.XmlReader.ReadState"></xref> to `Closed`.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This method also releases any resources held while reading. If this reader was constructed using a stream, this method also calls `Close` on the underlying stream.  \n  \n If `Close` has already been called, no action is performed."
@@ -1353,6 +1354,7 @@ items:
   overload: System.Xml.XmlTextReader.Close*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1365,6 +1367,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1377,9 +1380,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.Depth
   commentId: P:System.Xml.XmlTextReader.Depth
   id: Depth
@@ -1388,11 +1388,12 @@ items:
   - csharp
   name: Depth
   nameWithType: XmlTextReader.Depth
-  fullName: System.Xml.XmlTextReader.Depth
+  fullName: XmlTextReader.Depth
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the depth of the current node in the XML document.
   remarks: >-
@@ -1409,6 +1410,7 @@ items:
   overload: System.Xml.XmlTextReader.Depth*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1421,6 +1423,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1433,9 +1436,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.DtdProcessing
   commentId: P:System.Xml.XmlTextReader.DtdProcessing
   id: DtdProcessing
@@ -1444,14 +1444,15 @@ items:
   - csharp
   name: DtdProcessing
   nameWithType: XmlTextReader.DtdProcessing
-  fullName: System.Xml.XmlTextReader.DtdProcessing
+  fullName: XmlTextReader.DtdProcessing
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets or sets the <xref href="System.Xml.DtdProcessing"></xref> enumeration.
-  remarks: "The <xref:System.Xml.DtdProcessing> enumeration contains the <xref:System.Xml.DtdProcessing>, <xref:System.Xml.DtdProcessing>, and <xref:System.Xml.DtdProcessing> enumerators. <xref:System.Xml.DtdProcessing> is the default behavior. The <xref:System.Xml.XmlTextReader.DtdProcessing%2A> property replaces the `ProhibitDTD` property and adds the ability to ignore the DOCTYPE element.  \n  \n> [!IMPORTANT]\n>  If the <xref:System.Xml.XmlTextReader.DtdProcessing%2A> property is set to <xref:System.Xml.DtdProcessing?displayProperty=fullName>, the <xref:System.Xml.XmlTextReader> will not report the DTDs. This means that the DTD/DOCTYPE will be lost on output."
+  remarks: "The <xref:System.Xml.DtdProcessing> enumeration contains the <xref:System.Xml.DtdProcessing.Prohibit>, <xref:System.Xml.DtdProcessing.Ignore>, and <xref:System.Xml.DtdProcessing.Parse> enumerators. <xref:System.Xml.DtdProcessing.Parse> is the default behavior. The <xref:System.Xml.XmlTextReader.DtdProcessing%2A> property replaces the `ProhibitDTD` property and adds the ability to ignore the DOCTYPE element.  \n  \n> [!IMPORTANT]\n>  If the <xref:System.Xml.XmlTextReader.DtdProcessing%2A> property is set to <xref:System.Xml.DtdProcessing?displayProperty=fullName>, the <xref:System.Xml.XmlTextReader> will not report the DTDs. This means that the DTD/DOCTYPE will be lost on output."
   syntax:
     content: public System.Xml.DtdProcessing DtdProcessing { get; set; }
     return:
@@ -1460,6 +1461,7 @@ items:
   overload: System.Xml.XmlTextReader.DtdProcessing*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1472,6 +1474,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1484,9 +1487,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.Encoding
   commentId: P:System.Xml.XmlTextReader.Encoding
   id: Encoding
@@ -1495,11 +1495,12 @@ items:
   - csharp
   name: Encoding
   nameWithType: XmlTextReader.Encoding
-  fullName: System.Xml.XmlTextReader.Encoding
+  fullName: XmlTextReader.Encoding
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the encoding of the document.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n Because <xref:System.Xml.XmlTextReader> uses the <xref:System.Text.Encoding?displayProperty=fullName> class, `XmlTextReader` also supports all encodings supported by that class. The exception to this is any encoding, such as UTF-7 or EBCDIC, that maps the `<?xml` sequence to different byte values than UTF-8."
@@ -1511,6 +1512,7 @@ items:
   overload: System.Xml.XmlTextReader.Encoding*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1523,6 +1525,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1535,9 +1538,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.EntityHandling
   commentId: P:System.Xml.XmlTextReader.EntityHandling
   id: EntityHandling
@@ -1546,11 +1546,12 @@ items:
   - csharp
   name: EntityHandling
   nameWithType: XmlTextReader.EntityHandling
-  fullName: System.Xml.XmlTextReader.EntityHandling
+  fullName: XmlTextReader.EntityHandling
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets or sets a value that specifies how the reader handles entities.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This property can be changed on the fly and takes effect after the next <xref:System.Xml.XmlTextReader.Read%2A> call.  \n  \n When `EntityHandling` is set to `ExpandCharEntities`, attribute values are only partially normalized. The reader normalizes each individual text node independently from the content of adjacent entity reference nodes.  \n  \n To illustrate the difference between the entity handling modes consider the following XML:  \n  \n```  \n<!DOCTYPE doc [<!ENTITY num \"123\">]>  \n    <doc> &#65; &num; </doc>  \n```  \n  \n When `EntityHandling` is set to `ExpandEntities` the \"doc\" element node contains one text node with the expanded entity text:  \n  \n|Depth|Node type|Name|Value|  \n|-----------|---------------|----------|-----------|  \n|1|`Text`||A 123|  \n  \n When `EntityHandling` is set to `ExpandCharEntites`, and <xref:System.Xml.XmlTextReader.WhitespaceHandling%2A> is set to `Significant` or `All`, the \"doc\" element expands the character entity and returns the general entity as a node:  \n  \n|Depth|Node type|Name|Value|  \n|-----------|---------------|----------|-----------|  \n|1|`Text`||A|  \n|1|`EntityReference`|num||  \n|1|`SignificantWhitespace`|||"
@@ -1562,6 +1563,7 @@ items:
   overload: System.Xml.XmlTextReader.EntityHandling*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1574,6 +1576,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1586,9 +1589,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.EOF
   commentId: P:System.Xml.XmlTextReader.EOF
   id: EOF
@@ -1597,11 +1597,12 @@ items:
   - csharp
   name: EOF
   nameWithType: XmlTextReader.EOF
-  fullName: System.Xml.XmlTextReader.EOF
+  fullName: XmlTextReader.EOF
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets a value indicating whether the reader is positioned at the end of the stream.
   remarks: >-
@@ -1616,6 +1617,7 @@ items:
   overload: System.Xml.XmlTextReader.EOF*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1628,6 +1630,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1640,9 +1643,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.GetAttribute(System.String)
   commentId: M:System.Xml.XmlTextReader.GetAttribute(System.String)
   id: GetAttribute(System.String)
@@ -1651,11 +1651,12 @@ items:
   - csharp
   name: GetAttribute(String)
   nameWithType: XmlTextReader.GetAttribute(String)
-  fullName: System.Xml.XmlTextReader.GetAttribute(String)
+  fullName: XmlTextReader.GetAttribute(String)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the value of the attribute with the specified name.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This method does not move the reader.  \n  \n If the reader is positioned on a `DocumentType` node, this method can be used to get the PUBLIC and SYSTEM literals, for example, `reader.GetAttribute(\"PUBLIC\")`"
@@ -1673,6 +1674,7 @@ items:
   overload: System.Xml.XmlTextReader.GetAttribute*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1685,6 +1687,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1697,9 +1700,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.GetAttribute(System.String,System.String)
   commentId: M:System.Xml.XmlTextReader.GetAttribute(System.String,System.String)
   id: GetAttribute(System.String,System.String)
@@ -1708,11 +1708,12 @@ items:
   - csharp
   name: GetAttribute(String, String)
   nameWithType: XmlTextReader.GetAttribute(String, String)
-  fullName: System.Xml.XmlTextReader.GetAttribute(String, String)
+  fullName: XmlTextReader.GetAttribute(String, String)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the value of the attribute with the specified local name and namespace URI.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n The following XML contains an attribute in a specific namespace:  \n  \n```  \n<test xmlns:dt=\"urn:datatypes\" dt:type=\"int\"/>  \n```  \n  \n You can lookup the `dt:type` attribute using one argument (prefix and local name) or two arguments (local name and namespace URI):  \n  \n```  \nString dt = reader.GetAttribute(\"dt:type\");  \nString dt2 = reader.GetAttribute(\"type\",\"urn:datatypes\");  \n```  \n  \n To lookup the `xmlns:dt` attribute, use one of the following arguments:  \n  \n```  \nString dt3 = reader.GetAttribute(\"xmlns:dt\");  \nString dt4 = reader.GetAttribute(\"dt\",http://www.w3.org/2000/xmlns/);  \n```  \n  \n You can also get this information using the <xref:System.Xml.XmlTextReader.Prefix%2A> property."
@@ -1731,6 +1732,7 @@ items:
   overload: System.Xml.XmlTextReader.GetAttribute*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1743,6 +1745,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1755,9 +1758,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.GetAttribute(System.Int32)
   commentId: M:System.Xml.XmlTextReader.GetAttribute(System.Int32)
   id: GetAttribute(System.Int32)
@@ -1766,11 +1766,12 @@ items:
   - csharp
   name: GetAttribute(Int32)
   nameWithType: XmlTextReader.GetAttribute(Int32)
-  fullName: System.Xml.XmlTextReader.GetAttribute(Int32)
+  fullName: XmlTextReader.GetAttribute(Int32)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the value of the attribute with the specified index.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This method does not move the reader."
@@ -1789,6 +1790,7 @@ items:
     commentId: T:System.ArgumentOutOfRangeException
     description: The <code>i</code> parameter is less than 0 or greater than or equal to <xref href="System.Xml.XmlTextReader.AttributeCount"></xref>.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1801,6 +1803,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1813,9 +1816,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.GetNamespacesInScope(System.Xml.XmlNamespaceScope)
   commentId: M:System.Xml.XmlTextReader.GetNamespacesInScope(System.Xml.XmlNamespaceScope)
   id: GetNamespacesInScope(System.Xml.XmlNamespaceScope)
@@ -1824,11 +1824,12 @@ items:
   - csharp
   name: GetNamespacesInScope(XmlNamespaceScope)
   nameWithType: XmlTextReader.GetNamespacesInScope(XmlNamespaceScope)
-  fullName: System.Xml.XmlTextReader.GetNamespacesInScope(XmlNamespaceScope)
+  fullName: XmlTextReader.GetNamespacesInScope(XmlNamespaceScope)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets a collection that contains all namespaces currently in-scope.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n The dictionary consists of a collection of namespace names keyed by prefix. It can be used to enumerate the in-scope namespaces. The dictionary is a disconnected copy of the namespace list of the reader. It remains unchanged as the reader position, current in-scope namespace list, changes.  \n  \n The following table describes how the <xref:System.Xml.XmlNamespaceScope> enumeration value affects the whether or not the default and built-in namespaces are returned by <xref:System.Xml.XmlTextReader.GetNamespacesInScope%2A>.  \n  \n|XmlNamespaceScope Value|xmlns:xml|xmlns:xmlns|xmlns=\"\"|  \n|-----------------------------|---------------|-----------------|---------------|  \n|`All`|yes|no|no|  \n|`ExcludeXml`|no|no|no|  \n|`Local`|no|no|yes|"
@@ -1844,6 +1845,7 @@ items:
   overload: System.Xml.XmlTextReader.GetNamespacesInScope*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1856,6 +1858,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1868,9 +1871,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.GetRemainder
   commentId: M:System.Xml.XmlTextReader.GetRemainder
   id: GetRemainder
@@ -1879,11 +1879,12 @@ items:
   - csharp
   name: GetRemainder()
   nameWithType: XmlTextReader.GetRemainder()
-  fullName: System.Xml.XmlTextReader.GetRemainder()
+  fullName: XmlTextReader.GetRemainder()
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the remainder of the buffered XML.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n Because <xref:System.Xml.XmlTextReader> does a buffered `Read`, it must be able to return the remainder of the unused buffer so that no data is lost. This allows protocols (such as multi-part MIME) to package XML in the same stream as other things.  \n  \n After calling this method, <xref:System.Xml.XmlTextReader.EOF%2A> is set to `true`."
@@ -1898,6 +1899,7 @@ items:
   overload: System.Xml.XmlTextReader.GetRemainder*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1910,6 +1912,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1922,9 +1925,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.HasLineInfo
   commentId: M:System.Xml.XmlTextReader.HasLineInfo
   id: HasLineInfo
@@ -1933,11 +1933,12 @@ items:
   - csharp
   name: HasLineInfo()
   nameWithType: XmlTextReader.HasLineInfo()
-  fullName: System.Xml.XmlTextReader.HasLineInfo()
+  fullName: XmlTextReader.HasLineInfo()
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets a value indicating whether the class can return line information.
   remarks: >-
@@ -1953,6 +1954,7 @@ items:
   overload: System.Xml.XmlTextReader.HasLineInfo*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1965,6 +1967,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1977,9 +1980,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.HasValue
   commentId: P:System.Xml.XmlTextReader.HasValue
   id: HasValue
@@ -1988,11 +1988,12 @@ items:
   - csharp
   name: HasValue
   nameWithType: XmlTextReader.HasValue
-  fullName: System.Xml.XmlTextReader.HasValue
+  fullName: XmlTextReader.HasValue
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets a value indicating whether the current node can have a <xref href="System.Xml.XmlTextReader.Value"></xref> other than `String.Empty`.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n The following table lists node types that have a value to return.  \n  \n|Node type|Value|  \n|---------------|-----------|  \n|`Attribute`|The value of the attribute.|  \n|`CDATA`|The content of the CDATA section.|  \n|`Comment`|The content of the comment.|  \n|`DocumentType`|The internal subset.|  \n|`ProcessingInstruction`|The entire content, excluding the target.|  \n|`SignificantWhitespace`|The white space between markup in a mixed content model.|  \n|`Text`|The content of the text node.|  \n|`Whitespace`|The white space between markup.|  \n|`XmlDeclaration`|The content of the declaration.|"
@@ -2006,6 +2007,7 @@ items:
   overload: System.Xml.XmlTextReader.HasValue*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2018,6 +2020,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2030,9 +2033,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.IsDefault
   commentId: P:System.Xml.XmlTextReader.IsDefault
   id: IsDefault
@@ -2041,11 +2041,12 @@ items:
   - csharp
   name: IsDefault
   nameWithType: XmlTextReader.IsDefault
-  fullName: System.Xml.XmlTextReader.IsDefault
+  fullName: XmlTextReader.IsDefault
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets a value indicating whether the current node is an attribute that was generated from the default value defined in the DTD or schema.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This property applies only to attribute nodes."
@@ -2057,6 +2058,7 @@ items:
   overload: System.Xml.XmlTextReader.IsDefault*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2069,6 +2071,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2081,9 +2084,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.IsEmptyElement
   commentId: P:System.Xml.XmlTextReader.IsEmptyElement
   id: IsEmptyElement
@@ -2092,11 +2092,12 @@ items:
   - csharp
   name: IsEmptyElement
   nameWithType: XmlTextReader.IsEmptyElement
-  fullName: System.Xml.XmlTextReader.IsEmptyElement
+  fullName: XmlTextReader.IsEmptyElement
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets a value indicating whether the current node is an empty element (for example, <code><MyElement/></code>).
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This property enables you to determine the difference between the following:  \n  \n `<item num=\"123\"/>` (`IsEmptyElement` is `true`).  \n  \n `<item num=\"123\">` (`IsEmptyElement` is `false`, although element content is empty).  \n  \n A corresponding `EndElement` node is not generated for empty elements.  \n  \n `IsEmptyElement` simply reports whether or not the element in the source document had an end element tag."
@@ -2110,6 +2111,7 @@ items:
   overload: System.Xml.XmlTextReader.IsEmptyElement*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2122,6 +2124,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2134,9 +2137,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.LineNumber
   commentId: P:System.Xml.XmlTextReader.LineNumber
   id: LineNumber
@@ -2145,11 +2145,12 @@ items:
   - csharp
   name: LineNumber
   nameWithType: XmlTextReader.LineNumber
-  fullName: System.Xml.XmlTextReader.LineNumber
+  fullName: XmlTextReader.LineNumber
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the current line number.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This property is most commonly used for error reporting, but can be called at any time. The starting value for this property is `1`.  \n  \n Combined with <xref:System.Xml.XmlTextReader.LinePosition%2A>, a value of `1,1` indicates the start of the document."
@@ -2163,6 +2164,7 @@ items:
   overload: System.Xml.XmlTextReader.LineNumber*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2175,6 +2177,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2187,9 +2190,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.LinePosition
   commentId: P:System.Xml.XmlTextReader.LinePosition
   id: LinePosition
@@ -2198,11 +2198,12 @@ items:
   - csharp
   name: LinePosition
   nameWithType: XmlTextReader.LinePosition
-  fullName: System.Xml.XmlTextReader.LinePosition
+  fullName: XmlTextReader.LinePosition
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the current line position.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This property is most commonly used for error reporting, but can be called at any time. The property's starting value is `1`.  \n  \n The position indicated is the first character of text in the markup.  \n  \n```  \n<root>  \nabc<tag/>  \n</root>  \n```  \n  \n On the first line of the preceding XML text, a `LinePosition` of `2` corresponds to the character `r`; on the second line, a `LinePosition` of `5` corresponds to the character `t`; and on the third line, a `LinePosition` of `3` corresponds to the character `r`.  \n  \n Combined with <xref:System.Xml.XmlTextReader.LineNumber%2A>, a value of `1,1` indicates the start of the document."
@@ -2216,6 +2217,7 @@ items:
   overload: System.Xml.XmlTextReader.LinePosition*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2228,6 +2230,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2240,9 +2243,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.LocalName
   commentId: P:System.Xml.XmlTextReader.LocalName
   id: LocalName
@@ -2251,11 +2251,12 @@ items:
   - csharp
   name: LocalName
   nameWithType: XmlTextReader.LocalName
-  fullName: System.Xml.XmlTextReader.LocalName
+  fullName: XmlTextReader.LocalName
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the local name of the current node.
   remarks: >-
@@ -2272,6 +2273,7 @@ items:
   overload: System.Xml.XmlTextReader.LocalName*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2284,6 +2286,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2296,9 +2299,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.LookupNamespace(System.String)
   commentId: M:System.Xml.XmlTextReader.LookupNamespace(System.String)
   id: LookupNamespace(System.String)
@@ -2307,11 +2307,12 @@ items:
   - csharp
   name: LookupNamespace(String)
   nameWithType: XmlTextReader.LookupNamespace(String)
-  fullName: System.Xml.XmlTextReader.LookupNamespace(String)
+  fullName: XmlTextReader.LookupNamespace(String)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Resolves a namespace prefix in the current element's scope.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n In the following XML, if the reader is positioned on the `href` attribute, the prefix `a` is resolved by calling `reader.LookupNamespace(\"a\")`. The returned string is `urn:456`.  \n  \n```  \n<root xmlns:a=\"urn:456\">  \n <item>  \n <ref href=\"a:b\"/>  \n </item>  \n</root>  \n```"
@@ -2330,6 +2331,7 @@ items:
     commentId: T:System.ArgumentNullException
     description: The <xref href="System.Xml.XmlTextReader.Namespaces"></xref> property is set to `true` and the <code>prefix</code> value is `null`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2342,6 +2344,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2354,9 +2357,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.MoveToAttribute(System.Int32)
   commentId: M:System.Xml.XmlTextReader.MoveToAttribute(System.Int32)
   id: MoveToAttribute(System.Int32)
@@ -2365,11 +2365,12 @@ items:
   - csharp
   name: MoveToAttribute(Int32)
   nameWithType: XmlTextReader.MoveToAttribute(Int32)
-  fullName: System.Xml.XmlTextReader.MoveToAttribute(Int32)
+  fullName: XmlTextReader.MoveToAttribute(Int32)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Moves to the attribute with the specified index.
   remarks: >-
@@ -2390,6 +2391,7 @@ items:
     commentId: T:System.ArgumentOutOfRangeException
     description: The <code>i</code> parameter is less than 0 or greater than or equal to <xref href="System.Xml.XmlReader.AttributeCount"></xref>.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2402,6 +2404,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2414,9 +2417,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.MoveToAttribute(System.String)
   commentId: M:System.Xml.XmlTextReader.MoveToAttribute(System.String)
   id: MoveToAttribute(System.String)
@@ -2425,11 +2425,12 @@ items:
   - csharp
   name: MoveToAttribute(String)
   nameWithType: XmlTextReader.MoveToAttribute(String)
-  fullName: System.Xml.XmlTextReader.MoveToAttribute(String)
+  fullName: XmlTextReader.MoveToAttribute(String)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Moves to the attribute with the specified name.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n After calling `MoveToAttribute`, the <xref:System.Xml.XmlTextReader.Name%2A>, <xref:System.Xml.XmlTextReader.NamespaceURI%2A>, and <xref:System.Xml.XmlTextReader.Prefix%2A> properties reflects the properties of that attribute."
@@ -2441,10 +2442,11 @@ items:
       description: The qualified name of the attribute.
     return:
       type: System.Boolean
-      description: '`true` if the attribute is found; otherwise, `false`. If `false`, the reader''s position does not change.'
+      description: "`true` if the attribute is found; otherwise, `false`. If `false`, the reader's position does not change."
   overload: System.Xml.XmlTextReader.MoveToAttribute*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2457,6 +2459,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2469,9 +2472,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.MoveToAttribute(System.String,System.String)
   commentId: M:System.Xml.XmlTextReader.MoveToAttribute(System.String,System.String)
   id: MoveToAttribute(System.String,System.String)
@@ -2480,11 +2480,12 @@ items:
   - csharp
   name: MoveToAttribute(String, String)
   nameWithType: XmlTextReader.MoveToAttribute(String, String)
-  fullName: System.Xml.XmlTextReader.MoveToAttribute(String, String)
+  fullName: XmlTextReader.MoveToAttribute(String, String)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Moves to the attribute with the specified local name and namespace URI.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n After calling `MoveToAttribute`, the <xref:System.Xml.XmlTextReader.Name%2A>, <xref:System.Xml.XmlTextReader.NamespaceURI%2A>, and <xref:System.Xml.XmlTextReader.Prefix%2A> properties reflects the properties of that attribute."
@@ -2499,10 +2500,11 @@ items:
       description: The namespace URI of the attribute.
     return:
       type: System.Boolean
-      description: '`true` if the attribute is found; otherwise, `false`. If `false`, the reader''s position does not change.'
+      description: "`true` if the attribute is found; otherwise, `false`. If `false`, the reader's position does not change."
   overload: System.Xml.XmlTextReader.MoveToAttribute*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2515,6 +2517,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2527,9 +2530,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.MoveToElement
   commentId: M:System.Xml.XmlTextReader.MoveToElement
   id: MoveToElement
@@ -2538,11 +2538,12 @@ items:
   - csharp
   name: MoveToElement()
   nameWithType: XmlTextReader.MoveToElement()
-  fullName: System.Xml.XmlTextReader.MoveToElement()
+  fullName: XmlTextReader.MoveToElement()
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Moves to the element that contains the current attribute node.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n Use this method to return to an element after navigating through its attributes. This method moves the reader to one of the following node types: `Element`, `DocumentType`, or `XmlDeclaration`."
@@ -2557,6 +2558,7 @@ items:
   overload: System.Xml.XmlTextReader.MoveToElement*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2569,6 +2571,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2581,9 +2584,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.MoveToFirstAttribute
   commentId: M:System.Xml.XmlTextReader.MoveToFirstAttribute
   id: MoveToFirstAttribute
@@ -2592,11 +2592,12 @@ items:
   - csharp
   name: MoveToFirstAttribute()
   nameWithType: XmlTextReader.MoveToFirstAttribute()
-  fullName: System.Xml.XmlTextReader.MoveToFirstAttribute()
+  fullName: XmlTextReader.MoveToFirstAttribute()
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Moves to the first attribute.
   remarks: >-
@@ -2614,6 +2615,7 @@ items:
   overload: System.Xml.XmlTextReader.MoveToFirstAttribute*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2626,6 +2628,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2638,9 +2641,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.MoveToNextAttribute
   commentId: M:System.Xml.XmlTextReader.MoveToNextAttribute
   id: MoveToNextAttribute
@@ -2649,11 +2649,12 @@ items:
   - csharp
   name: MoveToNextAttribute()
   nameWithType: XmlTextReader.MoveToNextAttribute()
-  fullName: System.Xml.XmlTextReader.MoveToNextAttribute()
+  fullName: XmlTextReader.MoveToNextAttribute()
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Moves to the next attribute.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n If the current node is an element node, this method is equivalent to <xref:System.Xml.XmlTextReader.MoveToFirstAttribute%2A>. If `MoveToNextAttribute` returns `true`, the reader moves to the next attribute; otherwise, the position of the reader does not change."
@@ -2668,6 +2669,7 @@ items:
   overload: System.Xml.XmlTextReader.MoveToNextAttribute*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2680,6 +2682,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2692,9 +2695,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.Name
   commentId: P:System.Xml.XmlTextReader.Name
   id: Name
@@ -2703,11 +2703,12 @@ items:
   - csharp
   name: Name
   nameWithType: XmlTextReader.Name
-  fullName: System.Xml.XmlTextReader.Name
+  fullName: XmlTextReader.Name
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the qualified name of the current node.
   remarks: >-
@@ -2724,6 +2725,7 @@ items:
   overload: System.Xml.XmlTextReader.Name*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2736,6 +2738,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2748,9 +2751,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.Namespaces
   commentId: P:System.Xml.XmlTextReader.Namespaces
   id: Namespaces
@@ -2759,11 +2759,12 @@ items:
   - csharp
   name: Namespaces
   nameWithType: XmlTextReader.Namespaces
-  fullName: System.Xml.XmlTextReader.Namespaces
+  fullName: XmlTextReader.Namespaces
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets or sets a value indicating whether to do namespace support.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This property determines whether the reader supports the W3C Namespaces in XML recommendation located at www.w3.org/TR/REC-xml-names.  \n  \n The `Namespaces` property cannot be set after a read operation has occurred."
@@ -2778,6 +2779,7 @@ items:
     commentId: T:System.InvalidOperationException
     description: Setting this property after a read operation has occurred (<xref href="System.Xml.XmlTextReader.ReadState"></xref> is not `ReadState.Initial`).
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2790,6 +2792,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2802,9 +2805,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.NamespaceURI
   commentId: P:System.Xml.XmlTextReader.NamespaceURI
   id: NamespaceURI
@@ -2813,11 +2813,12 @@ items:
   - csharp
   name: NamespaceURI
   nameWithType: XmlTextReader.NamespaceURI
-  fullName: System.Xml.XmlTextReader.NamespaceURI
+  fullName: XmlTextReader.NamespaceURI
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the namespace URI (as defined in the W3C Namespace specification) of the node on which the reader is positioned.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This property is relevant to `Element` and `Attribute` nodes only."
@@ -2831,6 +2832,7 @@ items:
   overload: System.Xml.XmlTextReader.NamespaceURI*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2843,6 +2845,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2855,9 +2858,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.NameTable
   commentId: P:System.Xml.XmlTextReader.NameTable
   id: NameTable
@@ -2866,11 +2866,12 @@ items:
   - csharp
   name: NameTable
   nameWithType: XmlTextReader.NameTable
-  fullName: System.Xml.XmlTextReader.NameTable
+  fullName: XmlTextReader.NameTable
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the <xref href="System.Xml.XmlNameTable"></xref> associated with this implementation.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n All node and attribute names returned from <xref:System.Xml.XmlTextReader> are atomized using the `NameTable`. When the same name is returned multiple times (for example, `Customer`), then the same `String` object is returned for that name. This makes it possible for you to write efficient code that does object comparisons on these strings instead of expensive string comparisons."
@@ -2882,6 +2883,7 @@ items:
   overload: System.Xml.XmlTextReader.NameTable*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2894,6 +2896,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2906,9 +2909,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.NodeType
   commentId: P:System.Xml.XmlTextReader.NodeType
   id: NodeType
@@ -2917,11 +2917,12 @@ items:
   - csharp
   name: NodeType
   nameWithType: XmlTextReader.NodeType
-  fullName: System.Xml.XmlTextReader.NodeType
+  fullName: XmlTextReader.NodeType
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the type of the current node.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This property never returns the following `XmlNodeType` types: `Document`, `DocumentFragment`, `Entity`, `EndEntity`, or `Notation`."
@@ -2935,6 +2936,7 @@ items:
   overload: System.Xml.XmlTextReader.NodeType*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2947,6 +2949,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2959,9 +2962,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.Normalization
   commentId: P:System.Xml.XmlTextReader.Normalization
   id: Normalization
@@ -2970,11 +2970,12 @@ items:
   - csharp
   name: Normalization
   nameWithType: XmlTextReader.Normalization
-  fullName: System.Xml.XmlTextReader.Normalization
+  fullName: XmlTextReader.Normalization
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets or sets a value indicating whether to normalize white space and attribute values.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This property can be changed at any time and takes effect on the next read operation.  \n  \n> [!NOTE]\n>  If the <xref:System.Xml.XmlTextReader> is used to construct an <xref:System.Xml.XmlValidatingReader>, to normalize attribute values, `Normalization` must be set to `true`.  \n  \n If `Normalization` is set to `false`, this also disables character range checking for numeric entities. As a result, character entities, such as `&#0;`, are allowed.  \n  \n The following describes attribute value normalization:  \n  \n-   For a character reference, append the referenced character to the attribute value.  \n  \n-   For an entity reference, recursively process the replacement text of the entity.  \n  \n-   For a white space character (#x20, #xD, #xA, #x9), append #x20 to the normalized value. (Only a single #x20 is appended for a \"#xD#xA\" sequence that is part of an external parsed entity or the literal entity value of an internal parsed entity.)  \n  \n-   Process other characters by appending them to the normalized value.  \n  \n-   If the declared value is not CDATA, discard any leading and trailing space (#x20) characters and replace sequences of space (#x20) characters with a single space (#x20) character.  \n  \n The `XmlTextReader` only performs attribute or CDATA normalization. It does not do DTD-specific normalization unless wrapped within an `XmlValidatingReader`.  \n  \n Refer to the W3C XML 1.0 recommendation for further discussion on normalization."
@@ -2991,6 +2992,7 @@ items:
     commentId: T:System.InvalidOperationException
     description: Setting this property when the reader is closed (<xref href="System.Xml.XmlTextReader.ReadState"></xref> is `ReadState.Closed`).
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3003,6 +3005,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3015,9 +3018,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.Prefix
   commentId: P:System.Xml.XmlTextReader.Prefix
   id: Prefix
@@ -3026,11 +3026,12 @@ items:
   - csharp
   name: Prefix
   nameWithType: XmlTextReader.Prefix
-  fullName: System.Xml.XmlTextReader.Prefix
+  fullName: XmlTextReader.Prefix
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the namespace prefix associated with the current node.
   remarks: >-
@@ -3047,6 +3048,7 @@ items:
   overload: System.Xml.XmlTextReader.Prefix*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3059,6 +3061,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3071,9 +3074,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.ProhibitDtd
   commentId: P:System.Xml.XmlTextReader.ProhibitDtd
   id: ProhibitDtd
@@ -3082,11 +3082,12 @@ items:
   - csharp
   name: ProhibitDtd
   nameWithType: XmlTextReader.ProhibitDtd
-  fullName: System.Xml.XmlTextReader.ProhibitDtd
+  fullName: XmlTextReader.ProhibitDtd
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets or sets a value indicating whether to allow DTD processing. This property is obsolete. Use <xref href="System.Xml.XmlTextReader.DtdProcessing"></xref> instead.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n DTD processing is enabled by default for backwards compatibility. However, unless your application requires DTD processing, you should disable this setting. Disabling DTD processing can be useful in preventing certain denial of service attacks. If set to `true`, the reader throws an <xref:System.Xml.XmlException> when any DTD content is encountered.  \n  \n If you have DTD processing enabled, you need to be aware of including DTDs from untrusted sources and possible denial of service attacks. Use the <xref:System.Xml.XmlSecureResolver> to restrict the resources that the <xref:System.Xml.XmlTextReader> can access. You can also design your application so that the XML processing is memory and time constrained. For example, configure time-out limits in your ASP.NET application"
@@ -3103,6 +3104,7 @@ items:
   attributes:
   - type: System.ObsoleteAttribute
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3115,6 +3117,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3127,9 +3130,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.QuoteChar
   commentId: P:System.Xml.XmlTextReader.QuoteChar
   id: QuoteChar
@@ -3138,11 +3138,12 @@ items:
   - csharp
   name: QuoteChar
   nameWithType: XmlTextReader.QuoteChar
-  fullName: System.Xml.XmlTextReader.QuoteChar
+  fullName: XmlTextReader.QuoteChar
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the quotation mark character used to enclose the value of an attribute node.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This property applies only to an attribute node."
@@ -3154,6 +3155,7 @@ items:
   overload: System.Xml.XmlTextReader.QuoteChar*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3166,6 +3168,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3178,9 +3181,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.Read
   commentId: M:System.Xml.XmlTextReader.Read
   id: Read
@@ -3189,11 +3189,12 @@ items:
   - csharp
   name: Read()
   nameWithType: XmlTextReader.Read()
-  fullName: System.Xml.XmlTextReader.Read()
+  fullName: XmlTextReader.Read()
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Reads the next node from the stream.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n When a reader is first created and initialized, there is no information available. You must call `Read` to read the first node.  \n  \n This method requires at least four bytes from the data stream in order to begin parsing. If fewer than four bytes are returned and there is no more data in the stream, the method will fail. If there is more data in the stream, the method will block parsing until receipt of the fourth byte."
@@ -3211,6 +3212,7 @@ items:
     commentId: T:System.Xml.XmlException
     description: An error occurred while parsing the XML.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3223,6 +3225,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3235,9 +3238,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.ReadAttributeValue
   commentId: M:System.Xml.XmlTextReader.ReadAttributeValue
   id: ReadAttributeValue
@@ -3246,11 +3246,12 @@ items:
   - csharp
   name: ReadAttributeValue()
   nameWithType: XmlTextReader.ReadAttributeValue()
-  fullName: System.Xml.XmlTextReader.ReadAttributeValue()
+  fullName: XmlTextReader.ReadAttributeValue()
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Parses the attribute value into one or more `Text`, `EntityReference`, or `EndEntity` nodes.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n Use this method after calling `MoveToAttribute` to read through the text or entity reference nodes that make up the attribute value. The <xref:System.Xml.XmlReader.Depth%2A> of the attribute value nodes is one plus the depth of the attribute node; it increments and decrements by one when you step into and out of general entity references."
@@ -3265,6 +3266,7 @@ items:
   overload: System.Xml.XmlTextReader.ReadAttributeValue*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3277,6 +3279,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3289,9 +3292,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.ReadBase64(System.Byte[],System.Int32,System.Int32)
   commentId: M:System.Xml.XmlTextReader.ReadBase64(System.Byte[],System.Int32,System.Int32)
   id: ReadBase64(System.Byte[],System.Int32,System.Int32)
@@ -3300,11 +3300,12 @@ items:
   - csharp
   name: ReadBase64(Byte[], Int32, Int32)
   nameWithType: XmlTextReader.ReadBase64(Byte[], Int32, Int32)
-  fullName: System.Xml.XmlTextReader.ReadBase64(Byte[], Int32, Int32)
+  fullName: XmlTextReader.ReadBase64(Byte[], Int32, Int32)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Decodes Base64 and returns the decoded binary bytes.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n Like <xref:System.Xml.XmlTextReader.ReadChars%2A>, this method can be called successively to read large streams of embedded text. It decodes Base64 content and returns the decoded binary bytes (for example, an inline Base64 encoded GIF image) into the buffer. See RFC 1521. (You can obtain RFCs from the Request for Comments Web site at http://www.rfc-editor.org)"
@@ -3337,6 +3338,7 @@ items:
     commentId: T:System.ArgumentOutOfRangeException
     description: <code>offset</code> < 0, or <code>len</code> < 0, or <code>len</code> > <code>array</code>.Length- <code>offset</code>.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3349,6 +3351,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3361,9 +3364,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.ReadBinHex(System.Byte[],System.Int32,System.Int32)
   commentId: M:System.Xml.XmlTextReader.ReadBinHex(System.Byte[],System.Int32,System.Int32)
   id: ReadBinHex(System.Byte[],System.Int32,System.Int32)
@@ -3372,11 +3372,12 @@ items:
   - csharp
   name: ReadBinHex(Byte[], Int32, Int32)
   nameWithType: XmlTextReader.ReadBinHex(Byte[], Int32, Int32)
-  fullName: System.Xml.XmlTextReader.ReadBinHex(Byte[], Int32, Int32)
+  fullName: XmlTextReader.ReadBinHex(Byte[], Int32, Int32)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Decodes `BinHex` and returns the decoded binary bytes.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n Like <xref:System.Xml.XmlTextReader.ReadChars%2A>, this method can be called successively to read large streams of embedded text. It decodes `BinHex` content and returns the decoded binary bytes (for example, an inline `BinHex` encoded GIF image) into the buffer."
@@ -3409,6 +3410,7 @@ items:
     commentId: T:System.ArgumentOutOfRangeException
     description: <code>offset</code> < 0, or <code>len</code> < 0, or <code>len</code> > <code>array</code>.Length- <code>offset</code>.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3421,6 +3423,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3433,9 +3436,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.ReadChars(System.Char[],System.Int32,System.Int32)
   commentId: M:System.Xml.XmlTextReader.ReadChars(System.Char[],System.Int32,System.Int32)
   id: ReadChars(System.Char[],System.Int32,System.Int32)
@@ -3444,11 +3444,12 @@ items:
   - csharp
   name: ReadChars(Char[], Int32, Int32)
   nameWithType: XmlTextReader.ReadChars(Char[], Int32, Int32)
-  fullName: System.Xml.XmlTextReader.ReadChars(Char[], Int32, Int32)
+  fullName: XmlTextReader.ReadChars(Char[], Int32, Int32)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Reads the text contents of an element into a character buffer. This method is designed to read large streams of embedded text by calling it successively.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This is the most efficient way to process very large streams of text embedded in an XML document. Rather than allocating large string objects, `ReadChars` returns text content a buffer at a time. This method is designed to work only on element nodes. Other node types cause `ReadChars` to return `0`.  \n  \n In the following XML, if the reader is positioned on the start tag, `ReadChars` returns `test` and positions the reader after the end tag.  \n  \n```  \n<Item>test</Item>  \n```  \n  \n `ReadChars` has the following functionality:  \n  \n-   This method is designed to work on element nodes only. Other node types cause `ReadChars` to return 0.  \n  \n-   This method returns the actual character content. There is no attempt to resolve entities, CDATA, or any other markup encountered. `ReadChars` returns everything between the start tag and the end tag, including markup.  \n  \n-   `ReadChars` ignores XML markup that is not well-formed. For example, when reading the following XML string `<A>1<A>2</A>`, `ReadChars` returns `1<A>2</A>`. (It returns markup from the matching element pair and ignores others.)  \n  \n-   This method does not do any normalization.  \n  \n-   When `ReadChars` has reached the end of the character stream, it returns the value 0 and the reader is positioned after the end tag.  \n  \n-   Attribute read methods are not available while using `ReadChars`.  \n  \n For example, using the following XML:  \n  \n```  \n<thing>  \n some text  \n</thing>  \n<item>  \n</item>  \n```  \n  \n The reader is positioned on the `<item>` element at the end of the while loop.  \n  \n```  \nif (XmlNodeType.Element == reader.NodeType && \"thing\" == reader.Name)  \n{  \n while(0 != reader.ReadChars(buffer, 0, 1)  \n {  \n // Do something.  \n // Attribute values are not available at this point.  \n }  \n}  \n```"
@@ -3483,6 +3484,7 @@ items:
       <code>index</code>
           `< 0` or <code>count</code>`< 0`.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3495,6 +3497,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3507,9 +3510,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.ReadContentAsBase64(System.Byte[],System.Int32,System.Int32)
   commentId: M:System.Xml.XmlTextReader.ReadContentAsBase64(System.Byte[],System.Int32,System.Int32)
   id: ReadContentAsBase64(System.Byte[],System.Int32,System.Int32)
@@ -3518,11 +3518,12 @@ items:
   - csharp
   name: ReadContentAsBase64(Byte[], Int32, Int32)
   nameWithType: XmlTextReader.ReadContentAsBase64(Byte[], Int32, Int32)
-  fullName: System.Xml.XmlTextReader.ReadContentAsBase64(Byte[], Int32, Int32)
+  fullName: XmlTextReader.ReadContentAsBase64(Byte[], Int32, Int32)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Reads the content and returns the `Base64` decoded binary bytes.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This method streams the content, decodes the `Base64` content, and returns the decoded binary bytes (for example, an inline `Base64`-encoded GIF image) into the buffer. This method can be called successively to read large streams of embedded text. For more information, see RFC 1521, \"MIME (Multipurpose Internet Mail Extensions) Part One: Mechanisms for Specifying and Describing the Format of Internet Message Bodies\". You can obtain RFCs from the Request for Comments Web site at http://www.rfc-editor.org.  \n  \n> [!NOTE]\n>  You should not access any of the reader properties between calls to the <xref:System.Xml.XmlTextReader.ReadContentAsBase64%2A> method until the method returns the value 0.  \n  \n This method has the following behavior:  \n  \n-   <xref:System.Xml.XmlTextReader.ReadContentAsBase64%2A> returns the value 0 when it has reached the end of the byte stream it was operating on. The reader is positioned on the first non-content node.  \n  \n-   If you ask for fewer, or the exact number, of bytes than are left in the stream the reader remains in its current position.  \n  \n-   <xref:System.Xml.XmlTextReader.ReadContentAsBase64%2A> is not supported on the following XML node types: `Element`, `XmlDeclaration`, `None`, `Document`, `DocumentType`, `Notation`, `Entity`, `DocumentFragment`."
@@ -3553,6 +3554,7 @@ items:
     commentId: T:System.ArgumentOutOfRangeException
     description: The index into the buffer or index + count is larger than the allocated buffer size.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3565,6 +3567,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3577,9 +3580,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.ReadContentAsBinHex(System.Byte[],System.Int32,System.Int32)
   commentId: M:System.Xml.XmlTextReader.ReadContentAsBinHex(System.Byte[],System.Int32,System.Int32)
   id: ReadContentAsBinHex(System.Byte[],System.Int32,System.Int32)
@@ -3588,11 +3588,12 @@ items:
   - csharp
   name: ReadContentAsBinHex(Byte[], Int32, Int32)
   nameWithType: XmlTextReader.ReadContentAsBinHex(Byte[], Int32, Int32)
-  fullName: System.Xml.XmlTextReader.ReadContentAsBinHex(Byte[], Int32, Int32)
+  fullName: XmlTextReader.ReadContentAsBinHex(Byte[], Int32, Int32)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Reads the content and returns the `BinHex` decoded binary bytes.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This method streams the content, decodes the `BinHex` content, and returns the decoded binary bytes (for example, an inline `BinHex` encoded GIF image) into the buffer. This method can be called successively to read large streams of embedded text.  \n  \n> [!NOTE]\n>  You should not access any of the reader properties between calls to the <xref:System.Xml.XmlTextReader.ReadContentAsBinHex%2A> method until the method returns the value 0.  \n  \n This method has the following behavior:  \n  \n-   <xref:System.Xml.XmlTextReader.ReadContentAsBinHex%2A> returns the value 0 when it has reached the end of the byte stream it was operating on. The reader is positioned on the first non-content node.  \n  \n-   If you ask for fewer, or the exact number, of bytes than are left in the stream the reader remains in its current position.  \n  \n-   <xref:System.Xml.XmlTextReader.ReadContentAsBinHex%2A> is not supported on the following XML node types: `Element`, `XmlDeclaration`, `None`, `Document`, `DocumentType`, `Notation`, `Entity`, `DocumentFragment`."
@@ -3626,6 +3627,7 @@ items:
     commentId: T:System.NotSupportedException
     description: The <xref href="System.Xml.XmlTextReader"></xref> implementation does not support this method.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3638,6 +3640,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3650,9 +3653,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.ReadElementContentAsBase64(System.Byte[],System.Int32,System.Int32)
   commentId: M:System.Xml.XmlTextReader.ReadElementContentAsBase64(System.Byte[],System.Int32,System.Int32)
   id: ReadElementContentAsBase64(System.Byte[],System.Int32,System.Int32)
@@ -3661,14 +3661,15 @@ items:
   - csharp
   name: ReadElementContentAsBase64(Byte[], Int32, Int32)
   nameWithType: XmlTextReader.ReadElementContentAsBase64(Byte[], Int32, Int32)
-  fullName: System.Xml.XmlTextReader.ReadElementContentAsBase64(Byte[], Int32, Int32)
+  fullName: XmlTextReader.ReadElementContentAsBase64(Byte[], Int32, Int32)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Reads the element and decodes the Base64 content.
-  remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This method reads the element content, decodes it using Base64 encoding, and returns the decoded binary bytes (for example, an inline Base64 encoded GIF image) into the buffer. For more information, see RFC 1521, \"MIME (Multipurpose Internet Mail Extensions) Part One: Mechanisms for Specifying and Describing the Format of Internet Message Bodies\". You can obtain RFCs from the Request for Comments Web site at http://www.rfc-editor.org.  \n  \n This method can only read simple-content elements. The element can contain text, white space, significant white space, CDATA sections, comments and processing instructions. It can also contain entity references, which are automatically expanded. The element cannot have child elements.  \n  \n This method is very similar to the <xref:System.Xml.XmlTextReader.ReadContentAsBase64%2A> method except that it can only be called on element node types.  \n  \n If the `count` value is higher than the number of bytes in the document, or if it is equal to the number of bytes in the document, the <xref:System.Xml.XmlTextReader> reads all the remaining bytes in the document and returns the number of bytes read. The next <xref:System.Xml.XmlTextReader> method call returns a zero and moves the reader to the node following the <xref:System.Xml.XmlNodeType>.  \n  \n If you call <xref:System.Xml.XmlTextReader.Read%2A> before all of the element content is consumed, the reader may behave as if the first content was consumed and then the <xref:System.Xml.XmlTextReader.Read%2A> method was called. This means that the reader reads all the text until the end element is encountered. It then reads the end tag node, reads the next node, and then positions itself on the next subsequent node."
+  remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This method reads the element content, decodes it using Base64 encoding, and returns the decoded binary bytes (for example, an inline Base64 encoded GIF image) into the buffer. For more information, see RFC 1521, \"MIME (Multipurpose Internet Mail Extensions) Part One: Mechanisms for Specifying and Describing the Format of Internet Message Bodies\". You can obtain RFCs from the Request for Comments Web site at http://www.rfc-editor.org.  \n  \n This method can only read simple-content elements. The element can contain text, white space, significant white space, CDATA sections, comments and processing instructions. It can also contain entity references, which are automatically expanded. The element cannot have child elements.  \n  \n This method is very similar to the <xref:System.Xml.XmlTextReader.ReadContentAsBase64%2A> method except that it can only be called on element node types.  \n  \n If the `count` value is higher than the number of bytes in the document, or if it is equal to the number of bytes in the document, the <xref:System.Xml.XmlTextReader> reads all the remaining bytes in the document and returns the number of bytes read. The next <xref:System.Xml.XmlTextReader> method call returns a zero and moves the reader to the node following the <xref:System.Xml.XmlNodeType.EndElement>.  \n  \n If you call <xref:System.Xml.XmlTextReader.Read%2A> before all of the element content is consumed, the reader may behave as if the first content was consumed and then the <xref:System.Xml.XmlTextReader.Read%2A> method was called. This means that the reader reads all the text until the end element is encountered. It then reads the end tag node, reads the next node, and then positions itself on the next subsequent node."
   example:
   - See <xref:System.Xml.XmlReader.ReadElementContentAsBase64%2A?displayProperty=fullName> to see an example using this method.
   syntax:
@@ -3707,6 +3708,7 @@ items:
     commentId: T:System.FormatException
     description: The content cannot be converted to the requested type.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3719,6 +3721,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3731,9 +3734,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.ReadElementContentAsBinHex(System.Byte[],System.Int32,System.Int32)
   commentId: M:System.Xml.XmlTextReader.ReadElementContentAsBinHex(System.Byte[],System.Int32,System.Int32)
   id: ReadElementContentAsBinHex(System.Byte[],System.Int32,System.Int32)
@@ -3742,14 +3742,15 @@ items:
   - csharp
   name: ReadElementContentAsBinHex(Byte[], Int32, Int32)
   nameWithType: XmlTextReader.ReadElementContentAsBinHex(Byte[], Int32, Int32)
-  fullName: System.Xml.XmlTextReader.ReadElementContentAsBinHex(Byte[], Int32, Int32)
+  fullName: XmlTextReader.ReadElementContentAsBinHex(Byte[], Int32, Int32)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Reads the element and decodes the `BinHex` content.
-  remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This method reads the element content, decodes it using `BinHex` encoding, and returns the decoded binary bytes (for example, an inline `BinHex` encoded GIF image) into the buffer.  \n  \n This method can only read simple-content elements. The element can contain text, white space, significant white space, CDATA sections, comments and processing instructions. It can also contain entity references, which are automatically expanded. The element cannot have child elements.  \n  \n This method is very similar to the <xref:System.Xml.XmlTextReader.ReadContentAsBinHex%2A> method except that it can only be called on element node types.  \n  \n If the `count` value is higher than the number of bytes in the document, or if it is equal to the number of bytes in the document, the <xref:System.Xml.XmlTextReader> reads all the remaining bytes in the document and returns the number of bytes read. The next <xref:System.Xml.XmlTextReader> method call returns a zero and moves the reader to the node following the <xref:System.Xml.XmlNodeType>.  \n  \n If you call <xref:System.Xml.XmlTextReader.Read%2A> before all of the element content is consumed, the reader may behave as if the first content was consumed and then the <xref:System.Xml.XmlTextReader.Read%2A> method was called. This means that the reader reads all the text until the end element is encountered. It then reads the end tag node, reads the next node, and then positions itself on the next subsequent node."
+  remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This method reads the element content, decodes it using `BinHex` encoding, and returns the decoded binary bytes (for example, an inline `BinHex` encoded GIF image) into the buffer.  \n  \n This method can only read simple-content elements. The element can contain text, white space, significant white space, CDATA sections, comments and processing instructions. It can also contain entity references, which are automatically expanded. The element cannot have child elements.  \n  \n This method is very similar to the <xref:System.Xml.XmlTextReader.ReadContentAsBinHex%2A> method except that it can only be called on element node types.  \n  \n If the `count` value is higher than the number of bytes in the document, or if it is equal to the number of bytes in the document, the <xref:System.Xml.XmlTextReader> reads all the remaining bytes in the document and returns the number of bytes read. The next <xref:System.Xml.XmlTextReader> method call returns a zero and moves the reader to the node following the <xref:System.Xml.XmlNodeType.EndElement>.  \n  \n If you call <xref:System.Xml.XmlTextReader.Read%2A> before all of the element content is consumed, the reader may behave as if the first content was consumed and then the <xref:System.Xml.XmlTextReader.Read%2A> method was called. This means that the reader reads all the text until the end element is encountered. It then reads the end tag node, reads the next node, and then positions itself on the next subsequent node."
   example:
   - See <xref:System.Xml.XmlReader.ReadElementContentAsBinHex%2A?displayProperty=fullName> to see an example using this method.
   syntax:
@@ -3788,6 +3789,7 @@ items:
     commentId: T:System.FormatException
     description: The content cannot be converted to the requested type.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3800,6 +3802,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3812,9 +3815,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.ReadState
   commentId: P:System.Xml.XmlTextReader.ReadState
   id: ReadState
@@ -3823,11 +3823,12 @@ items:
   - csharp
   name: ReadState
   nameWithType: XmlTextReader.ReadState
-  fullName: System.Xml.XmlTextReader.ReadState
+  fullName: XmlTextReader.ReadState
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the state of the reader.
   remarks: >-
@@ -3842,6 +3843,7 @@ items:
   overload: System.Xml.XmlTextReader.ReadState*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3854,6 +3856,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3866,9 +3869,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.ReadString
   commentId: M:System.Xml.XmlTextReader.ReadString
   id: ReadString
@@ -3877,11 +3877,12 @@ items:
   - csharp
   name: ReadString()
   nameWithType: XmlTextReader.ReadString()
-  fullName: System.Xml.XmlTextReader.ReadString()
+  fullName: XmlTextReader.ReadString()
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Reads the contents of an element or a text node as a string.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n If positioned on an element, `ReadString` concatenates all text, significant white space, white space, and `CData` section node types together and returns the concatenated data as the element content. It stops when any markup is encountered, including comments and processing instructions. This could occur in a mixed content model, or when an element end tag is read.  \n  \n If positioned on a text node, `ReadString` performs the same concatenation from the text node to the element end tag. If the reader is positioned on an attribute text node, `ReadString` has the same functionality as if the reader were position on the element start tag. It returns all the concatenated element text nodes."
@@ -3902,6 +3903,7 @@ items:
     commentId: T:System.InvalidOperationException
     description: An invalid operation was attempted.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3914,6 +3916,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3926,9 +3929,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.ResetState
   commentId: M:System.Xml.XmlTextReader.ResetState
   id: ResetState
@@ -3937,11 +3937,12 @@ items:
   - csharp
   name: ResetState()
   nameWithType: XmlTextReader.ResetState()
-  fullName: System.Xml.XmlTextReader.ResetState()
+  fullName: XmlTextReader.ResetState()
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Resets the state of the reader to ReadState.Initial.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This method enables you to parse multiple XML documents in a single stream. When you reach the end of an XML document, you can call `ResetState` to reset the state of the reader in preparation for the next XML document.  \n  \n> [!IMPORTANT]\n>  The documents in the stream must share the same encoding. If this is not the case, when `ResetState` is called an <xref:System.Xml.XmlException> is thrown. (This is a change in behavior from .NET Framework version 1.1 and earlier).  \n  \n The following properties are not affected by `ResetState`.  \n  \n-   <xref:System.Xml.XmlTextReader.Normalization%2A>  \n  \n-   <xref:System.Xml.XmlTextReader.Namespaces%2A>  \n  \n-   <xref:System.Xml.XmlTextReader.XmlResolver%2A>  \n  \n-   <xref:System.Xml.XmlTextReader.WhitespaceHandling%2A>"
@@ -3959,6 +3960,7 @@ items:
     commentId: T:System.Xml.XmlException
     description: Documents in a single stream do not share the same encoding.
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3971,6 +3973,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3983,9 +3986,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.ResolveEntity
   commentId: M:System.Xml.XmlTextReader.ResolveEntity
   id: ResolveEntity
@@ -3994,11 +3994,12 @@ items:
   - csharp
   name: ResolveEntity()
   nameWithType: XmlTextReader.ResolveEntity()
-  fullName: System.Xml.XmlTextReader.ResolveEntity()
+  fullName: XmlTextReader.ResolveEntity()
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Resolves the entity reference for `EntityReference` nodes.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n If the reader is positioned on an `EntityReference` node (`XmlNodeType.EntityReference`), if <xref:System.Xml.XmlTextReader.Read%2A> is called after calling this method, the entity replacement text is parsed. When the entity replacement text is finished, an `EndEntity` node is returned to close the entity reference scope.  \n  \n> [!NOTE]\n>  After calling this method, if the entity is part of an attribute value, you must call <xref:System.Xml.XmlTextReader.ReadAttributeValue%2A> to step into the entity."
@@ -4008,6 +4009,7 @@ items:
   overload: System.Xml.XmlTextReader.ResolveEntity*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4020,6 +4022,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4032,9 +4035,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.Skip
   commentId: M:System.Xml.XmlTextReader.Skip
   id: Skip
@@ -4043,11 +4043,12 @@ items:
   - csharp
   name: Skip()
   nameWithType: XmlTextReader.Skip()
-  fullName: System.Xml.XmlTextReader.Skip()
+  fullName: XmlTextReader.Skip()
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Skips the children of the current node.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n In the following XML input if the reader is positioned on the `<a>` node or any of its attributes, calling `Skip` positions the reader to the `<b>` node.  \n  \n If the reader is positioned on a leaf node already (such as the `<x>` node or the text node `abc`), calling `Skip` is the same as calling <xref:System.Xml.XmlTextReader.Read%2A>.  \n  \n```  \n<a name=\"bob\" age=\"123\">  \n  <x/>abc<y/>  \n</a>  \n<b>  \n ...  \n</b>  \n```  \n  \n This method checks for well-formed XML."
@@ -4057,6 +4058,7 @@ items:
   overload: System.Xml.XmlTextReader.Skip*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4069,6 +4071,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4081,9 +4084,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.Value
   commentId: P:System.Xml.XmlTextReader.Value
   id: Value
@@ -4092,11 +4092,12 @@ items:
   - csharp
   name: Value
   nameWithType: XmlTextReader.Value
-  fullName: System.Xml.XmlTextReader.Value
+  fullName: XmlTextReader.Value
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the text value of the current node.
   remarks: >-
@@ -4113,6 +4114,7 @@ items:
   overload: System.Xml.XmlTextReader.Value*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4125,6 +4127,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4137,9 +4140,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.WhitespaceHandling
   commentId: P:System.Xml.XmlTextReader.WhitespaceHandling
   id: WhitespaceHandling
@@ -4148,11 +4148,12 @@ items:
   - csharp
   name: WhitespaceHandling
   nameWithType: XmlTextReader.WhitespaceHandling
-  fullName: System.Xml.XmlTextReader.WhitespaceHandling
+  fullName: XmlTextReader.WhitespaceHandling
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets or sets a value that specifies how white space is handled.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This property can be changed at any time and takes effect on the next read operation.  \n  \n Because the `XmlTextReader` does not have DTD information available to it, `SignificantWhitepsace` nodes are only returned within an `xml:space='preserve'` scope."
@@ -4172,6 +4173,7 @@ items:
     commentId: T:System.InvalidOperationException
     description: Setting this property when the reader is closed (<xref href="System.Xml.XmlTextReader.ReadState"></xref> is `ReadState.Closed`).
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4184,6 +4186,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4196,9 +4199,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.XmlLang
   commentId: P:System.Xml.XmlTextReader.XmlLang
   id: XmlLang
@@ -4207,11 +4207,12 @@ items:
   - csharp
   name: XmlLang
   nameWithType: XmlTextReader.XmlLang
-  fullName: System.Xml.XmlTextReader.XmlLang
+  fullName: XmlTextReader.XmlLang
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the current `xml:lang` scope.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n This property represents the `xml:lang` scope within which the current node resides. For example, here is an XML fragment with `xml:lang` set to US English in the root element:  \n  \n \\<root xml:lang=\"en-us\">  \n  \n \\<name>Fred\\</name>  \n  \n \\</root>  \n  \n When the reader is positioned on the `name` element, you can use this property to find that it is in the scope of a US English `xml:lang` attribute."
@@ -4225,6 +4226,7 @@ items:
   overload: System.Xml.XmlTextReader.XmlLang*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4237,6 +4239,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4249,9 +4252,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.XmlResolver
   commentId: P:System.Xml.XmlTextReader.XmlResolver
   id: XmlResolver
@@ -4260,11 +4260,12 @@ items:
   - csharp
   name: XmlResolver
   nameWithType: XmlTextReader.XmlResolver
-  fullName: System.Xml.XmlTextReader.XmlResolver
+  fullName: XmlTextReader.XmlResolver
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Sets the <xref href="System.Xml.XmlResolver"></xref> used for resolving DTD references.
   remarks: "> [!NOTE]\n>  Starting with the .NET Framework 2.0, we recommend that you create <xref:System.Xml.XmlReader> instances by using the <xref:System.Xml.XmlReader.Create%2A?displayProperty=fullName> method to take advantage of new functionality.  \n  \n The reader uses `XmlResolver` to resolve the location of the file loaded into the reader and also to resolve DTD references. For example, if your XML included the DOCTYPE declaration, `<!DOCTYPE book SYSTEM book.dtd>` the reader resolves this external file and ensures that the DTD is well-formed. The reader does not use the DTD for validation.  \n  \n This property can be changed at any time and takes effect on the next read operation. If this property is set to `null`, any external DTD references encountered by the reader are not resolved.  \n  \n In version 1.1 of the [!INCLUDE[dnprdnshort](~/includes/dnprdnshort-md.md)], if this property is not set, the trust level of the application determines the default behavior.  \n  \n `Fully trusted code:` The reader uses a default <xref:System.Xml.XmlUrlResolver> with no user credentials. If authentication is required to access a network resource, use the `XmlResolver` property to specify an `XmlResolver` with the necessary credentials.  \n  \n `Semi-trusted code:` The `XmlResolver` property is set to `null`. External resources are not resolved."
@@ -4278,6 +4279,7 @@ items:
   overload: System.Xml.XmlTextReader.XmlResolver*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4290,6 +4292,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4302,9 +4305,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.XmlSpace
   commentId: P:System.Xml.XmlTextReader.XmlSpace
   id: XmlSpace
@@ -4313,11 +4313,12 @@ items:
   - csharp
   name: XmlSpace
   nameWithType: XmlTextReader.XmlSpace
-  fullName: System.Xml.XmlTextReader.XmlSpace
+  fullName: XmlTextReader.XmlSpace
   type: Property
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: Gets the current `xml:space` scope.
   remarks: >-
@@ -4334,6 +4335,7 @@ items:
   overload: System.Xml.XmlTextReader.XmlSpace*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4346,6 +4348,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4358,9 +4361,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.System#Xml#IXmlNamespaceResolver#GetNamespacesInScope(System.Xml.XmlNamespaceScope)
   commentId: M:System.Xml.XmlTextReader.System#Xml#IXmlNamespaceResolver#GetNamespacesInScope(System.Xml.XmlNamespaceScope)
   id: System#Xml#IXmlNamespaceResolver#GetNamespacesInScope(System.Xml.XmlNamespaceScope)
@@ -4370,11 +4370,12 @@ items:
   - csharp
   name: IXmlNamespaceResolver.GetNamespacesInScope(XmlNamespaceScope)
   nameWithType: XmlTextReader.IXmlNamespaceResolver.GetNamespacesInScope(XmlNamespaceScope)
-  fullName: System.Xml.XmlTextReader.IXmlNamespaceResolver.GetNamespacesInScope(XmlNamespaceScope)
+  fullName: XmlTextReader.IXmlNamespaceResolver.GetNamespacesInScope(XmlNamespaceScope)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: For a description of this member, see <xref href="System.Xml.IXmlNamespaceResolver.GetNamespacesInScope(System.Xml.XmlNamespaceScope)"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Xml.XmlTextReader> instance is cast to an <xref:System.Xml.IXmlNamespaceResolver> interface.
@@ -4390,6 +4391,7 @@ items:
   overload: System.Xml.XmlTextReader.System#Xml#IXmlNamespaceResolver#GetNamespacesInScope*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4402,6 +4404,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4414,9 +4417,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.System#Xml#IXmlNamespaceResolver#LookupNamespace(System.String)
   commentId: M:System.Xml.XmlTextReader.System#Xml#IXmlNamespaceResolver#LookupNamespace(System.String)
   id: System#Xml#IXmlNamespaceResolver#LookupNamespace(System.String)
@@ -4426,11 +4426,12 @@ items:
   - csharp
   name: IXmlNamespaceResolver.LookupNamespace(String)
   nameWithType: XmlTextReader.IXmlNamespaceResolver.LookupNamespace(String)
-  fullName: System.Xml.XmlTextReader.IXmlNamespaceResolver.LookupNamespace(String)
+  fullName: XmlTextReader.IXmlNamespaceResolver.LookupNamespace(String)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: For a description of this member, see <xref href="System.Xml.IXmlNamespaceResolver.LookupNamespace(System.String)"></xref>.
   remarks: This member is an explicit interface member implementation. It can be used only when the <xref:System.Xml.XmlTextReader> instance is cast to an <xref:System.Xml.IXmlNamespaceResolver> interface.
@@ -4446,6 +4447,7 @@ items:
   overload: System.Xml.XmlTextReader.System#Xml#IXmlNamespaceResolver#LookupNamespace*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4458,6 +4460,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4470,9 +4473,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 - uid: System.Xml.XmlTextReader.System#Xml#IXmlNamespaceResolver#LookupPrefix(System.String)
   commentId: M:System.Xml.XmlTextReader.System#Xml#IXmlNamespaceResolver#LookupPrefix(System.String)
   id: System#Xml#IXmlNamespaceResolver#LookupPrefix(System.String)
@@ -4482,11 +4482,12 @@ items:
   - csharp
   name: IXmlNamespaceResolver.LookupPrefix(String)
   nameWithType: XmlTextReader.IXmlNamespaceResolver.LookupPrefix(String)
-  fullName: System.Xml.XmlTextReader.IXmlNamespaceResolver.LookupPrefix(String)
+  fullName: XmlTextReader.IXmlNamespaceResolver.LookupPrefix(String)
   type: Method
   assemblies:
   - System.Xml
   - netstandard
+  - System.Xml.ReaderWriter
   namespace: System.Xml
   summary: For a description of this member, see <xref href="System.Xml.IXmlNamespaceResolver.LookupPrefix(System.String)"></xref>.
   syntax:
@@ -4501,6 +4502,7 @@ items:
   overload: System.Xml.XmlTextReader.System#Xml#IXmlNamespaceResolver#LookupPrefix*
   exceptions: []
   version:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4513,6 +4515,7 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4525,9 +4528,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
-  author: mairaw
-  ms.author: mairaw
-  manager: wpickett
 references:
 - uid: System.Xml.XmlReader
   parent: System.Xml
@@ -4612,13 +4612,13 @@ references:
   isExternal: false
   name: XmlTextReader()
   nameWithType: XmlTextReader.XmlTextReader()
-  fullName: System.Xml.XmlTextReader.XmlTextReader()
+  fullName: XmlTextReader.XmlTextReader()
 - uid: System.Xml.XmlTextReader.#ctor(System.String,System.Xml.XmlNodeType,System.Xml.XmlParserContext)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: XmlTextReader(String, XmlNodeType, XmlParserContext)
   nameWithType: XmlTextReader.XmlTextReader(String, XmlNodeType, XmlParserContext)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(String, XmlNodeType, XmlParserContext)
+  fullName: XmlTextReader.XmlTextReader(String, XmlNodeType, XmlParserContext)
 - uid: System.String
   parent: System
   isExternal: false
@@ -4642,7 +4642,7 @@ references:
   isExternal: false
   name: XmlTextReader(String, TextReader, XmlNameTable)
   nameWithType: XmlTextReader.XmlTextReader(String, TextReader, XmlNameTable)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(String, TextReader, XmlNameTable)
+  fullName: XmlTextReader.XmlTextReader(String, TextReader, XmlNameTable)
 - uid: System.IO.TextReader
   parent: System.IO
   isExternal: false
@@ -4660,7 +4660,7 @@ references:
   isExternal: false
   name: XmlTextReader(String, Stream, XmlNameTable)
   nameWithType: XmlTextReader.XmlTextReader(String, Stream, XmlNameTable)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(String, Stream, XmlNameTable)
+  fullName: XmlTextReader.XmlTextReader(String, Stream, XmlNameTable)
 - uid: System.IO.Stream
   parent: System.IO
   isExternal: false
@@ -4672,67 +4672,67 @@ references:
   isExternal: false
   name: XmlTextReader(Stream, XmlNodeType, XmlParserContext)
   nameWithType: XmlTextReader.XmlTextReader(Stream, XmlNodeType, XmlParserContext)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(Stream, XmlNodeType, XmlParserContext)
+  fullName: XmlTextReader.XmlTextReader(Stream, XmlNodeType, XmlParserContext)
 - uid: System.Xml.XmlTextReader.#ctor(System.String,System.Xml.XmlNameTable)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: XmlTextReader(String, XmlNameTable)
   nameWithType: XmlTextReader.XmlTextReader(String, XmlNameTable)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(String, XmlNameTable)
+  fullName: XmlTextReader.XmlTextReader(String, XmlNameTable)
 - uid: System.Xml.XmlTextReader.#ctor(System.String,System.IO.Stream)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: XmlTextReader(String, Stream)
   nameWithType: XmlTextReader.XmlTextReader(String, Stream)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(String, Stream)
+  fullName: XmlTextReader.XmlTextReader(String, Stream)
 - uid: System.Xml.XmlTextReader.#ctor(System.String,System.IO.TextReader)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: XmlTextReader(String, TextReader)
   nameWithType: XmlTextReader.XmlTextReader(String, TextReader)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(String, TextReader)
+  fullName: XmlTextReader.XmlTextReader(String, TextReader)
 - uid: System.Xml.XmlTextReader.#ctor(System.IO.Stream,System.Xml.XmlNameTable)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: XmlTextReader(Stream, XmlNameTable)
   nameWithType: XmlTextReader.XmlTextReader(Stream, XmlNameTable)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(Stream, XmlNameTable)
+  fullName: XmlTextReader.XmlTextReader(Stream, XmlNameTable)
 - uid: System.Xml.XmlTextReader.#ctor(System.Xml.XmlNameTable)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: XmlTextReader(XmlNameTable)
   nameWithType: XmlTextReader.XmlTextReader(XmlNameTable)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(XmlNameTable)
+  fullName: XmlTextReader.XmlTextReader(XmlNameTable)
 - uid: System.Xml.XmlTextReader.#ctor(System.String)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: XmlTextReader(String)
   nameWithType: XmlTextReader.XmlTextReader(String)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(String)
+  fullName: XmlTextReader.XmlTextReader(String)
 - uid: System.Xml.XmlTextReader.#ctor(System.IO.TextReader)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: XmlTextReader(TextReader)
   nameWithType: XmlTextReader.XmlTextReader(TextReader)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(TextReader)
+  fullName: XmlTextReader.XmlTextReader(TextReader)
 - uid: System.Xml.XmlTextReader.#ctor(System.IO.Stream)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: XmlTextReader(Stream)
   nameWithType: XmlTextReader.XmlTextReader(Stream)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(Stream)
+  fullName: XmlTextReader.XmlTextReader(Stream)
 - uid: System.Xml.XmlTextReader.#ctor(System.IO.TextReader,System.Xml.XmlNameTable)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: XmlTextReader(TextReader, XmlNameTable)
   nameWithType: XmlTextReader.XmlTextReader(TextReader, XmlNameTable)
-  fullName: System.Xml.XmlTextReader.XmlTextReader(TextReader, XmlNameTable)
+  fullName: XmlTextReader.XmlTextReader(TextReader, XmlNameTable)
 - uid: System.Xml.XmlTextReader.AttributeCount
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: AttributeCount
   nameWithType: XmlTextReader.AttributeCount
-  fullName: System.Xml.XmlTextReader.AttributeCount
+  fullName: XmlTextReader.AttributeCount
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -4744,13 +4744,13 @@ references:
   isExternal: false
   name: BaseURI
   nameWithType: XmlTextReader.BaseURI
-  fullName: System.Xml.XmlTextReader.BaseURI
+  fullName: XmlTextReader.BaseURI
 - uid: System.Xml.XmlTextReader.CanReadBinaryContent
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: CanReadBinaryContent
   nameWithType: XmlTextReader.CanReadBinaryContent
-  fullName: System.Xml.XmlTextReader.CanReadBinaryContent
+  fullName: XmlTextReader.CanReadBinaryContent
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -4762,31 +4762,31 @@ references:
   isExternal: false
   name: CanReadValueChunk
   nameWithType: XmlTextReader.CanReadValueChunk
-  fullName: System.Xml.XmlTextReader.CanReadValueChunk
+  fullName: XmlTextReader.CanReadValueChunk
 - uid: System.Xml.XmlTextReader.CanResolveEntity
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: CanResolveEntity
   nameWithType: XmlTextReader.CanResolveEntity
-  fullName: System.Xml.XmlTextReader.CanResolveEntity
+  fullName: XmlTextReader.CanResolveEntity
 - uid: System.Xml.XmlTextReader.Close
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: Close()
   nameWithType: XmlTextReader.Close()
-  fullName: System.Xml.XmlTextReader.Close()
+  fullName: XmlTextReader.Close()
 - uid: System.Xml.XmlTextReader.Depth
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: Depth
   nameWithType: XmlTextReader.Depth
-  fullName: System.Xml.XmlTextReader.Depth
+  fullName: XmlTextReader.Depth
 - uid: System.Xml.XmlTextReader.DtdProcessing
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: DtdProcessing
   nameWithType: XmlTextReader.DtdProcessing
-  fullName: System.Xml.XmlTextReader.DtdProcessing
+  fullName: XmlTextReader.DtdProcessing
 - uid: System.Xml.DtdProcessing
   parent: System.Xml
   isExternal: false
@@ -4798,7 +4798,7 @@ references:
   isExternal: false
   name: Encoding
   nameWithType: XmlTextReader.Encoding
-  fullName: System.Xml.XmlTextReader.Encoding
+  fullName: XmlTextReader.Encoding
 - uid: System.Text.Encoding
   parent: System.Text
   isExternal: false
@@ -4810,7 +4810,7 @@ references:
   isExternal: false
   name: EntityHandling
   nameWithType: XmlTextReader.EntityHandling
-  fullName: System.Xml.XmlTextReader.EntityHandling
+  fullName: XmlTextReader.EntityHandling
 - uid: System.Xml.EntityHandling
   parent: System.Xml
   isExternal: false
@@ -4822,31 +4822,31 @@ references:
   isExternal: false
   name: EOF
   nameWithType: XmlTextReader.EOF
-  fullName: System.Xml.XmlTextReader.EOF
+  fullName: XmlTextReader.EOF
 - uid: System.Xml.XmlTextReader.GetAttribute(System.String)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: GetAttribute(String)
   nameWithType: XmlTextReader.GetAttribute(String)
-  fullName: System.Xml.XmlTextReader.GetAttribute(String)
+  fullName: XmlTextReader.GetAttribute(String)
 - uid: System.Xml.XmlTextReader.GetAttribute(System.String,System.String)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: GetAttribute(String, String)
   nameWithType: XmlTextReader.GetAttribute(String, String)
-  fullName: System.Xml.XmlTextReader.GetAttribute(String, String)
+  fullName: XmlTextReader.GetAttribute(String, String)
 - uid: System.Xml.XmlTextReader.GetAttribute(System.Int32)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: GetAttribute(Int32)
   nameWithType: XmlTextReader.GetAttribute(Int32)
-  fullName: System.Xml.XmlTextReader.GetAttribute(Int32)
+  fullName: XmlTextReader.GetAttribute(Int32)
 - uid: System.Xml.XmlTextReader.GetNamespacesInScope(System.Xml.XmlNamespaceScope)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: GetNamespacesInScope(XmlNamespaceScope)
   nameWithType: XmlTextReader.GetNamespacesInScope(XmlNamespaceScope)
-  fullName: System.Xml.XmlTextReader.GetNamespacesInScope(XmlNamespaceScope)
+  fullName: XmlTextReader.GetNamespacesInScope(XmlNamespaceScope)
 - uid: System.Collections.Generic.IDictionary`2
   name: IDictionary<TKey,TValue>
   nameWithType: IDictionary<TKey,TValue>
@@ -4890,145 +4890,145 @@ references:
   isExternal: false
   name: GetRemainder()
   nameWithType: XmlTextReader.GetRemainder()
-  fullName: System.Xml.XmlTextReader.GetRemainder()
+  fullName: XmlTextReader.GetRemainder()
 - uid: System.Xml.XmlTextReader.HasLineInfo
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: HasLineInfo()
   nameWithType: XmlTextReader.HasLineInfo()
-  fullName: System.Xml.XmlTextReader.HasLineInfo()
+  fullName: XmlTextReader.HasLineInfo()
 - uid: System.Xml.XmlTextReader.HasValue
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: HasValue
   nameWithType: XmlTextReader.HasValue
-  fullName: System.Xml.XmlTextReader.HasValue
+  fullName: XmlTextReader.HasValue
 - uid: System.Xml.XmlTextReader.IsDefault
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: IsDefault
   nameWithType: XmlTextReader.IsDefault
-  fullName: System.Xml.XmlTextReader.IsDefault
+  fullName: XmlTextReader.IsDefault
 - uid: System.Xml.XmlTextReader.IsEmptyElement
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: IsEmptyElement
   nameWithType: XmlTextReader.IsEmptyElement
-  fullName: System.Xml.XmlTextReader.IsEmptyElement
+  fullName: XmlTextReader.IsEmptyElement
 - uid: System.Xml.XmlTextReader.LineNumber
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: LineNumber
   nameWithType: XmlTextReader.LineNumber
-  fullName: System.Xml.XmlTextReader.LineNumber
+  fullName: XmlTextReader.LineNumber
 - uid: System.Xml.XmlTextReader.LinePosition
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: LinePosition
   nameWithType: XmlTextReader.LinePosition
-  fullName: System.Xml.XmlTextReader.LinePosition
+  fullName: XmlTextReader.LinePosition
 - uid: System.Xml.XmlTextReader.LocalName
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: LocalName
   nameWithType: XmlTextReader.LocalName
-  fullName: System.Xml.XmlTextReader.LocalName
+  fullName: XmlTextReader.LocalName
 - uid: System.Xml.XmlTextReader.LookupNamespace(System.String)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: LookupNamespace(String)
   nameWithType: XmlTextReader.LookupNamespace(String)
-  fullName: System.Xml.XmlTextReader.LookupNamespace(String)
+  fullName: XmlTextReader.LookupNamespace(String)
 - uid: System.Xml.XmlTextReader.MoveToAttribute(System.Int32)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: MoveToAttribute(Int32)
   nameWithType: XmlTextReader.MoveToAttribute(Int32)
-  fullName: System.Xml.XmlTextReader.MoveToAttribute(Int32)
+  fullName: XmlTextReader.MoveToAttribute(Int32)
 - uid: System.Xml.XmlTextReader.MoveToAttribute(System.String)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: MoveToAttribute(String)
   nameWithType: XmlTextReader.MoveToAttribute(String)
-  fullName: System.Xml.XmlTextReader.MoveToAttribute(String)
+  fullName: XmlTextReader.MoveToAttribute(String)
 - uid: System.Xml.XmlTextReader.MoveToAttribute(System.String,System.String)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: MoveToAttribute(String, String)
   nameWithType: XmlTextReader.MoveToAttribute(String, String)
-  fullName: System.Xml.XmlTextReader.MoveToAttribute(String, String)
+  fullName: XmlTextReader.MoveToAttribute(String, String)
 - uid: System.Xml.XmlTextReader.MoveToElement
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: MoveToElement()
   nameWithType: XmlTextReader.MoveToElement()
-  fullName: System.Xml.XmlTextReader.MoveToElement()
+  fullName: XmlTextReader.MoveToElement()
 - uid: System.Xml.XmlTextReader.MoveToFirstAttribute
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: MoveToFirstAttribute()
   nameWithType: XmlTextReader.MoveToFirstAttribute()
-  fullName: System.Xml.XmlTextReader.MoveToFirstAttribute()
+  fullName: XmlTextReader.MoveToFirstAttribute()
 - uid: System.Xml.XmlTextReader.MoveToNextAttribute
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: MoveToNextAttribute()
   nameWithType: XmlTextReader.MoveToNextAttribute()
-  fullName: System.Xml.XmlTextReader.MoveToNextAttribute()
+  fullName: XmlTextReader.MoveToNextAttribute()
 - uid: System.Xml.XmlTextReader.Name
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: Name
   nameWithType: XmlTextReader.Name
-  fullName: System.Xml.XmlTextReader.Name
+  fullName: XmlTextReader.Name
 - uid: System.Xml.XmlTextReader.Namespaces
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: Namespaces
   nameWithType: XmlTextReader.Namespaces
-  fullName: System.Xml.XmlTextReader.Namespaces
+  fullName: XmlTextReader.Namespaces
 - uid: System.Xml.XmlTextReader.NamespaceURI
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: NamespaceURI
   nameWithType: XmlTextReader.NamespaceURI
-  fullName: System.Xml.XmlTextReader.NamespaceURI
+  fullName: XmlTextReader.NamespaceURI
 - uid: System.Xml.XmlTextReader.NameTable
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: NameTable
   nameWithType: XmlTextReader.NameTable
-  fullName: System.Xml.XmlTextReader.NameTable
+  fullName: XmlTextReader.NameTable
 - uid: System.Xml.XmlTextReader.NodeType
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: NodeType
   nameWithType: XmlTextReader.NodeType
-  fullName: System.Xml.XmlTextReader.NodeType
+  fullName: XmlTextReader.NodeType
 - uid: System.Xml.XmlTextReader.Normalization
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: Normalization
   nameWithType: XmlTextReader.Normalization
-  fullName: System.Xml.XmlTextReader.Normalization
+  fullName: XmlTextReader.Normalization
 - uid: System.Xml.XmlTextReader.Prefix
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: Prefix
   nameWithType: XmlTextReader.Prefix
-  fullName: System.Xml.XmlTextReader.Prefix
+  fullName: XmlTextReader.Prefix
 - uid: System.Xml.XmlTextReader.ProhibitDtd
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: ProhibitDtd
   nameWithType: XmlTextReader.ProhibitDtd
-  fullName: System.Xml.XmlTextReader.ProhibitDtd
+  fullName: XmlTextReader.ProhibitDtd
 - uid: System.Xml.XmlTextReader.QuoteChar
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: QuoteChar
   nameWithType: XmlTextReader.QuoteChar
-  fullName: System.Xml.XmlTextReader.QuoteChar
+  fullName: XmlTextReader.QuoteChar
 - uid: System.Char
   parent: System
   isExternal: false
@@ -5040,19 +5040,19 @@ references:
   isExternal: false
   name: Read()
   nameWithType: XmlTextReader.Read()
-  fullName: System.Xml.XmlTextReader.Read()
+  fullName: XmlTextReader.Read()
 - uid: System.Xml.XmlTextReader.ReadAttributeValue
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: ReadAttributeValue()
   nameWithType: XmlTextReader.ReadAttributeValue()
-  fullName: System.Xml.XmlTextReader.ReadAttributeValue()
+  fullName: XmlTextReader.ReadAttributeValue()
 - uid: System.Xml.XmlTextReader.ReadBase64(System.Byte[],System.Int32,System.Int32)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: ReadBase64(Byte[], Int32, Int32)
   nameWithType: XmlTextReader.ReadBase64(Byte[], Int32, Int32)
-  fullName: System.Xml.XmlTextReader.ReadBase64(Byte[], Int32, Int32)
+  fullName: XmlTextReader.ReadBase64(Byte[], Int32, Int32)
 - uid: System.Byte
   name: Byte
   nameWithType: Byte
@@ -5076,13 +5076,13 @@ references:
   isExternal: false
   name: ReadBinHex(Byte[], Int32, Int32)
   nameWithType: XmlTextReader.ReadBinHex(Byte[], Int32, Int32)
-  fullName: System.Xml.XmlTextReader.ReadBinHex(Byte[], Int32, Int32)
+  fullName: XmlTextReader.ReadBinHex(Byte[], Int32, Int32)
 - uid: System.Xml.XmlTextReader.ReadChars(System.Char[],System.Int32,System.Int32)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: ReadChars(Char[], Int32, Int32)
   nameWithType: XmlTextReader.ReadChars(Char[], Int32, Int32)
-  fullName: System.Xml.XmlTextReader.ReadChars(Char[], Int32, Int32)
+  fullName: XmlTextReader.ReadChars(Char[], Int32, Int32)
 - uid: System.Char[]
   parent: System
   isExternal: false
@@ -5102,31 +5102,31 @@ references:
   isExternal: false
   name: ReadContentAsBase64(Byte[], Int32, Int32)
   nameWithType: XmlTextReader.ReadContentAsBase64(Byte[], Int32, Int32)
-  fullName: System.Xml.XmlTextReader.ReadContentAsBase64(Byte[], Int32, Int32)
+  fullName: XmlTextReader.ReadContentAsBase64(Byte[], Int32, Int32)
 - uid: System.Xml.XmlTextReader.ReadContentAsBinHex(System.Byte[],System.Int32,System.Int32)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: ReadContentAsBinHex(Byte[], Int32, Int32)
   nameWithType: XmlTextReader.ReadContentAsBinHex(Byte[], Int32, Int32)
-  fullName: System.Xml.XmlTextReader.ReadContentAsBinHex(Byte[], Int32, Int32)
+  fullName: XmlTextReader.ReadContentAsBinHex(Byte[], Int32, Int32)
 - uid: System.Xml.XmlTextReader.ReadElementContentAsBase64(System.Byte[],System.Int32,System.Int32)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: ReadElementContentAsBase64(Byte[], Int32, Int32)
   nameWithType: XmlTextReader.ReadElementContentAsBase64(Byte[], Int32, Int32)
-  fullName: System.Xml.XmlTextReader.ReadElementContentAsBase64(Byte[], Int32, Int32)
+  fullName: XmlTextReader.ReadElementContentAsBase64(Byte[], Int32, Int32)
 - uid: System.Xml.XmlTextReader.ReadElementContentAsBinHex(System.Byte[],System.Int32,System.Int32)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: ReadElementContentAsBinHex(Byte[], Int32, Int32)
   nameWithType: XmlTextReader.ReadElementContentAsBinHex(Byte[], Int32, Int32)
-  fullName: System.Xml.XmlTextReader.ReadElementContentAsBinHex(Byte[], Int32, Int32)
+  fullName: XmlTextReader.ReadElementContentAsBinHex(Byte[], Int32, Int32)
 - uid: System.Xml.XmlTextReader.ReadState
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: ReadState
   nameWithType: XmlTextReader.ReadState
-  fullName: System.Xml.XmlTextReader.ReadState
+  fullName: XmlTextReader.ReadState
 - uid: System.Xml.ReadState
   parent: System.Xml
   isExternal: false
@@ -5138,37 +5138,37 @@ references:
   isExternal: false
   name: ReadString()
   nameWithType: XmlTextReader.ReadString()
-  fullName: System.Xml.XmlTextReader.ReadString()
+  fullName: XmlTextReader.ReadString()
 - uid: System.Xml.XmlTextReader.ResetState
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: ResetState()
   nameWithType: XmlTextReader.ResetState()
-  fullName: System.Xml.XmlTextReader.ResetState()
+  fullName: XmlTextReader.ResetState()
 - uid: System.Xml.XmlTextReader.ResolveEntity
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: ResolveEntity()
   nameWithType: XmlTextReader.ResolveEntity()
-  fullName: System.Xml.XmlTextReader.ResolveEntity()
+  fullName: XmlTextReader.ResolveEntity()
 - uid: System.Xml.XmlTextReader.Skip
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: Skip()
   nameWithType: XmlTextReader.Skip()
-  fullName: System.Xml.XmlTextReader.Skip()
+  fullName: XmlTextReader.Skip()
 - uid: System.Xml.XmlTextReader.Value
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: Value
   nameWithType: XmlTextReader.Value
-  fullName: System.Xml.XmlTextReader.Value
+  fullName: XmlTextReader.Value
 - uid: System.Xml.XmlTextReader.WhitespaceHandling
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: WhitespaceHandling
   nameWithType: XmlTextReader.WhitespaceHandling
-  fullName: System.Xml.XmlTextReader.WhitespaceHandling
+  fullName: XmlTextReader.WhitespaceHandling
 - uid: System.Xml.WhitespaceHandling
   parent: System.Xml
   isExternal: false
@@ -5180,13 +5180,13 @@ references:
   isExternal: false
   name: XmlLang
   nameWithType: XmlTextReader.XmlLang
-  fullName: System.Xml.XmlTextReader.XmlLang
+  fullName: XmlTextReader.XmlLang
 - uid: System.Xml.XmlTextReader.XmlResolver
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: XmlResolver
   nameWithType: XmlTextReader.XmlResolver
-  fullName: System.Xml.XmlTextReader.XmlResolver
+  fullName: XmlTextReader.XmlResolver
 - uid: System.Xml.XmlResolver
   parent: System.Xml
   isExternal: false
@@ -5198,7 +5198,7 @@ references:
   isExternal: false
   name: XmlSpace
   nameWithType: XmlTextReader.XmlSpace
-  fullName: System.Xml.XmlTextReader.XmlSpace
+  fullName: XmlTextReader.XmlSpace
 - uid: System.Xml.XmlSpace
   parent: System.Xml
   isExternal: false
@@ -5210,26 +5210,27 @@ references:
   isExternal: false
   name: IXmlNamespaceResolver.GetNamespacesInScope(XmlNamespaceScope)
   nameWithType: XmlTextReader.IXmlNamespaceResolver.GetNamespacesInScope(XmlNamespaceScope)
-  fullName: System.Xml.XmlTextReader.IXmlNamespaceResolver.GetNamespacesInScope(XmlNamespaceScope)
+  fullName: XmlTextReader.IXmlNamespaceResolver.GetNamespacesInScope(XmlNamespaceScope)
 - uid: System.Xml.XmlTextReader.System#Xml#IXmlNamespaceResolver#LookupNamespace(System.String)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: IXmlNamespaceResolver.LookupNamespace(String)
   nameWithType: XmlTextReader.IXmlNamespaceResolver.LookupNamespace(String)
-  fullName: System.Xml.XmlTextReader.IXmlNamespaceResolver.LookupNamespace(String)
+  fullName: XmlTextReader.IXmlNamespaceResolver.LookupNamespace(String)
 - uid: System.Xml.XmlTextReader.System#Xml#IXmlNamespaceResolver#LookupPrefix(System.String)
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: IXmlNamespaceResolver.LookupPrefix(String)
   nameWithType: XmlTextReader.IXmlNamespaceResolver.LookupPrefix(String)
-  fullName: System.Xml.XmlTextReader.IXmlNamespaceResolver.LookupPrefix(String)
+  fullName: XmlTextReader.IXmlNamespaceResolver.LookupPrefix(String)
 - uid: System.Xml.XmlTextReader.#ctor*
   parent: System.Xml.XmlTextReader
   isExternal: false
   name: XmlTextReader
   nameWithType: XmlTextReader.XmlTextReader
-  fullName: System.Xml.XmlTextReader.XmlTextReader
+  fullName: XmlTextReader.XmlTextReader
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5247,8 +5248,9 @@ references:
   isExternal: false
   name: GetAttribute
   nameWithType: XmlTextReader.GetAttribute
-  fullName: System.Xml.XmlTextReader.GetAttribute
+  fullName: XmlTextReader.GetAttribute
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5266,8 +5268,9 @@ references:
   isExternal: false
   name: MoveToAttribute
   nameWithType: XmlTextReader.MoveToAttribute
-  fullName: System.Xml.XmlTextReader.MoveToAttribute
+  fullName: XmlTextReader.MoveToAttribute
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5285,8 +5288,9 @@ references:
   isExternal: false
   name: AttributeCount
   nameWithType: XmlTextReader.AttributeCount
-  fullName: System.Xml.XmlTextReader.AttributeCount
+  fullName: XmlTextReader.AttributeCount
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5304,8 +5308,9 @@ references:
   isExternal: false
   name: BaseURI
   nameWithType: XmlTextReader.BaseURI
-  fullName: System.Xml.XmlTextReader.BaseURI
+  fullName: XmlTextReader.BaseURI
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5323,8 +5328,9 @@ references:
   isExternal: false
   name: CanReadBinaryContent
   nameWithType: XmlTextReader.CanReadBinaryContent
-  fullName: System.Xml.XmlTextReader.CanReadBinaryContent
+  fullName: XmlTextReader.CanReadBinaryContent
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5342,8 +5348,9 @@ references:
   isExternal: false
   name: CanReadValueChunk
   nameWithType: XmlTextReader.CanReadValueChunk
-  fullName: System.Xml.XmlTextReader.CanReadValueChunk
+  fullName: XmlTextReader.CanReadValueChunk
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5361,8 +5368,9 @@ references:
   isExternal: false
   name: CanResolveEntity
   nameWithType: XmlTextReader.CanResolveEntity
-  fullName: System.Xml.XmlTextReader.CanResolveEntity
+  fullName: XmlTextReader.CanResolveEntity
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5380,8 +5388,9 @@ references:
   isExternal: false
   name: Close
   nameWithType: XmlTextReader.Close
-  fullName: System.Xml.XmlTextReader.Close
+  fullName: XmlTextReader.Close
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5399,8 +5408,9 @@ references:
   isExternal: false
   name: Depth
   nameWithType: XmlTextReader.Depth
-  fullName: System.Xml.XmlTextReader.Depth
+  fullName: XmlTextReader.Depth
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5418,8 +5428,9 @@ references:
   isExternal: false
   name: DtdProcessing
   nameWithType: XmlTextReader.DtdProcessing
-  fullName: System.Xml.XmlTextReader.DtdProcessing
+  fullName: XmlTextReader.DtdProcessing
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5437,8 +5448,9 @@ references:
   isExternal: false
   name: Encoding
   nameWithType: XmlTextReader.Encoding
-  fullName: System.Xml.XmlTextReader.Encoding
+  fullName: XmlTextReader.Encoding
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5456,8 +5468,9 @@ references:
   isExternal: false
   name: EntityHandling
   nameWithType: XmlTextReader.EntityHandling
-  fullName: System.Xml.XmlTextReader.EntityHandling
+  fullName: XmlTextReader.EntityHandling
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5475,8 +5488,9 @@ references:
   isExternal: false
   name: EOF
   nameWithType: XmlTextReader.EOF
-  fullName: System.Xml.XmlTextReader.EOF
+  fullName: XmlTextReader.EOF
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5494,8 +5508,9 @@ references:
   isExternal: false
   name: GetNamespacesInScope
   nameWithType: XmlTextReader.GetNamespacesInScope
-  fullName: System.Xml.XmlTextReader.GetNamespacesInScope
+  fullName: XmlTextReader.GetNamespacesInScope
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5513,8 +5528,9 @@ references:
   isExternal: false
   name: GetRemainder
   nameWithType: XmlTextReader.GetRemainder
-  fullName: System.Xml.XmlTextReader.GetRemainder
+  fullName: XmlTextReader.GetRemainder
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5532,8 +5548,9 @@ references:
   isExternal: false
   name: HasLineInfo
   nameWithType: XmlTextReader.HasLineInfo
-  fullName: System.Xml.XmlTextReader.HasLineInfo
+  fullName: XmlTextReader.HasLineInfo
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5551,8 +5568,9 @@ references:
   isExternal: false
   name: HasValue
   nameWithType: XmlTextReader.HasValue
-  fullName: System.Xml.XmlTextReader.HasValue
+  fullName: XmlTextReader.HasValue
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5570,8 +5588,9 @@ references:
   isExternal: false
   name: IsDefault
   nameWithType: XmlTextReader.IsDefault
-  fullName: System.Xml.XmlTextReader.IsDefault
+  fullName: XmlTextReader.IsDefault
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5589,8 +5608,9 @@ references:
   isExternal: false
   name: IsEmptyElement
   nameWithType: XmlTextReader.IsEmptyElement
-  fullName: System.Xml.XmlTextReader.IsEmptyElement
+  fullName: XmlTextReader.IsEmptyElement
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5608,8 +5628,9 @@ references:
   isExternal: false
   name: LineNumber
   nameWithType: XmlTextReader.LineNumber
-  fullName: System.Xml.XmlTextReader.LineNumber
+  fullName: XmlTextReader.LineNumber
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5627,8 +5648,9 @@ references:
   isExternal: false
   name: LinePosition
   nameWithType: XmlTextReader.LinePosition
-  fullName: System.Xml.XmlTextReader.LinePosition
+  fullName: XmlTextReader.LinePosition
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5646,8 +5668,9 @@ references:
   isExternal: false
   name: LocalName
   nameWithType: XmlTextReader.LocalName
-  fullName: System.Xml.XmlTextReader.LocalName
+  fullName: XmlTextReader.LocalName
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5665,8 +5688,9 @@ references:
   isExternal: false
   name: LookupNamespace
   nameWithType: XmlTextReader.LookupNamespace
-  fullName: System.Xml.XmlTextReader.LookupNamespace
+  fullName: XmlTextReader.LookupNamespace
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5684,8 +5708,9 @@ references:
   isExternal: false
   name: MoveToElement
   nameWithType: XmlTextReader.MoveToElement
-  fullName: System.Xml.XmlTextReader.MoveToElement
+  fullName: XmlTextReader.MoveToElement
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5703,8 +5728,9 @@ references:
   isExternal: false
   name: MoveToFirstAttribute
   nameWithType: XmlTextReader.MoveToFirstAttribute
-  fullName: System.Xml.XmlTextReader.MoveToFirstAttribute
+  fullName: XmlTextReader.MoveToFirstAttribute
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5722,8 +5748,9 @@ references:
   isExternal: false
   name: MoveToNextAttribute
   nameWithType: XmlTextReader.MoveToNextAttribute
-  fullName: System.Xml.XmlTextReader.MoveToNextAttribute
+  fullName: XmlTextReader.MoveToNextAttribute
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5741,8 +5768,9 @@ references:
   isExternal: false
   name: Name
   nameWithType: XmlTextReader.Name
-  fullName: System.Xml.XmlTextReader.Name
+  fullName: XmlTextReader.Name
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5760,8 +5788,9 @@ references:
   isExternal: false
   name: Namespaces
   nameWithType: XmlTextReader.Namespaces
-  fullName: System.Xml.XmlTextReader.Namespaces
+  fullName: XmlTextReader.Namespaces
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5779,8 +5808,9 @@ references:
   isExternal: false
   name: NamespaceURI
   nameWithType: XmlTextReader.NamespaceURI
-  fullName: System.Xml.XmlTextReader.NamespaceURI
+  fullName: XmlTextReader.NamespaceURI
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5798,8 +5828,9 @@ references:
   isExternal: false
   name: NameTable
   nameWithType: XmlTextReader.NameTable
-  fullName: System.Xml.XmlTextReader.NameTable
+  fullName: XmlTextReader.NameTable
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5817,8 +5848,9 @@ references:
   isExternal: false
   name: NodeType
   nameWithType: XmlTextReader.NodeType
-  fullName: System.Xml.XmlTextReader.NodeType
+  fullName: XmlTextReader.NodeType
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5836,8 +5868,9 @@ references:
   isExternal: false
   name: Normalization
   nameWithType: XmlTextReader.Normalization
-  fullName: System.Xml.XmlTextReader.Normalization
+  fullName: XmlTextReader.Normalization
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5855,8 +5888,9 @@ references:
   isExternal: false
   name: Prefix
   nameWithType: XmlTextReader.Prefix
-  fullName: System.Xml.XmlTextReader.Prefix
+  fullName: XmlTextReader.Prefix
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5874,8 +5908,9 @@ references:
   isExternal: false
   name: ProhibitDtd
   nameWithType: XmlTextReader.ProhibitDtd
-  fullName: System.Xml.XmlTextReader.ProhibitDtd
+  fullName: XmlTextReader.ProhibitDtd
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5893,8 +5928,9 @@ references:
   isExternal: false
   name: QuoteChar
   nameWithType: XmlTextReader.QuoteChar
-  fullName: System.Xml.XmlTextReader.QuoteChar
+  fullName: XmlTextReader.QuoteChar
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5912,8 +5948,9 @@ references:
   isExternal: false
   name: Read
   nameWithType: XmlTextReader.Read
-  fullName: System.Xml.XmlTextReader.Read
+  fullName: XmlTextReader.Read
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5931,8 +5968,9 @@ references:
   isExternal: false
   name: ReadAttributeValue
   nameWithType: XmlTextReader.ReadAttributeValue
-  fullName: System.Xml.XmlTextReader.ReadAttributeValue
+  fullName: XmlTextReader.ReadAttributeValue
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5950,8 +5988,9 @@ references:
   isExternal: false
   name: ReadBase64
   nameWithType: XmlTextReader.ReadBase64
-  fullName: System.Xml.XmlTextReader.ReadBase64
+  fullName: XmlTextReader.ReadBase64
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5969,8 +6008,9 @@ references:
   isExternal: false
   name: ReadBinHex
   nameWithType: XmlTextReader.ReadBinHex
-  fullName: System.Xml.XmlTextReader.ReadBinHex
+  fullName: XmlTextReader.ReadBinHex
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -5988,8 +6028,9 @@ references:
   isExternal: false
   name: ReadChars
   nameWithType: XmlTextReader.ReadChars
-  fullName: System.Xml.XmlTextReader.ReadChars
+  fullName: XmlTextReader.ReadChars
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6007,8 +6048,9 @@ references:
   isExternal: false
   name: ReadContentAsBase64
   nameWithType: XmlTextReader.ReadContentAsBase64
-  fullName: System.Xml.XmlTextReader.ReadContentAsBase64
+  fullName: XmlTextReader.ReadContentAsBase64
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6026,8 +6068,9 @@ references:
   isExternal: false
   name: ReadContentAsBinHex
   nameWithType: XmlTextReader.ReadContentAsBinHex
-  fullName: System.Xml.XmlTextReader.ReadContentAsBinHex
+  fullName: XmlTextReader.ReadContentAsBinHex
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6045,8 +6088,9 @@ references:
   isExternal: false
   name: ReadElementContentAsBase64
   nameWithType: XmlTextReader.ReadElementContentAsBase64
-  fullName: System.Xml.XmlTextReader.ReadElementContentAsBase64
+  fullName: XmlTextReader.ReadElementContentAsBase64
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6064,8 +6108,9 @@ references:
   isExternal: false
   name: ReadElementContentAsBinHex
   nameWithType: XmlTextReader.ReadElementContentAsBinHex
-  fullName: System.Xml.XmlTextReader.ReadElementContentAsBinHex
+  fullName: XmlTextReader.ReadElementContentAsBinHex
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6083,8 +6128,9 @@ references:
   isExternal: false
   name: ReadState
   nameWithType: XmlTextReader.ReadState
-  fullName: System.Xml.XmlTextReader.ReadState
+  fullName: XmlTextReader.ReadState
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6102,8 +6148,9 @@ references:
   isExternal: false
   name: ReadString
   nameWithType: XmlTextReader.ReadString
-  fullName: System.Xml.XmlTextReader.ReadString
+  fullName: XmlTextReader.ReadString
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6121,8 +6168,9 @@ references:
   isExternal: false
   name: ResetState
   nameWithType: XmlTextReader.ResetState
-  fullName: System.Xml.XmlTextReader.ResetState
+  fullName: XmlTextReader.ResetState
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6140,8 +6188,9 @@ references:
   isExternal: false
   name: ResolveEntity
   nameWithType: XmlTextReader.ResolveEntity
-  fullName: System.Xml.XmlTextReader.ResolveEntity
+  fullName: XmlTextReader.ResolveEntity
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6159,8 +6208,9 @@ references:
   isExternal: false
   name: Skip
   nameWithType: XmlTextReader.Skip
-  fullName: System.Xml.XmlTextReader.Skip
+  fullName: XmlTextReader.Skip
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6178,8 +6228,9 @@ references:
   isExternal: false
   name: Value
   nameWithType: XmlTextReader.Value
-  fullName: System.Xml.XmlTextReader.Value
+  fullName: XmlTextReader.Value
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6197,8 +6248,9 @@ references:
   isExternal: false
   name: WhitespaceHandling
   nameWithType: XmlTextReader.WhitespaceHandling
-  fullName: System.Xml.XmlTextReader.WhitespaceHandling
+  fullName: XmlTextReader.WhitespaceHandling
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6216,8 +6268,9 @@ references:
   isExternal: false
   name: XmlLang
   nameWithType: XmlTextReader.XmlLang
-  fullName: System.Xml.XmlTextReader.XmlLang
+  fullName: XmlTextReader.XmlLang
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6235,8 +6288,9 @@ references:
   isExternal: false
   name: XmlResolver
   nameWithType: XmlTextReader.XmlResolver
-  fullName: System.Xml.XmlTextReader.XmlResolver
+  fullName: XmlTextReader.XmlResolver
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6254,8 +6308,9 @@ references:
   isExternal: false
   name: XmlSpace
   nameWithType: XmlTextReader.XmlSpace
-  fullName: System.Xml.XmlTextReader.XmlSpace
+  fullName: XmlTextReader.XmlSpace
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6273,8 +6328,9 @@ references:
   isExternal: false
   name: System.Xml.IXmlNamespaceResolver.GetNamespacesInScope
   nameWithType: XmlTextReader.System.Xml.IXmlNamespaceResolver.GetNamespacesInScope
-  fullName: System.Xml.XmlTextReader.System.Xml.IXmlNamespaceResolver.GetNamespacesInScope
+  fullName: XmlTextReader.System.Xml.IXmlNamespaceResolver.GetNamespacesInScope
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6292,8 +6348,9 @@ references:
   isExternal: false
   name: System.Xml.IXmlNamespaceResolver.LookupNamespace
   nameWithType: XmlTextReader.System.Xml.IXmlNamespaceResolver.LookupNamespace
-  fullName: System.Xml.XmlTextReader.System.Xml.IXmlNamespaceResolver.LookupNamespace
+  fullName: XmlTextReader.System.Xml.IXmlNamespaceResolver.LookupNamespace
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6311,8 +6368,9 @@ references:
   isExternal: false
   name: System.Xml.IXmlNamespaceResolver.LookupPrefix
   nameWithType: XmlTextReader.System.Xml.IXmlNamespaceResolver.LookupPrefix
-  fullName: System.Xml.XmlTextReader.System.Xml.IXmlNamespaceResolver.LookupPrefix
+  fullName: XmlTextReader.System.Xml.IXmlNamespaceResolver.LookupPrefix
   monikers:
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -6325,3 +6383,15 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Xml/XmlTextReader.xml
+- uid: System.Xml.IXmlLineInfo
+  parent: System.Xml
+  isExternal: false
+  name: IXmlLineInfo
+  nameWithType: IXmlLineInfo
+  fullName: System.Xml.IXmlLineInfo
+- uid: System.Xml.IXmlNamespaceResolver
+  parent: System.Xml
+  isExternal: false
+  name: IXmlNamespaceResolver
+  nameWithType: IXmlNamespaceResolver
+  fullName: System.Xml.IXmlNamespaceResolver

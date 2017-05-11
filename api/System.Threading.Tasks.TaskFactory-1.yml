@@ -58,11 +58,12 @@ items:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Provides support for creating and scheduling <xref href="System.Threading.Tasks.Task`1"></xref> objects.
   remarks: "The .NET Framework provides two factories for creating and scheduling tasks:  \n  \n-   The <xref:System.Threading.Tasks.TaskFactory> class, which creates <xref:System.Threading.Tasks.Task> and <xref:System.Threading.Tasks.Task%601> objects.  \n  \n-   The <xref:System.Threading.Tasks.TaskFactory%601> class, which creates <xref:System.Threading.Tasks.Task%601> objects.  \n  \n The <xref:System.Threading.Tasks.TaskFactory%601> class allows you to do the following:  \n  \n-   Create a task and start it immediately by calling the <xref:System.Threading.Tasks.TaskFactory.StartNew%2A> method. You can call the overloads of this method to create and execute a task that requires non-default arguments.  \n  \n    > [!WARNING]\n    >  Starting with the [!INCLUDE[net_v45](~/includes/net-v45-md.md)], the <xref:System.Threading.Tasks.Task.Run%2A?displayProperty=fullName> method provides the easiest way to create a task with default configuration values and start it immediately.  \n  \n-   Create a task that starts when any one of the tasks in an array has completed by calling the <xref:System.Threading.Tasks.TaskFactory.ContinueWhenAny%2A> or   <xref:System.Threading.Tasks.TaskFactory.ContinueWhenAny%2A> method.  \n  \n-   Create a task that starts when all the tasks in an array have completed by calling the <xref:System.Threading.Tasks.TaskFactory.ContinueWhenAll%2A> or <xref:System.Threading.Tasks.TaskFactory.ContinueWhenAll%2A> method.  \n  \n The static <xref:System.Threading.Tasks.Task%601.Factory%2A?displayProperty=fullName> property returns a default <xref:System.Threading.Tasks.TaskFactory%601> object. You can also call one of the <xref:System.Threading.Tasks.TaskFactory%601> class constructors to configure the <xref:System.Threading.Tasks.Task%601> objects that  the <xref:System.Threading.Tasks.TaskFactory%601> class creates. The following example configures a new <xref:System.Threading.Tasks.TaskFactory%601> object to create tasks that have a specified cancellation token, task creation options, continuation options, and a customized task scheduler.  \n  \n [!code-csharp[TPL_Factories#2](~/samples/snippets/csharp/VS_Snippets_Misc/tpl_factories/cs/factoriestresult.cs#2)]\n [!code-vb[TPL_Factories#2](~/samples/snippets/visualbasic/VS_Snippets_Misc/tpl_factories/vb/factoriestresult.vb#2)]  \n  \n In most cases, you do not have to instantiate a new <xref:System.Threading.Tasks.TaskFactory%601> instance. Instead, you can use the static <xref:System.Threading.Tasks.Task%601.Factory%2A?displayProperty=fullName> property, which returns a factory object that uses default values. You can then call its methods to start new tasks or define task continuations. For an illustration, see the example."
   example:
-  - "The following example uses the static <xref:System.Threading.Tasks.Task%601.Factory%2A> property to make two calls to the <xref:System.Threading.Tasks.TaskFactory%601.StartNew%2A?displayProperty=fullName> method. The first task returns a string array that is populated with the names of files in the user's MyDocuments directory, while the second returns a string array that is populated with the names of subdirectories of the user's MyDocuments directory. It then calls the [TaskFactory.ContinueWhenAll(Task\\[\\], Action\\<Task\\<xref:System.Threading.Tasks.TaskFactory.ContinueWhenAll%28System.Threading.Tasks.Task%5B%5D%2CSystem.Action%7BSystem.Threading.Tasks.Task%5B%5D%7D%29?displayProperty=fullName> method, which displays information about the number of files and directories in the arrays returned by the two tasks after they have completed execution.  \n  \n [!code-csharp[System.Threading.Tasks.Task.Factory#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.threading.tasks.task.factory/cs/factory2.cs#2)]\n [!code-vb[System.Threading.Tasks.Task.Factory#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.threading.tasks.task.factory/vb/factory2.vb#2)]"
+  - "The following example uses the static <xref:System.Threading.Tasks.Task%601.Factory%2A> property to make two calls to the <xref:System.Threading.Tasks.TaskFactory%601.StartNew%2A?displayProperty=fullName> method. The first task returns a string array that is populated with the names of files in the user's MyDocuments directory, while the second returns a string array that is populated with the names of subdirectories of the user's MyDocuments directory. It then calls the <xref:System.Threading.Tasks.TaskFactory.ContinueWhenAll%28System.Threading.Tasks.Task%5B%5D%2CSystem.Action%7BSystem.Threading.Tasks.Task%5B%5D%7D%29?displayProperty=fullName> method, which displays information about the number of files and directories in the arrays returned by the two tasks after they have completed execution.  \n  \n [!code-csharp[System.Threading.Tasks.Task.Factory#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.threading.tasks.task.factory/cs/factory2.cs#2)]\n [!code-vb[System.Threading.Tasks.Task.Factory#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.threading.tasks.task.factory/vb/factory2.vb#2)]"
   syntax:
     content: public class TaskFactory<TResult>
     typeParameters:
@@ -81,7 +82,8 @@ items:
   - System.Object.ToString
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -101,7 +103,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -120,9 +123,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.#ctor
   commentId: M:System.Threading.Tasks.TaskFactory`1.#ctor
   id: '#ctor'
@@ -131,15 +131,16 @@ items:
   - csharp
   name: TaskFactory<TResult>()
   nameWithType: TaskFactory<TResult>.TaskFactory<TResult>()
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.TaskFactory<TResult>()
+  fullName: TaskFactory<TResult>.TaskFactory<TResult>()
   type: Constructor
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Initializes a <xref href="System.Threading.Tasks.TaskFactory`1"></xref> instance with the default configuration.
-  remarks: This constructor creates a <xref:System.Threading.Tasks.TaskFactory%601> instance with a default configuration. The <xref:System.Threading.Tasks.TaskCreationOptions> property is initialized to <xref:System.Threading.Tasks.TaskCreationOptions>, the <xref:System.Threading.Tasks.TaskContinuationOptions> property is initialized to <xref:System.Threading.Tasks.TaskContinuationOptions>, and the <xref:System.Threading.Tasks.TaskScheduler> property is initialized to the current scheduler (see <xref:System.Threading.Tasks.TaskScheduler.Current%2A>).
+  remarks: This constructor creates a <xref:System.Threading.Tasks.TaskFactory%601> instance with a default configuration. The <xref:System.Threading.Tasks.TaskCreationOptions> property is initialized to <xref:System.Threading.Tasks.TaskCreationOptions.None>, the <xref:System.Threading.Tasks.TaskContinuationOptions> property is initialized to <xref:System.Threading.Tasks.TaskContinuationOptions.None>, and the <xref:System.Threading.Tasks.TaskScheduler> property is initialized to the current scheduler (see <xref:System.Threading.Tasks.TaskScheduler.Current%2A>).
   syntax:
     content: public TaskFactory ();
     parameters: []
@@ -147,7 +148,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -167,7 +169,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -186,9 +189,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.#ctor(System.Threading.CancellationToken)
   commentId: M:System.Threading.Tasks.TaskFactory`1.#ctor(System.Threading.CancellationToken)
   id: '#ctor(System.Threading.CancellationToken)'
@@ -197,15 +197,16 @@ items:
   - csharp
   name: TaskFactory<TResult>(CancellationToken)
   nameWithType: TaskFactory<TResult>.TaskFactory<TResult>(CancellationToken)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.TaskFactory<TResult>(CancellationToken)
+  fullName: TaskFactory<TResult>.TaskFactory<TResult>(CancellationToken)
   type: Constructor
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Initializes a <xref href="System.Threading.Tasks.TaskFactory`1"></xref> instance with the default configuration.
-  remarks: This constructor creates a <xref:System.Threading.Tasks.TaskFactory%601> instance with a default configuration. The <xref:System.Threading.Tasks.TaskCreationOptions> property is initialized to <xref:System.Threading.Tasks.TaskCreationOptions>, the <xref:System.Threading.Tasks.TaskContinuationOptions> property is initialized to <xref:System.Threading.Tasks.TaskContinuationOptions>, and the <xref:System.Threading.Tasks.TaskScheduler> property is initialized to the current scheduler (see <xref:System.Threading.Tasks.TaskScheduler.Current%2A>).
+  remarks: This constructor creates a <xref:System.Threading.Tasks.TaskFactory%601> instance with a default configuration. The <xref:System.Threading.Tasks.TaskCreationOptions> property is initialized to <xref:System.Threading.Tasks.TaskCreationOptions.None>, the <xref:System.Threading.Tasks.TaskContinuationOptions> property is initialized to <xref:System.Threading.Tasks.TaskContinuationOptions.None>, and the <xref:System.Threading.Tasks.TaskScheduler> property is initialized to the current scheduler (see <xref:System.Threading.Tasks.TaskScheduler.Current%2A>).
   syntax:
     content: public TaskFactory (System.Threading.CancellationToken cancellationToken);
     parameters:
@@ -216,7 +217,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -236,7 +238,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -255,9 +258,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.#ctor(System.Threading.Tasks.TaskScheduler)
   commentId: M:System.Threading.Tasks.TaskFactory`1.#ctor(System.Threading.Tasks.TaskScheduler)
   id: '#ctor(System.Threading.Tasks.TaskScheduler)'
@@ -266,15 +266,16 @@ items:
   - csharp
   name: TaskFactory<TResult>(TaskScheduler)
   nameWithType: TaskFactory<TResult>.TaskFactory<TResult>(TaskScheduler)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.TaskFactory<TResult>(TaskScheduler)
+  fullName: TaskFactory<TResult>.TaskFactory<TResult>(TaskScheduler)
   type: Constructor
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Initializes a <xref href="System.Threading.Tasks.TaskFactory`1"></xref> instance with the specified configuration.
-  remarks: With this constructor, the <xref:System.Threading.Tasks.TaskCreationOptions> property is initialized to <xref:System.Threading.Tasks.TaskCreationOptions>, the <xref:System.Threading.Tasks.TaskContinuationOptions> property is initialized to <xref:System.Threading.Tasks.TaskContinuationOptions>, and the <xref:System.Threading.Tasks.TaskScheduler> property is initialized to `scheduler`, unless it's `null`, in which case the property is initialized to the current scheduler (see <xref:System.Threading.Tasks.TaskScheduler.Current%2A>).
+  remarks: With this constructor, the <xref:System.Threading.Tasks.TaskCreationOptions> property is initialized to <xref:System.Threading.Tasks.TaskCreationOptions.None>, the <xref:System.Threading.Tasks.TaskContinuationOptions> property is initialized to <xref:System.Threading.Tasks.TaskContinuationOptions.None>, and the <xref:System.Threading.Tasks.TaskScheduler> property is initialized to `scheduler`, unless it's `null`, in which case the property is initialized to the current scheduler (see <xref:System.Threading.Tasks.TaskScheduler.Current%2A>).
   syntax:
     content: public TaskFactory (System.Threading.Tasks.TaskScheduler scheduler);
     parameters:
@@ -285,7 +286,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -305,7 +307,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -324,9 +327,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.#ctor(System.Threading.Tasks.TaskCreationOptions,System.Threading.Tasks.TaskContinuationOptions)
   commentId: M:System.Threading.Tasks.TaskFactory`1.#ctor(System.Threading.Tasks.TaskCreationOptions,System.Threading.Tasks.TaskContinuationOptions)
   id: '#ctor(System.Threading.Tasks.TaskCreationOptions,System.Threading.Tasks.TaskContinuationOptions)'
@@ -335,12 +335,13 @@ items:
   - csharp
   name: TaskFactory<TResult>(TaskCreationOptions, TaskContinuationOptions)
   nameWithType: TaskFactory<TResult>.TaskFactory<TResult>(TaskCreationOptions, TaskContinuationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.TaskFactory<TResult>(TaskCreationOptions, TaskContinuationOptions)
+  fullName: TaskFactory<TResult>.TaskFactory<TResult>(TaskCreationOptions, TaskContinuationOptions)
   type: Constructor
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Initializes a <xref href="System.Threading.Tasks.TaskFactory`1"></xref> instance with the specified configuration.
   remarks: With this constructor, the <xref:System.Threading.Tasks.TaskCreationOptions> property is initialized to `creationOptions`, the <xref:System.Threading.Tasks.TaskContinuationOptions> property is initialized to `continuationOptions`, and the <xref:System.Threading.Tasks.TaskScheduler> property is initialized to the current scheduler (see <xref:System.Threading.Tasks.TaskScheduler.Current%2A>).
@@ -360,7 +361,8 @@ items:
     description: <code>creationOptions</code> or <code>continuationOptions</code> specifies an invalid value.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -380,7 +382,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -399,9 +402,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.#ctor(System.Threading.CancellationToken,System.Threading.Tasks.TaskCreationOptions,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   commentId: M:System.Threading.Tasks.TaskFactory`1.#ctor(System.Threading.CancellationToken,System.Threading.Tasks.TaskCreationOptions,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   id: '#ctor(System.Threading.CancellationToken,System.Threading.Tasks.TaskCreationOptions,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)'
@@ -410,12 +410,13 @@ items:
   - csharp
   name: TaskFactory<TResult>(CancellationToken, TaskCreationOptions, TaskContinuationOptions, TaskScheduler)
   nameWithType: TaskFactory<TResult>.TaskFactory<TResult>(CancellationToken, TaskCreationOptions, TaskContinuationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.TaskFactory<TResult>(CancellationToken, TaskCreationOptions, TaskContinuationOptions, TaskScheduler)
+  fullName: TaskFactory<TResult>.TaskFactory<TResult>(CancellationToken, TaskCreationOptions, TaskContinuationOptions, TaskScheduler)
   type: Constructor
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Initializes a <xref href="System.Threading.Tasks.TaskFactory`1"></xref> instance with the specified configuration.
   remarks: With this constructor, the <xref:System.Threading.Tasks.TaskCreationOptions> property is initialized to `creationOptions`, the <xref:System.Threading.Tasks.TaskContinuationOptions> property is initialized to `continuationOptions`, and the <xref:System.Threading.Tasks.TaskScheduler> property is initialized to `scheduler`, unless it's `null`, in which case the property is initialized to the current scheduler (see <xref:System.Threading.Tasks.TaskScheduler.Current%2A>).
@@ -441,7 +442,8 @@ items:
     description: <code>creationOptions</code> or <code>continuationOptions</code> specifies an invalid value.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -461,7 +463,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -480,9 +483,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.CancellationToken
   commentId: P:System.Threading.Tasks.TaskFactory`1.CancellationToken
   id: CancellationToken
@@ -491,12 +491,13 @@ items:
   - csharp
   name: CancellationToken
   nameWithType: TaskFactory<TResult>.CancellationToken
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.CancellationToken
+  fullName: TaskFactory<TResult>.CancellationToken
   type: Property
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Gets the default cancellation token for this task factory.
   remarks: This property returns the default cancellation token that will be assigned to all tasks created by this factory unless another cancellation token value is explicitly specified during the call to the task factory methods.
@@ -509,7 +510,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -529,7 +531,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -548,9 +551,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.ContinuationOptions
   commentId: P:System.Threading.Tasks.TaskFactory`1.ContinuationOptions
   id: ContinuationOptions
@@ -559,12 +559,13 @@ items:
   - csharp
   name: ContinuationOptions
   nameWithType: TaskFactory<TResult>.ContinuationOptions
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinuationOptions
+  fullName: TaskFactory<TResult>.ContinuationOptions
   type: Property
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Gets the <xref href="System.Threading.Tasks.TaskContinuationOptions"></xref> enumeration value for this task factory.
   remarks: This property returns the default continuation options for this factory. They will be used to create all continuation tasks unless other options are explicitly specified during calls to this factory's methods.
@@ -577,7 +578,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -597,7 +599,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -616,9 +619,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAll(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task[],`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   commentId: M:System.Threading.Tasks.TaskFactory`1.ContinueWhenAll(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task[],`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   id: ContinueWhenAll(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task[],`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
@@ -627,15 +627,16 @@ items:
   - csharp
   name: ContinueWhenAll(Task[], Func<Task[],TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
   nameWithType: TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
+  fullName: TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation task that will be started upon the completion of a set of provided Tasks.
-  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus>, <xref:System.Threading.Tasks.TaskStatus>, or <xref:System.Threading.Tasks.TaskStatus> states.'
+  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, or <xref:System.Threading.Tasks.TaskStatus.Canceled> states.'
   syntax:
     content: public System.Threading.Tasks.Task<TResult> ContinueWhenAll (System.Threading.Tasks.Task[] tasks, Func<System.Threading.Tasks.Task[],TResult> continuationFunction, System.Threading.CancellationToken cancellationToken, System.Threading.Tasks.TaskContinuationOptions continuationOptions, System.Threading.Tasks.TaskScheduler scheduler);
     parameters:
@@ -673,7 +674,8 @@ items:
     description: "One of the elements in the <code>tasks</code> array has been disposed.  \n  \n -or-  \n  \n The <xref href=\"System.Threading.CancellationTokenSource\"></xref> that created<code> cancellationToken</code> has already been disposed."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -693,7 +695,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -712,9 +715,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAll(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task[],`0},System.Threading.Tasks.TaskContinuationOptions)
   commentId: M:System.Threading.Tasks.TaskFactory`1.ContinueWhenAll(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task[],`0},System.Threading.Tasks.TaskContinuationOptions)
   id: ContinueWhenAll(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task[],`0},System.Threading.Tasks.TaskContinuationOptions)
@@ -723,15 +723,16 @@ items:
   - csharp
   name: ContinueWhenAll(Task[], Func<Task[],TResult>, TaskContinuationOptions)
   nameWithType: TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>, TaskContinuationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>, TaskContinuationOptions)
+  fullName: TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>, TaskContinuationOptions)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation task that will be started upon the completion of a set of provided Tasks.
-  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus>, <xref:System.Threading.Tasks.TaskStatus>, or <xref:System.Threading.Tasks.TaskStatus> states.'
+  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, or <xref:System.Threading.Tasks.TaskStatus.Canceled> states.'
   syntax:
     content: public System.Threading.Tasks.Task<TResult> ContinueWhenAll (System.Threading.Tasks.Task[] tasks, Func<System.Threading.Tasks.Task[],TResult> continuationFunction, System.Threading.Tasks.TaskContinuationOptions continuationOptions);
     parameters:
@@ -763,7 +764,8 @@ items:
     description: The <code>tasks</code> array contains a null value or is empty.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -783,7 +785,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -802,9 +805,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAll(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task[],`0})
   commentId: M:System.Threading.Tasks.TaskFactory`1.ContinueWhenAll(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task[],`0})
   id: ContinueWhenAll(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task[],`0})
@@ -813,15 +813,16 @@ items:
   - csharp
   name: ContinueWhenAll(Task[], Func<Task[],TResult>)
   nameWithType: TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>)
+  fullName: TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation task that will be started upon the completion of a set of provided tasks.
-  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus>, <xref:System.Threading.Tasks.TaskStatus>, or <xref:System.Threading.Tasks.TaskStatus> states.'
+  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, or <xref:System.Threading.Tasks.TaskStatus.Canceled> states.'
   syntax:
     content: public System.Threading.Tasks.Task<TResult> ContinueWhenAll (System.Threading.Tasks.Task[] tasks, Func<System.Threading.Tasks.Task[],TResult> continuationFunction);
     parameters:
@@ -847,7 +848,8 @@ items:
     description: The <code>tasks</code> array contains a null value or is empty.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -867,7 +869,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -886,9 +889,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAll(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task[],`0},System.Threading.CancellationToken)
   commentId: M:System.Threading.Tasks.TaskFactory`1.ContinueWhenAll(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task[],`0},System.Threading.CancellationToken)
   id: ContinueWhenAll(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task[],`0},System.Threading.CancellationToken)
@@ -897,15 +897,16 @@ items:
   - csharp
   name: ContinueWhenAll(Task[], Func<Task[],TResult>, CancellationToken)
   nameWithType: TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>, CancellationToken)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>, CancellationToken)
+  fullName: TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>, CancellationToken)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation task that will be started upon the completion of a set of provided tasks.
-  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus>, <xref:System.Threading.Tasks.TaskStatus>, or <xref:System.Threading.Tasks.TaskStatus> states.'
+  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, or <xref:System.Threading.Tasks.TaskStatus.Canceled> states.'
   syntax:
     content: public System.Threading.Tasks.Task<TResult> ContinueWhenAll (System.Threading.Tasks.Task[] tasks, Func<System.Threading.Tasks.Task[],TResult> continuationFunction, System.Threading.CancellationToken cancellationToken);
     parameters:
@@ -934,7 +935,8 @@ items:
     description: The <code>tasks</code> array contains a null value or is empty.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -954,7 +956,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -973,9 +976,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAll``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0}[],`0})
   commentId: M:System.Threading.Tasks.TaskFactory`1.ContinueWhenAll``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0}[],`0})
   id: ContinueWhenAll``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0}[],`0})
@@ -984,15 +984,16 @@ items:
   - csharp
   name: ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>)
   nameWithType: TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>)
+  fullName: TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation task that will be started upon the completion of a set of provided tasks.
-  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus>, <xref:System.Threading.Tasks.TaskStatus>, or <xref:System.Threading.Tasks.TaskStatus> states.'
+  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, or <xref:System.Threading.Tasks.TaskStatus.Canceled> states.'
   syntax:
     content: public System.Threading.Tasks.Task<TResult> ContinueWhenAll<TAntecedentResult> (System.Threading.Tasks.Task<TAntecedentResult>[] tasks, Func<System.Threading.Tasks.Task<TAntecedentResult>[],TResult> continuationFunction);
     parameters:
@@ -1002,6 +1003,9 @@ items:
     - id: continuationFunction
       type: System.Func{System.Threading.Tasks.Task{TAntecedentResult}[],TResult}
       description: The function delegate to execute asynchronously when all tasks in the <code>tasks</code> array have completed.
+    typeParameters:
+    - id: TAntecedentResult
+      description: The type of the result of the antecedent <code>tasks</code>.
     return:
       type: System.Threading.Tasks.Task`1
       description: The new continuation task.
@@ -1018,7 +1022,8 @@ items:
     description: The <code>tasks</code> array contains a null value or is empty.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1038,7 +1043,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1057,9 +1063,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAll``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0}[],`0},System.Threading.CancellationToken)
   commentId: M:System.Threading.Tasks.TaskFactory`1.ContinueWhenAll``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0}[],`0},System.Threading.CancellationToken)
   id: ContinueWhenAll``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0}[],`0},System.Threading.CancellationToken)
@@ -1068,15 +1071,16 @@ items:
   - csharp
   name: ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, CancellationToken)
   nameWithType: TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, CancellationToken)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, CancellationToken)
+  fullName: TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, CancellationToken)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation task that will be started upon the completion of a set of provided tasks.
-  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus>, <xref:System.Threading.Tasks.TaskStatus>, or <xref:System.Threading.Tasks.TaskStatus> states.'
+  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, or <xref:System.Threading.Tasks.TaskStatus.Canceled> states.'
   syntax:
     content: public System.Threading.Tasks.Task<TResult> ContinueWhenAll<TAntecedentResult> (System.Threading.Tasks.Task<TAntecedentResult>[] tasks, Func<System.Threading.Tasks.Task<TAntecedentResult>[],TResult> continuationFunction, System.Threading.CancellationToken cancellationToken);
     parameters:
@@ -1089,6 +1093,9 @@ items:
     - id: cancellationToken
       type: System.Threading.CancellationToken
       description: The cancellation token that will be assigned to the new continuation task.
+    typeParameters:
+    - id: TAntecedentResult
+      description: The type of the result of the antecedent <code>tasks</code>.
     return:
       type: System.Threading.Tasks.Task`1
       description: The new continuation task.
@@ -1105,7 +1112,8 @@ items:
     description: The <code>tasks</code> array contains a null value or is empty.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1125,7 +1133,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1144,9 +1153,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAll``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0}[],`0},System.Threading.Tasks.TaskContinuationOptions)
   commentId: M:System.Threading.Tasks.TaskFactory`1.ContinueWhenAll``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0}[],`0},System.Threading.Tasks.TaskContinuationOptions)
   id: ContinueWhenAll``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0}[],`0},System.Threading.Tasks.TaskContinuationOptions)
@@ -1155,15 +1161,16 @@ items:
   - csharp
   name: ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, TaskContinuationOptions)
   nameWithType: TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, TaskContinuationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, TaskContinuationOptions)
+  fullName: TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, TaskContinuationOptions)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation task that will be started upon the completion of a set of provided tasks.
-  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus>, <xref:System.Threading.Tasks.TaskStatus>, or <xref:System.Threading.Tasks.TaskStatus> states.'
+  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, or <xref:System.Threading.Tasks.TaskStatus.Canceled> states.'
   syntax:
     content: public System.Threading.Tasks.Task<TResult> ContinueWhenAll<TAntecedentResult> (System.Threading.Tasks.Task<TAntecedentResult>[] tasks, Func<System.Threading.Tasks.Task<TAntecedentResult>[],TResult> continuationFunction, System.Threading.Tasks.TaskContinuationOptions continuationOptions);
     parameters:
@@ -1176,6 +1183,9 @@ items:
     - id: continuationOptions
       type: System.Threading.Tasks.TaskContinuationOptions
       description: One of the enumeration values that controls the behavior of the created continuation task. The NotOn* or OnlyOn* values are not valid.
+    typeParameters:
+    - id: TAntecedentResult
+      description: The type of the result of the antecedent <code>tasks</code>.
     return:
       type: System.Threading.Tasks.Task`1
       description: The new continuation task.
@@ -1195,7 +1205,8 @@ items:
     description: The <code>tasks</code> array contains a null value or is empty.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1215,7 +1226,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1234,9 +1246,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAll``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0}[],`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   commentId: M:System.Threading.Tasks.TaskFactory`1.ContinueWhenAll``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0}[],`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   id: ContinueWhenAll``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0}[],`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
@@ -1245,15 +1254,16 @@ items:
   - csharp
   name: ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
   nameWithType: TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
+  fullName: TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation task that will be started upon the completion of a set of provided tasks.
-  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus>, <xref:System.Threading.Tasks.TaskStatus>, or <xref:System.Threading.Tasks.TaskStatus> states.'
+  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, or <xref:System.Threading.Tasks.TaskStatus.Canceled> states.'
   syntax:
     content: public System.Threading.Tasks.Task<TResult> ContinueWhenAll<TAntecedentResult> (System.Threading.Tasks.Task<TAntecedentResult>[] tasks, Func<System.Threading.Tasks.Task<TAntecedentResult>[],TResult> continuationFunction, System.Threading.CancellationToken cancellationToken, System.Threading.Tasks.TaskContinuationOptions continuationOptions, System.Threading.Tasks.TaskScheduler scheduler);
     parameters:
@@ -1272,6 +1282,9 @@ items:
     - id: scheduler
       type: System.Threading.Tasks.TaskScheduler
       description: The scheduler that is used to schedule the created continuation task.
+    typeParameters:
+    - id: TAntecedentResult
+      description: The type of the result of the antecedent <code>tasks</code>.
     return:
       type: System.Threading.Tasks.Task`1
       description: The new continuation task.
@@ -1291,7 +1304,8 @@ items:
     description: "One of the elements in the <code>tasks</code> array has been disposed.  \n  \n -or-  \n  \n The <xref href=\"System.Threading.CancellationTokenSource\"></xref> that created<code> cancellationToken</code> has already been disposed."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1311,7 +1325,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1330,9 +1345,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAny(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task,`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   commentId: M:System.Threading.Tasks.TaskFactory`1.ContinueWhenAny(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task,`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   id: ContinueWhenAny(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task,`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
@@ -1341,15 +1353,16 @@ items:
   - csharp
   name: ContinueWhenAny(Task[], Func<Task,TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
   nameWithType: TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
+  fullName: TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation task that will be started upon the completion of any task in the provided set.
-  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus>, <xref:System.Threading.Tasks.TaskStatus>, or <xref:System.Threading.Tasks.TaskStatus> states.'
+  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, or <xref:System.Threading.Tasks.TaskStatus.Canceled> states.'
   syntax:
     content: public System.Threading.Tasks.Task<TResult> ContinueWhenAny (System.Threading.Tasks.Task[] tasks, Func<System.Threading.Tasks.Task,TResult> continuationFunction, System.Threading.CancellationToken cancellationToken, System.Threading.Tasks.TaskContinuationOptions continuationOptions, System.Threading.Tasks.TaskScheduler scheduler);
     parameters:
@@ -1387,7 +1400,8 @@ items:
     description: "One of the elements in the <code>tasks</code> array has been disposed.  \n  \n -or-  \n  \n The <xref href=\"System.Threading.CancellationTokenSource\"></xref> that created<code> cancellationToken</code> has already been disposed."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1407,7 +1421,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1426,9 +1441,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAny(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task,`0})
   commentId: M:System.Threading.Tasks.TaskFactory`1.ContinueWhenAny(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task,`0})
   id: ContinueWhenAny(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task,`0})
@@ -1437,15 +1449,16 @@ items:
   - csharp
   name: ContinueWhenAny(Task[], Func<Task,TResult>)
   nameWithType: TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>)
+  fullName: TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation task that will be started upon the completion of any task in the provided set.
-  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus>, <xref:System.Threading.Tasks.TaskStatus>, or <xref:System.Threading.Tasks.TaskStatus> states.'
+  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, or <xref:System.Threading.Tasks.TaskStatus.Canceled> states.'
   syntax:
     content: public System.Threading.Tasks.Task<TResult> ContinueWhenAny (System.Threading.Tasks.Task[] tasks, Func<System.Threading.Tasks.Task,TResult> continuationFunction);
     parameters:
@@ -1471,7 +1484,8 @@ items:
     description: The <code>tasks</code> array contains a null value or is empty.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1491,7 +1505,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1510,9 +1525,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAny(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task,`0},System.Threading.CancellationToken)
   commentId: M:System.Threading.Tasks.TaskFactory`1.ContinueWhenAny(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task,`0},System.Threading.CancellationToken)
   id: ContinueWhenAny(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task,`0},System.Threading.CancellationToken)
@@ -1521,15 +1533,16 @@ items:
   - csharp
   name: ContinueWhenAny(Task[], Func<Task,TResult>, CancellationToken)
   nameWithType: TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>, CancellationToken)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>, CancellationToken)
+  fullName: TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>, CancellationToken)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation task that will be started upon the completion of any task in the provided set.
-  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus>, <xref:System.Threading.Tasks.TaskStatus>, or <xref:System.Threading.Tasks.TaskStatus> states.'
+  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, or <xref:System.Threading.Tasks.TaskStatus.Canceled> states.'
   syntax:
     content: public System.Threading.Tasks.Task<TResult> ContinueWhenAny (System.Threading.Tasks.Task[] tasks, Func<System.Threading.Tasks.Task,TResult> continuationFunction, System.Threading.CancellationToken cancellationToken);
     parameters:
@@ -1558,7 +1571,8 @@ items:
     description: "The <code>tasks</code> array contains a null value.  \n  \n -or-  \n  \n The <code>tasks</code> array is empty."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1578,7 +1592,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1597,9 +1612,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAny(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task,`0},System.Threading.Tasks.TaskContinuationOptions)
   commentId: M:System.Threading.Tasks.TaskFactory`1.ContinueWhenAny(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task,`0},System.Threading.Tasks.TaskContinuationOptions)
   id: ContinueWhenAny(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task,`0},System.Threading.Tasks.TaskContinuationOptions)
@@ -1608,15 +1620,16 @@ items:
   - csharp
   name: ContinueWhenAny(Task[], Func<Task,TResult>, TaskContinuationOptions)
   nameWithType: TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>, TaskContinuationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>, TaskContinuationOptions)
+  fullName: TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>, TaskContinuationOptions)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation task that will be started upon the completion of any task in the provided set.
-  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus>, <xref:System.Threading.Tasks.TaskStatus>, or <xref:System.Threading.Tasks.TaskStatus> states.'
+  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, or <xref:System.Threading.Tasks.TaskStatus.Canceled> states.'
   syntax:
     content: public System.Threading.Tasks.Task<TResult> ContinueWhenAny (System.Threading.Tasks.Task[] tasks, Func<System.Threading.Tasks.Task,TResult> continuationFunction, System.Threading.Tasks.TaskContinuationOptions continuationOptions);
     parameters:
@@ -1648,7 +1661,8 @@ items:
     description: "The <code>tasks</code> array contains a null value.  \n  \n -or-  \n  \n The <code>tasks</code> array is empty."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1668,7 +1682,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1687,9 +1702,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAny``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0},`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   commentId: M:System.Threading.Tasks.TaskFactory`1.ContinueWhenAny``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0},`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   id: ContinueWhenAny``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0},`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
@@ -1698,15 +1710,16 @@ items:
   - csharp
   name: ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
   nameWithType: TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
+  fullName: TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation task that will be started upon the completion of any task in the provided set.
-  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus>, <xref:System.Threading.Tasks.TaskStatus>, or <xref:System.Threading.Tasks.TaskStatus> states.'
+  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, or <xref:System.Threading.Tasks.TaskStatus.Canceled> states.'
   syntax:
     content: public System.Threading.Tasks.Task<TResult> ContinueWhenAny<TAntecedentResult> (System.Threading.Tasks.Task<TAntecedentResult>[] tasks, Func<System.Threading.Tasks.Task<TAntecedentResult>,TResult> continuationFunction, System.Threading.CancellationToken cancellationToken, System.Threading.Tasks.TaskContinuationOptions continuationOptions, System.Threading.Tasks.TaskScheduler scheduler);
     parameters:
@@ -1725,6 +1738,9 @@ items:
     - id: scheduler
       type: System.Threading.Tasks.TaskScheduler
       description: The <xref href="System.Threading.Tasks.TaskScheduler"></xref> that is used to schedule the created continuation <xref href="System.Threading.Tasks.Task`1"></xref>.
+    typeParameters:
+    - id: TAntecedentResult
+      description: The type of the result of the antecedent <code>tasks</code>.
     return:
       type: System.Threading.Tasks.Task`1
       description: The new continuation <xref href="System.Threading.Tasks.Task`1"></xref>.
@@ -1744,7 +1760,8 @@ items:
     description: "One of the elements in the <code>tasks</code> array has been disposed.  \n  \n -or-  \n  \n The <xref href=\"System.Threading.CancellationTokenSource\"></xref> that created<code> cancellationToken</code> has already been disposed."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1764,7 +1781,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1783,9 +1801,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAny``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0},`0},System.Threading.Tasks.TaskContinuationOptions)
   commentId: M:System.Threading.Tasks.TaskFactory`1.ContinueWhenAny``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0},`0},System.Threading.Tasks.TaskContinuationOptions)
   id: ContinueWhenAny``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0},`0},System.Threading.Tasks.TaskContinuationOptions)
@@ -1794,15 +1809,16 @@ items:
   - csharp
   name: ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, TaskContinuationOptions)
   nameWithType: TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, TaskContinuationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, TaskContinuationOptions)
+  fullName: TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, TaskContinuationOptions)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation task that will be started upon the completion of any task in the provided set.
-  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus>, <xref:System.Threading.Tasks.TaskStatus>, or <xref:System.Threading.Tasks.TaskStatus> states.'
+  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, or <xref:System.Threading.Tasks.TaskStatus.Canceled> states.'
   syntax:
     content: public System.Threading.Tasks.Task<TResult> ContinueWhenAny<TAntecedentResult> (System.Threading.Tasks.Task<TAntecedentResult>[] tasks, Func<System.Threading.Tasks.Task<TAntecedentResult>,TResult> continuationFunction, System.Threading.Tasks.TaskContinuationOptions continuationOptions);
     parameters:
@@ -1815,6 +1831,9 @@ items:
     - id: continuationOptions
       type: System.Threading.Tasks.TaskContinuationOptions
       description: One of the enumeration values that controls the behavior of the created continuation task. The `NotOn*` or `OnlyOn*` values are not valid.
+    typeParameters:
+    - id: TAntecedentResult
+      description: The type of the result of the antecedent <code>tasks</code>.
     return:
       type: System.Threading.Tasks.Task`1
       description: The new continuation <xref href="System.Threading.Tasks.Task`1"></xref>.
@@ -1834,7 +1853,8 @@ items:
     description: "The <code>tasks</code> array contains a null value.  \n  \n -or-  \n  \n The <code>tasks</code> array is empty."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1854,7 +1874,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1873,9 +1894,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAny``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0},`0})
   commentId: M:System.Threading.Tasks.TaskFactory`1.ContinueWhenAny``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0},`0})
   id: ContinueWhenAny``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0},`0})
@@ -1884,15 +1902,16 @@ items:
   - csharp
   name: ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>)
   nameWithType: TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>)
+  fullName: TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation task that will be started upon the completion of any task in the provided set.
-  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus>, <xref:System.Threading.Tasks.TaskStatus>, or <xref:System.Threading.Tasks.TaskStatus> states.'
+  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, or <xref:System.Threading.Tasks.TaskStatus.Canceled> states.'
   syntax:
     content: public System.Threading.Tasks.Task<TResult> ContinueWhenAny<TAntecedentResult> (System.Threading.Tasks.Task<TAntecedentResult>[] tasks, Func<System.Threading.Tasks.Task<TAntecedentResult>,TResult> continuationFunction);
     parameters:
@@ -1902,6 +1921,9 @@ items:
     - id: continuationFunction
       type: System.Func{System.Threading.Tasks.Task{TAntecedentResult},TResult}
       description: The function delegate to execute asynchronously when one task in the <code>tasks</code> array completes.
+    typeParameters:
+    - id: TAntecedentResult
+      description: The type of the result of the antecedent <code>tasks</code>.
     return:
       type: System.Threading.Tasks.Task`1
       description: The new continuation <xref href="System.Threading.Tasks.Task`1"></xref>.
@@ -1918,7 +1940,8 @@ items:
     description: "The <code>tasks</code> array contains a null value.  \n  \n -or-  \n  \n The <code>tasks</code> array is empty."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1938,7 +1961,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -1957,9 +1981,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAny``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0},`0},System.Threading.CancellationToken)
   commentId: M:System.Threading.Tasks.TaskFactory`1.ContinueWhenAny``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0},`0},System.Threading.CancellationToken)
   id: ContinueWhenAny``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0},`0},System.Threading.CancellationToken)
@@ -1968,15 +1989,16 @@ items:
   - csharp
   name: ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, CancellationToken)
   nameWithType: TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, CancellationToken)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, CancellationToken)
+  fullName: TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, CancellationToken)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a continuation task that will be started upon the completion of any task in the provided set.
-  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus>, <xref:System.Threading.Tasks.TaskStatus>, or <xref:System.Threading.Tasks.TaskStatus> states.'
+  remarks: 'After completion, a task is in one of these states: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, or <xref:System.Threading.Tasks.TaskStatus.Canceled> states.'
   syntax:
     content: public System.Threading.Tasks.Task<TResult> ContinueWhenAny<TAntecedentResult> (System.Threading.Tasks.Task<TAntecedentResult>[] tasks, Func<System.Threading.Tasks.Task<TAntecedentResult>,TResult> continuationFunction, System.Threading.CancellationToken cancellationToken);
     parameters:
@@ -1989,6 +2011,9 @@ items:
     - id: cancellationToken
       type: System.Threading.CancellationToken
       description: The cancellation token that will be assigned to the new continuation task.
+    typeParameters:
+    - id: TAntecedentResult
+      description: The type of the result of the antecedent <code>tasks</code>.
     return:
       type: System.Threading.Tasks.Task`1
       description: The new continuation task.
@@ -2005,7 +2030,8 @@ items:
     description: "The <code>tasks</code> array contains a null value.  \n  \n -or-  \n  \n The <code>tasks</code> array is empty."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2025,7 +2051,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2044,9 +2071,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.CreationOptions
   commentId: P:System.Threading.Tasks.TaskFactory`1.CreationOptions
   id: CreationOptions
@@ -2055,12 +2079,13 @@ items:
   - csharp
   name: CreationOptions
   nameWithType: TaskFactory<TResult>.CreationOptions
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.CreationOptions
+  fullName: TaskFactory<TResult>.CreationOptions
   type: Property
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Gets the <xref href="System.Threading.Tasks.TaskCreationOptions"></xref> enumeration value for this task factory.
   remarks: This property returns the default creation options for this factory. They will be used to create all tasks unless other options are explicitly specified during calls to this factory's methods.
@@ -2073,7 +2098,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2093,7 +2119,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2112,9 +2139,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.FromAsync(System.IAsyncResult,System.Func{System.IAsyncResult,`0})
   commentId: M:System.Threading.Tasks.TaskFactory`1.FromAsync(System.IAsyncResult,System.Func{System.IAsyncResult,`0})
   id: FromAsync(System.IAsyncResult,System.Func{System.IAsyncResult,`0})
@@ -2123,12 +2147,13 @@ items:
   - csharp
   name: FromAsync(IAsyncResult, Func<IAsyncResult,TResult>)
   nameWithType: TaskFactory<TResult>.FromAsync(IAsyncResult, Func<IAsyncResult,TResult>)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync(IAsyncResult, Func<IAsyncResult,TResult>)
+  fullName: TaskFactory<TResult>.FromAsync(IAsyncResult, Func<IAsyncResult,TResult>)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a task that executes an end method function when a specified <xref href="System.IAsyncResult"></xref> completes.
   syntax:
@@ -2150,7 +2175,8 @@ items:
     description: "The <code>asyncResult</code> argument is `null`.  \n  \n -or-  \n  \n The <code>endMethod</code> argument is `null`."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2170,7 +2196,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2189,9 +2216,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.FromAsync(System.Func{System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},System.Object)
   commentId: M:System.Threading.Tasks.TaskFactory`1.FromAsync(System.Func{System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},System.Object)
   id: FromAsync(System.Func{System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},System.Object)
@@ -2200,12 +2224,13 @@ items:
   - csharp
   name: FromAsync(Func<AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, Object)
   nameWithType: TaskFactory<TResult>.FromAsync(Func<AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, Object)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync(Func<AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, Object)
+  fullName: TaskFactory<TResult>.FromAsync(Func<AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, Object)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a task that represents a pair of begin and end methods that conform to the Asynchronous Programming Model pattern.
   remarks: This method throws any exceptions thrown by the `beginMethod`. Exceptions for `endmethod` are thrown when waiting on the returned task.
@@ -2231,7 +2256,8 @@ items:
     description: "The <code>beginMethod</code> argument is `null`.  \n  \n -or-  \n  \n The <code>endMethod</code> argument is `null`."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2251,7 +2277,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2270,9 +2297,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.FromAsync(System.IAsyncResult,System.Func{System.IAsyncResult,`0},System.Threading.Tasks.TaskCreationOptions)
   commentId: M:System.Threading.Tasks.TaskFactory`1.FromAsync(System.IAsyncResult,System.Func{System.IAsyncResult,`0},System.Threading.Tasks.TaskCreationOptions)
   id: FromAsync(System.IAsyncResult,System.Func{System.IAsyncResult,`0},System.Threading.Tasks.TaskCreationOptions)
@@ -2281,12 +2305,13 @@ items:
   - csharp
   name: FromAsync(IAsyncResult, Func<IAsyncResult,TResult>, TaskCreationOptions)
   nameWithType: TaskFactory<TResult>.FromAsync(IAsyncResult, Func<IAsyncResult,TResult>, TaskCreationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync(IAsyncResult, Func<IAsyncResult,TResult>, TaskCreationOptions)
+  fullName: TaskFactory<TResult>.FromAsync(IAsyncResult, Func<IAsyncResult,TResult>, TaskCreationOptions)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a task that executes an end method function when a specified <xref href="System.IAsyncResult"></xref> completes.
   syntax:
@@ -2314,7 +2339,8 @@ items:
     description: The <code>creationOptions</code> argument specifies an invalid value.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2334,7 +2360,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2353,9 +2380,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.FromAsync(System.Func{System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},System.Object,System.Threading.Tasks.TaskCreationOptions)
   commentId: M:System.Threading.Tasks.TaskFactory`1.FromAsync(System.Func{System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},System.Object,System.Threading.Tasks.TaskCreationOptions)
   id: FromAsync(System.Func{System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},System.Object,System.Threading.Tasks.TaskCreationOptions)
@@ -2364,12 +2388,13 @@ items:
   - csharp
   name: FromAsync(Func<AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, Object, TaskCreationOptions)
   nameWithType: TaskFactory<TResult>.FromAsync(Func<AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, Object, TaskCreationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync(Func<AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, Object, TaskCreationOptions)
+  fullName: TaskFactory<TResult>.FromAsync(Func<AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, Object, TaskCreationOptions)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a task that represents a pair of begin and end methods that conform to the Asynchronous Programming Model pattern.
   remarks: This method throws any exceptions thrown by the `beginMethod`. Exceptions for `endmethod` are thrown when waiting on the returned task.
@@ -2401,7 +2426,8 @@ items:
     description: The <code>creationOptions</code> argument specifies an invalid value.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2421,7 +2447,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2440,9 +2467,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.FromAsync(System.IAsyncResult,System.Func{System.IAsyncResult,`0},System.Threading.Tasks.TaskCreationOptions,System.Threading.Tasks.TaskScheduler)
   commentId: M:System.Threading.Tasks.TaskFactory`1.FromAsync(System.IAsyncResult,System.Func{System.IAsyncResult,`0},System.Threading.Tasks.TaskCreationOptions,System.Threading.Tasks.TaskScheduler)
   id: FromAsync(System.IAsyncResult,System.Func{System.IAsyncResult,`0},System.Threading.Tasks.TaskCreationOptions,System.Threading.Tasks.TaskScheduler)
@@ -2451,12 +2475,13 @@ items:
   - csharp
   name: FromAsync(IAsyncResult, Func<IAsyncResult,TResult>, TaskCreationOptions, TaskScheduler)
   nameWithType: TaskFactory<TResult>.FromAsync(IAsyncResult, Func<IAsyncResult,TResult>, TaskCreationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync(IAsyncResult, Func<IAsyncResult,TResult>, TaskCreationOptions, TaskScheduler)
+  fullName: TaskFactory<TResult>.FromAsync(IAsyncResult, Func<IAsyncResult,TResult>, TaskCreationOptions, TaskScheduler)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a task that executes an end method function when a specified <xref href="System.IAsyncResult"></xref> completes.
   syntax:
@@ -2487,7 +2512,8 @@ items:
     description: The <code>creationOptions</code> parameter specifies an invalid value.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2507,7 +2533,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2526,9 +2553,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.FromAsync``3(System.Func{``0,``1,``2,System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},``0,``1,``2,System.Object,System.Threading.Tasks.TaskCreationOptions)
   commentId: M:System.Threading.Tasks.TaskFactory`1.FromAsync``3(System.Func{``0,``1,``2,System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},``0,``1,``2,System.Object,System.Threading.Tasks.TaskCreationOptions)
   id: FromAsync``3(System.Func{``0,``1,``2,System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},``0,``1,``2,System.Object,System.Threading.Tasks.TaskCreationOptions)
@@ -2537,12 +2561,13 @@ items:
   - csharp
   name: FromAsync<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, TArg3, Object, TaskCreationOptions)
   nameWithType: TaskFactory<TResult>.FromAsync<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, TArg3, Object, TaskCreationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, TArg3, Object, TaskCreationOptions)
+  fullName: TaskFactory<TResult>.FromAsync<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, TArg3, Object, TaskCreationOptions)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a task that represents a pair of begin and end methods that conform to the Asynchronous Programming Model pattern.
   remarks: This method throws any exceptions thrown by the `beginMethod`. Exceptions for `endmethod` are thrown when waiting on the returned task.
@@ -2570,6 +2595,13 @@ items:
     - id: creationOptions
       type: System.Threading.Tasks.TaskCreationOptions
       description: An object that controls the behavior of the created task.
+    typeParameters:
+    - id: TArg1
+      description: The type of the second argument passed to <code>beginMethod</code> delegate.
+    - id: TArg2
+      description: The type of the third argument passed to <code>beginMethod</code> delegate.
+    - id: TArg3
+      description: The type of the first argument passed to the <code>beginMethod</code> delegate.
     return:
       type: System.Threading.Tasks.Task`1
       description: The created task that represents the asynchronous operation.
@@ -2583,7 +2615,8 @@ items:
     description: The <code>creationOptions</code> parameter specifies an invalid value.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2603,7 +2636,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2622,9 +2656,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.FromAsync``3(System.Func{``0,``1,``2,System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},``0,``1,``2,System.Object)
   commentId: M:System.Threading.Tasks.TaskFactory`1.FromAsync``3(System.Func{``0,``1,``2,System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},``0,``1,``2,System.Object)
   id: FromAsync``3(System.Func{``0,``1,``2,System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},``0,``1,``2,System.Object)
@@ -2633,12 +2664,13 @@ items:
   - csharp
   name: FromAsync<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, TArg3, Object)
   nameWithType: TaskFactory<TResult>.FromAsync<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, TArg3, Object)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, TArg3, Object)
+  fullName: TaskFactory<TResult>.FromAsync<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, TArg3, Object)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a task that represents a pair of begin and end methods that conform to the Asynchronous Programming Model pattern.
   remarks: This method throws any exceptions thrown by the `beginMethod`. Exceptions for `endmethod` are thrown when waiting on the returned task.
@@ -2663,6 +2695,13 @@ items:
     - id: state
       type: System.Object
       description: An object containing data to be used by the <code>beginMethod</code> delegate.
+    typeParameters:
+    - id: TArg1
+      description: The type of the second argument passed to <code>beginMethod</code> delegate.
+    - id: TArg2
+      description: The type of the third argument passed to <code>beginMethod</code> delegate.
+    - id: TArg3
+      description: The type of the first argument passed to the <code>beginMethod</code> delegate.
     return:
       type: System.Threading.Tasks.Task`1
       description: The created task that represents the asynchronous operation.
@@ -2673,7 +2712,8 @@ items:
     description: "The <code>beginMethod</code> argument is `null`.  \n  \n -or-  \n  \n The <code>endMethod</code> argument is `null`."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2693,7 +2733,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2712,9 +2753,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.FromAsync``2(System.Func{``0,``1,System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},``0,``1,System.Object,System.Threading.Tasks.TaskCreationOptions)
   commentId: M:System.Threading.Tasks.TaskFactory`1.FromAsync``2(System.Func{``0,``1,System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},``0,``1,System.Object,System.Threading.Tasks.TaskCreationOptions)
   id: FromAsync``2(System.Func{``0,``1,System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},``0,``1,System.Object,System.Threading.Tasks.TaskCreationOptions)
@@ -2723,12 +2761,13 @@ items:
   - csharp
   name: FromAsync<TArg1,TArg2>(Func<TArg1,TArg2,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, Object, TaskCreationOptions)
   nameWithType: TaskFactory<TResult>.FromAsync<TArg1,TArg2>(Func<TArg1,TArg2,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, Object, TaskCreationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync<TArg1,TArg2>(Func<TArg1,TArg2,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, Object, TaskCreationOptions)
+  fullName: TaskFactory<TResult>.FromAsync<TArg1,TArg2>(Func<TArg1,TArg2,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, Object, TaskCreationOptions)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a task that represents a pair of begin and end methods that conform to the Asynchronous Programming Model pattern.
   remarks: This method throws any exceptions thrown by the `beginMethod`. Exceptions for `endmethod` are thrown when waiting on the returned task.
@@ -2753,6 +2792,11 @@ items:
     - id: creationOptions
       type: System.Threading.Tasks.TaskCreationOptions
       description: An object that controls the behavior of the created <xref href="System.Threading.Tasks.Task`1"></xref>.
+    typeParameters:
+    - id: TArg1
+      description: The type of the second argument passed to <code>beginMethod</code> delegate.
+    - id: TArg2
+      description: The type of the first argument passed to the <code>beginMethod</code> delegate.
     return:
       type: System.Threading.Tasks.Task`1
       description: The created task that represents the asynchronous operation.
@@ -2766,7 +2810,8 @@ items:
     description: The <code>creationOptions</code> parameter specifies an invalid value.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2786,7 +2831,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2805,9 +2851,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.FromAsync``2(System.Func{``0,``1,System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},``0,``1,System.Object)
   commentId: M:System.Threading.Tasks.TaskFactory`1.FromAsync``2(System.Func{``0,``1,System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},``0,``1,System.Object)
   id: FromAsync``2(System.Func{``0,``1,System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},``0,``1,System.Object)
@@ -2816,12 +2859,13 @@ items:
   - csharp
   name: FromAsync<TArg1,TArg2>(Func<TArg1,TArg2,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, Object)
   nameWithType: TaskFactory<TResult>.FromAsync<TArg1,TArg2>(Func<TArg1,TArg2,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, Object)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync<TArg1,TArg2>(Func<TArg1,TArg2,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, Object)
+  fullName: TaskFactory<TResult>.FromAsync<TArg1,TArg2>(Func<TArg1,TArg2,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, Object)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a task that represents a pair of begin and end methods that conform to the Asynchronous Programming Model pattern.
   remarks: This method throws any exceptions thrown by the `beginMethod`. Exceptions for `endmethod` are thrown when waiting on the returned task.
@@ -2843,6 +2887,11 @@ items:
     - id: state
       type: System.Object
       description: An object containing data to be used by the <code>beginMethod</code> delegate.
+    typeParameters:
+    - id: TArg1
+      description: The type of the second argument passed to <code>beginMethod</code> delegate.
+    - id: TArg2
+      description: The type of the first argument passed to the <code>beginMethod</code> delegate.
     return:
       type: System.Threading.Tasks.Task`1
       description: The created task that represents the asynchronous operation.
@@ -2853,7 +2902,8 @@ items:
     description: "The <code>beginMethod</code> argument is `null`.  \n  \n -or-  \n  \n The <code>endMethod</code> argument is `null`."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2873,7 +2923,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2892,9 +2943,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.FromAsync``1(System.Func{``0,System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},``0,System.Object)
   commentId: M:System.Threading.Tasks.TaskFactory`1.FromAsync``1(System.Func{``0,System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},``0,System.Object)
   id: FromAsync``1(System.Func{``0,System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},``0,System.Object)
@@ -2903,12 +2951,13 @@ items:
   - csharp
   name: FromAsync<TArg1>(Func<TArg1,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, Object)
   nameWithType: TaskFactory<TResult>.FromAsync<TArg1>(Func<TArg1,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, Object)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync<TArg1>(Func<TArg1,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, Object)
+  fullName: TaskFactory<TResult>.FromAsync<TArg1>(Func<TArg1,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, Object)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a task that represents a pair of begin and end methods that conform to the Asynchronous Programming Model pattern.
   remarks: This method throws any exceptions thrown by the `beginMethod`. Exceptions for `endmethod` are thrown when waiting on the returned task.
@@ -2927,6 +2976,9 @@ items:
     - id: state
       type: System.Object
       description: An object containing data to be used by the <code>beginMethod</code> delegate.
+    typeParameters:
+    - id: TArg1
+      description: The type of the first argument passed to the <code>beginMethod</code> delegate.
     return:
       type: System.Threading.Tasks.Task`1
       description: The created task that represents the asynchronous operation.
@@ -2937,7 +2989,8 @@ items:
     description: "The <code>beginMethod</code> argument is `null`.  \n  \n -or-  \n  \n The <code>endMethod</code> argument is `null`."
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2957,7 +3010,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -2976,9 +3030,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.FromAsync``1(System.Func{``0,System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},``0,System.Object,System.Threading.Tasks.TaskCreationOptions)
   commentId: M:System.Threading.Tasks.TaskFactory`1.FromAsync``1(System.Func{``0,System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},``0,System.Object,System.Threading.Tasks.TaskCreationOptions)
   id: FromAsync``1(System.Func{``0,System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},``0,System.Object,System.Threading.Tasks.TaskCreationOptions)
@@ -2987,12 +3038,13 @@ items:
   - csharp
   name: FromAsync<TArg1>(Func<TArg1,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, Object, TaskCreationOptions)
   nameWithType: TaskFactory<TResult>.FromAsync<TArg1>(Func<TArg1,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, Object, TaskCreationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync<TArg1>(Func<TArg1,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, Object, TaskCreationOptions)
+  fullName: TaskFactory<TResult>.FromAsync<TArg1>(Func<TArg1,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, Object, TaskCreationOptions)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates a task that represents a pair of begin and end methods that conform to the Asynchronous Programming Model pattern.
   remarks: This method throws any exceptions thrown by the `beginMethod`. Exceptions for `endmethod` are thrown when waiting on the returned task.
@@ -3014,6 +3066,9 @@ items:
     - id: creationOptions
       type: System.Threading.Tasks.TaskCreationOptions
       description: One of the enumeration values that controls the behavior of the created task.
+    typeParameters:
+    - id: TArg1
+      description: The type of the first argument passed to the <code>beginMethod</code> delegate.
     return:
       type: System.Threading.Tasks.Task`1
       description: The created task that represents the asynchronous operation.
@@ -3027,7 +3082,8 @@ items:
     description: The <code>creationOptions</code> parameter specifies an invalid value.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3047,7 +3103,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3066,9 +3123,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.Scheduler
   commentId: P:System.Threading.Tasks.TaskFactory`1.Scheduler
   id: Scheduler
@@ -3077,12 +3131,13 @@ items:
   - csharp
   name: Scheduler
   nameWithType: TaskFactory<TResult>.Scheduler
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.Scheduler
+  fullName: TaskFactory<TResult>.Scheduler
   type: Property
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Gets the task scheduler for this task factory.
   remarks: "This property returns the default scheduler for this factory. It will be used to schedule all tasks unless another scheduler is explicitly specified during calls to this factory's methods.  \n  \n If this property returns `null`, <xref:System.Threading.Tasks.TaskScheduler.Current%2A> will be used."
@@ -3095,7 +3150,8 @@ items:
   exceptions: []
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3115,7 +3171,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3134,9 +3191,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{System.Object,`0},System.Object,System.Threading.CancellationToken)
   commentId: M:System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{System.Object,`0},System.Object,System.Threading.CancellationToken)
   id: StartNew(System.Func{System.Object,`0},System.Object,System.Threading.CancellationToken)
@@ -3145,12 +3199,13 @@ items:
   - csharp
   name: StartNew(Func<Object,TResult>, Object, CancellationToken)
   nameWithType: TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object, CancellationToken)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object, CancellationToken)
+  fullName: TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object, CancellationToken)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates and starts a task.
   remarks: "Calling `StartNew` is functionally equivalent to creating a task by using one of the <xref:System.Threading.Tasks.Task%601> constructors and then calling the <xref:System.Threading.Tasks.Task.Start%2A> method to schedule it for execution.  \n  \n However, unless creation and scheduling must be separated, `StartNew` is the recommended approach for both simplicity and performance."
@@ -3179,7 +3234,8 @@ items:
     description: The <code>function</code> argument is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3199,7 +3255,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3218,9 +3275,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{System.Object,`0},System.Object,System.Threading.Tasks.TaskCreationOptions)
   commentId: M:System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{System.Object,`0},System.Object,System.Threading.Tasks.TaskCreationOptions)
   id: StartNew(System.Func{System.Object,`0},System.Object,System.Threading.Tasks.TaskCreationOptions)
@@ -3229,12 +3283,13 @@ items:
   - csharp
   name: StartNew(Func<Object,TResult>, Object, TaskCreationOptions)
   nameWithType: TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object, TaskCreationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object, TaskCreationOptions)
+  fullName: TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object, TaskCreationOptions)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates and starts a task.
   remarks: "Calling `StartNew` is functionally equivalent to creating a task by using one of the <xref:System.Threading.Tasks.Task%601> constructors and then calling the <xref:System.Threading.Tasks.Task.Start%2A> method to schedule it for execution.  \n  \n However, unless creation and scheduling must be separated, `StartNew` is the recommended approach for both simplicity and performance."
@@ -3263,7 +3318,8 @@ items:
     description: The <code>creationOptions</code> parameter specifies an invalid value.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3283,7 +3339,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3302,9 +3359,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{`0},System.Threading.Tasks.TaskCreationOptions)
   commentId: M:System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{`0},System.Threading.Tasks.TaskCreationOptions)
   id: StartNew(System.Func{`0},System.Threading.Tasks.TaskCreationOptions)
@@ -3313,12 +3367,13 @@ items:
   - csharp
   name: StartNew(Func<TResult>, TaskCreationOptions)
   nameWithType: TaskFactory<TResult>.StartNew(Func<TResult>, TaskCreationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.StartNew(Func<TResult>, TaskCreationOptions)
+  fullName: TaskFactory<TResult>.StartNew(Func<TResult>, TaskCreationOptions)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates and starts a task.
   remarks: "Calling `StartNew` is functionally equivalent to creating a task by using one of the <xref:System.Threading.Tasks.Task%601> constructors and then calling the <xref:System.Threading.Tasks.Task.Start%2A> method to schedule it for execution.  \n  \n However, unless creation and scheduling must be separated, `StartNew` is the recommended approach for both simplicity and performance."
@@ -3344,7 +3399,8 @@ items:
     description: The <code>creationOptions</code> parameter specifies an invalid value.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3364,7 +3420,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3383,9 +3440,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskCreationOptions,System.Threading.Tasks.TaskScheduler)
   commentId: M:System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskCreationOptions,System.Threading.Tasks.TaskScheduler)
   id: StartNew(System.Func{`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskCreationOptions,System.Threading.Tasks.TaskScheduler)
@@ -3394,12 +3448,13 @@ items:
   - csharp
   name: StartNew(Func<TResult>, CancellationToken, TaskCreationOptions, TaskScheduler)
   nameWithType: TaskFactory<TResult>.StartNew(Func<TResult>, CancellationToken, TaskCreationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.StartNew(Func<TResult>, CancellationToken, TaskCreationOptions, TaskScheduler)
+  fullName: TaskFactory<TResult>.StartNew(Func<TResult>, CancellationToken, TaskCreationOptions, TaskScheduler)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates and starts a task.
   remarks: "Calling `StartNew` is functionally equivalent to creating a task by using one of the <xref:System.Threading.Tasks.Task%601> constructors and then calling the <xref:System.Threading.Tasks.Task.Start%2A> method to schedule it for execution.  \n  \n However, unless creation and scheduling must be separated, `StartNew` is the recommended approach for both simplicity and performance."
@@ -3434,7 +3489,8 @@ items:
     description: The <code>creationOptions</code> parameter specifies an invalid value.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3454,7 +3510,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3473,9 +3530,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{System.Object,`0},System.Object)
   commentId: M:System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{System.Object,`0},System.Object)
   id: StartNew(System.Func{System.Object,`0},System.Object)
@@ -3484,12 +3538,13 @@ items:
   - csharp
   name: StartNew(Func<Object,TResult>, Object)
   nameWithType: TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object)
+  fullName: TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates and starts a task.
   remarks: "Calling `StartNew` is functionally equivalent to creating a task by using one of the <xref:System.Threading.Tasks.Task%601> constructors and then calling the <xref:System.Threading.Tasks.Task.Start%2A> method to schedule it for execution.  \n  \n However, unless creation and scheduling must be separated, `StartNew` is the recommended approach for both simplicity and performance."
@@ -3512,7 +3567,8 @@ items:
     description: The <code>function</code> argument is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3532,7 +3588,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3551,9 +3608,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{`0})
   commentId: M:System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{`0})
   id: StartNew(System.Func{`0})
@@ -3562,12 +3616,13 @@ items:
   - csharp
   name: StartNew(Func<TResult>)
   nameWithType: TaskFactory<TResult>.StartNew(Func<TResult>)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.StartNew(Func<TResult>)
+  fullName: TaskFactory<TResult>.StartNew(Func<TResult>)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates and starts a task.
   remarks: "Calling `StartNew` is functionally equivalent to creating a task by using one of the <xref:System.Threading.Tasks.Task%601> constructors, and then calling the <xref:System.Threading.Tasks.Task.Start%2A> method to schedule it for execution.  \n  \n However, unless creation and scheduling must be separated, `StartNew` is the recommended approach for both simplicity and performance."
@@ -3587,7 +3642,8 @@ items:
     description: The <code>function</code> argument is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3607,7 +3663,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3626,9 +3683,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{`0},System.Threading.CancellationToken)
   commentId: M:System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{`0},System.Threading.CancellationToken)
   id: StartNew(System.Func{`0},System.Threading.CancellationToken)
@@ -3637,12 +3691,13 @@ items:
   - csharp
   name: StartNew(Func<TResult>, CancellationToken)
   nameWithType: TaskFactory<TResult>.StartNew(Func<TResult>, CancellationToken)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.StartNew(Func<TResult>, CancellationToken)
+  fullName: TaskFactory<TResult>.StartNew(Func<TResult>, CancellationToken)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates and starts a task.
   remarks: "Calling `StartNew` is functionally equivalent to creating a task by using one of the <xref:System.Threading.Tasks.Task%601> constructors and then calling the <xref:System.Threading.Tasks.Task.Start%2A> method to schedule it for execution.  \n  \n However, unless creation and scheduling must be separated, `StartNew` is the recommended approach for both simplicity and performance."
@@ -3668,7 +3723,8 @@ items:
     description: The <code>function</code> argument is `null`.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3688,7 +3744,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3707,9 +3764,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 - uid: System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{System.Object,`0},System.Object,System.Threading.CancellationToken,System.Threading.Tasks.TaskCreationOptions,System.Threading.Tasks.TaskScheduler)
   commentId: M:System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{System.Object,`0},System.Object,System.Threading.CancellationToken,System.Threading.Tasks.TaskCreationOptions,System.Threading.Tasks.TaskScheduler)
   id: StartNew(System.Func{System.Object,`0},System.Object,System.Threading.CancellationToken,System.Threading.Tasks.TaskCreationOptions,System.Threading.Tasks.TaskScheduler)
@@ -3718,12 +3772,13 @@ items:
   - csharp
   name: StartNew(Func<Object,TResult>, Object, CancellationToken, TaskCreationOptions, TaskScheduler)
   nameWithType: TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object, CancellationToken, TaskCreationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object, CancellationToken, TaskCreationOptions, TaskScheduler)
+  fullName: TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object, CancellationToken, TaskCreationOptions, TaskScheduler)
   type: Method
   assemblies:
   - System.Threading.Tasks
   - mscorlib
   - netstandard
+  - System.Runtime
   namespace: System.Threading.Tasks
   summary: Creates and starts a task.
   remarks: "Calling `StartNew` is functionally equivalent to creating a task by using one of the <xref:System.Threading.Tasks.Task%601> constructors and then calling the <xref:System.Threading.Tasks.Task.Start%2A> method to schedule it for execution.  \n  \n However, unless creation and scheduling must be separated, `StartNew` is the recommended approach for both simplicity and performance."
@@ -3761,7 +3816,8 @@ items:
     description: The <code>creationOptions</code> parameter specifies an invalid value.
   version:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3781,7 +3837,8 @@ items:
   - xamarinmac-3.0
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -3800,9 +3857,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Threading.Tasks/TaskFactory`1.xml
-  author: rpetrusha
-  ms.author: ronpet
-  manager: wpickett
 references:
 - uid: System.Object
   parent: System
@@ -3839,13 +3893,13 @@ references:
   isExternal: false
   name: TaskFactory<TResult>()
   nameWithType: TaskFactory<TResult>.TaskFactory<TResult>()
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.TaskFactory<TResult>()
+  fullName: TaskFactory<TResult>.TaskFactory<TResult>()
 - uid: System.Threading.Tasks.TaskFactory`1.#ctor(System.Threading.CancellationToken)
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: TaskFactory<TResult>(CancellationToken)
   nameWithType: TaskFactory<TResult>.TaskFactory<TResult>(CancellationToken)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.TaskFactory<TResult>(CancellationToken)
+  fullName: TaskFactory<TResult>.TaskFactory<TResult>(CancellationToken)
 - uid: System.Threading.CancellationToken
   parent: System.Threading
   isExternal: false
@@ -3857,7 +3911,7 @@ references:
   isExternal: false
   name: TaskFactory<TResult>(TaskScheduler)
   nameWithType: TaskFactory<TResult>.TaskFactory<TResult>(TaskScheduler)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.TaskFactory<TResult>(TaskScheduler)
+  fullName: TaskFactory<TResult>.TaskFactory<TResult>(TaskScheduler)
 - uid: System.Threading.Tasks.TaskScheduler
   parent: System.Threading.Tasks
   isExternal: false
@@ -3869,7 +3923,7 @@ references:
   isExternal: false
   name: TaskFactory<TResult>(TaskCreationOptions, TaskContinuationOptions)
   nameWithType: TaskFactory<TResult>.TaskFactory<TResult>(TaskCreationOptions, TaskContinuationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.TaskFactory<TResult>(TaskCreationOptions, TaskContinuationOptions)
+  fullName: TaskFactory<TResult>.TaskFactory<TResult>(TaskCreationOptions, TaskContinuationOptions)
 - uid: System.Threading.Tasks.TaskCreationOptions
   parent: System.Threading.Tasks
   isExternal: false
@@ -3887,25 +3941,25 @@ references:
   isExternal: false
   name: TaskFactory<TResult>(CancellationToken, TaskCreationOptions, TaskContinuationOptions, TaskScheduler)
   nameWithType: TaskFactory<TResult>.TaskFactory<TResult>(CancellationToken, TaskCreationOptions, TaskContinuationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.TaskFactory<TResult>(CancellationToken, TaskCreationOptions, TaskContinuationOptions, TaskScheduler)
+  fullName: TaskFactory<TResult>.TaskFactory<TResult>(CancellationToken, TaskCreationOptions, TaskContinuationOptions, TaskScheduler)
 - uid: System.Threading.Tasks.TaskFactory`1.CancellationToken
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: CancellationToken
   nameWithType: TaskFactory<TResult>.CancellationToken
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.CancellationToken
+  fullName: TaskFactory<TResult>.CancellationToken
 - uid: System.Threading.Tasks.TaskFactory`1.ContinuationOptions
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: ContinuationOptions
   nameWithType: TaskFactory<TResult>.ContinuationOptions
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinuationOptions
+  fullName: TaskFactory<TResult>.ContinuationOptions
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAll(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task[],`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: ContinueWhenAll(Task[], Func<Task[],TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
   nameWithType: TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
+  fullName: TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
 - uid: System.Threading.Tasks.Task`1
   parent: System.Threading.Tasks
   isExternal: false
@@ -3974,25 +4028,25 @@ references:
   isExternal: false
   name: ContinueWhenAll(Task[], Func<Task[],TResult>, TaskContinuationOptions)
   nameWithType: TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>, TaskContinuationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>, TaskContinuationOptions)
+  fullName: TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>, TaskContinuationOptions)
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAll(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task[],`0})
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: ContinueWhenAll(Task[], Func<Task[],TResult>)
   nameWithType: TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>)
+  fullName: TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>)
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAll(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task[],`0},System.Threading.CancellationToken)
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: ContinueWhenAll(Task[], Func<Task[],TResult>, CancellationToken)
   nameWithType: TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>, CancellationToken)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>, CancellationToken)
+  fullName: TaskFactory<TResult>.ContinueWhenAll(Task[], Func<Task[],TResult>, CancellationToken)
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAll``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0}[],`0})
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>)
   nameWithType: TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>)
+  fullName: TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>)
 - uid: TAntecedentResult
   name: TAntecedentResult
   nameWithType: TAntecedentResult
@@ -4067,25 +4121,25 @@ references:
   isExternal: false
   name: ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, CancellationToken)
   nameWithType: TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, CancellationToken)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, CancellationToken)
+  fullName: TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, CancellationToken)
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAll``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0}[],`0},System.Threading.Tasks.TaskContinuationOptions)
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, TaskContinuationOptions)
   nameWithType: TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, TaskContinuationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, TaskContinuationOptions)
+  fullName: TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, TaskContinuationOptions)
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAll``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0}[],`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
   nameWithType: TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
+  fullName: TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>[],TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAny(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task,`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: ContinueWhenAny(Task[], Func<Task,TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
   nameWithType: TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
+  fullName: TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
 - uid: System.Func{System.Threading.Tasks.Task,TResult}
   parent: System
   isExternal: false
@@ -4119,25 +4173,25 @@ references:
   isExternal: false
   name: ContinueWhenAny(Task[], Func<Task,TResult>)
   nameWithType: TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>)
+  fullName: TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>)
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAny(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task,`0},System.Threading.CancellationToken)
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: ContinueWhenAny(Task[], Func<Task,TResult>, CancellationToken)
   nameWithType: TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>, CancellationToken)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>, CancellationToken)
+  fullName: TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>, CancellationToken)
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAny(System.Threading.Tasks.Task[],System.Func{System.Threading.Tasks.Task,`0},System.Threading.Tasks.TaskContinuationOptions)
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: ContinueWhenAny(Task[], Func<Task,TResult>, TaskContinuationOptions)
   nameWithType: TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>, TaskContinuationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>, TaskContinuationOptions)
+  fullName: TaskFactory<TResult>.ContinueWhenAny(Task[], Func<Task,TResult>, TaskContinuationOptions)
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAny``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0},`0},System.Threading.CancellationToken,System.Threading.Tasks.TaskContinuationOptions,System.Threading.Tasks.TaskScheduler)
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
   nameWithType: TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
+  fullName: TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, CancellationToken, TaskContinuationOptions, TaskScheduler)
 - uid: System.Func{System.Threading.Tasks.Task{TAntecedentResult},TResult}
   parent: System
   isExternal: false
@@ -4181,31 +4235,31 @@ references:
   isExternal: false
   name: ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, TaskContinuationOptions)
   nameWithType: TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, TaskContinuationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, TaskContinuationOptions)
+  fullName: TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, TaskContinuationOptions)
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAny``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0},`0})
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>)
   nameWithType: TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>)
+  fullName: TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>)
 - uid: System.Threading.Tasks.TaskFactory`1.ContinueWhenAny``1(System.Threading.Tasks.Task{``0}[],System.Func{System.Threading.Tasks.Task{``0},`0},System.Threading.CancellationToken)
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, CancellationToken)
   nameWithType: TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, CancellationToken)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, CancellationToken)
+  fullName: TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>(Task<TAntecedentResult>[], Func<Task<TAntecedentResult>,TResult>, CancellationToken)
 - uid: System.Threading.Tasks.TaskFactory`1.CreationOptions
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: CreationOptions
   nameWithType: TaskFactory<TResult>.CreationOptions
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.CreationOptions
+  fullName: TaskFactory<TResult>.CreationOptions
 - uid: System.Threading.Tasks.TaskFactory`1.FromAsync(System.IAsyncResult,System.Func{System.IAsyncResult,`0})
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: FromAsync(IAsyncResult, Func<IAsyncResult,TResult>)
   nameWithType: TaskFactory<TResult>.FromAsync(IAsyncResult, Func<IAsyncResult,TResult>)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync(IAsyncResult, Func<IAsyncResult,TResult>)
+  fullName: TaskFactory<TResult>.FromAsync(IAsyncResult, Func<IAsyncResult,TResult>)
 - uid: System.IAsyncResult
   parent: System
   isExternal: false
@@ -4245,7 +4299,7 @@ references:
   isExternal: false
   name: FromAsync(Func<AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, Object)
   nameWithType: TaskFactory<TResult>.FromAsync(Func<AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, Object)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync(Func<AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, Object)
+  fullName: TaskFactory<TResult>.FromAsync(Func<AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, Object)
 - uid: System.Func`3
   name: Func<T1,T2,TResult>
   nameWithType: Func<T1,T2,TResult>
@@ -4294,25 +4348,25 @@ references:
   isExternal: false
   name: FromAsync(IAsyncResult, Func<IAsyncResult,TResult>, TaskCreationOptions)
   nameWithType: TaskFactory<TResult>.FromAsync(IAsyncResult, Func<IAsyncResult,TResult>, TaskCreationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync(IAsyncResult, Func<IAsyncResult,TResult>, TaskCreationOptions)
+  fullName: TaskFactory<TResult>.FromAsync(IAsyncResult, Func<IAsyncResult,TResult>, TaskCreationOptions)
 - uid: System.Threading.Tasks.TaskFactory`1.FromAsync(System.Func{System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},System.Object,System.Threading.Tasks.TaskCreationOptions)
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: FromAsync(Func<AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, Object, TaskCreationOptions)
   nameWithType: TaskFactory<TResult>.FromAsync(Func<AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, Object, TaskCreationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync(Func<AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, Object, TaskCreationOptions)
+  fullName: TaskFactory<TResult>.FromAsync(Func<AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, Object, TaskCreationOptions)
 - uid: System.Threading.Tasks.TaskFactory`1.FromAsync(System.IAsyncResult,System.Func{System.IAsyncResult,`0},System.Threading.Tasks.TaskCreationOptions,System.Threading.Tasks.TaskScheduler)
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: FromAsync(IAsyncResult, Func<IAsyncResult,TResult>, TaskCreationOptions, TaskScheduler)
   nameWithType: TaskFactory<TResult>.FromAsync(IAsyncResult, Func<IAsyncResult,TResult>, TaskCreationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync(IAsyncResult, Func<IAsyncResult,TResult>, TaskCreationOptions, TaskScheduler)
+  fullName: TaskFactory<TResult>.FromAsync(IAsyncResult, Func<IAsyncResult,TResult>, TaskCreationOptions, TaskScheduler)
 - uid: System.Threading.Tasks.TaskFactory`1.FromAsync``3(System.Func{``0,``1,``2,System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},``0,``1,``2,System.Object,System.Threading.Tasks.TaskCreationOptions)
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: FromAsync<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, TArg3, Object, TaskCreationOptions)
   nameWithType: TaskFactory<TResult>.FromAsync<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, TArg3, Object, TaskCreationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, TArg3, Object, TaskCreationOptions)
+  fullName: TaskFactory<TResult>.FromAsync<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, TArg3, Object, TaskCreationOptions)
 - uid: System.Func`6
   name: Func<T1,T2,T3,T4,T5,TResult>
   nameWithType: Func<T1,T2,T3,T4,T5,TResult>
@@ -4390,13 +4444,13 @@ references:
   isExternal: false
   name: FromAsync<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, TArg3, Object)
   nameWithType: TaskFactory<TResult>.FromAsync<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, TArg3, Object)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, TArg3, Object)
+  fullName: TaskFactory<TResult>.FromAsync<TArg1,TArg2,TArg3>(Func<TArg1,TArg2,TArg3,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, TArg3, Object)
 - uid: System.Threading.Tasks.TaskFactory`1.FromAsync``2(System.Func{``0,``1,System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},``0,``1,System.Object,System.Threading.Tasks.TaskCreationOptions)
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: FromAsync<TArg1,TArg2>(Func<TArg1,TArg2,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, Object, TaskCreationOptions)
   nameWithType: TaskFactory<TResult>.FromAsync<TArg1,TArg2>(Func<TArg1,TArg2,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, Object, TaskCreationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync<TArg1,TArg2>(Func<TArg1,TArg2,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, Object, TaskCreationOptions)
+  fullName: TaskFactory<TResult>.FromAsync<TArg1,TArg2>(Func<TArg1,TArg2,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, Object, TaskCreationOptions)
 - uid: System.Func`5
   name: Func<T1,T2,T3,T4,TResult>
   nameWithType: Func<T1,T2,T3,T4,TResult>
@@ -4455,13 +4509,13 @@ references:
   isExternal: false
   name: FromAsync<TArg1,TArg2>(Func<TArg1,TArg2,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, Object)
   nameWithType: TaskFactory<TResult>.FromAsync<TArg1,TArg2>(Func<TArg1,TArg2,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, Object)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync<TArg1,TArg2>(Func<TArg1,TArg2,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, Object)
+  fullName: TaskFactory<TResult>.FromAsync<TArg1,TArg2>(Func<TArg1,TArg2,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, TArg2, Object)
 - uid: System.Threading.Tasks.TaskFactory`1.FromAsync``1(System.Func{``0,System.AsyncCallback,System.Object,System.IAsyncResult},System.Func{System.IAsyncResult,`0},``0,System.Object)
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: FromAsync<TArg1>(Func<TArg1,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, Object)
   nameWithType: TaskFactory<TResult>.FromAsync<TArg1>(Func<TArg1,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, Object)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync<TArg1>(Func<TArg1,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, Object)
+  fullName: TaskFactory<TResult>.FromAsync<TArg1>(Func<TArg1,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, Object)
 - uid: System.Func`4
   name: Func<T1,T2,T3,TResult>
   nameWithType: Func<T1,T2,T3,TResult>
@@ -4513,19 +4567,19 @@ references:
   isExternal: false
   name: FromAsync<TArg1>(Func<TArg1,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, Object, TaskCreationOptions)
   nameWithType: TaskFactory<TResult>.FromAsync<TArg1>(Func<TArg1,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, Object, TaskCreationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync<TArg1>(Func<TArg1,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, Object, TaskCreationOptions)
+  fullName: TaskFactory<TResult>.FromAsync<TArg1>(Func<TArg1,AsyncCallback,Object,IAsyncResult>, Func<IAsyncResult,TResult>, TArg1, Object, TaskCreationOptions)
 - uid: System.Threading.Tasks.TaskFactory`1.Scheduler
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: Scheduler
   nameWithType: TaskFactory<TResult>.Scheduler
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.Scheduler
+  fullName: TaskFactory<TResult>.Scheduler
 - uid: System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{System.Object,`0},System.Object,System.Threading.CancellationToken)
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: StartNew(Func<Object,TResult>, Object, CancellationToken)
   nameWithType: TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object, CancellationToken)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object, CancellationToken)
+  fullName: TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object, CancellationToken)
 - uid: System.Func{System.Object,TResult}
   parent: System
   isExternal: false
@@ -4559,13 +4613,13 @@ references:
   isExternal: false
   name: StartNew(Func<Object,TResult>, Object, TaskCreationOptions)
   nameWithType: TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object, TaskCreationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object, TaskCreationOptions)
+  fullName: TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object, TaskCreationOptions)
 - uid: System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{`0},System.Threading.Tasks.TaskCreationOptions)
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: StartNew(Func<TResult>, TaskCreationOptions)
   nameWithType: TaskFactory<TResult>.StartNew(Func<TResult>, TaskCreationOptions)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.StartNew(Func<TResult>, TaskCreationOptions)
+  fullName: TaskFactory<TResult>.StartNew(Func<TResult>, TaskCreationOptions)
 - uid: System.Func`1
   parent: System
   isExternal: false
@@ -4577,40 +4631,41 @@ references:
   isExternal: false
   name: StartNew(Func<TResult>, CancellationToken, TaskCreationOptions, TaskScheduler)
   nameWithType: TaskFactory<TResult>.StartNew(Func<TResult>, CancellationToken, TaskCreationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.StartNew(Func<TResult>, CancellationToken, TaskCreationOptions, TaskScheduler)
+  fullName: TaskFactory<TResult>.StartNew(Func<TResult>, CancellationToken, TaskCreationOptions, TaskScheduler)
 - uid: System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{System.Object,`0},System.Object)
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: StartNew(Func<Object,TResult>, Object)
   nameWithType: TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object)
+  fullName: TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object)
 - uid: System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{`0})
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: StartNew(Func<TResult>)
   nameWithType: TaskFactory<TResult>.StartNew(Func<TResult>)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.StartNew(Func<TResult>)
+  fullName: TaskFactory<TResult>.StartNew(Func<TResult>)
 - uid: System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{`0},System.Threading.CancellationToken)
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: StartNew(Func<TResult>, CancellationToken)
   nameWithType: TaskFactory<TResult>.StartNew(Func<TResult>, CancellationToken)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.StartNew(Func<TResult>, CancellationToken)
+  fullName: TaskFactory<TResult>.StartNew(Func<TResult>, CancellationToken)
 - uid: System.Threading.Tasks.TaskFactory`1.StartNew(System.Func{System.Object,`0},System.Object,System.Threading.CancellationToken,System.Threading.Tasks.TaskCreationOptions,System.Threading.Tasks.TaskScheduler)
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: StartNew(Func<Object,TResult>, Object, CancellationToken, TaskCreationOptions, TaskScheduler)
   nameWithType: TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object, CancellationToken, TaskCreationOptions, TaskScheduler)
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object, CancellationToken, TaskCreationOptions, TaskScheduler)
+  fullName: TaskFactory<TResult>.StartNew(Func<Object,TResult>, Object, CancellationToken, TaskCreationOptions, TaskScheduler)
 - uid: System.Threading.Tasks.TaskFactory`1.#ctor*
   parent: System.Threading.Tasks.TaskFactory`1
   isExternal: false
   name: TaskFactory<TResult>
   nameWithType: TaskFactory<TResult>.TaskFactory<TResult>
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.TaskFactory<TResult>
+  fullName: TaskFactory<TResult>.TaskFactory<TResult>
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4634,10 +4689,11 @@ references:
   isExternal: false
   name: CancellationToken
   nameWithType: TaskFactory<TResult>.CancellationToken
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.CancellationToken
+  fullName: TaskFactory<TResult>.CancellationToken
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4661,10 +4717,11 @@ references:
   isExternal: false
   name: ContinuationOptions
   nameWithType: TaskFactory<TResult>.ContinuationOptions
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinuationOptions
+  fullName: TaskFactory<TResult>.ContinuationOptions
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4688,10 +4745,11 @@ references:
   isExternal: false
   name: ContinueWhenAll
   nameWithType: TaskFactory<TResult>.ContinueWhenAll
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAll
+  fullName: TaskFactory<TResult>.ContinueWhenAll
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4715,10 +4773,11 @@ references:
   isExternal: false
   name: ContinueWhenAll<TAntecedentResult>
   nameWithType: TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>
+  fullName: TaskFactory<TResult>.ContinueWhenAll<TAntecedentResult>
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4742,10 +4801,11 @@ references:
   isExternal: false
   name: ContinueWhenAny
   nameWithType: TaskFactory<TResult>.ContinueWhenAny
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAny
+  fullName: TaskFactory<TResult>.ContinueWhenAny
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4769,10 +4829,11 @@ references:
   isExternal: false
   name: ContinueWhenAny<TAntecedentResult>
   nameWithType: TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>
+  fullName: TaskFactory<TResult>.ContinueWhenAny<TAntecedentResult>
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4796,10 +4857,11 @@ references:
   isExternal: false
   name: CreationOptions
   nameWithType: TaskFactory<TResult>.CreationOptions
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.CreationOptions
+  fullName: TaskFactory<TResult>.CreationOptions
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4823,10 +4885,11 @@ references:
   isExternal: false
   name: FromAsync
   nameWithType: TaskFactory<TResult>.FromAsync
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync
+  fullName: TaskFactory<TResult>.FromAsync
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4850,10 +4913,11 @@ references:
   isExternal: false
   name: FromAsync<TArg1,TArg2,TArg3>
   nameWithType: TaskFactory<TResult>.FromAsync<TArg1,TArg2,TArg3>
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync<TArg1,TArg2,TArg3>
+  fullName: TaskFactory<TResult>.FromAsync<TArg1,TArg2,TArg3>
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4877,10 +4941,11 @@ references:
   isExternal: false
   name: FromAsync<TArg1,TArg2>
   nameWithType: TaskFactory<TResult>.FromAsync<TArg1,TArg2>
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync<TArg1,TArg2>
+  fullName: TaskFactory<TResult>.FromAsync<TArg1,TArg2>
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4904,10 +4969,11 @@ references:
   isExternal: false
   name: FromAsync<TArg1>
   nameWithType: TaskFactory<TResult>.FromAsync<TArg1>
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.FromAsync<TArg1>
+  fullName: TaskFactory<TResult>.FromAsync<TArg1>
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4931,10 +4997,11 @@ references:
   isExternal: false
   name: Scheduler
   nameWithType: TaskFactory<TResult>.Scheduler
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.Scheduler
+  fullName: TaskFactory<TResult>.Scheduler
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5
@@ -4958,10 +5025,11 @@ references:
   isExternal: false
   name: StartNew
   nameWithType: TaskFactory<TResult>.StartNew
-  fullName: System.Threading.Tasks.TaskFactory<TResult>.StartNew
+  fullName: TaskFactory<TResult>.StartNew
   monikers:
   - netcore-1.0
-  - netcore-1.1.0
+  - netcore-1.1
+  - netcore-2.0
   - netframework-4.5.1
   - netframework-4.5.2
   - netframework-4.5

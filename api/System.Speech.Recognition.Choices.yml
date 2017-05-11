@@ -54,8 +54,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Speech.Recognition/Choices.xml
-  ms.author: kbridge
-  manager: ghogen
 - uid: System.Speech.Recognition.Choices.#ctor
   commentId: M:System.Speech.Recognition.Choices.#ctor
   id: '#ctor'
@@ -64,7 +62,7 @@ items:
   - csharp
   name: Choices()
   nameWithType: Choices.Choices()
-  fullName: System.Speech.Recognition.Choices.Choices()
+  fullName: Choices.Choices()
   type: Constructor
   assemblies:
   - System.Speech
@@ -95,8 +93,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Speech.Recognition/Choices.xml
-  ms.author: kbridge
-  manager: ghogen
 - uid: System.Speech.Recognition.Choices.#ctor(System.Speech.Recognition.GrammarBuilder[])
   commentId: M:System.Speech.Recognition.Choices.#ctor(System.Speech.Recognition.GrammarBuilder[])
   id: '#ctor(System.Speech.Recognition.GrammarBuilder[])'
@@ -105,7 +101,7 @@ items:
   - csharp
   name: Choices(GrammarBuilder[])
   nameWithType: Choices.Choices(GrammarBuilder[])
-  fullName: System.Speech.Recognition.Choices.Choices(GrammarBuilder[])
+  fullName: Choices.Choices(GrammarBuilder[])
   type: Constructor
   assemblies:
   - System.Speech
@@ -139,8 +135,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Speech.Recognition/Choices.xml
-  ms.author: kbridge
-  manager: ghogen
 - uid: System.Speech.Recognition.Choices.#ctor(System.String[])
   commentId: M:System.Speech.Recognition.Choices.#ctor(System.String[])
   id: '#ctor(System.String[])'
@@ -149,7 +143,7 @@ items:
   - csharp
   name: Choices(String[])
   nameWithType: Choices.Choices(String[])
-  fullName: System.Speech.Recognition.Choices.Choices(String[])
+  fullName: Choices.Choices(String[])
   type: Constructor
   assemblies:
   - System.Speech
@@ -183,8 +177,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Speech.Recognition/Choices.xml
-  ms.author: kbridge
-  manager: ghogen
 - uid: System.Speech.Recognition.Choices.Add(System.Speech.Recognition.GrammarBuilder[])
   commentId: M:System.Speech.Recognition.Choices.Add(System.Speech.Recognition.GrammarBuilder[])
   id: Add(System.Speech.Recognition.GrammarBuilder[])
@@ -193,13 +185,13 @@ items:
   - csharp
   name: Add(GrammarBuilder[])
   nameWithType: Choices.Add(GrammarBuilder[])
-  fullName: System.Speech.Recognition.Choices.Add(GrammarBuilder[])
+  fullName: Choices.Add(GrammarBuilder[])
   type: Method
   assemblies:
   - System.Speech
   namespace: System.Speech.Recognition
   summary: Adds an array containing one or more <xref href="System.Speech.Recognition.GrammarBuilder"></xref> objects to the set of alternatives.
-  remarks: "Because of support for implicit conversion from <xref:System.Speech.Recognition.Choices>, <xref:System.Speech.Recognition.SemanticResultKey>, and <xref:System.Speech.Recognition.SemanticResultValue> objects to <xref:System.Speech.Recognition.GrammarBuilder>, these three classes may be added to a <xref:System.Speech.Recognition.Choices> instance as well.  \n  \n If `alternateChoices` is an empty array, this method does not update the set of alternatives.  \n  \n Applications can use both [Add(String\\<xref:System.Speech.Recognition.Choices.Add%28System.String%5B%5D%29> and <xref:System.Speech.Recognition.Choices.Add%28System.Speech.Recognition.GrammarBuilder%5B%5D%29> to add alternatives to a <xref:System.Speech.Recognition.Choices> object.  \n  \n This method throws an <xref:System.ArgumentNullException> when `alternateChoices` is `null` or any of the array elements are `null`."
+  remarks: "Because of support for implicit conversion from <xref:System.Speech.Recognition.Choices>, <xref:System.Speech.Recognition.SemanticResultKey>, and <xref:System.Speech.Recognition.SemanticResultValue> objects to <xref:System.Speech.Recognition.GrammarBuilder>, these three classes may be added to a <xref:System.Speech.Recognition.Choices> instance as well.  \n  \n If `alternateChoices` is an empty array, this method does not update the set of alternatives.  \n  \n Applications can use both <xref:System.Speech.Recognition.Choices.Add%28System.String%5B%5D%29> and <xref:System.Speech.Recognition.Choices.Add%28System.Speech.Recognition.GrammarBuilder%5B%5D%29> to add alternatives to a <xref:System.Speech.Recognition.Choices> object.  \n  \n This method throws an <xref:System.ArgumentNullException> when `alternateChoices` is `null` or any of the array elements are `null`."
   example:
   - "The following example creates a speech recognition grammar for phrases such as \"Call Anne on her cell\" and \"Call James on his work phone\". The example uses both overloads of the <xref:System.Speech.Recognition.Choices.Add%2A> method to build the grammar.  \n  \n```csharp  \npublic Grammar CreatePhonePhrase()  \n{  \n  \n  // Create alternatives for female names and add a phrase.  \n  GrammarBuilder females = new Choices(new string[] { \"Anne\", \"Mary\" });  \n  females.Append(\"on her\");  \n  \n  // Create alternatives for male names and add a phrase.  \n  GrammarBuilder males = new Choices(new string[] { \"James\", \"Sam\" });  \n  males.Append(\"on his\");  \n  \n  // Create a Choices object that contains an array of alternative  \n  // GrammarBuilder objects.  \n  Choices people = new Choices();  \n  people.Add(new Choices(new GrammarBuilder[] {females, males}));  \n  \n  // Create a Choices object that contains a set of alternative phone types.  \n  Choices phoneType = new Choices();  \n  phoneType.Add(new string[] { \"cell\", \"home\", \"work\" });  \n  \n  // Construct the phrase.  \n  GrammarBuilder gb = new GrammarBuilder();  \n  gb.Append(\"call\");  \n  gb.Append(people);  \n  gb.Append(phoneType);  \n  gb.Append(new GrammarBuilder(\"phone\"), 0, 1);  \n  \n  return new Grammar(gb);  \n}  \n```"
   syntax:
@@ -227,8 +219,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Speech.Recognition/Choices.xml
-  ms.author: kbridge
-  manager: ghogen
 - uid: System.Speech.Recognition.Choices.Add(System.String[])
   commentId: M:System.Speech.Recognition.Choices.Add(System.String[])
   id: Add(System.String[])
@@ -237,13 +227,13 @@ items:
   - csharp
   name: Add(String[])
   nameWithType: Choices.Add(String[])
-  fullName: System.Speech.Recognition.Choices.Add(String[])
+  fullName: Choices.Add(String[])
   type: Method
   assemblies:
   - System.Speech
   namespace: System.Speech.Recognition
   summary: Adds an array containing one or more <xref href="System.String"></xref> objects to the set of alternatives.
-  remarks: "Applications can use both <xref:System.Speech.Recognition.Choices.Add%28System.String%5B%5D%29> and [Add(GrammarBuilder\\<xref:System.Speech.Recognition.Choices.Add%28System.Speech.Recognition.GrammarBuilder%5B%5D%29> to add alternatives to a <xref:System.Speech.Recognition.Choices> object.  \n  \n If `phrases` is an empty array, this method does not update the set of alternates.  \n  \n This method throws an <xref:System.ArgumentNullException> when `phrases` is `null` or any of the array elements are `null`. This method throws an <xref:System.ArgumentException> if any element in the array is the empty string (\"\")."
+  remarks: "Applications can use both <xref:System.Speech.Recognition.Choices.Add%28System.String%5B%5D%29> and <xref:System.Speech.Recognition.Choices.Add%28System.Speech.Recognition.GrammarBuilder%5B%5D%29> to add alternatives to a <xref:System.Speech.Recognition.Choices> object.  \n  \n If `phrases` is an empty array, this method does not update the set of alternates.  \n  \n This method throws an <xref:System.ArgumentNullException> when `phrases` is `null` or any of the array elements are `null`. This method throws an <xref:System.ArgumentException> if any element in the array is the empty string (\"\")."
   example:
   - "The following example creates a speech recognition grammar for phrases similar to \"Call Anne on her cell\" and \"Call James on his work phone\". The example uses both overloads of the <xref:System.Speech.Recognition.Choices.Add%2A> method to build the grammar.  \n  \n```csharp  \npublic Grammar CreatePhonePhrase()  \n{  \n  \n  // Create alternatives for female names and add a phrase.  \n  GrammarBuilder females = new Choices(new string[] { \"Anne\", \"Mary\" });  \n  females.Append(\"on her\");  \n  \n  // Create alternatives for male names and add a phrase.  \n  GrammarBuilder males = new Choices(new string[] { \"James\", \"Sam\" });  \n  males.Append(\"on his\");  \n  \n  // Create a Choices object that contains an array of alternative  \n  // GrammarBuilder objects.  \n  Choices people = new Choices();  \n  people.Add(new Choices(new GrammarBuilder[] {females, males}));  \n  \n  // Create a Choices object that contains a set of alternative phone types.  \n  Choices phoneType = new Choices();  \n  phoneType.Add(new string[] { \"cell\", \"home\", \"work\" });  \n  \n  // Construct the phrase.  \n  GrammarBuilder gb = new GrammarBuilder();  \n  gb.Append(\"call\");  \n  gb.Append(people);  \n  gb.Append(phoneType);  \n  gb.Append(new GrammarBuilder(\"phone\"), 0, 1);  \n  \n  return new Grammar(gb);  \n}  \n```"
   syntax:
@@ -271,8 +261,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Speech.Recognition/Choices.xml
-  ms.author: kbridge
-  manager: ghogen
 - uid: System.Speech.Recognition.Choices.ToGrammarBuilder
   commentId: M:System.Speech.Recognition.Choices.ToGrammarBuilder
   id: ToGrammarBuilder
@@ -281,7 +269,7 @@ items:
   - csharp
   name: ToGrammarBuilder()
   nameWithType: Choices.ToGrammarBuilder()
-  fullName: System.Speech.Recognition.Choices.ToGrammarBuilder()
+  fullName: Choices.ToGrammarBuilder()
   type: Method
   assemblies:
   - System.Speech
@@ -315,8 +303,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.Speech.Recognition/Choices.xml
-  ms.author: kbridge
-  manager: ghogen
 references:
 - uid: System.Object
   parent: System
@@ -329,13 +315,13 @@ references:
   isExternal: false
   name: Choices()
   nameWithType: Choices.Choices()
-  fullName: System.Speech.Recognition.Choices.Choices()
+  fullName: Choices.Choices()
 - uid: System.Speech.Recognition.Choices.#ctor(System.Speech.Recognition.GrammarBuilder[])
   parent: System.Speech.Recognition.Choices
   isExternal: false
   name: Choices(GrammarBuilder[])
   nameWithType: Choices.Choices(GrammarBuilder[])
-  fullName: System.Speech.Recognition.Choices.Choices(GrammarBuilder[])
+  fullName: Choices.Choices(GrammarBuilder[])
 - uid: System.Speech.Recognition.GrammarBuilder
   name: GrammarBuilder
   nameWithType: GrammarBuilder
@@ -359,7 +345,7 @@ references:
   isExternal: false
   name: Choices(String[])
   nameWithType: Choices.Choices(String[])
-  fullName: System.Speech.Recognition.Choices.Choices(String[])
+  fullName: Choices.Choices(String[])
 - uid: System.String
   name: String
   nameWithType: String
@@ -383,25 +369,25 @@ references:
   isExternal: false
   name: Add(GrammarBuilder[])
   nameWithType: Choices.Add(GrammarBuilder[])
-  fullName: System.Speech.Recognition.Choices.Add(GrammarBuilder[])
+  fullName: Choices.Add(GrammarBuilder[])
 - uid: System.Speech.Recognition.Choices.Add(System.String[])
   parent: System.Speech.Recognition.Choices
   isExternal: false
   name: Add(String[])
   nameWithType: Choices.Add(String[])
-  fullName: System.Speech.Recognition.Choices.Add(String[])
+  fullName: Choices.Add(String[])
 - uid: System.Speech.Recognition.Choices.ToGrammarBuilder
   parent: System.Speech.Recognition.Choices
   isExternal: false
   name: ToGrammarBuilder()
   nameWithType: Choices.ToGrammarBuilder()
-  fullName: System.Speech.Recognition.Choices.ToGrammarBuilder()
+  fullName: Choices.ToGrammarBuilder()
 - uid: System.Speech.Recognition.Choices.#ctor*
   parent: System.Speech.Recognition.Choices
   isExternal: false
   name: Choices
   nameWithType: Choices.Choices
-  fullName: System.Speech.Recognition.Choices.Choices
+  fullName: Choices.Choices
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -416,7 +402,7 @@ references:
   isExternal: false
   name: Add
   nameWithType: Choices.Add
-  fullName: System.Speech.Recognition.Choices.Add
+  fullName: Choices.Add
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -431,7 +417,7 @@ references:
   isExternal: false
   name: ToGrammarBuilder
   nameWithType: Choices.ToGrammarBuilder
-  fullName: System.Speech.Recognition.Choices.ToGrammarBuilder
+  fullName: Choices.ToGrammarBuilder
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2

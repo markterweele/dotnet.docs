@@ -24,7 +24,7 @@ additional_notes.overrides: *content
   
 -   If two objects compare as equal, the <xref href="System.Object.GetHashCode"></xref> method for each object must return the same value. However, if two objects do not compare as equal, the <xref href="System.Object.GetHashCode"></xref> methods for the two objects do not have to return different values.  
   
--   The <xref href="System.Object.GetHashCode"></xref> method for an object must consistently return the same hash code as long as there is no modification to the object state that determines the return value of the object's <xref href="erload:System.Object.Equals"></xref> method. Note that this is true only for the current execution of an application, and that a different hash code can be returned if the application is run again.  
+-   The <xref href="System.Object.GetHashCode"></xref> method for an object must consistently return the same hash code as long as there is no modification to the object state that determines the return value of the object's <xref href="System.Object.Equals*"></xref> method. Note that this is true only for the current execution of an application, and that a different hash code can be returned if the application is run again.  
   
 -   For the best performance, a hash function should generate an even distribution for all input, including input that is heavily clustered. An implication is that small modifications to object state should result in large modifications to the resulting hash code for best hash table performance.  
   

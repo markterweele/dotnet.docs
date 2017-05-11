@@ -38,7 +38,7 @@ items:
   assemblies:
   - System.ServiceModel.Web
   namespace: System.ServiceModel
-  summary: A binding used to configure endpoints for [!INCLUDE[indigo1](~/includes/indigo1-md.md)] Web services that are exposed through HTTP requests instead of SOAP messages.
+  summary: A binding used to configure endpoints for Windows Communication Foundation (WCF) Web services that are exposed through HTTP requests instead of SOAP messages.
   remarks: The [!INCLUDE[indigo2](~/includes/indigo2-md.md)] Web Programming Model allows developers to expose [!INCLUDE[indigo2](~/includes/indigo2-md.md)] Web services through HTTP requests that use "plain old XML" (POX) style messaging instead of SOAP-based messaging. For clients to communicate with a service using HTTP requests, an endpoint of the service must be configured with the <xref:System.ServiceModel.WebHttpBinding> that has the <xref:System.ServiceModel.Description.WebHttpBehavior> attached to it. The WCF Web Programming Model also requires that the individual service operations are annotated with the <xref:System.ServiceModel.Web.WebGetAttribute> or <xref:System.ServiceModel.Web.WebInvokeAttribute> attributes. This defines a mapping from a URI and HTTP method to the service operation, as well as the format of the messages used to call the operation and return the results. Support in [!INCLUDE[indigo2](~/includes/indigo2-md.md)] for syndication and ASP.AJAX integration are both built on top of the WCF Web Programming Model.
   syntax:
     content: 'public class WebHttpBinding : System.ServiceModel.Channels.Binding, System.ServiceModel.Channels.IBindingRuntimePreferences'
@@ -101,9 +101,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.#ctor
   commentId: M:System.ServiceModel.WebHttpBinding.#ctor
   id: '#ctor'
@@ -112,13 +109,13 @@ items:
   - csharp
   name: WebHttpBinding()
   nameWithType: WebHttpBinding.WebHttpBinding()
-  fullName: System.ServiceModel.WebHttpBinding.WebHttpBinding()
+  fullName: WebHttpBinding.WebHttpBinding()
   type: Constructor
   assemblies:
   - System.ServiceModel.Web
   namespace: System.ServiceModel
   summary: Initializes a new instance of the <xref href="System.ServiceModel.WebHttpBinding"></xref> class.
-  remarks: "The default security mode is <xref:System.ServiceModel.WebHttpSecurityMode>, which specifies that no security is used.  \n  \n To use transport-level security for endpoints configured with this binding, the <xref:System.ServiceModel.WebHttpSecurityMode> value must be specified as a parameter in the <xref:System.ServiceModel.WebHttpBinding.%23ctor%28System.ServiceModel.WebHttpSecurityMode%29> constructor.  \n  \n To use HTTP authentication without HTTPS, the <xref:System.ServiceModel.WebHttpSecurityMode> value must be specified as a parameter in the <xref:System.ServiceModel.WebHttpBinding.%23ctor%28System.ServiceModel.WebHttpSecurityMode%29> constructor.  \n  \n The value of <xref:System.ServiceModel.WebHttpSecurityMode> cannot be set again after the binding instance is created."
+  remarks: "The default security mode is <xref:System.ServiceModel.WebHttpSecurityMode.None>, which specifies that no security is used.  \n  \n To use transport-level security for endpoints configured with this binding, the <xref:System.ServiceModel.WebHttpSecurityMode.Transport> value must be specified as a parameter in the <xref:System.ServiceModel.WebHttpBinding.%23ctor%28System.ServiceModel.WebHttpSecurityMode%29> constructor.  \n  \n To use HTTP authentication without HTTPS, the <xref:System.ServiceModel.WebHttpSecurityMode.TransportCredentialOnly> value must be specified as a parameter in the <xref:System.ServiceModel.WebHttpBinding.%23ctor%28System.ServiceModel.WebHttpSecurityMode%29> constructor.  \n  \n The value of <xref:System.ServiceModel.WebHttpSecurityMode> cannot be set again after the binding instance is created."
   syntax:
     content: public WebHttpBinding ();
     parameters: []
@@ -147,9 +144,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.#ctor(System.ServiceModel.WebHttpSecurityMode)
   commentId: M:System.ServiceModel.WebHttpBinding.#ctor(System.ServiceModel.WebHttpSecurityMode)
   id: '#ctor(System.ServiceModel.WebHttpSecurityMode)'
@@ -158,13 +152,13 @@ items:
   - csharp
   name: WebHttpBinding(WebHttpSecurityMode)
   nameWithType: WebHttpBinding.WebHttpBinding(WebHttpSecurityMode)
-  fullName: System.ServiceModel.WebHttpBinding.WebHttpBinding(WebHttpSecurityMode)
+  fullName: WebHttpBinding.WebHttpBinding(WebHttpSecurityMode)
   type: Constructor
   assemblies:
   - System.ServiceModel.Web
   namespace: System.ServiceModel
   summary: Initializes a new instance of the <xref href="System.ServiceModel.WebHttpBinding"></xref> class with the type of security used by the binding explicitly specified.
-  remarks: "To use transport-level security for endpoints configured with this binding, the <xref:System.ServiceModel.WebHttpSecurityMode> value must be specified as a parameter in the <xref:System.ServiceModel.WebHttpBinding.%23ctor%28System.ServiceModel.WebHttpSecurityMode%29> constructor.  \n  \n To use HTTP authentication without HTTPS, the <xref:System.ServiceModel.WebHttpSecurityMode> value must be specified as a parameter in the <xref:System.ServiceModel.WebHttpBinding.%23ctor%28System.ServiceModel.WebHttpSecurityMode%29> constructor.  \n  \n The value of <xref:System.ServiceModel.WebHttpSecurityMode> cannot be set again after the binding instance is created."
+  remarks: "To use transport-level security for endpoints configured with this binding, the <xref:System.ServiceModel.WebHttpSecurityMode.Transport> value must be specified as a parameter in the <xref:System.ServiceModel.WebHttpBinding.%23ctor%28System.ServiceModel.WebHttpSecurityMode%29> constructor.  \n  \n To use HTTP authentication without HTTPS, the <xref:System.ServiceModel.WebHttpSecurityMode.TransportCredentialOnly> value must be specified as a parameter in the <xref:System.ServiceModel.WebHttpBinding.%23ctor%28System.ServiceModel.WebHttpSecurityMode%29> constructor.  \n  \n The value of <xref:System.ServiceModel.WebHttpSecurityMode> cannot be set again after the binding instance is created."
   syntax:
     content: public WebHttpBinding (System.ServiceModel.WebHttpSecurityMode mode);
     parameters:
@@ -175,7 +169,7 @@ items:
   exceptions:
   - type: System.ArgumentOutOfRangeException
     commentId: T:System.ArgumentOutOfRangeException
-    description: The <code>securityMode</code> specified is not a valid <xref href="System.ServiceModel.WebHttpSecurityMode"></xref>.
+    description: The <code>mode</code> specified is not a valid <xref href="System.ServiceModel.WebHttpSecurityMode"></xref>.
   version:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -199,9 +193,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.#ctor(System.String)
   commentId: M:System.ServiceModel.WebHttpBinding.#ctor(System.String)
   id: '#ctor(System.String)'
@@ -210,7 +201,7 @@ items:
   - csharp
   name: WebHttpBinding(String)
   nameWithType: WebHttpBinding.WebHttpBinding(String)
-  fullName: System.ServiceModel.WebHttpBinding.WebHttpBinding(String)
+  fullName: WebHttpBinding.WebHttpBinding(String)
   type: Constructor
   assemblies:
   - System.ServiceModel.Web
@@ -250,9 +241,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.AllowCookies
   commentId: P:System.ServiceModel.WebHttpBinding.AllowCookies
   id: AllowCookies
@@ -261,7 +249,7 @@ items:
   - csharp
   name: AllowCookies
   nameWithType: WebHttpBinding.AllowCookies
-  fullName: System.ServiceModel.WebHttpBinding.AllowCookies
+  fullName: WebHttpBinding.AllowCookies
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -293,9 +281,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.BuildChannelFactory``1(System.ServiceModel.Channels.BindingParameterCollection)
   commentId: M:System.ServiceModel.WebHttpBinding.BuildChannelFactory``1(System.ServiceModel.Channels.BindingParameterCollection)
   id: BuildChannelFactory``1(System.ServiceModel.Channels.BindingParameterCollection)
@@ -304,7 +289,7 @@ items:
   - csharp
   name: BuildChannelFactory<TChannel>(BindingParameterCollection)
   nameWithType: WebHttpBinding.BuildChannelFactory<TChannel>(BindingParameterCollection)
-  fullName: System.ServiceModel.WebHttpBinding.BuildChannelFactory<TChannel>(BindingParameterCollection)
+  fullName: WebHttpBinding.BuildChannelFactory<TChannel>(BindingParameterCollection)
   type: Method
   assemblies:
   - System.ServiceModel.Web
@@ -316,6 +301,9 @@ items:
     - id: parameters
       type: System.ServiceModel.Channels.BindingParameterCollection
       description: The <xref href="System.ServiceModel.Channels.BindingParameterCollection"></xref> that specifies requirements for the channel factory built.
+    typeParameters:
+    - id: TChannel
+      description: The type of channel the channel factory produces.
     return:
       type: System.ServiceModel.Channels.IChannelFactory`1
       description: An <xref href="System.ServiceModel.Channels.IChannelFactory`1"></xref> of type TChannel that satisfies the features specified by the collection.
@@ -338,9 +326,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.BypassProxyOnLocal
   commentId: P:System.ServiceModel.WebHttpBinding.BypassProxyOnLocal
   id: BypassProxyOnLocal
@@ -349,7 +334,7 @@ items:
   - csharp
   name: BypassProxyOnLocal
   nameWithType: WebHttpBinding.BypassProxyOnLocal
-  fullName: System.ServiceModel.WebHttpBinding.BypassProxyOnLocal
+  fullName: WebHttpBinding.BypassProxyOnLocal
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -381,9 +366,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.ContentTypeMapper
   commentId: P:System.ServiceModel.WebHttpBinding.ContentTypeMapper
   id: ContentTypeMapper
@@ -392,7 +374,7 @@ items:
   - csharp
   name: ContentTypeMapper
   nameWithType: WebHttpBinding.ContentTypeMapper
-  fullName: System.ServiceModel.WebHttpBinding.ContentTypeMapper
+  fullName: WebHttpBinding.ContentTypeMapper
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -422,9 +404,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.CreateBindingElements
   commentId: M:System.ServiceModel.WebHttpBinding.CreateBindingElements
   id: CreateBindingElements
@@ -433,7 +412,7 @@ items:
   - csharp
   name: CreateBindingElements()
   nameWithType: WebHttpBinding.CreateBindingElements()
-  fullName: System.ServiceModel.WebHttpBinding.CreateBindingElements()
+  fullName: WebHttpBinding.CreateBindingElements()
   type: Method
   assemblies:
   - System.ServiceModel.Web
@@ -471,9 +450,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.CrossDomainScriptAccessEnabled
   commentId: P:System.ServiceModel.WebHttpBinding.CrossDomainScriptAccessEnabled
   id: CrossDomainScriptAccessEnabled
@@ -482,7 +458,7 @@ items:
   - csharp
   name: CrossDomainScriptAccessEnabled
   nameWithType: WebHttpBinding.CrossDomainScriptAccessEnabled
-  fullName: System.ServiceModel.WebHttpBinding.CrossDomainScriptAccessEnabled
+  fullName: WebHttpBinding.CrossDomainScriptAccessEnabled
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -512,9 +488,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.EnvelopeVersion
   commentId: P:System.ServiceModel.WebHttpBinding.EnvelopeVersion
   id: EnvelopeVersion
@@ -523,7 +496,7 @@ items:
   - csharp
   name: EnvelopeVersion
   nameWithType: WebHttpBinding.EnvelopeVersion
-  fullName: System.ServiceModel.WebHttpBinding.EnvelopeVersion
+  fullName: WebHttpBinding.EnvelopeVersion
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -559,9 +532,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.HostNameComparisonMode
   commentId: P:System.ServiceModel.WebHttpBinding.HostNameComparisonMode
   id: HostNameComparisonMode
@@ -570,7 +540,7 @@ items:
   - csharp
   name: HostNameComparisonMode
   nameWithType: WebHttpBinding.HostNameComparisonMode
-  fullName: System.ServiceModel.WebHttpBinding.HostNameComparisonMode
+  fullName: WebHttpBinding.HostNameComparisonMode
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -604,9 +574,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.MaxBufferPoolSize
   commentId: P:System.ServiceModel.WebHttpBinding.MaxBufferPoolSize
   id: MaxBufferPoolSize
@@ -615,7 +582,7 @@ items:
   - csharp
   name: MaxBufferPoolSize
   nameWithType: WebHttpBinding.MaxBufferPoolSize
-  fullName: System.ServiceModel.WebHttpBinding.MaxBufferPoolSize
+  fullName: WebHttpBinding.MaxBufferPoolSize
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -647,9 +614,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.MaxBufferSize
   commentId: P:System.ServiceModel.WebHttpBinding.MaxBufferSize
   id: MaxBufferSize
@@ -658,7 +622,7 @@ items:
   - csharp
   name: MaxBufferSize
   nameWithType: WebHttpBinding.MaxBufferSize
-  fullName: System.ServiceModel.WebHttpBinding.MaxBufferSize
+  fullName: WebHttpBinding.MaxBufferSize
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -699,9 +663,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.MaxReceivedMessageSize
   commentId: P:System.ServiceModel.WebHttpBinding.MaxReceivedMessageSize
   id: MaxReceivedMessageSize
@@ -710,7 +671,7 @@ items:
   - csharp
   name: MaxReceivedMessageSize
   nameWithType: WebHttpBinding.MaxReceivedMessageSize
-  fullName: System.ServiceModel.WebHttpBinding.MaxReceivedMessageSize
+  fullName: WebHttpBinding.MaxReceivedMessageSize
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -754,9 +715,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.ProxyAddress
   commentId: P:System.ServiceModel.WebHttpBinding.ProxyAddress
   id: ProxyAddress
@@ -765,7 +723,7 @@ items:
   - csharp
   name: ProxyAddress
   nameWithType: WebHttpBinding.ProxyAddress
-  fullName: System.ServiceModel.WebHttpBinding.ProxyAddress
+  fullName: WebHttpBinding.ProxyAddress
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -797,9 +755,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.ReaderQuotas
   commentId: P:System.ServiceModel.WebHttpBinding.ReaderQuotas
   id: ReaderQuotas
@@ -808,7 +763,7 @@ items:
   - csharp
   name: ReaderQuotas
   nameWithType: WebHttpBinding.ReaderQuotas
-  fullName: System.ServiceModel.WebHttpBinding.ReaderQuotas
+  fullName: WebHttpBinding.ReaderQuotas
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -854,9 +809,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.Scheme
   commentId: P:System.ServiceModel.WebHttpBinding.Scheme
   id: Scheme
@@ -865,7 +817,7 @@ items:
   - csharp
   name: Scheme
   nameWithType: WebHttpBinding.Scheme
-  fullName: System.ServiceModel.WebHttpBinding.Scheme
+  fullName: WebHttpBinding.Scheme
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -901,9 +853,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.Security
   commentId: P:System.ServiceModel.WebHttpBinding.Security
   id: Security
@@ -912,13 +861,13 @@ items:
   - csharp
   name: Security
   nameWithType: WebHttpBinding.Security
-  fullName: System.ServiceModel.WebHttpBinding.Security
+  fullName: WebHttpBinding.Security
   type: Property
   assemblies:
   - System.ServiceModel.Web
   namespace: System.ServiceModel
   summary: Gets the security settings used with this binding.
-  remarks: "To use a non-default type of security, use the <xref:System.ServiceModel.WebHttpBinding.%23ctor%28System.ServiceModel.WebHttpSecurityMode%29> constructor.  \n  \n> [!NOTE]\n>  If you set this property to <xref:System.ServiceModel.WebHttpSecurityMode> and you are using HTTP, be aware that credentials are sent over the wire in plain text."
+  remarks: "To use a non-default type of security, use the <xref:System.ServiceModel.WebHttpBinding.%23ctor%28System.ServiceModel.WebHttpSecurityMode%29> constructor.  \n  \n> [!NOTE]\n>  If you set this property to <xref:System.ServiceModel.WebHttpSecurityMode.TransportCredentialOnly> and you are using HTTP, be aware that credentials are sent over the wire in plain text."
   syntax:
     content: public System.ServiceModel.WebHttpSecurity Security { get; set; }
     return:
@@ -949,9 +898,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.ShouldSerializeReaderQuotas
   commentId: M:System.ServiceModel.WebHttpBinding.ShouldSerializeReaderQuotas
   id: ShouldSerializeReaderQuotas
@@ -960,7 +906,7 @@ items:
   - csharp
   name: ShouldSerializeReaderQuotas()
   nameWithType: WebHttpBinding.ShouldSerializeReaderQuotas()
-  fullName: System.ServiceModel.WebHttpBinding.ShouldSerializeReaderQuotas()
+  fullName: WebHttpBinding.ShouldSerializeReaderQuotas()
   type: Method
   assemblies:
   - System.ServiceModel.Web
@@ -998,9 +944,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.ShouldSerializeSecurity
   commentId: M:System.ServiceModel.WebHttpBinding.ShouldSerializeSecurity
   id: ShouldSerializeSecurity
@@ -1009,7 +952,7 @@ items:
   - csharp
   name: ShouldSerializeSecurity()
   nameWithType: WebHttpBinding.ShouldSerializeSecurity()
-  fullName: System.ServiceModel.WebHttpBinding.ShouldSerializeSecurity()
+  fullName: WebHttpBinding.ShouldSerializeSecurity()
   type: Method
   assemblies:
   - System.ServiceModel.Web
@@ -1047,9 +990,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.ShouldSerializeWriteEncoding
   commentId: M:System.ServiceModel.WebHttpBinding.ShouldSerializeWriteEncoding
   id: ShouldSerializeWriteEncoding
@@ -1058,7 +998,7 @@ items:
   - csharp
   name: ShouldSerializeWriteEncoding()
   nameWithType: WebHttpBinding.ShouldSerializeWriteEncoding()
-  fullName: System.ServiceModel.WebHttpBinding.ShouldSerializeWriteEncoding()
+  fullName: WebHttpBinding.ShouldSerializeWriteEncoding()
   type: Method
   assemblies:
   - System.ServiceModel.Web
@@ -1096,9 +1036,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.TransferMode
   commentId: P:System.ServiceModel.WebHttpBinding.TransferMode
   id: TransferMode
@@ -1107,7 +1044,7 @@ items:
   - csharp
   name: TransferMode
   nameWithType: WebHttpBinding.TransferMode
-  fullName: System.ServiceModel.WebHttpBinding.TransferMode
+  fullName: WebHttpBinding.TransferMode
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -1141,9 +1078,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.UseDefaultWebProxy
   commentId: P:System.ServiceModel.WebHttpBinding.UseDefaultWebProxy
   id: UseDefaultWebProxy
@@ -1152,7 +1086,7 @@ items:
   - csharp
   name: UseDefaultWebProxy
   nameWithType: WebHttpBinding.UseDefaultWebProxy
-  fullName: System.ServiceModel.WebHttpBinding.UseDefaultWebProxy
+  fullName: WebHttpBinding.UseDefaultWebProxy
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -1184,9 +1118,6 @@ items:
   - netframework-4.6
   - netframework-4.7
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.WriteEncoding
   commentId: P:System.ServiceModel.WebHttpBinding.WriteEncoding
   id: WriteEncoding
@@ -1195,7 +1126,7 @@ items:
   - csharp
   name: WriteEncoding
   nameWithType: WebHttpBinding.WriteEncoding
-  fullName: System.ServiceModel.WebHttpBinding.WriteEncoding
+  fullName: WebHttpBinding.WriteEncoding
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -1234,9 +1165,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 - uid: System.ServiceModel.WebHttpBinding.System#ServiceModel#Channels#IBindingRuntimePreferences#ReceiveSynchronously
   commentId: P:System.ServiceModel.WebHttpBinding.System#ServiceModel#Channels#IBindingRuntimePreferences#ReceiveSynchronously
   id: System#ServiceModel#Channels#IBindingRuntimePreferences#ReceiveSynchronously
@@ -1246,7 +1174,7 @@ items:
   - csharp
   name: IBindingRuntimePreferences.ReceiveSynchronously
   nameWithType: WebHttpBinding.IBindingRuntimePreferences.ReceiveSynchronously
-  fullName: System.ServiceModel.WebHttpBinding.IBindingRuntimePreferences.ReceiveSynchronously
+  fullName: WebHttpBinding.IBindingRuntimePreferences.ReceiveSynchronously
   type: Property
   assemblies:
   - System.ServiceModel.Web
@@ -1283,9 +1211,6 @@ items:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
-  author: Erikre
-  ms.author: erikre
-  manager: erikre
 references:
 - uid: System.ServiceModel.Channels.Binding
   parent: System.ServiceModel.Channels
@@ -1334,13 +1259,13 @@ references:
   isExternal: false
   name: WebHttpBinding()
   nameWithType: WebHttpBinding.WebHttpBinding()
-  fullName: System.ServiceModel.WebHttpBinding.WebHttpBinding()
+  fullName: WebHttpBinding.WebHttpBinding()
 - uid: System.ServiceModel.WebHttpBinding.#ctor(System.ServiceModel.WebHttpSecurityMode)
   parent: System.ServiceModel.WebHttpBinding
   isExternal: false
   name: WebHttpBinding(WebHttpSecurityMode)
   nameWithType: WebHttpBinding.WebHttpBinding(WebHttpSecurityMode)
-  fullName: System.ServiceModel.WebHttpBinding.WebHttpBinding(WebHttpSecurityMode)
+  fullName: WebHttpBinding.WebHttpBinding(WebHttpSecurityMode)
 - uid: System.ServiceModel.WebHttpSecurityMode
   parent: System.ServiceModel
   isExternal: false
@@ -1352,7 +1277,7 @@ references:
   isExternal: false
   name: WebHttpBinding(String)
   nameWithType: WebHttpBinding.WebHttpBinding(String)
-  fullName: System.ServiceModel.WebHttpBinding.WebHttpBinding(String)
+  fullName: WebHttpBinding.WebHttpBinding(String)
 - uid: System.String
   parent: System
   isExternal: false
@@ -1364,7 +1289,7 @@ references:
   isExternal: false
   name: AllowCookies
   nameWithType: WebHttpBinding.AllowCookies
-  fullName: System.ServiceModel.WebHttpBinding.AllowCookies
+  fullName: WebHttpBinding.AllowCookies
 - uid: System.Boolean
   parent: System
   isExternal: false
@@ -1376,7 +1301,7 @@ references:
   isExternal: false
   name: BuildChannelFactory<TChannel>(BindingParameterCollection)
   nameWithType: WebHttpBinding.BuildChannelFactory<TChannel>(BindingParameterCollection)
-  fullName: System.ServiceModel.WebHttpBinding.BuildChannelFactory<TChannel>(BindingParameterCollection)
+  fullName: WebHttpBinding.BuildChannelFactory<TChannel>(BindingParameterCollection)
 - uid: System.ServiceModel.Channels.IChannelFactory`1
   parent: System.ServiceModel.Channels
   isExternal: false
@@ -1394,13 +1319,13 @@ references:
   isExternal: false
   name: BypassProxyOnLocal
   nameWithType: WebHttpBinding.BypassProxyOnLocal
-  fullName: System.ServiceModel.WebHttpBinding.BypassProxyOnLocal
+  fullName: WebHttpBinding.BypassProxyOnLocal
 - uid: System.ServiceModel.WebHttpBinding.ContentTypeMapper
   parent: System.ServiceModel.WebHttpBinding
   isExternal: false
   name: ContentTypeMapper
   nameWithType: WebHttpBinding.ContentTypeMapper
-  fullName: System.ServiceModel.WebHttpBinding.ContentTypeMapper
+  fullName: WebHttpBinding.ContentTypeMapper
 - uid: System.ServiceModel.Channels.WebContentTypeMapper
   parent: System.ServiceModel.Channels
   isExternal: false
@@ -1412,7 +1337,7 @@ references:
   isExternal: false
   name: CreateBindingElements()
   nameWithType: WebHttpBinding.CreateBindingElements()
-  fullName: System.ServiceModel.WebHttpBinding.CreateBindingElements()
+  fullName: WebHttpBinding.CreateBindingElements()
 - uid: System.ServiceModel.Channels.BindingElementCollection
   parent: System.ServiceModel.Channels
   isExternal: false
@@ -1424,13 +1349,13 @@ references:
   isExternal: false
   name: CrossDomainScriptAccessEnabled
   nameWithType: WebHttpBinding.CrossDomainScriptAccessEnabled
-  fullName: System.ServiceModel.WebHttpBinding.CrossDomainScriptAccessEnabled
+  fullName: WebHttpBinding.CrossDomainScriptAccessEnabled
 - uid: System.ServiceModel.WebHttpBinding.EnvelopeVersion
   parent: System.ServiceModel.WebHttpBinding
   isExternal: false
   name: EnvelopeVersion
   nameWithType: WebHttpBinding.EnvelopeVersion
-  fullName: System.ServiceModel.WebHttpBinding.EnvelopeVersion
+  fullName: WebHttpBinding.EnvelopeVersion
 - uid: System.ServiceModel.EnvelopeVersion
   parent: System.ServiceModel
   isExternal: false
@@ -1442,7 +1367,7 @@ references:
   isExternal: false
   name: HostNameComparisonMode
   nameWithType: WebHttpBinding.HostNameComparisonMode
-  fullName: System.ServiceModel.WebHttpBinding.HostNameComparisonMode
+  fullName: WebHttpBinding.HostNameComparisonMode
 - uid: System.ServiceModel.HostNameComparisonMode
   parent: System.ServiceModel
   isExternal: false
@@ -1454,7 +1379,7 @@ references:
   isExternal: false
   name: MaxBufferPoolSize
   nameWithType: WebHttpBinding.MaxBufferPoolSize
-  fullName: System.ServiceModel.WebHttpBinding.MaxBufferPoolSize
+  fullName: WebHttpBinding.MaxBufferPoolSize
 - uid: System.Int64
   parent: System
   isExternal: false
@@ -1466,7 +1391,7 @@ references:
   isExternal: false
   name: MaxBufferSize
   nameWithType: WebHttpBinding.MaxBufferSize
-  fullName: System.ServiceModel.WebHttpBinding.MaxBufferSize
+  fullName: WebHttpBinding.MaxBufferSize
 - uid: System.Int32
   parent: System
   isExternal: false
@@ -1478,13 +1403,13 @@ references:
   isExternal: false
   name: MaxReceivedMessageSize
   nameWithType: WebHttpBinding.MaxReceivedMessageSize
-  fullName: System.ServiceModel.WebHttpBinding.MaxReceivedMessageSize
+  fullName: WebHttpBinding.MaxReceivedMessageSize
 - uid: System.ServiceModel.WebHttpBinding.ProxyAddress
   parent: System.ServiceModel.WebHttpBinding
   isExternal: false
   name: ProxyAddress
   nameWithType: WebHttpBinding.ProxyAddress
-  fullName: System.ServiceModel.WebHttpBinding.ProxyAddress
+  fullName: WebHttpBinding.ProxyAddress
 - uid: System.Uri
   parent: System
   isExternal: false
@@ -1496,7 +1421,7 @@ references:
   isExternal: false
   name: ReaderQuotas
   nameWithType: WebHttpBinding.ReaderQuotas
-  fullName: System.ServiceModel.WebHttpBinding.ReaderQuotas
+  fullName: WebHttpBinding.ReaderQuotas
 - uid: System.Xml.XmlDictionaryReaderQuotas
   parent: System.Xml
   isExternal: false
@@ -1508,13 +1433,13 @@ references:
   isExternal: false
   name: Scheme
   nameWithType: WebHttpBinding.Scheme
-  fullName: System.ServiceModel.WebHttpBinding.Scheme
+  fullName: WebHttpBinding.Scheme
 - uid: System.ServiceModel.WebHttpBinding.Security
   parent: System.ServiceModel.WebHttpBinding
   isExternal: false
   name: Security
   nameWithType: WebHttpBinding.Security
-  fullName: System.ServiceModel.WebHttpBinding.Security
+  fullName: WebHttpBinding.Security
 - uid: System.ServiceModel.WebHttpSecurity
   parent: System.ServiceModel
   isExternal: false
@@ -1526,25 +1451,25 @@ references:
   isExternal: false
   name: ShouldSerializeReaderQuotas()
   nameWithType: WebHttpBinding.ShouldSerializeReaderQuotas()
-  fullName: System.ServiceModel.WebHttpBinding.ShouldSerializeReaderQuotas()
+  fullName: WebHttpBinding.ShouldSerializeReaderQuotas()
 - uid: System.ServiceModel.WebHttpBinding.ShouldSerializeSecurity
   parent: System.ServiceModel.WebHttpBinding
   isExternal: false
   name: ShouldSerializeSecurity()
   nameWithType: WebHttpBinding.ShouldSerializeSecurity()
-  fullName: System.ServiceModel.WebHttpBinding.ShouldSerializeSecurity()
+  fullName: WebHttpBinding.ShouldSerializeSecurity()
 - uid: System.ServiceModel.WebHttpBinding.ShouldSerializeWriteEncoding
   parent: System.ServiceModel.WebHttpBinding
   isExternal: false
   name: ShouldSerializeWriteEncoding()
   nameWithType: WebHttpBinding.ShouldSerializeWriteEncoding()
-  fullName: System.ServiceModel.WebHttpBinding.ShouldSerializeWriteEncoding()
+  fullName: WebHttpBinding.ShouldSerializeWriteEncoding()
 - uid: System.ServiceModel.WebHttpBinding.TransferMode
   parent: System.ServiceModel.WebHttpBinding
   isExternal: false
   name: TransferMode
   nameWithType: WebHttpBinding.TransferMode
-  fullName: System.ServiceModel.WebHttpBinding.TransferMode
+  fullName: WebHttpBinding.TransferMode
 - uid: System.ServiceModel.TransferMode
   parent: System.ServiceModel
   isExternal: false
@@ -1556,13 +1481,13 @@ references:
   isExternal: false
   name: UseDefaultWebProxy
   nameWithType: WebHttpBinding.UseDefaultWebProxy
-  fullName: System.ServiceModel.WebHttpBinding.UseDefaultWebProxy
+  fullName: WebHttpBinding.UseDefaultWebProxy
 - uid: System.ServiceModel.WebHttpBinding.WriteEncoding
   parent: System.ServiceModel.WebHttpBinding
   isExternal: false
   name: WriteEncoding
   nameWithType: WebHttpBinding.WriteEncoding
-  fullName: System.ServiceModel.WebHttpBinding.WriteEncoding
+  fullName: WebHttpBinding.WriteEncoding
 - uid: System.Text.Encoding
   parent: System.Text
   isExternal: false
@@ -1574,13 +1499,13 @@ references:
   isExternal: false
   name: IBindingRuntimePreferences.ReceiveSynchronously
   nameWithType: WebHttpBinding.IBindingRuntimePreferences.ReceiveSynchronously
-  fullName: System.ServiceModel.WebHttpBinding.IBindingRuntimePreferences.ReceiveSynchronously
+  fullName: WebHttpBinding.IBindingRuntimePreferences.ReceiveSynchronously
 - uid: System.ServiceModel.WebHttpBinding.#ctor*
   parent: System.ServiceModel.WebHttpBinding
   isExternal: false
   name: WebHttpBinding
   nameWithType: WebHttpBinding.WebHttpBinding
-  fullName: System.ServiceModel.WebHttpBinding.WebHttpBinding
+  fullName: WebHttpBinding.WebHttpBinding
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1598,7 +1523,7 @@ references:
   isExternal: false
   name: AllowCookies
   nameWithType: WebHttpBinding.AllowCookies
-  fullName: System.ServiceModel.WebHttpBinding.AllowCookies
+  fullName: WebHttpBinding.AllowCookies
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1613,7 +1538,7 @@ references:
   isExternal: false
   name: BuildChannelFactory<TChannel>
   nameWithType: WebHttpBinding.BuildChannelFactory<TChannel>
-  fullName: System.ServiceModel.WebHttpBinding.BuildChannelFactory<TChannel>
+  fullName: WebHttpBinding.BuildChannelFactory<TChannel>
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1628,7 +1553,7 @@ references:
   isExternal: false
   name: BypassProxyOnLocal
   nameWithType: WebHttpBinding.BypassProxyOnLocal
-  fullName: System.ServiceModel.WebHttpBinding.BypassProxyOnLocal
+  fullName: WebHttpBinding.BypassProxyOnLocal
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1643,7 +1568,7 @@ references:
   isExternal: false
   name: ContentTypeMapper
   nameWithType: WebHttpBinding.ContentTypeMapper
-  fullName: System.ServiceModel.WebHttpBinding.ContentTypeMapper
+  fullName: WebHttpBinding.ContentTypeMapper
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1658,7 +1583,7 @@ references:
   isExternal: false
   name: CreateBindingElements
   nameWithType: WebHttpBinding.CreateBindingElements
-  fullName: System.ServiceModel.WebHttpBinding.CreateBindingElements
+  fullName: WebHttpBinding.CreateBindingElements
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1676,7 +1601,7 @@ references:
   isExternal: false
   name: CrossDomainScriptAccessEnabled
   nameWithType: WebHttpBinding.CrossDomainScriptAccessEnabled
-  fullName: System.ServiceModel.WebHttpBinding.CrossDomainScriptAccessEnabled
+  fullName: WebHttpBinding.CrossDomainScriptAccessEnabled
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1691,7 +1616,7 @@ references:
   isExternal: false
   name: EnvelopeVersion
   nameWithType: WebHttpBinding.EnvelopeVersion
-  fullName: System.ServiceModel.WebHttpBinding.EnvelopeVersion
+  fullName: WebHttpBinding.EnvelopeVersion
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1709,7 +1634,7 @@ references:
   isExternal: false
   name: HostNameComparisonMode
   nameWithType: WebHttpBinding.HostNameComparisonMode
-  fullName: System.ServiceModel.WebHttpBinding.HostNameComparisonMode
+  fullName: WebHttpBinding.HostNameComparisonMode
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1724,7 +1649,7 @@ references:
   isExternal: false
   name: MaxBufferPoolSize
   nameWithType: WebHttpBinding.MaxBufferPoolSize
-  fullName: System.ServiceModel.WebHttpBinding.MaxBufferPoolSize
+  fullName: WebHttpBinding.MaxBufferPoolSize
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1739,7 +1664,7 @@ references:
   isExternal: false
   name: MaxBufferSize
   nameWithType: WebHttpBinding.MaxBufferSize
-  fullName: System.ServiceModel.WebHttpBinding.MaxBufferSize
+  fullName: WebHttpBinding.MaxBufferSize
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1757,7 +1682,7 @@ references:
   isExternal: false
   name: MaxReceivedMessageSize
   nameWithType: WebHttpBinding.MaxReceivedMessageSize
-  fullName: System.ServiceModel.WebHttpBinding.MaxReceivedMessageSize
+  fullName: WebHttpBinding.MaxReceivedMessageSize
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1775,7 +1700,7 @@ references:
   isExternal: false
   name: ProxyAddress
   nameWithType: WebHttpBinding.ProxyAddress
-  fullName: System.ServiceModel.WebHttpBinding.ProxyAddress
+  fullName: WebHttpBinding.ProxyAddress
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1790,7 +1715,7 @@ references:
   isExternal: false
   name: ReaderQuotas
   nameWithType: WebHttpBinding.ReaderQuotas
-  fullName: System.ServiceModel.WebHttpBinding.ReaderQuotas
+  fullName: WebHttpBinding.ReaderQuotas
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1808,7 +1733,7 @@ references:
   isExternal: false
   name: Scheme
   nameWithType: WebHttpBinding.Scheme
-  fullName: System.ServiceModel.WebHttpBinding.Scheme
+  fullName: WebHttpBinding.Scheme
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1826,7 +1751,7 @@ references:
   isExternal: false
   name: Security
   nameWithType: WebHttpBinding.Security
-  fullName: System.ServiceModel.WebHttpBinding.Security
+  fullName: WebHttpBinding.Security
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1844,7 +1769,7 @@ references:
   isExternal: false
   name: ShouldSerializeReaderQuotas
   nameWithType: WebHttpBinding.ShouldSerializeReaderQuotas
-  fullName: System.ServiceModel.WebHttpBinding.ShouldSerializeReaderQuotas
+  fullName: WebHttpBinding.ShouldSerializeReaderQuotas
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1862,7 +1787,7 @@ references:
   isExternal: false
   name: ShouldSerializeSecurity
   nameWithType: WebHttpBinding.ShouldSerializeSecurity
-  fullName: System.ServiceModel.WebHttpBinding.ShouldSerializeSecurity
+  fullName: WebHttpBinding.ShouldSerializeSecurity
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1880,7 +1805,7 @@ references:
   isExternal: false
   name: ShouldSerializeWriteEncoding
   nameWithType: WebHttpBinding.ShouldSerializeWriteEncoding
-  fullName: System.ServiceModel.WebHttpBinding.ShouldSerializeWriteEncoding
+  fullName: WebHttpBinding.ShouldSerializeWriteEncoding
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1898,7 +1823,7 @@ references:
   isExternal: false
   name: TransferMode
   nameWithType: WebHttpBinding.TransferMode
-  fullName: System.ServiceModel.WebHttpBinding.TransferMode
+  fullName: WebHttpBinding.TransferMode
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1913,7 +1838,7 @@ references:
   isExternal: false
   name: UseDefaultWebProxy
   nameWithType: WebHttpBinding.UseDefaultWebProxy
-  fullName: System.ServiceModel.WebHttpBinding.UseDefaultWebProxy
+  fullName: WebHttpBinding.UseDefaultWebProxy
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1928,7 +1853,7 @@ references:
   isExternal: false
   name: WriteEncoding
   nameWithType: WebHttpBinding.WriteEncoding
-  fullName: System.ServiceModel.WebHttpBinding.WriteEncoding
+  fullName: WebHttpBinding.WriteEncoding
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1946,7 +1871,7 @@ references:
   isExternal: false
   name: System.ServiceModel.Channels.IBindingRuntimePreferences.ReceiveSynchronously
   nameWithType: WebHttpBinding.System.ServiceModel.Channels.IBindingRuntimePreferences.ReceiveSynchronously
-  fullName: System.ServiceModel.WebHttpBinding.System.ServiceModel.Channels.IBindingRuntimePreferences.ReceiveSynchronously
+  fullName: WebHttpBinding.System.ServiceModel.Channels.IBindingRuntimePreferences.ReceiveSynchronously
   monikers:
   - netframework-4.5.1
   - netframework-4.5.2
@@ -1959,3 +1884,9 @@ references:
   - xamarinios-10.8
   - xamarinmac-3.0
   content_git_url: https://github.com/dotnet/docs/blob/master/xml/System.ServiceModel/WebHttpBinding.xml
+- uid: System.ServiceModel.Channels.IBindingRuntimePreferences
+  parent: System.ServiceModel.Channels
+  isExternal: false
+  name: IBindingRuntimePreferences
+  nameWithType: IBindingRuntimePreferences
+  fullName: System.ServiceModel.Channels.IBindingRuntimePreferences
